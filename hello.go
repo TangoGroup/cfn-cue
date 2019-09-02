@@ -13,10 +13,7 @@ import (
 	"cuelang.org/go/cue/ast"
 	"cuelang.org/go/cue/format"
 	"cuelang.org/go/cue/token"
-	"github.com/davecgh/go-spew/spew"
 )
-
-// "cuelang.org/go/cue/ast"
 
 func mapFromCFNTypeToCue(cfnType string) (lit ast.Expr) {
 	switch cfnType {
@@ -33,7 +30,8 @@ func mapFromCFNTypeToCue(cfnType string) (lit ast.Expr) {
 	case "Timestamp":
 		lit = &ast.BasicLit{Value: "time.Time"}
 	default:
-		lit = &ast.BasicLit{Value: cfnType}
+		// TODO clean this up... feels super ugly.
+		lit = &ast.BasicLit{Value: "__" + cfnType}
 	}
 	return lit
 }
@@ -43,9 +41,9 @@ func createFieldFromProperty(name string, prop Property) (node ast.Decl) {
 	var value ast.Expr
 	if prop.PrimitiveItemType != "" || prop.ItemType != "" {
 		var itemType ast.Expr
-		if prop.PrimitiveType != "" {
+		if prop.PrimitiveItemType != "" {
 			itemType = mapFromCFNTypeToCue(prop.PrimitiveItemType)
-		} else if prop.Type != "" {
+		} else if prop.ItemType != "" {
 			itemType = mapFromCFNTypeToCue(prop.ItemType)
 		}
 		switch prop.Type {
@@ -54,6 +52,9 @@ func createFieldFromProperty(name string, prop Property) (node ast.Decl) {
 				Elts: []ast.Expr{&ast.Ellipsis{Type: itemType}},
 			}
 		case "Map":
+			// TODO: See if I can know anything more about the shape of the Map object
+			//       Looks like it should be string -> PrimitiveItemType
+			// AWS::SSM::Association looks to be a weird case
 			value = &ast.StructLit{}
 		}
 	} else {
@@ -94,6 +95,7 @@ func createFieldFromProperty(name string, prop Property) (node ast.Decl) {
 		Value:    value,
 		Optional: optional,
 	}
+
 	return node
 }
 
@@ -133,7 +135,7 @@ func main() {
 		}
 	}
 
-	spew.Dump(propertiesByResource)
+	// spew.Dump(propertiesByResource)
 
 	// resourceName := "AWS::S3::BucketPolicy"
 	// resourceName := "AWS::EC2::ClientVpnRoute"
@@ -168,18 +170,34 @@ func main() {
 			Elts: properties,
 		},
 	}
+
+	resourceElts := []ast.Decl{
+		&ast.Field{
+			Label: ast.NewIdent("Type"),
+			Value: &ast.BasicLit{Kind: token.STRING, Value: "\"" + resourceName + "\""},
+		},
+		propertiesStruct,
+	}
+	for propName, prop := range propertiesByResource[resourceName] {
+		propertyProperties := make([]ast.Decl, len(prop.Properties))
+		for propPropName, propProp := range prop.Properties {
+			propertyProperties = append(propertyProperties, createFieldFromProperty(propPropName, propProp))
+		}
+		resourceElts = append(resourceElts,
+			&ast.Alias{
+				// TODO clean this up... feels super ugly.
+				Ident: ast.NewIdent("__" + propName),
+				Expr: &ast.StructLit{
+					Elts: propertyProperties,
+				},
+			})
+	}
 	f := &ast.Field{
 		Label:    ast.NewIdent(resource),
 		Token:    token.ISA,
 		TokenPos: token.NoSpace.Pos(),
 		Value: &ast.StructLit{
-			Elts: []ast.Decl{
-				&ast.Field{
-					Label: ast.NewIdent("Type"),
-					Value: &ast.BasicLit{Kind: token.STRING, Value: "\"" + resourceName + "\""},
-				},
-				propertiesStruct,
-			},
+			Elts: resourceElts,
 		},
 	}
 	// f := &ast.Field{
@@ -221,6 +239,9 @@ func main() {
 	fmt.Println(`
 MyBucket: Bucket & {
   Properties BucketName: "stuff"
+  Properties BucketEncryption ServerSideEncryptionConfiguration: [{
+    ServerSideEncryptionByDefault SSEAlgorithm1: "AES256"
+  }]
 }
   `)
 
