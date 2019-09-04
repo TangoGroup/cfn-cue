@@ -257,7 +257,7 @@ func main() {
 			format.UseSpaces(2),
 			format.TabIndent(false))
 
-		cuefile, err := os.Create(service + ".cue")
+		cuefile, err := os.Create("cfn-specs/" + service + ".cue")
 		if err != nil {
 			fmt.Println(err)
 			return
