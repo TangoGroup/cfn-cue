@@ -10,8 +10,6 @@ import (
 	"sort"
 	"strings"
 
-	// "github.com/aws/aws-sdk-go-v2/private/util"
-
 	"cuelang.org/go/cue/ast"
 	"cuelang.org/go/cue/format"
 	"cuelang.org/go/cue/token"
@@ -39,26 +37,20 @@ func mapFromCFNTypeToCue(cfnType string) (lit ast.Expr) {
 }
 
 func createFieldFromProperty(name string, prop Property) (node ast.Decl) {
-	// Need to capture List and Map Types, and put the PrimitiveItemType or ItemType properly into a list or struct
+	// Need to capture Map Types, and put the PrimitiveItemType or ItemType properly into a struct
 	var value ast.Expr
-	if prop.PrimitiveItemType != "" || prop.ItemType != "" {
+	if prop.IsList() {
 		var itemType ast.Expr
 		if prop.PrimitiveItemType != "" {
 			itemType = mapFromCFNTypeToCue(prop.PrimitiveItemType)
 		} else if prop.ItemType != "" {
 			itemType = mapFromCFNTypeToCue(prop.ItemType)
 		}
-		switch prop.Type {
-		case "List":
-			value = &ast.ListLit{
-				Elts: []ast.Expr{&ast.Ellipsis{Type: itemType}},
-			}
-		case "Map":
-			// TODO: See if I can know anything more about the shape of the Map object
-			//       Looks like it should be string -> PrimitiveItemType
-			// AWS::SSM::Association looks to be a weird case
-			value = &ast.StructLit{}
+		value = &ast.ListLit{
+			Elts: []ast.Expr{&ast.Ellipsis{Type: itemType}},
 		}
+	} else if prop.IsMap() {
+		value = &ast.StructLit{}
 	} else {
 		if prop.PrimitiveType != "" {
 			value = mapFromCFNTypeToCue(prop.PrimitiveType)
@@ -81,6 +73,45 @@ func createFieldFromProperty(name string, prop Property) (node ast.Decl) {
 	}
 
 	return node
+}
+
+func createStructFromResource(properties map[string]Property) (s ast.StructLit) {
+	sortedProperties := []propertyStruct{}
+
+	for propertyName, property := range properties {
+		sortedProperties = append(sortedProperties, propertyStruct{
+			name:     propertyName,
+			property: property,
+		})
+	}
+
+	sort.Slice(sortedProperties, func(i, j int) bool {
+		return sortedProperties[i].name < sortedProperties[j].name
+	})
+
+	propertyDecls := make([]ast.Decl, len(sortedProperties))
+
+	for _, propertyS := range sortedProperties {
+		property := propertyS.name
+		propertyResource := propertyS.property
+		value := createFieldFromProperty(property, propertyResource)
+		propertyDecls = append(propertyDecls, value)
+	}
+
+	s = ast.StructLit{
+		Elts: propertyDecls,
+	}
+	return s
+}
+
+type resourceStruct struct {
+	name     string
+	resource Resource
+}
+
+type propertyStruct struct {
+	name     string
+	property Property
 }
 
 func main() {
@@ -142,10 +173,6 @@ func main() {
 				},
 			},
 		}
-		type resourceStruct struct {
-			name     string
-			resource Resource
-		}
 
 		sortedResources := []resourceStruct{}
 
@@ -169,37 +196,10 @@ func main() {
 			resourceStr := splits[2]
 			fmt.Print(resourceStr + "  ")
 
-			type propertyStruct struct {
-				name     string
-				property Property
-			}
-
-			sortedProperties := []propertyStruct{}
-
-			for propertyName, property := range resource.Properties {
-				sortedProperties = append(sortedProperties, propertyStruct{
-					name:     propertyName,
-					property: property,
-				})
-			}
-
-			sort.Slice(sortedProperties, func(i, j int) bool {
-				return sortedProperties[i].name < sortedProperties[j].name
-			})
-
-			properties := make([]ast.Decl, len(sortedProperties))
-
-			for _, propertyS := range sortedProperties {
-				property := propertyS.name
-				propertyResource := propertyS.property
-				value := createFieldFromProperty(property, propertyResource)
-				properties = append(properties, value)
-			}
+			properties := createStructFromResource(resource.Properties)
 			propertiesStruct := &ast.Field{
 				Label: ast.NewIdent("Properties"),
-				Value: &ast.StructLit{
-					Elts: properties,
-				},
+				Value: &properties,
 			}
 			resourceElts := []ast.Decl{
 				&ast.Field{
@@ -223,31 +223,12 @@ func main() {
 			for _, propS := range sortedResourceProperties {
 				propName := propS.name
 				prop := propS.resource
-				propertyProperties := make([]ast.Decl, len(prop.Properties))
-				sortedPropertyProperties := []propertyStruct{}
-				for propertyName, property := range prop.Properties {
-					sortedPropertyProperties = append(sortedPropertyProperties, propertyStruct{
-						name:     propertyName,
-						property: property,
-					})
-				}
-
-				sort.Slice(sortedPropertyProperties, func(i, j int) bool {
-					return sortedPropertyProperties[i].name < sortedPropertyProperties[j].name
-				})
-
-				for _, propertyS := range sortedPropertyProperties {
-					propPropName := propertyS.name
-					propProp := propertyS.property
-					propertyProperties = append(propertyProperties, createFieldFromProperty(propPropName, propProp))
-				}
+				properties := createStructFromResource(prop.Properties)
 				resourceElts = append(resourceElts,
 					&ast.Alias{
 						// TODO clean this up... feels super ugly.
 						Ident: ast.NewIdent("__" + propName),
-						Expr: &ast.StructLit{
-							Elts: propertyProperties,
-						},
+						Expr:  &properties,
 					})
 			}
 			f := &ast.Field{
