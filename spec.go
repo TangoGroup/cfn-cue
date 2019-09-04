@@ -34,4 +34,10 @@ type CloudFormationResourceSpecification struct {
 	// subproperty specifications, such as which properties are required, the type of allowed value
 	// for each property, and their update behavior. For more information, see Property Specification.
 	Properties map[string]Resource `json:"PropertyTypes"`
+
+	ValueTypes map[string]ValueType `json:"ValueTypes"`
+
+	IntrinsicTypes map[string]IntrinsicType
+
+	ParameterTypes map[string][]string
 }

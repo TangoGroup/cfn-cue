@@ -59,6 +59,11 @@ type Property struct {
 	// resource type documentation.
 	UpdateType string `json:"UpdateType"`
 
+	Value struct {
+		ValueType     string `json:"ValueType"`
+		ListValueType string `json:"ListValueType"`
+	} `json:"Value"`
+
 	// Types - if a property can be different types, they will be listed here
 	PrimitiveTypes     []string `json:"PrimitiveTypes"`
 	PrimitiveItemTypes []string `json:"PrimitiveItemTypes"`

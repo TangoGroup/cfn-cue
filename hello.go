@@ -6,6 +6,7 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
+	"os"
 	"strings"
 
 	// "github.com/aws/aws-sdk-go-v2/private/util"
@@ -13,6 +14,7 @@ import (
 	"cuelang.org/go/cue/ast"
 	"cuelang.org/go/cue/format"
 	"cuelang.org/go/cue/token"
+	"github.com/davecgh/go-spew/spew"
 )
 
 func mapFromCFNTypeToCue(cfnType string) (lit ast.Expr) {
@@ -24,7 +26,7 @@ func mapFromCFNTypeToCue(cfnType string) (lit ast.Expr) {
 	case "Double":
 		lit = &ast.BasicLit{Value: "float"}
 	case "Boolean":
-		lit = &ast.BasicLit{Value: "float"}
+		lit = &ast.BasicLit{Value: "bool"}
 	case "Json", "Map":
 		lit = &ast.StructLit{}
 	case "Timestamp":
@@ -104,7 +106,10 @@ func main() {
 	// file := &ast.File{Filename: filename}
 	// fmt.Printf("GoFormation Resource Generator\n")
 
-	cloudformationSpec := "https://d1uauaxba7bl26.cloudfront.net/latest/gzip/CloudFormationResourceSpecification.json"
+	cloudformationSpec := "https://github.com/aws-cloudformation/cfn-python-lint/raw/master/src/cfnlint/data/CloudSpecs/us-west-2.json"
+	// cloudformationSpec := "https://github.com/jlongtine/cfn-python-lint/raw/patch-1/src/cfnlint/data/CloudSpecs/us-west-2.json"
+	// cloudformationSpec := "file:///Users/joellongtine/Desktop/us-west-2.json"
+	fmt.Println(cloudformationSpec)
 	data, _ := downloadSpec(cloudformationSpec)
 
 	spec, _ := processSpec("cfn", data)
@@ -119,6 +124,11 @@ func main() {
 	// type Key struct {
 	// 	ResourceName, PropertyName string
 	// }
+
+	// spew.Dump(spec.ValueTypes)
+	// spew.Dump(spec.IntrinsicTypes)
+	// spew.Dump(spec.ParameterTypes)
+	spew.Dump("hello")
 
 	propertiesByResource := map[string]map[string]Resource{}
 
@@ -135,26 +145,195 @@ func main() {
 		}
 	}
 
+	servicesMap := map[string]bool{}
+
+	for resourceName := range spec.Resources {
+		splits := strings.Split(resourceName, "::")
+		servicesMap[splits[1]] = true
+	}
+
+	services := []string{}
+	for service := range servicesMap {
+		services = append(services, service)
+	}
+
+	// spew.Dump(services)
+	// fmt.Println(services)
+
 	// spew.Dump(propertiesByResource)
 
 	// resourceName := "AWS::S3::BucketPolicy"
 	// resourceName := "AWS::EC2::ClientVpnRoute"
 	// resourceName := "AWS::Glue::Crawler"
 	// resourceName := "AWS::Glue::Job"
-	resourceName := "AWS::S3::Bucket"
-	// spew.Dump(spec.Resources[resourceName])
-	splits := strings.Split(resourceName, "::")
+	// resourceName := "AWS::S3::Bucket"
 
-	// aws := splits[0]
-	service := splits[1]
-	resource := splits[2]
+	// ff := &ast.File{
+	// 	Filename: "S3",
+	// 	Decls: []ast.Decl{
+	// 		&ast.Package{
+	// 			Name: ast.NewIdent("S3"),
+	// 		},
+	// 	},
+	// }
 
-	properties := make([]ast.Decl, len(spec.Resources[resourceName].Properties))
-	// (string) (len=9) "Timestamp": (bool) true,
-	for property, propertyResource := range spec.Resources[resourceName].Properties {
-		value := createFieldFromProperty(property, propertyResource)
-		properties = append(properties, value)
+	resourcesByService := map[string]map[string]Resource{}
+	for service := range servicesMap {
+		resourcesByService[service] = map[string]Resource{}
 	}
+
+	for resourceName, resource := range spec.Resources {
+		splits := strings.Split(resourceName, "::")
+
+		// aws := splits[0]
+		service := splits[1]
+
+		resourcesByService[service][resourceName] = resource
+	}
+
+	// spew.Dump(resourcesByService)
+
+	for service, resources := range resourcesByService {
+		ff := &ast.File{
+			Filename: service,
+			Decls: []ast.Decl{
+				&ast.Package{
+					Name: ast.NewIdent(service),
+				},
+			},
+		}
+
+		for resourceName, resource := range resources {
+			splits := strings.Split(resourceName, "::")
+
+			// aws := splits[0]
+			resourceStr := splits[2]
+
+			properties := make([]ast.Decl, len(resource.Properties))
+
+			for property, propertyResource := range resource.Properties {
+				value := createFieldFromProperty(property, propertyResource)
+				properties = append(properties, value)
+			}
+			propertiesStruct := &ast.Field{
+				Label: ast.NewIdent("Properties"),
+				Value: &ast.StructLit{
+					Elts: properties,
+				},
+			}
+			resourceElts := []ast.Decl{
+				&ast.Field{
+					Label: ast.NewIdent("Type"),
+					Value: &ast.BasicLit{Kind: token.STRING, Value: "\"" + resourceName + "\""},
+				},
+				propertiesStruct,
+			}
+			for propName, prop := range propertiesByResource[resourceName] {
+				propertyProperties := make([]ast.Decl, len(prop.Properties))
+				for propPropName, propProp := range prop.Properties {
+					propertyProperties = append(propertyProperties, createFieldFromProperty(propPropName, propProp))
+				}
+				resourceElts = append(resourceElts,
+					&ast.Alias{
+						// TODO clean this up... feels super ugly.
+						Ident: ast.NewIdent("__" + propName),
+						Expr: &ast.StructLit{
+							Elts: propertyProperties,
+						},
+					})
+			}
+			f := &ast.Field{
+				Label: ast.NewIdent(resourceStr),
+				Token: token.ISA,
+				// TokenPos: token.NoSpace.Pos(),
+				Value: &ast.StructLit{
+					Elts: resourceElts,
+				},
+			}
+			ff.Decls = append(ff.Decls, f)
+		}
+		b, _ := format.Node(ff,
+			format.Simplify(),
+			format.UseSpaces(2),
+			format.TabIndent(false))
+
+		cuefile, err := os.Create(service + ".cue")
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
+		l, err := cuefile.Write(b)
+		if err != nil {
+			fmt.Println(err)
+			cuefile.Close()
+			return
+		}
+		fmt.Println(l, "bytes written successfully")
+		err = cuefile.Close()
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
+	}
+
+	// for resourceName, resource := range resourcesByService["S3"] {
+	// 	splits := strings.Split(resourceName, "::")
+
+	// 	// aws := splits[0]
+	// 	service := splits[1]
+	// 	resourceStr := splits[2]
+
+	// 	if service != "S3" {
+	// 		continue
+	// 	}
+
+	// 	properties := make([]ast.Decl, len(resource.Properties))
+
+	// 	for property, propertyResource := range resource.Properties {
+	// 		value := createFieldFromProperty(property, propertyResource)
+	// 		properties = append(properties, value)
+	// 	}
+	// 	propertiesStruct := &ast.Field{
+	// 		Label: ast.NewIdent("Properties"),
+	// 		Value: &ast.StructLit{
+	// 			Elts: properties,
+	// 		},
+	// 	}
+	// 	resourceElts := []ast.Decl{
+	// 		&ast.Field{
+	// 			Label: ast.NewIdent("Type"),
+	// 			Value: &ast.BasicLit{Kind: token.STRING, Value: "\"" + resourceName + "\""},
+	// 		},
+	// 		propertiesStruct,
+	// 	}
+	// 	for propName, prop := range propertiesByResource[resourceName] {
+	// 		propertyProperties := make([]ast.Decl, len(prop.Properties))
+	// 		for propPropName, propProp := range prop.Properties {
+	// 			propertyProperties = append(propertyProperties, createFieldFromProperty(propPropName, propProp))
+	// 		}
+	// 		resourceElts = append(resourceElts,
+	// 			&ast.Alias{
+	// 				// TODO clean this up... feels super ugly.
+	// 				Ident: ast.NewIdent("__" + propName),
+	// 				Expr: &ast.StructLit{
+	// 					Elts: propertyProperties,
+	// 				},
+	// 			})
+	// 	}
+	// 	f := &ast.Field{
+	// 		Label: ast.NewIdent(resourceStr),
+	// 		Token: token.ISA,
+	// 		// TokenPos: token.NoSpace.Pos(),
+	// 		Value: &ast.StructLit{
+	// 			Elts: resourceElts,
+	// 		},
+	// 	}
+	// 	ff.Decls = append(ff.Decls, f)
+	// }
+	// spew.Dump(spec.Resources[resourceName])
+
+	// (string) (len=9) "Timestamp": (bool) true,
+
 	// sort.Slice(properties, func(i, j int) bool {
 	// 	iL, _ := ast.LabelName(properties[i].Label)
 	// 	jL, _ := ast.LabelName(properties[j].Label)
@@ -164,42 +343,7 @@ func main() {
 	// for prop := range properties {
 	// 	propertyDecls = append(propertyDecls, prop)
 	// }
-	propertiesStruct := &ast.Field{
-		Label: ast.NewIdent("Properties"),
-		Value: &ast.StructLit{
-			Elts: properties,
-		},
-	}
 
-	resourceElts := []ast.Decl{
-		&ast.Field{
-			Label: ast.NewIdent("Type"),
-			Value: &ast.BasicLit{Kind: token.STRING, Value: "\"" + resourceName + "\""},
-		},
-		propertiesStruct,
-	}
-	for propName, prop := range propertiesByResource[resourceName] {
-		propertyProperties := make([]ast.Decl, len(prop.Properties))
-		for propPropName, propProp := range prop.Properties {
-			propertyProperties = append(propertyProperties, createFieldFromProperty(propPropName, propProp))
-		}
-		resourceElts = append(resourceElts,
-			&ast.Alias{
-				// TODO clean this up... feels super ugly.
-				Ident: ast.NewIdent("__" + propName),
-				Expr: &ast.StructLit{
-					Elts: propertyProperties,
-				},
-			})
-	}
-	f := &ast.Field{
-		Label:    ast.NewIdent(resource),
-		Token:    token.ISA,
-		TokenPos: token.NoSpace.Pos(),
-		Value: &ast.StructLit{
-			Elts: resourceElts,
-		},
-	}
 	// f := &ast.Field{
 	// 	Label: ast.NewIdent(service),
 	// 	Token: token.ISA,
@@ -212,15 +356,7 @@ func main() {
 	// 			},
 	// 		}},
 	// 	}}
-	ff := &ast.File{
-		Filename: service,
-		Decls: []ast.Decl{
-			&ast.Package{
-				Name: ast.NewIdent(service),
-			},
-			f,
-		},
-	}
+
 	// f.AddComment(&ast.CommentGroup{
 	// 	Line:     false,
 	// 	Position: 2,
@@ -229,21 +365,35 @@ func main() {
 	// 	},
 	// })
 
-	b, _ := format.Node(ff,
-		format.Simplify(),
-		format.UseSpaces(2),
-		format.TabIndent(false))
+	// 	b, _ := format.Node(ff,
+	// 		format.Simplify(),
+	// 		format.UseSpaces(2),
+	// 		format.TabIndent(false))
 
-	fmt.Println(string(b))
-
-	fmt.Println(`
-MyBucket: Bucket & {
-  Properties BucketName: "stuff"
-  Properties BucketEncryption ServerSideEncryptionConfiguration: [{
-    ServerSideEncryptionByDefault SSEAlgorithm1: "AES256"
-  }]
-}
-  `)
+	// 	s3cuefile, err := os.Create("S3.cue")
+	// 	if err != nil {
+	// 		fmt.Println(err)
+	// 		return
+	// 	}
+	// 	l, err := s3cuefile.Write(b)
+	// 	if err != nil {
+	// 		fmt.Println(err)
+	// 		s3cuefile.Close()
+	// 		return
+	// 	}
+	// 	s3cuefile.WriteString(`
+	// MyBucket: Bucket & {
+	// 	Properties BucketName: "stuff"
+	// 	Properties BucketEncryption ServerSideEncryptionConfiguration: [{
+	// 		ServerSideEncryptionByDefault SSEAlgorithm: "AES256"
+	// 	}]
+	// }`)
+	// 	fmt.Println(l, "bytes written successfully")
+	// 	err = s3cuefile.Close()
+	// 	if err != nil {
+	// 		fmt.Println(err)
+	// 		return
+	// 	}
 
 	// types := map[string]map[string]bool{
 	// 	"PrimitiveType":     make(map[string]bool),
