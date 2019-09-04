@@ -104,8 +104,25 @@ func createStructFromResource(properties map[string]Property) (s ast.StructLit) 
 	return s
 }
 
+func sortResources(resourcesMap map[string]Resource) []resourceStruct {
+	resources := []resourceStruct{}
+
+	for resourceName, resource := range resourcesMap {
+		resources = append(resources, resourceStruct{
+			name:     resourceName,
+			resource: resource,
+		})
+	}
+
+	sort.Slice(resources, func(i, j int) bool {
+		return resources[i].name < resources[j].name
+	})
+	return resources
+}
+
 type resourceStruct struct {
 	name     string
+	fullName string
 	resource Resource
 }
 
@@ -115,10 +132,7 @@ type propertyStruct struct {
 }
 
 func main() {
-
 	cloudformationSpec := "https://github.com/aws-cloudformation/cfn-python-lint/raw/master/src/cfnlint/data/CloudSpecs/us-west-2.json"
-	// cloudformationSpec := "https://github.com/jlongtine/cfn-python-lint/raw/patch-1/src/cfnlint/data/CloudSpecs/us-west-2.json"
-	// cloudformationSpec := "file:///Users/joellongtine/Desktop/us-west-2.json"
 	fmt.Println(cloudformationSpec)
 	data, _ := downloadSpec(cloudformationSpec)
 
@@ -137,6 +151,17 @@ func main() {
 			propertiesByResource[resourceName][propertyName] = property
 		}
 	}
+
+	// prefixMap := map[string]bool{}
+
+	// for resourceName := range spec.Resources {
+	// 	splits := strings.Split(resourceName, "::")
+	// 	prefixMap[splits[0]] = true
+	// }
+
+	// for prefix := range prefixMap {
+	// 	fmt.Println(prefix)
+	// }
 
 	servicesMap := map[string]bool{}
 
@@ -164,7 +189,7 @@ func main() {
 
 	for service, resources := range resourcesByService {
 		fmt.Println(service)
-		fmt.Print("  ")
+		// fmt.Print("  ")
 		ff := &ast.File{
 			Filename: service,
 			Decls: []ast.Decl{
@@ -174,18 +199,7 @@ func main() {
 			},
 		}
 
-		sortedResources := []resourceStruct{}
-
-		for resourceName, resource := range resources {
-			sortedResources = append(sortedResources, resourceStruct{
-				name:     resourceName,
-				resource: resource,
-			})
-		}
-
-		sort.Slice(sortedResources, func(i, j int) bool {
-			return sortedResources[i].name < sortedResources[j].name
-		})
+		sortedResources := sortResources(resources)
 
 		for _, resourceS := range sortedResources {
 			resourceName := resourceS.name
@@ -194,7 +208,7 @@ func main() {
 
 			// aws := splits[0]
 			resourceStr := splits[2]
-			fmt.Print(resourceStr + "  ")
+			// fmt.Print(resourceStr + "  ")
 
 			properties := createStructFromResource(resource.Properties)
 			propertiesStruct := &ast.Field{
@@ -208,17 +222,7 @@ func main() {
 				},
 				propertiesStruct,
 			}
-			sortedResourceProperties := []resourceStruct{}
-			for resourceName, resource := range propertiesByResource[resourceName] {
-				sortedResourceProperties = append(sortedResourceProperties, resourceStruct{
-					name:     resourceName,
-					resource: resource,
-				})
-			}
-
-			sort.Slice(sortedResourceProperties, func(i, j int) bool {
-				return sortedResourceProperties[i].name < sortedResourceProperties[j].name
-			})
+			sortedResourceProperties := sortResources(propertiesByResource[resourceName])
 
 			for _, propS := range sortedResourceProperties {
 				propName := propS.name
@@ -240,7 +244,7 @@ func main() {
 			}
 			ff.Decls = append(ff.Decls, f)
 		}
-		fmt.Println("")
+		// fmt.Println("")
 		b, _ := format.Node(ff,
 			format.Simplify(),
 			format.UseSpaces(2),
