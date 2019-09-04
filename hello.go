@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"net/url"
 	"os"
+	"sort"
 	"strings"
 
 	// "github.com/aws/aws-sdk-go-v2/private/util"
@@ -194,6 +195,7 @@ func main() {
 	// spew.Dump(resourcesByService)
 
 	for service, resources := range resourcesByService {
+		fmt.Println(service)
 		ff := &ast.File{
 			Filename: service,
 			Decls: []ast.Decl{
@@ -202,16 +204,56 @@ func main() {
 				},
 			},
 		}
+		type resourceStruct struct {
+			name     string
+			resource Resource
+		}
+
+		sortedResources := []resourceStruct{}
 
 		for resourceName, resource := range resources {
+			sortedResources = append(sortedResources, resourceStruct{
+				name:     resourceName,
+				resource: resource,
+			})
+		}
+
+		sort.Slice(sortedResources, func(i, j int) bool {
+			return sortedResources[i].name < sortedResources[j].name
+		})
+
+		for _, resourceS := range sortedResources {
+			resourceName := resourceS.name
+			resource := resourceS.resource
 			splits := strings.Split(resourceName, "::")
+			fmt.Println(resourceName)
 
 			// aws := splits[0]
 			resourceStr := splits[2]
 
-			properties := make([]ast.Decl, len(resource.Properties))
+			type propertyStruct struct {
+				name     string
+				property Property
+			}
 
-			for property, propertyResource := range resource.Properties {
+			sortedProperties := []propertyStruct{}
+
+			for propertyName, property := range resource.Properties {
+				sortedProperties = append(sortedProperties, propertyStruct{
+					name:     propertyName,
+					property: property,
+				})
+			}
+
+			sort.Slice(sortedProperties, func(i, j int) bool {
+				return sortedProperties[i].name < sortedProperties[j].name
+			})
+
+			properties := make([]ast.Decl, len(sortedProperties))
+
+			for _, propertyS := range sortedProperties {
+				property := propertyS.name
+				propertyResource := propertyS.property
 				value := createFieldFromProperty(property, propertyResource)
 				properties = append(properties, value)
 			}
@@ -228,9 +270,37 @@ func main() {
 				},
 				propertiesStruct,
 			}
-			for propName, prop := range propertiesByResource[resourceName] {
+			sortedResourceProperties := []resourceStruct{}
+			for resourceName, resource := range propertiesByResource[resourceName] {
+				sortedResourceProperties = append(sortedResourceProperties, resourceStruct{
+					name:     resourceName,
+					resource: resource,
+				})
+			}
+
+			sort.Slice(sortedResourceProperties, func(i, j int) bool {
+				return sortedResourceProperties[i].name < sortedResourceProperties[j].name
+			})
+
+			for _, propS := range sortedResourceProperties {
+				propName := propS.name
+				prop := propS.resource
 				propertyProperties := make([]ast.Decl, len(prop.Properties))
-				for propPropName, propProp := range prop.Properties {
+				sortedPropertyProperties := []propertyStruct{}
+				for propertyName, property := range prop.Properties {
+					sortedPropertyProperties = append(sortedPropertyProperties, propertyStruct{
+						name:     propertyName,
+						property: property,
+					})
+				}
+
+				sort.Slice(sortedPropertyProperties, func(i, j int) bool {
+					return sortedPropertyProperties[i].name < sortedPropertyProperties[j].name
+				})
+
+				for _, propertyS := range sortedPropertyProperties {
+					propPropName := propertyS.name
+					propProp := propertyS.property
 					propertyProperties = append(propertyProperties, createFieldFromProperty(propPropName, propProp))
 				}
 				resourceElts = append(resourceElts,
