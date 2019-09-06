@@ -10,7 +10,9 @@ Cluster :: {
     ClusterParameterGroupName?:        string
     ClusterSecurityGroups?: [...string]
     ClusterSubnetGroupName?:         string
+    ClusterType:                     "multi-node" | "single-node"
     ClusterType:                     string
+    ClusterVersion?:                 "1.0"
     ClusterVersion?:                 string
     DBName:                          string
     ElasticIp?:                      string
@@ -22,6 +24,7 @@ Cluster :: {
     LoggingProperties?:          __LoggingProperties
     MasterUserPassword:          string
     MasterUsername:              string
+    NodeType:                    "dc1.8xlarge" | "dc1.large" | "dc2.8xlarge" | "dc2.large" | "ds1.8xlarge" | "ds1.xlarge" | "ds2.8xlarge" | "ds2.xlarge"
     NodeType:                    string
     NumberOfNodes?:              int
     OwnerAccount?:               string

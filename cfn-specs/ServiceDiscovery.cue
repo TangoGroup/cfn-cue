@@ -48,11 +48,13 @@ Service :: {
   }
   __DnsRecord = {
     TTL:  float
+    Type: "A" | "AAAA" | "SRV"
     Type: string
   }
   __HealthCheckConfig = {
     FailureThreshold?: float
     ResourcePath?:     string
+    Type:              "HTTP" | "HTTPS" | "TCP"
     Type:              string
   }
   __HealthCheckCustomConfig = {

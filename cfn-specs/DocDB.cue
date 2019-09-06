@@ -8,6 +8,7 @@ DBCluster :: {
     DBClusterIdentifier?:         string
     DBClusterParameterGroupName?: string
     DBSubnetGroupName?:           string
+    EngineVersion?:               "docdb"
     EngineVersion?:               string
     KmsKeyId?:                    string
     MasterUserPassword?:          string
@@ -38,6 +39,7 @@ DBInstance :: {
     AutoMinorVersionUpgrade?:    bool
     AvailabilityZone?:           string
     DBClusterIdentifier:         string
+    DBInstanceClass:             "db.r4.16xlarge" | "db.r4.2xlarge" | "db.r4.4xlarge" | "db.r4.8xlarge" | "db.r4.large" | "db.r4.xlarge" | "db.r5.12xlarge" | "db.r5.24xlarge" | "db.r5.2xlarge" | "db.r5.4xlarge" | "db.r5.large" | "db.r5.xlarge"
     DBInstanceClass:             string
     DBInstanceIdentifier?:       string
     PreferredMaintenanceWindow?: string

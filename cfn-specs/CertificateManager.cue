@@ -7,6 +7,7 @@ Certificate :: {
     DomainValidationOptions?: [...__DomainValidationOption]
     SubjectAlternativeNames?: [...string]
     Tags?: [...__Tag]
+    ValidationMethod?: "DNS" | "EMAIL"
     ValidationMethod?: string
   }
   __DomainValidationOption = {

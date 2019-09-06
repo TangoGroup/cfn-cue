@@ -7,6 +7,7 @@ Alarm :: {
     AlarmActions?: [...string]
     AlarmDescription?:  string
     AlarmName?:         string
+    ComparisonOperator: "GreaterThanOrEqualToThreshold" | "GreaterThanThreshold" | "LessThanOrEqualToThreshold" | "LessThanThreshold"
     ComparisonOperator: string
     DatapointsToAlarm?: int
     Dimensions?: [...__Dimension]
@@ -19,10 +20,13 @@ Alarm :: {
     Namespace?: string
     OKActions?: [...string]
     Period?:            int
+    Statistic?:         "Average" | "Maximum" | "Minimum" | "SampleCount" | "Sum"
     Statistic?:         string
     Threshold?:         float
     ThresholdMetricId?: string
+    TreatMissingData?:  "breaching" | "ignore" | "missing" | "notBreaching"
     TreatMissingData?:  string
+    Unit?:              "Bits" | "Bits/Second" | "Bytes" | "Bytes/Second" | "Count" | "Count/Second" | "Gigabits" | "Gigabits/Second" | "Gigabytes" | "Gigabytes/Second" | "Kilobits" | "Kilobits/Second" | "Kilobytes" | "Kilobytes/Second" | "Megabits" | "Megabits/Second" | "Megabytes" | "Megabytes/Second" | "Microseconds" | "Milliseconds" | "None" | "Percent" | "Seconds" | "Terabits" | "Terabits/Second" | "Terabytes" | "Terabytes/Second"
     Unit?:              string
   }
   __Dimension = {

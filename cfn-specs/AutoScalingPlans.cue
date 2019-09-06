@@ -21,6 +21,7 @@ ScalingPlan :: {
     Dimensions?: [...__MetricDimension]
     MetricName: string
     Namespace:  string
+    Statistic:  "Average" | "Minimum" | "Maximum" | "SampleCount" | "Sum"
     Statistic:  string
     Unit?:      string
   }
@@ -33,6 +34,7 @@ ScalingPlan :: {
     ResourceLabel?:           string
   }
   __PredefinedScalingMetricSpecification = {
+    PredefinedScalingMetricType: "ALBRequestCountPerTarget" | "ASGAverageCPUUtilization" | "ASGAverageNetworkIn" | "ASGAverageNetworkOut"
     PredefinedScalingMetricType: string
     ResourceLabel?:              string
   }
@@ -42,13 +44,17 @@ ScalingPlan :: {
     MaxCapacity:                           int
     MinCapacity:                           int
     PredefinedLoadMetricSpecification?:    __PredefinedLoadMetricSpecification
+    PredictiveScalingMaxCapacityBehavior?: "SetForecastCapacityToMaxCapacity" | "SetMaxCapacityToForecastCapacity" | "SetMaxCapacityAboveForecastCapacity"
     PredictiveScalingMaxCapacityBehavior?: string
     PredictiveScalingMaxCapacityBuffer?:   int
+    PredictiveScalingMode?:                "ForecastAndScale" | "ForecastOnly"
     PredictiveScalingMode?:                string
     ResourceId:                            string
+    ScalableDimension:                     "autoscaling:autoScalingGroup:DesiredCapacity" | "ecs:service:DesiredCount" | "ec2:spot-fleet-request:TargetCapacity" | "dynamodb:table:ReadCapacityUnits" | "dynamodb:table:WriteCapacityUnits" | "dynamodb:index:ReadCapacityUnits" | "dynamodb:index:WriteCapacityUnits" | "rds:cluster:ReadReplicaCount"
     ScalableDimension:                     string
     ScalingPolicyUpdateBehavior?:          string
     ScheduledActionBufferTime?:            int
+    ServiceNamespace:                      "autoscaling" | "dynamodb" | "ecs" | "ec2" | "rds"
     ServiceNamespace:                      string
     TargetTrackingConfigurations: [...__TargetTrackingConfiguration]
   }

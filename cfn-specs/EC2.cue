@@ -6,13 +6,18 @@ CapacityReservation :: {
     AvailabilityZone:       string
     EbsOptimized?:          bool
     EndDate?:               string
+    EndDateType?:           "limited" | "unlimited"
     EndDateType?:           string
     EphemeralStorage?:      bool
     InstanceCount:          int
+    InstanceMatchCriteria?: "open" | "targeted"
     InstanceMatchCriteria?: string
+    InstancePlatform:       "Linux/UNIX" | "Red Hat Enterprise Linux" | "SUSE Linux" | "Windows with SQL Server Enterprise" | "Windows with SQL Server Standard" | "Windows with SQL Server Web" | "Windows with SQL Server" | "Windows"
     InstancePlatform:       string
+    InstanceType:           "a1.2xlarge" | "a1.4xlarge" | "a1.large" | "a1.medium" | "a1.xlarge" | "c1.medium" | "c1.xlarge" | "c3.2xlarge" | "c3.4xlarge" | "c3.8xlarge" | "c3.large" | "c3.xlarge" | "c4.2xlarge" | "c4.4xlarge" | "c4.8xlarge" | "c4.large" | "c4.xlarge" | "c5.12xlarge" | "c5.18xlarge" | "c5.24xlarge" | "c5.2xlarge" | "c5.4xlarge" | "c5.9xlarge" | "c5.large" | "c5.metal" | "c5.xlarge" | "c5d.18xlarge" | "c5d.2xlarge" | "c5d.4xlarge" | "c5d.9xlarge" | "c5d.large" | "c5d.xlarge" | "c5n.18xlarge" | "c5n.2xlarge" | "c5n.4xlarge" | "c5n.9xlarge" | "c5n.large" | "c5n.metal" | "c5n.xlarge" | "cc2.8xlarge" | "cr1.8xlarge" | "d2.2xlarge" | "d2.4xlarge" | "d2.8xlarge" | "d2.xlarge" | "f1.16xlarge" | "f1.2xlarge" | "f1.4xlarge" | "g2.2xlarge" | "g2.8xlarge" | "g3.16xlarge" | "g3.4xlarge" | "g3.8xlarge" | "g3s.xlarge" | "h1.16xlarge" | "h1.2xlarge" | "h1.4xlarge" | "h1.8xlarge" | "hs1.8xlarge" | "i2.2xlarge" | "i2.4xlarge" | "i2.8xlarge" | "i2.xlarge" | "i3.16xlarge" | "i3.2xlarge" | "i3.4xlarge" | "i3.8xlarge" | "i3.large" | "i3.metal" | "i3.xlarge" | "i3en.12xlarge" | "i3en.24xlarge" | "i3en.2xlarge" | "i3en.3xlarge" | "i3en.6xlarge" | "i3en.large" | "i3en.metal" | "i3en.xlarge" | "m1.large" | "m1.medium" | "m1.small" | "m1.xlarge" | "m2.2xlarge" | "m2.4xlarge" | "m2.xlarge" | "m3.2xlarge" | "m3.large" | "m3.medium" | "m3.xlarge" | "m4.10xlarge" | "m4.16xlarge" | "m4.2xlarge" | "m4.4xlarge" | "m4.large" | "m4.xlarge" | "m5.12xlarge" | "m5.16xlarge" | "m5.24xlarge" | "m5.2xlarge" | "m5.4xlarge" | "m5.8xlarge" | "m5.large" | "m5.metal" | "m5.xlarge" | "m5a.12xlarge" | "m5a.16xlarge" | "m5a.24xlarge" | "m5a.2xlarge" | "m5a.4xlarge" | "m5a.8xlarge" | "m5a.large" | "m5a.xlarge" | "m5ad.12xlarge" | "m5ad.24xlarge" | "m5ad.2xlarge" | "m5ad.4xlarge" | "m5ad.large" | "m5ad.xlarge" | "m5d.12xlarge" | "m5d.16xlarge" | "m5d.24xlarge" | "m5d.2xlarge" | "m5d.4xlarge" | "m5d.8xlarge" | "m5d.large" | "m5d.metal" | "m5d.xlarge" | "p2.16xlarge" | "p2.8xlarge" | "p2.xlarge" | "p3.16xlarge" | "p3.2xlarge" | "p3.8xlarge" | "p3dn.24xlarge" | "r3.2xlarge" | "r3.4xlarge" | "r3.8xlarge" | "r3.large" | "r3.xlarge" | "r4.16xlarge" | "r4.2xlarge" | "r4.4xlarge" | "r4.8xlarge" | "r4.large" | "r4.xlarge" | "r5.12xlarge" | "r5.16xlarge" | "r5.24xlarge" | "r5.2xlarge" | "r5.4xlarge" | "r5.8xlarge" | "r5.large" | "r5.metal" | "r5.xlarge" | "r5a.12xlarge" | "r5a.16xlarge" | "r5a.24xlarge" | "r5a.2xlarge" | "r5a.4xlarge" | "r5a.8xlarge" | "r5a.large" | "r5a.xlarge" | "r5ad.12xlarge" | "r5ad.24xlarge" | "r5ad.2xlarge" | "r5ad.4xlarge" | "r5ad.large" | "r5ad.xlarge" | "r5d.12xlarge" | "r5d.16xlarge" | "r5d.24xlarge" | "r5d.2xlarge" | "r5d.4xlarge" | "r5d.8xlarge" | "r5d.large" | "r5d.metal" | "r5d.xlarge" | "t1.micro" | "t2.2xlarge" | "t2.large" | "t2.medium" | "t2.micro" | "t2.nano" | "t2.small" | "t2.xlarge" | "t3.2xlarge" | "t3.large" | "t3.medium" | "t3.micro" | "t3.nano" | "t3.small" | "t3.xlarge" | "t3a.2xlarge" | "t3a.large" | "t3a.medium" | "t3a.micro" | "t3a.nano" | "t3a.small" | "t3a.xlarge" | "x1.16xlarge" | "x1.32xlarge" | "x1e.16xlarge" | "x1e.2xlarge" | "x1e.32xlarge" | "x1e.4xlarge" | "x1e.8xlarge" | "x1e.xlarge" | "z1d.12xlarge" | "z1d.2xlarge" | "z1d.3xlarge" | "z1d.6xlarge" | "z1d.large" | "z1d.metal" | "z1d.xlarge"
     InstanceType:           string
     TagSpecifications?: [...__TagSpecification]
+    Tenancy?: "dedicated" | "default"
     Tenancy?: string
   }
   __TagSpecification = {
@@ -86,6 +91,7 @@ CustomerGateway :: {
     BgpAsn:    int
     IpAddress: string
     Tags?: [...__Tag]
+    Type: "ipsec.1"
     Type: string
   }
 }
@@ -95,6 +101,7 @@ DHCPOptions :: {
     DomainName?: string
     DomainNameServers?: [...string]
     NetbiosNameServers?: [...string]
+    NetbiosNodeType?: "1" | "2" | "4" | "8"
     NetbiosNodeType?: int
     NtpServers?: [...string]
     Tags?: [...__Tag]
@@ -103,6 +110,7 @@ DHCPOptions :: {
 EC2Fleet :: {
   Type: "AWS::EC2::EC2Fleet"
   Properties: {
+    ExcessCapacityTerminationPolicy?: "no-termination" | "termination"
     ExcessCapacityTerminationPolicy?: string
     LaunchTemplateConfigs: [...__FleetLaunchTemplateConfigRequest]
     OnDemandOptions?:           __OnDemandOptionsRequest
@@ -111,6 +119,7 @@ EC2Fleet :: {
     TagSpecifications?: [...__TagSpecification]
     TargetCapacitySpecification:       __TargetCapacitySpecificationRequest
     TerminateInstancesWithExpiration?: bool
+    Type?:                             "instant" | "maintain" | "request"
     Type?:                             string
     ValidFrom?:                        string
     ValidUntil?:                       string
@@ -121,6 +130,7 @@ EC2Fleet :: {
   }
   __FleetLaunchTemplateOverridesRequest = {
     AvailabilityZone?: string
+    InstanceType?:     "a1.2xlarge" | "a1.4xlarge" | "a1.large" | "a1.medium" | "a1.xlarge" | "c1.medium" | "c1.xlarge" | "c3.2xlarge" | "c3.4xlarge" | "c3.8xlarge" | "c3.large" | "c3.xlarge" | "c4.2xlarge" | "c4.4xlarge" | "c4.8xlarge" | "c4.large" | "c4.xlarge" | "c5.12xlarge" | "c5.18xlarge" | "c5.24xlarge" | "c5.2xlarge" | "c5.4xlarge" | "c5.9xlarge" | "c5.large" | "c5.metal" | "c5.xlarge" | "c5d.18xlarge" | "c5d.2xlarge" | "c5d.4xlarge" | "c5d.9xlarge" | "c5d.large" | "c5d.xlarge" | "c5n.18xlarge" | "c5n.2xlarge" | "c5n.4xlarge" | "c5n.9xlarge" | "c5n.large" | "c5n.metal" | "c5n.xlarge" | "cc2.8xlarge" | "cr1.8xlarge" | "d2.2xlarge" | "d2.4xlarge" | "d2.8xlarge" | "d2.xlarge" | "f1.16xlarge" | "f1.2xlarge" | "f1.4xlarge" | "g2.2xlarge" | "g2.8xlarge" | "g3.16xlarge" | "g3.4xlarge" | "g3.8xlarge" | "g3s.xlarge" | "h1.16xlarge" | "h1.2xlarge" | "h1.4xlarge" | "h1.8xlarge" | "hs1.8xlarge" | "i2.2xlarge" | "i2.4xlarge" | "i2.8xlarge" | "i2.xlarge" | "i3.16xlarge" | "i3.2xlarge" | "i3.4xlarge" | "i3.8xlarge" | "i3.large" | "i3.metal" | "i3.xlarge" | "i3en.12xlarge" | "i3en.24xlarge" | "i3en.2xlarge" | "i3en.3xlarge" | "i3en.6xlarge" | "i3en.large" | "i3en.metal" | "i3en.xlarge" | "m1.large" | "m1.medium" | "m1.small" | "m1.xlarge" | "m2.2xlarge" | "m2.4xlarge" | "m2.xlarge" | "m3.2xlarge" | "m3.large" | "m3.medium" | "m3.xlarge" | "m4.10xlarge" | "m4.16xlarge" | "m4.2xlarge" | "m4.4xlarge" | "m4.large" | "m4.xlarge" | "m5.12xlarge" | "m5.16xlarge" | "m5.24xlarge" | "m5.2xlarge" | "m5.4xlarge" | "m5.8xlarge" | "m5.large" | "m5.metal" | "m5.xlarge" | "m5a.12xlarge" | "m5a.16xlarge" | "m5a.24xlarge" | "m5a.2xlarge" | "m5a.4xlarge" | "m5a.8xlarge" | "m5a.large" | "m5a.xlarge" | "m5ad.12xlarge" | "m5ad.24xlarge" | "m5ad.2xlarge" | "m5ad.4xlarge" | "m5ad.large" | "m5ad.xlarge" | "m5d.12xlarge" | "m5d.16xlarge" | "m5d.24xlarge" | "m5d.2xlarge" | "m5d.4xlarge" | "m5d.8xlarge" | "m5d.large" | "m5d.metal" | "m5d.xlarge" | "p2.16xlarge" | "p2.8xlarge" | "p2.xlarge" | "p3.16xlarge" | "p3.2xlarge" | "p3.8xlarge" | "p3dn.24xlarge" | "r3.2xlarge" | "r3.4xlarge" | "r3.8xlarge" | "r3.large" | "r3.xlarge" | "r4.16xlarge" | "r4.2xlarge" | "r4.4xlarge" | "r4.8xlarge" | "r4.large" | "r4.xlarge" | "r5.12xlarge" | "r5.16xlarge" | "r5.24xlarge" | "r5.2xlarge" | "r5.4xlarge" | "r5.8xlarge" | "r5.large" | "r5.metal" | "r5.xlarge" | "r5a.12xlarge" | "r5a.16xlarge" | "r5a.24xlarge" | "r5a.2xlarge" | "r5a.4xlarge" | "r5a.8xlarge" | "r5a.large" | "r5a.xlarge" | "r5ad.12xlarge" | "r5ad.24xlarge" | "r5ad.2xlarge" | "r5ad.4xlarge" | "r5ad.large" | "r5ad.xlarge" | "r5d.12xlarge" | "r5d.16xlarge" | "r5d.24xlarge" | "r5d.2xlarge" | "r5d.4xlarge" | "r5d.8xlarge" | "r5d.large" | "r5d.metal" | "r5d.xlarge" | "t1.micro" | "t2.2xlarge" | "t2.large" | "t2.medium" | "t2.micro" | "t2.nano" | "t2.small" | "t2.xlarge" | "t3.2xlarge" | "t3.large" | "t3.medium" | "t3.micro" | "t3.nano" | "t3.small" | "t3.xlarge" | "t3a.2xlarge" | "t3a.large" | "t3a.medium" | "t3a.micro" | "t3a.nano" | "t3a.small" | "t3a.xlarge" | "x1.16xlarge" | "x1.32xlarge" | "x1e.16xlarge" | "x1e.2xlarge" | "x1e.32xlarge" | "x1e.4xlarge" | "x1e.8xlarge" | "x1e.xlarge" | "z1d.12xlarge" | "z1d.2xlarge" | "z1d.3xlarge" | "z1d.6xlarge" | "z1d.large" | "z1d.metal" | "z1d.xlarge"
     InstanceType?:     string
     MaxPrice?:         string
     Priority?:         float
@@ -133,10 +143,13 @@ EC2Fleet :: {
     Version?:            string
   }
   __OnDemandOptionsRequest = {
+    AllocationStrategy?: "lowest-price" | "prioritized"
     AllocationStrategy?: string
   }
   __SpotOptionsRequest = {
+    AllocationStrategy?:           "diversified" | "lowest-price"
     AllocationStrategy?:           string
+    InstanceInterruptionBehavior?: "hibernate" | "stop" | "terminate"
     InstanceInterruptionBehavior?: string
     InstancePoolsToUseCount?:      int
   }
@@ -149,6 +162,7 @@ EC2Fleet :: {
     Tags?: [...__TagRequest]
   }
   __TargetCapacitySpecificationRequest = {
+    DefaultTargetCapacityType?: "on-demand" | "spot"
     DefaultTargetCapacityType?: string
     OnDemandTargetCapacity?:    int
     SpotTargetCapacity?:        int
@@ -158,6 +172,7 @@ EC2Fleet :: {
 EIP :: {
   Type: "AWS::EC2::EIP"
   Properties: {
+    Domain?:         "standard" | "vpc"
     Domain?:         string
     InstanceId?:     string
     PublicIpv4Pool?: string
@@ -184,16 +199,20 @@ FlowLog :: {
   Properties: {
     DeliverLogsPermissionArn?: string
     LogDestination?:           string
+    LogDestinationType?:       "cloud-watch-logs" | "s3"
     LogDestinationType?:       string
     LogGroupName?:             string
     ResourceId:                string
+    ResourceType:              "NetworkInterface" | "Subnet" | "VPC"
     ResourceType:              string
+    TrafficType:               "ACCEPT" | "ALL" | "REJECT"
     TrafficType:               string
   }
 }
 Host :: {
   Type: "AWS::EC2::Host"
   Properties: {
+    AutoPlacement?:   "off" | "on"
     AutoPlacement?:   string
     AvailabilityZone: string
     HostRecovery?:    string
@@ -204,6 +223,7 @@ Instance :: {
   Type: "AWS::EC2::Instance"
   Properties: {
     AdditionalInfo?:   string
+    Affinity?:         "default" | "host"
     Affinity?:         string
     AvailabilityZone?: string
     BlockDeviceMappings?: [...__BlockDeviceMapping]
@@ -217,6 +237,7 @@ Instance :: {
     IamInstanceProfile?:                string
     ImageId?:                           string
     InstanceInitiatedShutdownBehavior?: string
+    InstanceType?:                      "a1.2xlarge" | "a1.4xlarge" | "a1.large" | "a1.medium" | "a1.xlarge" | "c1.medium" | "c1.xlarge" | "c3.2xlarge" | "c3.4xlarge" | "c3.8xlarge" | "c3.large" | "c3.xlarge" | "c4.2xlarge" | "c4.4xlarge" | "c4.8xlarge" | "c4.large" | "c4.xlarge" | "c5.12xlarge" | "c5.18xlarge" | "c5.24xlarge" | "c5.2xlarge" | "c5.4xlarge" | "c5.9xlarge" | "c5.large" | "c5.metal" | "c5.xlarge" | "c5d.18xlarge" | "c5d.2xlarge" | "c5d.4xlarge" | "c5d.9xlarge" | "c5d.large" | "c5d.xlarge" | "c5n.18xlarge" | "c5n.2xlarge" | "c5n.4xlarge" | "c5n.9xlarge" | "c5n.large" | "c5n.metal" | "c5n.xlarge" | "cc2.8xlarge" | "cr1.8xlarge" | "d2.2xlarge" | "d2.4xlarge" | "d2.8xlarge" | "d2.xlarge" | "f1.16xlarge" | "f1.2xlarge" | "f1.4xlarge" | "g2.2xlarge" | "g2.8xlarge" | "g3.16xlarge" | "g3.4xlarge" | "g3.8xlarge" | "g3s.xlarge" | "h1.16xlarge" | "h1.2xlarge" | "h1.4xlarge" | "h1.8xlarge" | "hs1.8xlarge" | "i2.2xlarge" | "i2.4xlarge" | "i2.8xlarge" | "i2.xlarge" | "i3.16xlarge" | "i3.2xlarge" | "i3.4xlarge" | "i3.8xlarge" | "i3.large" | "i3.metal" | "i3.xlarge" | "i3en.12xlarge" | "i3en.24xlarge" | "i3en.2xlarge" | "i3en.3xlarge" | "i3en.6xlarge" | "i3en.large" | "i3en.metal" | "i3en.xlarge" | "m1.large" | "m1.medium" | "m1.small" | "m1.xlarge" | "m2.2xlarge" | "m2.4xlarge" | "m2.xlarge" | "m3.2xlarge" | "m3.large" | "m3.medium" | "m3.xlarge" | "m4.10xlarge" | "m4.16xlarge" | "m4.2xlarge" | "m4.4xlarge" | "m4.large" | "m4.xlarge" | "m5.12xlarge" | "m5.16xlarge" | "m5.24xlarge" | "m5.2xlarge" | "m5.4xlarge" | "m5.8xlarge" | "m5.large" | "m5.metal" | "m5.xlarge" | "m5a.12xlarge" | "m5a.16xlarge" | "m5a.24xlarge" | "m5a.2xlarge" | "m5a.4xlarge" | "m5a.8xlarge" | "m5a.large" | "m5a.xlarge" | "m5ad.12xlarge" | "m5ad.24xlarge" | "m5ad.2xlarge" | "m5ad.4xlarge" | "m5ad.large" | "m5ad.xlarge" | "m5d.12xlarge" | "m5d.16xlarge" | "m5d.24xlarge" | "m5d.2xlarge" | "m5d.4xlarge" | "m5d.8xlarge" | "m5d.large" | "m5d.metal" | "m5d.xlarge" | "p2.16xlarge" | "p2.8xlarge" | "p2.xlarge" | "p3.16xlarge" | "p3.2xlarge" | "p3.8xlarge" | "p3dn.24xlarge" | "r3.2xlarge" | "r3.4xlarge" | "r3.8xlarge" | "r3.large" | "r3.xlarge" | "r4.16xlarge" | "r4.2xlarge" | "r4.4xlarge" | "r4.8xlarge" | "r4.large" | "r4.xlarge" | "r5.12xlarge" | "r5.16xlarge" | "r5.24xlarge" | "r5.2xlarge" | "r5.4xlarge" | "r5.8xlarge" | "r5.large" | "r5.metal" | "r5.xlarge" | "r5a.12xlarge" | "r5a.16xlarge" | "r5a.24xlarge" | "r5a.2xlarge" | "r5a.4xlarge" | "r5a.8xlarge" | "r5a.large" | "r5a.xlarge" | "r5ad.12xlarge" | "r5ad.24xlarge" | "r5ad.2xlarge" | "r5ad.4xlarge" | "r5ad.large" | "r5ad.xlarge" | "r5d.12xlarge" | "r5d.16xlarge" | "r5d.24xlarge" | "r5d.2xlarge" | "r5d.4xlarge" | "r5d.8xlarge" | "r5d.large" | "r5d.metal" | "r5d.xlarge" | "t1.micro" | "t2.2xlarge" | "t2.large" | "t2.medium" | "t2.micro" | "t2.nano" | "t2.small" | "t2.xlarge" | "t3.2xlarge" | "t3.large" | "t3.medium" | "t3.micro" | "t3.nano" | "t3.small" | "t3.xlarge" | "t3a.2xlarge" | "t3a.large" | "t3a.medium" | "t3a.micro" | "t3a.nano" | "t3a.small" | "t3a.xlarge" | "x1.16xlarge" | "x1.32xlarge" | "x1e.16xlarge" | "x1e.2xlarge" | "x1e.32xlarge" | "x1e.4xlarge" | "x1e.8xlarge" | "x1e.xlarge" | "z1d.12xlarge" | "z1d.2xlarge" | "z1d.3xlarge" | "z1d.6xlarge" | "z1d.large" | "z1d.metal" | "z1d.xlarge"
     InstanceType?:                      string
     Ipv6AddressCount?:                  int
     Ipv6Addresses?: [...__InstanceIpv6Address]
@@ -235,6 +256,7 @@ Instance :: {
     SsmAssociations?: [...__SsmAssociation]
     SubnetId?: string
     Tags?: [...__Tag]
+    Tenancy?:  "dedicated" | "default" | "host"
     Tenancy?:  string
     UserData?: string
     Volumes?: [...__Volume]
@@ -254,6 +276,7 @@ Instance :: {
     ThreadsPerCore?: int
   }
   __CreditSpecification = {
+    CPUCredits?: "standard" | "unlimited"
     CPUCredits?: string
   }
   __Ebs = {
@@ -263,12 +286,14 @@ Instance :: {
     KmsKeyId?:            string
     SnapshotId?:          string
     VolumeSize?:          int
+    VolumeType?:          "gp2" | "io1" | "sc1" | "st1" | "standard"
     VolumeType?:          string
   }
   __ElasticGpuSpecification = {
     Type: string
   }
   __ElasticInferenceAccelerator = {
+    Type: "eia1.large" | "eia1.medium" | "eia1.xlarge"
     Type: string
   }
   __InstanceIpv6Address = {
@@ -341,6 +366,7 @@ LaunchTemplate :: {
     ThreadsPerCore?: int
   }
   __CreditSpecification = {
+    CpuCredits?: "standard" | "unlimited"
     CpuCredits?: string
   }
   __Ebs = {
@@ -350,6 +376,7 @@ LaunchTemplate :: {
     KmsKeyId?:            string
     SnapshotId?:          string
     VolumeSize?:          int
+    VolumeType?:          "gp2" | "io1" | "sc1" | "st1" | "standard"
     VolumeType?:          string
   }
   __ElasticGpuSpecification = {
@@ -363,6 +390,7 @@ LaunchTemplate :: {
     Name?: string
   }
   __InstanceMarketOptions = {
+    MarketType?:  "spot"
     MarketType?:  string
     SpotOptions?: __SpotOptions
   }
@@ -381,8 +409,10 @@ LaunchTemplate :: {
     HibernationOptions?:                __HibernationOptions
     IamInstanceProfile?:                __IamInstanceProfile
     ImageId?:                           string
+    InstanceInitiatedShutdownBehavior?: "stop" | "terminate"
     InstanceInitiatedShutdownBehavior?: string
     InstanceMarketOptions?:             __InstanceMarketOptions
+    InstanceType?:                      "a1.2xlarge" | "a1.4xlarge" | "a1.large" | "a1.medium" | "a1.xlarge" | "c1.medium" | "c1.xlarge" | "c3.2xlarge" | "c3.4xlarge" | "c3.8xlarge" | "c3.large" | "c3.xlarge" | "c4.2xlarge" | "c4.4xlarge" | "c4.8xlarge" | "c4.large" | "c4.xlarge" | "c5.12xlarge" | "c5.18xlarge" | "c5.24xlarge" | "c5.2xlarge" | "c5.4xlarge" | "c5.9xlarge" | "c5.large" | "c5.metal" | "c5.xlarge" | "c5d.18xlarge" | "c5d.2xlarge" | "c5d.4xlarge" | "c5d.9xlarge" | "c5d.large" | "c5d.xlarge" | "c5n.18xlarge" | "c5n.2xlarge" | "c5n.4xlarge" | "c5n.9xlarge" | "c5n.large" | "c5n.metal" | "c5n.xlarge" | "cc2.8xlarge" | "cr1.8xlarge" | "d2.2xlarge" | "d2.4xlarge" | "d2.8xlarge" | "d2.xlarge" | "f1.16xlarge" | "f1.2xlarge" | "f1.4xlarge" | "g2.2xlarge" | "g2.8xlarge" | "g3.16xlarge" | "g3.4xlarge" | "g3.8xlarge" | "g3s.xlarge" | "h1.16xlarge" | "h1.2xlarge" | "h1.4xlarge" | "h1.8xlarge" | "hs1.8xlarge" | "i2.2xlarge" | "i2.4xlarge" | "i2.8xlarge" | "i2.xlarge" | "i3.16xlarge" | "i3.2xlarge" | "i3.4xlarge" | "i3.8xlarge" | "i3.large" | "i3.metal" | "i3.xlarge" | "i3en.12xlarge" | "i3en.24xlarge" | "i3en.2xlarge" | "i3en.3xlarge" | "i3en.6xlarge" | "i3en.large" | "i3en.metal" | "i3en.xlarge" | "m1.large" | "m1.medium" | "m1.small" | "m1.xlarge" | "m2.2xlarge" | "m2.4xlarge" | "m2.xlarge" | "m3.2xlarge" | "m3.large" | "m3.medium" | "m3.xlarge" | "m4.10xlarge" | "m4.16xlarge" | "m4.2xlarge" | "m4.4xlarge" | "m4.large" | "m4.xlarge" | "m5.12xlarge" | "m5.16xlarge" | "m5.24xlarge" | "m5.2xlarge" | "m5.4xlarge" | "m5.8xlarge" | "m5.large" | "m5.metal" | "m5.xlarge" | "m5a.12xlarge" | "m5a.16xlarge" | "m5a.24xlarge" | "m5a.2xlarge" | "m5a.4xlarge" | "m5a.8xlarge" | "m5a.large" | "m5a.xlarge" | "m5ad.12xlarge" | "m5ad.24xlarge" | "m5ad.2xlarge" | "m5ad.4xlarge" | "m5ad.large" | "m5ad.xlarge" | "m5d.12xlarge" | "m5d.16xlarge" | "m5d.24xlarge" | "m5d.2xlarge" | "m5d.4xlarge" | "m5d.8xlarge" | "m5d.large" | "m5d.metal" | "m5d.xlarge" | "p2.16xlarge" | "p2.8xlarge" | "p2.xlarge" | "p3.16xlarge" | "p3.2xlarge" | "p3.8xlarge" | "p3dn.24xlarge" | "r3.2xlarge" | "r3.4xlarge" | "r3.8xlarge" | "r3.large" | "r3.xlarge" | "r4.16xlarge" | "r4.2xlarge" | "r4.4xlarge" | "r4.8xlarge" | "r4.large" | "r4.xlarge" | "r5.12xlarge" | "r5.16xlarge" | "r5.24xlarge" | "r5.2xlarge" | "r5.4xlarge" | "r5.8xlarge" | "r5.large" | "r5.metal" | "r5.xlarge" | "r5a.12xlarge" | "r5a.16xlarge" | "r5a.24xlarge" | "r5a.2xlarge" | "r5a.4xlarge" | "r5a.8xlarge" | "r5a.large" | "r5a.xlarge" | "r5ad.12xlarge" | "r5ad.24xlarge" | "r5ad.2xlarge" | "r5ad.4xlarge" | "r5ad.large" | "r5ad.xlarge" | "r5d.12xlarge" | "r5d.16xlarge" | "r5d.24xlarge" | "r5d.2xlarge" | "r5d.4xlarge" | "r5d.8xlarge" | "r5d.large" | "r5d.metal" | "r5d.xlarge" | "t1.micro" | "t2.2xlarge" | "t2.large" | "t2.medium" | "t2.micro" | "t2.nano" | "t2.small" | "t2.xlarge" | "t3.2xlarge" | "t3.large" | "t3.medium" | "t3.micro" | "t3.nano" | "t3.small" | "t3.xlarge" | "t3a.2xlarge" | "t3a.large" | "t3a.medium" | "t3a.micro" | "t3a.nano" | "t3a.small" | "t3a.xlarge" | "x1.16xlarge" | "x1.32xlarge" | "x1e.16xlarge" | "x1e.2xlarge" | "x1e.32xlarge" | "x1e.4xlarge" | "x1e.8xlarge" | "x1e.xlarge" | "z1d.12xlarge" | "z1d.2xlarge" | "z1d.3xlarge" | "z1d.6xlarge" | "z1d.large" | "z1d.metal" | "z1d.xlarge"
     InstanceType?:                      string
     KernelId?:                          string
     KeyName?:                           string
@@ -425,6 +455,7 @@ LaunchTemplate :: {
     AvailabilityZone?: string
     GroupName?:        string
     HostId?:           string
+    Tenancy?:          "dedicated" | "default" | "host"
     Tenancy?:          string
   }
   __PrivateIpAdd = {
@@ -433,12 +464,15 @@ LaunchTemplate :: {
   }
   __SpotOptions = {
     BlockDurationMinutes?:         int
+    InstanceInterruptionBehavior?: "hibernate" | "stop" | "terminate"
     InstanceInterruptionBehavior?: string
     MaxPrice?:                     string
+    SpotInstanceType?:             "one-time" | "persistent"
     SpotInstanceType?:             string
     ValidUntil?:                   string
   }
   __TagSpecification = {
+    ResourceType: "instance" | "volume"
     ResourceType: string
     Tags: [...__Tag]
   }
@@ -468,6 +502,7 @@ NetworkAclEntry :: {
     NetworkAclId:   string
     PortRange?:     __PortRange
     Protocol:       int
+    RuleAction:     "allow" | "deny"
     RuleAction:     string
     RuleNumber:     int
   }
@@ -517,12 +552,14 @@ NetworkInterfacePermission :: {
   Properties: {
     AwsAccountId:       string
     NetworkInterfaceId: string
+    Permission:         "EIP-ASSOCIATE" | "INSTANCE-ATTACH"
     Permission:         string
   }
 }
 PlacementGroup :: {
   Type: "AWS::EC2::PlacementGroup"
   Properties: {
+    Strategy?: "cluster" | "partition" | "spread"
     Strategy?: string
   }
 }
@@ -635,6 +672,7 @@ SpotFleet :: {
     Iops?:                int
     SnapshotId?:          string
     VolumeSize?:          int
+    VolumeType?:          "gp2" | "io1" | "sc1" | "st1" | "standard"
     VolumeType?:          string
   }
   __FleetLaunchTemplateSpecification = {
@@ -688,6 +726,7 @@ SpotFleet :: {
     EbsOptimized?:       bool
     IamInstanceProfile?: __IamInstanceProfileSpecification
     ImageId:             string
+    InstanceType:        "a1.2xlarge" | "a1.4xlarge" | "a1.large" | "a1.medium" | "a1.xlarge" | "c1.medium" | "c1.xlarge" | "c3.2xlarge" | "c3.4xlarge" | "c3.8xlarge" | "c3.large" | "c3.xlarge" | "c4.2xlarge" | "c4.4xlarge" | "c4.8xlarge" | "c4.large" | "c4.xlarge" | "c5.12xlarge" | "c5.18xlarge" | "c5.24xlarge" | "c5.2xlarge" | "c5.4xlarge" | "c5.9xlarge" | "c5.large" | "c5.metal" | "c5.xlarge" | "c5d.18xlarge" | "c5d.2xlarge" | "c5d.4xlarge" | "c5d.9xlarge" | "c5d.large" | "c5d.xlarge" | "c5n.18xlarge" | "c5n.2xlarge" | "c5n.4xlarge" | "c5n.9xlarge" | "c5n.large" | "c5n.metal" | "c5n.xlarge" | "cc2.8xlarge" | "cr1.8xlarge" | "d2.2xlarge" | "d2.4xlarge" | "d2.8xlarge" | "d2.xlarge" | "f1.16xlarge" | "f1.2xlarge" | "f1.4xlarge" | "g2.2xlarge" | "g2.8xlarge" | "g3.16xlarge" | "g3.4xlarge" | "g3.8xlarge" | "g3s.xlarge" | "h1.16xlarge" | "h1.2xlarge" | "h1.4xlarge" | "h1.8xlarge" | "hs1.8xlarge" | "i2.2xlarge" | "i2.4xlarge" | "i2.8xlarge" | "i2.xlarge" | "i3.16xlarge" | "i3.2xlarge" | "i3.4xlarge" | "i3.8xlarge" | "i3.large" | "i3.metal" | "i3.xlarge" | "i3en.12xlarge" | "i3en.24xlarge" | "i3en.2xlarge" | "i3en.3xlarge" | "i3en.6xlarge" | "i3en.large" | "i3en.metal" | "i3en.xlarge" | "m1.large" | "m1.medium" | "m1.small" | "m1.xlarge" | "m2.2xlarge" | "m2.4xlarge" | "m2.xlarge" | "m3.2xlarge" | "m3.large" | "m3.medium" | "m3.xlarge" | "m4.10xlarge" | "m4.16xlarge" | "m4.2xlarge" | "m4.4xlarge" | "m4.large" | "m4.xlarge" | "m5.12xlarge" | "m5.16xlarge" | "m5.24xlarge" | "m5.2xlarge" | "m5.4xlarge" | "m5.8xlarge" | "m5.large" | "m5.metal" | "m5.xlarge" | "m5a.12xlarge" | "m5a.16xlarge" | "m5a.24xlarge" | "m5a.2xlarge" | "m5a.4xlarge" | "m5a.8xlarge" | "m5a.large" | "m5a.xlarge" | "m5ad.12xlarge" | "m5ad.24xlarge" | "m5ad.2xlarge" | "m5ad.4xlarge" | "m5ad.large" | "m5ad.xlarge" | "m5d.12xlarge" | "m5d.16xlarge" | "m5d.24xlarge" | "m5d.2xlarge" | "m5d.4xlarge" | "m5d.8xlarge" | "m5d.large" | "m5d.metal" | "m5d.xlarge" | "p2.16xlarge" | "p2.8xlarge" | "p2.xlarge" | "p3.16xlarge" | "p3.2xlarge" | "p3.8xlarge" | "p3dn.24xlarge" | "r3.2xlarge" | "r3.4xlarge" | "r3.8xlarge" | "r3.large" | "r3.xlarge" | "r4.16xlarge" | "r4.2xlarge" | "r4.4xlarge" | "r4.8xlarge" | "r4.large" | "r4.xlarge" | "r5.12xlarge" | "r5.16xlarge" | "r5.24xlarge" | "r5.2xlarge" | "r5.4xlarge" | "r5.8xlarge" | "r5.large" | "r5.metal" | "r5.xlarge" | "r5a.12xlarge" | "r5a.16xlarge" | "r5a.24xlarge" | "r5a.2xlarge" | "r5a.4xlarge" | "r5a.8xlarge" | "r5a.large" | "r5a.xlarge" | "r5ad.12xlarge" | "r5ad.24xlarge" | "r5ad.2xlarge" | "r5ad.4xlarge" | "r5ad.large" | "r5ad.xlarge" | "r5d.12xlarge" | "r5d.16xlarge" | "r5d.24xlarge" | "r5d.2xlarge" | "r5d.4xlarge" | "r5d.8xlarge" | "r5d.large" | "r5d.metal" | "r5d.xlarge" | "t1.micro" | "t2.2xlarge" | "t2.large" | "t2.medium" | "t2.micro" | "t2.nano" | "t2.small" | "t2.xlarge" | "t3.2xlarge" | "t3.large" | "t3.medium" | "t3.micro" | "t3.nano" | "t3.small" | "t3.xlarge" | "t3a.2xlarge" | "t3a.large" | "t3a.medium" | "t3a.micro" | "t3a.nano" | "t3a.small" | "t3a.xlarge" | "x1.16xlarge" | "x1.32xlarge" | "x1e.16xlarge" | "x1e.2xlarge" | "x1e.32xlarge" | "x1e.4xlarge" | "x1e.8xlarge" | "x1e.xlarge" | "z1d.12xlarge" | "z1d.2xlarge" | "z1d.3xlarge" | "z1d.6xlarge" | "z1d.large" | "z1d.metal" | "z1d.xlarge"
     InstanceType:        string
     KernelId?:           string
     KeyName?:            string
@@ -706,9 +745,12 @@ SpotFleet :: {
     Enabled?: bool
   }
   __SpotFleetRequestConfigData = {
+    AllocationStrategy?:              "diversified" | "lowestPrice"
     AllocationStrategy?:              string
+    ExcessCapacityTerminationPolicy?: "default" | "noTermination"
     ExcessCapacityTerminationPolicy?: string
     IamFleetRole:                     string
+    InstanceInterruptionBehavior?:    "hibernate" | "stop" | "terminate"
     InstanceInterruptionBehavior?:    string
     LaunchSpecifications?: [...__SpotFleetLaunchSpecification]
     LaunchTemplateConfigs?: [...__LaunchTemplateConfig]
@@ -717,6 +759,7 @@ SpotFleet :: {
     SpotPrice?:                        string
     TargetCapacity:                    int
     TerminateInstancesWithExpiration?: bool
+    Type?:                             "instant" | "maintain" | "request"
     Type?:                             string
     ValidFrom?:                        string
     ValidUntil?:                       string
@@ -774,12 +817,17 @@ TransitGateway :: {
   Type: "AWS::EC2::TransitGateway"
   Properties: {
     AmazonSideAsn?:                int
+    AutoAcceptSharedAttachments?:  "disable" | "enable"
     AutoAcceptSharedAttachments?:  string
+    DefaultRouteTableAssociation?: "disable" | "enable"
     DefaultRouteTableAssociation?: string
+    DefaultRouteTablePropagation?: "disable" | "enable"
     DefaultRouteTablePropagation?: string
     Description?:                  string
+    DnsSupport?:                   "disable" | "enable"
     DnsSupport?:                   string
     Tags?: [...__Tag]
+    VpnEcmpSupport?: "disable" | "enable"
     VpnEcmpSupport?: string
   }
 }
@@ -828,6 +876,7 @@ VPC :: {
     CidrBlock:           string
     EnableDnsHostnames?: bool
     EnableDnsSupport?:   bool
+    InstanceTenancy?:    "dedicated" | "default"
     InstanceTenancy?:    string
     Tags?: [...__Tag]
   }
@@ -857,6 +906,7 @@ VPCEndpoint :: {
     SecurityGroupIds?: [...string]
     ServiceName: string
     SubnetIds?: [...string]
+    VpcEndpointType?: "Gateway" | "Interface"
     VpcEndpointType?: string
     VpcId:            string
   }
@@ -901,6 +951,7 @@ VPNConnection :: {
     StaticRoutesOnly?: bool
     Tags?: [...__Tag]
     TransitGatewayId?: string
+    Type:              "ipsec.1"
     Type:              string
     VpnGatewayId?:     string
     VpnTunnelOptionsSpecifications?: [...__VpnTunnelOptionsSpecification]
@@ -922,6 +973,7 @@ VPNGateway :: {
   Properties: {
     AmazonSideAsn?: int
     Tags?: [...__Tag]
+    Type: "ipsec.1"
     Type: string
   }
 }
@@ -943,6 +995,7 @@ Volume :: {
     Size?:            int
     SnapshotId?:      string
     Tags?: [...__Tag]
+    VolumeType?: "gp2" | "io1" | "sc1" | "st1" | "standard"
     VolumeType?: string
   }
 }

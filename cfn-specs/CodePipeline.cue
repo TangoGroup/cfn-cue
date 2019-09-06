@@ -3,6 +3,7 @@ package CodePipeline
 CustomActionType :: {
   Type: "AWS::CodePipeline::CustomActionType"
   Properties: {
+    Category: "Approval" | "Build" | "Deploy" | "Invoke" | "Source" | "Test"
     Category: string
     ConfigurationProperties?: [...__ConfigurationProperties]
     InputArtifactDetails:  __ArtifactDetails
@@ -22,6 +23,7 @@ CustomActionType :: {
     Queryable?:   bool
     Required:     bool
     Secret:       bool
+    Type?:        "Boolean" | "Number" | "String"
     Type?:        string
   }
   __Settings = {
@@ -54,7 +56,9 @@ Pipeline :: {
     RunOrder?: int
   }
   __ActionTypeId = {
+    Category: "Approval" | "Build" | "Deploy" | "Invoke" | "Source" | "Test"
     Category: string
+    Owner:    "AWS" | "Custom" | "ThirdParty"
     Owner:    string
     Provider: string
     Version:  string
@@ -62,6 +66,7 @@ Pipeline :: {
   __ArtifactStore = {
     EncryptionKey?: __EncryptionKey
     Location:       string
+    Type:           "S3"
     Type:           string
   }
   __ArtifactStoreMap = {
@@ -70,6 +75,7 @@ Pipeline :: {
   }
   __BlockerDeclaration = {
     Name: string
+    Type: "Schedule"
     Type: string
   }
   __EncryptionKey = {
@@ -95,6 +101,7 @@ Pipeline :: {
 Webhook :: {
   Type: "AWS::CodePipeline::Webhook"
   Properties: {
+    Authentication:              "GITHUB_HMAC" | "IP" | "UNAUTHENTICATED"
     Authentication:              string
     AuthenticationConfiguration: __WebhookAuthConfiguration
     Filters: [...__WebhookFilterRule]

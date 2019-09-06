@@ -84,6 +84,7 @@ Instance :: {
     Iops?:                int
     SnapshotId?:          string
     VolumeSize?:          int
+    VolumeType?:          "gp2" | "io1" | "sc1" | "st1" | "standard"
     VolumeType?:          string
   }
   __TimeBasedAutoScaling = {
@@ -162,6 +163,7 @@ Layer :: {
     NumberOfDisks?: int
     RaidLevel?:     int
     Size?:          int
+    VolumeType?:    "gp2" | "io1" | "sc1" | "st1" | "standard"
     VolumeType?:    string
   }
 }

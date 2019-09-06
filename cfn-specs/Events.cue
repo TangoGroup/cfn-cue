@@ -3,13 +3,16 @@ package Events
 EventBusPolicy :: {
   Type: "AWS::Events::EventBusPolicy"
   Properties: {
+    Action:      "events:PutEvents"
     Action:      string
     Condition?:  __Condition
     Principal:   string
     StatementId: string
   }
   __Condition = {
+    Key?:   "aws:PrincipalOrgID"
     Key?:   string
+    Type?:  "StringEquals"
     Type?:  string
     Value?: string
   }
@@ -23,6 +26,7 @@ Rule :: {
     Name?:               string
     RoleArn?:            string
     ScheduleExpression?: string
+    State?:              "DISABLED" | "ENABLED"
     State?:              string
     Targets?: [...__Target]
   }

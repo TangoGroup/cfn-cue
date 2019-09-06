@@ -6,6 +6,7 @@ LifecyclePolicy :: {
     Description?:     string
     ExecutionRoleArn: string
     PolicyDetails?:   __PolicyDetails
+    State:            "DISABLED" | "ENABLED"
     State:            string
   }
   __CreateRule = {
@@ -17,8 +18,9 @@ LifecyclePolicy :: {
     ExcludeBootVolume?: bool
   }
   __PolicyDetails = {
-    Parameters?: __Parameters
-    PolicyType?: string
+    Parameters?:    __Parameters
+    PolicyType?:    string
+    ResourceTypes?: "INSTANCE" | "VOLUME"
     ResourceTypes?: [...string]
     Schedules?: [...__Schedule]
     TargetTags?: [...__Tag]

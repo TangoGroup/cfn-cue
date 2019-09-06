@@ -15,6 +15,7 @@ Service :: {
     DesiredCount?:                  int
     EnableECSManagedTags?:          bool
     HealthCheckGracePeriodSeconds?: int
+    LaunchType?:                    "EC2" | "FARGATE"
     LaunchType?:                    string
     LoadBalancers?: [...__LoadBalancer]
     NetworkConfiguration?: __NetworkConfiguration
@@ -23,6 +24,7 @@ Service :: {
     PlatformVersion?:    string
     PropagateTags?:      string
     Role?:               string
+    SchedulingStrategy?: "DAEMON" | "REPLICA"
     SchedulingStrategy?: string
     ServiceName?:        string
     ServiceRegistries?: [...__ServiceRegistry]
@@ -71,6 +73,7 @@ TaskDefinition :: {
     Family?:           string
     IpcMode?:          string
     Memory?:           string
+    NetworkMode?:      "awsvpc" | "bridge" | "host" | "none"
     NetworkMode?:      string
     PidMode?:          string
     PlacementConstraints?: [...__TaskDefinitionPlacementConstraint]
@@ -186,6 +189,7 @@ TaskDefinition :: {
   __ProxyConfiguration = {
     ContainerName: string
     ProxyConfigurationProperties?: [...__KeyValuePair]
+    Type?: "APPMESH"
     Type?: string
   }
   __RepositoryCredentials = {

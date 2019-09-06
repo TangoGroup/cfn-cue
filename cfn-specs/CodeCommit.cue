@@ -16,6 +16,7 @@ Repository :: {
     Branches?: [...string]
     CustomData?:    string
     DestinationArn: string
+    Events:         "all" | "createReference" | "deleteReference" | "updateReference"
     Events: [...string]
     Name: string
   }

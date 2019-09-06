@@ -47,6 +47,7 @@ SecretTargetAttachment :: {
   Properties: {
     SecretId:   string
     TargetId:   string
+    TargetType: "AWS::RDS::DBCluster" | "AWS::RDS::DBInstance"
     TargetType: string
   }
 }

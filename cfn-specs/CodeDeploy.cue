@@ -4,6 +4,7 @@ Application :: {
   Type: "AWS::CodeDeploy::Application"
   Properties: {
     ApplicationName?: string
+    ComputePlatform?: "ECS" | "Lambda" | "Server"
     ComputePlatform?: string
   }
 }
@@ -14,6 +15,7 @@ DeploymentConfig :: {
     MinimumHealthyHosts?:  __MinimumHealthyHosts
   }
   __MinimumHealthyHosts = {
+    Type:  "FLEET_PERCENT" | "HOST_COUNT"
     Type:  string
     Value: int
   }
@@ -47,6 +49,7 @@ DeploymentGroup :: {
   }
   __AutoRollbackConfiguration = {
     Enabled?: bool
+    Events?:  "DEPLOYMENT_FAILURE" | "DEPLOYMENT_STOP_ON_ALARM" | "DEPLOYMENT_STOP_ON_REQUEST"
     Events?: [...string]
   }
   __Deployment = {
@@ -55,7 +58,9 @@ DeploymentGroup :: {
     Revision:                       __RevisionLocation
   }
   __DeploymentStyle = {
+    DeploymentOption?: "WITH_TRAFFIC_CONTROL" | "WITHOUT_TRAFFIC_CONTROL"
     DeploymentOption?: string
+    DeploymentType?:   "BLUE_GREEN" | "IN_PLACE"
     DeploymentType?:   string
   }
   __EC2TagFilter = {
@@ -107,6 +112,7 @@ DeploymentGroup :: {
     Name?: string
   }
   __TriggerConfig = {
+    TriggerEvents?: "DeploymentFailure" | "DeploymentReady" | "DeploymentRollback" | "DeploymentStart" | "DeploymentStop" | "DeploymentSuccess" | "InstanceFailure" | "InstanceReady" | "InstanceStart" | "InstanceSuccess"
     TriggerEvents?: [...string]
     TriggerName?:      string
     TriggerTargetArn?: string

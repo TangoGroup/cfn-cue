@@ -34,6 +34,7 @@ Authorizer :: {
     Name?:                         string
     ProviderARNs?: [...string]
     RestApiId: string
+    Type:      "COGNITO_USER_POOLS" | "REQUEST" | "TOKEN"
     Type:      string
   }
 }
@@ -154,6 +155,7 @@ GatewayResponse :: {
     }
     ResponseTemplates?: {
     }
+    ResponseType: "ACCESS_DENIED" | "API_CONFIGURATION_ERROR" | "AUTHORIZER_FAILURE" | "AUTHORIZER_CONFIGURATION_ERROR" | "BAD_REQUEST_PARAMETERS" | "BAD_REQUEST_BODY" | "DEFAULT_4XX" | "DEFAULT_5XX" | "EXPIRED_TOKEN" | "INVALID_SIGNATURE" | "INTEGRATION_FAILURE" | "INTEGRATION_TIMEOUT" | "INVALID_API_KEY" | "MISSING_AUTHENTICATION_TOKEN" | "QUOTA_EXCEEDED" | "REQUEST_TOO_LARGE" | "RESOURCE_NOT_FOUND" | "THROTTLED" | "UNAUTHORIZED" | "UNSUPPORTED_MEDIA_TYPE"
     ResponseType: string
     RestApiId:    string
     StatusCode?:  string
@@ -244,6 +246,7 @@ Resource :: {
 RestApi :: {
   Type: "AWS::ApiGateway::RestApi"
   Properties: {
+    ApiKeySourceType?: "AUTHORIZER" | "HEADER"
     ApiKeySourceType?: string
     BinaryMediaTypes?: [...string]
     Body?: {
@@ -342,6 +345,7 @@ UsagePlanKey :: {
   Type: "AWS::ApiGateway::UsagePlanKey"
   Properties: {
     KeyId:       string
+    KeyType:     "API_KEY"
     KeyType:     string
     UsagePlanId: string
   }

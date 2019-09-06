@@ -33,6 +33,7 @@ ScalingPolicy :: {
   Type: "AWS::ApplicationAutoScaling::ScalingPolicy"
   Properties: {
     PolicyName:                                string
+    PolicyType:                                "StepScaling" | "TargetTrackingScaling"
     PolicyType:                                string
     ResourceId?:                               string
     ScalableDimension?:                        string
@@ -45,6 +46,7 @@ ScalingPolicy :: {
     Dimensions?: [...__MetricDimension]
     MetricName: string
     Namespace:  string
+    Statistic:  "Average" | "Minimum" | "Maximum" | "SampleCount" | "Sum"
     Statistic:  string
     Unit?:      string
   }
@@ -53,6 +55,7 @@ ScalingPolicy :: {
     Value: string
   }
   __PredefinedMetricSpecification = {
+    PredefinedMetricType: "ALBRequestCountPerTarget" | "DynamoDBReadCapacityUtilization" | "DynamoDBWriteCapacityUtilization" | "EC2SpotFleetRequestAverageCPUUtilization" | "EC2SpotFleetRequestAverageNetworkIn" | "EC2SpotFleetRequestAverageNetworkOut" | "ECSServiceAverageCPUUtilization" | "ECSServiceAverageMemoryUtilization" | "RDSReaderAverageCPUUtilization" | "RDSReaderAverageDatabaseConnections" | "SageMakerVariantInvocationsPerInstance"
     PredefinedMetricType: string
     ResourceLabel?:       string
   }

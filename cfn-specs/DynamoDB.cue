@@ -4,6 +4,7 @@ Table :: {
   Type: "AWS::DynamoDB::Table"
   Properties: {
     AttributeDefinitions: [...__AttributeDefinition]
+    BillingMode?: "PAY_PER_REQUEST" | "PROVISIONED"
     BillingMode?: string
     GlobalSecondaryIndexes?: [...__GlobalSecondaryIndex]
     KeySchema: [...__KeySchema]
@@ -18,6 +19,7 @@ Table :: {
   }
   __AttributeDefinition = {
     AttributeName: string
+    AttributeType: "B" | "N" | "S"
     AttributeType: string
   }
   __GlobalSecondaryIndex = {
@@ -28,6 +30,7 @@ Table :: {
   }
   __KeySchema = {
     AttributeName: string
+    KeyType:       "HASH" | "RANGE"
     KeyType:       string
   }
   __LocalSecondaryIndex = {
@@ -40,6 +43,7 @@ Table :: {
   }
   __Projection = {
     NonKeyAttributes?: [...string]
+    ProjectionType?: "ALL" | "INCLUDE" | "KEYS_ONLY"
     ProjectionType?: string
   }
   __ProvisionedThroughput = {
@@ -52,6 +56,7 @@ Table :: {
     SSEType?:        string
   }
   __StreamSpecification = {
+    StreamViewType: "KEYS_ONLY" | "NEW_AND_OLD_IMAGES" | "NEW_IMAGE" | "OLD_IMAGE"
     StreamViewType: string
   }
   __TimeToLiveSpecification = {

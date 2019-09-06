@@ -4,6 +4,7 @@ Bucket :: {
   Type: "AWS::S3::Bucket"
   Properties: {
     AccelerateConfiguration?: __AccelerateConfiguration
+    AccessControl?:           "AuthenticatedRead" | "AwsExecRead" | "BucketOwnerFullControl" | "BucketOwnerRead" | "LogDeliveryWrite" | "Private" | "PublicRead" | "PublicReadWrite"
     AccessControl?:           string
     AnalyticsConfigurations?: [...__AnalyticsConfiguration]
     BucketEncryption?:  __BucketEncryption
@@ -26,6 +27,7 @@ Bucket :: {
     DaysAfterInitiation: int
   }
   __AccelerateConfiguration = {
+    AccelerationStatus: "Enabled" | "Suspended"
     AccelerationStatus: string
   }
   __AccessControlTranslation = {
@@ -131,6 +133,7 @@ Bucket :: {
   }
   __RedirectAllRequestsTo = {
     HostName:  string
+    Protocol?: "http" | "https"
     Protocol?: string
   }
   __RedirectRule = {
@@ -185,6 +188,7 @@ Bucket :: {
   }
   __ServerSideEncryptionByDefault = {
     KMSMasterKeyID?: string
+    SSEAlgorithm:    "AES256" | "aws:kms"
     SSEAlgorithm:    string
   }
   __ServerSideEncryptionRule = {
@@ -204,6 +208,7 @@ Bucket :: {
     Value: string
   }
   __TopicConfiguration = {
+    Event:   "s3:ObjectCreated:*" | "s3:ObjectCreated:CompleteMultipartUpload" | "s3:ObjectCreated:Copy" | "s3:ObjectCreated:Post" | "s3:ObjectCreated:Put" | "s3:ObjectRemoved:*" | "s3:ObjectRemoved:Delete" | "s3:ObjectRemoved:DeleteMarkerCreated" | "s3:ObjectRestore:Completed" | "s3:ObjectRestore:Post" | "s3:ReducedRedundancyLostObject"
     Event:   string
     Filter?: __NotificationFilter
     Topic:   string
@@ -214,6 +219,7 @@ Bucket :: {
     TransitionInDays?: int
   }
   __VersioningConfiguration = {
+    Status: "Enabled" | "Suspended"
     Status: string
   }
   __WebsiteConfiguration = {

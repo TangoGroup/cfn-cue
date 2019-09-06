@@ -18,12 +18,14 @@ Trail :: {
     TrailName?: string
   }
   __DataResource = {
+    Type: "AWS::Lambda::Function" | "AWS::S3::Object"
     Type: string
     Values?: [...string]
   }
   __EventSelector = {
     DataResources?: [...__DataResource]
     IncludeManagementEvents?: bool
+    ReadWriteType?:           "All" | "ReadOnly" | "WriteOnly"
     ReadWriteType?:           string
   }
 }

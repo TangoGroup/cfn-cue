@@ -72,6 +72,7 @@ Rule :: {
   __Predicate = {
     DataId:  string
     Negated: bool
+    Type:    "ByteMatch" | "GeoMatch" | "IPMatch" | "RegexMatch" | "SizeConstraint" | "SqlInjectionMatch" | "XssMatch"
     Type:    string
   }
 }

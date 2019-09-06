@@ -42,6 +42,7 @@ Connection :: {
   __ConnectionInput = {
     ConnectionProperties: {
     }
+    ConnectionType: "JDBC" | "SFTP"
     ConnectionType: string
     Description?:   string
     MatchCriteria?: [...string]
@@ -84,7 +85,9 @@ Crawler :: {
     ScheduleExpression?: string
   }
   __SchemaChangePolicy = {
+    DeleteBehavior?: "DELETE_FROM_DATABASE" | "DEPRECATE_IN_DATABASE" | "LOG"
     DeleteBehavior?: string
+    UpdateBehavior?: "LOG" | "UPDATE_IN_DATABASE"
     UpdateBehavior?: string
   }
   __Targets = {
@@ -338,6 +341,7 @@ Table :: {
     PartitionKeys?: [...__Column]
     Retention?:         int
     StorageDescriptor?: __StorageDescriptor
+    TableType?:         "EXTERNAL_TABLE" | "VIRTUAL_VIEW"
     TableType?:         string
     ViewExpandedText?:  string
     ViewOriginalText?:  string
@@ -353,6 +357,7 @@ Trigger :: {
     Schedule?:    string
     Tags?: {
     }
+    Type: "CONDITIONAL" | "ON_DEMAND" | "SCHEDULED"
     Type: string
   }
   __Action = {
@@ -363,11 +368,14 @@ Trigger :: {
   }
   __Condition = {
     JobName?:         string
+    LogicalOperator?: "EQUALS"
     LogicalOperator?: string
+    State?:           "SUCCEEDED"
     State?:           string
   }
   __Predicate = {
     Conditions?: [...__Condition]
+    Logical?: "AND"
     Logical?: string
   }
 }

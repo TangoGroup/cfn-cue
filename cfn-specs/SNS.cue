@@ -8,6 +8,7 @@ Subscription :: {
     Endpoint?: string
     FilterPolicy?: {
     }
+    Protocol:            "application" | "email-json" | "email" | "http" | "https" | "lambda" | "sms" | "sqs"
     Protocol:            string
     RawMessageDelivery?: bool
     Region?:             string

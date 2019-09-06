@@ -84,6 +84,7 @@ ReceiptRule :: {
     Name?:    string
     Recipients?: [...string]
     ScanEnabled?: bool
+    TlsPolicy?:   "Optional" | "Require"
     TlsPolicy?:   string
   }
   __S3Action = {

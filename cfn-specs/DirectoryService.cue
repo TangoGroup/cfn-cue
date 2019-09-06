@@ -4,6 +4,7 @@ MicrosoftAD :: {
   Type: "AWS::DirectoryService::MicrosoftAD"
   Properties: {
     CreateAlias?: bool
+    Edition?:     "Enterprise" | "Standard"
     Edition?:     string
     EnableSso?:   bool
     Name:         string
@@ -25,6 +26,7 @@ SimpleAD :: {
     Name:         string
     Password:     string
     ShortName?:   string
+    Size:         "Large" | "Small"
     Size:         string
     VpcSettings:  __VpcSettings
   }

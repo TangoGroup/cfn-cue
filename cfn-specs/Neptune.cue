@@ -38,6 +38,7 @@ DBInstance :: {
     AutoMinorVersionUpgrade?:    bool
     AvailabilityZone?:           string
     DBClusterIdentifier?:        string
+    DBInstanceClass:             "db.r4.2xlarge" | "db.r4.4xlarge" | "db.r4.8xlarge" | "db.r4.large" | "db.r4.xlarge" | "db.r5.12xl" | "db.r5.2xl" | "db.r5.4xl" | "db.r5.large" | "db.r5.xl"
     DBInstanceClass:             string
     DBInstanceIdentifier?:       string
     DBParameterGroupName?:       string

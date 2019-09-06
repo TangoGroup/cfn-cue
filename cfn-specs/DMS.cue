@@ -16,7 +16,9 @@ Endpoint :: {
     DynamoDbSettings?:          __DynamoDbSettings
     ElasticsearchSettings?:     __ElasticsearchSettings
     EndpointIdentifier?:        string
+    EndpointType:               "source" | "target"
     EndpointType:               string
+    EngineName:                 "aurora-postgresql" | "aurora" | "azuredb" | "db2" | "dynamodb" | "mariadb" | "mongodb" | "mysql" | "oracle" | "postgres" | "redshift" | "s3" | "sqlserver" | "sybase"
     EngineName:                 string
     ExtraConnectionAttributes?: string
     KinesisSettings?:           __KinesisSettings
@@ -26,6 +28,7 @@ Endpoint :: {
     Port?:                      int
     S3Settings?:                __S3Settings
     ServerName?:                string
+    SslMode?:                   "none" | "require" | "verify-ca" | "verify-full"
     SslMode?:                   string
     Tags?: [...__Tag]
     Username?: string

@@ -4,6 +4,7 @@ AccessKey :: {
   Type: "AWS::IAM::AccessKey"
   Properties: {
     Serial?:  int
+    Status?:  "Active" | "Inactive"
     Status?:  string
     UserName: string
   }

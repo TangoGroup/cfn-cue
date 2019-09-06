@@ -30,23 +30,29 @@ Project :: {
     Name?:                 string
     NamespaceType?:        string
     OverrideArtifactName?: bool
+    Packaging?:            "NONE" | "ZIP"
     Packaging?:            string
     Path?:                 string
+    Type:                  "CODEPIPELINE" | "NO_ARTIFACTS" | "S3"
     Type:                  string
   }
   __CloudWatchLogsConfig = {
     GroupName?:  string
+    Status:      "DISABLED" | "ENABLED"
     Status:      string
     StreamName?: string
   }
   __Environment = {
     Certificate?: string
+    ComputeType:  "BUILD_GENERAL1_LARGE" | "BUILD_GENERAL1_MEDIUM" | "BUILD_GENERAL1_SMALL"
     ComputeType:  string
     EnvironmentVariables?: [...__EnvironmentVariable]
     Image:                     string
+    ImagePullCredentialsType?: "CODEBUILD" | "SERVICE_ROLE"
     ImagePullCredentialsType?: string
     PrivilegedMode?:           bool
     RegistryCredential?:       __RegistryCredential
+    Type:                      "LINUX_CONTAINER" | "WINDOWS_CONTAINER"
     Type:                      string
   }
   __EnvironmentVariable = {
@@ -66,6 +72,7 @@ Project :: {
   __ProjectCache = {
     Location?: string
     Modes?: [...string]
+    Type: "LOCAL" | "NO_CACHE" | "S3"
     Type: string
   }
   __ProjectSourceVersion = {
@@ -83,6 +90,7 @@ Project :: {
   __S3LogsConfig = {
     EncryptionDisabled?: bool
     Location?:           string
+    Status:              "DISABLED" | "ENABLED"
     Status:              string
   }
   __Source = {
@@ -94,6 +102,7 @@ Project :: {
     Location?:            string
     ReportBuildStatus?:   bool
     SourceIdentifier?:    string
+    Type:                 "BITBUCKET" | "CODECOMMIT" | "CODEPIPELINE" | "GITHUB" | "GITHUB_ENTERPRISE" | "NO_SOURCE" | "S3"
     Type:                 string
   }
   __SourceAuth = {

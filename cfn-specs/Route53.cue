@@ -18,6 +18,7 @@ HealthCheck :: {
     FullyQualifiedDomainName?:     string
     HealthThreshold?:              int
     IPAddress?:                    string
+    InsufficientDataHealthStatus?: "Healthy" | "LastKnownStatus" | "Unhealthy"
     InsufficientDataHealthStatus?: string
     Inverted?:                     bool
     MeasureLatency?:               bool
@@ -26,6 +27,7 @@ HealthCheck :: {
     RequestInterval?: int
     ResourcePath?:    string
     SearchString?:    string
+    Type:             "CALCULATED" | "CLOUDWATCH_METRIC" | "HTTP_STR_MATCH" | "HTTP" | "HTTPS_STR_MATCH" | "HTTPS" | "TCP"
     Type:             string
   }
   __HealthCheckTag = {
@@ -62,6 +64,7 @@ RecordSet :: {
   Properties: {
     AliasTarget?:      __AliasTarget
     Comment?:          string
+    Failover?:         "PRIMARY" | "SECONDARY"
     Failover?:         string
     GeoLocation?:      __GeoLocation
     HealthCheckId?:    string
@@ -73,6 +76,7 @@ RecordSet :: {
     ResourceRecords?: [...string]
     SetIdentifier?: string
     TTL?:           string
+    Type:           "A" | "AAAA" | "CAA" | "CNAME" | "MX" | "NAPTR" | "NS" | "PTR" | "SOA" | "SPF" | "SRV" | "TXT"
     Type:           string
     Weight?:        int
   }
@@ -82,6 +86,7 @@ RecordSet :: {
     HostedZoneId:          string
   }
   __GeoLocation = {
+    ContinentCode?:   "AF" | "AN" | "AS" | "EU" | "NA" | "OC" | "SA"
     ContinentCode?:   string
     CountryCode?:     string
     SubdivisionCode?: string
@@ -101,6 +106,7 @@ RecordSetGroup :: {
     HostedZoneId:          string
   }
   __GeoLocation = {
+    ContinentCode?:   "AF" | "AN" | "AS" | "EU" | "NA" | "OC" | "SA"
     ContinentCode?:   string
     CountryCode?:     string
     SubdivisionCode?: string
@@ -108,6 +114,7 @@ RecordSetGroup :: {
   __RecordSet = {
     AliasTarget?:      __AliasTarget
     Comment?:          string
+    Failover?:         "PRIMARY" | "SECONDARY"
     Failover?:         string
     GeoLocation?:      __GeoLocation
     HealthCheckId?:    string
@@ -119,6 +126,7 @@ RecordSetGroup :: {
     ResourceRecords?: [...string]
     SetIdentifier?: string
     TTL?:           string
+    Type:           "A" | "AAAA" | "CAA" | "CNAME" | "MX" | "NAPTR" | "NS" | "PTR" | "SOA" | "SPF" | "SRV" | "TXT"
     Type:           string
     Weight?:        int
   }

@@ -20,6 +20,7 @@ DataSource :: {
     Name:                      string
     RelationalDatabaseConfig?: __RelationalDatabaseConfig
     ServiceRoleArn?:           string
+    Type:                      "AMAZON_DYNAMODB" | "AMAZON_ELASTICSEARCH" | "AWS_LAMBDA" | "HTTP" | "NONE" | "RELATIONAL_DATABASE"
     Type:                      string
   }
   __AuthorizationConfig = {
@@ -76,6 +77,7 @@ GraphQLApi :: {
   Type: "AWS::AppSync::GraphQLApi"
   Properties: {
     AdditionalAuthenticationProviders?: __AdditionalAuthenticationProviders
+    AuthenticationType:                 "AMAZON_COGNITO_USER_POOLS" | "API_KEY" | "AWS_IAM" | "OPENID_CONNECT"
     AuthenticationType:                 string
     LogConfig?:                         __LogConfig
     Name:                               string
@@ -129,6 +131,7 @@ Resolver :: {
     ApiId:                              string
     DataSourceName?:                    string
     FieldName:                          string
+    Kind?:                              "PIPELINE" | "UNIT"
     Kind?:                              string
     PipelineConfig?:                    __PipelineConfig
     RequestMappingTemplate?:            string

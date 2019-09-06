@@ -24,6 +24,7 @@ IdentityPool :: {
   __CognitoStreams = {
     RoleArn?:         string
     StreamName?:      string
+    StreamingStatus?: "DISABLED" | "ENABLED"
     StreamingStatus?: string
   }
   __PushSync = {
@@ -59,13 +60,16 @@ UserPool :: {
   Type: "AWS::Cognito::UserPool"
   Properties: {
     AdminCreateUserConfig?: __AdminCreateUserConfig
+    AliasAttributes?:       "email" | "phone_number" | "preferred_username"
     AliasAttributes?: [...string]
+    AutoVerifiedAttributes?: "email" | "phone_number"
     AutoVerifiedAttributes?: [...string]
     DeviceConfiguration?:      __DeviceConfiguration
     EmailConfiguration?:       __EmailConfiguration
     EmailVerificationMessage?: string
     EmailVerificationSubject?: string
     LambdaConfig?:             __LambdaConfig
+    MfaConfiguration?:         "OFF" | "ON" | "OPTIONAL"
     MfaConfiguration?:         string
     Policies?:                 __Policies
     Schema?: [...__SchemaAttribute]
@@ -76,6 +80,7 @@ UserPool :: {
     UserPoolName?:             string
     UserPoolTags?: {
     }
+    UsernameAttributes?: "email" | "phone_number"
     UsernameAttributes?: [...string]
     VerificationMessageTemplate?: __VerificationMessageTemplate
   }
@@ -126,6 +131,7 @@ UserPool :: {
     PasswordPolicy?: __PasswordPolicy
   }
   __SchemaAttribute = {
+    AttributeDataType?:          "Boolean" | "DateTime" | "Number" | "String"
     AttributeDataType?:          string
     DeveloperOnlyAttribute?:     bool
     Mutable?:                    bool
@@ -164,6 +170,7 @@ UserPoolClient :: {
     CallbackURLs?: [...string]
     ClientName?:         string
     DefaultRedirectURI?: string
+    ExplicitAuthFlows?:  "ADMIN_NO_SRP_AUTH" | "CUSTOM_AUTH_FLOW_ONLY" | "USER_PASSWORD_AUTH"
     ExplicitAuthFlows?: [...string]
     GenerateSecret?: bool
     LogoutURLs?: [...string]
@@ -193,8 +200,10 @@ UserPoolGroup :: {
 UserPoolUser :: {
   Type: "AWS::Cognito::UserPoolUser"
   Properties: {
+    DesiredDeliveryMediums?: "EMAIL" | "SMS"
     DesiredDeliveryMediums?: [...string]
     ForceAliasCreation?: bool
+    MessageAction?:      "RESEND" | "SUPPRESS"
     MessageAction?:      string
     UserAttributes?: [...__AttributeType]
     UserPoolId: string

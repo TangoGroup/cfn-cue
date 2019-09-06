@@ -7,8 +7,10 @@ FileSystem :: {
     FileSystemTags?: [...__ElasticFileSystemTag]
     KmsKeyId?: string
     LifecyclePolicies?: [...__LifecyclePolicy]
+    PerformanceMode?:              "generalPurpose" | "maxIO"
     PerformanceMode?:              string
     ProvisionedThroughputInMibps?: float
+    ThroughputMode?:               "bursting" | "provisioned"
     ThroughputMode?:               string
   }
   __ElasticFileSystemTag = {
@@ -16,6 +18,7 @@ FileSystem :: {
     Value: string
   }
   __LifecyclePolicy = {
+    TransitionToIA: "AFTER_30_DAYS"
     TransitionToIA: string
   }
 }

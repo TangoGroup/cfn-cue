@@ -3,6 +3,7 @@ package Route53Resolver
 ResolverEndpoint :: {
   Type: "AWS::Route53Resolver::ResolverEndpoint"
   Properties: {
+    Direction: "INBOUND" | "OUTBOUND"
     Direction: string
     IpAddresses: [...__IpAddressRequest]
     Name?: string
@@ -20,6 +21,7 @@ ResolverRule :: {
     DomainName:          string
     Name?:               string
     ResolverEndpointId?: string
+    RuleType:            "FORWARD" | "RECURSIVE" | "SYSTEM"
     RuleType:            string
     Tags?: [...__Tag]
     TargetIps?: [...__TargetAddress]

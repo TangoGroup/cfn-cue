@@ -75,7 +75,31 @@ func createFieldFromProperty(name string, prop Property) (node ast.Decl) {
 	return node
 }
 
-func createStructFromResource(properties map[string]Property) (s ast.StructLit) {
+func createFieldFromAllowedValues(name string, prop Property, allowedValues []string) (node ast.Decl) {
+	var optional token.Pos
+	switch prop.Required {
+	case true:
+		optional = token.NoRelPos.Pos()
+	case false:
+		optional = token.Elided.Pos()
+	}
+	field := &ast.Field{
+		Label:    ast.NewIdent(name),
+		Optional: optional,
+	}
+
+	for _, allowedValue := range allowedValues {
+		var e ast.Expr = &ast.BasicLit{Value: "\"" + allowedValue + "\""}
+		if field.Value != nil {
+			e = &ast.BinaryExpr{X: field.Value, Op: token.OR, Y: e}
+		}
+		field.Value = e
+	}
+
+	return field
+}
+
+func createStructFromResource(properties map[string]Property, valueTypes map[string]ValueType) (s ast.StructLit) {
 	sortedProperties := []propertyStruct{}
 
 	for propertyName, property := range properties {
@@ -94,6 +118,11 @@ func createStructFromResource(properties map[string]Property) (s ast.StructLit) 
 	for _, propertyS := range sortedProperties {
 		property := propertyS.name
 		propertyResource := propertyS.property
+		if propertyResource.Value.ValueType != "" &&
+			valueTypes[propertyResource.Value.ValueType].AllowedValues != nil {
+			allowedValues := createFieldFromAllowedValues(property, propertyResource, valueTypes[propertyResource.Value.ValueType].AllowedValues)
+			propertyDecls = append(propertyDecls, allowedValues)
+		}
 		value := createFieldFromProperty(property, propertyResource)
 		propertyDecls = append(propertyDecls, value)
 	}
@@ -210,7 +239,7 @@ func main() {
 			resourceStr := splits[2]
 			// fmt.Print(resourceStr + "  ")
 
-			properties := createStructFromResource(resource.Properties)
+			properties := createStructFromResource(resource.Properties, spec.ValueTypes)
 			propertiesStruct := &ast.Field{
 				Label: ast.NewIdent("Properties"),
 				Value: &properties,
@@ -227,7 +256,7 @@ func main() {
 			for _, propS := range sortedResourceProperties {
 				propName := propS.name
 				prop := propS.resource
-				properties := createStructFromResource(prop.Properties)
+				properties := createStructFromResource(prop.Properties, spec.ValueTypes)
 				resourceElts = append(resourceElts,
 					&ast.Alias{
 						// TODO clean this up... feels super ugly.

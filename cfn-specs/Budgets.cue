@@ -9,11 +9,13 @@ Budget :: {
   __BudgetData = {
     BudgetLimit?: __Spend
     BudgetName?:  string
+    BudgetType:   "COST" | "RI_COVERAGE" | "RI_UTILIZATION" | "USAGE"
     BudgetType:   string
     CostFilters?: {
     }
     CostTypes?:  __CostTypes
     TimePeriod?: __TimePeriod
+    TimeUnit:    "ANNUALLY" | "DAILY" | "MONTHLY" | "QUARTERLY"
     TimeUnit:    string
   }
   __CostTypes = {
@@ -30,9 +32,12 @@ Budget :: {
     UseBlended?:               bool
   }
   __Notification = {
+    ComparisonOperator: "EQUAL_TO" | "GREATER_THAN" | "LESS_THAN"
     ComparisonOperator: string
+    NotificationType:   "ACTUAL" | "FORECASTED"
     NotificationType:   string
     Threshold:          float
+    ThresholdType?:     "ABSOLUTE_VALUE" | "PERCENTAGE"
     ThresholdType?:     string
   }
   __NotificationWithSubscribers = {
@@ -45,6 +50,7 @@ Budget :: {
   }
   __Subscriber = {
     Address:          string
+    SubscriptionType: "EMAIL" | "SNS"
     SubscriptionType: string
   }
   __TimePeriod = {
