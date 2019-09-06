@@ -12,6 +12,7 @@ AssessmentTemplate :: {
   Properties: {
     AssessmentTargetArn:     string
     AssessmentTemplateName?: string
+    DurationInSeconds:       >=180 & <=86400
     DurationInSeconds:       int
     RulesPackageArns: [...string]
     UserAttributesForFindings?: [...__Tag]

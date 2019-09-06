@@ -282,6 +282,7 @@ Instance :: {
   __Ebs = {
     DeleteOnTermination?: bool
     Encrypted?:           bool
+    Iops?:                >=100 & <=20000
     Iops?:                int
     KmsKeyId?:            string
     SnapshotId?:          string
@@ -504,6 +505,7 @@ NetworkAclEntry :: {
     Protocol:       int
     RuleAction:     "allow" | "deny"
     RuleAction:     string
+    RuleNumber:     >=1 & <=32766
     RuleNumber:     int
   }
   __Icmp = {

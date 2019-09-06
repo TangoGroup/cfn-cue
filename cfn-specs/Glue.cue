@@ -159,6 +159,7 @@ Job :: {
     MaxCapacity?:           float
     MaxRetries?:            float
     Name?:                  string
+    NumberOfWorkers?:       >=0 & <=299
     NumberOfWorkers?:       int
     Role:                   string
     SecurityConfiguration?: string
@@ -183,6 +184,7 @@ MLTransform :: {
   Properties: {
     Description?:        string
     InputRecordTables:   __InputRecordTables
+    MaxCapacity?:        >=1 & <=100
     MaxCapacity?:        float
     MaxRetries?:         int
     Name?:               string

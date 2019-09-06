@@ -4,6 +4,7 @@ DBCluster :: {
   Type: "AWS::DocDB::DBCluster"
   Properties: {
     AvailabilityZones?: [...string]
+    BackupRetentionPeriod?:       >=1 & <=35
     BackupRetentionPeriod?:       int
     DBClusterIdentifier?:         string
     DBClusterParameterGroupName?: string

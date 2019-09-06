@@ -36,6 +36,7 @@ Budget :: {
     ComparisonOperator: string
     NotificationType:   "ACTUAL" | "FORECASTED"
     NotificationType:   string
+    Threshold:          >=0.1 & <=1000000000
     Threshold:          float
     ThresholdType?:     "ABSOLUTE_VALUE" | "PERCENTAGE"
     ThresholdType?:     string

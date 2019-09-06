@@ -49,8 +49,10 @@ LoadBalancer :: {
     PolicyName?:             string
   }
   __Listeners = {
+    InstancePort:      >=1 & <=65535
     InstancePort:      string
     InstanceProtocol?: string
+    LoadBalancerPort:  >=1 & <=65535
     LoadBalancerPort:  string
     PolicyNames?: [...string]
     Protocol:          string

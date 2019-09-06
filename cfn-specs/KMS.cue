@@ -16,6 +16,7 @@ Key :: {
     KeyPolicy: {
     }
     KeyUsage?:            string
+    PendingWindowInDays?: >=7 & <=30
     PendingWindowInDays?: int
     Tags?: [...__Tag]
   }

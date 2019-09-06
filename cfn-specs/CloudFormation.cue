@@ -32,6 +32,7 @@ WaitCondition :: {
   Properties: {
     Count?:   int
     Handle?:  string
+    Timeout?: >=0 & <=43200
     Timeout?: string
   }
 }

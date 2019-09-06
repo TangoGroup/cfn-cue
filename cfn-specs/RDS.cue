@@ -6,6 +6,7 @@ DBCluster :: {
     AssociatedRoles?: [...__DBClusterRole]
     AvailabilityZones?: [...string]
     BacktrackWindow?:             int
+    BackupRetentionPeriod?:       >=1 & <=35
     BackupRetentionPeriod?:       int
     DBClusterIdentifier?:         string
     DBClusterParameterGroupName?: string
@@ -64,6 +65,7 @@ DBInstance :: {
     AssociatedRoles?: [...__DBInstanceRole]
     AutoMinorVersionUpgrade?: bool
     AvailabilityZone?:        string
+    BackupRetentionPeriod?:   >=0 & <=35
     BackupRetentionPeriod?:   int
     CharacterSetName?:        string
     CopyTagsToSnapshot?:      bool
@@ -99,6 +101,7 @@ DBInstance :: {
     PreferredBackupWindow?:              string
     PreferredMaintenanceWindow?:         string
     ProcessorFeatures?: [...__ProcessorFeature]
+    PromotionTier?:              >=0 & <=15
     PromotionTier?:              int
     PubliclyAccessible?:         bool
     SourceDBInstanceIdentifier?: string

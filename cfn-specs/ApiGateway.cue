@@ -27,6 +27,7 @@ Authorizer :: {
   Properties: {
     AuthType?:                     string
     AuthorizerCredentials?:        string
+    AuthorizerResultTtlInSeconds?: >=0 & <=3600
     AuthorizerResultTtlInSeconds?: int
     AuthorizerUri?:                string
     IdentitySource?:               string

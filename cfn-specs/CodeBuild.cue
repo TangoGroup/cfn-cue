@@ -11,6 +11,7 @@ Project :: {
     Environment:             __Environment
     LogsConfig?:             __LogsConfig
     Name?:                   string
+    QueuedTimeoutInMinutes?: >=5 & <=480
     QueuedTimeoutInMinutes?: int
     SecondaryArtifacts?: [...__Artifacts]
     SecondarySourceVersions?: [...__ProjectSourceVersion]
@@ -19,6 +20,7 @@ Project :: {
     Source:         __Source
     SourceVersion?: string
     Tags?: [...__Tag]
+    TimeoutInMinutes?: >=5 & <=480
     TimeoutInMinutes?: int
     Triggers?:         __ProjectTriggers
     VpcConfig?:        __VpcConfig

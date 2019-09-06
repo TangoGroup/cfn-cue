@@ -75,6 +75,7 @@ NotebookInstance :: {
     SecurityGroupIds?: [...string]
     SubnetId?: string
     Tags?: [...__Tag]
+    VolumeSizeInGB?: >=5 & <=16384
     VolumeSizeInGB?: int
   }
 }

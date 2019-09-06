@@ -4,7 +4,9 @@ Stream :: {
   Type: "AWS::Kinesis::Stream"
   Properties: {
     Name?:                 string
+    RetentionPeriodHours?: >=1 & <=168
     RetentionPeriodHours?: int
+    ShardCount:            >=1 & <=100000
     ShardCount:            int
     StreamEncryption?:     __StreamEncryption
     Tags?: [...__Tag]

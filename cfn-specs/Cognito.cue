@@ -175,6 +175,7 @@ UserPoolClient :: {
     GenerateSecret?: bool
     LogoutURLs?: [...string]
     ReadAttributes?: [...string]
+    RefreshTokenValidity?: >=0 & <=3650
     RefreshTokenValidity?: int
     SupportedIdentityProviders?: [...string]
     UserPoolId: string

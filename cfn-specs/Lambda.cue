@@ -20,6 +20,7 @@ Alias :: {
 EventSourceMapping :: {
   Type: "AWS::Lambda::EventSourceMapping"
   Properties: {
+    BatchSize?:                      >=1 & <=10000
     BatchSize?:                      int
     Enabled?:                        bool
     EventSourceArn:                  string
@@ -39,12 +40,14 @@ Function :: {
     Handler:           string
     KmsKeyArn?:        string
     Layers?: [...string]
+    MemorySize?:                   >=128 & <=3008
     MemorySize?:                   int
     ReservedConcurrentExecutions?: int
     Role:                          string
     Runtime:                       "dotnetcore1.0" | "dotnetcore2.0" | "dotnetcore2.1" | "go1.x" | "java8" | "nodejs" | "nodejs4.3-edge" | "nodejs4.3" | "nodejs6.10" | "nodejs8.10" | "nodejs10.x" | "provided" | "python2.7" | "python3.6" | "python3.7" | "ruby2.5"
     Runtime:                       string
     Tags?: [...__Tag]
+    Timeout?:       >=1 & <=900
     Timeout?:       int
     TracingConfig?: __TracingConfig
     VpcConfig?:     __VpcConfig

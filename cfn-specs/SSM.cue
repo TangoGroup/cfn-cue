@@ -41,8 +41,10 @@ MaintenanceWindow :: {
   Type: "AWS::SSM::MaintenanceWindow"
   Properties: {
     AllowUnassociatedTargets: bool
+    Cutoff:                   >=0 & <=23
     Cutoff:                   int
     Description?:             string
+    Duration:                 >=1 & <=24
     Duration:                 int
     EndDate?:                 string
     Name:                     string

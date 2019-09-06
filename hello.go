@@ -8,6 +8,7 @@ import (
 	"net/url"
 	"os"
 	"sort"
+	"strconv"
 	"strings"
 
 	"cuelang.org/go/cue/ast"
@@ -99,6 +100,33 @@ func createFieldFromAllowedValues(name string, prop Property, allowedValues []st
 	return field
 }
 
+func createFieldFromNumberMinMax(name string, prop Property, min, max float64) (node ast.Decl) {
+	var optional token.Pos
+	switch prop.Required {
+	case true:
+		optional = token.NoRelPos.Pos()
+	case false:
+		optional = token.Elided.Pos()
+	}
+
+	geq := &ast.UnaryExpr{
+		Op: token.GEQ,
+		X:  &ast.BasicLit{Kind: token.FLOAT, Value: strconv.FormatFloat(min, 'f', -1, 64)},
+	}
+
+	leq := &ast.UnaryExpr{
+		Op: token.LEQ,
+		X:  &ast.BasicLit{Kind: token.FLOAT, Value: strconv.FormatFloat(max, 'f', -1, 64)},
+	}
+	field := &ast.Field{
+		Label:    ast.NewIdent(name),
+		Optional: optional,
+		Value:    &ast.BinaryExpr{X: geq, Op: token.AND, Y: leq},
+	}
+
+	return field
+}
+
 func createStructFromResource(properties map[string]Property, valueTypes map[string]ValueType) (s ast.StructLit) {
 	sortedProperties := []propertyStruct{}
 
@@ -121,6 +149,13 @@ func createStructFromResource(properties map[string]Property, valueTypes map[str
 		if propertyResource.Value.ValueType != "" &&
 			valueTypes[propertyResource.Value.ValueType].AllowedValues != nil {
 			allowedValues := createFieldFromAllowedValues(property, propertyResource, valueTypes[propertyResource.Value.ValueType].AllowedValues)
+			propertyDecls = append(propertyDecls, allowedValues)
+		}
+		if propertyResource.Value.ValueType != "" &&
+			valueTypes[propertyResource.Value.ValueType].NumberMax > 1 {
+			min := valueTypes[propertyResource.Value.ValueType].NumberMin
+			max := valueTypes[propertyResource.Value.ValueType].NumberMax
+			allowedValues := createFieldFromNumberMinMax(property, propertyResource, min, max)
 			propertyDecls = append(propertyDecls, allowedValues)
 		}
 		value := createFieldFromProperty(property, propertyResource)

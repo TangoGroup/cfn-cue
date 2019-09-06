@@ -8,6 +8,7 @@ FileSystem :: {
     KmsKeyId?:            string
     LustreConfiguration?: __LustreConfiguration
     SecurityGroupIds?: [...string]
+    StorageCapacity?: >=300 & <=65536
     StorageCapacity?: int
     SubnetIds?: [...string]
     Tags?: [...__Tag]

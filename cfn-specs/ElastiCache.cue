@@ -51,12 +51,14 @@ ReplicationGroup :: {
     KmsKeyId?:             string
     NodeGroupConfiguration?: [...__NodeGroupConfiguration]
     NotificationTopicArn?: string
+    NumCacheClusters?:     >=1 & <=6
     NumCacheClusters?:     int
     NumNodeGroups?:        int
     Port?:                 int
     PreferredCacheClusterAZs?: [...string]
     PreferredMaintenanceWindow?: string
     PrimaryClusterId?:           string
+    ReplicasPerNodeGroup?:       >=0 & <=5
     ReplicasPerNodeGroup?:       int
     ReplicationGroupDescription: string
     ReplicationGroupId?:         string

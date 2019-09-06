@@ -6,6 +6,7 @@ Listener :: {
     Certificates?: [...__Certificate]
     DefaultActions: [...__Action]
     LoadBalancerArn: string
+    Port:            >=1 & <=65535
     Port:            int
     Protocol:        string
     SslPolicy?:      string
@@ -186,11 +187,14 @@ TargetGroup :: {
   Type: "AWS::ElasticLoadBalancingV2::TargetGroup"
   Properties: {
     HealthCheckEnabled?:         bool
+    HealthCheckIntervalSeconds?: >=5 & <=300
     HealthCheckIntervalSeconds?: int
     HealthCheckPath?:            string
     HealthCheckPort?:            string
     HealthCheckProtocol?:        string
+    HealthCheckTimeoutSeconds?:  >=2 & <=120
     HealthCheckTimeoutSeconds?:  int
+    HealthyThresholdCount?:      >=2 & <=10
     HealthyThresholdCount?:      int
     Matcher?:                    __Matcher
     Name?:                       string
@@ -200,6 +204,7 @@ TargetGroup :: {
     TargetGroupAttributes?: [...__TargetGroupAttribute]
     TargetType?: string
     Targets?: [...__TargetDescription]
+    UnhealthyThresholdCount?: >=2 & <=10
     UnhealthyThresholdCount?: int
     VpcId?:                   string
   }

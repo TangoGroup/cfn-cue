@@ -17,15 +17,18 @@ Fleet :: {
   Properties: {
     ComputeCapacity:                 __ComputeCapacity
     Description?:                    string
+    DisconnectTimeoutInSeconds?:     >=60 & <=360000
     DisconnectTimeoutInSeconds?:     int
     DisplayName?:                    string
     DomainJoinInfo?:                 __DomainJoinInfo
     EnableDefaultInternetAccess?:    bool
     FleetType?:                      string
+    IdleDisconnectTimeoutInSeconds?: >=0 & <=3600
     IdleDisconnectTimeoutInSeconds?: int
     ImageArn?:                       string
     ImageName?:                      string
     InstanceType:                    string
+    MaxUserDurationInSeconds?:       >=600 & <=360000
     MaxUserDurationInSeconds?:       int
     Name?:                           string
     Tags?: [...__Tag]

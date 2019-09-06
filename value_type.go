@@ -9,8 +9,8 @@ type ValueType struct {
 	JSONMax             int `json:"JsonMax"`
 	ListMax             int
 	ListMin             int
-	NumberMax           float32
-	NumberMin           float32
+	NumberMax           float64
+	NumberMin           float64
 	Ref                 map[string][]string
 	StringMax           int
 	StringMin           int

@@ -62,6 +62,7 @@ Role :: {
     }
     Description?: string
     ManagedPolicyArns?: [...string]
+    MaxSessionDuration?:  >=3600 & <=43200
     MaxSessionDuration?:  int
     Path?:                string
     PermissionsBoundary?: string
