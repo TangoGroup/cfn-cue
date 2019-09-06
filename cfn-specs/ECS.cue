@@ -69,6 +69,7 @@ TaskDefinition :: {
   Properties: {
     ContainerDefinitions?: [...__ContainerDefinition]
     Cpu?:              string
+    ExecutionRoleArn?: =~"arn:(aws[a-zA-Z-]*)?:iam::\d{12}:role/[a-zA-Z_0-9+=,.@\-_/]+"
     ExecutionRoleArn?: string
     Family?:           string
     IpcMode?:          string

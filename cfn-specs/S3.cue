@@ -144,6 +144,7 @@ Bucket :: {
     ReplaceKeyWith?:       string
   }
   __ReplicationConfiguration = {
+    Role: =~"arn:(aws[a-zA-Z-]*)?:iam::\d{12}:role/[a-zA-Z_0-9+=,.@\-_/]+"
     Role: string
     Rules: [...__ReplicationRule]
   }

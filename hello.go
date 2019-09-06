@@ -127,6 +127,29 @@ func createFieldFromNumberMinMax(name string, prop Property, min, max float64) (
 	return field
 }
 
+func createFieldFromPatternRegex(name string, prop Property, regex string) (node ast.Decl) {
+	var optional token.Pos
+	switch prop.Required {
+	case true:
+		optional = token.NoRelPos.Pos()
+	case false:
+		optional = token.Elided.Pos()
+	}
+
+	match := &ast.UnaryExpr{
+		Op: token.MAT,
+		X:  &ast.BasicLit{Kind: token.STRING, Value: "\"" + regex + "\""},
+	}
+
+	field := &ast.Field{
+		Label:    ast.NewIdent(name),
+		Optional: optional,
+		Value:    match,
+	}
+
+	return field
+}
+
 func createStructFromResource(properties map[string]Property, valueTypes map[string]ValueType) (s ast.StructLit) {
 	sortedProperties := []propertyStruct{}
 
@@ -146,18 +169,25 @@ func createStructFromResource(properties map[string]Property, valueTypes map[str
 	for _, propertyS := range sortedProperties {
 		property := propertyS.name
 		propertyResource := propertyS.property
-		if propertyResource.Value.ValueType != "" &&
-			valueTypes[propertyResource.Value.ValueType].AllowedValues != nil {
-			allowedValues := createFieldFromAllowedValues(property, propertyResource, valueTypes[propertyResource.Value.ValueType].AllowedValues)
-			propertyDecls = append(propertyDecls, allowedValues)
+		if propertyResource.Value.ValueType != "" && propertyResource.Value.ListValueType == "" {
+			valueType := valueTypes[propertyResource.Value.ValueType]
+			if valueType.AllowedValues != nil {
+				allowedValues := createFieldFromAllowedValues(property, propertyResource, valueTypes[propertyResource.Value.ValueType].AllowedValues)
+				propertyDecls = append(propertyDecls, allowedValues)
+			}
+			if valueType.NumberMax > 1 {
+				min := valueTypes[propertyResource.Value.ValueType].NumberMin
+				max := valueTypes[propertyResource.Value.ValueType].NumberMax
+				allowedValues := createFieldFromNumberMinMax(property, propertyResource, min, max)
+				propertyDecls = append(propertyDecls, allowedValues)
+			}
+			if valueType.AllowedPatternRegex != "" {
+				regex := valueType.AllowedPatternRegex
+				allowedValues := createFieldFromPatternRegex(property, propertyResource, regex)
+				propertyDecls = append(propertyDecls, allowedValues)
+			}
 		}
-		if propertyResource.Value.ValueType != "" &&
-			valueTypes[propertyResource.Value.ValueType].NumberMax > 1 {
-			min := valueTypes[propertyResource.Value.ValueType].NumberMin
-			max := valueTypes[propertyResource.Value.ValueType].NumberMax
-			allowedValues := createFieldFromNumberMinMax(property, propertyResource, min, max)
-			propertyDecls = append(propertyDecls, allowedValues)
-		}
+
 		value := createFieldFromProperty(property, propertyResource)
 		propertyDecls = append(propertyDecls, value)
 	}

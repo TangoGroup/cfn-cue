@@ -33,6 +33,7 @@ BackupSelection :: {
     BackupSelection: __BackupSelectionResourceType
   }
   __BackupSelectionResourceType = {
+    IamRoleArn: =~"arn:(aws[a-zA-Z-]*)?:iam::\d{12}:role/[a-zA-Z_0-9+=,.@\-_/]+"
     IamRoleArn: string
     ListOfTags?: [...__ConditionResourceType]
     Resources?: [...string]

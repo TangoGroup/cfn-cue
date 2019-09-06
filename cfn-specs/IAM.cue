@@ -14,12 +14,14 @@ Group :: {
   Properties: {
     GroupName?: string
     ManagedPolicyArns?: [...string]
+    Path?: =~"^/(.+/)*$"
     Path?: string
     Policies?: [...__Policy]
   }
   __Policy = {
     PolicyDocument: {
     }
+    PolicyName: =~"^[a-zA-Z0-9+=,.@\-_]+$"
     PolicyName: string
   }
 }
@@ -27,6 +29,7 @@ InstanceProfile :: {
   Type: "AWS::IAM::InstanceProfile"
   Properties: {
     InstanceProfileName?: string
+    Path?:                =~"^/(.+/)*$"
     Path?:                string
     Roles: [...string]
   }
@@ -37,6 +40,7 @@ ManagedPolicy :: {
     Description?: string
     Groups?: [...string]
     ManagedPolicyName?: string
+    Path?:              =~"^/(.+/)*$"
     Path?:              string
     PolicyDocument: {
     }
@@ -50,6 +54,7 @@ Policy :: {
     Groups?: [...string]
     PolicyDocument: {
     }
+    PolicyName: =~"^[a-zA-Z0-9+=,.@\-_]+$"
     PolicyName: string
     Roles?: [...string]
     Users?: [...string]
@@ -64,6 +69,7 @@ Role :: {
     ManagedPolicyArns?: [...string]
     MaxSessionDuration?:  >=3600 & <=43200
     MaxSessionDuration?:  int
+    Path?:                =~"^/(.+/)*$"
     Path?:                string
     PermissionsBoundary?: string
     Policies?: [...__Policy]
@@ -73,6 +79,7 @@ Role :: {
   __Policy = {
     PolicyDocument: {
     }
+    PolicyName: =~"^[a-zA-Z0-9+=,.@\-_]+$"
     PolicyName: string
   }
 }
@@ -90,6 +97,7 @@ User :: {
     Groups?: [...string]
     LoginProfile?: __LoginProfile
     ManagedPolicyArns?: [...string]
+    Path?:                =~"^/(.+/)*$"
     Path?:                string
     PermissionsBoundary?: string
     Policies?: [...__Policy]
@@ -102,6 +110,7 @@ User :: {
   __Policy = {
     PolicyDocument: {
     }
+    PolicyName: =~"^[a-zA-Z0-9+=,.@\-_]+$"
     PolicyName: string
   }
 }

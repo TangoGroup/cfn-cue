@@ -5,6 +5,7 @@ ComputeEnvironment :: {
   Properties: {
     ComputeEnvironmentName?: string
     ComputeResources?:       __ComputeResources
+    ServiceRole:             =~"arn:(aws[a-zA-Z-]*)?:iam::\d{12}:role/[a-zA-Z_0-9+=,.@\-_/]+"
     ServiceRole:             string
     State?:                  string
     Type:                    string
@@ -21,6 +22,7 @@ ComputeEnvironment :: {
     MinvCpus:        int
     PlacementGroup?: string
     SecurityGroupIds?: [...string]
+    SpotIamFleetRole?: =~"arn:(aws[a-zA-Z-]*)?:iam::\d{12}:role/[a-zA-Z_0-9+=,.@\-_/]+"
     SpotIamFleetRole?: string
     Subnets: [...string]
     Tags?: {

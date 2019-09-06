@@ -12,6 +12,7 @@ Cluster :: {
     CustomAmiId?:           string
     EbsRootVolumeSize?:     int
     Instances:              __JobFlowInstancesConfig
+    JobFlowRole:            =~"[a-zA-Z0-9+=,.@\-_]+"
     JobFlowRole:            string
     KerberosAttributes?:    __KerberosAttributes
     LogUri?:                string

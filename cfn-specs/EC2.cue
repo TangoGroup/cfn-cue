@@ -234,6 +234,7 @@ Instance :: {
     ElasticGpuSpecifications?: [...__ElasticGpuSpecification]
     ElasticInferenceAccelerators?: [...__ElasticInferenceAccelerator]
     HostId?:                            string
+    IamInstanceProfile?:                =~"[a-zA-Z0-9+=,.@\-_]+"
     IamInstanceProfile?:                string
     ImageId?:                           string
     InstanceInitiatedShutdownBehavior?: string
@@ -347,6 +348,7 @@ LaunchTemplate :: {
   Type: "AWS::EC2::LaunchTemplate"
   Properties: {
     LaunchTemplateData?: __LaunchTemplateData
+    LaunchTemplateName?: =~"^[a-zA-Z0-9().\-/_]+$"
     LaunchTemplateName?: string
   }
   __BlockDeviceMapping = {
@@ -388,6 +390,7 @@ LaunchTemplate :: {
   }
   __IamInstanceProfile = {
     Arn?:  string
+    Name?: =~"[a-zA-Z0-9+=,.@\-_]+"
     Name?: string
   }
   __InstanceMarketOptions = {
@@ -496,6 +499,7 @@ NetworkAcl :: {
 NetworkAclEntry :: {
   Type: "AWS::EC2::NetworkAclEntry"
   Properties: {
+    CidrBlock?:     =~"^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(/([0-9]|[1-2][0-9]|3[0-2]))$"
     CidrBlock?:     string
     Egress?:        bool
     Icmp?:          __Icmp
@@ -590,6 +594,7 @@ RouteTable :: {
 SecurityGroup :: {
   Type: "AWS::EC2::SecurityGroup"
   Properties: {
+    GroupDescription: =~"^([a-z,A-Z,0-9,. _\-:/()#,@[\]+=&;\{\}!$*])*$"
     GroupDescription: string
     GroupName?:       string
     SecurityGroupEgress?: [...__Egress]
@@ -598,6 +603,7 @@ SecurityGroup :: {
     VpcId?: string
   }
   __Egress = {
+    CidrIp?:                     =~"^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(/([0-9]|[1-2][0-9]|3[0-2]))$"
     CidrIp?:                     string
     CidrIpv6?:                   string
     Description?:                string
@@ -608,6 +614,7 @@ SecurityGroup :: {
     ToPort?:                     int
   }
   __Ingress = {
+    CidrIp?:                     =~"^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(/([0-9]|[1-2][0-9]|3[0-2]))$"
     CidrIp?:                     string
     CidrIpv6?:                   string
     Description?:                string
@@ -623,6 +630,7 @@ SecurityGroup :: {
 SecurityGroupEgress :: {
   Type: "AWS::EC2::SecurityGroupEgress"
   Properties: {
+    CidrIp?:                     =~"^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(/([0-9]|[1-2][0-9]|3[0-2]))$"
     CidrIp?:                     string
     CidrIpv6?:                   string
     Description?:                string
@@ -637,6 +645,7 @@ SecurityGroupEgress :: {
 SecurityGroupIngress :: {
   Type: "AWS::EC2::SecurityGroupIngress"
   Properties: {
+    CidrIp?:                     =~"^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(/([0-9]|[1-2][0-9]|3[0-2]))$"
     CidrIp?:                     string
     CidrIpv6?:                   string
     Description?:                string
@@ -751,6 +760,7 @@ SpotFleet :: {
     AllocationStrategy?:              string
     ExcessCapacityTerminationPolicy?: "default" | "noTermination"
     ExcessCapacityTerminationPolicy?: string
+    IamFleetRole:                     =~"arn:(aws[a-zA-Z-]*)?:iam::\d{12}:role/[a-zA-Z_0-9+=,.@\-_/]+"
     IamFleetRole:                     string
     InstanceInterruptionBehavior?:    "hibernate" | "stop" | "terminate"
     InstanceInterruptionBehavior?:    string
