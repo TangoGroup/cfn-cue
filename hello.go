@@ -127,6 +127,34 @@ func createFieldFromNumberMinMax(name string, prop Property, min, max float64) (
 	return field
 }
 
+func createFieldFromStringMinMax(name string, prop Property, min, max int64) (node ast.Decl) {
+	var optional token.Pos
+	switch prop.Required {
+	case true:
+		optional = token.NoRelPos.Pos()
+	case false:
+		optional = token.Elided.Pos()
+	}
+
+	minLen := &ast.CallExpr{
+		Fun:  &ast.BasicLit{Value: "strings.MinRunes"},
+		Args: []ast.Expr{&ast.BasicLit{Value: strconv.FormatInt(min, 10)}},
+	}
+
+	maxLen := &ast.CallExpr{
+		Fun:  &ast.BasicLit{Value: "strings.MaxRunes"},
+		Args: []ast.Expr{&ast.BasicLit{Value: strconv.FormatInt(max, 10)}},
+	}
+
+	field := &ast.Field{
+		Label:    ast.NewIdent(name),
+		Optional: optional,
+		Value:    &ast.BinaryExpr{X: minLen, Op: token.AND, Y: maxLen},
+	}
+
+	return field
+}
+
 func createFieldFromPatternRegex(name string, prop Property, regex string) (node ast.Decl) {
 	var optional token.Pos
 	switch prop.Required {
@@ -176,9 +204,15 @@ func createStructFromResource(properties map[string]Property, valueTypes map[str
 				propertyDecls = append(propertyDecls, allowedValues)
 			}
 			if valueType.NumberMax > 1 {
-				min := valueTypes[propertyResource.Value.ValueType].NumberMin
-				max := valueTypes[propertyResource.Value.ValueType].NumberMax
+				min := valueType.NumberMin
+				max := valueType.NumberMax
 				allowedValues := createFieldFromNumberMinMax(property, propertyResource, min, max)
+				propertyDecls = append(propertyDecls, allowedValues)
+			}
+			if valueType.StringMax > 0 {
+				min := valueType.StringMin
+				max := valueType.StringMax
+				allowedValues := createFieldFromStringMinMax(property, propertyResource, int64(min), int64(max))
 				propertyDecls = append(propertyDecls, allowedValues)
 			}
 			if valueType.AllowedPatternRegex != "" {

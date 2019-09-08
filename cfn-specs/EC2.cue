@@ -348,6 +348,7 @@ LaunchTemplate :: {
   Type: "AWS::EC2::LaunchTemplate"
   Properties: {
     LaunchTemplateData?: __LaunchTemplateData
+    LaunchTemplateName?: strings.MinRunes(3) & strings.MaxRunes(128)
     LaunchTemplateName?: =~"^[a-zA-Z0-9().\-/_]+$"
     LaunchTemplateName?: string
   }
@@ -594,6 +595,7 @@ RouteTable :: {
 SecurityGroup :: {
   Type: "AWS::EC2::SecurityGroup"
   Properties: {
+    GroupDescription: strings.MinRunes(0) & strings.MaxRunes(255)
     GroupDescription: =~"^([a-z,A-Z,0-9,. _\-:/()#,@[\]+=&;\{\}!$*])*$"
     GroupDescription: string
     GroupName?:       string

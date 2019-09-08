@@ -5,6 +5,7 @@ Repository :: {
   Properties: {
     Code?:                  __Code
     RepositoryDescription?: string
+    RepositoryName:         strings.MinRunes(1) & strings.MaxRunes(100)
     RepositoryName:         =~"^[a-zA-Z0-9._\-]+(?<!\.git)$"
     RepositoryName:         string
     Tags?: [...__Tag]

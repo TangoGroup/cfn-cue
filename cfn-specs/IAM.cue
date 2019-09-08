@@ -21,6 +21,7 @@ Group :: {
   __Policy = {
     PolicyDocument: {
     }
+    PolicyName: strings.MinRunes(1) & strings.MaxRunes(128)
     PolicyName: =~"^[a-zA-Z0-9+=,.@\-_]+$"
     PolicyName: string
   }
@@ -54,6 +55,7 @@ Policy :: {
     Groups?: [...string]
     PolicyDocument: {
     }
+    PolicyName: strings.MinRunes(1) & strings.MaxRunes(128)
     PolicyName: =~"^[a-zA-Z0-9+=,.@\-_]+$"
     PolicyName: string
     Roles?: [...string]
@@ -79,6 +81,7 @@ Role :: {
   __Policy = {
     PolicyDocument: {
     }
+    PolicyName: strings.MinRunes(1) & strings.MaxRunes(128)
     PolicyName: =~"^[a-zA-Z0-9+=,.@\-_]+$"
     PolicyName: string
   }
@@ -110,6 +113,7 @@ User :: {
   __Policy = {
     PolicyDocument: {
     }
+    PolicyName: strings.MinRunes(1) & strings.MaxRunes(128)
     PolicyName: =~"^[a-zA-Z0-9+=,.@\-_]+$"
     PolicyName: string
   }
