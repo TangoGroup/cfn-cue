@@ -18,7 +18,7 @@ FileSystem :: {
     Value: string
   }
   __LifecyclePolicy = {
-    TransitionToIA: "AFTER_30_DAYS"
+    TransitionToIA: "AFTER_14_DAYS" | "AFTER_30_DAYS" | "AFTER_60_DAYS" | "AFTER_90_DAYS"
     TransitionToIA: string
   }
 }
