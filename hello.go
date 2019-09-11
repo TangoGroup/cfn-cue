@@ -220,6 +220,14 @@ func createStructFromResource(properties map[string]Property, valueTypes map[str
 				allowedValues := createFieldFromPatternRegex(property, propertyResource, regex)
 				propertyDecls = append(propertyDecls, allowedValues)
 			}
+			// Going to need to be smarter about this... I need to make sure that the marshalled JSON
+			// string of this struct is less that JSONMax characters.
+			// if valueType.JSONMax > 0 {
+			// 	min := 0
+			// 	max := valueType.JSONMax
+			// 	allowedValues := createFieldFromStringMinMax(property, propertyResource, int64(min), int64(max))
+			// 	propertyDecls = append(propertyDecls, allowedValues)
+			// }
 		}
 
 		value := createFieldFromProperty(property, propertyResource)
