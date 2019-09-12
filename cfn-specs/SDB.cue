@@ -1,8 +1,8 @@
 package SDB
 
 Domain :: {
-  Type: "AWS::SDB::Domain"
-  Properties: {
-    Description?: string
-  }
+	Type: "AWS::SDB::Domain"
+	Properties: {
+		Description?: string
+	}
 }
