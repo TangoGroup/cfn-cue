@@ -381,10 +381,7 @@ func main() {
 			ff.Decls = append(ff.Decls, f)
 		}
 		// fmt.Println("")
-		b, _ := format.Node(ff,
-			format.Simplify(),
-			format.UseSpaces(2),
-			format.TabIndent(false))
+		b, _ := format.Node(ff, format.Simplify())
 
 		cuefile, err := os.Create("cfn-specs/" + service + ".cue")
 		if err != nil {
