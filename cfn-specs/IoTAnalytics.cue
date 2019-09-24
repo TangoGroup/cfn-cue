@@ -8,20 +8,20 @@ Channel :: {
 		RetentionPeriod?: __RetentionPeriod
 		Tags?: [...__Tag]
 	}
-	__ChannelStorage = {
+	__ChannelStorage :: {
 		CustomerManagedS3?: __CustomerManagedS3
 		ServiceManagedS3?:  __ServiceManagedS3
 	}
-	__CustomerManagedS3 = {
+	__CustomerManagedS3 :: {
 		Bucket:     string
 		KeyPrefix?: string
 		RoleArn:    string
 	}
-	__RetentionPeriod = {
+	__RetentionPeriod :: {
 		NumberOfDays?: int
 		Unlimited?:    bool
 	}
-	__ServiceManagedS3 = {
+	__ServiceManagedS3 :: {
 	}
 }
 Dataset :: {
@@ -35,82 +35,82 @@ Dataset :: {
 		Triggers?: [...__Trigger]
 		VersioningConfiguration?: __VersioningConfiguration
 	}
-	__Action = {
+	__Action :: {
 		ActionName:       string
 		ContainerAction?: __ContainerAction
 		QueryAction?:     __QueryAction
 	}
-	__ContainerAction = {
+	__ContainerAction :: {
 		ExecutionRoleArn:      string
 		Image:                 string
 		ResourceConfiguration: __ResourceConfiguration
 		Variables?: [...__Variable]
 	}
-	__DatasetContentDeliveryRule = {
+	__DatasetContentDeliveryRule :: {
 		Destination: __DatasetContentDeliveryRuleDestination
 		EntryName?:  string
 	}
-	__DatasetContentDeliveryRuleDestination = {
+	__DatasetContentDeliveryRuleDestination :: {
 		IotEventsDestinationConfiguration?: __IotEventsDestinationConfiguration
 		S3DestinationConfiguration?:        __S3DestinationConfiguration
 	}
-	__DatasetContentVersionValue = {
+	__DatasetContentVersionValue :: {
 		DatasetName?: string
 	}
-	__DeltaTime = {
+	__DeltaTime :: {
 		OffsetSeconds:  int
 		TimeExpression: string
 	}
-	__Filter = {
+	__Filter :: {
 		DeltaTime?: __DeltaTime
 	}
-	__GlueConfiguration = {
+	__GlueConfiguration :: {
 		DatabaseName: string
 		TableName:    string
 	}
-	__IotEventsDestinationConfiguration = {
+	__IotEventsDestinationConfiguration :: {
 		InputName: string
 		RoleArn:   string
 	}
-	__OutputFileUriValue = {
+	__OutputFileUriValue :: {
 		FileName?: string
 	}
-	__QueryAction = {
+	__QueryAction :: {
 		Filters?: [...__Filter]
 		SqlQuery: string
 	}
-	__ResourceConfiguration = {
+	__ResourceConfiguration :: {
 		ComputeType:    string
 		VolumeSizeInGB: int
 	}
-	__RetentionPeriod = {
+	__RetentionPeriod :: {
 		NumberOfDays: int
 		Unlimited:    bool
 	}
-	__S3DestinationConfiguration = {
+	__S3DestinationConfiguration :: {
 		Bucket:             string
 		GlueConfiguration?: __GlueConfiguration
 		Key:                string
 		RoleArn:            string
 	}
-	__Schedule = {
+	__Schedule :: {
 		ScheduleExpression: string
 	}
-	__Trigger = {
+	__Trigger :: {
 		Schedule?:          __Schedule
 		TriggeringDataset?: __TriggeringDataset
 	}
-	__TriggeringDataset = {
+	__TriggeringDataset :: {
 		DatasetName: string
 	}
-	__Variable = {
+	__Variable :: {
 		DatasetContentVersionValue?: __DatasetContentVersionValue
 		DoubleValue?:                float
 		OutputFileUriValue?:         __OutputFileUriValue
 		StringValue?:                string
 		VariableName:                string
 	}
-	__VersioningConfiguration = {
+	__VersioningConfiguration :: {
 		MaxVersions?: int
 		Unlimited?:   bool
 	}
@@ -123,20 +123,20 @@ Datastore :: {
 		RetentionPeriod?:  __RetentionPeriod
 		Tags?: [...__Tag]
 	}
-	__CustomerManagedS3 = {
+	__CustomerManagedS3 :: {
 		Bucket:     string
 		KeyPrefix?: string
 		RoleArn:    string
 	}
-	__DatastoreStorage = {
+	__DatastoreStorage :: {
 		CustomerManagedS3?: __CustomerManagedS3
 		ServiceManagedS3?:  __ServiceManagedS3
 	}
-	__RetentionPeriod = {
+	__RetentionPeriod :: {
 		NumberOfDays?: int
 		Unlimited?:    bool
 	}
-	__ServiceManagedS3 = {
+	__ServiceManagedS3 :: {
 	}
 }
 Pipeline :: {
@@ -146,7 +146,7 @@ Pipeline :: {
 		PipelineName?: string
 		Tags?: [...__Tag]
 	}
-	__Activity = {
+	__Activity :: {
 		AddAttributes?:        __AddAttributes
 		Channel?:              __Channel
 		Datastore?:            __Datastore
@@ -158,58 +158,58 @@ Pipeline :: {
 		RemoveAttributes?:     __RemoveAttributes
 		SelectAttributes?:     __SelectAttributes
 	}
-	__AddAttributes = {
+	__AddAttributes :: {
 		Attributes?: {
 		}
 		Name?: string
 		Next?: string
 	}
-	__Channel = {
+	__Channel :: {
 		ChannelName?: string
 		Name?:        string
 		Next?:        string
 	}
-	__Datastore = {
+	__Datastore :: {
 		DatastoreName?: string
 		Name?:          string
 	}
-	__DeviceRegistryEnrich = {
+	__DeviceRegistryEnrich :: {
 		Attribute?: string
 		Name?:      string
 		Next?:      string
 		RoleArn?:   string
 		ThingName?: string
 	}
-	__DeviceShadowEnrich = {
+	__DeviceShadowEnrich :: {
 		Attribute?: string
 		Name?:      string
 		Next?:      string
 		RoleArn?:   string
 		ThingName?: string
 	}
-	__Filter = {
+	__Filter :: {
 		Filter?: string
 		Name?:   string
 		Next?:   string
 	}
-	__Lambda = {
+	__Lambda :: {
 		BatchSize?:  int
 		LambdaName?: string
 		Name?:       string
 		Next?:       string
 	}
-	__Math = {
+	__Math :: {
 		Attribute?: string
 		Math?:      string
 		Name?:      string
 		Next?:      string
 	}
-	__RemoveAttributes = {
+	__RemoveAttributes :: {
 		Attributes?: [...string]
 		Name?: string
 		Next?: string
 	}
-	__SelectAttributes = {
+	__SelectAttributes :: {
 		Attributes?: [...string]
 		Name?: string
 		Next?: string

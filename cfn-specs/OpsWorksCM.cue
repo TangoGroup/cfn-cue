@@ -21,7 +21,7 @@ Server :: {
 		ServiceRoleArn: string
 		SubnetIds?: [...string]
 	}
-	__EngineAttribute = {
+	__EngineAttribute :: {
 		Name?:  string
 		Value?: string
 	}

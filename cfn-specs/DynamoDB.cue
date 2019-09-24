@@ -17,49 +17,49 @@ Table :: {
 		Tags?: [...__Tag]
 		TimeToLiveSpecification?: __TimeToLiveSpecification
 	}
-	__AttributeDefinition = {
+	__AttributeDefinition :: {
 		AttributeName: string
 		AttributeType: "B" | "N" | "S"
 		AttributeType: string
 	}
-	__GlobalSecondaryIndex = {
+	__GlobalSecondaryIndex :: {
 		IndexName: string
 		KeySchema: [...__KeySchema]
 		Projection:             __Projection
 		ProvisionedThroughput?: __ProvisionedThroughput
 	}
-	__KeySchema = {
+	__KeySchema :: {
 		AttributeName: string
 		KeyType:       "HASH" | "RANGE"
 		KeyType:       string
 	}
-	__LocalSecondaryIndex = {
+	__LocalSecondaryIndex :: {
 		IndexName: string
 		KeySchema: [...__KeySchema]
 		Projection: __Projection
 	}
-	__PointInTimeRecoverySpecification = {
+	__PointInTimeRecoverySpecification :: {
 		PointInTimeRecoveryEnabled?: bool
 	}
-	__Projection = {
+	__Projection :: {
 		NonKeyAttributes?: [...string]
 		ProjectionType?: "ALL" | "INCLUDE" | "KEYS_ONLY"
 		ProjectionType?: string
 	}
-	__ProvisionedThroughput = {
+	__ProvisionedThroughput :: {
 		ReadCapacityUnits:  int
 		WriteCapacityUnits: int
 	}
-	__SSESpecification = {
+	__SSESpecification :: {
 		KMSMasterKeyId?: string
 		SSEEnabled:      bool
 		SSEType?:        string
 	}
-	__StreamSpecification = {
+	__StreamSpecification :: {
 		StreamViewType: "KEYS_ONLY" | "NEW_AND_OLD_IMAGES" | "NEW_IMAGE" | "OLD_IMAGE"
 		StreamViewType: string
 	}
-	__TimeToLiveSpecification = {
+	__TimeToLiveSpecification :: {
 		AttributeName: string
 		Enabled:       bool
 	}

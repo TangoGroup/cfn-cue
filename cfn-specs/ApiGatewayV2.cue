@@ -52,7 +52,7 @@ DomainName :: {
 		Tags?: {
 		}
 	}
-	__DomainNameConfiguration = {
+	__DomainNameConfiguration :: {
 		CertificateArn?:  string
 		CertificateName?: string
 		EndpointType?:    string
@@ -121,7 +121,7 @@ Route :: {
 		RouteResponseSelectionExpression?: string
 		Target?:                           string
 	}
-	__ParameterConstraints = {
+	__ParameterConstraints :: {
 		Required: bool
 	}
 }
@@ -137,7 +137,7 @@ RouteResponse :: {
 		RouteId:          string
 		RouteResponseKey: string
 	}
-	__ParameterConstraints = {
+	__ParameterConstraints :: {
 		Required: bool
 	}
 }
@@ -158,11 +158,11 @@ Stage :: {
 		Tags?: {
 		}
 	}
-	__AccessLogSettings = {
+	__AccessLogSettings :: {
 		DestinationArn?: string
 		Format?:         string
 	}
-	__RouteSettings = {
+	__RouteSettings :: {
 		DataTraceEnabled?:       bool
 		DetailedMetricsEnabled?: bool
 		LoggingLevel?:           string

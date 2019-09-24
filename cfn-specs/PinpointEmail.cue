@@ -10,20 +10,20 @@ ConfigurationSet :: {
 		Tags?: [...__Tags]
 		TrackingOptions?: __TrackingOptions
 	}
-	__DeliveryOptions = {
+	__DeliveryOptions :: {
 		SendingPoolName?: string
 	}
-	__ReputationOptions = {
+	__ReputationOptions :: {
 		ReputationMetricsEnabled?: bool
 	}
-	__SendingOptions = {
+	__SendingOptions :: {
 		SendingEnabled?: bool
 	}
-	__Tags = {
+	__Tags :: {
 		Key?:   string
 		Value?: string
 	}
-	__TrackingOptions = {
+	__TrackingOptions :: {
 		CustomRedirectDomain?: string
 	}
 }
@@ -34,15 +34,15 @@ ConfigurationSetEventDestination :: {
 		EventDestination?:    __EventDestination
 		EventDestinationName: string
 	}
-	__CloudWatchDestination = {
+	__CloudWatchDestination :: {
 		DimensionConfigurations?: [...__DimensionConfiguration]
 	}
-	__DimensionConfiguration = {
+	__DimensionConfiguration :: {
 		DefaultDimensionValue: string
 		DimensionName:         string
 		DimensionValueSource:  string
 	}
-	__EventDestination = {
+	__EventDestination :: {
 		CloudWatchDestination?:      __CloudWatchDestination
 		Enabled?:                    bool
 		KinesisFirehoseDestination?: __KinesisFirehoseDestination
@@ -50,14 +50,14 @@ ConfigurationSetEventDestination :: {
 		PinpointDestination?: __PinpointDestination
 		SnsDestination?:      __SnsDestination
 	}
-	__KinesisFirehoseDestination = {
+	__KinesisFirehoseDestination :: {
 		DeliveryStreamArn: string
 		IamRoleArn:        string
 	}
-	__PinpointDestination = {
+	__PinpointDestination :: {
 		ApplicationArn?: string
 	}
-	__SnsDestination = {
+	__SnsDestination :: {
 		TopicArn: string
 	}
 }
@@ -70,11 +70,11 @@ Identity :: {
 		Name:                       string
 		Tags?: [...__Tags]
 	}
-	__MailFromAttributes = {
+	__MailFromAttributes :: {
 		BehaviorOnMxFailure?: string
 		MailFromDomain?:      string
 	}
-	__Tags = {
+	__Tags :: {
 		Key?:   string
 		Value?: string
 	}

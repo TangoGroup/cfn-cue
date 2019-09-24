@@ -31,33 +31,33 @@ Service :: {
 		Tags?: [...__Tag]
 		TaskDefinition: string
 	}
-	__AwsVpcConfiguration = {
+	__AwsVpcConfiguration :: {
 		AssignPublicIp?: string
 		SecurityGroups?: [...string]
 		Subnets: [...string]
 	}
-	__DeploymentConfiguration = {
+	__DeploymentConfiguration :: {
 		MaximumPercent?:        int
 		MinimumHealthyPercent?: int
 	}
-	__LoadBalancer = {
+	__LoadBalancer :: {
 		ContainerName?:    string
 		ContainerPort:     int
 		LoadBalancerName?: string
 		TargetGroupArn?:   string
 	}
-	__NetworkConfiguration = {
+	__NetworkConfiguration :: {
 		AwsvpcConfiguration?: __AwsVpcConfiguration
 	}
-	__PlacementConstraint = {
+	__PlacementConstraint :: {
 		Expression?: string
 		Type:        string
 	}
-	__PlacementStrategy = {
+	__PlacementStrategy :: {
 		Field?: string
 		Type:   string
 	}
-	__ServiceRegistry = {
+	__ServiceRegistry :: {
 		ContainerName?: string
 		ContainerPort?: int
 		Port?:          int
@@ -84,7 +84,7 @@ TaskDefinition :: {
 		TaskRoleArn?: string
 		Volumes?: [...__Volume]
 	}
-	__ContainerDefinition = {
+	__ContainerDefinition :: {
 		Command?: [...string]
 		Cpu?: int
 		DependsOn?: [...__ContainerDependency]
@@ -124,16 +124,16 @@ TaskDefinition :: {
 		VolumesFrom?: [...__VolumeFrom]
 		WorkingDirectory?: string
 	}
-	__ContainerDependency = {
+	__ContainerDependency :: {
 		Condition:     string
 		ContainerName: string
 	}
-	__Device = {
+	__Device :: {
 		ContainerPath?: string
 		HostPath:       string
 		Permissions?: [...string]
 	}
-	__DockerVolumeConfiguration = {
+	__DockerVolumeConfiguration :: {
 		Autoprovision?: bool
 		Driver?:        string
 		DriverOpts?: {
@@ -142,92 +142,92 @@ TaskDefinition :: {
 		}
 		Scope?: string
 	}
-	__HealthCheck = {
+	__HealthCheck :: {
 		Command: [...string]
 		Interval?:    int
 		Retries?:     int
 		StartPeriod?: int
 		Timeout?:     int
 	}
-	__HostEntry = {
+	__HostEntry :: {
 		Hostname:  string
 		IpAddress: string
 	}
-	__HostVolumeProperties = {
+	__HostVolumeProperties :: {
 		SourcePath?: string
 	}
-	__KernelCapabilities = {
+	__KernelCapabilities :: {
 		Add?: [...string]
 		Drop?: [...string]
 	}
-	__KeyValuePair = {
+	__KeyValuePair :: {
 		Name?:  string
 		Value?: string
 	}
-	__LinuxParameters = {
+	__LinuxParameters :: {
 		Capabilities?: __KernelCapabilities
 		Devices?: [...__Device]
 		InitProcessEnabled?: bool
 		SharedMemorySize?:   int
 		Tmpfs?: [...__Tmpfs]
 	}
-	__LogConfiguration = {
+	__LogConfiguration :: {
 		LogDriver: string
 		Options?: {
 		}
 		SecretOptions?: [...__Secret]
 	}
-	__MountPoint = {
+	__MountPoint :: {
 		ContainerPath?: string
 		ReadOnly?:      bool
 		SourceVolume?:  string
 	}
-	__PortMapping = {
+	__PortMapping :: {
 		ContainerPort?: int
 		HostPort?:      int
 		Protocol?:      string
 	}
-	__ProxyConfiguration = {
+	__ProxyConfiguration :: {
 		ContainerName: string
 		ProxyConfigurationProperties?: [...__KeyValuePair]
 		Type?: "APPMESH"
 		Type?: string
 	}
-	__RepositoryCredentials = {
+	__RepositoryCredentials :: {
 		CredentialsParameter?: string
 	}
-	__ResourceRequirement = {
+	__ResourceRequirement :: {
 		Type:  string
 		Value: string
 	}
-	__Secret = {
+	__Secret :: {
 		Name:      string
 		ValueFrom: string
 	}
-	__SystemControl = {
+	__SystemControl :: {
 		Namespace: string
 		Value:     string
 	}
-	__TaskDefinitionPlacementConstraint = {
+	__TaskDefinitionPlacementConstraint :: {
 		Expression?: string
 		Type:        string
 	}
-	__Tmpfs = {
+	__Tmpfs :: {
 		ContainerPath?: string
 		MountOptions?: [...string]
 		Size: int
 	}
-	__Ulimit = {
+	__Ulimit :: {
 		HardLimit: int
 		Name:      string
 		SoftLimit: int
 	}
-	__Volume = {
+	__Volume :: {
 		DockerVolumeConfiguration?: __DockerVolumeConfiguration
 		Host?:                      __HostVolumeProperties
 		Name?:                      string
 	}
-	__VolumeFrom = {
+	__VolumeFrom :: {
 		ReadOnly?:        bool
 		SourceContainer?: string
 	}

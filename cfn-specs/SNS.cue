@@ -23,7 +23,7 @@ Topic :: {
 		Subscription?: [...__Subscription]
 		TopicName?: string
 	}
-	__Subscription = {
+	__Subscription :: {
 		Endpoint: string
 		Protocol: string
 	}

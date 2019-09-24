@@ -21,7 +21,7 @@ CloudFormationProduct :: {
 		SupportUrl?:         string
 		Tags?: [...__Tag]
 	}
-	__ProvisioningArtifactProperties = {
+	__ProvisioningArtifactProperties :: {
 		Description?:               string
 		DisableTemplateValidation?: bool
 		Info: {
@@ -44,11 +44,11 @@ CloudFormationProvisionedProduct :: {
 		ProvisioningPreferences?: __ProvisioningPreferences
 		Tags?: [...__Tag]
 	}
-	__ProvisioningParameter = {
+	__ProvisioningParameter :: {
 		Key?:   string
 		Value?: string
 	}
-	__ProvisioningPreferences = {
+	__ProvisioningPreferences :: {
 		StackSetAccounts?: [...string]
 		StackSetFailureToleranceCount?:      int
 		StackSetFailureTolerancePercentage?: int

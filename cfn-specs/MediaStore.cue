@@ -9,7 +9,7 @@ Container :: {
 		LifecyclePolicy?: string
 		Policy?:          string
 	}
-	__CorsRule = {
+	__CorsRule :: {
 		AllowedHeaders?: [...string]
 		AllowedMethods?: [...string]
 		AllowedOrigins?: [...string]

@@ -10,7 +10,7 @@ DetectorModel :: {
 		RoleArn?:                  string
 		Tags?: [...__Tag]
 	}
-	__Action = {
+	__Action :: {
 		ClearTimer?:      __ClearTimer
 		Firehose?:        __Firehose
 		IotEvents?:       __IotEvents
@@ -22,66 +22,66 @@ DetectorModel :: {
 		Sns?:             __Sns
 		Sqs?:             __Sqs
 	}
-	__ClearTimer = {
+	__ClearTimer :: {
 		TimerName?: string
 	}
-	__DetectorModelDefinition = {
+	__DetectorModelDefinition :: {
 		InitialStateName?: string
 		States?: [...__State]
 	}
-	__Event = {
+	__Event :: {
 		Actions?: [...__Action]
 		Condition?: string
 		EventName?: string
 	}
-	__Firehose = {
+	__Firehose :: {
 		DeliveryStreamName?: string
 		Separator?:          string
 	}
-	__IotEvents = {
+	__IotEvents :: {
 		InputName?: string
 	}
-	__IotTopicPublish = {
+	__IotTopicPublish :: {
 		MqttTopic?: string
 	}
-	__Lambda = {
+	__Lambda :: {
 		FunctionArn?: string
 	}
-	__OnEnter = {
+	__OnEnter :: {
 		Events?: [...__Event]
 	}
-	__OnExit = {
+	__OnExit :: {
 		Events?: [...__Event]
 	}
-	__OnInput = {
+	__OnInput :: {
 		Events?: [...__Event]
 		TransitionEvents?: [...__TransitionEvent]
 	}
-	__ResetTimer = {
+	__ResetTimer :: {
 		TimerName?: string
 	}
-	__SetTimer = {
+	__SetTimer :: {
 		Seconds?:   int
 		TimerName?: string
 	}
-	__SetVariable = {
+	__SetVariable :: {
 		Value?:        string
 		VariableName?: string
 	}
-	__Sns = {
+	__Sns :: {
 		TargetArn?: string
 	}
-	__Sqs = {
+	__Sqs :: {
 		QueueUrl?:  string
 		UseBase64?: bool
 	}
-	__State = {
+	__State :: {
 		OnEnter?:   __OnEnter
 		OnExit?:    __OnExit
 		OnInput?:   __OnInput
 		StateName?: string
 	}
-	__TransitionEvent = {
+	__TransitionEvent :: {
 		Actions?: [...__Action]
 		Condition?: string
 		EventName?: string
@@ -96,10 +96,10 @@ Input :: {
 		InputName?:        string
 		Tags?: [...__Tag]
 	}
-	__Attribute = {
+	__Attribute :: {
 		JsonPath?: string
 	}
-	__InputDefinition = {
+	__InputDefinition :: {
 		Attributes?: [...__Attribute]
 	}
 }

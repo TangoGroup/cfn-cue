@@ -14,13 +14,13 @@ FileSystem :: {
 		Tags?: [...__Tag]
 		WindowsConfiguration?: __WindowsConfiguration
 	}
-	__LustreConfiguration = {
+	__LustreConfiguration :: {
 		ExportPath?:                 string
 		ImportPath?:                 string
 		ImportedFileChunkSize?:      int
 		WeeklyMaintenanceStartTime?: string
 	}
-	__WindowsConfiguration = {
+	__WindowsConfiguration :: {
 		ActiveDirectoryId?:             string
 		AutomaticBackupRetentionDays?:  int
 		CopyTagsToBackups?:             bool

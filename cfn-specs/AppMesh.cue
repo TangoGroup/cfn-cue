@@ -7,10 +7,10 @@ Mesh :: {
 		Spec?:    __MeshSpec
 		Tags?: [...__Tag]
 	}
-	__EgressFilter = {
+	__EgressFilter :: {
 		Type: string
 	}
-	__MeshSpec = {
+	__MeshSpec :: {
 		EgressFilter?: __EgressFilter
 	}
 }
@@ -23,47 +23,58 @@ Route :: {
 		Tags?: [...__Tag]
 		VirtualRouterName: string
 	}
-	__HeaderMatchMethod = {
+	__Duration :: {
+		Unit:  string
+		Value: int
+	}
+	__HeaderMatchMethod :: {
 		Exact?:  string
 		Prefix?: string
 		Range?:  __MatchRange
 		Regex?:  string
 		Suffix?: string
 	}
-	__HttpRoute = {
-		Action: __HttpRouteAction
-		Match:  __HttpRouteMatch
+	__HttpRetryPolicy :: {
+		HttpRetryEvents?: [...string]
+		MaxRetries:      int
+		PerRetryTimeout: __Duration
+		TcpRetryEvents?: [...string]
 	}
-	__HttpRouteAction = {
+	__HttpRoute :: {
+		Action:       __HttpRouteAction
+		Match:        __HttpRouteMatch
+		RetryPolicy?: __HttpRetryPolicy
+	}
+	__HttpRouteAction :: {
 		WeightedTargets: [...__WeightedTarget]
 	}
-	__HttpRouteHeader = {
+	__HttpRouteHeader :: {
 		Invert?: bool
 		Match?:  __HeaderMatchMethod
 		Name:    string
 	}
-	__HttpRouteMatch = {
+	__HttpRouteMatch :: {
 		Headers?: [...__HttpRouteHeader]
 		Method?: string
 		Prefix:  string
 		Scheme?: string
 	}
-	__MatchRange = {
+	__MatchRange :: {
 		End:   int
 		Start: int
 	}
-	__RouteSpec = {
+	__RouteSpec :: {
 		HttpRoute?: __HttpRoute
 		Priority?:  int
 		TcpRoute?:  __TcpRoute
 	}
-	__TcpRoute = {
+	__TcpRoute :: {
 		Action: __TcpRouteAction
 	}
-	__TcpRouteAction = {
+	__TcpRouteAction :: {
 		WeightedTargets: [...__WeightedTarget]
 	}
-	__WeightedTarget = {
+	__WeightedTarget :: {
 		VirtualNode: string
 		Weight:      int
 	}
@@ -76,28 +87,28 @@ VirtualNode :: {
 		Tags?: [...__Tag]
 		VirtualNodeName: string
 	}
-	__AccessLog = {
+	__AccessLog :: {
 		File?: __FileAccessLog
 	}
-	__AwsCloudMapInstanceAttribute = {
+	__AwsCloudMapInstanceAttribute :: {
 		Key:   string
 		Value: string
 	}
-	__AwsCloudMapServiceDiscovery = {
+	__AwsCloudMapServiceDiscovery :: {
 		Attributes?: [...__AwsCloudMapInstanceAttribute]
 		NamespaceName: string
 		ServiceName:   string
 	}
-	__Backend = {
+	__Backend :: {
 		VirtualService?: __VirtualServiceBackend
 	}
-	__DnsServiceDiscovery = {
+	__DnsServiceDiscovery :: {
 		Hostname: string
 	}
-	__FileAccessLog = {
+	__FileAccessLog :: {
 		Path: string
 	}
-	__HealthCheck = {
+	__HealthCheck :: {
 		HealthyThreshold:   int
 		IntervalMillis:     int
 		Path?:              string
@@ -106,28 +117,28 @@ VirtualNode :: {
 		TimeoutMillis:      int
 		UnhealthyThreshold: int
 	}
-	__Listener = {
+	__Listener :: {
 		HealthCheck?: __HealthCheck
 		PortMapping:  __PortMapping
 	}
-	__Logging = {
+	__Logging :: {
 		AccessLog?: __AccessLog
 	}
-	__PortMapping = {
+	__PortMapping :: {
 		Port:     int
 		Protocol: string
 	}
-	__ServiceDiscovery = {
+	__ServiceDiscovery :: {
 		AWSCloudMap?: __AwsCloudMapServiceDiscovery
 		DNS?:         __DnsServiceDiscovery
 	}
-	__VirtualNodeSpec = {
+	__VirtualNodeSpec :: {
 		Backends?: [...__Backend]
 		Listeners?: [...__Listener]
 		Logging?:          __Logging
 		ServiceDiscovery?: __ServiceDiscovery
 	}
-	__VirtualServiceBackend = {
+	__VirtualServiceBackend :: {
 		VirtualServiceName: string
 	}
 }
@@ -139,14 +150,14 @@ VirtualRouter :: {
 		Tags?: [...__Tag]
 		VirtualRouterName: string
 	}
-	__PortMapping = {
+	__PortMapping :: {
 		Port:     int
 		Protocol: string
 	}
-	__VirtualRouterListener = {
+	__VirtualRouterListener :: {
 		PortMapping: __PortMapping
 	}
-	__VirtualRouterSpec = {
+	__VirtualRouterSpec :: {
 		Listeners: [...__VirtualRouterListener]
 	}
 }
@@ -158,17 +169,17 @@ VirtualService :: {
 		Tags?: [...__Tag]
 		VirtualServiceName: string
 	}
-	__VirtualNodeServiceProvider = {
+	__VirtualNodeServiceProvider :: {
 		VirtualNodeName: string
 	}
-	__VirtualRouterServiceProvider = {
+	__VirtualRouterServiceProvider :: {
 		VirtualRouterName: string
 	}
-	__VirtualServiceProvider = {
+	__VirtualServiceProvider :: {
 		VirtualNode?:   __VirtualNodeServiceProvider
 		VirtualRouter?: __VirtualRouterServiceProvider
 	}
-	__VirtualServiceSpec = {
+	__VirtualServiceSpec :: {
 		Provider?: __VirtualServiceProvider
 	}
 }

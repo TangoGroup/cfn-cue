@@ -8,13 +8,13 @@ ConnectorDefinition :: {
 		Tags?: {
 		}
 	}
-	__Connector = {
+	__Connector :: {
 		ConnectorArn: string
 		Id:           string
 		Parameters?: {
 		}
 	}
-	__ConnectorDefinitionVersion = {
+	__ConnectorDefinitionVersion :: {
 		Connectors: [...__Connector]
 	}
 }
@@ -24,7 +24,7 @@ ConnectorDefinitionVersion :: {
 		ConnectorDefinitionId: string
 		Connectors: [...__Connector]
 	}
-	__Connector = {
+	__Connector :: {
 		ConnectorArn: string
 		Id:           string
 		Parameters?: {
@@ -39,13 +39,13 @@ CoreDefinition :: {
 		Tags?: {
 		}
 	}
-	__Core = {
+	__Core :: {
 		CertificateArn: string
 		Id:             string
 		SyncShadow?:    bool
 		ThingArn:       string
 	}
-	__CoreDefinitionVersion = {
+	__CoreDefinitionVersion :: {
 		Cores: [...__Core]
 	}
 }
@@ -55,7 +55,7 @@ CoreDefinitionVersion :: {
 		CoreDefinitionId: string
 		Cores: [...__Core]
 	}
-	__Core = {
+	__Core :: {
 		CertificateArn: string
 		Id:             string
 		SyncShadow?:    bool
@@ -70,13 +70,13 @@ DeviceDefinition :: {
 		Tags?: {
 		}
 	}
-	__Device = {
+	__Device :: {
 		CertificateArn: string
 		Id:             string
 		SyncShadow?:    bool
 		ThingArn:       string
 	}
-	__DeviceDefinitionVersion = {
+	__DeviceDefinitionVersion :: {
 		Devices: [...__Device]
 	}
 }
@@ -86,7 +86,7 @@ DeviceDefinitionVersion :: {
 		DeviceDefinitionId: string
 		Devices: [...__Device]
 	}
-	__Device = {
+	__Device :: {
 		CertificateArn: string
 		Id:             string
 		SyncShadow?:    bool
@@ -101,26 +101,26 @@ FunctionDefinition :: {
 		Tags?: {
 		}
 	}
-	__DefaultConfig = {
+	__DefaultConfig :: {
 		Execution: __Execution
 	}
-	__Environment = {
+	__Environment :: {
 		AccessSysfs?: bool
 		Execution?:   __Execution
 		ResourceAccessPolicies?: [...__ResourceAccessPolicy]
 		Variables?: {
 		}
 	}
-	__Execution = {
+	__Execution :: {
 		IsolationMode?: string
 		RunAs?:         __RunAs
 	}
-	__Function = {
+	__Function :: {
 		FunctionArn:           string
 		FunctionConfiguration: __FunctionConfiguration
 		Id:                    string
 	}
-	__FunctionConfiguration = {
+	__FunctionConfiguration :: {
 		EncodingType?: string
 		Environment?:  __Environment
 		ExecArgs?:     string
@@ -129,15 +129,15 @@ FunctionDefinition :: {
 		Pinned?:       bool
 		Timeout?:      int
 	}
-	__FunctionDefinitionVersion = {
+	__FunctionDefinitionVersion :: {
 		DefaultConfig?: __DefaultConfig
 		Functions: [...__Function]
 	}
-	__ResourceAccessPolicy = {
+	__ResourceAccessPolicy :: {
 		Permission?: string
 		ResourceId:  string
 	}
-	__RunAs = {
+	__RunAs :: {
 		Gid?: int
 		Uid?: int
 	}
@@ -149,26 +149,26 @@ FunctionDefinitionVersion :: {
 		FunctionDefinitionId: string
 		Functions: [...__Function]
 	}
-	__DefaultConfig = {
+	__DefaultConfig :: {
 		Execution: __Execution
 	}
-	__Environment = {
+	__Environment :: {
 		AccessSysfs?: bool
 		Execution?:   __Execution
 		ResourceAccessPolicies?: [...__ResourceAccessPolicy]
 		Variables?: {
 		}
 	}
-	__Execution = {
+	__Execution :: {
 		IsolationMode?: string
 		RunAs?:         __RunAs
 	}
-	__Function = {
+	__Function :: {
 		FunctionArn:           string
 		FunctionConfiguration: __FunctionConfiguration
 		Id:                    string
 	}
-	__FunctionConfiguration = {
+	__FunctionConfiguration :: {
 		EncodingType?: string
 		Environment?:  __Environment
 		ExecArgs?:     string
@@ -177,11 +177,11 @@ FunctionDefinitionVersion :: {
 		Pinned?:       bool
 		Timeout?:      int
 	}
-	__ResourceAccessPolicy = {
+	__ResourceAccessPolicy :: {
 		Permission?: string
 		ResourceId:  string
 	}
-	__RunAs = {
+	__RunAs :: {
 		Gid?: int
 		Uid?: int
 	}
@@ -195,7 +195,7 @@ Group :: {
 		Tags?: {
 		}
 	}
-	__GroupVersion = {
+	__GroupVersion :: {
 		ConnectorDefinitionVersionArn?:    string
 		CoreDefinitionVersionArn?:         string
 		DeviceDefinitionVersionArn?:       string
@@ -226,14 +226,14 @@ LoggerDefinition :: {
 		Tags?: {
 		}
 	}
-	__Logger = {
+	__Logger :: {
 		Component: string
 		Id:        string
 		Level:     string
 		Space?:    int
 		Type:      string
 	}
-	__LoggerDefinitionVersion = {
+	__LoggerDefinitionVersion :: {
 		Loggers: [...__Logger]
 	}
 }
@@ -243,7 +243,7 @@ LoggerDefinitionVersion :: {
 		LoggerDefinitionId: string
 		Loggers: [...__Logger]
 	}
-	__Logger = {
+	__Logger :: {
 		Component: string
 		Id:        string
 		Level:     string
@@ -257,43 +257,43 @@ ResourceDefinition :: {
 		InitialVersion?: __ResourceDefinitionVersion
 		Name:            string
 	}
-	__GroupOwnerSetting = {
+	__GroupOwnerSetting :: {
 		AutoAddGroupOwner: bool
 		GroupOwner?:       string
 	}
-	__LocalDeviceResourceData = {
+	__LocalDeviceResourceData :: {
 		GroupOwnerSetting?: __GroupOwnerSetting
 		SourcePath:         string
 	}
-	__LocalVolumeResourceData = {
+	__LocalVolumeResourceData :: {
 		DestinationPath:    string
 		GroupOwnerSetting?: __GroupOwnerSetting
 		SourcePath:         string
 	}
-	__ResourceDataContainer = {
+	__ResourceDataContainer :: {
 		LocalDeviceResourceData?:                   __LocalDeviceResourceData
 		LocalVolumeResourceData?:                   __LocalVolumeResourceData
 		S3MachineLearningModelResourceData?:        __S3MachineLearningModelResourceData
 		SageMakerMachineLearningModelResourceData?: __SageMakerMachineLearningModelResourceData
 		SecretsManagerSecretResourceData?:          __SecretsManagerSecretResourceData
 	}
-	__ResourceDefinitionVersion = {
+	__ResourceDefinitionVersion :: {
 		Resources: [...__ResourceInstance]
 	}
-	__ResourceInstance = {
+	__ResourceInstance :: {
 		Id:                    string
 		Name:                  string
 		ResourceDataContainer: __ResourceDataContainer
 	}
-	__S3MachineLearningModelResourceData = {
+	__S3MachineLearningModelResourceData :: {
 		DestinationPath: string
 		S3Uri:           string
 	}
-	__SageMakerMachineLearningModelResourceData = {
+	__SageMakerMachineLearningModelResourceData :: {
 		DestinationPath: string
 		SageMakerJobArn: string
 	}
-	__SecretsManagerSecretResourceData = {
+	__SecretsManagerSecretResourceData :: {
 		ARN: string
 		AdditionalStagingLabelsToDownload?: [...string]
 	}
@@ -304,40 +304,40 @@ ResourceDefinitionVersion :: {
 		ResourceDefinitionId: string
 		Resources: [...__ResourceInstance]
 	}
-	__GroupOwnerSetting = {
+	__GroupOwnerSetting :: {
 		AutoAddGroupOwner: bool
 		GroupOwner?:       string
 	}
-	__LocalDeviceResourceData = {
+	__LocalDeviceResourceData :: {
 		GroupOwnerSetting?: __GroupOwnerSetting
 		SourcePath:         string
 	}
-	__LocalVolumeResourceData = {
+	__LocalVolumeResourceData :: {
 		DestinationPath:    string
 		GroupOwnerSetting?: __GroupOwnerSetting
 		SourcePath:         string
 	}
-	__ResourceDataContainer = {
+	__ResourceDataContainer :: {
 		LocalDeviceResourceData?:                   __LocalDeviceResourceData
 		LocalVolumeResourceData?:                   __LocalVolumeResourceData
 		S3MachineLearningModelResourceData?:        __S3MachineLearningModelResourceData
 		SageMakerMachineLearningModelResourceData?: __SageMakerMachineLearningModelResourceData
 		SecretsManagerSecretResourceData?:          __SecretsManagerSecretResourceData
 	}
-	__ResourceInstance = {
+	__ResourceInstance :: {
 		Id:                    string
 		Name:                  string
 		ResourceDataContainer: __ResourceDataContainer
 	}
-	__S3MachineLearningModelResourceData = {
+	__S3MachineLearningModelResourceData :: {
 		DestinationPath: string
 		S3Uri:           string
 	}
-	__SageMakerMachineLearningModelResourceData = {
+	__SageMakerMachineLearningModelResourceData :: {
 		DestinationPath: string
 		SageMakerJobArn: string
 	}
-	__SecretsManagerSecretResourceData = {
+	__SecretsManagerSecretResourceData :: {
 		ARN: string
 		AdditionalStagingLabelsToDownload?: [...string]
 	}
@@ -350,13 +350,13 @@ SubscriptionDefinition :: {
 		Tags?: {
 		}
 	}
-	__Subscription = {
+	__Subscription :: {
 		Id:      string
 		Source:  string
 		Subject: string
 		Target:  string
 	}
-	__SubscriptionDefinitionVersion = {
+	__SubscriptionDefinitionVersion :: {
 		Subscriptions: [...__Subscription]
 	}
 }
@@ -366,7 +366,7 @@ SubscriptionDefinitionVersion :: {
 		SubscriptionDefinitionId: string
 		Subscriptions: [...__Subscription]
 	}
-	__Subscription = {
+	__Subscription :: {
 		Id:      string
 		Source:  string
 		Subject: string

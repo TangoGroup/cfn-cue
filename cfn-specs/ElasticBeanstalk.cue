@@ -7,21 +7,21 @@ Application :: {
 		Description?:             string
 		ResourceLifecycleConfig?: __ApplicationResourceLifecycleConfig
 	}
-	__ApplicationResourceLifecycleConfig = {
+	__ApplicationResourceLifecycleConfig :: {
 		ServiceRole?:            =~"arn:(aws[a-zA-Z-]*)?:iam::\d{12}:role/[a-zA-Z_0-9+=,.@\-_/]+"
 		ServiceRole?:            string
 		VersionLifecycleConfig?: __ApplicationVersionLifecycleConfig
 	}
-	__ApplicationVersionLifecycleConfig = {
+	__ApplicationVersionLifecycleConfig :: {
 		MaxAgeRule?:   __MaxAgeRule
 		MaxCountRule?: __MaxCountRule
 	}
-	__MaxAgeRule = {
+	__MaxAgeRule :: {
 		DeleteSourceFromS3?: bool
 		Enabled?:            bool
 		MaxAgeInDays?:       int
 	}
-	__MaxCountRule = {
+	__MaxCountRule :: {
 		DeleteSourceFromS3?: bool
 		Enabled?:            bool
 		MaxCount?:           int
@@ -34,7 +34,7 @@ ApplicationVersion :: {
 		Description?:    string
 		SourceBundle:    __SourceBundle
 	}
-	__SourceBundle = {
+	__SourceBundle :: {
 		S3Bucket: string
 		S3Key:    string
 	}
@@ -50,13 +50,13 @@ ConfigurationTemplate :: {
 		SolutionStackName?:   string
 		SourceConfiguration?: __SourceConfiguration
 	}
-	__ConfigurationOptionSetting = {
+	__ConfigurationOptionSetting :: {
 		Namespace:     string
 		OptionName:    string
 		ResourceName?: string
 		Value?:        string
 	}
-	__SourceConfiguration = {
+	__SourceConfiguration :: {
 		ApplicationName: string
 		TemplateName:    string
 	}
@@ -76,13 +76,13 @@ Environment :: {
 		Tier?:         __Tier
 		VersionLabel?: string
 	}
-	__OptionSetting = {
+	__OptionSetting :: {
 		Namespace:     string
 		OptionName:    string
 		ResourceName?: string
 		Value?:        string
 	}
-	__Tier = {
+	__Tier :: {
 		Name?:    string
 		Type?:    string
 		Version?: string

@@ -12,22 +12,22 @@ ConfigurationSetEventDestination :: {
 		ConfigurationSetName: string
 		EventDestination:     __EventDestination
 	}
-	__CloudWatchDestination = {
+	__CloudWatchDestination :: {
 		DimensionConfigurations?: [...__DimensionConfiguration]
 	}
-	__DimensionConfiguration = {
+	__DimensionConfiguration :: {
 		DefaultDimensionValue: string
 		DimensionName:         string
 		DimensionValueSource:  string
 	}
-	__EventDestination = {
+	__EventDestination :: {
 		CloudWatchDestination?:      __CloudWatchDestination
 		Enabled?:                    bool
 		KinesisFirehoseDestination?: __KinesisFirehoseDestination
 		MatchingEventTypes: [...string]
 		Name?: string
 	}
-	__KinesisFirehoseDestination = {
+	__KinesisFirehoseDestination :: {
 		DeliveryStreamARN: string
 		IAMRoleARN:        string
 	}
@@ -37,11 +37,11 @@ ReceiptFilter :: {
 	Properties: {
 		Filter: __Filter
 	}
-	__Filter = {
+	__Filter :: {
 		IpFilter: __IpFilter
 		Name?:    string
 	}
-	__IpFilter = {
+	__IpFilter :: {
 		Cidr:   string
 		Policy: string
 	}
@@ -53,7 +53,7 @@ ReceiptRule :: {
 		Rule:        __Rule
 		RuleSetName: string
 	}
-	__Action = {
+	__Action :: {
 		AddHeaderAction?: __AddHeaderAction
 		BounceAction?:    __BounceAction
 		LambdaAction?:    __LambdaAction
@@ -62,23 +62,23 @@ ReceiptRule :: {
 		StopAction?:      __StopAction
 		WorkmailAction?:  __WorkmailAction
 	}
-	__AddHeaderAction = {
+	__AddHeaderAction :: {
 		HeaderName:  string
 		HeaderValue: string
 	}
-	__BounceAction = {
+	__BounceAction :: {
 		Message:       string
 		Sender:        string
 		SmtpReplyCode: string
 		StatusCode?:   string
 		TopicArn?:     string
 	}
-	__LambdaAction = {
+	__LambdaAction :: {
 		FunctionArn:     string
 		InvocationType?: string
 		TopicArn?:       string
 	}
-	__Rule = {
+	__Rule :: {
 		Actions?: [...__Action]
 		Enabled?: bool
 		Name?:    string
@@ -87,21 +87,21 @@ ReceiptRule :: {
 		TlsPolicy?:   "Optional" | "Require"
 		TlsPolicy?:   string
 	}
-	__S3Action = {
+	__S3Action :: {
 		BucketName:       string
 		KmsKeyArn?:       string
 		ObjectKeyPrefix?: string
 		TopicArn?:        string
 	}
-	__SNSAction = {
+	__SNSAction :: {
 		Encoding?: string
 		TopicArn?: string
 	}
-	__StopAction = {
+	__StopAction :: {
 		Scope:     string
 		TopicArn?: string
 	}
-	__WorkmailAction = {
+	__WorkmailAction :: {
 		OrganizationArn: string
 		TopicArn?:       string
 	}
@@ -117,7 +117,7 @@ Template :: {
 	Properties: {
 		Template?: __Template
 	}
-	__Template = {
+	__Template :: {
 		HtmlPart?:     string
 		SubjectPart?:  string
 		TemplateName?: string

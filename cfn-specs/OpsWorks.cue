@@ -17,17 +17,17 @@ App :: {
 		StackId:           string
 		Type:              string
 	}
-	__DataSource = {
+	__DataSource :: {
 		Arn?:          string
 		DatabaseName?: string
 		Type?:         string
 	}
-	__EnvironmentVariable = {
+	__EnvironmentVariable :: {
 		Key:     string
 		Secure?: bool
 		Value:   string
 	}
-	__Source = {
+	__Source :: {
 		Password?: string
 		Revision?: string
 		SshKey?:   string
@@ -35,7 +35,7 @@ App :: {
 		Url?:      string
 		Username?: string
 	}
-	__SslConfiguration = {
+	__SslConfiguration :: {
 		Certificate?: string
 		Chain?:       string
 		PrivateKey?:  string
@@ -73,13 +73,13 @@ Instance :: {
 		VirtualizationType?:   string
 		Volumes?: [...string]
 	}
-	__BlockDeviceMapping = {
+	__BlockDeviceMapping :: {
 		DeviceName?:  string
 		Ebs?:         __EbsBlockDevice
 		NoDevice?:    string
 		VirtualName?: string
 	}
-	__EbsBlockDevice = {
+	__EbsBlockDevice :: {
 		DeleteOnTermination?: bool
 		Iops?:                int
 		SnapshotId?:          string
@@ -87,7 +87,7 @@ Instance :: {
 		VolumeType?:          "gp2" | "io1" | "sc1" | "st1" | "standard"
 		VolumeType?:          string
 	}
-	__TimeBasedAutoScaling = {
+	__TimeBasedAutoScaling :: {
 		Friday?: {
 		}
 		Monday?: {
@@ -129,7 +129,7 @@ Layer :: {
 		UseEbsOptimizedInstances?: bool
 		VolumeConfigurations?: [...__VolumeConfiguration]
 	}
-	__AutoScalingThresholds = {
+	__AutoScalingThresholds :: {
 		CpuThreshold?:       float
 		IgnoreMetricsTime?:  int
 		InstanceCount?:      int
@@ -137,26 +137,26 @@ Layer :: {
 		MemoryThreshold?:    float
 		ThresholdsWaitTime?: int
 	}
-	__LifecycleEventConfiguration = {
+	__LifecycleEventConfiguration :: {
 		ShutdownEventConfiguration?: __ShutdownEventConfiguration
 	}
-	__LoadBasedAutoScaling = {
+	__LoadBasedAutoScaling :: {
 		DownScaling?: __AutoScalingThresholds
 		Enable?:      bool
 		UpScaling?:   __AutoScalingThresholds
 	}
-	__Recipes = {
+	__Recipes :: {
 		Configure?: [...string]
 		Deploy?: [...string]
 		Setup?: [...string]
 		Shutdown?: [...string]
 		Undeploy?: [...string]
 	}
-	__ShutdownEventConfiguration = {
+	__ShutdownEventConfiguration :: {
 		DelayUntilElbConnectionsDrained?: bool
 		ExecutionTimeout?:                int
 	}
-	__VolumeConfiguration = {
+	__VolumeConfiguration :: {
 		Encrypted?:     bool
 		Iops?:          int
 		MountPoint?:    string
@@ -198,20 +198,20 @@ Stack :: {
 		UseOpsworksSecurityGroups?: bool
 		VpcId?:                     string
 	}
-	__ChefConfiguration = {
+	__ChefConfiguration :: {
 		BerkshelfVersion?: string
 		ManageBerkshelf?:  bool
 	}
-	__ElasticIp = {
+	__ElasticIp :: {
 		Ip:    string
 		Name?: string
 	}
-	__RdsDbInstance = {
+	__RdsDbInstance :: {
 		DbPassword:       string
 		DbUser:           string
 		RdsDbInstanceArn: string
 	}
-	__Source = {
+	__Source :: {
 		Password?: string
 		Revision?: string
 		SshKey?:   string
@@ -219,7 +219,7 @@ Stack :: {
 		Url?:      string
 		Username?: string
 	}
-	__StackConfigurationManager = {
+	__StackConfigurationManager :: {
 		Name?:    string
 		Version?: string
 	}

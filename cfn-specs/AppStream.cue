@@ -7,7 +7,7 @@ DirectoryConfig :: {
 		OrganizationalUnitDistinguishedNames: [...string]
 		ServiceAccountCredentials: __ServiceAccountCredentials
 	}
-	__ServiceAccountCredentials = {
+	__ServiceAccountCredentials :: {
 		AccountName:     string
 		AccountPassword: string
 	}
@@ -34,14 +34,14 @@ Fleet :: {
 		Tags?: [...__Tag]
 		VpcConfig?: __VpcConfig
 	}
-	__ComputeCapacity = {
+	__ComputeCapacity :: {
 		DesiredInstances: int
 	}
-	__DomainJoinInfo = {
+	__DomainJoinInfo :: {
 		DirectoryName?:                       string
 		OrganizationalUnitDistinguishedName?: string
 	}
-	__VpcConfig = {
+	__VpcConfig :: {
 		SecurityGroupIds?: [...string]
 		SubnetIds?: [...string]
 	}
@@ -61,11 +61,11 @@ ImageBuilder :: {
 		Tags?: [...__Tag]
 		VpcConfig?: __VpcConfig
 	}
-	__DomainJoinInfo = {
+	__DomainJoinInfo :: {
 		DirectoryName?:                       string
 		OrganizationalUnitDistinguishedName?: string
 	}
-	__VpcConfig = {
+	__VpcConfig :: {
 		SecurityGroupIds?: [...string]
 		SubnetIds?: [...string]
 	}
@@ -85,16 +85,16 @@ Stack :: {
 		Tags?: [...__Tag]
 		UserSettings?: [...__UserSetting]
 	}
-	__ApplicationSettings = {
+	__ApplicationSettings :: {
 		Enabled:        bool
 		SettingsGroup?: string
 	}
-	__StorageConnector = {
+	__StorageConnector :: {
 		ConnectorType: string
 		Domains?: [...string]
 		ResourceIdentifier?: string
 	}
-	__UserSetting = {
+	__UserSetting :: {
 		Action:     string
 		Permission: string
 	}

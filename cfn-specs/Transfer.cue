@@ -10,10 +10,10 @@ Server :: {
 		LoggingRole?:             string
 		Tags?: [...__Tag]
 	}
-	__EndpointDetails = {
+	__EndpointDetails :: {
 		VpcEndpointId: string
 	}
-	__IdentityProviderDetails = {
+	__IdentityProviderDetails :: {
 		InvocationRole: string
 		Url:            string
 	}
@@ -29,6 +29,6 @@ User :: {
 		Tags?: [...__Tag]
 		UserName: string
 	}
-	__SshPublicKey = {
+	__SshPublicKey :: {
 	}
 }

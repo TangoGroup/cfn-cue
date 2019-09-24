@@ -71,7 +71,7 @@ ReplicationGroup :: {
 		Tags?: [...__Tag]
 		TransitEncryptionEnabled?: bool
 	}
-	__NodeGroupConfiguration = {
+	__NodeGroupConfiguration :: {
 		NodeGroupId?:             string
 		PrimaryAvailabilityZone?: string
 		ReplicaAvailabilityZones?: [...string]

@@ -37,7 +37,7 @@ Cluster :: {
 		Tags?: [...__Tag]
 		VpcSecurityGroupIds?: [...string]
 	}
-	__LoggingProperties = {
+	__LoggingProperties :: {
 		BucketName:   string
 		S3KeyPrefix?: string
 	}
@@ -50,7 +50,7 @@ ClusterParameterGroup :: {
 		Parameters?: [...__Parameter]
 		Tags?: [...__Tag]
 	}
-	__Parameter = {
+	__Parameter :: {
 		ParameterName:  string
 		ParameterValue: string
 	}

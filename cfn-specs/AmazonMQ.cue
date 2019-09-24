@@ -23,28 +23,28 @@ Broker :: {
 		Tags?: [...__TagsEntry]
 		Users: [...__User]
 	}
-	__ConfigurationId = {
+	__ConfigurationId :: {
 		Id:       string
 		Revision: int
 	}
-	__EncryptionOptions = {
+	__EncryptionOptions :: {
 		KmsKeyId?:      string
 		UseAwsOwnedKey: bool
 	}
-	__LogList = {
+	__LogList :: {
 		Audit?:   bool
 		General?: bool
 	}
-	__MaintenanceWindow = {
+	__MaintenanceWindow :: {
 		DayOfWeek: string
 		TimeOfDay: string
 		TimeZone:  string
 	}
-	__TagsEntry = {
+	__TagsEntry :: {
 		Key:   string
 		Value: string
 	}
-	__User = {
+	__User :: {
 		ConsoleAccess?: bool
 		Groups?: [...string]
 		Password: string
@@ -63,7 +63,7 @@ Configuration :: {
 		Name:          string
 		Tags?: [...__TagsEntry]
 	}
-	__TagsEntry = {
+	__TagsEntry :: {
 		Key:   string
 		Value: string
 	}
@@ -74,7 +74,7 @@ ConfigurationAssociation :: {
 		Broker:        string
 		Configuration: __ConfigurationId
 	}
-	__ConfigurationId = {
+	__ConfigurationId :: {
 		Id:       string
 		Revision: int
 	}

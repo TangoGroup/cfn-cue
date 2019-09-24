@@ -17,13 +17,13 @@ Domain :: {
 		Tags?: [...__Tag]
 		VPCOptions?: __VPCOptions
 	}
-	__EBSOptions = {
+	__EBSOptions :: {
 		EBSEnabled?: bool
 		Iops?:       int
 		VolumeSize?: int
 		VolumeType?: string
 	}
-	__ElasticsearchClusterConfig = {
+	__ElasticsearchClusterConfig :: {
 		DedicatedMasterCount?:   int
 		DedicatedMasterEnabled?: bool
 		DedicatedMasterType?:    string
@@ -32,21 +32,21 @@ Domain :: {
 		ZoneAwarenessConfig?:    __ZoneAwarenessConfig
 		ZoneAwarenessEnabled?:   bool
 	}
-	__EncryptionAtRestOptions = {
+	__EncryptionAtRestOptions :: {
 		Enabled?:  bool
 		KmsKeyId?: string
 	}
-	__NodeToNodeEncryptionOptions = {
+	__NodeToNodeEncryptionOptions :: {
 		Enabled?: bool
 	}
-	__SnapshotOptions = {
+	__SnapshotOptions :: {
 		AutomatedSnapshotStartHour?: int
 	}
-	__VPCOptions = {
+	__VPCOptions :: {
 		SecurityGroupIds?: [...string]
 		SubnetIds?: [...string]
 	}
-	__ZoneAwarenessConfig = {
+	__ZoneAwarenessConfig :: {
 		AvailabilityZoneCount?: int
 	}
 }

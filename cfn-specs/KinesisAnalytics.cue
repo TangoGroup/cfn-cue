@@ -8,11 +8,11 @@ Application :: {
 		ApplicationName?:        string
 		Inputs: [...__Input]
 	}
-	__CSVMappingParameters = {
+	__CSVMappingParameters :: {
 		RecordColumnDelimiter: string
 		RecordRowDelimiter:    string
 	}
-	__Input = {
+	__Input :: {
 		InputParallelism?:             __InputParallelism
 		InputProcessingConfiguration?: __InputProcessingConfiguration
 		InputSchema:                   __InputSchema
@@ -20,42 +20,42 @@ Application :: {
 		KinesisStreamsInput?:          __KinesisStreamsInput
 		NamePrefix:                    string
 	}
-	__InputLambdaProcessor = {
+	__InputLambdaProcessor :: {
 		ResourceARN: string
 		RoleARN:     string
 	}
-	__InputParallelism = {
+	__InputParallelism :: {
 		Count?: int
 	}
-	__InputProcessingConfiguration = {
+	__InputProcessingConfiguration :: {
 		InputLambdaProcessor?: __InputLambdaProcessor
 	}
-	__InputSchema = {
+	__InputSchema :: {
 		RecordColumns: [...__RecordColumn]
 		RecordEncoding?: string
 		RecordFormat:    __RecordFormat
 	}
-	__JSONMappingParameters = {
+	__JSONMappingParameters :: {
 		RecordRowPath: string
 	}
-	__KinesisFirehoseInput = {
+	__KinesisFirehoseInput :: {
 		ResourceARN: string
 		RoleARN:     string
 	}
-	__KinesisStreamsInput = {
+	__KinesisStreamsInput :: {
 		ResourceARN: string
 		RoleARN:     string
 	}
-	__MappingParameters = {
+	__MappingParameters :: {
 		CSVMappingParameters?:  __CSVMappingParameters
 		JSONMappingParameters?: __JSONMappingParameters
 	}
-	__RecordColumn = {
+	__RecordColumn :: {
 		Mapping?: string
 		Name:     string
 		SqlType:  string
 	}
-	__RecordFormat = {
+	__RecordFormat :: {
 		MappingParameters?: __MappingParameters
 		RecordFormatType:   string
 	}
@@ -66,22 +66,22 @@ ApplicationOutput :: {
 		ApplicationName: string
 		Output:          __Output
 	}
-	__DestinationSchema = {
+	__DestinationSchema :: {
 		RecordFormatType?: string
 	}
-	__KinesisFirehoseOutput = {
+	__KinesisFirehoseOutput :: {
 		ResourceARN: string
 		RoleARN:     string
 	}
-	__KinesisStreamsOutput = {
+	__KinesisStreamsOutput :: {
 		ResourceARN: string
 		RoleARN:     string
 	}
-	__LambdaOutput = {
+	__LambdaOutput :: {
 		ResourceARN: string
 		RoleARN:     string
 	}
-	__Output = {
+	__Output :: {
 		DestinationSchema:      __DestinationSchema
 		KinesisFirehoseOutput?: __KinesisFirehoseOutput
 		KinesisStreamsOutput?:  __KinesisStreamsOutput
@@ -95,37 +95,37 @@ ApplicationReferenceDataSource :: {
 		ApplicationName:     string
 		ReferenceDataSource: __ReferenceDataSource
 	}
-	__CSVMappingParameters = {
+	__CSVMappingParameters :: {
 		RecordColumnDelimiter: string
 		RecordRowDelimiter:    string
 	}
-	__JSONMappingParameters = {
+	__JSONMappingParameters :: {
 		RecordRowPath: string
 	}
-	__MappingParameters = {
+	__MappingParameters :: {
 		CSVMappingParameters?:  __CSVMappingParameters
 		JSONMappingParameters?: __JSONMappingParameters
 	}
-	__RecordColumn = {
+	__RecordColumn :: {
 		Mapping?: string
 		Name:     string
 		SqlType:  string
 	}
-	__RecordFormat = {
+	__RecordFormat :: {
 		MappingParameters?: __MappingParameters
 		RecordFormatType:   string
 	}
-	__ReferenceDataSource = {
+	__ReferenceDataSource :: {
 		ReferenceSchema:        __ReferenceSchema
 		S3ReferenceDataSource?: __S3ReferenceDataSource
 		TableName?:             string
 	}
-	__ReferenceSchema = {
+	__ReferenceSchema :: {
 		RecordColumns: [...__RecordColumn]
 		RecordEncoding?: string
 		RecordFormat:    __RecordFormat
 	}
-	__S3ReferenceDataSource = {
+	__S3ReferenceDataSource :: {
 		BucketARN:        string
 		FileKey:          string
 		ReferenceRoleARN: string

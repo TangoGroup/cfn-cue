@@ -7,11 +7,11 @@ BackupPlan :: {
 		BackupPlanTags?: {
 		}
 	}
-	__BackupPlanResourceType = {
+	__BackupPlanResourceType :: {
 		BackupPlanName: string
 		BackupPlanRule: [...__BackupRuleResourceType]
 	}
-	__BackupRuleResourceType = {
+	__BackupRuleResourceType :: {
 		CompletionWindowMinutes?: int
 		Lifecycle?:               __LifecycleResourceType
 		RecoveryPointTags?: {
@@ -21,7 +21,7 @@ BackupPlan :: {
 		StartWindowMinutes?: int
 		TargetBackupVault:   string
 	}
-	__LifecycleResourceType = {
+	__LifecycleResourceType :: {
 		DeleteAfterDays?:            int
 		MoveToColdStorageAfterDays?: int
 	}
@@ -32,14 +32,14 @@ BackupSelection :: {
 		BackupPlanId:    string
 		BackupSelection: __BackupSelectionResourceType
 	}
-	__BackupSelectionResourceType = {
+	__BackupSelectionResourceType :: {
 		IamRoleArn: =~"arn:(aws[a-zA-Z-]*)?:iam::\d{12}:role/[a-zA-Z_0-9+=,.@\-_/]+"
 		IamRoleArn: string
 		ListOfTags?: [...__ConditionResourceType]
 		Resources?: [...string]
 		SelectionName: string
 	}
-	__ConditionResourceType = {
+	__ConditionResourceType :: {
 		ConditionKey:   string
 		ConditionType:  string
 		ConditionValue: string
@@ -56,7 +56,7 @@ BackupVault :: {
 		EncryptionKeyArn?: string
 		Notifications?:    __NotificationObjectType
 	}
-	__NotificationObjectType = {
+	__NotificationObjectType :: {
 		BackupVaultEvents: [...string]
 		SNSTopicArn: string
 	}

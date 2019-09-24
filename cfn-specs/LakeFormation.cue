@@ -5,9 +5,9 @@ DataLakeSettings :: {
 	Properties: {
 		Admins?: __Admins
 	}
-	__Admins = {
+	__Admins :: {
 	}
-	__DataLakePrincipal = {
+	__DataLakePrincipal :: {
 		DataLakePrincipalIdentifier?: string
 	}
 }
@@ -19,17 +19,17 @@ Permissions :: {
 		PermissionsWithGrantOption?: [...string]
 		Resource: __Resource
 	}
-	__DataLakePrincipal = {
+	__DataLakePrincipal :: {
 		DataLakePrincipalIdentifier?: string
 	}
-	__DatabaseResource = {
+	__DatabaseResource :: {
 		Name?: string
 	}
-	__Resource = {
+	__Resource :: {
 		DatabaseResource?: __DatabaseResource
 		TableResource?:    __TableResource
 	}
-	__TableResource = {
+	__TableResource :: {
 		DatabaseName?: string
 		Name?:         string
 	}

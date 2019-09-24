@@ -14,7 +14,7 @@ DeploymentConfig :: {
 		DeploymentConfigName?: string
 		MinimumHealthyHosts?:  __MinimumHealthyHosts
 	}
-	__MinimumHealthyHosts = {
+	__MinimumHealthyHosts :: {
 		Type:  "FLEET_PERCENT" | "HOST_COUNT"
 		Type:  string
 		Value: int
@@ -39,79 +39,79 @@ DeploymentGroup :: {
 		ServiceRoleArn:    string
 		TriggerConfigurations?: [...__TriggerConfig]
 	}
-	__Alarm = {
+	__Alarm :: {
 		Name?: string
 	}
-	__AlarmConfiguration = {
+	__AlarmConfiguration :: {
 		Alarms?: [...__Alarm]
 		Enabled?:                bool
 		IgnorePollAlarmFailure?: bool
 	}
-	__AutoRollbackConfiguration = {
+	__AutoRollbackConfiguration :: {
 		Enabled?: bool
 		Events?:  "DEPLOYMENT_FAILURE" | "DEPLOYMENT_STOP_ON_ALARM" | "DEPLOYMENT_STOP_ON_REQUEST"
 		Events?: [...string]
 	}
-	__Deployment = {
+	__Deployment :: {
 		Description?:                   string
 		IgnoreApplicationStopFailures?: bool
 		Revision:                       __RevisionLocation
 	}
-	__DeploymentStyle = {
+	__DeploymentStyle :: {
 		DeploymentOption?: "WITH_TRAFFIC_CONTROL" | "WITHOUT_TRAFFIC_CONTROL"
 		DeploymentOption?: string
 		DeploymentType?:   "BLUE_GREEN" | "IN_PLACE"
 		DeploymentType?:   string
 	}
-	__EC2TagFilter = {
+	__EC2TagFilter :: {
 		Key?:   string
 		Type?:  string
 		Value?: string
 	}
-	__EC2TagSet = {
+	__EC2TagSet :: {
 		Ec2TagSetList?: [...__EC2TagSetListObject]
 	}
-	__EC2TagSetListObject = {
+	__EC2TagSetListObject :: {
 		Ec2TagGroup?: [...__EC2TagFilter]
 	}
-	__ELBInfo = {
+	__ELBInfo :: {
 		Name?: string
 	}
-	__GitHubLocation = {
+	__GitHubLocation :: {
 		CommitId:   string
 		Repository: string
 	}
-	__LoadBalancerInfo = {
+	__LoadBalancerInfo :: {
 		ElbInfoList?: [...__ELBInfo]
 		TargetGroupInfoList?: [...__TargetGroupInfo]
 	}
-	__OnPremisesTagSet = {
+	__OnPremisesTagSet :: {
 		OnPremisesTagSetList?: [...__OnPremisesTagSetListObject]
 	}
-	__OnPremisesTagSetListObject = {
+	__OnPremisesTagSetListObject :: {
 		OnPremisesTagGroup?: [...__TagFilter]
 	}
-	__RevisionLocation = {
+	__RevisionLocation :: {
 		GitHubLocation?: __GitHubLocation
 		RevisionType?:   string
 		S3Location?:     __S3Location
 	}
-	__S3Location = {
+	__S3Location :: {
 		Bucket:      string
 		BundleType?: string
 		ETag?:       string
 		Key:         string
 		Version?:    string
 	}
-	__TagFilter = {
+	__TagFilter :: {
 		Key?:   string
 		Type?:  string
 		Value?: string
 	}
-	__TargetGroupInfo = {
+	__TargetGroupInfo :: {
 		Name?: string
 	}
-	__TriggerConfig = {
+	__TriggerConfig :: {
 		TriggerEvents?: "DeploymentFailure" | "DeploymentReady" | "DeploymentRollback" | "DeploymentStart" | "DeploymentStop" | "DeploymentSuccess" | "InstanceFailure" | "InstanceReady" | "InstanceStart" | "InstanceSuccess"
 		TriggerEvents?: [...string]
 		TriggerName?:      string

@@ -35,12 +35,12 @@ DBCluster :: {
 		UseLatestRestorableTime?: bool
 		VpcSecurityGroupIds?: [...string]
 	}
-	__DBClusterRole = {
+	__DBClusterRole :: {
 		FeatureName?: string
 		RoleArn:      string
 		Status?:      string
 	}
-	__ScalingConfiguration = {
+	__ScalingConfiguration :: {
 		AutoPause?:             bool
 		MaxCapacity?:           int
 		MinCapacity?:           int
@@ -113,12 +113,12 @@ DBInstance :: {
 		UseDefaultProcessorFeatures?: bool
 		VPCSecurityGroups?: [...string]
 	}
-	__DBInstanceRole = {
+	__DBInstanceRole :: {
 		FeatureName: string
 		RoleArn:     string
 		Status?:     string
 	}
-	__ProcessorFeature = {
+	__ProcessorFeature :: {
 		Name?:  string
 		Value?: string
 	}
@@ -141,7 +141,7 @@ DBSecurityGroup :: {
 		GroupDescription: string
 		Tags?: [...__Tag]
 	}
-	__Ingress = {
+	__Ingress :: {
 		CIDRIP?:                  string
 		EC2SecurityGroupId?:      string
 		EC2SecurityGroupName?:    string
@@ -186,7 +186,7 @@ OptionGroup :: {
 		OptionGroupDescription: string
 		Tags?: [...__Tag]
 	}
-	__OptionConfiguration = {
+	__OptionConfiguration :: {
 		DBSecurityGroupMemberships?: [...string]
 		OptionName: string
 		OptionSettings?: [...__OptionSetting]
@@ -194,7 +194,7 @@ OptionGroup :: {
 		Port?:          int
 		VpcSecurityGroupMemberships?: [...string]
 	}
-	__OptionSetting = {
+	__OptionSetting :: {
 		Name?:  string
 		Value?: string
 	}

@@ -25,22 +25,22 @@ Cluster :: {
 		Tags?: [...__Tag]
 		VisibleToAllUsers?: bool
 	}
-	__Application = {
+	__Application :: {
 		AdditionalInfo?: {
 		}
 		Args?: [...string]
 		Name?:    string
 		Version?: string
 	}
-	__AutoScalingPolicy = {
+	__AutoScalingPolicy :: {
 		Constraints: __ScalingConstraints
 		Rules: [...__ScalingRule]
 	}
-	__BootstrapActionConfig = {
+	__BootstrapActionConfig :: {
 		Name:                  string
 		ScriptBootstrapAction: __ScriptBootstrapActionConfig
 	}
-	__CloudWatchAlarmDefinition = {
+	__CloudWatchAlarmDefinition :: {
 		ComparisonOperator: string
 		Dimensions?: [...__MetricDimension]
 		EvaluationPeriods?: int
@@ -51,37 +51,37 @@ Cluster :: {
 		Threshold:          float
 		Unit?:              string
 	}
-	__Configuration = {
+	__Configuration :: {
 		Classification?: string
 		ConfigurationProperties?: {
 		}
 		Configurations?: [...__Configuration]
 	}
-	__EbsBlockDeviceConfig = {
+	__EbsBlockDeviceConfig :: {
 		VolumeSpecification: __VolumeSpecification
 		VolumesPerInstance?: int
 	}
-	__EbsConfiguration = {
+	__EbsConfiguration :: {
 		EbsBlockDeviceConfigs?: [...__EbsBlockDeviceConfig]
 		EbsOptimized?: bool
 	}
-	__HadoopJarStepConfig = {
+	__HadoopJarStepConfig :: {
 		Args?: [...string]
 		Jar:        string
 		MainClass?: string
 		StepProperties?: [...__KeyValue]
 	}
-	__InstanceFleetConfig = {
+	__InstanceFleetConfig :: {
 		InstanceTypeConfigs?: [...__InstanceTypeConfig]
 		LaunchSpecifications?:   __InstanceFleetProvisioningSpecifications
 		Name?:                   string
 		TargetOnDemandCapacity?: int
 		TargetSpotCapacity?:     int
 	}
-	__InstanceFleetProvisioningSpecifications = {
+	__InstanceFleetProvisioningSpecifications :: {
 		SpotSpecification: __SpotProvisioningSpecification
 	}
-	__InstanceGroupConfig = {
+	__InstanceGroupConfig :: {
 		AutoScalingPolicy?: __AutoScalingPolicy
 		BidPrice?:          string
 		Configurations?: [...__Configuration]
@@ -91,7 +91,7 @@ Cluster :: {
 		Market?:           string
 		Name?:             string
 	}
-	__InstanceTypeConfig = {
+	__InstanceTypeConfig :: {
 		BidPrice?:                            string
 		BidPriceAsPercentageOfOnDemandPrice?: float
 		Configurations?: [...__Configuration]
@@ -99,7 +99,7 @@ Cluster :: {
 		InstanceType:      string
 		WeightedCapacity?: int
 	}
-	__JobFlowInstancesConfig = {
+	__JobFlowInstancesConfig :: {
 		AdditionalMasterSecurityGroups?: [...string]
 		AdditionalSlaveSecurityGroups?: [...string]
 		CoreInstanceFleet?: __InstanceFleetConfig
@@ -117,61 +117,61 @@ Cluster :: {
 		ServiceAccessSecurityGroup?:    string
 		TerminationProtected?:          bool
 	}
-	__KerberosAttributes = {
+	__KerberosAttributes :: {
 		ADDomainJoinPassword?:             string
 		ADDomainJoinUser?:                 string
 		CrossRealmTrustPrincipalPassword?: string
 		KdcAdminPassword:                  string
 		Realm:                             string
 	}
-	__KeyValue = {
+	__KeyValue :: {
 		Key?:   string
 		Value?: string
 	}
-	__MetricDimension = {
+	__MetricDimension :: {
 		Key:   string
 		Value: string
 	}
-	__PlacementType = {
+	__PlacementType :: {
 		AvailabilityZone: string
 	}
-	__ScalingAction = {
+	__ScalingAction :: {
 		Market?:                          string
 		SimpleScalingPolicyConfiguration: __SimpleScalingPolicyConfiguration
 	}
-	__ScalingConstraints = {
+	__ScalingConstraints :: {
 		MaxCapacity: int
 		MinCapacity: int
 	}
-	__ScalingRule = {
+	__ScalingRule :: {
 		Action:       __ScalingAction
 		Description?: string
 		Name:         string
 		Trigger:      __ScalingTrigger
 	}
-	__ScalingTrigger = {
+	__ScalingTrigger :: {
 		CloudWatchAlarmDefinition: __CloudWatchAlarmDefinition
 	}
-	__ScriptBootstrapActionConfig = {
+	__ScriptBootstrapActionConfig :: {
 		Args?: [...string]
 		Path: string
 	}
-	__SimpleScalingPolicyConfiguration = {
+	__SimpleScalingPolicyConfiguration :: {
 		AdjustmentType?:   string
 		CoolDown?:         int
 		ScalingAdjustment: int
 	}
-	__SpotProvisioningSpecification = {
+	__SpotProvisioningSpecification :: {
 		BlockDurationMinutes?:  int
 		TimeoutAction:          string
 		TimeoutDurationMinutes: int
 	}
-	__StepConfig = {
+	__StepConfig :: {
 		ActionOnFailure?: string
 		HadoopJarStep:    __HadoopJarStepConfig
 		Name:             string
 	}
-	__VolumeSpecification = {
+	__VolumeSpecification :: {
 		Iops?:      int
 		SizeInGB:   int
 		VolumeType: string
@@ -188,24 +188,24 @@ InstanceFleetConfig :: {
 		TargetOnDemandCapacity?: int
 		TargetSpotCapacity?:     int
 	}
-	__Configuration = {
+	__Configuration :: {
 		Classification?: string
 		ConfigurationProperties?: {
 		}
 		Configurations?: [...__Configuration]
 	}
-	__EbsBlockDeviceConfig = {
+	__EbsBlockDeviceConfig :: {
 		VolumeSpecification: __VolumeSpecification
 		VolumesPerInstance?: int
 	}
-	__EbsConfiguration = {
+	__EbsConfiguration :: {
 		EbsBlockDeviceConfigs?: [...__EbsBlockDeviceConfig]
 		EbsOptimized?: bool
 	}
-	__InstanceFleetProvisioningSpecifications = {
+	__InstanceFleetProvisioningSpecifications :: {
 		SpotSpecification: __SpotProvisioningSpecification
 	}
-	__InstanceTypeConfig = {
+	__InstanceTypeConfig :: {
 		BidPrice?:                            string
 		BidPriceAsPercentageOfOnDemandPrice?: float
 		Configurations?: [...__Configuration]
@@ -213,12 +213,12 @@ InstanceFleetConfig :: {
 		InstanceType:      string
 		WeightedCapacity?: int
 	}
-	__SpotProvisioningSpecification = {
+	__SpotProvisioningSpecification :: {
 		BlockDurationMinutes?:  int
 		TimeoutAction:          string
 		TimeoutDurationMinutes: int
 	}
-	__VolumeSpecification = {
+	__VolumeSpecification :: {
 		Iops?:      int
 		SizeInGB:   int
 		VolumeType: string
@@ -238,11 +238,11 @@ InstanceGroupConfig :: {
 		Market?:           string
 		Name?:             string
 	}
-	__AutoScalingPolicy = {
+	__AutoScalingPolicy :: {
 		Constraints: __ScalingConstraints
 		Rules: [...__ScalingRule]
 	}
-	__CloudWatchAlarmDefinition = {
+	__CloudWatchAlarmDefinition :: {
 		ComparisonOperator: string
 		Dimensions?: [...__MetricDimension]
 		EvaluationPeriods?: int
@@ -253,47 +253,47 @@ InstanceGroupConfig :: {
 		Threshold:          float
 		Unit?:              string
 	}
-	__Configuration = {
+	__Configuration :: {
 		Classification?: string
 		ConfigurationProperties?: {
 		}
 		Configurations?: [...__Configuration]
 	}
-	__EbsBlockDeviceConfig = {
+	__EbsBlockDeviceConfig :: {
 		VolumeSpecification: __VolumeSpecification
 		VolumesPerInstance?: int
 	}
-	__EbsConfiguration = {
+	__EbsConfiguration :: {
 		EbsBlockDeviceConfigs?: [...__EbsBlockDeviceConfig]
 		EbsOptimized?: bool
 	}
-	__MetricDimension = {
+	__MetricDimension :: {
 		Key:   string
 		Value: string
 	}
-	__ScalingAction = {
+	__ScalingAction :: {
 		Market?:                          string
 		SimpleScalingPolicyConfiguration: __SimpleScalingPolicyConfiguration
 	}
-	__ScalingConstraints = {
+	__ScalingConstraints :: {
 		MaxCapacity: int
 		MinCapacity: int
 	}
-	__ScalingRule = {
+	__ScalingRule :: {
 		Action:       __ScalingAction
 		Description?: string
 		Name:         string
 		Trigger:      __ScalingTrigger
 	}
-	__ScalingTrigger = {
+	__ScalingTrigger :: {
 		CloudWatchAlarmDefinition: __CloudWatchAlarmDefinition
 	}
-	__SimpleScalingPolicyConfiguration = {
+	__SimpleScalingPolicyConfiguration :: {
 		AdjustmentType?:   string
 		CoolDown?:         int
 		ScalingAdjustment: int
 	}
-	__VolumeSpecification = {
+	__VolumeSpecification :: {
 		Iops?:      int
 		SizeInGB:   int
 		VolumeType: string
@@ -315,13 +315,13 @@ Step :: {
 		JobFlowId:       string
 		Name:            string
 	}
-	__HadoopJarStepConfig = {
+	__HadoopJarStepConfig :: {
 		Args?: [...string]
 		Jar:        string
 		MainClass?: string
 		StepProperties?: [...__KeyValue]
 	}
-	__KeyValue = {
+	__KeyValue :: {
 		Key?:   string
 		Value?: string
 	}

@@ -11,10 +11,10 @@ Repository :: {
 		Tags?: [...__Tag]
 		Triggers?: [...__RepositoryTrigger]
 	}
-	__Code = {
+	__Code :: {
 		S3: __S3
 	}
-	__RepositoryTrigger = {
+	__RepositoryTrigger :: {
 		Branches?: [...string]
 		CustomData?:    string
 		DestinationArn: string
@@ -22,7 +22,7 @@ Repository :: {
 		Events: [...string]
 		Name: string
 	}
-	__S3 = {
+	__S3 :: {
 		Bucket:         string
 		Key:            string
 		ObjectVersion?: string

@@ -25,7 +25,7 @@ Project :: {
 		Triggers?:         __ProjectTriggers
 		VpcConfig?:        __VpcConfig
 	}
-	__Artifacts = {
+	__Artifacts :: {
 		ArtifactIdentifier?:   string
 		EncryptionDisabled?:   bool
 		Location?:             string
@@ -38,13 +38,13 @@ Project :: {
 		Type:                  "CODEPIPELINE" | "NO_ARTIFACTS" | "S3"
 		Type:                  string
 	}
-	__CloudWatchLogsConfig = {
+	__CloudWatchLogsConfig :: {
 		GroupName?:  string
 		Status:      "DISABLED" | "ENABLED"
 		Status:      string
 		StreamName?: string
 	}
-	__Environment = {
+	__Environment :: {
 		Certificate?: string
 		ComputeType:  "BUILD_GENERAL1_LARGE" | "BUILD_GENERAL1_MEDIUM" | "BUILD_GENERAL1_SMALL"
 		ComputeType:  string
@@ -57,45 +57,45 @@ Project :: {
 		Type:                      "LINUX_CONTAINER" | "WINDOWS_CONTAINER"
 		Type:                      string
 	}
-	__EnvironmentVariable = {
+	__EnvironmentVariable :: {
 		Name:  string
 		Type?: string
 		Value: string
 	}
-	__FilterGroup = {
+	__FilterGroup :: {
 	}
-	__GitSubmodulesConfig = {
+	__GitSubmodulesConfig :: {
 		FetchSubmodules: bool
 	}
-	__LogsConfig = {
+	__LogsConfig :: {
 		CloudWatchLogs?: __CloudWatchLogsConfig
 		S3Logs?:         __S3LogsConfig
 	}
-	__ProjectCache = {
+	__ProjectCache :: {
 		Location?: string
 		Modes?: [...string]
 		Type: "LOCAL" | "NO_CACHE" | "S3"
 		Type: string
 	}
-	__ProjectSourceVersion = {
+	__ProjectSourceVersion :: {
 		SourceIdentifier: string
 		SourceVersion?:   string
 	}
-	__ProjectTriggers = {
+	__ProjectTriggers :: {
 		FilterGroups?: [...__FilterGroup]
 		Webhook?: bool
 	}
-	__RegistryCredential = {
+	__RegistryCredential :: {
 		Credential:         string
 		CredentialProvider: string
 	}
-	__S3LogsConfig = {
+	__S3LogsConfig :: {
 		EncryptionDisabled?: bool
 		Location?:           string
 		Status:              "DISABLED" | "ENABLED"
 		Status:              string
 	}
-	__Source = {
+	__Source :: {
 		Auth?:                __SourceAuth
 		BuildSpec?:           string
 		GitCloneDepth?:       int
@@ -107,16 +107,16 @@ Project :: {
 		Type:                 "BITBUCKET" | "CODECOMMIT" | "CODEPIPELINE" | "GITHUB" | "GITHUB_ENTERPRISE" | "NO_SOURCE" | "S3"
 		Type:                 string
 	}
-	__SourceAuth = {
+	__SourceAuth :: {
 		Resource?: string
 		Type:      string
 	}
-	__VpcConfig = {
+	__VpcConfig :: {
 		SecurityGroupIds?: [...string]
 		Subnets?: [...string]
 		VpcId?: string
 	}
-	__WebhookFilter = {
+	__WebhookFilter :: {
 		ExcludeMatchedPattern?: bool
 		Pattern:                string
 		Type:                   string

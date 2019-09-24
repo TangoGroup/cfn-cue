@@ -365,10 +365,10 @@ func main() {
 				prop := propS.resource
 				properties := createStructFromResource(prop.Properties, spec.ValueTypes)
 				resourceElts = append(resourceElts,
-					&ast.Alias{
-						// TODO clean this up... feels super ugly.
-						Ident: ast.NewIdent("__" + propName),
-						Expr:  &properties,
+					&ast.Field{
+						Label: ast.NewIdent("__" + propName),
+						Token: token.ISA,
+						Value: &properties,
 					})
 			}
 			f := &ast.Field{

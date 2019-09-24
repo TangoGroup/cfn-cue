@@ -12,35 +12,35 @@ DeliveryStream :: {
 		S3DestinationConfiguration?:            __S3DestinationConfiguration
 		SplunkDestinationConfiguration?:        __SplunkDestinationConfiguration
 	}
-	__BufferingHints = {
+	__BufferingHints :: {
 		IntervalInSeconds: int
 		SizeInMBs:         int
 	}
-	__CloudWatchLoggingOptions = {
+	__CloudWatchLoggingOptions :: {
 		Enabled?:       bool
 		LogGroupName?:  string
 		LogStreamName?: string
 	}
-	__CopyCommand = {
+	__CopyCommand :: {
 		CopyOptions?:      string
 		DataTableColumns?: string
 		DataTableName:     string
 	}
-	__DataFormatConversionConfiguration = {
+	__DataFormatConversionConfiguration :: {
 		Enabled:                   bool
 		InputFormatConfiguration:  __InputFormatConfiguration
 		OutputFormatConfiguration: __OutputFormatConfiguration
 		SchemaConfiguration:       __SchemaConfiguration
 	}
-	__Deserializer = {
+	__Deserializer :: {
 		HiveJsonSerDe?:  __HiveJsonSerDe
 		OpenXJsonSerDe?: __OpenXJsonSerDe
 	}
-	__ElasticsearchBufferingHints = {
+	__ElasticsearchBufferingHints :: {
 		IntervalInSeconds: int
 		SizeInMBs:         int
 	}
-	__ElasticsearchDestinationConfiguration = {
+	__ElasticsearchDestinationConfiguration :: {
 		BufferingHints:            __ElasticsearchBufferingHints
 		CloudWatchLoggingOptions?: __CloudWatchLoggingOptions
 		DomainARN:                 string
@@ -53,14 +53,14 @@ DeliveryStream :: {
 		S3Configuration:           __S3DestinationConfiguration
 		TypeName:                  string
 	}
-	__ElasticsearchRetryOptions = {
+	__ElasticsearchRetryOptions :: {
 		DurationInSeconds: int
 	}
-	__EncryptionConfiguration = {
+	__EncryptionConfiguration :: {
 		KMSEncryptionConfig?: __KMSEncryptionConfig
 		NoEncryptionConfig?:  string
 	}
-	__ExtendedS3DestinationConfiguration = {
+	__ExtendedS3DestinationConfiguration :: {
 		BucketARN:                          string
 		BufferingHints:                     __BufferingHints
 		CloudWatchLoggingOptions?:          __CloudWatchLoggingOptions
@@ -74,26 +74,26 @@ DeliveryStream :: {
 		S3BackupConfiguration?:             __S3DestinationConfiguration
 		S3BackupMode?:                      string
 	}
-	__HiveJsonSerDe = {
+	__HiveJsonSerDe :: {
 		TimestampFormats?: [...string]
 	}
-	__InputFormatConfiguration = {
+	__InputFormatConfiguration :: {
 		Deserializer: __Deserializer
 	}
-	__KMSEncryptionConfig = {
+	__KMSEncryptionConfig :: {
 		AWSKMSKeyARN: string
 	}
-	__KinesisStreamSourceConfiguration = {
+	__KinesisStreamSourceConfiguration :: {
 		KinesisStreamARN: string
 		RoleARN:          string
 	}
-	__OpenXJsonSerDe = {
+	__OpenXJsonSerDe :: {
 		CaseInsensitive?: bool
 		ColumnToJsonKeyMappings?: {
 		}
 		ConvertDotsInJsonKeysToUnderscores?: bool
 	}
-	__OrcSerDe = {
+	__OrcSerDe :: {
 		BlockSizeBytes?: int
 		BloomFilterColumns?: [...string]
 		BloomFilterFalsePositiveProbability?: float
@@ -105,10 +105,10 @@ DeliveryStream :: {
 		RowIndexStride?:                      int
 		StripeSizeBytes?:                     int
 	}
-	__OutputFormatConfiguration = {
+	__OutputFormatConfiguration :: {
 		Serializer: __Serializer
 	}
-	__ParquetSerDe = {
+	__ParquetSerDe :: {
 		BlockSizeBytes?:              int
 		Compression?:                 string
 		EnableDictionaryCompression?: bool
@@ -116,19 +116,19 @@ DeliveryStream :: {
 		PageSizeBytes?:               int
 		WriterVersion?:               string
 	}
-	__ProcessingConfiguration = {
+	__ProcessingConfiguration :: {
 		Enabled?: bool
 		Processors?: [...__Processor]
 	}
-	__Processor = {
+	__Processor :: {
 		Parameters: [...__ProcessorParameter]
 		Type: string
 	}
-	__ProcessorParameter = {
+	__ProcessorParameter :: {
 		ParameterName:  string
 		ParameterValue: string
 	}
-	__RedshiftDestinationConfiguration = {
+	__RedshiftDestinationConfiguration :: {
 		CloudWatchLoggingOptions?: __CloudWatchLoggingOptions
 		ClusterJDBCURL:            string
 		CopyCommand:               __CopyCommand
@@ -138,7 +138,7 @@ DeliveryStream :: {
 		S3Configuration:           __S3DestinationConfiguration
 		Username:                  string
 	}
-	__S3DestinationConfiguration = {
+	__S3DestinationConfiguration :: {
 		BucketARN:                 string
 		BufferingHints:            __BufferingHints
 		CloudWatchLoggingOptions?: __CloudWatchLoggingOptions
@@ -148,7 +148,7 @@ DeliveryStream :: {
 		Prefix?:                   string
 		RoleARN:                   string
 	}
-	__SchemaConfiguration = {
+	__SchemaConfiguration :: {
 		CatalogId:    string
 		DatabaseName: string
 		Region:       string
@@ -156,11 +156,11 @@ DeliveryStream :: {
 		TableName:    string
 		VersionId:    string
 	}
-	__Serializer = {
+	__Serializer :: {
 		OrcSerDe?:     __OrcSerDe
 		ParquetSerDe?: __ParquetSerDe
 	}
-	__SplunkDestinationConfiguration = {
+	__SplunkDestinationConfiguration :: {
 		CloudWatchLoggingOptions?:          __CloudWatchLoggingOptions
 		HECAcknowledgmentTimeoutInSeconds?: int
 		HECEndpoint:                        string
@@ -171,7 +171,7 @@ DeliveryStream :: {
 		S3BackupMode?:                      string
 		S3Configuration:                    __S3DestinationConfiguration
 	}
-	__SplunkRetryOptions = {
+	__SplunkRetryOptions :: {
 		DurationInSeconds: int
 	}
 }

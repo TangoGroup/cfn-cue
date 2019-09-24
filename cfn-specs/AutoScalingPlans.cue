@@ -6,18 +6,18 @@ ScalingPlan :: {
 		ApplicationSource: __ApplicationSource
 		ScalingInstructions: [...__ScalingInstruction]
 	}
-	__ApplicationSource = {
+	__ApplicationSource :: {
 		CloudFormationStackARN?: string
 		TagFilters?: [...__TagFilter]
 	}
-	__CustomizedLoadMetricSpecification = {
+	__CustomizedLoadMetricSpecification :: {
 		Dimensions?: [...__MetricDimension]
 		MetricName: string
 		Namespace:  string
 		Statistic:  string
 		Unit?:      string
 	}
-	__CustomizedScalingMetricSpecification = {
+	__CustomizedScalingMetricSpecification :: {
 		Dimensions?: [...__MetricDimension]
 		MetricName: string
 		Namespace:  string
@@ -25,20 +25,20 @@ ScalingPlan :: {
 		Statistic:  string
 		Unit?:      string
 	}
-	__MetricDimension = {
+	__MetricDimension :: {
 		Name:  string
 		Value: string
 	}
-	__PredefinedLoadMetricSpecification = {
+	__PredefinedLoadMetricSpecification :: {
 		PredefinedLoadMetricType: string
 		ResourceLabel?:           string
 	}
-	__PredefinedScalingMetricSpecification = {
+	__PredefinedScalingMetricSpecification :: {
 		PredefinedScalingMetricType: "ALBRequestCountPerTarget" | "ASGAverageCPUUtilization" | "ASGAverageNetworkIn" | "ASGAverageNetworkOut"
 		PredefinedScalingMetricType: string
 		ResourceLabel?:              string
 	}
-	__ScalingInstruction = {
+	__ScalingInstruction :: {
 		CustomizedLoadMetricSpecification?:    __CustomizedLoadMetricSpecification
 		DisableDynamicScaling?:                bool
 		MaxCapacity:                           int
@@ -58,11 +58,11 @@ ScalingPlan :: {
 		ServiceNamespace:                      string
 		TargetTrackingConfigurations: [...__TargetTrackingConfiguration]
 	}
-	__TagFilter = {
+	__TagFilter :: {
 		Key: string
 		Values?: [...string]
 	}
-	__TargetTrackingConfiguration = {
+	__TargetTrackingConfiguration :: {
 		CustomizedScalingMetricSpecification?: __CustomizedScalingMetricSpecification
 		DisableScaleIn?:                       bool
 		EstimatedInstanceWarmup?:              int

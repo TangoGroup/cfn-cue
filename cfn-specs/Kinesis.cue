@@ -11,7 +11,7 @@ Stream :: {
 		StreamEncryption?:     __StreamEncryption
 		Tags?: [...__Tag]
 	}
-	__StreamEncryption = {
+	__StreamEncryption :: {
 		EncryptionType: string
 		KeyId:          string
 	}

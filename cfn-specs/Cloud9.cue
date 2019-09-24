@@ -12,7 +12,7 @@ EnvironmentEC2 :: {
 		Repositories?: [...__Repository]
 		SubnetId?: string
 	}
-	__Repository = {
+	__Repository :: {
 		PathComponent: string
 		RepositoryUrl: string
 	}

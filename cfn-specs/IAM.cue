@@ -18,7 +18,7 @@ Group :: {
 		Path?: string
 		Policies?: [...__Policy]
 	}
-	__Policy = {
+	__Policy :: {
 		PolicyDocument: {
 		}
 		PolicyName: strings.MinRunes(1) & strings.MaxRunes(128)
@@ -78,7 +78,7 @@ Role :: {
 		RoleName?: string
 		Tags?: [...__Tag]
 	}
-	__Policy = {
+	__Policy :: {
 		PolicyDocument: {
 		}
 		PolicyName: strings.MinRunes(1) & strings.MaxRunes(128)
@@ -106,11 +106,11 @@ User :: {
 		Policies?: [...__Policy]
 		UserName?: string
 	}
-	__LoginProfile = {
+	__LoginProfile :: {
 		Password:               string
 		PasswordResetRequired?: bool
 	}
-	__Policy = {
+	__Policy :: {
 		PolicyDocument: {
 		}
 		PolicyName: strings.MinRunes(1) & strings.MaxRunes(128)

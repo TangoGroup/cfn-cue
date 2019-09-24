@@ -29,11 +29,11 @@ RobotApplication :: {
 		Tags?: {
 		}
 	}
-	__RobotSoftwareSuite = {
+	__RobotSoftwareSuite :: {
 		Name:    string
 		Version: string
 	}
-	__SourceConfig = {
+	__SourceConfig :: {
 		Architecture: string
 		S3Bucket:     string
 		S3Key:        string
@@ -58,19 +58,19 @@ SimulationApplication :: {
 		Tags?: {
 		}
 	}
-	__RenderingEngine = {
+	__RenderingEngine :: {
 		Name:    string
 		Version: string
 	}
-	__RobotSoftwareSuite = {
+	__RobotSoftwareSuite :: {
 		Name:    string
 		Version: string
 	}
-	__SimulationSoftwareSuite = {
+	__SimulationSoftwareSuite :: {
 		Name:    string
 		Version: string
 	}
-	__SourceConfig = {
+	__SourceConfig :: {
 		Architecture: string
 		S3Bucket:     string
 		S3Key:        string

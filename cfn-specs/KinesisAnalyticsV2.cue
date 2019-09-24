@@ -9,44 +9,44 @@ Application :: {
 		RuntimeEnvironment:        string
 		ServiceExecutionRole:      string
 	}
-	__ApplicationCodeConfiguration = {
+	__ApplicationCodeConfiguration :: {
 		CodeContent:     __CodeContent
 		CodeContentType: string
 	}
-	__ApplicationConfiguration = {
+	__ApplicationConfiguration :: {
 		ApplicationCodeConfiguration?:     __ApplicationCodeConfiguration
 		ApplicationSnapshotConfiguration?: __ApplicationSnapshotConfiguration
 		EnvironmentProperties?:            __EnvironmentProperties
 		FlinkApplicationConfiguration?:    __FlinkApplicationConfiguration
 		SqlApplicationConfiguration?:      __SqlApplicationConfiguration
 	}
-	__ApplicationSnapshotConfiguration = {
+	__ApplicationSnapshotConfiguration :: {
 		SnapshotsEnabled: bool
 	}
-	__CSVMappingParameters = {
+	__CSVMappingParameters :: {
 		RecordColumnDelimiter: string
 		RecordRowDelimiter:    string
 	}
-	__CheckpointConfiguration = {
+	__CheckpointConfiguration :: {
 		CheckpointInterval?:         int
 		CheckpointingEnabled?:       bool
 		ConfigurationType:           string
 		MinPauseBetweenCheckpoints?: int
 	}
-	__CodeContent = {
+	__CodeContent :: {
 		S3ContentLocation?: __S3ContentLocation
 		TextContent?:       string
 		ZipFileContent?:    string
 	}
-	__EnvironmentProperties = {
+	__EnvironmentProperties :: {
 		PropertyGroups?: [...__PropertyGroup]
 	}
-	__FlinkApplicationConfiguration = {
+	__FlinkApplicationConfiguration :: {
 		CheckpointConfiguration?:  __CheckpointConfiguration
 		MonitoringConfiguration?:  __MonitoringConfiguration
 		ParallelismConfiguration?: __ParallelismConfiguration
 	}
-	__Input = {
+	__Input :: {
 		InputParallelism?:             __InputParallelism
 		InputProcessingConfiguration?: __InputProcessingConfiguration
 		InputSchema:                   __InputSchema
@@ -54,64 +54,64 @@ Application :: {
 		KinesisStreamsInput?:          __KinesisStreamsInput
 		NamePrefix:                    string
 	}
-	__InputLambdaProcessor = {
+	__InputLambdaProcessor :: {
 		ResourceARN: string
 	}
-	__InputParallelism = {
+	__InputParallelism :: {
 		Count?: int
 	}
-	__InputProcessingConfiguration = {
+	__InputProcessingConfiguration :: {
 		InputLambdaProcessor?: __InputLambdaProcessor
 	}
-	__InputSchema = {
+	__InputSchema :: {
 		RecordColumns: [...__RecordColumn]
 		RecordEncoding?: string
 		RecordFormat:    __RecordFormat
 	}
-	__JSONMappingParameters = {
+	__JSONMappingParameters :: {
 		RecordRowPath: string
 	}
-	__KinesisFirehoseInput = {
+	__KinesisFirehoseInput :: {
 		ResourceARN: string
 	}
-	__KinesisStreamsInput = {
+	__KinesisStreamsInput :: {
 		ResourceARN: string
 	}
-	__MappingParameters = {
+	__MappingParameters :: {
 		CSVMappingParameters?:  __CSVMappingParameters
 		JSONMappingParameters?: __JSONMappingParameters
 	}
-	__MonitoringConfiguration = {
+	__MonitoringConfiguration :: {
 		ConfigurationType: string
 		LogLevel?:         string
 		MetricsLevel?:     string
 	}
-	__ParallelismConfiguration = {
+	__ParallelismConfiguration :: {
 		AutoScalingEnabled?: bool
 		ConfigurationType:   string
 		Parallelism?:        int
 		ParallelismPerKPU?:  int
 	}
-	__PropertyGroup = {
+	__PropertyGroup :: {
 		PropertyGroupId?: string
 		PropertyMap?: {
 		}
 	}
-	__RecordColumn = {
+	__RecordColumn :: {
 		Mapping?: string
 		Name:     string
 		SqlType:  string
 	}
-	__RecordFormat = {
+	__RecordFormat :: {
 		MappingParameters?: __MappingParameters
 		RecordFormatType:   string
 	}
-	__S3ContentLocation = {
+	__S3ContentLocation :: {
 		BucketARN?:     string
 		FileKey?:       string
 		ObjectVersion?: string
 	}
-	__SqlApplicationConfiguration = {
+	__SqlApplicationConfiguration :: {
 		Inputs?: [...__Input]
 	}
 }
@@ -121,7 +121,7 @@ ApplicationCloudWatchLoggingOption :: {
 		ApplicationName:         string
 		CloudWatchLoggingOption: __CloudWatchLoggingOption
 	}
-	__CloudWatchLoggingOption = {
+	__CloudWatchLoggingOption :: {
 		LogStreamARN: string
 	}
 }
@@ -131,19 +131,19 @@ ApplicationOutput :: {
 		ApplicationName: string
 		Output:          __Output
 	}
-	__DestinationSchema = {
+	__DestinationSchema :: {
 		RecordFormatType?: string
 	}
-	__KinesisFirehoseOutput = {
+	__KinesisFirehoseOutput :: {
 		ResourceARN: string
 	}
-	__KinesisStreamsOutput = {
+	__KinesisStreamsOutput :: {
 		ResourceARN: string
 	}
-	__LambdaOutput = {
+	__LambdaOutput :: {
 		ResourceARN: string
 	}
-	__Output = {
+	__Output :: {
 		DestinationSchema:      __DestinationSchema
 		KinesisFirehoseOutput?: __KinesisFirehoseOutput
 		KinesisStreamsOutput?:  __KinesisStreamsOutput
@@ -157,37 +157,37 @@ ApplicationReferenceDataSource :: {
 		ApplicationName:     string
 		ReferenceDataSource: __ReferenceDataSource
 	}
-	__CSVMappingParameters = {
+	__CSVMappingParameters :: {
 		RecordColumnDelimiter: string
 		RecordRowDelimiter:    string
 	}
-	__JSONMappingParameters = {
+	__JSONMappingParameters :: {
 		RecordRowPath: string
 	}
-	__MappingParameters = {
+	__MappingParameters :: {
 		CSVMappingParameters?:  __CSVMappingParameters
 		JSONMappingParameters?: __JSONMappingParameters
 	}
-	__RecordColumn = {
+	__RecordColumn :: {
 		Mapping?: string
 		Name:     string
 		SqlType:  string
 	}
-	__RecordFormat = {
+	__RecordFormat :: {
 		MappingParameters?: __MappingParameters
 		RecordFormatType:   string
 	}
-	__ReferenceDataSource = {
+	__ReferenceDataSource :: {
 		ReferenceSchema:        __ReferenceSchema
 		S3ReferenceDataSource?: __S3ReferenceDataSource
 		TableName?:             string
 	}
-	__ReferenceSchema = {
+	__ReferenceSchema :: {
 		RecordColumns: [...__RecordColumn]
 		RecordEncoding?: string
 		RecordFormat:    __RecordFormat
 	}
-	__S3ReferenceDataSource = {
+	__S3ReferenceDataSource :: {
 		BucketARN: string
 		FileKey:   string
 	}

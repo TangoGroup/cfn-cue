@@ -29,23 +29,23 @@ Alarm :: {
 		Unit?:              "Bits" | "Bits/Second" | "Bytes" | "Bytes/Second" | "Count" | "Count/Second" | "Gigabits" | "Gigabits/Second" | "Gigabytes" | "Gigabytes/Second" | "Kilobits" | "Kilobits/Second" | "Kilobytes" | "Kilobytes/Second" | "Megabits" | "Megabits/Second" | "Megabytes" | "Megabytes/Second" | "Microseconds" | "Milliseconds" | "None" | "Percent" | "Seconds" | "Terabits" | "Terabits/Second" | "Terabytes" | "Terabytes/Second"
 		Unit?:              string
 	}
-	__Dimension = {
+	__Dimension :: {
 		Name:  string
 		Value: string
 	}
-	__Metric = {
+	__Metric :: {
 		Dimensions?: [...__Dimension]
 		MetricName?: string
 		Namespace?:  string
 	}
-	__MetricDataQuery = {
+	__MetricDataQuery :: {
 		Expression?: string
 		Id:          string
 		Label?:      string
 		MetricStat?: __MetricStat
 		ReturnData?: bool
 	}
-	__MetricStat = {
+	__MetricStat :: {
 		Metric: __Metric
 		Period: int
 		Stat:   string
@@ -61,15 +61,15 @@ AnomalyDetector :: {
 		Namespace:  string
 		Stat:       string
 	}
-	__Configuration = {
+	__Configuration :: {
 		ExcludedTimeRanges?: [...__Range]
 		MetricTimeZone?: string
 	}
-	__Dimension = {
+	__Dimension :: {
 		Name:  string
 		Value: string
 	}
-	__Range = {
+	__Range :: {
 		EndTime:   string
 		StartTime: string
 	}

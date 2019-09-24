@@ -16,18 +16,18 @@ IdentityPool :: {
 		SupportedLoginProviders?: {
 		}
 	}
-	__CognitoIdentityProvider = {
+	__CognitoIdentityProvider :: {
 		ClientId?:             string
 		ProviderName?:         string
 		ServerSideTokenCheck?: bool
 	}
-	__CognitoStreams = {
+	__CognitoStreams :: {
 		RoleArn?:         string
 		StreamName?:      string
 		StreamingStatus?: "DISABLED" | "ENABLED"
 		StreamingStatus?: string
 	}
-	__PushSync = {
+	__PushSync :: {
 		ApplicationArns?: [...string]
 		RoleArn?: string
 	}
@@ -41,18 +41,18 @@ IdentityPoolRoleAttachment :: {
 		Roles?: {
 		}
 	}
-	__MappingRule = {
+	__MappingRule :: {
 		Claim:     string
 		MatchType: string
 		RoleARN:   string
 		Value:     string
 	}
-	__RoleMapping = {
+	__RoleMapping :: {
 		AmbiguousRoleResolution?: string
 		RulesConfiguration?:      __RulesConfigurationType
 		Type:                     string
 	}
-	__RulesConfigurationType = {
+	__RulesConfigurationType :: {
 		Rules: [...__MappingRule]
 	}
 }
@@ -84,26 +84,26 @@ UserPool :: {
 		UsernameAttributes?: [...string]
 		VerificationMessageTemplate?: __VerificationMessageTemplate
 	}
-	__AdminCreateUserConfig = {
+	__AdminCreateUserConfig :: {
 		AllowAdminCreateUserOnly?:  bool
 		InviteMessageTemplate?:     __InviteMessageTemplate
 		UnusedAccountValidityDays?: int
 	}
-	__DeviceConfiguration = {
+	__DeviceConfiguration :: {
 		ChallengeRequiredOnNewDevice?:     bool
 		DeviceOnlyRememberedOnUserPrompt?: bool
 	}
-	__EmailConfiguration = {
+	__EmailConfiguration :: {
 		EmailSendingAccount?: string
 		ReplyToEmailAddress?: string
 		SourceArn?:           string
 	}
-	__InviteMessageTemplate = {
+	__InviteMessageTemplate :: {
 		EmailMessage?: string
 		EmailSubject?: string
 		SMSMessage?:   string
 	}
-	__LambdaConfig = {
+	__LambdaConfig :: {
 		CreateAuthChallenge?:         string
 		CustomMessage?:               string
 		DefineAuthChallenge?:         string
@@ -115,11 +115,11 @@ UserPool :: {
 		UserMigration?:               string
 		VerifyAuthChallengeResponse?: string
 	}
-	__NumberAttributeConstraints = {
+	__NumberAttributeConstraints :: {
 		MaxValue?: string
 		MinValue?: string
 	}
-	__PasswordPolicy = {
+	__PasswordPolicy :: {
 		MinimumLength?:                 int
 		RequireLowercase?:              bool
 		RequireNumbers?:                bool
@@ -127,10 +127,10 @@ UserPool :: {
 		RequireUppercase?:              bool
 		TemporaryPasswordValidityDays?: int
 	}
-	__Policies = {
+	__Policies :: {
 		PasswordPolicy?: __PasswordPolicy
 	}
-	__SchemaAttribute = {
+	__SchemaAttribute :: {
 		AttributeDataType?:          "Boolean" | "DateTime" | "Number" | "String"
 		AttributeDataType?:          string
 		DeveloperOnlyAttribute?:     bool
@@ -140,18 +140,18 @@ UserPool :: {
 		Required?:                   bool
 		StringAttributeConstraints?: __StringAttributeConstraints
 	}
-	__SmsConfiguration = {
+	__SmsConfiguration :: {
 		ExternalId:    string
 		SnsCallerArn?: string
 	}
-	__StringAttributeConstraints = {
+	__StringAttributeConstraints :: {
 		MaxLength?: string
 		MinLength?: string
 	}
-	__UserPoolAddOns = {
+	__UserPoolAddOns :: {
 		AdvancedSecurityMode?: string
 	}
-	__VerificationMessageTemplate = {
+	__VerificationMessageTemplate :: {
 		DefaultEmailOption?: string
 		EmailMessage?:       string
 		EmailMessageByLink?: string
@@ -181,7 +181,7 @@ UserPoolClient :: {
 		UserPoolId: string
 		WriteAttributes?: [...string]
 	}
-	__AnalyticsConfiguration = {
+	__AnalyticsConfiguration :: {
 		ApplicationId?:  string
 		ExternalId?:     string
 		RoleArn?:        string
@@ -211,7 +211,7 @@ UserPoolUser :: {
 		Username?:  string
 		ValidationData?: [...__AttributeType]
 	}
-	__AttributeType = {
+	__AttributeType :: {
 		Name?:  string
 		Value?: string
 	}

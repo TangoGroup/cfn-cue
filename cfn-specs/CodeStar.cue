@@ -11,10 +11,10 @@ GitHubRepository :: {
 		RepositoryName:         string
 		RepositoryOwner:        string
 	}
-	__Code = {
+	__Code :: {
 		S3: __S3
 	}
-	__S3 = {
+	__S3 :: {
 		Bucket:         string
 		Key:            string
 		ObjectVersion?: string

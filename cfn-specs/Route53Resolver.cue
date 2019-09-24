@@ -10,7 +10,7 @@ ResolverEndpoint :: {
 		SecurityGroupIds: [...string]
 		Tags?: [...__Tag]
 	}
-	__IpAddressRequest = {
+	__IpAddressRequest :: {
 		Ip?:      string
 		SubnetId: string
 	}
@@ -26,7 +26,7 @@ ResolverRule :: {
 		Tags?: [...__Tag]
 		TargetIps?: [...__TargetAddress]
 	}
-	__TargetAddress = {
+	__TargetAddress :: {
 		Ip:    string
 		Port?: string
 	}

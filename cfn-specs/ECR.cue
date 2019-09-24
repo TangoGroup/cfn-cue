@@ -9,7 +9,7 @@ Repository :: {
 		}
 		Tags?: [...__Tag]
 	}
-	__LifecyclePolicy = {
+	__LifecyclePolicy :: {
 		LifecyclePolicyText?: string
 		RegistryId?:          string
 	}

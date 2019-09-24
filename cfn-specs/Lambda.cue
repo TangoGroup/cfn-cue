@@ -9,10 +9,10 @@ Alias :: {
 		Name:            string
 		RoutingConfig?:  __AliasRoutingConfiguration
 	}
-	__AliasRoutingConfiguration = {
+	__AliasRoutingConfiguration :: {
 		AdditionalVersionWeights: [...__VersionWeight]
 	}
-	__VersionWeight = {
+	__VersionWeight :: {
 		FunctionVersion: string
 		FunctionWeight:  float
 	}
@@ -53,23 +53,23 @@ Function :: {
 		TracingConfig?: __TracingConfig
 		VpcConfig?:     __VpcConfig
 	}
-	__Code = {
+	__Code :: {
 		S3Bucket?:        string
 		S3Key?:           string
 		S3ObjectVersion?: string
 		ZipFile?:         string
 	}
-	__DeadLetterConfig = {
+	__DeadLetterConfig :: {
 		TargetArn?: string
 	}
-	__Environment = {
+	__Environment :: {
 		Variables?: {
 		}
 	}
-	__TracingConfig = {
+	__TracingConfig :: {
 		Mode?: string
 	}
-	__VpcConfig = {
+	__VpcConfig :: {
 		SecurityGroupIds: [...string]
 		SubnetIds: [...string]
 	}
@@ -83,7 +83,7 @@ LayerVersion :: {
 		LayerName?:   string
 		LicenseInfo?: string
 	}
-	__Content = {
+	__Content :: {
 		S3Bucket:         string
 		S3Key:            string
 		S3ObjectVersion?: string

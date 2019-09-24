@@ -80,18 +80,18 @@ ApplicationSettings :: {
 		Limits?:                   __Limits
 		QuietTime?:                __QuietTime
 	}
-	__CampaignHook = {
+	__CampaignHook :: {
 		LambdaFunctionName?: string
 		Mode?:               string
 		WebUrl?:             string
 	}
-	__Limits = {
+	__Limits :: {
 		Daily?:             int
 		MaximumDuration?:   int
 		MessagesPerSecond?: int
 		Total?:             int
 	}
-	__QuietTime = {
+	__QuietTime :: {
 		End:   string
 		Start: string
 	}
@@ -123,44 +123,44 @@ Campaign :: {
 		TreatmentDescription?: string
 		TreatmentName?:        string
 	}
-	__AttributeDimension = {
+	__AttributeDimension :: {
 		AttributeType?: string
 		Values?: [...string]
 	}
-	__CampaignEmailMessage = {
+	__CampaignEmailMessage :: {
 		Body?:        string
 		FromAddress?: string
 		HtmlBody?:    string
 		Title?:       string
 	}
-	__CampaignEventFilter = {
+	__CampaignEventFilter :: {
 		Dimensions?: __EventDimensions
 		FilterType?: string
 	}
-	__CampaignHook = {
+	__CampaignHook :: {
 		LambdaFunctionName?: string
 		Mode?:               string
 		WebUrl?:             string
 	}
-	__CampaignSmsMessage = {
+	__CampaignSmsMessage :: {
 		Body?:        string
 		MessageType?: string
 		SenderId?:    string
 	}
-	__EventDimensions = {
+	__EventDimensions :: {
 		Attributes?: {
 		}
 		EventType?: __SetDimension
 		Metrics?: {
 		}
 	}
-	__Limits = {
+	__Limits :: {
 		Daily?:             int
 		MaximumDuration?:   int
 		MessagesPerSecond?: int
 		Total?:             int
 	}
-	__Message = {
+	__Message :: {
 		Action?:            string
 		Body?:              string
 		ImageIconUrl?:      string
@@ -174,7 +174,7 @@ Campaign :: {
 		Title?:             string
 		Url?:               string
 	}
-	__MessageConfiguration = {
+	__MessageConfiguration :: {
 		ADMMessage?:     __Message
 		APNSMessage?:    __Message
 		BaiduMessage?:   __Message
@@ -183,15 +183,15 @@ Campaign :: {
 		GCMMessage?:     __Message
 		SMSMessage?:     __CampaignSmsMessage
 	}
-	__MetricDimension = {
+	__MetricDimension :: {
 		ComparisonOperator?: string
 		Value?:              float
 	}
-	__QuietTime = {
+	__QuietTime :: {
 		End:   string
 		Start: string
 	}
-	__Schedule = {
+	__Schedule :: {
 		EndTime?:     string
 		EventFilter?: __CampaignEventFilter
 		Frequency?:   string
@@ -200,11 +200,11 @@ Campaign :: {
 		StartTime?:   string
 		TimeZone?:    string
 	}
-	__SetDimension = {
+	__SetDimension :: {
 		DimensionType?: string
 		Values?: [...string]
 	}
-	__WriteTreatmentResource = {
+	__WriteTreatmentResource :: {
 		MessageConfiguration?: __MessageConfiguration
 		Schedule?:             __Schedule
 		SizePercent?:          int
@@ -256,18 +256,18 @@ Segment :: {
 		Name:           string
 		SegmentGroups?: __SegmentGroups
 	}
-	__AttributeDimension = {
+	__AttributeDimension :: {
 		AttributeType?: string
 		Values?: [...string]
 	}
-	__Behavior = {
+	__Behavior :: {
 		Recency?: __Recency
 	}
-	__Coordinates = {
+	__Coordinates :: {
 		Latitude:  float
 		Longitude: float
 	}
-	__Demographic = {
+	__Demographic :: {
 		AppVersion?: __SetDimension
 		Channel?:    __SetDimension
 		DeviceType?: __SetDimension
@@ -275,25 +275,25 @@ Segment :: {
 		Model?:      __SetDimension
 		Platform?:   __SetDimension
 	}
-	__GPSPoint = {
+	__GPSPoint :: {
 		Coordinates:       __Coordinates
 		RangeInKilometers: float
 	}
-	__Groups = {
+	__Groups :: {
 		Dimensions?: [...__SegmentDimensions]
 		SourceSegments?: [...__SourceSegments]
 		SourceType?: string
 		Type?:       string
 	}
-	__Location = {
+	__Location :: {
 		Country?:  __SetDimension
 		GPSPoint?: __GPSPoint
 	}
-	__Recency = {
+	__Recency :: {
 		Duration:    string
 		RecencyType: string
 	}
-	__SegmentDimensions = {
+	__SegmentDimensions :: {
 		Attributes?: {
 		}
 		Behavior?:    __Behavior
@@ -304,15 +304,15 @@ Segment :: {
 		UserAttributes?: {
 		}
 	}
-	__SegmentGroups = {
+	__SegmentGroups :: {
 		Groups?: [...__Groups]
 		Include?: string
 	}
-	__SetDimension = {
+	__SetDimension :: {
 		DimensionType?: string
 		Values?: [...string]
 	}
-	__SourceSegments = {
+	__SourceSegments :: {
 		Id:       string
 		Version?: int
 	}

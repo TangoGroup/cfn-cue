@@ -9,7 +9,7 @@ EventBusPolicy :: {
 		Principal:   string
 		StatementId: string
 	}
-	__Condition = {
+	__Condition :: {
 		Key?:   "aws:PrincipalOrgID"
 		Key?:   string
 		Type?:  "StringEquals"
@@ -30,12 +30,12 @@ Rule :: {
 		State?:              string
 		Targets?: [...__Target]
 	}
-	__AwsVpcConfiguration = {
+	__AwsVpcConfiguration :: {
 		AssignPublicIp?: string
 		SecurityGroups?: [...string]
 		Subnets: [...string]
 	}
-	__EcsParameters = {
+	__EcsParameters :: {
 		Group?:                string
 		LaunchType?:           string
 		NetworkConfiguration?: __NetworkConfiguration
@@ -43,28 +43,28 @@ Rule :: {
 		TaskCount?:            int
 		TaskDefinitionArn:     string
 	}
-	__InputTransformer = {
+	__InputTransformer :: {
 		InputPathsMap?: {
 		}
 		InputTemplate: string
 	}
-	__KinesisParameters = {
+	__KinesisParameters :: {
 		PartitionKeyPath: string
 	}
-	__NetworkConfiguration = {
+	__NetworkConfiguration :: {
 		AwsVpcConfiguration?: __AwsVpcConfiguration
 	}
-	__RunCommandParameters = {
+	__RunCommandParameters :: {
 		RunCommandTargets: [...__RunCommandTarget]
 	}
-	__RunCommandTarget = {
+	__RunCommandTarget :: {
 		Key: string
 		Values: [...string]
 	}
-	__SqsParameters = {
+	__SqsParameters :: {
 		MessageGroupId: string
 	}
-	__Target = {
+	__Target :: {
 		Arn:                   string
 		EcsParameters?:        __EcsParameters
 		Id:                    string

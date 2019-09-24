@@ -33,21 +33,21 @@ Endpoint :: {
 		Tags?: [...__Tag]
 		Username?: string
 	}
-	__DynamoDbSettings = {
+	__DynamoDbSettings :: {
 		ServiceAccessRoleArn?: string
 	}
-	__ElasticsearchSettings = {
+	__ElasticsearchSettings :: {
 		EndpointUri?:             string
 		ErrorRetryDuration?:      int
 		FullLoadErrorPercentage?: int
 		ServiceAccessRoleArn?:    string
 	}
-	__KinesisSettings = {
+	__KinesisSettings :: {
 		MessageFormat?:        string
 		ServiceAccessRoleArn?: string
 		StreamArn?:            string
 	}
-	__MongoDbSettings = {
+	__MongoDbSettings :: {
 		AuthMechanism?:     string
 		AuthSource?:        string
 		AuthType?:          string
@@ -60,7 +60,7 @@ Endpoint :: {
 		ServerName?:        string
 		Username?:          string
 	}
-	__S3Settings = {
+	__S3Settings :: {
 		BucketFolder?:            string
 		BucketName?:              string
 		CompressionType?:         string

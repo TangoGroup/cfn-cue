@@ -7,7 +7,7 @@ Alias :: {
 		Name:            string
 		RoutingStrategy: __RoutingStrategy
 	}
-	__RoutingStrategy = {
+	__RoutingStrategy :: {
 		FleetId?: string
 		Message?: string
 		Type:     string
@@ -20,7 +20,7 @@ Build :: {
 		StorageLocation?: __S3Location
 		Version?:         string
 	}
-	__S3Location = {
+	__S3Location :: {
 		Bucket:  string
 		Key:     string
 		RoleArn: string
@@ -41,7 +41,7 @@ Fleet :: {
 		ServerLaunchParameters?: string
 		ServerLaunchPath:        string
 	}
-	__IpPermission = {
+	__IpPermission :: {
 		FromPort: int
 		IpRange:  string
 		Protocol: string

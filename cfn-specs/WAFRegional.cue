@@ -6,14 +6,14 @@ ByteMatchSet :: {
 		ByteMatchTuples?: [...__ByteMatchTuple]
 		Name: string
 	}
-	__ByteMatchTuple = {
+	__ByteMatchTuple :: {
 		FieldToMatch:         __FieldToMatch
 		PositionalConstraint: string
 		TargetString?:        string
 		TargetStringBase64?:  string
 		TextTransformation:   string
 	}
-	__FieldToMatch = {
+	__FieldToMatch :: {
 		Data?: string
 		Type:  string
 	}
@@ -24,7 +24,7 @@ GeoMatchSet :: {
 		GeoMatchConstraints?: [...__GeoMatchConstraint]
 		Name: string
 	}
-	__GeoMatchConstraint = {
+	__GeoMatchConstraint :: {
 		Type:  string
 		Value: string
 	}
@@ -35,7 +35,7 @@ IPSet :: {
 		IPSetDescriptors?: [...__IPSetDescriptor]
 		Name: string
 	}
-	__IPSetDescriptor = {
+	__IPSetDescriptor :: {
 		Type:  string
 		Value: string
 	}
@@ -49,7 +49,7 @@ RateBasedRule :: {
 		RateKey:    string
 		RateLimit:  int
 	}
-	__Predicate = {
+	__Predicate :: {
 		DataId:  string
 		Negated: bool
 		Type:    string
@@ -69,7 +69,7 @@ Rule :: {
 		Name:       string
 		Predicates?: [...__Predicate]
 	}
-	__Predicate = {
+	__Predicate :: {
 		DataId:  string
 		Negated: bool
 		Type:    "ByteMatch" | "GeoMatch" | "IPMatch" | "RegexMatch" | "SizeConstraint" | "SqlInjectionMatch" | "XssMatch"
@@ -82,11 +82,11 @@ SizeConstraintSet :: {
 		Name: string
 		SizeConstraints?: [...__SizeConstraint]
 	}
-	__FieldToMatch = {
+	__FieldToMatch :: {
 		Data?: string
 		Type:  string
 	}
-	__SizeConstraint = {
+	__SizeConstraint :: {
 		ComparisonOperator: string
 		FieldToMatch:       __FieldToMatch
 		Size:               int
@@ -99,11 +99,11 @@ SqlInjectionMatchSet :: {
 		Name: string
 		SqlInjectionMatchTuples?: [...__SqlInjectionMatchTuple]
 	}
-	__FieldToMatch = {
+	__FieldToMatch :: {
 		Data?: string
 		Type:  string
 	}
-	__SqlInjectionMatchTuple = {
+	__SqlInjectionMatchTuple :: {
 		FieldToMatch:       __FieldToMatch
 		TextTransformation: string
 	}
@@ -116,10 +116,10 @@ WebACL :: {
 		Name:          string
 		Rules?: [...__Rule]
 	}
-	__Action = {
+	__Action :: {
 		Type: string
 	}
-	__Rule = {
+	__Rule :: {
 		Action:   __Action
 		Priority: int
 		RuleId:   string
@@ -138,11 +138,11 @@ XssMatchSet :: {
 		Name: string
 		XssMatchTuples?: [...__XssMatchTuple]
 	}
-	__FieldToMatch = {
+	__FieldToMatch :: {
 		Data?: string
 		Type:  string
 	}
-	__XssMatchTuple = {
+	__XssMatchTuple :: {
 		FieldToMatch:       __FieldToMatch
 		TextTransformation: string
 	}

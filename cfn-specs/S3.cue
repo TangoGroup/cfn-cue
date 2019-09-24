@@ -23,29 +23,29 @@ Bucket :: {
 		VersioningConfiguration?: __VersioningConfiguration
 		WebsiteConfiguration?:    __WebsiteConfiguration
 	}
-	__AbortIncompleteMultipartUpload = {
+	__AbortIncompleteMultipartUpload :: {
 		DaysAfterInitiation: int
 	}
-	__AccelerateConfiguration = {
+	__AccelerateConfiguration :: {
 		AccelerationStatus: "Enabled" | "Suspended"
 		AccelerationStatus: string
 	}
-	__AccessControlTranslation = {
+	__AccessControlTranslation :: {
 		Owner: string
 	}
-	__AnalyticsConfiguration = {
+	__AnalyticsConfiguration :: {
 		Id:                   string
 		Prefix?:              string
 		StorageClassAnalysis: __StorageClassAnalysis
 		TagFilters?: [...__TagFilter]
 	}
-	__BucketEncryption = {
+	__BucketEncryption :: {
 		ServerSideEncryptionConfiguration: [...__ServerSideEncryptionRule]
 	}
-	__CorsConfiguration = {
+	__CorsConfiguration :: {
 		CorsRules: [...__CorsRule]
 	}
-	__CorsRule = {
+	__CorsRule :: {
 		AllowedHeaders?: [...string]
 		AllowedMethods: [...string]
 		AllowedOrigins: [...string]
@@ -53,29 +53,29 @@ Bucket :: {
 		Id?:     string
 		MaxAge?: int
 	}
-	__DataExport = {
+	__DataExport :: {
 		Destination:         __Destination
 		OutputSchemaVersion: string
 	}
-	__DefaultRetention = {
+	__DefaultRetention :: {
 		Days?:  int
 		Mode?:  string
 		Years?: int
 	}
-	__Destination = {
+	__Destination :: {
 		BucketAccountId?: string
 		BucketArn:        string
 		Format:           string
 		Prefix?:          string
 	}
-	__EncryptionConfiguration = {
+	__EncryptionConfiguration :: {
 		ReplicaKmsKeyID: string
 	}
-	__FilterRule = {
+	__FilterRule :: {
 		Name:  string
 		Value: string
 	}
-	__InventoryConfiguration = {
+	__InventoryConfiguration :: {
 		Destination:            __Destination
 		Enabled:                bool
 		Id:                     string
@@ -84,93 +84,93 @@ Bucket :: {
 		Prefix?:           string
 		ScheduleFrequency: string
 	}
-	__LambdaConfiguration = {
+	__LambdaConfiguration :: {
 		Event:    string
 		Filter?:  __NotificationFilter
 		Function: string
 	}
-	__LifecycleConfiguration = {
+	__LifecycleConfiguration :: {
 		Rules: [...__Rule]
 	}
-	__LoggingConfiguration = {
+	__LoggingConfiguration :: {
 		DestinationBucketName?: string
 		LogFilePrefix?:         string
 	}
-	__MetricsConfiguration = {
+	__MetricsConfiguration :: {
 		Id:      string
 		Prefix?: string
 		TagFilters?: [...__TagFilter]
 	}
-	__NoncurrentVersionTransition = {
+	__NoncurrentVersionTransition :: {
 		StorageClass:     string
 		TransitionInDays: int
 	}
-	__NotificationConfiguration = {
+	__NotificationConfiguration :: {
 		LambdaConfigurations?: [...__LambdaConfiguration]
 		QueueConfigurations?: [...__QueueConfiguration]
 		TopicConfigurations?: [...__TopicConfiguration]
 	}
-	__NotificationFilter = {
+	__NotificationFilter :: {
 		S3Key: __S3KeyFilter
 	}
-	__ObjectLockConfiguration = {
+	__ObjectLockConfiguration :: {
 		ObjectLockEnabled?: string
 		Rule?:              __ObjectLockRule
 	}
-	__ObjectLockRule = {
+	__ObjectLockRule :: {
 		DefaultRetention?: __DefaultRetention
 	}
-	__PublicAccessBlockConfiguration = {
+	__PublicAccessBlockConfiguration :: {
 		BlockPublicAcls?:       bool
 		BlockPublicPolicy?:     bool
 		IgnorePublicAcls?:      bool
 		RestrictPublicBuckets?: bool
 	}
-	__QueueConfiguration = {
+	__QueueConfiguration :: {
 		Event:   string
 		Filter?: __NotificationFilter
 		Queue:   string
 	}
-	__RedirectAllRequestsTo = {
+	__RedirectAllRequestsTo :: {
 		HostName:  string
 		Protocol?: "http" | "https"
 		Protocol?: string
 	}
-	__RedirectRule = {
+	__RedirectRule :: {
 		HostName?:             string
 		HttpRedirectCode?:     string
 		Protocol?:             string
 		ReplaceKeyPrefixWith?: string
 		ReplaceKeyWith?:       string
 	}
-	__ReplicationConfiguration = {
+	__ReplicationConfiguration :: {
 		Role: =~"arn:(aws[a-zA-Z-]*)?:iam::\d{12}:role/[a-zA-Z_0-9+=,.@\-_/]+"
 		Role: string
 		Rules: [...__ReplicationRule]
 	}
-	__ReplicationDestination = {
+	__ReplicationDestination :: {
 		AccessControlTranslation?: __AccessControlTranslation
 		Account?:                  string
 		Bucket:                    string
 		EncryptionConfiguration?:  __EncryptionConfiguration
 		StorageClass?:             string
 	}
-	__ReplicationRule = {
+	__ReplicationRule :: {
 		Destination:              __ReplicationDestination
 		Id?:                      string
 		Prefix:                   string
 		SourceSelectionCriteria?: __SourceSelectionCriteria
 		Status:                   string
 	}
-	__RoutingRule = {
+	__RoutingRule :: {
 		RedirectRule:          __RedirectRule
 		RoutingRuleCondition?: __RoutingRuleCondition
 	}
-	__RoutingRuleCondition = {
+	__RoutingRuleCondition :: {
 		HttpErrorCodeReturnedEquals?: string
 		KeyPrefixEquals?:             string
 	}
-	__Rule = {
+	__Rule :: {
 		AbortIncompleteMultipartUpload?:    __AbortIncompleteMultipartUpload
 		ExpirationDate?:                    time.Time
 		ExpirationInDays?:                  int
@@ -184,46 +184,46 @@ Bucket :: {
 		Transition?: __Transition
 		Transitions?: [...__Transition]
 	}
-	__S3KeyFilter = {
+	__S3KeyFilter :: {
 		Rules: [...__FilterRule]
 	}
-	__ServerSideEncryptionByDefault = {
+	__ServerSideEncryptionByDefault :: {
 		KMSMasterKeyID?: string
 		SSEAlgorithm:    "AES256" | "aws:kms"
 		SSEAlgorithm:    string
 	}
-	__ServerSideEncryptionRule = {
+	__ServerSideEncryptionRule :: {
 		ServerSideEncryptionByDefault?: __ServerSideEncryptionByDefault
 	}
-	__SourceSelectionCriteria = {
+	__SourceSelectionCriteria :: {
 		SseKmsEncryptedObjects: __SseKmsEncryptedObjects
 	}
-	__SseKmsEncryptedObjects = {
+	__SseKmsEncryptedObjects :: {
 		Status: string
 	}
-	__StorageClassAnalysis = {
+	__StorageClassAnalysis :: {
 		DataExport?: __DataExport
 	}
-	__TagFilter = {
+	__TagFilter :: {
 		Key:   string
 		Value: string
 	}
-	__TopicConfiguration = {
+	__TopicConfiguration :: {
 		Event:   "s3:ObjectCreated:*" | "s3:ObjectCreated:CompleteMultipartUpload" | "s3:ObjectCreated:Copy" | "s3:ObjectCreated:Post" | "s3:ObjectCreated:Put" | "s3:ObjectRemoved:*" | "s3:ObjectRemoved:Delete" | "s3:ObjectRemoved:DeleteMarkerCreated" | "s3:ObjectRestore:Completed" | "s3:ObjectRestore:Post" | "s3:ReducedRedundancyLostObject"
 		Event:   string
 		Filter?: __NotificationFilter
 		Topic:   string
 	}
-	__Transition = {
+	__Transition :: {
 		StorageClass:      string
 		TransitionDate?:   time.Time
 		TransitionInDays?: int
 	}
-	__VersioningConfiguration = {
+	__VersioningConfiguration :: {
 		Status: "Enabled" | "Suspended"
 		Status: string
 	}
-	__WebsiteConfiguration = {
+	__WebsiteConfiguration :: {
 		ErrorDocument?:         string
 		IndexDocument?:         string
 		RedirectAllRequestsTo?: __RedirectAllRequestsTo

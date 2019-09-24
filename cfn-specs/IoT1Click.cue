@@ -25,12 +25,12 @@ Project :: {
 		PlacementTemplate: __PlacementTemplate
 		ProjectName?:      string
 	}
-	__DeviceTemplate = {
+	__DeviceTemplate :: {
 		CallbackOverrides?: {
 		}
 		DeviceType?: string
 	}
-	__PlacementTemplate = {
+	__PlacementTemplate :: {
 		DefaultAttributes?: {
 		}
 		DeviceTemplates?: {

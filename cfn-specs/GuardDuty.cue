@@ -19,14 +19,14 @@ Filter :: {
 		Name?:           string
 		Rank:            int
 	}
-	__Condition = {
+	__Condition :: {
 		Eq?: [...string]
 		Gte?: int
 		Lt?:  int
 		Lte?: int
 		Neq?: [...string]
 	}
-	__FindingCriteria = {
+	__FindingCriteria :: {
 		Criterion?: {
 		}
 		ItemType?: __Condition

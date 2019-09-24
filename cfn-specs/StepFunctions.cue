@@ -6,7 +6,7 @@ Activity :: {
 		Name: string
 		Tags?: [...__TagsEntry]
 	}
-	__TagsEntry = {
+	__TagsEntry :: {
 		Key:   string
 		Value: string
 	}
@@ -19,7 +19,7 @@ StateMachine :: {
 		StateMachineName?: string
 		Tags?: [...__TagsEntry]
 	}
-	__TagsEntry = {
+	__TagsEntry :: {
 		Key:   string
 		Value: string
 	}

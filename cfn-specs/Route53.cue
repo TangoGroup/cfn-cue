@@ -6,11 +6,11 @@ HealthCheck :: {
 		HealthCheckConfig: __HealthCheckConfig
 		HealthCheckTags?: [...__HealthCheckTag]
 	}
-	__AlarmIdentifier = {
+	__AlarmIdentifier :: {
 		Name:   string
 		Region: string
 	}
-	__HealthCheckConfig = {
+	__HealthCheckConfig :: {
 		AlarmIdentifier?: __AlarmIdentifier
 		ChildHealthChecks?: [...string]
 		EnableSNI?:                    bool
@@ -30,7 +30,7 @@ HealthCheck :: {
 		Type:             "CALCULATED" | "CLOUDWATCH_METRIC" | "HTTP_STR_MATCH" | "HTTP" | "HTTPS_STR_MATCH" | "HTTPS" | "TCP"
 		Type:             string
 	}
-	__HealthCheckTag = {
+	__HealthCheckTag :: {
 		Key:   string
 		Value: string
 	}
@@ -44,17 +44,17 @@ HostedZone :: {
 		QueryLoggingConfig?: __QueryLoggingConfig
 		VPCs?: [...__VPC]
 	}
-	__HostedZoneConfig = {
+	__HostedZoneConfig :: {
 		Comment?: string
 	}
-	__HostedZoneTag = {
+	__HostedZoneTag :: {
 		Key:   string
 		Value: string
 	}
-	__QueryLoggingConfig = {
+	__QueryLoggingConfig :: {
 		CloudWatchLogsLogGroupArn: string
 	}
-	__VPC = {
+	__VPC :: {
 		VPCId:     string
 		VPCRegion: string
 	}
@@ -80,12 +80,12 @@ RecordSet :: {
 		Type:           string
 		Weight?:        int
 	}
-	__AliasTarget = {
+	__AliasTarget :: {
 		DNSName:               string
 		EvaluateTargetHealth?: bool
 		HostedZoneId:          string
 	}
-	__GeoLocation = {
+	__GeoLocation :: {
 		ContinentCode?:   "AF" | "AN" | "AS" | "EU" | "NA" | "OC" | "SA"
 		ContinentCode?:   string
 		CountryCode?:     string
@@ -100,18 +100,18 @@ RecordSetGroup :: {
 		HostedZoneName?: string
 		RecordSets?: [...__RecordSet]
 	}
-	__AliasTarget = {
+	__AliasTarget :: {
 		DNSName:               string
 		EvaluateTargetHealth?: bool
 		HostedZoneId:          string
 	}
-	__GeoLocation = {
+	__GeoLocation :: {
 		ContinentCode?:   "AF" | "AN" | "AS" | "EU" | "NA" | "OC" | "SA"
 		ContinentCode?:   string
 		CountryCode?:     string
 		SubdivisionCode?: string
 	}
-	__RecordSet = {
+	__RecordSet :: {
 		AliasTarget?:      __AliasTarget
 		Comment?:          string
 		Failover?:         "PRIMARY" | "SECONDARY"

@@ -6,7 +6,7 @@ CodeRepository :: {
 		CodeRepositoryName?: string
 		GitConfig:           __GitConfig
 	}
-	__GitConfig = {
+	__GitConfig :: {
 		Branch?:       string
 		RepositoryUrl: string
 		SecretArn?:    string
@@ -28,7 +28,7 @@ EndpointConfig :: {
 		ProductionVariants: [...__ProductionVariant]
 		Tags?: [...__Tag]
 	}
-	__ProductionVariant = {
+	__ProductionVariant :: {
 		AcceleratorType?:     string
 		InitialInstanceCount: int
 		InitialVariantWeight: float
@@ -47,14 +47,14 @@ Model :: {
 		Tags?: [...__Tag]
 		VpcConfig?: __VpcConfig
 	}
-	__ContainerDefinition = {
+	__ContainerDefinition :: {
 		ContainerHostname?: string
 		Environment?: {
 		}
 		Image:         string
 		ModelDataUrl?: string
 	}
-	__VpcConfig = {
+	__VpcConfig :: {
 		SecurityGroupIds: [...string]
 		Subnets: [...string]
 	}
@@ -86,7 +86,7 @@ NotebookInstanceLifecycleConfig :: {
 		OnCreate?: [...__NotebookInstanceLifecycleHook]
 		OnStart?: [...__NotebookInstanceLifecycleHook]
 	}
-	__NotebookInstanceLifecycleHook = {
+	__NotebookInstanceLifecycleHook :: {
 		Content?: string
 	}
 }
@@ -99,15 +99,15 @@ Workteam :: {
 		Tags?: [...__Tag]
 		WorkteamName?: string
 	}
-	__CognitoMemberDefinition = {
+	__CognitoMemberDefinition :: {
 		CognitoClientId:  string
 		CognitoUserGroup: string
 		CognitoUserPool:  string
 	}
-	__MemberDefinition = {
+	__MemberDefinition :: {
 		CognitoMemberDefinition: __CognitoMemberDefinition
 	}
-	__NotificationConfiguration = {
+	__NotificationConfiguration :: {
 		NotificationTopicArn: string
 	}
 }

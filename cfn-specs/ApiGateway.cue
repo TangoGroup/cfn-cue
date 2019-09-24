@@ -17,7 +17,7 @@ ApiKey :: {
 		StageKeys?: [...__StageKey]
 		Value?: string
 	}
-	__StageKey = {
+	__StageKey :: {
 		RestApiId?: string
 		StageName?: string
 	}
@@ -63,23 +63,23 @@ Deployment :: {
 		StageDescription?:         __StageDescription
 		StageName?:                string
 	}
-	__AccessLogSetting = {
+	__AccessLogSetting :: {
 		DestinationArn?: string
 		Format?:         string
 	}
-	__CanarySetting = {
+	__CanarySetting :: {
 		PercentTraffic?: float
 		StageVariableOverrides?: {
 		}
 		UseStageCache?: bool
 	}
-	__DeploymentCanarySettings = {
+	__DeploymentCanarySettings :: {
 		PercentTraffic?: float
 		StageVariableOverrides?: {
 		}
 		UseStageCache?: bool
 	}
-	__MethodSetting = {
+	__MethodSetting :: {
 		CacheDataEncrypted?:   bool
 		CacheTtlInSeconds?:    int
 		CachingEnabled?:       bool
@@ -91,7 +91,7 @@ Deployment :: {
 		ThrottlingBurstLimit?: int
 		ThrottlingRateLimit?:  float
 	}
-	__StageDescription = {
+	__StageDescription :: {
 		AccessLogSetting?:     __AccessLogSetting
 		CacheClusterEnabled?:  bool
 		CacheClusterSize?:     string
@@ -121,7 +121,7 @@ DocumentationPart :: {
 		Properties: string
 		RestApiId:  string
 	}
-	__Location = {
+	__Location :: {
 		Method?:     string
 		Name?:       string
 		Path?:       string
@@ -145,7 +145,7 @@ DomainName :: {
 		EndpointConfiguration?:  __EndpointConfiguration
 		RegionalCertificateArn?: string
 	}
-	__EndpointConfiguration = {
+	__EndpointConfiguration :: {
 		Types?: [...string]
 	}
 }
@@ -181,7 +181,7 @@ Method :: {
 		ResourceId:          string
 		RestApiId:           string
 	}
-	__Integration = {
+	__Integration :: {
 		CacheKeyParameters?: [...string]
 		CacheNamespace?:        string
 		ConnectionId?:          string
@@ -199,7 +199,7 @@ Method :: {
 		Type?:            string
 		Uri?:             string
 	}
-	__IntegrationResponse = {
+	__IntegrationResponse :: {
 		ContentHandling?: string
 		ResponseParameters?: {
 		}
@@ -208,7 +208,7 @@ Method :: {
 		SelectionPattern?: string
 		StatusCode:        string
 	}
-	__MethodResponse = {
+	__MethodResponse :: {
 		ResponseModels?: {
 		}
 		ResponseParameters?: {
@@ -264,10 +264,10 @@ RestApi :: {
 		Policy?: {
 		}
 	}
-	__EndpointConfiguration = {
+	__EndpointConfiguration :: {
 		Types?: [...string]
 	}
-	__S3Location = {
+	__S3Location :: {
 		Bucket?:  string
 		ETag?:    string
 		Key?:     string
@@ -293,18 +293,18 @@ Stage :: {
 		Variables?: {
 		}
 	}
-	__AccessLogSetting = {
+	__AccessLogSetting :: {
 		DestinationArn?: string
 		Format?:         string
 	}
-	__CanarySetting = {
+	__CanarySetting :: {
 		DeploymentId?:   string
 		PercentTraffic?: float
 		StageVariableOverrides?: {
 		}
 		UseStageCache?: bool
 	}
-	__MethodSetting = {
+	__MethodSetting :: {
 		CacheDataEncrypted?:   bool
 		CacheTtlInSeconds?:    int
 		CachingEnabled?:       bool
@@ -326,18 +326,18 @@ UsagePlan :: {
 		Throttle?:      __ThrottleSettings
 		UsagePlanName?: string
 	}
-	__ApiStage = {
+	__ApiStage :: {
 		ApiId?: string
 		Stage?: string
 		Throttle?: {
 		}
 	}
-	__QuotaSettings = {
+	__QuotaSettings :: {
 		Limit?:  int
 		Offset?: int
 		Period?: string
 	}
-	__ThrottleSettings = {
+	__ThrottleSettings :: {
 		BurstLimit?: int
 		RateLimit?:  float
 	}

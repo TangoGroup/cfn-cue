@@ -16,7 +16,7 @@ App :: {
 		Repository?:     string
 		Tags?: [...__Tag]
 	}
-	__AutoBranchCreationConfig = {
+	__AutoBranchCreationConfig :: {
 		AutoBranchCreationPatterns?: [...string]
 		BasicAuthConfig?:          __BasicAuthConfig
 		BuildSpec?:                string
@@ -25,18 +25,18 @@ App :: {
 		EnvironmentVariables?: [...__EnvironmentVariable]
 		Stage?: string
 	}
-	__BasicAuthConfig = {
+	__BasicAuthConfig :: {
 		EnableBasicAuth?: bool
 		Password?:        string
 		Username?:        string
 	}
-	__CustomRule = {
+	__CustomRule :: {
 		Condition?: string
 		Source:     string
 		Status?:    string
 		Target:     string
 	}
-	__EnvironmentVariable = {
+	__EnvironmentVariable :: {
 		Name:  string
 		Value: string
 	}
@@ -54,12 +54,12 @@ Branch :: {
 		Stage?: string
 		Tags?: [...__Tag]
 	}
-	__BasicAuthConfig = {
+	__BasicAuthConfig :: {
 		EnableBasicAuth?: bool
 		Password:         string
 		Username:         string
 	}
-	__EnvironmentVariable = {
+	__EnvironmentVariable :: {
 		Name:  string
 		Value: string
 	}
@@ -71,7 +71,7 @@ Domain :: {
 		DomainName: string
 		SubDomainSettings: [...__SubDomainSetting]
 	}
-	__SubDomainSetting = {
+	__SubDomainSetting :: {
 		BranchName: string
 		Prefix:     string
 	}

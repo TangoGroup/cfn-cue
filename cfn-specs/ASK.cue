@@ -7,16 +7,16 @@ Skill :: {
 		SkillPackage:                __SkillPackage
 		VendorId:                    string
 	}
-	__AuthenticationConfiguration = {
+	__AuthenticationConfiguration :: {
 		ClientId:     string
 		ClientSecret: string
 		RefreshToken: string
 	}
-	__Overrides = {
+	__Overrides :: {
 		Manifest?: {
 		}
 	}
-	__SkillPackage = {
+	__SkillPackage :: {
 		Overrides?:       __Overrides
 		S3Bucket:         string
 		S3BucketRole?:    string

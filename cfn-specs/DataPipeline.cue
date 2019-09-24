@@ -11,29 +11,29 @@ Pipeline :: {
 		PipelineObjects?: [...__PipelineObject]
 		PipelineTags?: [...__PipelineTag]
 	}
-	__Field = {
+	__Field :: {
 		Key:          string
 		RefValue?:    string
 		StringValue?: string
 	}
-	__ParameterAttribute = {
+	__ParameterAttribute :: {
 		Key:         string
 		StringValue: string
 	}
-	__ParameterObject = {
+	__ParameterObject :: {
 		Attributes: [...__ParameterAttribute]
 		Id: string
 	}
-	__ParameterValue = {
+	__ParameterValue :: {
 		Id:          string
 		StringValue: string
 	}
-	__PipelineObject = {
+	__PipelineObject :: {
 		Fields: [...__Field]
 		Id:   string
 		Name: string
 	}
-	__PipelineTag = {
+	__PipelineTag :: {
 		Key:   string
 		Value: string
 	}

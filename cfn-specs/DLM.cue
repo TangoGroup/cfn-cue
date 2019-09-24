@@ -9,15 +9,15 @@ LifecyclePolicy :: {
 		State:            "DISABLED" | "ENABLED"
 		State:            string
 	}
-	__CreateRule = {
+	__CreateRule :: {
 		Interval:     int
 		IntervalUnit: string
 		Times?: [...string]
 	}
-	__Parameters = {
+	__Parameters :: {
 		ExcludeBootVolume?: bool
 	}
-	__PolicyDetails = {
+	__PolicyDetails :: {
 		Parameters?:    __Parameters
 		PolicyType?:    string
 		ResourceTypes?: "INSTANCE" | "VOLUME"
@@ -25,10 +25,10 @@ LifecyclePolicy :: {
 		Schedules?: [...__Schedule]
 		TargetTags?: [...__Tag]
 	}
-	__RetainRule = {
+	__RetainRule :: {
 		Count: int
 	}
-	__Schedule = {
+	__Schedule :: {
 		CopyTags?:   bool
 		CreateRule?: __CreateRule
 		Name?:       string

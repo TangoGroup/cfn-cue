@@ -12,11 +12,11 @@ CustomActionType :: {
 		Settings?:             __Settings
 		Version:               string
 	}
-	__ArtifactDetails = {
+	__ArtifactDetails :: {
 		MaximumCount: int
 		MinimumCount: int
 	}
-	__ConfigurationProperties = {
+	__ConfigurationProperties :: {
 		Description?: string
 		Key:          bool
 		Name:         string
@@ -26,7 +26,7 @@ CustomActionType :: {
 		Type?:        "Boolean" | "Number" | "String"
 		Type?:        string
 	}
-	__Settings = {
+	__Settings :: {
 		EntityUrlTemplate?:          string
 		ExecutionUrlTemplate?:       string
 		RevisionUrlTemplate?:        string
@@ -44,7 +44,7 @@ Pipeline :: {
 		RoleArn:                   string
 		Stages: [...__StageDeclaration]
 	}
-	__ActionDeclaration = {
+	__ActionDeclaration :: {
 		ActionTypeId: __ActionTypeId
 		Configuration?: {
 		}
@@ -55,7 +55,7 @@ Pipeline :: {
 		RoleArn?:  string
 		RunOrder?: int
 	}
-	__ActionTypeId = {
+	__ActionTypeId :: {
 		Category: "Approval" | "Build" | "Deploy" | "Invoke" | "Source" | "Test"
 		Category: string
 		Owner:    "AWS" | "Custom" | "ThirdParty"
@@ -63,37 +63,37 @@ Pipeline :: {
 		Provider: string
 		Version:  string
 	}
-	__ArtifactStore = {
+	__ArtifactStore :: {
 		EncryptionKey?: __EncryptionKey
 		Location:       string
 		Type:           "S3"
 		Type:           string
 	}
-	__ArtifactStoreMap = {
+	__ArtifactStoreMap :: {
 		ArtifactStore: __ArtifactStore
 		Region:        string
 	}
-	__BlockerDeclaration = {
+	__BlockerDeclaration :: {
 		Name: string
 		Type: "Schedule"
 		Type: string
 	}
-	__EncryptionKey = {
+	__EncryptionKey :: {
 		Id:   string
 		Type: string
 	}
-	__InputArtifact = {
+	__InputArtifact :: {
 		Name: string
 	}
-	__OutputArtifact = {
+	__OutputArtifact :: {
 		Name: string
 	}
-	__StageDeclaration = {
+	__StageDeclaration :: {
 		Actions: [...__ActionDeclaration]
 		Blockers?: [...__BlockerDeclaration]
 		Name: string
 	}
-	__StageTransition = {
+	__StageTransition :: {
 		Reason:    string
 		StageName: string
 	}
@@ -111,11 +111,11 @@ Webhook :: {
 		TargetPipeline:          string
 		TargetPipelineVersion:   int
 	}
-	__WebhookAuthConfiguration = {
+	__WebhookAuthConfiguration :: {
 		AllowedIPRange?: string
 		SecretToken?:    string
 	}
-	__WebhookFilterRule = {
+	__WebhookFilterRule :: {
 		JsonPath:     string
 		MatchEquals?: string
 	}

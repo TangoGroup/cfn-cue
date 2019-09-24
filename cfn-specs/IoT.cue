@@ -28,7 +28,7 @@ Thing :: {
 		AttributePayload?: __AttributePayload
 		ThingName?:        string
 	}
-	__AttributePayload = {
+	__AttributePayload :: {
 		Attributes?: {
 		}
 	}
@@ -46,7 +46,7 @@ TopicRule :: {
 		RuleName?:        string
 		TopicRulePayload: __TopicRulePayload
 	}
-	__Action = {
+	__Action :: {
 		CloudwatchAlarm?:  __CloudwatchAlarmAction
 		CloudwatchMetric?: __CloudwatchMetricAction
 		DynamoDB?:         __DynamoDBAction
@@ -62,13 +62,13 @@ TopicRule :: {
 		Sqs?:              __SqsAction
 		StepFunctions?:    __StepFunctionsAction
 	}
-	__CloudwatchAlarmAction = {
+	__CloudwatchAlarmAction :: {
 		AlarmName:   string
 		RoleArn:     string
 		StateReason: string
 		StateValue:  string
 	}
-	__CloudwatchMetricAction = {
+	__CloudwatchMetricAction :: {
 		MetricName:       string
 		MetricNamespace:  string
 		MetricTimestamp?: string
@@ -76,7 +76,7 @@ TopicRule :: {
 		MetricValue:      string
 		RoleArn:          string
 	}
-	__DynamoDBAction = {
+	__DynamoDBAction :: {
 		HashKeyField:   string
 		HashKeyType?:   string
 		HashKeyValue:   string
@@ -87,62 +87,62 @@ TopicRule :: {
 		RoleArn:        string
 		TableName:      string
 	}
-	__DynamoDBv2Action = {
+	__DynamoDBv2Action :: {
 		PutItem?: __PutItemInput
 		RoleArn?: string
 	}
-	__ElasticsearchAction = {
+	__ElasticsearchAction :: {
 		Endpoint: string
 		Id:       string
 		Index:    string
 		RoleArn:  string
 		Type:     string
 	}
-	__FirehoseAction = {
+	__FirehoseAction :: {
 		DeliveryStreamName: string
 		RoleArn:            string
 		Separator?:         string
 	}
-	__IotAnalyticsAction = {
+	__IotAnalyticsAction :: {
 		ChannelName: string
 		RoleArn:     string
 	}
-	__KinesisAction = {
+	__KinesisAction :: {
 		PartitionKey?: string
 		RoleArn:       string
 		StreamName:    string
 	}
-	__LambdaAction = {
+	__LambdaAction :: {
 		FunctionArn?: string
 	}
-	__PutItemInput = {
+	__PutItemInput :: {
 		TableName: string
 	}
-	__RepublishAction = {
+	__RepublishAction :: {
 		RoleArn: string
 		Topic:   string
 	}
-	__S3Action = {
+	__S3Action :: {
 		BucketName: string
 		Key:        string
 		RoleArn:    string
 	}
-	__SnsAction = {
+	__SnsAction :: {
 		MessageFormat?: string
 		RoleArn:        string
 		TargetArn:      string
 	}
-	__SqsAction = {
+	__SqsAction :: {
 		QueueUrl:   string
 		RoleArn:    string
 		UseBase64?: bool
 	}
-	__StepFunctionsAction = {
+	__StepFunctionsAction :: {
 		ExecutionNamePrefix?: string
 		RoleArn:              string
 		StateMachineName:     string
 	}
-	__TopicRulePayload = {
+	__TopicRulePayload :: {
 		Actions: [...__Action]
 		AwsIotSqlVersion?: string
 		Description?:      string

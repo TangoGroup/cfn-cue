@@ -20,35 +20,35 @@ LoadBalancer :: {
 		Subnets?: [...string]
 		Tags?: [...__Tag]
 	}
-	__AccessLoggingPolicy = {
+	__AccessLoggingPolicy :: {
 		EmitInterval?:   int
 		Enabled:         bool
 		S3BucketName:    string
 		S3BucketPrefix?: string
 	}
-	__AppCookieStickinessPolicy = {
+	__AppCookieStickinessPolicy :: {
 		CookieName: string
 		PolicyName: string
 	}
-	__ConnectionDrainingPolicy = {
+	__ConnectionDrainingPolicy :: {
 		Enabled:  bool
 		Timeout?: int
 	}
-	__ConnectionSettings = {
+	__ConnectionSettings :: {
 		IdleTimeout: int
 	}
-	__HealthCheck = {
+	__HealthCheck :: {
 		HealthyThreshold:   string
 		Interval:           string
 		Target:             string
 		Timeout:            string
 		UnhealthyThreshold: string
 	}
-	__LBCookieStickinessPolicy = {
+	__LBCookieStickinessPolicy :: {
 		CookieExpirationPeriod?: string
 		PolicyName?:             string
 	}
-	__Listeners = {
+	__Listeners :: {
 		InstancePort:      >=1 & <=65535
 		InstancePort:      string
 		InstanceProtocol?: string
@@ -58,7 +58,7 @@ LoadBalancer :: {
 		Protocol:          string
 		SSLCertificateId?: string
 	}
-	__Policies = {
+	__Policies :: {
 		Attributes: [...{
 		}]
 		InstancePorts?: [...string]

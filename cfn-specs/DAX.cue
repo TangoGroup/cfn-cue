@@ -19,7 +19,7 @@ Cluster :: {
 		Tags?: {
 		}
 	}
-	__SSESpecification = {
+	__SSESpecification :: {
 		SSEEnabled?: bool
 	}
 }

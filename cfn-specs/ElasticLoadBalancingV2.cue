@@ -11,7 +11,7 @@ Listener :: {
 		Protocol:        string
 		SslPolicy?:      string
 	}
-	__Action = {
+	__Action :: {
 		AuthenticateCognitoConfig?: __AuthenticateCognitoConfig
 		AuthenticateOidcConfig?:    __AuthenticateOidcConfig
 		FixedResponseConfig?:       __FixedResponseConfig
@@ -20,7 +20,7 @@ Listener :: {
 		TargetGroupArn?:            string
 		Type:                       string
 	}
-	__AuthenticateCognitoConfig = {
+	__AuthenticateCognitoConfig :: {
 		AuthenticationRequestExtraParams?: {
 		}
 		OnUnauthenticatedRequest?: string
@@ -31,7 +31,7 @@ Listener :: {
 		UserPoolClientId:          string
 		UserPoolDomain:            string
 	}
-	__AuthenticateOidcConfig = {
+	__AuthenticateOidcConfig :: {
 		AuthenticationRequestExtraParams?: {
 		}
 		AuthorizationEndpoint:     string
@@ -45,15 +45,15 @@ Listener :: {
 		TokenEndpoint:             string
 		UserInfoEndpoint:          string
 	}
-	__Certificate = {
+	__Certificate :: {
 		CertificateArn?: string
 	}
-	__FixedResponseConfig = {
+	__FixedResponseConfig :: {
 		ContentType?: string
 		MessageBody?: string
 		StatusCode:   string
 	}
-	__RedirectConfig = {
+	__RedirectConfig :: {
 		Host?:      string
 		Path?:      string
 		Port?:      string
@@ -68,7 +68,7 @@ ListenerCertificate :: {
 		Certificates: [...__Certificate]
 		ListenerArn: string
 	}
-	__Certificate = {
+	__Certificate :: {
 		CertificateArn?: string
 	}
 }
@@ -80,7 +80,7 @@ ListenerRule :: {
 		ListenerArn: string
 		Priority:    int
 	}
-	__Action = {
+	__Action :: {
 		AuthenticateCognitoConfig?: __AuthenticateCognitoConfig
 		AuthenticateOidcConfig?:    __AuthenticateOidcConfig
 		FixedResponseConfig?:       __FixedResponseConfig
@@ -89,7 +89,7 @@ ListenerRule :: {
 		TargetGroupArn?:            string
 		Type:                       string
 	}
-	__AuthenticateCognitoConfig = {
+	__AuthenticateCognitoConfig :: {
 		AuthenticationRequestExtraParams?: {
 		}
 		OnUnauthenticatedRequest?: string
@@ -100,7 +100,7 @@ ListenerRule :: {
 		UserPoolClientId:          string
 		UserPoolDomain:            string
 	}
-	__AuthenticateOidcConfig = {
+	__AuthenticateOidcConfig :: {
 		AuthenticationRequestExtraParams?: {
 		}
 		AuthorizationEndpoint:     string
@@ -114,32 +114,32 @@ ListenerRule :: {
 		TokenEndpoint:             string
 		UserInfoEndpoint:          string
 	}
-	__FixedResponseConfig = {
+	__FixedResponseConfig :: {
 		ContentType?: string
 		MessageBody?: string
 		StatusCode:   string
 	}
-	__HostHeaderConfig = {
+	__HostHeaderConfig :: {
 		Values?: [...string]
 	}
-	__HttpHeaderConfig = {
+	__HttpHeaderConfig :: {
 		HttpHeaderName?: string
 		Values?: [...string]
 	}
-	__HttpRequestMethodConfig = {
+	__HttpRequestMethodConfig :: {
 		Values?: [...string]
 	}
-	__PathPatternConfig = {
+	__PathPatternConfig :: {
 		Values?: [...string]
 	}
-	__QueryStringConfig = {
+	__QueryStringConfig :: {
 		Values?: [...__QueryStringKeyValue]
 	}
-	__QueryStringKeyValue = {
+	__QueryStringKeyValue :: {
 		Key?:   string
 		Value?: string
 	}
-	__RedirectConfig = {
+	__RedirectConfig :: {
 		Host?:      string
 		Path?:      string
 		Port?:      string
@@ -147,7 +147,7 @@ ListenerRule :: {
 		Query?:     string
 		StatusCode: string
 	}
-	__RuleCondition = {
+	__RuleCondition :: {
 		Field?:                   string
 		HostHeaderConfig?:        __HostHeaderConfig
 		HttpHeaderConfig?:        __HttpHeaderConfig
@@ -157,7 +157,7 @@ ListenerRule :: {
 		SourceIpConfig?:          __SourceIpConfig
 		Values?: [...string]
 	}
-	__SourceIpConfig = {
+	__SourceIpConfig :: {
 		Values?: [...string]
 	}
 }
@@ -174,11 +174,11 @@ LoadBalancer :: {
 		Tags?: [...__Tag]
 		Type?: string
 	}
-	__LoadBalancerAttribute = {
+	__LoadBalancerAttribute :: {
 		Key?:   string
 		Value?: string
 	}
-	__SubnetMapping = {
+	__SubnetMapping :: {
 		AllocationId: string
 		SubnetId:     string
 	}
@@ -208,15 +208,15 @@ TargetGroup :: {
 		UnhealthyThresholdCount?: int
 		VpcId?:                   string
 	}
-	__Matcher = {
+	__Matcher :: {
 		HttpCode: string
 	}
-	__TargetDescription = {
+	__TargetDescription :: {
 		AvailabilityZone?: string
 		Id:                string
 		Port?:             int
 	}
-	__TargetGroupAttribute = {
+	__TargetGroupAttribute :: {
 		Key?:   string
 		Value?: string
 	}

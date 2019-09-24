@@ -12,7 +12,7 @@ MicrosoftAD :: {
 		ShortName?:   string
 		VpcSettings:  __VpcSettings
 	}
-	__VpcSettings = {
+	__VpcSettings :: {
 		SubnetIds: [...string]
 		VpcId: string
 	}
@@ -30,7 +30,7 @@ SimpleAD :: {
 		Size:         string
 		VpcSettings:  __VpcSettings
 	}
-	__VpcSettings = {
+	__VpcSettings :: {
 		SubnetIds: [...string]
 		VpcId: string
 	}

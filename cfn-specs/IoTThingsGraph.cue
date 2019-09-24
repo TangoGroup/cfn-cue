@@ -6,7 +6,7 @@ FlowTemplate :: {
 		CompatibleNamespaceVersion?: float
 		Definition:                  __DefinitionDocument
 	}
-	__DefinitionDocument = {
+	__DefinitionDocument :: {
 		Language: string
 		Text:     string
 	}

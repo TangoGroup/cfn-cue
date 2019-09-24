@@ -12,18 +12,18 @@ ScalableTarget :: {
 		ServiceNamespace: string
 		SuspendedState?:  __SuspendedState
 	}
-	__ScalableTargetAction = {
+	__ScalableTargetAction :: {
 		MaxCapacity?: int
 		MinCapacity?: int
 	}
-	__ScheduledAction = {
+	__ScheduledAction :: {
 		EndTime?:              time.Time
 		ScalableTargetAction?: __ScalableTargetAction
 		Schedule:              string
 		ScheduledActionName:   string
 		StartTime?:            time.Time
 	}
-	__SuspendedState = {
+	__SuspendedState :: {
 		DynamicScalingInSuspended?:  bool
 		DynamicScalingOutSuspended?: bool
 		ScheduledScalingSuspended?:  bool
@@ -42,7 +42,7 @@ ScalingPolicy :: {
 		StepScalingPolicyConfiguration?:           __StepScalingPolicyConfiguration
 		TargetTrackingScalingPolicyConfiguration?: __TargetTrackingScalingPolicyConfiguration
 	}
-	__CustomizedMetricSpecification = {
+	__CustomizedMetricSpecification :: {
 		Dimensions?: [...__MetricDimension]
 		MetricName: string
 		Namespace:  string
@@ -50,28 +50,28 @@ ScalingPolicy :: {
 		Statistic:  string
 		Unit?:      string
 	}
-	__MetricDimension = {
+	__MetricDimension :: {
 		Name:  string
 		Value: string
 	}
-	__PredefinedMetricSpecification = {
+	__PredefinedMetricSpecification :: {
 		PredefinedMetricType: "ALBRequestCountPerTarget" | "DynamoDBReadCapacityUtilization" | "DynamoDBWriteCapacityUtilization" | "EC2SpotFleetRequestAverageCPUUtilization" | "EC2SpotFleetRequestAverageNetworkIn" | "EC2SpotFleetRequestAverageNetworkOut" | "ECSServiceAverageCPUUtilization" | "ECSServiceAverageMemoryUtilization" | "RDSReaderAverageCPUUtilization" | "RDSReaderAverageDatabaseConnections" | "SageMakerVariantInvocationsPerInstance"
 		PredefinedMetricType: string
 		ResourceLabel?:       string
 	}
-	__StepAdjustment = {
+	__StepAdjustment :: {
 		MetricIntervalLowerBound?: float
 		MetricIntervalUpperBound?: float
 		ScalingAdjustment:         int
 	}
-	__StepScalingPolicyConfiguration = {
+	__StepScalingPolicyConfiguration :: {
 		AdjustmentType?:         string
 		Cooldown?:               int
 		MetricAggregationType?:  string
 		MinAdjustmentMagnitude?: int
 		StepAdjustments?: [...__StepAdjustment]
 	}
-	__TargetTrackingScalingPolicyConfiguration = {
+	__TargetTrackingScalingPolicyConfiguration :: {
 		CustomizedMetricSpecification?: __CustomizedMetricSpecification
 		DisableScaleIn?:                bool
 		PredefinedMetricSpecification?: __PredefinedMetricSpecification

@@ -15,29 +15,29 @@ Channel :: {
 		Tags?: {
 		}
 	}
-	__AribSourceSettings = {
+	__AribSourceSettings :: {
 	}
-	__AudioLanguageSelection = {
+	__AudioLanguageSelection :: {
 		LanguageCode?:            string
 		LanguageSelectionPolicy?: string
 	}
-	__AudioPidSelection = {
+	__AudioPidSelection :: {
 		Pid?: int
 	}
-	__AudioSelector = {
+	__AudioSelector :: {
 		Name?:             string
 		SelectorSettings?: __AudioSelectorSettings
 	}
-	__AudioSelectorSettings = {
+	__AudioSelectorSettings :: {
 		AudioLanguageSelection?: __AudioLanguageSelection
 		AudioPidSelection?:      __AudioPidSelection
 	}
-	__CaptionSelector = {
+	__CaptionSelector :: {
 		LanguageCode?:     string
 		Name?:             string
 		SelectorSettings?: __CaptionSelectorSettings
 	}
-	__CaptionSelectorSettings = {
+	__CaptionSelectorSettings :: {
 		AribSourceSettings?:     __AribSourceSettings
 		DvbSubSourceSettings?:   __DvbSubSourceSettings
 		EmbeddedSourceSettings?: __EmbeddedSourceSettings
@@ -45,27 +45,27 @@ Channel :: {
 		Scte27SourceSettings?:   __Scte27SourceSettings
 		TeletextSourceSettings?: __TeletextSourceSettings
 	}
-	__DvbSubSourceSettings = {
+	__DvbSubSourceSettings :: {
 		Pid?: int
 	}
-	__EmbeddedSourceSettings = {
+	__EmbeddedSourceSettings :: {
 		Convert608To708?:        string
 		Scte20Detection?:        string
 		Source608ChannelNumber?: int
 		Source608TrackNumber?:   int
 	}
-	__HlsInputSettings = {
+	__HlsInputSettings :: {
 		Bandwidth?:      int
 		BufferSegments?: int
 		Retries?:        int
 		RetryInterval?:  int
 	}
-	__InputAttachment = {
+	__InputAttachment :: {
 		InputAttachmentName?: string
 		InputId?:             string
 		InputSettings?:       __InputSettings
 	}
-	__InputSettings = {
+	__InputSettings :: {
 		AudioSelectors?: [...__AudioSelector]
 		CaptionSelectors?: [...__CaptionSelector]
 		DeblockFilter?:        string
@@ -76,51 +76,51 @@ Channel :: {
 		SourceEndBehavior?:    string
 		VideoSelector?:        __VideoSelector
 	}
-	__InputSpecification = {
+	__InputSpecification :: {
 		Codec?:          string
 		MaximumBitrate?: string
 		Resolution?:     string
 	}
-	__MediaPackageOutputDestinationSettings = {
+	__MediaPackageOutputDestinationSettings :: {
 		ChannelId?: string
 	}
-	__NetworkInputSettings = {
+	__NetworkInputSettings :: {
 		HlsInputSettings?: __HlsInputSettings
 		ServerValidation?: string
 	}
-	__OutputDestination = {
+	__OutputDestination :: {
 		Id?: string
 		MediaPackageSettings?: [...__MediaPackageOutputDestinationSettings]
 		Settings?: [...__OutputDestinationSettings]
 	}
-	__OutputDestinationSettings = {
+	__OutputDestinationSettings :: {
 		PasswordParam?: string
 		StreamName?:    string
 		Url?:           string
 		Username?:      string
 	}
-	__Scte20SourceSettings = {
+	__Scte20SourceSettings :: {
 		Convert608To708?:        string
 		Source608ChannelNumber?: int
 	}
-	__Scte27SourceSettings = {
+	__Scte27SourceSettings :: {
 		Pid?: int
 	}
-	__TeletextSourceSettings = {
+	__TeletextSourceSettings :: {
 		PageNumber?: string
 	}
-	__VideoSelector = {
+	__VideoSelector :: {
 		ColorSpace?:       string
 		ColorSpaceUsage?:  string
 		SelectorSettings?: __VideoSelectorSettings
 	}
-	__VideoSelectorPid = {
+	__VideoSelectorPid :: {
 		Pid?: int
 	}
-	__VideoSelectorProgramId = {
+	__VideoSelectorProgramId :: {
 		ProgramId?: int
 	}
-	__VideoSelectorSettings = {
+	__VideoSelectorSettings :: {
 		VideoSelectorPid?:       __VideoSelectorPid
 		VideoSelectorProgramId?: __VideoSelectorProgramId
 	}
@@ -139,19 +139,19 @@ Input :: {
 		Type?: string
 		Vpc?:  __InputVpcRequest
 	}
-	__InputDestinationRequest = {
+	__InputDestinationRequest :: {
 		StreamName?: string
 	}
-	__InputSourceRequest = {
+	__InputSourceRequest :: {
 		PasswordParam?: string
 		Url?:           string
 		Username?:      string
 	}
-	__InputVpcRequest = {
+	__InputVpcRequest :: {
 		SecurityGroupIds?: [...string]
 		SubnetIds?: [...string]
 	}
-	__MediaConnectFlowRequest = {
+	__MediaConnectFlowRequest :: {
 		FlowArn?: string
 	}
 }
@@ -162,7 +162,7 @@ InputSecurityGroup :: {
 		}
 		WhitelistRules?: [...__InputWhitelistRuleCidr]
 	}
-	__InputWhitelistRuleCidr = {
+	__InputWhitelistRuleCidr :: {
 		Cidr?: string
 	}
 }

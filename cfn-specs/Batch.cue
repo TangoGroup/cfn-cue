@@ -10,7 +10,7 @@ ComputeEnvironment :: {
 		State?:                  string
 		Type:                    string
 	}
-	__ComputeResources = {
+	__ComputeResources :: {
 		BidPercentage?: int
 		DesiredvCpus?:  int
 		Ec2KeyPair?:    string
@@ -29,7 +29,7 @@ ComputeEnvironment :: {
 		}
 		Type: string
 	}
-	__LaunchTemplateSpecification = {
+	__LaunchTemplateSpecification :: {
 		LaunchTemplateId?:   string
 		LaunchTemplateName?: string
 		Version?:            string
@@ -47,7 +47,7 @@ JobDefinition :: {
 		Timeout?:       __Timeout
 		Type:           string
 	}
-	__ContainerProperties = {
+	__ContainerProperties :: {
 		Command?: [...string]
 		Environment?: [...__Environment]
 		Image:            string
@@ -64,52 +64,52 @@ JobDefinition :: {
 		Vcpus: int
 		Volumes?: [...__Volumes]
 	}
-	__Device = {
+	__Device :: {
 		ContainerPath?: string
 		HostPath?:      string
 		Permissions?: [...string]
 	}
-	__Environment = {
+	__Environment :: {
 		Name?:  string
 		Value?: string
 	}
-	__LinuxParameters = {
+	__LinuxParameters :: {
 		Devices?: [...__Device]
 	}
-	__MountPoints = {
+	__MountPoints :: {
 		ContainerPath?: string
 		ReadOnly?:      bool
 		SourceVolume?:  string
 	}
-	__NodeProperties = {
+	__NodeProperties :: {
 		MainNode: int
 		NodeRangeProperties: [...__NodeRangeProperty]
 		NumNodes: int
 	}
-	__NodeRangeProperty = {
+	__NodeRangeProperty :: {
 		Container?:  __ContainerProperties
 		TargetNodes: string
 	}
-	__ResourceRequirement = {
+	__ResourceRequirement :: {
 		Type?:  string
 		Value?: string
 	}
-	__RetryStrategy = {
+	__RetryStrategy :: {
 		Attempts?: int
 	}
-	__Timeout = {
+	__Timeout :: {
 		AttemptDurationSeconds?: int
 	}
-	__Ulimit = {
+	__Ulimit :: {
 		HardLimit: int
 		Name:      string
 		SoftLimit: int
 	}
-	__Volumes = {
+	__Volumes :: {
 		Host?: __VolumesHost
 		Name?: string
 	}
-	__VolumesHost = {
+	__VolumesHost :: {
 		SourcePath?: string
 	}
 }
@@ -121,7 +121,7 @@ JobQueue :: {
 		Priority:      int
 		State?:        string
 	}
-	__ComputeEnvironmentOrder = {
+	__ComputeEnvironmentOrder :: {
 		ComputeEnvironment: string
 		Order:              int
 	}

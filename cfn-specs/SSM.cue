@@ -13,17 +13,17 @@ Association :: {
 		ScheduleExpression?: string
 		Targets?: [...__Target]
 	}
-	__InstanceAssociationOutputLocation = {
+	__InstanceAssociationOutputLocation :: {
 		S3Location?: __S3OutputLocation
 	}
-	__ParameterValues = {
+	__ParameterValues :: {
 		ParameterValues: [...string]
 	}
-	__S3OutputLocation = {
+	__S3OutputLocation :: {
 		OutputS3BucketName?: string
 		OutputS3KeyPrefix?:  string
 	}
-	__Target = {
+	__Target :: {
 		Key: string
 		Values: [...string]
 	}
@@ -64,7 +64,7 @@ MaintenanceWindowTarget :: {
 		Targets: [...__Target]
 		WindowId: string
 	}
-	__Target = {
+	__Target :: {
 		Key: string
 		Values?: [...string]
 	}
@@ -87,22 +87,22 @@ MaintenanceWindowTask :: {
 		TaskType: string
 		WindowId: string
 	}
-	__LoggingInfo = {
+	__LoggingInfo :: {
 		Region:    string
 		S3Bucket:  string
 		S3Prefix?: string
 	}
-	__MaintenanceWindowAutomationParameters = {
+	__MaintenanceWindowAutomationParameters :: {
 		DocumentVersion?: string
 		Parameters?: {
 		}
 	}
-	__MaintenanceWindowLambdaParameters = {
+	__MaintenanceWindowLambdaParameters :: {
 		ClientContext?: string
 		Payload?:       string
 		Qualifier?:     string
 	}
-	__MaintenanceWindowRunCommandParameters = {
+	__MaintenanceWindowRunCommandParameters :: {
 		Comment?:            string
 		DocumentHash?:       string
 		DocumentHashType?:   string
@@ -114,20 +114,20 @@ MaintenanceWindowTask :: {
 		ServiceRoleArn?: string
 		TimeoutSeconds?: int
 	}
-	__MaintenanceWindowStepFunctionsParameters = {
+	__MaintenanceWindowStepFunctionsParameters :: {
 		Input?: string
 		Name?:  string
 	}
-	__NotificationConfig = {
+	__NotificationConfig :: {
 		NotificationArn: string
 		NotificationEvents?: [...string]
 		NotificationType?: string
 	}
-	__Target = {
+	__Target :: {
 		Key: string
 		Values?: [...string]
 	}
-	__TaskInvocationParameters = {
+	__TaskInvocationParameters :: {
 		MaintenanceWindowAutomationParameters?:    __MaintenanceWindowAutomationParameters
 		MaintenanceWindowLambdaParameters?:        __MaintenanceWindowLambdaParameters
 		MaintenanceWindowRunCommandParameters?:    __MaintenanceWindowRunCommandParameters
@@ -165,25 +165,25 @@ PatchBaseline :: {
 		Sources?: [...__PatchSource]
 		Tags?: [...__Tag]
 	}
-	__PatchFilter = {
+	__PatchFilter :: {
 		Key?: string
 		Values?: [...string]
 	}
-	__PatchFilterGroup = {
+	__PatchFilterGroup :: {
 		PatchFilters?: [...__PatchFilter]
 	}
-	__PatchSource = {
+	__PatchSource :: {
 		Configuration?: string
 		Name?:          string
 		Products?: [...string]
 	}
-	__Rule = {
+	__Rule :: {
 		ApproveAfterDays?:  int
 		ComplianceLevel?:   string
 		EnableNonSecurity?: bool
 		PatchFilterGroup?:  __PatchFilterGroup
 	}
-	__RuleGroup = {
+	__RuleGroup :: {
 		PatchRules?: [...__Rule]
 	}
 }

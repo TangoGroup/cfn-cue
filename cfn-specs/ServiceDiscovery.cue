@@ -41,23 +41,23 @@ Service :: {
 		Name?:                    string
 		NamespaceId?:             string
 	}
-	__DnsConfig = {
+	__DnsConfig :: {
 		DnsRecords: [...__DnsRecord]
 		NamespaceId?:   string
 		RoutingPolicy?: string
 	}
-	__DnsRecord = {
+	__DnsRecord :: {
 		TTL:  float
 		Type: "A" | "AAAA" | "SRV"
 		Type: string
 	}
-	__HealthCheckConfig = {
+	__HealthCheckConfig :: {
 		FailureThreshold?: float
 		ResourcePath?:     string
 		Type:              "HTTP" | "HTTPS" | "TCP"
 		Type:              string
 	}
-	__HealthCheckCustomConfig = {
+	__HealthCheckCustomConfig :: {
 		FailureThreshold?: float
 	}
 }

@@ -12,7 +12,7 @@ Workspace :: {
 		VolumeEncryptionKey?:         string
 		WorkspaceProperties?:         __WorkspaceProperties
 	}
-	__WorkspaceProperties = {
+	__WorkspaceProperties :: {
 		ComputeTypeName?:                     "GRAPHICS" | "PERFORMANCE" | "POWER" | "STANDARD" | "VALUE"
 		ComputeTypeName?:                     string
 		RootVolumeSizeGib?:                   int

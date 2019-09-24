@@ -15,7 +15,7 @@ RotationSchedule :: {
 		RotationRules?:     __RotationRules
 		SecretId:           string
 	}
-	__RotationRules = {
+	__RotationRules :: {
 		AutomaticallyAfterDays?: int
 	}
 }
@@ -29,7 +29,7 @@ Secret :: {
 		SecretString?:         string
 		Tags?: [...__Tag]
 	}
-	__GenerateSecretString = {
+	__GenerateSecretString :: {
 		ExcludeCharacters?:       string
 		ExcludeLowercase?:        bool
 		ExcludeNumbers?:          bool

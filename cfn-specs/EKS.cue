@@ -8,7 +8,7 @@ Cluster :: {
 		RoleArn:            string
 		Version?:           string
 	}
-	__ResourcesVpcConfig = {
+	__ResourcesVpcConfig :: {
 		SecurityGroupIds?: [...string]
 		SubnetIds: [...string]
 	}

@@ -23,38 +23,38 @@ DataSource :: {
 		Type:                      "AMAZON_DYNAMODB" | "AMAZON_ELASTICSEARCH" | "AWS_LAMBDA" | "HTTP" | "NONE" | "RELATIONAL_DATABASE"
 		Type:                      string
 	}
-	__AuthorizationConfig = {
+	__AuthorizationConfig :: {
 		AuthorizationType: string
 		AwsIamConfig?:     __AwsIamConfig
 	}
-	__AwsIamConfig = {
+	__AwsIamConfig :: {
 		SigningRegion?:      string
 		SigningServiceName?: string
 	}
-	__DynamoDBConfig = {
+	__DynamoDBConfig :: {
 		AwsRegion:             string
 		TableName:             string
 		UseCallerCredentials?: bool
 	}
-	__ElasticsearchConfig = {
+	__ElasticsearchConfig :: {
 		AwsRegion: string
 		Endpoint:  string
 	}
-	__HttpConfig = {
+	__HttpConfig :: {
 		AuthorizationConfig?: __AuthorizationConfig
 		Endpoint:             string
 	}
-	__LambdaConfig = {
+	__LambdaConfig :: {
 		LambdaFunctionArn: string
 	}
-	__RdsHttpEndpointConfig = {
+	__RdsHttpEndpointConfig :: {
 		AwsRegion:           string
 		AwsSecretStoreArn:   string
 		DatabaseName?:       string
 		DbClusterIdentifier: string
 		Schema?:             string
 	}
-	__RelationalDatabaseConfig = {
+	__RelationalDatabaseConfig :: {
 		RdsHttpEndpointConfig?:       __RdsHttpEndpointConfig
 		RelationalDatabaseSourceType: string
 	}
@@ -85,32 +85,32 @@ GraphQLApi :: {
 		Tags?:                              __Tags
 		UserPoolConfig?:                    __UserPoolConfig
 	}
-	__AdditionalAuthenticationProvider = {
+	__AdditionalAuthenticationProvider :: {
 		AuthenticationType:   string
 		OpenIDConnectConfig?: __OpenIDConnectConfig
 		UserPoolConfig?:      __CognitoUserPoolConfig
 	}
-	__AdditionalAuthenticationProviders = {
+	__AdditionalAuthenticationProviders :: {
 	}
-	__CognitoUserPoolConfig = {
+	__CognitoUserPoolConfig :: {
 		AppIdClientRegex?: string
 		AwsRegion?:        string
 		UserPoolId?:       string
 	}
-	__LogConfig = {
+	__LogConfig :: {
 		CloudWatchLogsRoleArn?: string
 		ExcludeVerboseContent?: bool
 		FieldLogLevel?:         string
 	}
-	__OpenIDConnectConfig = {
+	__OpenIDConnectConfig :: {
 		AuthTTL?:  float
 		ClientId?: string
 		IatTTL?:   float
 		Issuer?:   string
 	}
-	__Tags = {
+	__Tags :: {
 	}
-	__UserPoolConfig = {
+	__UserPoolConfig :: {
 		AppIdClientRegex?: string
 		AwsRegion?:        string
 		DefaultAction?:    string
@@ -140,7 +140,7 @@ Resolver :: {
 		ResponseMappingTemplateS3Location?: string
 		TypeName:                           string
 	}
-	__PipelineConfig = {
+	__PipelineConfig :: {
 		Functions?: [...string]
 	}
 }

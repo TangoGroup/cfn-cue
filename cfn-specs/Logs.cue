@@ -32,7 +32,7 @@ MetricFilter :: {
 		LogGroupName:  string
 		MetricTransformations: [...__MetricTransformation]
 	}
-	__MetricTransformation = {
+	__MetricTransformation :: {
 		DefaultValue?:   float
 		MetricName:      string
 		MetricNamespace: string

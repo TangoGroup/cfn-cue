@@ -10,7 +10,7 @@ Certificate :: {
 		ValidationMethod?: "DNS" | "EMAIL"
 		ValidationMethod?: string
 	}
-	__DomainValidationOption = {
+	__DomainValidationOption :: {
 		DomainName:       string
 		ValidationDomain: string
 	}

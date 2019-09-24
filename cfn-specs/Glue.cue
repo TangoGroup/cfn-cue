@@ -8,7 +8,7 @@ Classifier :: {
 		JsonClassifier?: __JsonClassifier
 		XMLClassifier?:  __XMLClassifier
 	}
-	__CsvClassifier = {
+	__CsvClassifier :: {
 		AllowSingleColumn?:    bool
 		ContainsHeader?:       string
 		Delimiter?:            string
@@ -17,17 +17,17 @@ Classifier :: {
 		Name?:        string
 		QuoteSymbol?: string
 	}
-	__GrokClassifier = {
+	__GrokClassifier :: {
 		Classification:  string
 		CustomPatterns?: string
 		GrokPattern:     string
 		Name?:           string
 	}
-	__JsonClassifier = {
+	__JsonClassifier :: {
 		JsonPath: string
 		Name?:    string
 	}
-	__XMLClassifier = {
+	__XMLClassifier :: {
 		Classification: string
 		Name?:          string
 		RowTag:         string
@@ -39,7 +39,7 @@ Connection :: {
 		CatalogId:       string
 		ConnectionInput: __ConnectionInput
 	}
-	__ConnectionInput = {
+	__ConnectionInput :: {
 		ConnectionProperties: {
 		}
 		ConnectionType: "JDBC" | "SFTP"
@@ -49,7 +49,7 @@ Connection :: {
 		Name?:                           string
 		PhysicalConnectionRequirements?: __PhysicalConnectionRequirements
 	}
-	__PhysicalConnectionRequirements = {
+	__PhysicalConnectionRequirements :: {
 		AvailabilityZone?: string
 		SecurityGroupIdList?: [...string]
 		SubnetId?: string
@@ -72,25 +72,25 @@ Crawler :: {
 		}
 		Targets: __Targets
 	}
-	__JdbcTarget = {
+	__JdbcTarget :: {
 		ConnectionName?: string
 		Exclusions?: [...string]
 		Path?: string
 	}
-	__S3Target = {
+	__S3Target :: {
 		Exclusions?: [...string]
 		Path?: string
 	}
-	__Schedule = {
+	__Schedule :: {
 		ScheduleExpression?: string
 	}
-	__SchemaChangePolicy = {
+	__SchemaChangePolicy :: {
 		DeleteBehavior?: "DELETE_FROM_DATABASE" | "DEPRECATE_IN_DATABASE" | "LOG"
 		DeleteBehavior?: string
 		UpdateBehavior?: "LOG" | "UPDATE_IN_DATABASE"
 		UpdateBehavior?: string
 	}
-	__Targets = {
+	__Targets :: {
 		JdbcTargets?: [...__JdbcTarget]
 		S3Targets?: [...__S3Target]
 	}
@@ -101,15 +101,15 @@ DataCatalogEncryptionSettings :: {
 		CatalogId:                     string
 		DataCatalogEncryptionSettings: __DataCatalogEncryptionSettings
 	}
-	__ConnectionPasswordEncryption = {
+	__ConnectionPasswordEncryption :: {
 		KmsKeyId?:                          string
 		ReturnConnectionPasswordEncrypted?: bool
 	}
-	__DataCatalogEncryptionSettings = {
+	__DataCatalogEncryptionSettings :: {
 		ConnectionPasswordEncryption?: __ConnectionPasswordEncryption
 		EncryptionAtRest?:             __EncryptionAtRest
 	}
-	__EncryptionAtRest = {
+	__EncryptionAtRest :: {
 		CatalogEncryptionMode?: string
 		SseAwsKmsKeyId?:        string
 	}
@@ -120,7 +120,7 @@ Database :: {
 		CatalogId:     string
 		DatabaseInput: __DatabaseInput
 	}
-	__DatabaseInput = {
+	__DatabaseInput :: {
 		Description?: string
 		LocationUri?: string
 		Name?:        string
@@ -167,13 +167,13 @@ Job :: {
 		}
 		WorkerType?: string
 	}
-	__ConnectionsList = {
+	__ConnectionsList :: {
 		Connections?: [...string]
 	}
-	__ExecutionProperty = {
+	__ExecutionProperty :: {
 		MaxConcurrentRuns?: float
 	}
-	__JobCommand = {
+	__JobCommand :: {
 		Name?:           string
 		PythonVersion?:  string
 		ScriptLocation?: string
@@ -194,22 +194,22 @@ MLTransform :: {
 		TransformParameters: __TransformParameters
 		WorkerType?:         string
 	}
-	__FindMatchesParameters = {
+	__FindMatchesParameters :: {
 		AccuracyCostTradeoff?:    float
 		EnforceProvidedLabels?:   bool
 		PrecisionRecallTradeoff?: float
 		PrimaryKeyColumnName:     string
 	}
-	__GlueTables = {
+	__GlueTables :: {
 		CatalogId?:      string
 		ConnectionName?: string
 		DatabaseName:    string
 		TableName:       string
 	}
-	__InputRecordTables = {
+	__InputRecordTables :: {
 		GlueTables?: [...__GlueTables]
 	}
-	__TransformParameters = {
+	__TransformParameters :: {
 		FindMatchesParameters?: __FindMatchesParameters
 		TransformType:          string
 	}
@@ -222,34 +222,34 @@ Partition :: {
 		PartitionInput: __PartitionInput
 		TableName:      string
 	}
-	__Column = {
+	__Column :: {
 		Comment?: string
 		Name:     string
 		Type?:    string
 	}
-	__Order = {
+	__Order :: {
 		Column:     string
 		SortOrder?: int
 	}
-	__PartitionInput = {
+	__PartitionInput :: {
 		Parameters?: {
 		}
 		StorageDescriptor?: __StorageDescriptor
 		Values: [...string]
 	}
-	__SerdeInfo = {
+	__SerdeInfo :: {
 		Name?: string
 		Parameters?: {
 		}
 		SerializationLibrary?: string
 	}
-	__SkewedInfo = {
+	__SkewedInfo :: {
 		SkewedColumnNames?: [...string]
 		SkewedColumnValueLocationMaps?: {
 		}
 		SkewedColumnValues?: [...string]
 	}
-	__StorageDescriptor = {
+	__StorageDescriptor :: {
 		BucketColumns?: [...string]
 		Columns?: [...__Column]
 		Compressed?:      bool
@@ -271,24 +271,24 @@ SecurityConfiguration :: {
 		EncryptionConfiguration: __EncryptionConfiguration
 		Name:                    string
 	}
-	__CloudWatchEncryption = {
+	__CloudWatchEncryption :: {
 		CloudWatchEncryptionMode?: string
 		KmsKeyArn?:                string
 	}
-	__EncryptionConfiguration = {
+	__EncryptionConfiguration :: {
 		CloudWatchEncryption?:   __CloudWatchEncryption
 		JobBookmarksEncryption?: __JobBookmarksEncryption
 		S3Encryptions?:          __S3Encryptions
 	}
-	__JobBookmarksEncryption = {
+	__JobBookmarksEncryption :: {
 		JobBookmarksEncryptionMode?: string
 		KmsKeyArn?:                  string
 	}
-	__S3Encryption = {
+	__S3Encryption :: {
 		KmsKeyArn?:        string
 		S3EncryptionMode?: string
 	}
-	__S3Encryptions = {
+	__S3Encryptions :: {
 	}
 }
 Table :: {
@@ -298,28 +298,28 @@ Table :: {
 		DatabaseName: string
 		TableInput:   __TableInput
 	}
-	__Column = {
+	__Column :: {
 		Comment?: string
 		Name:     string
 		Type?:    string
 	}
-	__Order = {
+	__Order :: {
 		Column:    string
 		SortOrder: int
 	}
-	__SerdeInfo = {
+	__SerdeInfo :: {
 		Name?: string
 		Parameters?: {
 		}
 		SerializationLibrary?: string
 	}
-	__SkewedInfo = {
+	__SkewedInfo :: {
 		SkewedColumnNames?: [...string]
 		SkewedColumnValueLocationMaps?: {
 		}
 		SkewedColumnValues?: [...string]
 	}
-	__StorageDescriptor = {
+	__StorageDescriptor :: {
 		BucketColumns?: [...string]
 		Columns?: [...__Column]
 		Compressed?:      bool
@@ -334,7 +334,7 @@ Table :: {
 		SortColumns?: [...__Order]
 		StoredAsSubDirectories?: bool
 	}
-	__TableInput = {
+	__TableInput :: {
 		Description?: string
 		Name?:        string
 		Owner?:       string
@@ -362,20 +362,20 @@ Trigger :: {
 		Type: "CONDITIONAL" | "ON_DEMAND" | "SCHEDULED"
 		Type: string
 	}
-	__Action = {
+	__Action :: {
 		Arguments?: {
 		}
 		JobName?:               string
 		SecurityConfiguration?: string
 	}
-	__Condition = {
+	__Condition :: {
 		JobName?:         string
 		LogicalOperator?: "EQUALS"
 		LogicalOperator?: string
 		State?:           "SUCCEEDED"
 		State?:           string
 	}
-	__Predicate = {
+	__Predicate :: {
 		Conditions?: [...__Condition]
 		Logical?: "AND"
 		Logical?: string

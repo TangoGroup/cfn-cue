@@ -14,38 +14,38 @@ Cluster :: {
 		Tags?: {
 		}
 	}
-	__BrokerNodeGroupInfo = {
+	__BrokerNodeGroupInfo :: {
 		BrokerAZDistribution?: string
 		ClientSubnets: [...string]
 		InstanceType: string
 		SecurityGroups?: [...string]
 		StorageInfo?: __StorageInfo
 	}
-	__ClientAuthentication = {
+	__ClientAuthentication :: {
 		Tls?: __Tls
 	}
-	__ConfigurationInfo = {
+	__ConfigurationInfo :: {
 		Arn:      string
 		Revision: int
 	}
-	__EBSStorageInfo = {
+	__EBSStorageInfo :: {
 		VolumeSize?: int
 	}
-	__EncryptionAtRest = {
+	__EncryptionAtRest :: {
 		DataVolumeKMSKeyId: string
 	}
-	__EncryptionInTransit = {
+	__EncryptionInTransit :: {
 		ClientBroker?: string
 		InCluster?:    bool
 	}
-	__EncryptionInfo = {
+	__EncryptionInfo :: {
 		EncryptionAtRest?:    __EncryptionAtRest
 		EncryptionInTransit?: __EncryptionInTransit
 	}
-	__StorageInfo = {
+	__StorageInfo :: {
 		EBSStorageInfo?: __EBSStorageInfo
 	}
-	__Tls = {
+	__Tls :: {
 		CertificateAuthorityArnList?: [...string]
 	}
 }

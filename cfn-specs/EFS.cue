@@ -13,11 +13,11 @@ FileSystem :: {
 		ThroughputMode?:               "bursting" | "provisioned"
 		ThroughputMode?:               string
 	}
-	__ElasticFileSystemTag = {
+	__ElasticFileSystemTag :: {
 		Key:   string
 		Value: string
 	}
-	__LifecyclePolicy = {
+	__LifecyclePolicy :: {
 		TransitionToIA: "AFTER_14_DAYS" | "AFTER_30_DAYS" | "AFTER_60_DAYS" | "AFTER_90_DAYS"
 		TransitionToIA: string
 	}
