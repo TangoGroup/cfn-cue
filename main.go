@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"net/url"
 	"os"
+	"path"
 	"sort"
 	"strconv"
 	"strings"
@@ -383,7 +384,11 @@ func main() {
 		// fmt.Println("")
 		b, _ := format.Node(ff, format.Simplify())
 
-		cuefile, err := os.Create("cfn-specs/" + service + ".cue")
+		folder := path.Join("pkg/github.com/TangoGroup/cfn-cue/", service)
+
+		os.MkdirAll(folder, os.ModePerm)
+
+		cuefile, err := os.Create(path.Join(folder, service+".cue"))
 		if err != nil {
 			fmt.Println(err)
 			return
