@@ -126,7 +126,7 @@ Or :: {
 
 ConditionFn :: And | Equals | If | Not | Or
 
-Fnable :: Base64 | Cidr | FindInMap | GetAZs | GetAtt | ImportValue | Join | Select | Split | Sub | Transform | Ref | And | Equals | If | Not | Or
+Fn :: Base64 | Cidr | FindInMap | GetAZs | GetAtt | ImportValue | Join | Select | Split | Sub | Transform | Ref | And | Equals | If | Not | Or
 
 // Ands: And & {
 //  "Fn::And" : [{"Condition": "Hello"}, {"Condition": "Goodbye"}]
@@ -138,7 +138,7 @@ Fnable :: Base64 | Cidr | FindInMap | GetAZs | GetAtt | ImportValue | Join | Sel
 //  ]
 // }
 
-"MyNotCondition" : Not & {
+MyNotCondition : Not & {
 	"Fn::Not" : [{
 		"Fn::Equals" : [
 			{"Ref" : "EnvironmentType"},
@@ -147,7 +147,7 @@ Fnable :: Base64 | Cidr | FindInMap | GetAZs | GetAtt | ImportValue | Join | Sel
 	}]
 }
 
-"Outputs2": {
+Outputs2: {
 	"SecurityGroupId" : {
 		"Description" : "Group ID of the security group used."
 		"Value" :       If & {
@@ -160,7 +160,14 @@ Fnable :: Base64 | Cidr | FindInMap | GetAZs | GetAtt | ImportValue | Join | Sel
 	}
 }
 
-// "MyOrCondition" : Or & {
+Select1: Select & {"Fn::Select" : [ 1, [ "apples", "grapes", "oranges", "mangoes"]]}
+Select2: Select & {
+	"Fn::Select" : [1,
+		{"Fn::GetAZs": "us-west-2"},
+	]
+}
+
+// MyOrCondition : Or & {
 //  "Fn::Or": [
 //   {"Fn::Equals": ["sg-mysggroup", {"Ref": "ASecurityGroup"}]},
 //   {"Condition":                           "SomeOtherCondition"},
@@ -187,3 +194,6 @@ Outputs: Sub & {
 		}
 	}]
 }
+
+f1: string | "one" | "two" | "three" | Fnable
+f1: {"Ref": "Stuff"}
