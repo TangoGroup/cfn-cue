@@ -195,5 +195,5 @@ Outputs: Sub & {
 	}]
 }
 
-f1: string | "one" | "two" | "three" | Fnable
+f1: string | "one" | "two" | "three" | Fn
 f1: {"Ref": "Stuff"}
