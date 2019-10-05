@@ -93,12 +93,14 @@ Ref :: {
 // - Ref
 // - Other condition functions
 
+// https://docs.aws.amazon.com/en_pv/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-conditions.html#intrinsic-function-reference-conditions-and
 And :: {
 	"Fn::And": [...({"Condition": string} | And | Equals | Not | Or)]
 }
 
+// https://docs.aws.amazon.com/en_pv/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-conditions.html#intrinsic-function-reference-conditions-equals
 Equals :: {
-	"Fn::Equals": [string | Ref, string | Ref]
+	"Fn::Equals": 2 * [string | Ref | FindInMap | ConditionFn]
 }
 
 // You can use the following functions in the Fn::If condition:
@@ -112,13 +114,18 @@ Equals :: {
 // - Fn::Sub
 // - Ref
 
+// https://docs.aws.amazon.com/en_pv/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-conditions.html#intrinsic-function-reference-conditions-if
 If :: {
 	"Fn::If": [string, _ | Base64 | FindInMap | GetAtt | GetAZs | If | Join | Select | Sub | Ref, _ | Base64 | FindInMap | GetAtt | GetAZs | If | Join | Select | Sub | Ref]
 }
 
+// https://docs.aws.amazon.com/en_pv/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-conditions.html#intrinsic-function-reference-conditions-not
 Not :: {
 	"Fn::Not": [{Condition: string} | Equals | Or | Not]
 }
+
+// https://docs.aws.amazon.com/en_pv/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-conditions.html#intrinsic-function-reference-conditions-or
+// Returns true if any one of the specified conditions evaluate to true, or returns false if all of the conditions evaluates to false. Fn::Or acts as an OR operator. The minimum number of conditions that you can include is 2, and the maximum is 10.
 
 Or :: {
 	"Fn::Or": [...({Condition: string} | Equals | Or | Not)]
@@ -128,15 +135,15 @@ ConditionFn :: And | Equals | If | Not | Or
 
 Fn :: Base64 | Cidr | FindInMap | GetAZs | GetAtt | ImportValue | Join | Select | Split | Sub | Transform | Ref | And | Equals | If | Not | Or
 
-// Ands: And & {
-//  "Fn::And" : [{"Condition": "Hello"}, {"Condition": "Goodbye"}]
-// }
-// "MyAndCondition": And & {
-//  "Fn::And": [
-//   {"Fn::Equals": ["sg-mysggroup", {"Ref": "ASecurityGroup"}]},
-//   {"Condition":                           "SomeOtherCondition"},
-//  ]
-// }
+Ands: And & {
+	"Fn::And" : [{"Condition": "Hello"}, {"Condition": "Goodbye"}]
+}
+"MyAndCondition": And & {
+	"Fn::And": [
+		{"Fn::Equals": ["sg-mysggroup", {"Ref": "ASecurityGroup"}]},
+		{"Condition":                           "SomeOtherCondition"},
+	]
+}
 
 MyNotCondition : Not & {
 	"Fn::Not" : [{
@@ -167,15 +174,30 @@ Select2: Select & {
 	]
 }
 
-// MyOrCondition : Or & {
-//  "Fn::Or": [
-//   {"Fn::Equals": ["sg-mysggroup", {"Ref": "ASecurityGroup"}]},
-//   {"Condition":                           "SomeOtherCondition"},
-//  ]
-// }
+MyOrCondition : Or & {
+	"Fn::Or": [
+		{"Fn::Equals": ["sg-mysggroup", {"Ref": "ASecurityGroup"}]},
+		{"Condition":                           "SomeOtherCondition"},
+	]
+}
 
 Subs: Sub & {
 	"Fn::Sub" : ["${Shell}", {Shell: "zsh"}]
+}
+
+Joins: Join & {
+	"Fn::Join": [
+		"", [
+			"arn:",
+			{
+				"Ref": "Partition"
+			},
+			":s3:::elasticbeanstalk-*-",
+			{
+				"Ref": "AWS::AccountId"
+			},
+		],
+	]
 }
 
 Splits: Split & {
@@ -195,5 +217,7 @@ Outputs: Sub & {
 	}]
 }
 
-f1: string | "one" | "two" | "three" | Fn
-f1: {"Ref": "Stuff"}
+f1: (string & ("one" | "two" | "three")) | Fn
+// f1: {"Ref": "Stuff"}
+f1: Subs
+// f1: "three"
