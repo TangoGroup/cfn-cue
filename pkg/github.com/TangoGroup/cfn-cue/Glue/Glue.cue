@@ -131,10 +131,14 @@ Database :: {
 DevEndpoint :: {
 	Type: "AWS::Glue::DevEndpoint"
 	Properties: {
+		Arguments?: {
+		}
 		EndpointName?:          string
 		ExtraJarsS3Path?:       string
 		ExtraPythonLibsS3Path?: string
+		GlueVersion?:           string
 		NumberOfNodes?:         int
+		NumberOfWorkers?:       int
 		PublicKey?:             string
 		RoleArn:                string
 		SecurityConfiguration?: string
@@ -142,6 +146,7 @@ DevEndpoint :: {
 		SubnetId?: string
 		Tags?: {
 		}
+		WorkerType?: string
 	}
 }
 Job :: {
@@ -159,12 +164,14 @@ Job :: {
 		MaxCapacity?:           float
 		MaxRetries?:            float
 		Name?:                  string
+		NotificationProperty?:  __NotificationProperty
 		NumberOfWorkers?:       >=0 & <=299
 		NumberOfWorkers?:       int
 		Role:                   string
 		SecurityConfiguration?: string
 		Tags?: {
 		}
+		Timeout?:    int
 		WorkerType?: string
 	}
 	__ConnectionsList :: {
@@ -177,6 +184,9 @@ Job :: {
 		Name?:           string
 		PythonVersion?:  string
 		ScriptLocation?: string
+	}
+	__NotificationProperty :: {
+		NotifyDelayAfter?: int
 	}
 }
 MLTransform :: {
@@ -353,31 +363,52 @@ Trigger :: {
 	Type: "AWS::Glue::Trigger"
 	Properties: {
 		Actions: [...__Action]
-		Description?: string
-		Name?:        string
-		Predicate?:   __Predicate
-		Schedule?:    string
+		Description?:     string
+		Name?:            string
+		Predicate?:       __Predicate
+		Schedule?:        string
+		StartOnCreation?: bool
 		Tags?: {
 		}
-		Type: "CONDITIONAL" | "ON_DEMAND" | "SCHEDULED"
-		Type: string
+		Type:          "CONDITIONAL" | "ON_DEMAND" | "SCHEDULED"
+		Type:          string
+		WorkflowName?: string
 	}
 	__Action :: {
 		Arguments?: {
 		}
+		CrawlerName?:           string
 		JobName?:               string
+		NotificationProperty?:  __NotificationProperty
 		SecurityConfiguration?: string
+		Timeout?:               int
 	}
 	__Condition :: {
+		CrawlState?:      string
+		CrawlerName?:     string
 		JobName?:         string
 		LogicalOperator?: "EQUALS"
 		LogicalOperator?: string
 		State?:           "SUCCEEDED"
 		State?:           string
 	}
+	__NotificationProperty :: {
+		NotifyDelayAfter?: int
+	}
 	__Predicate :: {
 		Conditions?: [...__Condition]
 		Logical?: "AND"
 		Logical?: string
+	}
+}
+Workflow :: {
+	Type: "AWS::Glue::Workflow"
+	Properties: {
+		DefaultRunProperties?: {
+		}
+		Description?: string
+		Name?:        string
+		Tags?: {
+		}
 	}
 }

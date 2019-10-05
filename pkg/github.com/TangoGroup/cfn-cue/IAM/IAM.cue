@@ -14,7 +14,7 @@ Group :: {
 	Properties: {
 		GroupName?: string
 		ManagedPolicyArns?: [...string]
-		Path?: =~"^/(.+/)*$"
+		Path?: =~#"^/(.+/)*$"#
 		Path?: string
 		Policies?: [...__Policy]
 	}
@@ -22,7 +22,7 @@ Group :: {
 		PolicyDocument: {
 		}
 		PolicyName: strings.MinRunes(1) & strings.MaxRunes(128)
-		PolicyName: =~"^[a-zA-Z0-9+=,.@\-_]+$"
+		PolicyName: =~#"^[a-zA-Z0-9+=,.@\-_]+$"#
 		PolicyName: string
 	}
 }
@@ -30,7 +30,7 @@ InstanceProfile :: {
 	Type: "AWS::IAM::InstanceProfile"
 	Properties: {
 		InstanceProfileName?: string
-		Path?:                =~"^/(.+/)*$"
+		Path?:                =~#"^/(.+/)*$"#
 		Path?:                string
 		Roles: [...string]
 	}
@@ -41,7 +41,7 @@ ManagedPolicy :: {
 		Description?: string
 		Groups?: [...string]
 		ManagedPolicyName?: string
-		Path?:              =~"^/(.+/)*$"
+		Path?:              =~#"^/(.+/)*$"#
 		Path?:              string
 		PolicyDocument: {
 		}
@@ -56,7 +56,7 @@ Policy :: {
 		PolicyDocument: {
 		}
 		PolicyName: strings.MinRunes(1) & strings.MaxRunes(128)
-		PolicyName: =~"^[a-zA-Z0-9+=,.@\-_]+$"
+		PolicyName: =~#"^[a-zA-Z0-9+=,.@\-_]+$"#
 		PolicyName: string
 		Roles?: [...string]
 		Users?: [...string]
@@ -71,7 +71,7 @@ Role :: {
 		ManagedPolicyArns?: [...string]
 		MaxSessionDuration?:  >=3600 & <=43200
 		MaxSessionDuration?:  int
-		Path?:                =~"^/(.+/)*$"
+		Path?:                =~#"^/(.+/)*$"#
 		Path?:                string
 		PermissionsBoundary?: string
 		Policies?: [...__Policy]
@@ -82,7 +82,7 @@ Role :: {
 		PolicyDocument: {
 		}
 		PolicyName: strings.MinRunes(1) & strings.MaxRunes(128)
-		PolicyName: =~"^[a-zA-Z0-9+=,.@\-_]+$"
+		PolicyName: =~#"^[a-zA-Z0-9+=,.@\-_]+$"#
 		PolicyName: string
 	}
 }
@@ -100,7 +100,7 @@ User :: {
 		Groups?: [...string]
 		LoginProfile?: __LoginProfile
 		ManagedPolicyArns?: [...string]
-		Path?:                =~"^/(.+/)*$"
+		Path?:                =~#"^/(.+/)*$"#
 		Path?:                string
 		PermissionsBoundary?: string
 		Policies?: [...__Policy]
@@ -114,7 +114,7 @@ User :: {
 		PolicyDocument: {
 		}
 		PolicyName: strings.MinRunes(1) & strings.MaxRunes(128)
-		PolicyName: =~"^[a-zA-Z0-9+=,.@\-_]+$"
+		PolicyName: =~#"^[a-zA-Z0-9+=,.@\-_]+$"#
 		PolicyName: string
 	}
 }

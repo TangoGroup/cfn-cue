@@ -256,6 +256,8 @@ ResourceDefinition :: {
 	Properties: {
 		InitialVersion?: __ResourceDefinitionVersion
 		Name:            string
+		Tags?: {
+		}
 	}
 	__GroupOwnerSetting :: {
 		AutoAddGroupOwner: bool

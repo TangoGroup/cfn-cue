@@ -68,10 +68,11 @@ UserPool :: {
 		EmailConfiguration?:       __EmailConfiguration
 		EmailVerificationMessage?: string
 		EmailVerificationSubject?: string
-		LambdaConfig?:             __LambdaConfig
-		MfaConfiguration?:         "OFF" | "ON" | "OPTIONAL"
-		MfaConfiguration?:         string
-		Policies?:                 __Policies
+		EnabledMfas?: [...string]
+		LambdaConfig?:     __LambdaConfig
+		MfaConfiguration?: "OFF" | "ON" | "OPTIONAL"
+		MfaConfiguration?: string
+		Policies?:         __Policies
 		Schema?: [...__SchemaAttribute]
 		SmsAuthenticationMessage?: string
 		SmsConfiguration?:         __SmsConfiguration
@@ -188,6 +189,17 @@ UserPoolClient :: {
 		UserDataShared?: bool
 	}
 }
+UserPoolDomain :: {
+	Type: "AWS::Cognito::UserPoolDomain"
+	Properties: {
+		CustomDomainConfig?: __CustomDomainConfigType
+		Domain:              string
+		UserPoolId:          string
+	}
+	__CustomDomainConfigType :: {
+		CertificateArn?: string
+	}
+}
 UserPoolGroup :: {
 	Type: "AWS::Cognito::UserPoolGroup"
 	Properties: {
@@ -196,6 +208,87 @@ UserPoolGroup :: {
 		Precedence?:  float
 		RoleArn?:     string
 		UserPoolId:   string
+	}
+}
+UserPoolIdentityProvider :: {
+	Type: "AWS::Cognito::UserPoolIdentityProvider"
+	Properties: {
+		AttributeMapping?: {
+		}
+		IdpIdentifiers?: [...string]
+		ProviderDetails?: {
+		}
+		ProviderName: string
+		ProviderType: string
+		UserPoolId:   string
+	}
+}
+UserPoolResourceServer :: {
+	Type: "AWS::Cognito::UserPoolResourceServer"
+	Properties: {
+		Identifier: string
+		Name:       string
+		Scopes?: [...__ResourceServerScopeType]
+		UserPoolId: string
+	}
+	__ResourceServerScopeType :: {
+		ScopeDescription: string
+		ScopeName:        string
+	}
+}
+UserPoolRiskConfigurationAttachment :: {
+	Type: "AWS::Cognito::UserPoolRiskConfigurationAttachment"
+	Properties: {
+		AccountTakeoverRiskConfiguration?:        __AccountTakeoverRiskConfigurationType
+		ClientId:                                 string
+		CompromisedCredentialsRiskConfiguration?: __CompromisedCredentialsRiskConfigurationType
+		RiskExceptionConfiguration?:              __RiskExceptionConfigurationType
+		UserPoolId:                               string
+	}
+	__AccountTakeoverActionType :: {
+		EventAction: string
+		Notify:      bool
+	}
+	__AccountTakeoverActionsType :: {
+		HighAction?:   __AccountTakeoverActionType
+		LowAction?:    __AccountTakeoverActionType
+		MediumAction?: __AccountTakeoverActionType
+	}
+	__AccountTakeoverRiskConfigurationType :: {
+		Actions:              __AccountTakeoverActionsType
+		NotifyConfiguration?: __NotifyConfigurationType
+	}
+	__CompromisedCredentialsActionsType :: {
+		EventAction: string
+	}
+	__CompromisedCredentialsRiskConfigurationType :: {
+		Actions: __CompromisedCredentialsActionsType
+		EventFilter?: [...string]
+	}
+	__NotifyConfigurationType :: {
+		BlockEmail?:    __NotifyEmailType
+		From?:          string
+		MfaEmail?:      __NotifyEmailType
+		NoActionEmail?: __NotifyEmailType
+		ReplyTo?:       string
+		SourceArn:      string
+	}
+	__NotifyEmailType :: {
+		HtmlBody?: string
+		Subject:   string
+		TextBody?: string
+	}
+	__RiskExceptionConfigurationType :: {
+		BlockedIPRangeList?: [...string]
+		SkippedIPRangeList?: [...string]
+	}
+}
+UserPoolUICustomizationAttachment :: {
+	Type: "AWS::Cognito::UserPoolUICustomizationAttachment"
+	Properties: {
+		CSS?:       string
+		ClientId:   string
+		UserPoolId: string
 	}
 }
 UserPoolUser :: {

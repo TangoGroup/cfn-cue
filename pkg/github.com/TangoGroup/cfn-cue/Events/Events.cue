@@ -3,11 +3,12 @@ package Events
 EventBusPolicy :: {
 	Type: "AWS::Events::EventBusPolicy"
 	Properties: {
-		Action:      "events:PutEvents"
-		Action:      string
-		Condition?:  __Condition
-		Principal:   string
-		StatementId: string
+		Action:        "events:PutEvents"
+		Action:        string
+		Condition?:    __Condition
+		EventBusName?: string
+		Principal:     string
+		StatementId:   string
 	}
 	__Condition :: {
 		Key?:   "aws:PrincipalOrgID"

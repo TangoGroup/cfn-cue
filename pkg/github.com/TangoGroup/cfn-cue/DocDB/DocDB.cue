@@ -9,16 +9,17 @@ DBCluster :: {
 		DBClusterIdentifier?:         string
 		DBClusterParameterGroupName?: string
 		DBSubnetGroupName?:           string
-		EngineVersion?:               "docdb"
-		EngineVersion?:               string
-		KmsKeyId?:                    string
-		MasterUserPassword?:          string
-		MasterUsername?:              string
-		Port?:                        int
-		PreferredBackupWindow?:       string
-		PreferredMaintenanceWindow?:  string
-		SnapshotIdentifier?:          string
-		StorageEncrypted?:            bool
+		EnableCloudwatchLogsExports?: [...string]
+		EngineVersion?:              "docdb"
+		EngineVersion?:              string
+		KmsKeyId?:                   string
+		MasterUserPassword?:         string
+		MasterUsername?:             string
+		Port?:                       int
+		PreferredBackupWindow?:      string
+		PreferredMaintenanceWindow?: string
+		SnapshotIdentifier?:         string
+		StorageEncrypted?:           bool
 		Tags?: [...__Tag]
 		VpcSecurityGroupIds?: [...string]
 	}

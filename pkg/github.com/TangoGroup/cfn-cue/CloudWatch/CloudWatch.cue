@@ -7,7 +7,7 @@ Alarm :: {
 		AlarmActions?: [...string]
 		AlarmDescription?:  string
 		AlarmName?:         string
-		ComparisonOperator: "GreaterThanOrEqualToThreshold" | "GreaterThanThreshold" | "LessThanOrEqualToThreshold" | "LessThanThreshold"
+		ComparisonOperator: "GreaterThanOrEqualToThreshold" | "GreaterThanThreshold" | "LessThanThreshold" | "LessThanOrEqualToThreshold" | "LessThanLowerOrGreaterThanUpperThreshold" | "LessThanLowerThreshold" | "GreaterThanUpperThreshold"
 		ComparisonOperator: string
 		DatapointsToAlarm?: int
 		Dimensions?: [...__Dimension]

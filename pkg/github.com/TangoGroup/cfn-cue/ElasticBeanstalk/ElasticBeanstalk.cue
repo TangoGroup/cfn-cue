@@ -8,7 +8,7 @@ Application :: {
 		ResourceLifecycleConfig?: __ApplicationResourceLifecycleConfig
 	}
 	__ApplicationResourceLifecycleConfig :: {
-		ServiceRole?:            =~"arn:(aws[a-zA-Z-]*)?:iam::\d{12}:role/[a-zA-Z_0-9+=,.@\-_/]+"
+		ServiceRole?:            =~#"arn:(aws[a-zA-Z-]*)?:iam::\d{12}:role/[a-zA-Z_0-9+=,.@\-_/]+"#
 		ServiceRole?:            string
 		VersionLifecycleConfig?: __ApplicationVersionLifecycleConfig
 	}

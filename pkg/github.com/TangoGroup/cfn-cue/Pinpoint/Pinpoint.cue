@@ -69,6 +69,8 @@ App :: {
 	Type: "AWS::Pinpoint::App"
 	Properties: {
 		Name: string
+		Tags?: {
+		}
 	}
 }
 ApplicationSettings :: {
@@ -109,17 +111,19 @@ Campaign :: {
 	Type: "AWS::Pinpoint::Campaign"
 	Properties: {
 		AdditionalTreatments?: [...__WriteTreatmentResource]
-		ApplicationId:         string
-		CampaignHook?:         __CampaignHook
-		Description?:          string
-		HoldoutPercent?:       int
-		IsPaused?:             bool
-		Limits?:               __Limits
-		MessageConfiguration:  __MessageConfiguration
-		Name:                  string
-		Schedule:              __Schedule
-		SegmentId:             string
-		SegmentVersion?:       int
+		ApplicationId:        string
+		CampaignHook?:        __CampaignHook
+		Description?:         string
+		HoldoutPercent?:      int
+		IsPaused?:            bool
+		Limits?:              __Limits
+		MessageConfiguration: __MessageConfiguration
+		Name:                 string
+		Schedule:             __Schedule
+		SegmentId:            string
+		SegmentVersion?:      int
+		Tags?: {
+		}
 		TreatmentDescription?: string
 		TreatmentName?:        string
 	}
@@ -255,6 +259,8 @@ Segment :: {
 		Dimensions?:    __SegmentDimensions
 		Name:           string
 		SegmentGroups?: __SegmentGroups
+		Tags?: {
+		}
 	}
 	__AttributeDimension :: {
 		AttributeType?: string

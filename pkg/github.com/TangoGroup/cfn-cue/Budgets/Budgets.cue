@@ -13,7 +13,9 @@ Budget :: {
 		BudgetType:   string
 		CostFilters?: {
 		}
-		CostTypes?:  __CostTypes
+		CostTypes?: __CostTypes
+		PlannedBudgetLimits?: {
+		}
 		TimePeriod?: __TimePeriod
 		TimeUnit:    "ANNUALLY" | "DAILY" | "MONTHLY" | "QUARTERLY"
 		TimeUnit:    string
