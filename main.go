@@ -167,7 +167,7 @@ func createFieldFromPatternRegex(name string, prop Property, regex string) (node
 
 	match := &ast.UnaryExpr{
 		Op: token.MAT,
-		X:  &ast.BasicLit{Kind: token.STRING, Value: "\"" + regex + "\""},
+		X:  &ast.BasicLit{Kind: token.STRING, Value: "#\"" + regex + "\"#"},
 	}
 
 	field := &ast.Field{
