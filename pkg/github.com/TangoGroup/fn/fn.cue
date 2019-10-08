@@ -1,5 +1,7 @@
 package fn
 
+import "github.com/TangoGroup/regions"
+
 // Fn::Base64
 // Fn::Cidr
 // Fn::FindInMap
@@ -22,7 +24,7 @@ Base64 :: {
 // Cidr: https://docs.aws.amazon.com/en_pv/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-cidr.html
 Cidr :: {
 	// CidrFn :: Select | Ref
-	"Fn::Cidr": [string | Select | Ref, (>=1 & <=256) | Select | Ref, (>=0 & <=128) | Select | Ref]
+	"Fn::Cidr": [string | Select | Ref, GetAtt, Sub, Select, (>=1 & <=256) | Select | Ref, (>=0 & <=128) | Select | Ref]
 }
 
 // FindInMap: https://docs.aws.amazon.com/en_pv/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-findinmap.html
@@ -33,7 +35,7 @@ FindInMap :: {
 
 // GetAZs: https://docs.aws.amazon.com/en_pv/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-getavailabilityzones.html
 GetAZs :: {
-	"Fn::GetAZs": string | Ref
+	"Fn::GetAZs": regions.Regions | "" | (Ref & {"Ref": "AWS::Region"})
 }
 
 // GetAtt: https://docs.aws.amazon.com/en_pv/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-getatt.html
@@ -58,7 +60,7 @@ Join :: {
 // Select: https://docs.aws.amazon.com/en_pv/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-select.html
 Select :: {
 	// SelectFn :: FindInMap | GetAtt | GetAZs | If | Split | Ref
-	"Fn::Select": [>=0 | Ref | FindInMap, [...(bool | string | bytes | int | float | FindInMap | GetAtt | GetAZs | If | Split | Ref)] | FindInMap | GetAtt | GetAZs | If | Split | Ref]
+	"Fn::Select": [>=0 | Ref | FindInMap, [...(bool | string | bytes | int | float | FindInMap | GetAtt | GetAZs | If | Split | Cidr | Ref)] | FindInMap | GetAtt | GetAZs | If | Split | Ref]
 }
 
 // Split: https://docs.aws.amazon.com/en_pv/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-split.html
@@ -70,7 +72,7 @@ Split :: {
 // Sub: https://docs.aws.amazon.com/en_pv/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-sub.html
 Sub :: {
 	// SubFn ::   Base64 | FindInMap | GetAtt | GetAZs | If | ImportValue | Join | Select | Ref
-	"Fn::Sub": string | [string, {<_>: string | Base64 | FindInMap | GetAtt | GetAZs | If | ImportValue | Join | Select | Ref}]
+	"Fn::Sub": string | [string, {<_>: string | Base64 | FindInMap | GetAtt | GetAZs | If | ImportValue | Join | Select | Sub | Ref}]
 	// "Fn::Sub": string | [string, {[string | SubFn]: string | SubFn}]
 }
 
@@ -95,7 +97,8 @@ Ref :: {
 
 // https://docs.aws.amazon.com/en_pv/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-conditions.html#intrinsic-function-reference-conditions-and
 And :: {
-	"Fn::And": [...({"Condition": string} | And | Equals | Not | Or)]
+	"Fn::And": [...({Condition: string} | LogicFn)]
+	// "Fn::And": list.MinItems(2) & list.MaxItems(10)
 }
 
 // https://docs.aws.amazon.com/en_pv/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-conditions.html#intrinsic-function-reference-conditions-equals
@@ -121,103 +124,18 @@ If :: {
 
 // https://docs.aws.amazon.com/en_pv/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-conditions.html#intrinsic-function-reference-conditions-not
 Not :: {
-	"Fn::Not": [{Condition: string} | Equals | Or | Not]
+	"Fn::Not": [{Condition: string} | LogicFn]
 }
 
 // https://docs.aws.amazon.com/en_pv/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-conditions.html#intrinsic-function-reference-conditions-or
 // Returns true if any one of the specified conditions evaluate to true, or returns false if all of the conditions evaluates to false. Fn::Or acts as an OR operator. The minimum number of conditions that you can include is 2, and the maximum is 10.
 
 Or :: {
-	"Fn::Or": [...({Condition: string} | Equals | Or | Not)]
+	"Fn::Or": [...({Condition: string} | LogicFn)]
 }
 
-ConditionFn :: And | Equals | If | Not | Or
+LogicFn :: And | Equals | Not | Or
+
+ConditionFn :: LogicFn | If
 
 Fn :: Base64 | Cidr | FindInMap | GetAZs | GetAtt | ImportValue | Join | Select | Split | Sub | Transform | Ref | And | Equals | If | Not | Or
-
-Ands: And & {
-	"Fn::And" : [{"Condition": "Hello"}, {"Condition": "Goodbye"}]
-}
-"MyAndCondition": And & {
-	"Fn::And": [
-		{"Fn::Equals": ["sg-mysggroup", {"Ref": "ASecurityGroup"}]},
-		{"Condition":                           "SomeOtherCondition"},
-	]
-}
-
-MyNotCondition : Not & {
-	"Fn::Not" : [{
-		"Fn::Equals" : [
-			{"Ref" : "EnvironmentType"},
-			"prod",
-		]
-	}]
-}
-
-Outputs2: {
-	"SecurityGroupId" : {
-		"Description" : "Group ID of the security group used."
-		"Value" :       If & {
-			"Fn::If" : [
-				"CreateNewSecurityGroup",
-				{"Ref" : "NewSecurityGroup"},
-				{"Ref" : "ExistingSecurityGroup"},
-			]
-		}
-	}
-}
-
-Select1: Select & {"Fn::Select" : [ 1, [ "apples", "grapes", "oranges", "mangoes"]]}
-Select2: Select & {
-	"Fn::Select" : [1,
-		{"Fn::GetAZs": "us-west-2"},
-	]
-}
-
-MyOrCondition : Or & {
-	"Fn::Or": [
-		{"Fn::Equals": ["sg-mysggroup", {"Ref": "ASecurityGroup"}]},
-		{"Condition":                           "SomeOtherCondition"},
-	]
-}
-
-Subs: Sub & {
-	"Fn::Sub" : ["${Shell}", {Shell: "zsh"}]
-}
-
-Joins: Join & {
-	"Fn::Join": [
-		"", [
-			"arn:",
-			{
-				"Ref": "Partition"
-			},
-			":s3:::elasticbeanstalk-*-",
-			{
-				"Ref": "AWS::AccountId"
-			},
-		],
-	]
-}
-
-Splits: Split & {
-	"Fn::Split": [",", {"Fn::Sub": "This,is,something,to,split,${Dude}"}]
-}
-
-Outputs: Sub & {
-	"Fn::Sub": ["${Shell}", {
-		Shell: {
-			"Fn::ImportValue": {
-				"Fn::Sub": [
-					"String-from-somewhere-else-${MyRef}",
-					{MyRef: {"Ref": "SomeItem"}},
-				]
-			}
-		}
-	}]
-}
-
-f1: (string & ("one" | "two" | "three")) | Fn
-// f1: {"Ref": "Stuff"}
-f1: Subs
-// f1: "three"
