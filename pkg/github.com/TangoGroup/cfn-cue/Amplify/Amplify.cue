@@ -1,78 +1,80 @@
 package Amplify
 
+import "github.com/TangoGroup/fn"
+
 App :: {
 	Type: "AWS::Amplify::App"
 	Properties: {
-		AccessToken?:              string
+		AccessToken?:              string | fn.Fn
 		AutoBranchCreationConfig?: __AutoBranchCreationConfig
 		BasicAuthConfig?:          __BasicAuthConfig
-		BuildSpec?:                string
+		BuildSpec?:                string | fn.Fn
 		CustomRules?: [...__CustomRule]
-		Description?: string
+		Description?: string | fn.Fn
 		EnvironmentVariables?: [...__EnvironmentVariable]
-		IAMServiceRole?: string
-		Name:            string
-		OauthToken?:     string
-		Repository?:     string
+		IAMServiceRole?: string | fn.Fn
+		Name:            string | fn.Fn
+		OauthToken?:     string | fn.Fn
+		Repository?:     string | fn.Fn
 		Tags?: [...__Tag]
 	}
 	__AutoBranchCreationConfig :: {
-		AutoBranchCreationPatterns?: [...string]
-		BasicAuthConfig?:          __BasicAuthConfig
-		BuildSpec?:                string
-		EnableAutoBranchCreation?: bool
-		EnableAutoBuild?:          bool
+		AutoBranchCreationPatterns?: [...string] | fn.Fn
+		BasicAuthConfig?:            __BasicAuthConfig
+		BuildSpec?:                  string | fn.Fn
+		EnableAutoBranchCreation?:   bool | fn.Fn
+		EnableAutoBuild?:            bool | fn.Fn
 		EnvironmentVariables?: [...__EnvironmentVariable]
-		Stage?: string
+		Stage?: string | fn.Fn
 	}
 	__BasicAuthConfig :: {
-		EnableBasicAuth?: bool
-		Password?:        string
-		Username?:        string
+		EnableBasicAuth?: bool | fn.Fn
+		Password?:        string | fn.Fn
+		Username?:        string | fn.Fn
 	}
 	__CustomRule :: {
-		Condition?: string
-		Source:     string
-		Status?:    string
-		Target:     string
+		Condition?: string | fn.Fn
+		Source:     string | fn.Fn
+		Status?:    string | fn.Fn
+		Target:     string | fn.Fn
 	}
 	__EnvironmentVariable :: {
-		Name:  string
-		Value: string
+		Name:  string | fn.Fn
+		Value: string | fn.Fn
 	}
 }
 Branch :: {
 	Type: "AWS::Amplify::Branch"
 	Properties: {
-		AppId:            string
+		AppId:            string | fn.Fn
 		BasicAuthConfig?: __BasicAuthConfig
-		BranchName:       string
-		BuildSpec?:       string
-		Description?:     string
-		EnableAutoBuild?: bool
+		BranchName:       string | fn.Fn
+		BuildSpec?:       string | fn.Fn
+		Description?:     string | fn.Fn
+		EnableAutoBuild?: bool | fn.Fn
 		EnvironmentVariables?: [...__EnvironmentVariable]
-		Stage?: string
+		Stage?: string | fn.Fn
 		Tags?: [...__Tag]
 	}
 	__BasicAuthConfig :: {
-		EnableBasicAuth?: bool
-		Password:         string
-		Username:         string
+		EnableBasicAuth?: bool | fn.Fn
+		Password:         string | fn.Fn
+		Username:         string | fn.Fn
 	}
 	__EnvironmentVariable :: {
-		Name:  string
-		Value: string
+		Name:  string | fn.Fn
+		Value: string | fn.Fn
 	}
 }
 Domain :: {
 	Type: "AWS::Amplify::Domain"
 	Properties: {
-		AppId:      string
-		DomainName: string
+		AppId:      string | fn.Fn
+		DomainName: string | fn.Fn
 		SubDomainSettings: [...__SubDomainSetting]
 	}
 	__SubDomainSetting :: {
-		BranchName: string
-		Prefix:     string
+		BranchName: string | fn.Fn
+		Prefix:     string | fn.Fn
 	}
 }

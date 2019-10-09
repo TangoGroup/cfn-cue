@@ -1,39 +1,40 @@
 package CloudFormation
 
+import "github.com/TangoGroup/fn"
+
 CustomResource :: {
 	Type: "AWS::CloudFormation::CustomResource"
 	Properties: {
-		ServiceToken: string
+		ServiceToken: string | fn.Fn
 	}
 }
 Macro :: {
 	Type: "AWS::CloudFormation::Macro"
 	Properties: {
-		Description?:  string
-		FunctionName:  string
-		LogGroupName?: string
-		LogRoleARN?:   string
-		Name:          string
+		Description?:  string | fn.Fn
+		FunctionName:  string | fn.Fn
+		LogGroupName?: string | fn.Fn
+		LogRoleARN?:   string | fn.Fn
+		Name:          string | fn.Fn
 	}
 }
 Stack :: {
 	Type: "AWS::CloudFormation::Stack"
 	Properties: {
-		NotificationARNs?: [...string]
+		NotificationARNs?: [...string] | fn.Fn
 		Parameters?: {
 		}
 		Tags?: [...__Tag]
-		TemplateURL:       string
-		TimeoutInMinutes?: int
+		TemplateURL:       string | fn.Fn
+		TimeoutInMinutes?: int | fn.Fn
 	}
 }
 WaitCondition :: {
 	Type: "AWS::CloudFormation::WaitCondition"
 	Properties: {
-		Count?:   int
-		Handle?:  string
-		Timeout?: >=0 & <=43200
-		Timeout?: string
+		Count?:   int | fn.Fn
+		Handle?:  string | fn.Fn
+		Timeout?: (string & (>=0 & <=43200)) | fn.Fn
 	}
 }
 WaitConditionHandle :: {

@@ -1,34 +1,30 @@
 package SQS
 
+import "github.com/TangoGroup/fn"
+
 Queue :: {
 	Type: "AWS::SQS::Queue"
 	Properties: {
-		ContentBasedDeduplication?:     bool
-		DelaySeconds?:                  >=0 & <=900
-		DelaySeconds?:                  int
-		FifoQueue?:                     bool
-		KmsDataKeyReusePeriodSeconds?:  >=60 & <=86400
-		KmsDataKeyReusePeriodSeconds?:  int
-		KmsMasterKeyId?:                string
-		MaximumMessageSize?:            >=1024 & <=262144
-		MaximumMessageSize?:            int
-		MessageRetentionPeriod?:        >=60 & <=1209600
-		MessageRetentionPeriod?:        int
-		QueueName?:                     string
-		ReceiveMessageWaitTimeSeconds?: >=0 & <=20
-		ReceiveMessageWaitTimeSeconds?: int
-		RedrivePolicy?: {
-		}
+		ContentBasedDeduplication?:     bool | fn.Fn
+		DelaySeconds?:                  (int & (>=0 & <=900)) | fn.Fn
+		FifoQueue?:                     bool | fn.Fn
+		KmsDataKeyReusePeriodSeconds?:  (int & (>=60 & <=86400)) | fn.Fn
+		KmsMasterKeyId?:                string | fn.Fn
+		MaximumMessageSize?:            (int & (>=1024 & <=262144)) | fn.Fn
+		MessageRetentionPeriod?:        (int & (>=60 & <=1209600)) | fn.Fn
+		QueueName?:                     string | fn.Fn
+		ReceiveMessageWaitTimeSeconds?: (int & (>=0 & <=20)) | fn.Fn
+		RedrivePolicy?:                 {
+		} | fn.Fn
 		Tags?: [...__Tag]
-		VisibilityTimeout?: >=0 & <=43200
-		VisibilityTimeout?: int
+		VisibilityTimeout?: (int & (>=0 & <=43200)) | fn.Fn
 	}
 }
 QueuePolicy :: {
 	Type: "AWS::SQS::QueuePolicy"
 	Properties: {
 		PolicyDocument: {
-		}
-		Queues: [...string]
+		} | fn.Fn
+		Queues: [...string] | fn.Fn
 	}
 }

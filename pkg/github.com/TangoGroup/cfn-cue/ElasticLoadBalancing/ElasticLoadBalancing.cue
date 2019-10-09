@@ -1,69 +1,69 @@
 package ElasticLoadBalancing
 
+import "github.com/TangoGroup/fn"
+
 LoadBalancer :: {
 	Type: "AWS::ElasticLoadBalancing::LoadBalancer"
 	Properties: {
 		AccessLoggingPolicy?: __AccessLoggingPolicy
 		AppCookieStickinessPolicy?: [...__AppCookieStickinessPolicy]
-		AvailabilityZones?: [...string]
+		AvailabilityZones?:        [...string] | fn.Fn
 		ConnectionDrainingPolicy?: __ConnectionDrainingPolicy
 		ConnectionSettings?:       __ConnectionSettings
-		CrossZone?:                bool
+		CrossZone?:                bool | fn.Fn
 		HealthCheck?:              __HealthCheck
-		Instances?: [...string]
+		Instances?:                [...string] | fn.Fn
 		LBCookieStickinessPolicy?: [...__LBCookieStickinessPolicy]
 		Listeners: [...__Listeners]
-		LoadBalancerName?: string
+		LoadBalancerName?: string | fn.Fn
 		Policies?: [...__Policies]
-		Scheme?: string
-		SecurityGroups?: [...string]
-		Subnets?: [...string]
+		Scheme?:         string | fn.Fn
+		SecurityGroups?: [...string] | fn.Fn
+		Subnets?:        [...string] | fn.Fn
 		Tags?: [...__Tag]
 	}
 	__AccessLoggingPolicy :: {
-		EmitInterval?:   int
-		Enabled:         bool
-		S3BucketName:    string
-		S3BucketPrefix?: string
+		EmitInterval?:   int | fn.Fn
+		Enabled:         bool | fn.Fn
+		S3BucketName:    string | fn.Fn
+		S3BucketPrefix?: string | fn.Fn
 	}
 	__AppCookieStickinessPolicy :: {
-		CookieName: string
-		PolicyName: string
+		CookieName: string | fn.Fn
+		PolicyName: string | fn.Fn
 	}
 	__ConnectionDrainingPolicy :: {
-		Enabled:  bool
-		Timeout?: int
+		Enabled:  bool | fn.Fn
+		Timeout?: int | fn.Fn
 	}
 	__ConnectionSettings :: {
-		IdleTimeout: int
+		IdleTimeout: int | fn.Fn
 	}
 	__HealthCheck :: {
-		HealthyThreshold:   string
-		Interval:           string
-		Target:             string
-		Timeout:            string
-		UnhealthyThreshold: string
+		HealthyThreshold:   string | fn.Fn
+		Interval:           string | fn.Fn
+		Target:             string | fn.Fn
+		Timeout:            string | fn.Fn
+		UnhealthyThreshold: string | fn.Fn
 	}
 	__LBCookieStickinessPolicy :: {
-		CookieExpirationPeriod?: string
-		PolicyName?:             string
+		CookieExpirationPeriod?: string | fn.Fn
+		PolicyName?:             string | fn.Fn
 	}
 	__Listeners :: {
-		InstancePort:      >=1 & <=65535
-		InstancePort:      string
-		InstanceProtocol?: string
-		LoadBalancerPort:  >=1 & <=65535
-		LoadBalancerPort:  string
-		PolicyNames?: [...string]
-		Protocol:          string
-		SSLCertificateId?: string
+		InstancePort:      (string & (>=1 & <=65535)) | fn.Fn
+		InstanceProtocol?: string | fn.Fn
+		LoadBalancerPort:  (string & (>=1 & <=65535)) | fn.Fn
+		PolicyNames?:      [...string] | fn.Fn
+		Protocol:          string | fn.Fn
+		SSLCertificateId?: string | fn.Fn
 	}
 	__Policies :: {
 		Attributes: [...{
-		}]
-		InstancePorts?: [...string]
-		LoadBalancerPorts?: [...string]
-		PolicyName: string
-		PolicyType: string
+		}] | fn.Fn
+		InstancePorts?:     [...string] | fn.Fn
+		LoadBalancerPorts?: [...string] | fn.Fn
+		PolicyName:         string | fn.Fn
+		PolicyType:         string | fn.Fn
 	}
 }

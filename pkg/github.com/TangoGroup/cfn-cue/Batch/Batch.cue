@@ -1,128 +1,128 @@
 package Batch
 
+import "github.com/TangoGroup/fn"
+
 ComputeEnvironment :: {
 	Type: "AWS::Batch::ComputeEnvironment"
 	Properties: {
-		ComputeEnvironmentName?: string
+		ComputeEnvironmentName?: string | fn.Fn
 		ComputeResources?:       __ComputeResources
-		ServiceRole:             =~#"arn:(aws[a-zA-Z-]*)?:iam::\d{12}:role/[a-zA-Z_0-9+=,.@\-_/]+"#
-		ServiceRole:             string
-		State?:                  string
-		Type:                    string
+		ServiceRole:             (string & (=~#"arn:(aws[a-zA-Z-]*)?:iam::\d{12}:role/[a-zA-Z_0-9+=,.@\-_/]+"#)) | fn.Fn
+		State?:                  string | fn.Fn
+		Type:                    string | fn.Fn
 	}
 	__ComputeResources :: {
-		BidPercentage?: int
-		DesiredvCpus?:  int
-		Ec2KeyPair?:    string
-		ImageId?:       string
-		InstanceRole:   string
-		InstanceTypes: [...string]
-		LaunchTemplate?: __LaunchTemplateSpecification
-		MaxvCpus:        int
-		MinvCpus:        int
-		PlacementGroup?: string
-		SecurityGroupIds?: [...string]
-		SpotIamFleetRole?: =~#"arn:(aws[a-zA-Z-]*)?:iam::\d{12}:role/[a-zA-Z_0-9+=,.@\-_/]+"#
-		SpotIamFleetRole?: string
-		Subnets: [...string]
-		Tags?: {
-		}
-		Type: string
+		BidPercentage?:    int | fn.Fn
+		DesiredvCpus?:     int | fn.Fn
+		Ec2KeyPair?:       string | fn.Fn
+		ImageId?:          string | fn.Fn
+		InstanceRole:      string | fn.Fn
+		InstanceTypes:     [...string] | fn.Fn
+		LaunchTemplate?:   __LaunchTemplateSpecification
+		MaxvCpus:          int | fn.Fn
+		MinvCpus:          int | fn.Fn
+		PlacementGroup?:   string | fn.Fn
+		SecurityGroupIds?: [...string] | fn.Fn
+		SpotIamFleetRole?: (string & (=~#"arn:(aws[a-zA-Z-]*)?:iam::\d{12}:role/[a-zA-Z_0-9+=,.@\-_/]+"#)) | fn.Fn
+		Subnets:           [...string] | fn.Fn
+		Tags?:             {
+		} | fn.Fn
+		Type: string | fn.Fn
 	}
 	__LaunchTemplateSpecification :: {
-		LaunchTemplateId?:   string
-		LaunchTemplateName?: string
-		Version?:            string
+		LaunchTemplateId?:   string | fn.Fn
+		LaunchTemplateName?: string | fn.Fn
+		Version?:            string | fn.Fn
 	}
 }
 JobDefinition :: {
 	Type: "AWS::Batch::JobDefinition"
 	Properties: {
 		ContainerProperties?: __ContainerProperties
-		JobDefinitionName?:   string
+		JobDefinitionName?:   string | fn.Fn
 		NodeProperties?:      __NodeProperties
-		Parameters?: {
-		}
+		Parameters?:          {
+		} | fn.Fn
 		RetryStrategy?: __RetryStrategy
 		Timeout?:       __Timeout
-		Type:           string
+		Type:           string | fn.Fn
 	}
 	__ContainerProperties :: {
-		Command?: [...string]
+		Command?: [...string] | fn.Fn
 		Environment?: [...__Environment]
-		Image:            string
-		InstanceType?:    string
-		JobRoleArn?:      string
+		Image:            string | fn.Fn
+		InstanceType?:    string | fn.Fn
+		JobRoleArn?:      string | fn.Fn
 		LinuxParameters?: __LinuxParameters
-		Memory:           int
+		Memory:           int | fn.Fn
 		MountPoints?: [...__MountPoints]
-		Privileged?:             bool
-		ReadonlyRootFilesystem?: bool
+		Privileged?:             bool | fn.Fn
+		ReadonlyRootFilesystem?: bool | fn.Fn
 		ResourceRequirements?: [...__ResourceRequirement]
 		Ulimits?: [...__Ulimit]
-		User?: string
-		Vcpus: int
+		User?: string | fn.Fn
+		Vcpus: int | fn.Fn
 		Volumes?: [...__Volumes]
 	}
 	__Device :: {
-		ContainerPath?: string
-		HostPath?:      string
-		Permissions?: [...string]
+		ContainerPath?: string | fn.Fn
+		HostPath?:      string | fn.Fn
+		Permissions?:   [...string] | fn.Fn
 	}
 	__Environment :: {
-		Name?:  string
-		Value?: string
+		Name?:  string | fn.Fn
+		Value?: string | fn.Fn
 	}
 	__LinuxParameters :: {
 		Devices?: [...__Device]
 	}
 	__MountPoints :: {
-		ContainerPath?: string
-		ReadOnly?:      bool
-		SourceVolume?:  string
+		ContainerPath?: string | fn.Fn
+		ReadOnly?:      bool | fn.Fn
+		SourceVolume?:  string | fn.Fn
 	}
 	__NodeProperties :: {
-		MainNode: int
+		MainNode: int | fn.Fn
 		NodeRangeProperties: [...__NodeRangeProperty]
-		NumNodes: int
+		NumNodes: int | fn.Fn
 	}
 	__NodeRangeProperty :: {
 		Container?:  __ContainerProperties
-		TargetNodes: string
+		TargetNodes: string | fn.Fn
 	}
 	__ResourceRequirement :: {
-		Type?:  string
-		Value?: string
+		Type?:  string | fn.Fn
+		Value?: string | fn.Fn
 	}
 	__RetryStrategy :: {
-		Attempts?: int
+		Attempts?: int | fn.Fn
 	}
 	__Timeout :: {
-		AttemptDurationSeconds?: int
+		AttemptDurationSeconds?: int | fn.Fn
 	}
 	__Ulimit :: {
-		HardLimit: int
-		Name:      string
-		SoftLimit: int
+		HardLimit: int | fn.Fn
+		Name:      string | fn.Fn
+		SoftLimit: int | fn.Fn
 	}
 	__Volumes :: {
 		Host?: __VolumesHost
-		Name?: string
+		Name?: string | fn.Fn
 	}
 	__VolumesHost :: {
-		SourcePath?: string
+		SourcePath?: string | fn.Fn
 	}
 }
 JobQueue :: {
 	Type: "AWS::Batch::JobQueue"
 	Properties: {
 		ComputeEnvironmentOrder: [...__ComputeEnvironmentOrder]
-		JobQueueName?: string
-		Priority:      int
-		State?:        string
+		JobQueueName?: string | fn.Fn
+		Priority:      int | fn.Fn
+		State?:        string | fn.Fn
 	}
 	__ComputeEnvironmentOrder :: {
-		ComputeEnvironment: string
-		Order:              int
+		ComputeEnvironment: string | fn.Fn
+		Order:              int | fn.Fn
 	}
 }

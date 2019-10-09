@@ -1,17 +1,18 @@
 package CertificateManager
 
+import "github.com/TangoGroup/fn"
+
 Certificate :: {
 	Type: "AWS::CertificateManager::Certificate"
 	Properties: {
-		DomainName: string
+		DomainName: string | fn.Fn
 		DomainValidationOptions?: [...__DomainValidationOption]
-		SubjectAlternativeNames?: [...string]
+		SubjectAlternativeNames?: [...string] | fn.Fn
 		Tags?: [...__Tag]
-		ValidationMethod?: "DNS" | "EMAIL"
-		ValidationMethod?: string
+		ValidationMethod?: (string & ("DNS" | "EMAIL")) | fn.Fn
 	}
 	__DomainValidationOption :: {
-		DomainName:       string
-		ValidationDomain: string
+		DomainName:       string | fn.Fn
+		ValidationDomain: string | fn.Fn
 	}
 }

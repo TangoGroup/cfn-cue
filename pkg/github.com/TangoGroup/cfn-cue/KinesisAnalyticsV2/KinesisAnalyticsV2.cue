@@ -1,17 +1,19 @@
 package KinesisAnalyticsV2
 
+import "github.com/TangoGroup/fn"
+
 Application :: {
 	Type: "AWS::KinesisAnalyticsV2::Application"
 	Properties: {
 		ApplicationConfiguration?: __ApplicationConfiguration
-		ApplicationDescription?:   string
-		ApplicationName?:          string
-		RuntimeEnvironment:        string
-		ServiceExecutionRole:      string
+		ApplicationDescription?:   string | fn.Fn
+		ApplicationName?:          string | fn.Fn
+		RuntimeEnvironment:        string | fn.Fn
+		ServiceExecutionRole:      string | fn.Fn
 	}
 	__ApplicationCodeConfiguration :: {
 		CodeContent:     __CodeContent
-		CodeContentType: string
+		CodeContentType: string | fn.Fn
 	}
 	__ApplicationConfiguration :: {
 		ApplicationCodeConfiguration?:     __ApplicationCodeConfiguration
@@ -21,22 +23,22 @@ Application :: {
 		SqlApplicationConfiguration?:      __SqlApplicationConfiguration
 	}
 	__ApplicationSnapshotConfiguration :: {
-		SnapshotsEnabled: bool
+		SnapshotsEnabled: bool | fn.Fn
 	}
 	__CSVMappingParameters :: {
-		RecordColumnDelimiter: string
-		RecordRowDelimiter:    string
+		RecordColumnDelimiter: string | fn.Fn
+		RecordRowDelimiter:    string | fn.Fn
 	}
 	__CheckpointConfiguration :: {
-		CheckpointInterval?:         int
-		CheckpointingEnabled?:       bool
-		ConfigurationType:           string
-		MinPauseBetweenCheckpoints?: int
+		CheckpointInterval?:         int | fn.Fn
+		CheckpointingEnabled?:       bool | fn.Fn
+		ConfigurationType:           string | fn.Fn
+		MinPauseBetweenCheckpoints?: int | fn.Fn
 	}
 	__CodeContent :: {
 		S3ContentLocation?: __S3ContentLocation
-		TextContent?:       string
-		ZipFileContent?:    string
+		TextContent?:       string | fn.Fn
+		ZipFileContent?:    string | fn.Fn
 	}
 	__EnvironmentProperties :: {
 		PropertyGroups?: [...__PropertyGroup]
@@ -52,64 +54,64 @@ Application :: {
 		InputSchema:                   __InputSchema
 		KinesisFirehoseInput?:         __KinesisFirehoseInput
 		KinesisStreamsInput?:          __KinesisStreamsInput
-		NamePrefix:                    string
+		NamePrefix:                    string | fn.Fn
 	}
 	__InputLambdaProcessor :: {
-		ResourceARN: string
+		ResourceARN: string | fn.Fn
 	}
 	__InputParallelism :: {
-		Count?: int
+		Count?: int | fn.Fn
 	}
 	__InputProcessingConfiguration :: {
 		InputLambdaProcessor?: __InputLambdaProcessor
 	}
 	__InputSchema :: {
 		RecordColumns: [...__RecordColumn]
-		RecordEncoding?: string
+		RecordEncoding?: string | fn.Fn
 		RecordFormat:    __RecordFormat
 	}
 	__JSONMappingParameters :: {
-		RecordRowPath: string
+		RecordRowPath: string | fn.Fn
 	}
 	__KinesisFirehoseInput :: {
-		ResourceARN: string
+		ResourceARN: string | fn.Fn
 	}
 	__KinesisStreamsInput :: {
-		ResourceARN: string
+		ResourceARN: string | fn.Fn
 	}
 	__MappingParameters :: {
 		CSVMappingParameters?:  __CSVMappingParameters
 		JSONMappingParameters?: __JSONMappingParameters
 	}
 	__MonitoringConfiguration :: {
-		ConfigurationType: string
-		LogLevel?:         string
-		MetricsLevel?:     string
+		ConfigurationType: string | fn.Fn
+		LogLevel?:         string | fn.Fn
+		MetricsLevel?:     string | fn.Fn
 	}
 	__ParallelismConfiguration :: {
-		AutoScalingEnabled?: bool
-		ConfigurationType:   string
-		Parallelism?:        int
-		ParallelismPerKPU?:  int
+		AutoScalingEnabled?: bool | fn.Fn
+		ConfigurationType:   string | fn.Fn
+		Parallelism?:        int | fn.Fn
+		ParallelismPerKPU?:  int | fn.Fn
 	}
 	__PropertyGroup :: {
-		PropertyGroupId?: string
-		PropertyMap?: {
-		}
+		PropertyGroupId?: string | fn.Fn
+		PropertyMap?:     {
+		} | fn.Fn
 	}
 	__RecordColumn :: {
-		Mapping?: string
-		Name:     string
-		SqlType:  string
+		Mapping?: string | fn.Fn
+		Name:     string | fn.Fn
+		SqlType:  string | fn.Fn
 	}
 	__RecordFormat :: {
 		MappingParameters?: __MappingParameters
-		RecordFormatType:   string
+		RecordFormatType:   string | fn.Fn
 	}
 	__S3ContentLocation :: {
-		BucketARN?:     string
-		FileKey?:       string
-		ObjectVersion?: string
+		BucketARN?:     string | fn.Fn
+		FileKey?:       string | fn.Fn
+		ObjectVersion?: string | fn.Fn
 	}
 	__SqlApplicationConfiguration :: {
 		Inputs?: [...__Input]
@@ -118,77 +120,77 @@ Application :: {
 ApplicationCloudWatchLoggingOption :: {
 	Type: "AWS::KinesisAnalyticsV2::ApplicationCloudWatchLoggingOption"
 	Properties: {
-		ApplicationName:         string
+		ApplicationName:         string | fn.Fn
 		CloudWatchLoggingOption: __CloudWatchLoggingOption
 	}
 	__CloudWatchLoggingOption :: {
-		LogStreamARN: string
+		LogStreamARN: string | fn.Fn
 	}
 }
 ApplicationOutput :: {
 	Type: "AWS::KinesisAnalyticsV2::ApplicationOutput"
 	Properties: {
-		ApplicationName: string
+		ApplicationName: string | fn.Fn
 		Output:          __Output
 	}
 	__DestinationSchema :: {
-		RecordFormatType?: string
+		RecordFormatType?: string | fn.Fn
 	}
 	__KinesisFirehoseOutput :: {
-		ResourceARN: string
+		ResourceARN: string | fn.Fn
 	}
 	__KinesisStreamsOutput :: {
-		ResourceARN: string
+		ResourceARN: string | fn.Fn
 	}
 	__LambdaOutput :: {
-		ResourceARN: string
+		ResourceARN: string | fn.Fn
 	}
 	__Output :: {
 		DestinationSchema:      __DestinationSchema
 		KinesisFirehoseOutput?: __KinesisFirehoseOutput
 		KinesisStreamsOutput?:  __KinesisStreamsOutput
 		LambdaOutput?:          __LambdaOutput
-		Name?:                  string
+		Name?:                  string | fn.Fn
 	}
 }
 ApplicationReferenceDataSource :: {
 	Type: "AWS::KinesisAnalyticsV2::ApplicationReferenceDataSource"
 	Properties: {
-		ApplicationName:     string
+		ApplicationName:     string | fn.Fn
 		ReferenceDataSource: __ReferenceDataSource
 	}
 	__CSVMappingParameters :: {
-		RecordColumnDelimiter: string
-		RecordRowDelimiter:    string
+		RecordColumnDelimiter: string | fn.Fn
+		RecordRowDelimiter:    string | fn.Fn
 	}
 	__JSONMappingParameters :: {
-		RecordRowPath: string
+		RecordRowPath: string | fn.Fn
 	}
 	__MappingParameters :: {
 		CSVMappingParameters?:  __CSVMappingParameters
 		JSONMappingParameters?: __JSONMappingParameters
 	}
 	__RecordColumn :: {
-		Mapping?: string
-		Name:     string
-		SqlType:  string
+		Mapping?: string | fn.Fn
+		Name:     string | fn.Fn
+		SqlType:  string | fn.Fn
 	}
 	__RecordFormat :: {
 		MappingParameters?: __MappingParameters
-		RecordFormatType:   string
+		RecordFormatType:   string | fn.Fn
 	}
 	__ReferenceDataSource :: {
 		ReferenceSchema:        __ReferenceSchema
 		S3ReferenceDataSource?: __S3ReferenceDataSource
-		TableName?:             string
+		TableName?:             string | fn.Fn
 	}
 	__ReferenceSchema :: {
 		RecordColumns: [...__RecordColumn]
-		RecordEncoding?: string
+		RecordEncoding?: string | fn.Fn
 		RecordFormat:    __RecordFormat
 	}
 	__S3ReferenceDataSource :: {
-		BucketARN: string
-		FileKey:   string
+		BucketARN: string | fn.Fn
+		FileKey:   string | fn.Fn
 	}
 }

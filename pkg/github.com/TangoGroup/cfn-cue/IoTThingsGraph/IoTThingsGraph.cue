@@ -1,13 +1,15 @@
 package IoTThingsGraph
 
+import "github.com/TangoGroup/fn"
+
 FlowTemplate :: {
 	Type: "AWS::IoTThingsGraph::FlowTemplate"
 	Properties: {
-		CompatibleNamespaceVersion?: float
+		CompatibleNamespaceVersion?: float | fn.Fn
 		Definition:                  __DefinitionDocument
 	}
 	__DefinitionDocument :: {
-		Language: string
-		Text:     string
+		Language: string | fn.Fn
+		Text:     string | fn.Fn
 	}
 }

@@ -38,14 +38,33 @@ func mapFromCFNTypeToCue(cfnType string) (lit ast.Expr) {
 	return lit
 }
 
-func createFieldFromProperty(name string, prop Property) (node ast.Decl) {
+func (p Property) getCUEPrimitiveType() ast.Expr {
+	if p.IsPrimitive() {
+		return mapFromCFNTypeToCue(p.PrimitiveType)
+	}
+
+	if p.IsMap() && p.IsMapOfPrimitives() {
+		return mapFromCFNTypeToCue(p.PrimitiveItemType)
+	}
+
+	if p.IsList() && p.IsListOfPrimitives() {
+		return mapFromCFNTypeToCue(p.PrimitiveItemType)
+	}
+
+	return nil
+}
+
+// func addPrimitiveConstraints()
+
+func createFieldFromProperty(name string, prop Property, constraints []ast.Expr) (node ast.Decl) {
 	// Need to capture Map Types, and put the PrimitiveItemType or ItemType properly into a struct
 	var value ast.Expr
+
 	if prop.IsList() {
 		var itemType ast.Expr
-		if prop.PrimitiveItemType != "" {
-			itemType = mapFromCFNTypeToCue(prop.PrimitiveItemType)
-		} else if prop.ItemType != "" {
+		if prop.IsListOfPrimitives() {
+			itemType = prop.getCUEPrimitiveType()
+		} else {
 			itemType = mapFromCFNTypeToCue(prop.ItemType)
 		}
 		value = &ast.ListLit{
@@ -54,11 +73,38 @@ func createFieldFromProperty(name string, prop Property) (node ast.Decl) {
 	} else if prop.IsMap() {
 		value = &ast.StructLit{}
 	} else {
-		if prop.PrimitiveType != "" {
-			value = mapFromCFNTypeToCue(prop.PrimitiveType)
-		} else if prop.Type != "" {
+		if prop.IsPrimitive() {
+			value = prop.getCUEPrimitiveType()
+		} else {
 			value = mapFromCFNTypeToCue(prop.Type)
 		}
+	}
+
+	for _, constraint := range constraints {
+		val := &ast.BinaryExpr{
+			X:  value,
+			Op: token.AND,
+			Y: &ast.ParenExpr{
+				X: constraint,
+			},
+		}
+		value = val
+	}
+
+	if len(constraints) > 0 {
+		val := &ast.ParenExpr{
+			X: value,
+		}
+		value = val
+	}
+
+	if prop.IsPrimitive() || prop.IsListOfPrimitives() {
+		val := &ast.BinaryExpr{
+			X:  value,
+			Op: token.OR,
+			Y:  &ast.BasicLit{Value: "fn.Fn"},
+		}
+		value = val
 	}
 
 	var optional token.Pos
@@ -77,39 +123,24 @@ func createFieldFromProperty(name string, prop Property) (node ast.Decl) {
 	return node
 }
 
-func createFieldFromAllowedValues(name string, prop Property, allowedValues []string) (node ast.Decl) {
-	var optional token.Pos
-	switch prop.Required {
-	case true:
-		optional = token.NoRelPos.Pos()
-	case false:
-		optional = token.Elided.Pos()
-	}
-	field := &ast.Field{
-		Label:    ast.NewIdent(name),
-		Optional: optional,
-	}
-
+func createExprFromAllowedValues(prop Property, allowedValues []string, propertyType string) (expr ast.Expr) {
 	for _, allowedValue := range allowedValues {
-		var e ast.Expr = &ast.BasicLit{Value: "\"" + allowedValue + "\""}
-		if field.Value != nil {
-			e = &ast.BinaryExpr{X: field.Value, Op: token.OR, Y: e}
+		var e ast.Expr
+		if propertyType == "Integer" {
+			e = &ast.BasicLit{Value: allowedValue}
+		} else {
+			e = ast.NewString(allowedValue)
 		}
-		field.Value = e
+		if expr != nil {
+			e = &ast.BinaryExpr{X: expr, Op: token.OR, Y: e}
+		}
+		expr = e
 	}
 
-	return field
+	return expr
 }
 
-func createFieldFromNumberMinMax(name string, prop Property, min, max float64) (node ast.Decl) {
-	var optional token.Pos
-	switch prop.Required {
-	case true:
-		optional = token.NoRelPos.Pos()
-	case false:
-		optional = token.Elided.Pos()
-	}
-
+func createExprFromNumberMinMax(prop Property, min, max float64) (expr ast.Expr) {
 	geq := &ast.UnaryExpr{
 		Op: token.GEQ,
 		X:  &ast.BasicLit{Kind: token.FLOAT, Value: strconv.FormatFloat(min, 'f', -1, 64)},
@@ -119,24 +150,11 @@ func createFieldFromNumberMinMax(name string, prop Property, min, max float64) (
 		Op: token.LEQ,
 		X:  &ast.BasicLit{Kind: token.FLOAT, Value: strconv.FormatFloat(max, 'f', -1, 64)},
 	}
-	field := &ast.Field{
-		Label:    ast.NewIdent(name),
-		Optional: optional,
-		Value:    &ast.BinaryExpr{X: geq, Op: token.AND, Y: leq},
-	}
 
-	return field
+	return &ast.BinaryExpr{X: geq, Op: token.AND, Y: leq}
 }
 
-func createFieldFromStringMinMax(name string, prop Property, min, max int64) (node ast.Decl) {
-	var optional token.Pos
-	switch prop.Required {
-	case true:
-		optional = token.NoRelPos.Pos()
-	case false:
-		optional = token.Elided.Pos()
-	}
-
+func createExprFromStringMinMax(prop Property, min, max int64) (expr ast.Expr) {
 	minLen := &ast.CallExpr{
 		Fun:  &ast.BasicLit{Value: "strings.MinRunes"},
 		Args: []ast.Expr{&ast.BasicLit{Value: strconv.FormatInt(min, 10)}},
@@ -147,36 +165,14 @@ func createFieldFromStringMinMax(name string, prop Property, min, max int64) (no
 		Args: []ast.Expr{&ast.BasicLit{Value: strconv.FormatInt(max, 10)}},
 	}
 
-	field := &ast.Field{
-		Label:    ast.NewIdent(name),
-		Optional: optional,
-		Value:    &ast.BinaryExpr{X: minLen, Op: token.AND, Y: maxLen},
-	}
-
-	return field
+	return &ast.BinaryExpr{X: minLen, Op: token.AND, Y: maxLen}
 }
 
-func createFieldFromPatternRegex(name string, prop Property, regex string) (node ast.Decl) {
-	var optional token.Pos
-	switch prop.Required {
-	case true:
-		optional = token.NoRelPos.Pos()
-	case false:
-		optional = token.Elided.Pos()
-	}
-
-	match := &ast.UnaryExpr{
+func createExprFromPatternRegex(prop Property, regex string) (expr ast.Expr) {
+	return &ast.UnaryExpr{
 		Op: token.MAT,
 		X:  &ast.BasicLit{Kind: token.STRING, Value: "#\"" + regex + "\"#"},
 	}
-
-	field := &ast.Field{
-		Label:    ast.NewIdent(name),
-		Optional: optional,
-		Value:    match,
-	}
-
-	return field
 }
 
 func createStructFromResource(properties map[string]Property, valueTypes map[string]ValueType) (s ast.StructLit) {
@@ -198,28 +194,30 @@ func createStructFromResource(properties map[string]Property, valueTypes map[str
 	for _, propertyS := range sortedProperties {
 		property := propertyS.name
 		propertyResource := propertyS.property
+		constraints := make([]ast.Expr, 0)
 		if propertyResource.Value.ValueType != "" && propertyResource.Value.ListValueType == "" {
 			valueType := valueTypes[propertyResource.Value.ValueType]
+
 			if valueType.AllowedValues != nil {
-				allowedValues := createFieldFromAllowedValues(property, propertyResource, valueTypes[propertyResource.Value.ValueType].AllowedValues)
-				propertyDecls = append(propertyDecls, allowedValues)
+				allowedValues := createExprFromAllowedValues(propertyResource, valueType.AllowedValues, propertyResource.PrimitiveType)
+				constraints = append(constraints, allowedValues)
 			}
 			if valueType.NumberMax > 1 {
 				min := valueType.NumberMin
 				max := valueType.NumberMax
-				allowedValues := createFieldFromNumberMinMax(property, propertyResource, min, max)
-				propertyDecls = append(propertyDecls, allowedValues)
+				allowedValues := createExprFromNumberMinMax(propertyResource, min, max)
+				constraints = append(constraints, allowedValues)
 			}
 			if valueType.StringMax > 0 {
 				min := valueType.StringMin
 				max := valueType.StringMax
-				allowedValues := createFieldFromStringMinMax(property, propertyResource, int64(min), int64(max))
-				propertyDecls = append(propertyDecls, allowedValues)
+				allowedValues := createExprFromStringMinMax(propertyResource, int64(min), int64(max))
+				constraints = append(constraints, allowedValues)
 			}
 			if valueType.AllowedPatternRegex != "" {
 				regex := valueType.AllowedPatternRegex
-				allowedValues := createFieldFromPatternRegex(property, propertyResource, regex)
-				propertyDecls = append(propertyDecls, allowedValues)
+				allowedValues := createExprFromPatternRegex(propertyResource, regex)
+				constraints = append(constraints, allowedValues)
 			}
 			// Going to need to be smarter about this... I need to make sure that the marshalled JSON
 			// string of this struct is less that JSONMax characters.
@@ -229,9 +227,11 @@ func createStructFromResource(properties map[string]Property, valueTypes map[str
 			// 	allowedValues := createFieldFromStringMinMax(property, propertyResource, int64(min), int64(max))
 			// 	propertyDecls = append(propertyDecls, allowedValues)
 			// }
+		} else if propertyResource.Value.ListValueType != "" {
+			fmt.Println("!!!!", propertyResource.Value.ListValueType)
 		}
 
-		value := createFieldFromProperty(property, propertyResource)
+		value := createFieldFromProperty(property, propertyResource, constraints)
 		propertyDecls = append(propertyDecls, value)
 	}
 
@@ -332,6 +332,13 @@ func main() {
 			Decls: []ast.Decl{
 				&ast.Package{
 					Name: ast.NewIdent(service),
+				},
+				&ast.ImportDecl{
+					Specs: []*ast.ImportSpec{
+						&ast.ImportSpec{
+							Path: ast.NewString("github.com/TangoGroup/fn"),
+						},
+					},
 				},
 			},
 		}

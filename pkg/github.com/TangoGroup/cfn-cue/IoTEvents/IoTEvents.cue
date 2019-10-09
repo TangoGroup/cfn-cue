@@ -1,13 +1,15 @@
 package IoTEvents
 
+import "github.com/TangoGroup/fn"
+
 DetectorModel :: {
 	Type: "AWS::IoTEvents::DetectorModel"
 	Properties: {
 		DetectorModelDefinition?:  __DetectorModelDefinition
-		DetectorModelDescription?: string
-		DetectorModelName?:        string
-		Key?:                      string
-		RoleArn?:                  string
+		DetectorModelDescription?: string | fn.Fn
+		DetectorModelName?:        string | fn.Fn
+		Key?:                      string | fn.Fn
+		RoleArn?:                  string | fn.Fn
 		Tags?: [...__Tag]
 	}
 	__Action :: {
@@ -23,29 +25,29 @@ DetectorModel :: {
 		Sqs?:             __Sqs
 	}
 	__ClearTimer :: {
-		TimerName?: string
+		TimerName?: string | fn.Fn
 	}
 	__DetectorModelDefinition :: {
-		InitialStateName?: string
+		InitialStateName?: string | fn.Fn
 		States?: [...__State]
 	}
 	__Event :: {
 		Actions?: [...__Action]
-		Condition?: string
-		EventName?: string
+		Condition?: string | fn.Fn
+		EventName?: string | fn.Fn
 	}
 	__Firehose :: {
-		DeliveryStreamName?: string
-		Separator?:          string
+		DeliveryStreamName?: string | fn.Fn
+		Separator?:          string | fn.Fn
 	}
 	__IotEvents :: {
-		InputName?: string
+		InputName?: string | fn.Fn
 	}
 	__IotTopicPublish :: {
-		MqttTopic?: string
+		MqttTopic?: string | fn.Fn
 	}
 	__Lambda :: {
-		FunctionArn?: string
+		FunctionArn?: string | fn.Fn
 	}
 	__OnEnter :: {
 		Events?: [...__Event]
@@ -58,46 +60,46 @@ DetectorModel :: {
 		TransitionEvents?: [...__TransitionEvent]
 	}
 	__ResetTimer :: {
-		TimerName?: string
+		TimerName?: string | fn.Fn
 	}
 	__SetTimer :: {
-		Seconds?:   int
-		TimerName?: string
+		Seconds?:   int | fn.Fn
+		TimerName?: string | fn.Fn
 	}
 	__SetVariable :: {
-		Value?:        string
-		VariableName?: string
+		Value?:        string | fn.Fn
+		VariableName?: string | fn.Fn
 	}
 	__Sns :: {
-		TargetArn?: string
+		TargetArn?: string | fn.Fn
 	}
 	__Sqs :: {
-		QueueUrl?:  string
-		UseBase64?: bool
+		QueueUrl?:  string | fn.Fn
+		UseBase64?: bool | fn.Fn
 	}
 	__State :: {
 		OnEnter?:   __OnEnter
 		OnExit?:    __OnExit
 		OnInput?:   __OnInput
-		StateName?: string
+		StateName?: string | fn.Fn
 	}
 	__TransitionEvent :: {
 		Actions?: [...__Action]
-		Condition?: string
-		EventName?: string
-		NextState?: string
+		Condition?: string | fn.Fn
+		EventName?: string | fn.Fn
+		NextState?: string | fn.Fn
 	}
 }
 Input :: {
 	Type: "AWS::IoTEvents::Input"
 	Properties: {
 		InputDefinition?:  __InputDefinition
-		InputDescription?: string
-		InputName?:        string
+		InputDescription?: string | fn.Fn
+		InputName?:        string | fn.Fn
 		Tags?: [...__Tag]
 	}
 	__Attribute :: {
-		JsonPath?: string
+		JsonPath?: string | fn.Fn
 	}
 	__InputDefinition :: {
 		Attributes?: [...__Attribute]

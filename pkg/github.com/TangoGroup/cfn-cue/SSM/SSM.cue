@@ -1,131 +1,131 @@
 package SSM
 
+import "github.com/TangoGroup/fn"
+
 Association :: {
 	Type: "AWS::SSM::Association"
 	Properties: {
-		AssociationName?: string
-		DocumentVersion?: string
-		InstanceId?:      string
-		Name:             string
+		AssociationName?: string | fn.Fn
+		DocumentVersion?: string | fn.Fn
+		InstanceId?:      string | fn.Fn
+		Name:             string | fn.Fn
 		OutputLocation?:  __InstanceAssociationOutputLocation
 		Parameters?: {
 		}
-		ScheduleExpression?: string
+		ScheduleExpression?: string | fn.Fn
 		Targets?: [...__Target]
 	}
 	__InstanceAssociationOutputLocation :: {
 		S3Location?: __S3OutputLocation
 	}
 	__ParameterValues :: {
-		ParameterValues: [...string]
+		ParameterValues: [...string] | fn.Fn
 	}
 	__S3OutputLocation :: {
-		OutputS3BucketName?: string
-		OutputS3KeyPrefix?:  string
+		OutputS3BucketName?: string | fn.Fn
+		OutputS3KeyPrefix?:  string | fn.Fn
 	}
 	__Target :: {
-		Key: string
-		Values: [...string]
+		Key:    string | fn.Fn
+		Values: [...string] | fn.Fn
 	}
 }
 Document :: {
 	Type: "AWS::SSM::Document"
 	Properties: {
 		Content: {
-		}
-		DocumentType?: string
+		} | fn.Fn
+		DocumentType?: string | fn.Fn
 		Tags?: [...__Tag]
 	}
 }
 MaintenanceWindow :: {
 	Type: "AWS::SSM::MaintenanceWindow"
 	Properties: {
-		AllowUnassociatedTargets: bool
-		Cutoff:                   >=0 & <=23
-		Cutoff:                   int
-		Description?:             string
-		Duration:                 >=1 & <=24
-		Duration:                 int
-		EndDate?:                 string
-		Name:                     string
-		Schedule:                 string
-		ScheduleTimezone?:        string
-		StartDate?:               string
+		AllowUnassociatedTargets: bool | fn.Fn
+		Cutoff:                   (int & (>=0 & <=23)) | fn.Fn
+		Description?:             string | fn.Fn
+		Duration:                 (int & (>=1 & <=24)) | fn.Fn
+		EndDate?:                 string | fn.Fn
+		Name:                     string | fn.Fn
+		Schedule:                 string | fn.Fn
+		ScheduleTimezone?:        string | fn.Fn
+		StartDate?:               string | fn.Fn
 		Tags?: [...__Tag]
 	}
 }
 MaintenanceWindowTarget :: {
 	Type: "AWS::SSM::MaintenanceWindowTarget"
 	Properties: {
-		Description?:      string
-		Name?:             string
-		OwnerInformation?: string
-		ResourceType:      string
+		Description?:      string | fn.Fn
+		Name?:             string | fn.Fn
+		OwnerInformation?: string | fn.Fn
+		ResourceType:      string | fn.Fn
 		Targets: [...__Target]
-		WindowId: string
+		WindowId: string | fn.Fn
 	}
 	__Target :: {
-		Key: string
-		Values?: [...string]
+		Key:     string | fn.Fn
+		Values?: [...string] | fn.Fn
 	}
 }
 MaintenanceWindowTask :: {
 	Type: "AWS::SSM::MaintenanceWindowTask"
 	Properties: {
-		Description?:    string
+		Description?:    string | fn.Fn
 		LoggingInfo?:    __LoggingInfo
-		MaxConcurrency:  string
-		MaxErrors:       string
-		Name?:           string
-		Priority:        int
-		ServiceRoleArn?: string
+		MaxConcurrency:  string | fn.Fn
+		MaxErrors:       string | fn.Fn
+		Name?:           string | fn.Fn
+		Priority:        int | fn.Fn
+		ServiceRoleArn?: string | fn.Fn
 		Targets: [...__Target]
-		TaskArn:                   string
+		TaskArn:                   string | fn.Fn
 		TaskInvocationParameters?: __TaskInvocationParameters
-		TaskParameters?: {
-		}
-		TaskType: string
-		WindowId: string
+		TaskParameters?:           {
+		} | fn.Fn
+		TaskType: string | fn.Fn
+		WindowId: string | fn.Fn
 	}
 	__LoggingInfo :: {
-		Region:    string
-		S3Bucket:  string
-		S3Prefix?: string
+		Region:    string | fn.Fn
+		S3Bucket:  string | fn.Fn
+		S3Prefix?: string | fn.Fn
 	}
 	__MaintenanceWindowAutomationParameters :: {
-		DocumentVersion?: string
-		Parameters?: {
-		}
+		DocumentVersion?: string | fn.Fn
+		Parameters?:      {
+		} | fn.Fn
 	}
 	__MaintenanceWindowLambdaParameters :: {
-		ClientContext?: string
-		Payload?:       string
-		Qualifier?:     string
+		ClientContext?: string | fn.Fn
+		Payload?:       string | fn.Fn
+		Qualifier?:     string | fn.Fn
 	}
 	__MaintenanceWindowRunCommandParameters :: {
-		Comment?:            string
-		DocumentHash?:       string
-		DocumentHashType?:   string
+		Comment?:            string | fn.Fn
+		DocumentHash?:       string | fn.Fn
+		DocumentHashType?:   string | fn.Fn
 		NotificationConfig?: __NotificationConfig
-		OutputS3BucketName?: string
-		OutputS3KeyPrefix?:  string
-		Parameters?: {
-		}
-		ServiceRoleArn?: string
-		TimeoutSeconds?: int
+		OutputS3BucketName?: string | fn.Fn
+		OutputS3KeyPrefix?:  string | fn.Fn
+		Parameters?:         {
+		} | fn.Fn
+		ServiceRoleArn?: string | fn.Fn
+		TimeoutSeconds?: int | fn.Fn
 	}
 	__MaintenanceWindowStepFunctionsParameters :: {
-		Input?: string
-		Name?:  string
+		Input?: string | fn.Fn
+		Name?:  string | fn.Fn
 	}
 	__NotificationConfig :: {
-		NotificationArn: string
-		NotificationEvents?: [...string]
-		NotificationType?: string
+		NotificationArn:     string | fn.Fn
+		NotificationEvents?: [...string] | fn.Fn
+		NotificationType?:   string | fn.Fn
 	}
 	__Target :: {
-		Key: string
-		Values?: [...string]
+		Key:     string | fn.Fn
+		Values?: [...string] | fn.Fn
 	}
 	__TaskInvocationParameters :: {
 		MaintenanceWindowAutomationParameters?:    __MaintenanceWindowAutomationParameters
@@ -137,50 +137,50 @@ MaintenanceWindowTask :: {
 Parameter :: {
 	Type: "AWS::SSM::Parameter"
 	Properties: {
-		AllowedPattern?: string
-		Description?:    string
-		Name?:           string
-		Policies?:       string
-		Tags?: {
-		}
-		Tier?: string
-		Type:  string
-		Value: string
+		AllowedPattern?: string | fn.Fn
+		Description?:    string | fn.Fn
+		Name?:           string | fn.Fn
+		Policies?:       string | fn.Fn
+		Tags?:           {
+		} | fn.Fn
+		Tier?: string | fn.Fn
+		Type:  string | fn.Fn
+		Value: string | fn.Fn
 	}
 }
 PatchBaseline :: {
 	Type: "AWS::SSM::PatchBaseline"
 	Properties: {
-		ApprovalRules?: __RuleGroup
-		ApprovedPatches?: [...string]
-		ApprovedPatchesComplianceLevel?:   string
-		ApprovedPatchesEnableNonSecurity?: bool
-		Description?:                      string
+		ApprovalRules?:                    __RuleGroup
+		ApprovedPatches?:                  [...string] | fn.Fn
+		ApprovedPatchesComplianceLevel?:   string | fn.Fn
+		ApprovedPatchesEnableNonSecurity?: bool | fn.Fn
+		Description?:                      string | fn.Fn
 		GlobalFilters?:                    __PatchFilterGroup
-		Name:                              string
-		OperatingSystem?:                  string
-		PatchGroups?: [...string]
-		RejectedPatches?: [...string]
-		RejectedPatchesAction?: string
+		Name:                              string | fn.Fn
+		OperatingSystem?:                  string | fn.Fn
+		PatchGroups?:                      [...string] | fn.Fn
+		RejectedPatches?:                  [...string] | fn.Fn
+		RejectedPatchesAction?:            string | fn.Fn
 		Sources?: [...__PatchSource]
 		Tags?: [...__Tag]
 	}
 	__PatchFilter :: {
-		Key?: string
-		Values?: [...string]
+		Key?:    string | fn.Fn
+		Values?: [...string] | fn.Fn
 	}
 	__PatchFilterGroup :: {
 		PatchFilters?: [...__PatchFilter]
 	}
 	__PatchSource :: {
-		Configuration?: string
-		Name?:          string
-		Products?: [...string]
+		Configuration?: string | fn.Fn
+		Name?:          string | fn.Fn
+		Products?:      [...string] | fn.Fn
 	}
 	__Rule :: {
-		ApproveAfterDays?:  int
-		ComplianceLevel?:   string
-		EnableNonSecurity?: bool
+		ApproveAfterDays?:  int | fn.Fn
+		ComplianceLevel?:   string | fn.Fn
+		EnableNonSecurity?: bool | fn.Fn
 		PatchFilterGroup?:  __PatchFilterGroup
 	}
 	__RuleGroup :: {
@@ -190,11 +190,11 @@ PatchBaseline :: {
 ResourceDataSync :: {
 	Type: "AWS::SSM::ResourceDataSync"
 	Properties: {
-		BucketName:    string
-		BucketPrefix?: string
-		BucketRegion:  string
-		KMSKeyArn?:    string
-		SyncFormat:    string
-		SyncName:      string
+		BucketName:    string | fn.Fn
+		BucketPrefix?: string | fn.Fn
+		BucketRegion:  string | fn.Fn
+		KMSKeyArn?:    string | fn.Fn
+		SyncFormat:    string | fn.Fn
+		SyncName:      string | fn.Fn
 	}
 }

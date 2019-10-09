@@ -1,38 +1,39 @@
 package SNS
 
+import "github.com/TangoGroup/fn"
+
 Subscription :: {
 	Type: "AWS::SNS::Subscription"
 	Properties: {
 		DeliveryPolicy?: {
-		}
-		Endpoint?: string
+		} | fn.Fn
+		Endpoint?:     string | fn.Fn
 		FilterPolicy?: {
-		}
-		Protocol:            "application" | "email-json" | "email" | "http" | "https" | "lambda" | "sms" | "sqs"
-		Protocol:            string
-		RawMessageDelivery?: bool
-		Region?:             string
-		TopicArn:            string
+		} | fn.Fn
+		Protocol:            (string & ("application" | "email-json" | "email" | "http" | "https" | "lambda" | "sms" | "sqs")) | fn.Fn
+		RawMessageDelivery?: bool | fn.Fn
+		Region?:             string | fn.Fn
+		TopicArn:            string | fn.Fn
 	}
 }
 Topic :: {
 	Type: "AWS::SNS::Topic"
 	Properties: {
-		DisplayName?:    string
-		KmsMasterKeyId?: string
+		DisplayName?:    string | fn.Fn
+		KmsMasterKeyId?: string | fn.Fn
 		Subscription?: [...__Subscription]
-		TopicName?: string
+		TopicName?: string | fn.Fn
 	}
 	__Subscription :: {
-		Endpoint: string
-		Protocol: string
+		Endpoint: string | fn.Fn
+		Protocol: string | fn.Fn
 	}
 }
 TopicPolicy :: {
 	Type: "AWS::SNS::TopicPolicy"
 	Properties: {
 		PolicyDocument: {
-		}
-		Topics: [...string]
+		} | fn.Fn
+		Topics: [...string] | fn.Fn
 	}
 }

@@ -1,23 +1,24 @@
 package KMS
 
+import "github.com/TangoGroup/fn"
+
 Alias :: {
 	Type: "AWS::KMS::Alias"
 	Properties: {
-		AliasName:   string
-		TargetKeyId: string
+		AliasName:   string | fn.Fn
+		TargetKeyId: string | fn.Fn
 	}
 }
 Key :: {
 	Type: "AWS::KMS::Key"
 	Properties: {
-		Description?:       string
-		EnableKeyRotation?: bool
-		Enabled?:           bool
-		KeyPolicy: {
-		}
-		KeyUsage?:            string
-		PendingWindowInDays?: >=7 & <=30
-		PendingWindowInDays?: int
+		Description?:       string | fn.Fn
+		EnableKeyRotation?: bool | fn.Fn
+		Enabled?:           bool | fn.Fn
+		KeyPolicy:          {
+		} | fn.Fn
+		KeyUsage?:            string | fn.Fn
+		PendingWindowInDays?: (int & (>=7 & <=30)) | fn.Fn
 		Tags?: [...__Tag]
 	}
 }

@@ -1,182 +1,184 @@
 package Pinpoint
 
+import "github.com/TangoGroup/fn"
+
 ADMChannel :: {
 	Type: "AWS::Pinpoint::ADMChannel"
 	Properties: {
-		ApplicationId: string
-		ClientId:      string
-		ClientSecret:  string
-		Enabled?:      bool
+		ApplicationId: string | fn.Fn
+		ClientId:      string | fn.Fn
+		ClientSecret:  string | fn.Fn
+		Enabled?:      bool | fn.Fn
 	}
 }
 APNSChannel :: {
 	Type: "AWS::Pinpoint::APNSChannel"
 	Properties: {
-		ApplicationId:                string
-		BundleId?:                    string
-		Certificate?:                 string
-		DefaultAuthenticationMethod?: string
-		Enabled?:                     bool
-		PrivateKey?:                  string
-		TeamId?:                      string
-		TokenKey?:                    string
-		TokenKeyId?:                  string
+		ApplicationId:                string | fn.Fn
+		BundleId?:                    string | fn.Fn
+		Certificate?:                 string | fn.Fn
+		DefaultAuthenticationMethod?: string | fn.Fn
+		Enabled?:                     bool | fn.Fn
+		PrivateKey?:                  string | fn.Fn
+		TeamId?:                      string | fn.Fn
+		TokenKey?:                    string | fn.Fn
+		TokenKeyId?:                  string | fn.Fn
 	}
 }
 APNSSandboxChannel :: {
 	Type: "AWS::Pinpoint::APNSSandboxChannel"
 	Properties: {
-		ApplicationId:                string
-		BundleId?:                    string
-		Certificate?:                 string
-		DefaultAuthenticationMethod?: string
-		Enabled?:                     bool
-		PrivateKey?:                  string
-		TeamId?:                      string
-		TokenKey?:                    string
-		TokenKeyId?:                  string
+		ApplicationId:                string | fn.Fn
+		BundleId?:                    string | fn.Fn
+		Certificate?:                 string | fn.Fn
+		DefaultAuthenticationMethod?: string | fn.Fn
+		Enabled?:                     bool | fn.Fn
+		PrivateKey?:                  string | fn.Fn
+		TeamId?:                      string | fn.Fn
+		TokenKey?:                    string | fn.Fn
+		TokenKeyId?:                  string | fn.Fn
 	}
 }
 APNSVoipChannel :: {
 	Type: "AWS::Pinpoint::APNSVoipChannel"
 	Properties: {
-		ApplicationId:                string
-		BundleId?:                    string
-		Certificate?:                 string
-		DefaultAuthenticationMethod?: string
-		Enabled?:                     bool
-		PrivateKey?:                  string
-		TeamId?:                      string
-		TokenKey?:                    string
-		TokenKeyId?:                  string
+		ApplicationId:                string | fn.Fn
+		BundleId?:                    string | fn.Fn
+		Certificate?:                 string | fn.Fn
+		DefaultAuthenticationMethod?: string | fn.Fn
+		Enabled?:                     bool | fn.Fn
+		PrivateKey?:                  string | fn.Fn
+		TeamId?:                      string | fn.Fn
+		TokenKey?:                    string | fn.Fn
+		TokenKeyId?:                  string | fn.Fn
 	}
 }
 APNSVoipSandboxChannel :: {
 	Type: "AWS::Pinpoint::APNSVoipSandboxChannel"
 	Properties: {
-		ApplicationId:                string
-		BundleId?:                    string
-		Certificate?:                 string
-		DefaultAuthenticationMethod?: string
-		Enabled?:                     bool
-		PrivateKey?:                  string
-		TeamId?:                      string
-		TokenKey?:                    string
-		TokenKeyId?:                  string
+		ApplicationId:                string | fn.Fn
+		BundleId?:                    string | fn.Fn
+		Certificate?:                 string | fn.Fn
+		DefaultAuthenticationMethod?: string | fn.Fn
+		Enabled?:                     bool | fn.Fn
+		PrivateKey?:                  string | fn.Fn
+		TeamId?:                      string | fn.Fn
+		TokenKey?:                    string | fn.Fn
+		TokenKeyId?:                  string | fn.Fn
 	}
 }
 App :: {
 	Type: "AWS::Pinpoint::App"
 	Properties: {
-		Name: string
+		Name:  string | fn.Fn
 		Tags?: {
-		}
+		} | fn.Fn
 	}
 }
 ApplicationSettings :: {
 	Type: "AWS::Pinpoint::ApplicationSettings"
 	Properties: {
-		ApplicationId:             string
+		ApplicationId:             string | fn.Fn
 		CampaignHook?:             __CampaignHook
-		CloudWatchMetricsEnabled?: bool
+		CloudWatchMetricsEnabled?: bool | fn.Fn
 		Limits?:                   __Limits
 		QuietTime?:                __QuietTime
 	}
 	__CampaignHook :: {
-		LambdaFunctionName?: string
-		Mode?:               string
-		WebUrl?:             string
+		LambdaFunctionName?: string | fn.Fn
+		Mode?:               string | fn.Fn
+		WebUrl?:             string | fn.Fn
 	}
 	__Limits :: {
-		Daily?:             int
-		MaximumDuration?:   int
-		MessagesPerSecond?: int
-		Total?:             int
+		Daily?:             int | fn.Fn
+		MaximumDuration?:   int | fn.Fn
+		MessagesPerSecond?: int | fn.Fn
+		Total?:             int | fn.Fn
 	}
 	__QuietTime :: {
-		End:   string
-		Start: string
+		End:   string | fn.Fn
+		Start: string | fn.Fn
 	}
 }
 BaiduChannel :: {
 	Type: "AWS::Pinpoint::BaiduChannel"
 	Properties: {
-		ApiKey:        string
-		ApplicationId: string
-		Enabled?:      bool
-		SecretKey:     string
+		ApiKey:        string | fn.Fn
+		ApplicationId: string | fn.Fn
+		Enabled?:      bool | fn.Fn
+		SecretKey:     string | fn.Fn
 	}
 }
 Campaign :: {
 	Type: "AWS::Pinpoint::Campaign"
 	Properties: {
 		AdditionalTreatments?: [...__WriteTreatmentResource]
-		ApplicationId:        string
+		ApplicationId:        string | fn.Fn
 		CampaignHook?:        __CampaignHook
-		Description?:         string
-		HoldoutPercent?:      int
-		IsPaused?:            bool
+		Description?:         string | fn.Fn
+		HoldoutPercent?:      int | fn.Fn
+		IsPaused?:            bool | fn.Fn
 		Limits?:              __Limits
 		MessageConfiguration: __MessageConfiguration
-		Name:                 string
+		Name:                 string | fn.Fn
 		Schedule:             __Schedule
-		SegmentId:            string
-		SegmentVersion?:      int
-		Tags?: {
-		}
-		TreatmentDescription?: string
-		TreatmentName?:        string
+		SegmentId:            string | fn.Fn
+		SegmentVersion?:      int | fn.Fn
+		Tags?:                {
+		} | fn.Fn
+		TreatmentDescription?: string | fn.Fn
+		TreatmentName?:        string | fn.Fn
 	}
 	__AttributeDimension :: {
-		AttributeType?: string
-		Values?: [...string]
+		AttributeType?: string | fn.Fn
+		Values?:        [...string] | fn.Fn
 	}
 	__CampaignEmailMessage :: {
-		Body?:        string
-		FromAddress?: string
-		HtmlBody?:    string
-		Title?:       string
+		Body?:        string | fn.Fn
+		FromAddress?: string | fn.Fn
+		HtmlBody?:    string | fn.Fn
+		Title?:       string | fn.Fn
 	}
 	__CampaignEventFilter :: {
 		Dimensions?: __EventDimensions
-		FilterType?: string
+		FilterType?: string | fn.Fn
 	}
 	__CampaignHook :: {
-		LambdaFunctionName?: string
-		Mode?:               string
-		WebUrl?:             string
+		LambdaFunctionName?: string | fn.Fn
+		Mode?:               string | fn.Fn
+		WebUrl?:             string | fn.Fn
 	}
 	__CampaignSmsMessage :: {
-		Body?:        string
-		MessageType?: string
-		SenderId?:    string
+		Body?:        string | fn.Fn
+		MessageType?: string | fn.Fn
+		SenderId?:    string | fn.Fn
 	}
 	__EventDimensions :: {
 		Attributes?: {
-		}
+		} | fn.Fn
 		EventType?: __SetDimension
-		Metrics?: {
-		}
+		Metrics?:   {
+		} | fn.Fn
 	}
 	__Limits :: {
-		Daily?:             int
-		MaximumDuration?:   int
-		MessagesPerSecond?: int
-		Total?:             int
+		Daily?:             int | fn.Fn
+		MaximumDuration?:   int | fn.Fn
+		MessagesPerSecond?: int | fn.Fn
+		Total?:             int | fn.Fn
 	}
 	__Message :: {
-		Action?:            string
-		Body?:              string
-		ImageIconUrl?:      string
-		ImageSmallIconUrl?: string
-		ImageUrl?:          string
-		JsonBody?:          string
-		MediaUrl?:          string
-		RawContent?:        string
-		SilentPush?:        bool
-		TimeToLive?:        int
-		Title?:             string
-		Url?:               string
+		Action?:            string | fn.Fn
+		Body?:              string | fn.Fn
+		ImageIconUrl?:      string | fn.Fn
+		ImageSmallIconUrl?: string | fn.Fn
+		ImageUrl?:          string | fn.Fn
+		JsonBody?:          string | fn.Fn
+		MediaUrl?:          string | fn.Fn
+		RawContent?:        string | fn.Fn
+		SilentPush?:        bool | fn.Fn
+		TimeToLive?:        int | fn.Fn
+		Title?:             string | fn.Fn
+		Url?:               string | fn.Fn
 	}
 	__MessageConfiguration :: {
 		ADMMessage?:     __Message
@@ -188,90 +190,90 @@ Campaign :: {
 		SMSMessage?:     __CampaignSmsMessage
 	}
 	__MetricDimension :: {
-		ComparisonOperator?: string
-		Value?:              float
+		ComparisonOperator?: string | fn.Fn
+		Value?:              float | fn.Fn
 	}
 	__QuietTime :: {
-		End:   string
-		Start: string
+		End:   string | fn.Fn
+		Start: string | fn.Fn
 	}
 	__Schedule :: {
-		EndTime?:     string
+		EndTime?:     string | fn.Fn
 		EventFilter?: __CampaignEventFilter
-		Frequency?:   string
-		IsLocalTime?: bool
+		Frequency?:   string | fn.Fn
+		IsLocalTime?: bool | fn.Fn
 		QuietTime?:   __QuietTime
-		StartTime?:   string
-		TimeZone?:    string
+		StartTime?:   string | fn.Fn
+		TimeZone?:    string | fn.Fn
 	}
 	__SetDimension :: {
-		DimensionType?: string
-		Values?: [...string]
+		DimensionType?: string | fn.Fn
+		Values?:        [...string] | fn.Fn
 	}
 	__WriteTreatmentResource :: {
 		MessageConfiguration?: __MessageConfiguration
 		Schedule?:             __Schedule
-		SizePercent?:          int
-		TreatmentDescription?: string
-		TreatmentName?:        string
+		SizePercent?:          int | fn.Fn
+		TreatmentDescription?: string | fn.Fn
+		TreatmentName?:        string | fn.Fn
 	}
 }
 EmailChannel :: {
 	Type: "AWS::Pinpoint::EmailChannel"
 	Properties: {
-		ApplicationId:     string
-		ConfigurationSet?: string
-		Enabled?:          bool
-		FromAddress:       string
-		Identity:          string
-		RoleArn?:          string
+		ApplicationId:     string | fn.Fn
+		ConfigurationSet?: string | fn.Fn
+		Enabled?:          bool | fn.Fn
+		FromAddress:       string | fn.Fn
+		Identity:          string | fn.Fn
+		RoleArn?:          string | fn.Fn
 	}
 }
 EventStream :: {
 	Type: "AWS::Pinpoint::EventStream"
 	Properties: {
-		ApplicationId:        string
-		DestinationStreamArn: string
-		RoleArn:              string
+		ApplicationId:        string | fn.Fn
+		DestinationStreamArn: string | fn.Fn
+		RoleArn:              string | fn.Fn
 	}
 }
 GCMChannel :: {
 	Type: "AWS::Pinpoint::GCMChannel"
 	Properties: {
-		ApiKey:        string
-		ApplicationId: string
-		Enabled?:      bool
+		ApiKey:        string | fn.Fn
+		ApplicationId: string | fn.Fn
+		Enabled?:      bool | fn.Fn
 	}
 }
 SMSChannel :: {
 	Type: "AWS::Pinpoint::SMSChannel"
 	Properties: {
-		ApplicationId: string
-		Enabled?:      bool
-		SenderId?:     string
-		ShortCode?:    string
+		ApplicationId: string | fn.Fn
+		Enabled?:      bool | fn.Fn
+		SenderId?:     string | fn.Fn
+		ShortCode?:    string | fn.Fn
 	}
 }
 Segment :: {
 	Type: "AWS::Pinpoint::Segment"
 	Properties: {
-		ApplicationId:  string
+		ApplicationId:  string | fn.Fn
 		Dimensions?:    __SegmentDimensions
-		Name:           string
+		Name:           string | fn.Fn
 		SegmentGroups?: __SegmentGroups
-		Tags?: {
-		}
+		Tags?:          {
+		} | fn.Fn
 	}
 	__AttributeDimension :: {
-		AttributeType?: string
-		Values?: [...string]
+		AttributeType?: string | fn.Fn
+		Values?:        [...string] | fn.Fn
 	}
 	__Behavior :: {
 		Recency?: __Recency
 	}
 	__Coordinates :: {
-		Latitude:  float
-		Longitude: float
+		Latitude:  float | fn.Fn
+		Longitude: float | fn.Fn
 	}
 	__Demographic :: {
 		AppVersion?: __SetDimension
@@ -283,50 +285,50 @@ Segment :: {
 	}
 	__GPSPoint :: {
 		Coordinates:       __Coordinates
-		RangeInKilometers: float
+		RangeInKilometers: float | fn.Fn
 	}
 	__Groups :: {
 		Dimensions?: [...__SegmentDimensions]
 		SourceSegments?: [...__SourceSegments]
-		SourceType?: string
-		Type?:       string
+		SourceType?: string | fn.Fn
+		Type?:       string | fn.Fn
 	}
 	__Location :: {
 		Country?:  __SetDimension
 		GPSPoint?: __GPSPoint
 	}
 	__Recency :: {
-		Duration:    string
-		RecencyType: string
+		Duration:    string | fn.Fn
+		RecencyType: string | fn.Fn
 	}
 	__SegmentDimensions :: {
 		Attributes?: {
-		}
+		} | fn.Fn
 		Behavior?:    __Behavior
 		Demographic?: __Demographic
 		Location?:    __Location
-		Metrics?: {
-		}
+		Metrics?:     {
+		} | fn.Fn
 		UserAttributes?: {
-		}
+		} | fn.Fn
 	}
 	__SegmentGroups :: {
 		Groups?: [...__Groups]
-		Include?: string
+		Include?: string | fn.Fn
 	}
 	__SetDimension :: {
-		DimensionType?: string
-		Values?: [...string]
+		DimensionType?: string | fn.Fn
+		Values?:        [...string] | fn.Fn
 	}
 	__SourceSegments :: {
-		Id:       string
-		Version?: int
+		Id:       string | fn.Fn
+		Version?: int | fn.Fn
 	}
 }
 VoiceChannel :: {
 	Type: "AWS::Pinpoint::VoiceChannel"
 	Properties: {
-		ApplicationId: string
-		Enabled?:      bool
+		ApplicationId: string | fn.Fn
+		Enabled?:      bool | fn.Fn
 	}
 }

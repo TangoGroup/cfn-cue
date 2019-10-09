@@ -1,115 +1,115 @@
 package ApiGateway
 
+import "github.com/TangoGroup/fn"
+
 Account :: {
 	Type: "AWS::ApiGateway::Account"
 	Properties: {
-		CloudWatchRoleArn?: string
+		CloudWatchRoleArn?: string | fn.Fn
 	}
 }
 ApiKey :: {
 	Type: "AWS::ApiGateway::ApiKey"
 	Properties: {
-		CustomerId?:         string
-		Description?:        string
-		Enabled?:            bool
-		GenerateDistinctId?: bool
-		Name?:               string
+		CustomerId?:         string | fn.Fn
+		Description?:        string | fn.Fn
+		Enabled?:            bool | fn.Fn
+		GenerateDistinctId?: bool | fn.Fn
+		Name?:               string | fn.Fn
 		StageKeys?: [...__StageKey]
-		Value?: string
+		Value?: string | fn.Fn
 	}
 	__StageKey :: {
-		RestApiId?: string
-		StageName?: string
+		RestApiId?: string | fn.Fn
+		StageName?: string | fn.Fn
 	}
 }
 Authorizer :: {
 	Type: "AWS::ApiGateway::Authorizer"
 	Properties: {
-		AuthType?:                     string
-		AuthorizerCredentials?:        string
-		AuthorizerResultTtlInSeconds?: >=0 & <=3600
-		AuthorizerResultTtlInSeconds?: int
-		AuthorizerUri?:                string
-		IdentitySource?:               string
-		IdentityValidationExpression?: string
-		Name?:                         string
-		ProviderARNs?: [...string]
-		RestApiId: string
-		Type:      "COGNITO_USER_POOLS" | "REQUEST" | "TOKEN"
-		Type:      string
+		AuthType?:                     string | fn.Fn
+		AuthorizerCredentials?:        string | fn.Fn
+		AuthorizerResultTtlInSeconds?: (int & (>=0 & <=3600)) | fn.Fn
+		AuthorizerUri?:                string | fn.Fn
+		IdentitySource?:               string | fn.Fn
+		IdentityValidationExpression?: string | fn.Fn
+		Name?:                         string | fn.Fn
+		ProviderARNs?:                 [...string] | fn.Fn
+		RestApiId:                     string | fn.Fn
+		Type:                          (string & ("COGNITO_USER_POOLS" | "REQUEST" | "TOKEN")) | fn.Fn
 	}
 }
 BasePathMapping :: {
 	Type: "AWS::ApiGateway::BasePathMapping"
 	Properties: {
-		BasePath?:  string
-		DomainName: string
-		RestApiId?: string
-		Stage?:     string
+		BasePath?:  string | fn.Fn
+		DomainName: string | fn.Fn
+		RestApiId?: string | fn.Fn
+		Stage?:     string | fn.Fn
 	}
 }
 ClientCertificate :: {
 	Type: "AWS::ApiGateway::ClientCertificate"
 	Properties: {
-		Description?: string
+		Description?: string | fn.Fn
 	}
 }
 Deployment :: {
 	Type: "AWS::ApiGateway::Deployment"
 	Properties: {
 		DeploymentCanarySettings?: __DeploymentCanarySettings
-		Description?:              string
-		RestApiId:                 string
+		Description?:              string | fn.Fn
+		RestApiId:                 string | fn.Fn
 		StageDescription?:         __StageDescription
-		StageName?:                string
+		StageName?:                string | fn.Fn
 	}
 	__AccessLogSetting :: {
-		DestinationArn?: string
-		Format?:         string
+		DestinationArn?: string | fn.Fn
+		Format?:         string | fn.Fn
 	}
 	__CanarySetting :: {
-		PercentTraffic?: float
+		PercentTraffic?: float | fn.Fn
 		StageVariableOverrides?: {
 		}
-		UseStageCache?: bool
+		UseStageCache?: bool | fn.Fn
 	}
 	__DeploymentCanarySettings :: {
-		PercentTraffic?: float
+		PercentTraffic?: float | fn.Fn
 		StageVariableOverrides?: {
 		}
-		UseStageCache?: bool
+		UseStageCache?: bool | fn.Fn
 	}
 	__MethodSetting :: {
-		CacheDataEncrypted?:   bool
-		CacheTtlInSeconds?:    int
-		CachingEnabled?:       bool
-		DataTraceEnabled?:     bool
-		HttpMethod?:           string
-		LoggingLevel?:         string
-		MetricsEnabled?:       bool
-		ResourcePath?:         string
-		ThrottlingBurstLimit?: int
-		ThrottlingRateLimit?:  float
+		CacheDataEncrypted?:   bool | fn.Fn
+		CacheTtlInSeconds?:    int | fn.Fn
+		CachingEnabled?:       bool | fn.Fn
+		DataTraceEnabled?:     bool | fn.Fn
+		HttpMethod?:           string | fn.Fn
+		LoggingLevel?:         string | fn.Fn
+		MetricsEnabled?:       bool | fn.Fn
+		ResourcePath?:         string | fn.Fn
+		ThrottlingBurstLimit?: int | fn.Fn
+		ThrottlingRateLimit?:  float | fn.Fn
 	}
 	__StageDescription :: {
 		AccessLogSetting?:     __AccessLogSetting
-		CacheClusterEnabled?:  bool
-		CacheClusterSize?:     string
-		CacheDataEncrypted?:   bool
-		CacheTtlInSeconds?:    int
-		CachingEnabled?:       bool
+		CacheClusterEnabled?:  bool | fn.Fn
+		CacheClusterSize?:     string | fn.Fn
+		CacheDataEncrypted?:   bool | fn.Fn
+		CacheTtlInSeconds?:    int | fn.Fn
+		CachingEnabled?:       bool | fn.Fn
 		CanarySetting?:        __CanarySetting
-		ClientCertificateId?:  string
-		DataTraceEnabled?:     bool
-		Description?:          string
-		DocumentationVersion?: string
-		LoggingLevel?:         string
+		ClientCertificateId?:  string | fn.Fn
+		DataTraceEnabled?:     bool | fn.Fn
+		Description?:          string | fn.Fn
+		DocumentationVersion?: string | fn.Fn
+		LoggingLevel?:         string | fn.Fn
 		MethodSettings?: [...__MethodSetting]
-		MetricsEnabled?: bool
+		MetricsEnabled?: bool | fn.Fn
 		Tags?: [...__Tag]
-		ThrottlingBurstLimit?: int
-		ThrottlingRateLimit?:  float
-		TracingEnabled?:       bool
+		ThrottlingBurstLimit?: int | fn.Fn
+		ThrottlingRateLimit?:  float | fn.Fn
+		TracingEnabled?:       bool | fn.Fn
 		Variables?: {
 		}
 	}
@@ -118,35 +118,35 @@ DocumentationPart :: {
 	Type: "AWS::ApiGateway::DocumentationPart"
 	Properties: {
 		Location:   __Location
-		Properties: string
-		RestApiId:  string
+		Properties: string | fn.Fn
+		RestApiId:  string | fn.Fn
 	}
 	__Location :: {
-		Method?:     string
-		Name?:       string
-		Path?:       string
-		StatusCode?: string
-		Type?:       string
+		Method?:     string | fn.Fn
+		Name?:       string | fn.Fn
+		Path?:       string | fn.Fn
+		StatusCode?: string | fn.Fn
+		Type?:       string | fn.Fn
 	}
 }
 DocumentationVersion :: {
 	Type: "AWS::ApiGateway::DocumentationVersion"
 	Properties: {
-		Description?:         string
-		DocumentationVersion: string
-		RestApiId:            string
+		Description?:         string | fn.Fn
+		DocumentationVersion: string | fn.Fn
+		RestApiId:            string | fn.Fn
 	}
 }
 DomainName :: {
 	Type: "AWS::ApiGateway::DomainName"
 	Properties: {
-		CertificateArn?:         string
-		DomainName:              string
+		CertificateArn?:         string | fn.Fn
+		DomainName:              string | fn.Fn
 		EndpointConfiguration?:  __EndpointConfiguration
-		RegionalCertificateArn?: string
+		RegionalCertificateArn?: string | fn.Fn
 	}
 	__EndpointConfiguration :: {
-		Types?: [...string]
+		Types?: [...string] | fn.Fn
 	}
 }
 GatewayResponse :: {
@@ -156,206 +156,203 @@ GatewayResponse :: {
 		}
 		ResponseTemplates?: {
 		}
-		ResponseType: "ACCESS_DENIED" | "API_CONFIGURATION_ERROR" | "AUTHORIZER_FAILURE" | "AUTHORIZER_CONFIGURATION_ERROR" | "BAD_REQUEST_PARAMETERS" | "BAD_REQUEST_BODY" | "DEFAULT_4XX" | "DEFAULT_5XX" | "EXPIRED_TOKEN" | "INVALID_SIGNATURE" | "INTEGRATION_FAILURE" | "INTEGRATION_TIMEOUT" | "INVALID_API_KEY" | "MISSING_AUTHENTICATION_TOKEN" | "QUOTA_EXCEEDED" | "REQUEST_TOO_LARGE" | "RESOURCE_NOT_FOUND" | "THROTTLED" | "UNAUTHORIZED" | "UNSUPPORTED_MEDIA_TYPE"
-		ResponseType: string
-		RestApiId:    string
-		StatusCode?:  string
+		ResponseType: (string & ("ACCESS_DENIED" | "API_CONFIGURATION_ERROR" | "AUTHORIZER_FAILURE" | "AUTHORIZER_CONFIGURATION_ERROR" | "BAD_REQUEST_PARAMETERS" | "BAD_REQUEST_BODY" | "DEFAULT_4XX" | "DEFAULT_5XX" | "EXPIRED_TOKEN" | "INVALID_SIGNATURE" | "INTEGRATION_FAILURE" | "INTEGRATION_TIMEOUT" | "INVALID_API_KEY" | "MISSING_AUTHENTICATION_TOKEN" | "QUOTA_EXCEEDED" | "REQUEST_TOO_LARGE" | "RESOURCE_NOT_FOUND" | "THROTTLED" | "UNAUTHORIZED" | "UNSUPPORTED_MEDIA_TYPE")) | fn.Fn
+		RestApiId:    string | fn.Fn
+		StatusCode?:  string | fn.Fn
 	}
 }
 Method :: {
 	Type: "AWS::ApiGateway::Method"
 	Properties: {
-		ApiKeyRequired?: bool
-		AuthorizationScopes?: [...string]
-		AuthorizationType?: string
-		AuthorizerId?:      string
-		HttpMethod:         string
-		Integration?:       __Integration
+		ApiKeyRequired?:      bool | fn.Fn
+		AuthorizationScopes?: [...string] | fn.Fn
+		AuthorizationType?:   string | fn.Fn
+		AuthorizerId?:        string | fn.Fn
+		HttpMethod:           string | fn.Fn
+		Integration?:         __Integration
 		MethodResponses?: [...__MethodResponse]
-		OperationName?: string
+		OperationName?: string | fn.Fn
 		RequestModels?: {
 		}
 		RequestParameters?: {
 		}
-		RequestValidatorId?: string
-		ResourceId:          string
-		RestApiId:           string
+		RequestValidatorId?: string | fn.Fn
+		ResourceId:          string | fn.Fn
+		RestApiId:           string | fn.Fn
 	}
 	__Integration :: {
-		CacheKeyParameters?: [...string]
-		CacheNamespace?:        string
-		ConnectionId?:          string
-		ConnectionType?:        string
-		ContentHandling?:       string
-		Credentials?:           string
-		IntegrationHttpMethod?: string
+		CacheKeyParameters?:    [...string] | fn.Fn
+		CacheNamespace?:        string | fn.Fn
+		ConnectionId?:          string | fn.Fn
+		ConnectionType?:        string | fn.Fn
+		ContentHandling?:       string | fn.Fn
+		Credentials?:           string | fn.Fn
+		IntegrationHttpMethod?: string | fn.Fn
 		IntegrationResponses?: [...__IntegrationResponse]
-		PassthroughBehavior?: string
+		PassthroughBehavior?: string | fn.Fn
 		RequestParameters?: {
 		}
 		RequestTemplates?: {
 		}
-		TimeoutInMillis?: int
-		Type?:            string
-		Uri?:             string
+		TimeoutInMillis?: int | fn.Fn
+		Type?:            string | fn.Fn
+		Uri?:             string | fn.Fn
 	}
 	__IntegrationResponse :: {
-		ContentHandling?: string
+		ContentHandling?: string | fn.Fn
 		ResponseParameters?: {
 		}
 		ResponseTemplates?: {
 		}
-		SelectionPattern?: string
-		StatusCode:        string
+		SelectionPattern?: string | fn.Fn
+		StatusCode:        string | fn.Fn
 	}
 	__MethodResponse :: {
 		ResponseModels?: {
 		}
 		ResponseParameters?: {
 		}
-		StatusCode: string
+		StatusCode: string | fn.Fn
 	}
 }
 Model :: {
 	Type: "AWS::ApiGateway::Model"
 	Properties: {
-		ContentType?: string
-		Description?: string
-		Name?:        string
-		RestApiId:    string
-		Schema?: {
-		}
+		ContentType?: string | fn.Fn
+		Description?: string | fn.Fn
+		Name?:        string | fn.Fn
+		RestApiId:    string | fn.Fn
+		Schema?:      {
+		} | fn.Fn
 	}
 }
 RequestValidator :: {
 	Type: "AWS::ApiGateway::RequestValidator"
 	Properties: {
-		Name?:                      string
-		RestApiId:                  string
-		ValidateRequestBody?:       bool
-		ValidateRequestParameters?: bool
+		Name?:                      string | fn.Fn
+		RestApiId:                  string | fn.Fn
+		ValidateRequestBody?:       bool | fn.Fn
+		ValidateRequestParameters?: bool | fn.Fn
 	}
 }
 Resource :: {
 	Type: "AWS::ApiGateway::Resource"
 	Properties: {
-		ParentId:  string
-		PathPart:  string
-		RestApiId: string
+		ParentId:  string | fn.Fn
+		PathPart:  string | fn.Fn
+		RestApiId: string | fn.Fn
 	}
 }
 RestApi :: {
 	Type: "AWS::ApiGateway::RestApi"
 	Properties: {
-		ApiKeySourceType?: "AUTHORIZER" | "HEADER"
-		ApiKeySourceType?: string
-		BinaryMediaTypes?: [...string]
-		Body?: {
-		}
+		ApiKeySourceType?: (string & ("AUTHORIZER" | "HEADER")) | fn.Fn
+		BinaryMediaTypes?: [...string] | fn.Fn
+		Body?:             {
+		} | fn.Fn
 		BodyS3Location?:         __S3Location
-		CloneFrom?:              string
-		Description?:            string
+		CloneFrom?:              string | fn.Fn
+		Description?:            string | fn.Fn
 		EndpointConfiguration?:  __EndpointConfiguration
-		FailOnWarnings?:         bool
-		MinimumCompressionSize?: int
-		Name?:                   string
+		FailOnWarnings?:         bool | fn.Fn
+		MinimumCompressionSize?: int | fn.Fn
+		Name?:                   string | fn.Fn
 		Parameters?: {
 		}
 		Policy?: {
-		}
+		} | fn.Fn
 	}
 	__EndpointConfiguration :: {
-		Types?: [...string]
+		Types?: [...string] | fn.Fn
 	}
 	__S3Location :: {
-		Bucket?:  string
-		ETag?:    string
-		Key?:     string
-		Version?: string
+		Bucket?:  string | fn.Fn
+		ETag?:    string | fn.Fn
+		Key?:     string | fn.Fn
+		Version?: string | fn.Fn
 	}
 }
 Stage :: {
 	Type: "AWS::ApiGateway::Stage"
 	Properties: {
 		AccessLogSetting?:     __AccessLogSetting
-		CacheClusterEnabled?:  bool
-		CacheClusterSize?:     string
+		CacheClusterEnabled?:  bool | fn.Fn
+		CacheClusterSize?:     string | fn.Fn
 		CanarySetting?:        __CanarySetting
-		ClientCertificateId?:  string
-		DeploymentId?:         string
-		Description?:          string
-		DocumentationVersion?: string
+		ClientCertificateId?:  string | fn.Fn
+		DeploymentId?:         string | fn.Fn
+		Description?:          string | fn.Fn
+		DocumentationVersion?: string | fn.Fn
 		MethodSettings?: [...__MethodSetting]
-		RestApiId:  string
-		StageName?: string
+		RestApiId:  string | fn.Fn
+		StageName?: string | fn.Fn
 		Tags?: [...__Tag]
-		TracingEnabled?: bool
+		TracingEnabled?: bool | fn.Fn
 		Variables?: {
 		}
 	}
 	__AccessLogSetting :: {
-		DestinationArn?: string
-		Format?:         string
+		DestinationArn?: string | fn.Fn
+		Format?:         string | fn.Fn
 	}
 	__CanarySetting :: {
-		DeploymentId?:   string
-		PercentTraffic?: float
+		DeploymentId?:   string | fn.Fn
+		PercentTraffic?: float | fn.Fn
 		StageVariableOverrides?: {
 		}
-		UseStageCache?: bool
+		UseStageCache?: bool | fn.Fn
 	}
 	__MethodSetting :: {
-		CacheDataEncrypted?:   bool
-		CacheTtlInSeconds?:    int
-		CachingEnabled?:       bool
-		DataTraceEnabled?:     bool
-		HttpMethod?:           string
-		LoggingLevel?:         string
-		MetricsEnabled?:       bool
-		ResourcePath?:         string
-		ThrottlingBurstLimit?: int
-		ThrottlingRateLimit?:  float
+		CacheDataEncrypted?:   bool | fn.Fn
+		CacheTtlInSeconds?:    int | fn.Fn
+		CachingEnabled?:       bool | fn.Fn
+		DataTraceEnabled?:     bool | fn.Fn
+		HttpMethod?:           string | fn.Fn
+		LoggingLevel?:         string | fn.Fn
+		MetricsEnabled?:       bool | fn.Fn
+		ResourcePath?:         string | fn.Fn
+		ThrottlingBurstLimit?: int | fn.Fn
+		ThrottlingRateLimit?:  float | fn.Fn
 	}
 }
 UsagePlan :: {
 	Type: "AWS::ApiGateway::UsagePlan"
 	Properties: {
 		ApiStages?: [...__ApiStage]
-		Description?:   string
+		Description?:   string | fn.Fn
 		Quota?:         __QuotaSettings
 		Throttle?:      __ThrottleSettings
-		UsagePlanName?: string
+		UsagePlanName?: string | fn.Fn
 	}
 	__ApiStage :: {
-		ApiId?: string
-		Stage?: string
+		ApiId?: string | fn.Fn
+		Stage?: string | fn.Fn
 		Throttle?: {
 		}
 	}
 	__QuotaSettings :: {
-		Limit?:  int
-		Offset?: int
-		Period?: string
+		Limit?:  int | fn.Fn
+		Offset?: int | fn.Fn
+		Period?: string | fn.Fn
 	}
 	__ThrottleSettings :: {
-		BurstLimit?: int
-		RateLimit?:  float
+		BurstLimit?: int | fn.Fn
+		RateLimit?:  float | fn.Fn
 	}
 }
 UsagePlanKey :: {
 	Type: "AWS::ApiGateway::UsagePlanKey"
 	Properties: {
-		KeyId:       string
-		KeyType:     "API_KEY"
-		KeyType:     string
-		UsagePlanId: string
+		KeyId:       string | fn.Fn
+		KeyType:     (string & ("API_KEY")) | fn.Fn
+		UsagePlanId: string | fn.Fn
 	}
 }
 VpcLink :: {
 	Type: "AWS::ApiGateway::VpcLink"
 	Properties: {
-		Description?: string
-		Name:         string
-		TargetArns: [...string]
+		Description?: string | fn.Fn
+		Name:         string | fn.Fn
+		TargetArns:   [...string] | fn.Fn
 	}
 }

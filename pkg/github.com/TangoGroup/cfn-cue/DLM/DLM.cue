@@ -1,37 +1,37 @@
 package DLM
 
+import "github.com/TangoGroup/fn"
+
 LifecyclePolicy :: {
 	Type: "AWS::DLM::LifecyclePolicy"
 	Properties: {
-		Description?:     string
-		ExecutionRoleArn: string
+		Description?:     string | fn.Fn
+		ExecutionRoleArn: string | fn.Fn
 		PolicyDetails?:   __PolicyDetails
-		State:            "DISABLED" | "ENABLED"
-		State:            string
+		State:            (string & ("DISABLED" | "ENABLED")) | fn.Fn
 	}
 	__CreateRule :: {
-		Interval:     int
-		IntervalUnit: string
-		Times?: [...string]
+		Interval:     int | fn.Fn
+		IntervalUnit: string | fn.Fn
+		Times?:       [...string] | fn.Fn
 	}
 	__Parameters :: {
-		ExcludeBootVolume?: bool
+		ExcludeBootVolume?: bool | fn.Fn
 	}
 	__PolicyDetails :: {
 		Parameters?:    __Parameters
-		PolicyType?:    string
-		ResourceTypes?: "INSTANCE" | "VOLUME"
-		ResourceTypes?: [...string]
+		PolicyType?:    string | fn.Fn
+		ResourceTypes?: ([...string] & ("INSTANCE" | "VOLUME")) | fn.Fn
 		Schedules?: [...__Schedule]
 		TargetTags?: [...__Tag]
 	}
 	__RetainRule :: {
-		Count: int
+		Count: int | fn.Fn
 	}
 	__Schedule :: {
-		CopyTags?:   bool
+		CopyTags?:   bool | fn.Fn
 		CreateRule?: __CreateRule
-		Name?:       string
+		Name?:       string | fn.Fn
 		RetainRule?: __RetainRule
 		TagsToAdd?: [...__Tag]
 		VariableTags?: [...__Tag]

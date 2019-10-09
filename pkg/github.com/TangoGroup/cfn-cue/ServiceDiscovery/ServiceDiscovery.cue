@@ -1,10 +1,12 @@
 package ServiceDiscovery
 
+import "github.com/TangoGroup/fn"
+
 HttpNamespace :: {
 	Type: "AWS::ServiceDiscovery::HttpNamespace"
 	Properties: {
-		Description?: string
-		Name:         string
+		Description?: string | fn.Fn
+		Name:         string | fn.Fn
 	}
 }
 Instance :: {
@@ -12,52 +14,50 @@ Instance :: {
 	Properties: {
 		InstanceAttributes: {
 		}
-		InstanceId?: string
-		ServiceId:   string
+		InstanceId?: string | fn.Fn
+		ServiceId:   string | fn.Fn
 	}
 }
 PrivateDnsNamespace :: {
 	Type: "AWS::ServiceDiscovery::PrivateDnsNamespace"
 	Properties: {
-		Description?: string
-		Name:         string
-		Vpc:          string
+		Description?: string | fn.Fn
+		Name:         string | fn.Fn
+		Vpc:          string | fn.Fn
 	}
 }
 PublicDnsNamespace :: {
 	Type: "AWS::ServiceDiscovery::PublicDnsNamespace"
 	Properties: {
-		Description?: string
-		Name:         string
+		Description?: string | fn.Fn
+		Name:         string | fn.Fn
 	}
 }
 Service :: {
 	Type: "AWS::ServiceDiscovery::Service"
 	Properties: {
-		Description?:             string
+		Description?:             string | fn.Fn
 		DnsConfig?:               __DnsConfig
 		HealthCheckConfig?:       __HealthCheckConfig
 		HealthCheckCustomConfig?: __HealthCheckCustomConfig
-		Name?:                    string
-		NamespaceId?:             string
+		Name?:                    string | fn.Fn
+		NamespaceId?:             string | fn.Fn
 	}
 	__DnsConfig :: {
 		DnsRecords: [...__DnsRecord]
-		NamespaceId?:   string
-		RoutingPolicy?: string
+		NamespaceId?:   string | fn.Fn
+		RoutingPolicy?: string | fn.Fn
 	}
 	__DnsRecord :: {
-		TTL:  float
-		Type: "A" | "AAAA" | "SRV"
-		Type: string
+		TTL:  float | fn.Fn
+		Type: (string & ("A" | "AAAA" | "SRV")) | fn.Fn
 	}
 	__HealthCheckConfig :: {
-		FailureThreshold?: float
-		ResourcePath?:     string
-		Type:              "HTTP" | "HTTPS" | "TCP"
-		Type:              string
+		FailureThreshold?: float | fn.Fn
+		ResourcePath?:     string | fn.Fn
+		Type:              (string & ("HTTP" | "HTTPS" | "TCP")) | fn.Fn
 	}
 	__HealthCheckCustomConfig :: {
-		FailureThreshold?: float
+		FailureThreshold?: float | fn.Fn
 	}
 }

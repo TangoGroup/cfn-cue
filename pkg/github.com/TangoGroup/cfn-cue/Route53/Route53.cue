@@ -1,5 +1,7 @@
 package Route53
 
+import "github.com/TangoGroup/fn"
+
 HealthCheck :: {
 	Type: "AWS::Route53::HealthCheck"
 	Properties: {
@@ -7,32 +9,30 @@ HealthCheck :: {
 		HealthCheckTags?: [...__HealthCheckTag]
 	}
 	__AlarmIdentifier :: {
-		Name:   string
-		Region: string
+		Name:   string | fn.Fn
+		Region: string | fn.Fn
 	}
 	__HealthCheckConfig :: {
-		AlarmIdentifier?: __AlarmIdentifier
-		ChildHealthChecks?: [...string]
-		EnableSNI?:                    bool
-		FailureThreshold?:             int
-		FullyQualifiedDomainName?:     string
-		HealthThreshold?:              int
-		IPAddress?:                    string
-		InsufficientDataHealthStatus?: "Healthy" | "LastKnownStatus" | "Unhealthy"
-		InsufficientDataHealthStatus?: string
-		Inverted?:                     bool
-		MeasureLatency?:               bool
-		Port?:                         int
-		Regions?: [...string]
-		RequestInterval?: int
-		ResourcePath?:    string
-		SearchString?:    string
-		Type:             "CALCULATED" | "CLOUDWATCH_METRIC" | "HTTP_STR_MATCH" | "HTTP" | "HTTPS_STR_MATCH" | "HTTPS" | "TCP"
-		Type:             string
+		AlarmIdentifier?:              __AlarmIdentifier
+		ChildHealthChecks?:            [...string] | fn.Fn
+		EnableSNI?:                    bool | fn.Fn
+		FailureThreshold?:             int | fn.Fn
+		FullyQualifiedDomainName?:     string | fn.Fn
+		HealthThreshold?:              int | fn.Fn
+		IPAddress?:                    string | fn.Fn
+		InsufficientDataHealthStatus?: (string & ("Healthy" | "LastKnownStatus" | "Unhealthy")) | fn.Fn
+		Inverted?:                     bool | fn.Fn
+		MeasureLatency?:               bool | fn.Fn
+		Port?:                         int | fn.Fn
+		Regions?:                      [...string] | fn.Fn
+		RequestInterval?:              int | fn.Fn
+		ResourcePath?:                 string | fn.Fn
+		SearchString?:                 string | fn.Fn
+		Type:                          (string & ("CALCULATED" | "CLOUDWATCH_METRIC" | "HTTP_STR_MATCH" | "HTTP" | "HTTPS_STR_MATCH" | "HTTPS" | "TCP")) | fn.Fn
 	}
 	__HealthCheckTag :: {
-		Key:   string
-		Value: string
+		Key:   string | fn.Fn
+		Value: string | fn.Fn
 	}
 }
 HostedZone :: {
@@ -40,94 +40,88 @@ HostedZone :: {
 	Properties: {
 		HostedZoneConfig?: __HostedZoneConfig
 		HostedZoneTags?: [...__HostedZoneTag]
-		Name:                string
+		Name:                string | fn.Fn
 		QueryLoggingConfig?: __QueryLoggingConfig
 		VPCs?: [...__VPC]
 	}
 	__HostedZoneConfig :: {
-		Comment?: string
+		Comment?: string | fn.Fn
 	}
 	__HostedZoneTag :: {
-		Key:   string
-		Value: string
+		Key:   string | fn.Fn
+		Value: string | fn.Fn
 	}
 	__QueryLoggingConfig :: {
-		CloudWatchLogsLogGroupArn: string
+		CloudWatchLogsLogGroupArn: string | fn.Fn
 	}
 	__VPC :: {
-		VPCId:     string
-		VPCRegion: string
+		VPCId:     string | fn.Fn
+		VPCRegion: string | fn.Fn
 	}
 }
 RecordSet :: {
 	Type: "AWS::Route53::RecordSet"
 	Properties: {
 		AliasTarget?:      __AliasTarget
-		Comment?:          string
-		Failover?:         "PRIMARY" | "SECONDARY"
-		Failover?:         string
+		Comment?:          string | fn.Fn
+		Failover?:         (string & ("PRIMARY" | "SECONDARY")) | fn.Fn
 		GeoLocation?:      __GeoLocation
-		HealthCheckId?:    string
-		HostedZoneId?:     string
-		HostedZoneName?:   string
-		MultiValueAnswer?: bool
-		Name:              string
-		Region?:           string
-		ResourceRecords?: [...string]
-		SetIdentifier?: string
-		TTL?:           string
-		Type:           "A" | "AAAA" | "CAA" | "CNAME" | "MX" | "NAPTR" | "NS" | "PTR" | "SOA" | "SPF" | "SRV" | "TXT"
-		Type:           string
-		Weight?:        int
+		HealthCheckId?:    string | fn.Fn
+		HostedZoneId?:     string | fn.Fn
+		HostedZoneName?:   string | fn.Fn
+		MultiValueAnswer?: bool | fn.Fn
+		Name:              string | fn.Fn
+		Region?:           string | fn.Fn
+		ResourceRecords?:  [...string] | fn.Fn
+		SetIdentifier?:    string | fn.Fn
+		TTL?:              string | fn.Fn
+		Type:              (string & ("A" | "AAAA" | "CAA" | "CNAME" | "MX" | "NAPTR" | "NS" | "PTR" | "SOA" | "SPF" | "SRV" | "TXT")) | fn.Fn
+		Weight?:           int | fn.Fn
 	}
 	__AliasTarget :: {
-		DNSName:               string
-		EvaluateTargetHealth?: bool
-		HostedZoneId:          string
+		DNSName:               string | fn.Fn
+		EvaluateTargetHealth?: bool | fn.Fn
+		HostedZoneId:          string | fn.Fn
 	}
 	__GeoLocation :: {
-		ContinentCode?:   "AF" | "AN" | "AS" | "EU" | "NA" | "OC" | "SA"
-		ContinentCode?:   string
-		CountryCode?:     string
-		SubdivisionCode?: string
+		ContinentCode?:   (string & ("AF" | "AN" | "AS" | "EU" | "NA" | "OC" | "SA")) | fn.Fn
+		CountryCode?:     string | fn.Fn
+		SubdivisionCode?: string | fn.Fn
 	}
 }
 RecordSetGroup :: {
 	Type: "AWS::Route53::RecordSetGroup"
 	Properties: {
-		Comment?:        string
-		HostedZoneId?:   string
-		HostedZoneName?: string
+		Comment?:        string | fn.Fn
+		HostedZoneId?:   string | fn.Fn
+		HostedZoneName?: string | fn.Fn
 		RecordSets?: [...__RecordSet]
 	}
 	__AliasTarget :: {
-		DNSName:               string
-		EvaluateTargetHealth?: bool
-		HostedZoneId:          string
+		DNSName:               string | fn.Fn
+		EvaluateTargetHealth?: bool | fn.Fn
+		HostedZoneId:          string | fn.Fn
 	}
 	__GeoLocation :: {
-		ContinentCode?:   "AF" | "AN" | "AS" | "EU" | "NA" | "OC" | "SA"
-		ContinentCode?:   string
-		CountryCode?:     string
-		SubdivisionCode?: string
+		ContinentCode?:   (string & ("AF" | "AN" | "AS" | "EU" | "NA" | "OC" | "SA")) | fn.Fn
+		CountryCode?:     string | fn.Fn
+		SubdivisionCode?: string | fn.Fn
 	}
 	__RecordSet :: {
 		AliasTarget?:      __AliasTarget
-		Comment?:          string
-		Failover?:         "PRIMARY" | "SECONDARY"
-		Failover?:         string
+		Comment?:          string | fn.Fn
+		Failover?:         (string & ("PRIMARY" | "SECONDARY")) | fn.Fn
 		GeoLocation?:      __GeoLocation
-		HealthCheckId?:    string
-		HostedZoneId?:     string
-		HostedZoneName?:   string
-		MultiValueAnswer?: bool
-		Name:              string
-		Region?:           string
-		ResourceRecords?: [...string]
-		SetIdentifier?: string
-		TTL?:           string
-		Type:           "A" | "AAAA" | "CAA" | "CNAME" | "MX" | "NAPTR" | "NS" | "PTR" | "SOA" | "SPF" | "SRV" | "TXT"
-		Type:           string
-		Weight?:        int
+		HealthCheckId?:    string | fn.Fn
+		HostedZoneId?:     string | fn.Fn
+		HostedZoneName?:   string | fn.Fn
+		MultiValueAnswer?: bool | fn.Fn
+		Name:              string | fn.Fn
+		Region?:           string | fn.Fn
+		ResourceRecords?:  [...string] | fn.Fn
+		SetIdentifier?:    string | fn.Fn
+		TTL?:              string | fn.Fn
+		Type:              (string & ("A" | "AAAA" | "CAA" | "CNAME" | "MX" | "NAPTR" | "NS" | "PTR" | "SOA" | "SPF" | "SRV" | "TXT")) | fn.Fn
+		Weight?:           int | fn.Fn
 	}
 }

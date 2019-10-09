@@ -1,76 +1,73 @@
 package GuardDuty
 
+import "github.com/TangoGroup/fn"
+
 Detector :: {
 	Type: "AWS::GuardDuty::Detector"
 	Properties: {
-		Enable:                      bool
-		FindingPublishingFrequency?: "FIFTEEN_MINUTES" | "ONE_HOUR" | "SIX_HOURS"
-		FindingPublishingFrequency?: string
+		Enable:                      bool | fn.Fn
+		FindingPublishingFrequency?: (string & ("FIFTEEN_MINUTES" | "ONE_HOUR" | "SIX_HOURS")) | fn.Fn
 	}
 }
 Filter :: {
 	Type: "AWS::GuardDuty::Filter"
 	Properties: {
-		Action:          "ARCHIVE" | "NOOP"
-		Action:          string
-		Description:     string
-		DetectorId:      string
+		Action:          (string & ("ARCHIVE" | "NOOP")) | fn.Fn
+		Description:     string | fn.Fn
+		DetectorId:      string | fn.Fn
 		FindingCriteria: __FindingCriteria
-		Name?:           string
-		Rank:            int
+		Name?:           string | fn.Fn
+		Rank:            int | fn.Fn
 	}
 	__Condition :: {
-		Eq?: [...string]
-		Gte?: int
-		Lt?:  int
-		Lte?: int
-		Neq?: [...string]
+		Eq?:  [...string] | fn.Fn
+		Gte?: int | fn.Fn
+		Lt?:  int | fn.Fn
+		Lte?: int | fn.Fn
+		Neq?: [...string] | fn.Fn
 	}
 	__FindingCriteria :: {
 		Criterion?: {
-		}
+		} | fn.Fn
 		ItemType?: __Condition
 	}
 }
 IPSet :: {
 	Type: "AWS::GuardDuty::IPSet"
 	Properties: {
-		Activate:   bool
-		DetectorId: string
-		Format:     "OTX_CSV" | "STIX" | "TXT"
-		Format:     string
-		Location:   string
-		Name?:      string
+		Activate:   bool | fn.Fn
+		DetectorId: string | fn.Fn
+		Format:     (string & ("OTX_CSV" | "STIX" | "TXT")) | fn.Fn
+		Location:   string | fn.Fn
+		Name?:      string | fn.Fn
 	}
 }
 Master :: {
 	Type: "AWS::GuardDuty::Master"
 	Properties: {
-		DetectorId:    string
-		InvitationId?: string
-		MasterId:      string
+		DetectorId:    string | fn.Fn
+		InvitationId?: string | fn.Fn
+		MasterId:      string | fn.Fn
 	}
 }
 Member :: {
 	Type: "AWS::GuardDuty::Member"
 	Properties: {
-		DetectorId:                string
-		DisableEmailNotification?: bool
-		Email:                     string
-		MemberId:                  string
-		Message?:                  string
-		Status?:                   "Created" | "Disabled" | "Enabled" | "Invited" | "Removed" | "Resigned"
-		Status?:                   string
+		DetectorId:                string | fn.Fn
+		DisableEmailNotification?: bool | fn.Fn
+		Email:                     string | fn.Fn
+		MemberId:                  string | fn.Fn
+		Message?:                  string | fn.Fn
+		Status?:                   (string & ("Created" | "Disabled" | "Enabled" | "Invited" | "Removed" | "Resigned")) | fn.Fn
 	}
 }
 ThreatIntelSet :: {
 	Type: "AWS::GuardDuty::ThreatIntelSet"
 	Properties: {
-		Activate:   bool
-		DetectorId: string
-		Format:     "ALIEN_VAULT" | "FIRE_EYE" | "OTX_CSV" | "PROOF_POINT" | "STIX" | "TXT"
-		Format:     string
-		Location:   string
-		Name?:      string
+		Activate:   bool | fn.Fn
+		DetectorId: string | fn.Fn
+		Format:     (string & ("ALIEN_VAULT" | "FIRE_EYE" | "OTX_CSV" | "PROOF_POINT" | "STIX" | "TXT")) | fn.Fn
+		Location:   string | fn.Fn
+		Name?:      string | fn.Fn
 	}
 }

@@ -1,35 +1,37 @@
 package SES
 
+import "github.com/TangoGroup/fn"
+
 ConfigurationSet :: {
 	Type: "AWS::SES::ConfigurationSet"
 	Properties: {
-		Name?: string
+		Name?: string | fn.Fn
 	}
 }
 ConfigurationSetEventDestination :: {
 	Type: "AWS::SES::ConfigurationSetEventDestination"
 	Properties: {
-		ConfigurationSetName: string
+		ConfigurationSetName: string | fn.Fn
 		EventDestination:     __EventDestination
 	}
 	__CloudWatchDestination :: {
 		DimensionConfigurations?: [...__DimensionConfiguration]
 	}
 	__DimensionConfiguration :: {
-		DefaultDimensionValue: string
-		DimensionName:         string
-		DimensionValueSource:  string
+		DefaultDimensionValue: string | fn.Fn
+		DimensionName:         string | fn.Fn
+		DimensionValueSource:  string | fn.Fn
 	}
 	__EventDestination :: {
 		CloudWatchDestination?:      __CloudWatchDestination
-		Enabled?:                    bool
+		Enabled?:                    bool | fn.Fn
 		KinesisFirehoseDestination?: __KinesisFirehoseDestination
-		MatchingEventTypes: [...string]
-		Name?: string
+		MatchingEventTypes:          [...string] | fn.Fn
+		Name?:                       string | fn.Fn
 	}
 	__KinesisFirehoseDestination :: {
-		DeliveryStreamARN: string
-		IAMRoleARN:        string
+		DeliveryStreamARN: string | fn.Fn
+		IAMRoleARN:        string | fn.Fn
 	}
 }
 ReceiptFilter :: {
@@ -39,19 +41,19 @@ ReceiptFilter :: {
 	}
 	__Filter :: {
 		IpFilter: __IpFilter
-		Name?:    string
+		Name?:    string | fn.Fn
 	}
 	__IpFilter :: {
-		Cidr:   string
-		Policy: string
+		Cidr:   string | fn.Fn
+		Policy: string | fn.Fn
 	}
 }
 ReceiptRule :: {
 	Type: "AWS::SES::ReceiptRule"
 	Properties: {
-		After?:      string
+		After?:      string | fn.Fn
 		Rule:        __Rule
-		RuleSetName: string
+		RuleSetName: string | fn.Fn
 	}
 	__Action :: {
 		AddHeaderAction?: __AddHeaderAction
@@ -63,53 +65,52 @@ ReceiptRule :: {
 		WorkmailAction?:  __WorkmailAction
 	}
 	__AddHeaderAction :: {
-		HeaderName:  string
-		HeaderValue: string
+		HeaderName:  string | fn.Fn
+		HeaderValue: string | fn.Fn
 	}
 	__BounceAction :: {
-		Message:       string
-		Sender:        string
-		SmtpReplyCode: string
-		StatusCode?:   string
-		TopicArn?:     string
+		Message:       string | fn.Fn
+		Sender:        string | fn.Fn
+		SmtpReplyCode: string | fn.Fn
+		StatusCode?:   string | fn.Fn
+		TopicArn?:     string | fn.Fn
 	}
 	__LambdaAction :: {
-		FunctionArn:     string
-		InvocationType?: string
-		TopicArn?:       string
+		FunctionArn:     string | fn.Fn
+		InvocationType?: string | fn.Fn
+		TopicArn?:       string | fn.Fn
 	}
 	__Rule :: {
 		Actions?: [...__Action]
-		Enabled?: bool
-		Name?:    string
-		Recipients?: [...string]
-		ScanEnabled?: bool
-		TlsPolicy?:   "Optional" | "Require"
-		TlsPolicy?:   string
+		Enabled?:     bool | fn.Fn
+		Name?:        string | fn.Fn
+		Recipients?:  [...string] | fn.Fn
+		ScanEnabled?: bool | fn.Fn
+		TlsPolicy?:   (string & ("Optional" | "Require")) | fn.Fn
 	}
 	__S3Action :: {
-		BucketName:       string
-		KmsKeyArn?:       string
-		ObjectKeyPrefix?: string
-		TopicArn?:        string
+		BucketName:       string | fn.Fn
+		KmsKeyArn?:       string | fn.Fn
+		ObjectKeyPrefix?: string | fn.Fn
+		TopicArn?:        string | fn.Fn
 	}
 	__SNSAction :: {
-		Encoding?: string
-		TopicArn?: string
+		Encoding?: string | fn.Fn
+		TopicArn?: string | fn.Fn
 	}
 	__StopAction :: {
-		Scope:     string
-		TopicArn?: string
+		Scope:     string | fn.Fn
+		TopicArn?: string | fn.Fn
 	}
 	__WorkmailAction :: {
-		OrganizationArn: string
-		TopicArn?:       string
+		OrganizationArn: string | fn.Fn
+		TopicArn?:       string | fn.Fn
 	}
 }
 ReceiptRuleSet :: {
 	Type: "AWS::SES::ReceiptRuleSet"
 	Properties: {
-		RuleSetName?: string
+		RuleSetName?: string | fn.Fn
 	}
 }
 Template :: {
@@ -118,9 +119,9 @@ Template :: {
 		Template?: __Template
 	}
 	__Template :: {
-		HtmlPart?:     string
-		SubjectPart?:  string
-		TemplateName?: string
-		TextPart?:     string
+		HtmlPart?:     string | fn.Fn
+		SubjectPart?:  string | fn.Fn
+		TemplateName?: string | fn.Fn
+		TextPart?:     string | fn.Fn
 	}
 }

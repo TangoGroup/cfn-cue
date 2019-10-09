@@ -1,32 +1,34 @@
 package IoT
 
+import "github.com/TangoGroup/fn"
+
 Certificate :: {
 	Type: "AWS::IoT::Certificate"
 	Properties: {
-		CertificateSigningRequest: string
-		Status:                    string
+		CertificateSigningRequest: string | fn.Fn
+		Status:                    string | fn.Fn
 	}
 }
 Policy :: {
 	Type: "AWS::IoT::Policy"
 	Properties: {
 		PolicyDocument: {
-		}
-		PolicyName?: string
+		} | fn.Fn
+		PolicyName?: string | fn.Fn
 	}
 }
 PolicyPrincipalAttachment :: {
 	Type: "AWS::IoT::PolicyPrincipalAttachment"
 	Properties: {
-		PolicyName: string
-		Principal:  string
+		PolicyName: string | fn.Fn
+		Principal:  string | fn.Fn
 	}
 }
 Thing :: {
 	Type: "AWS::IoT::Thing"
 	Properties: {
 		AttributePayload?: __AttributePayload
-		ThingName?:        string
+		ThingName?:        string | fn.Fn
 	}
 	__AttributePayload :: {
 		Attributes?: {
@@ -36,14 +38,14 @@ Thing :: {
 ThingPrincipalAttachment :: {
 	Type: "AWS::IoT::ThingPrincipalAttachment"
 	Properties: {
-		Principal: string
-		ThingName: string
+		Principal: string | fn.Fn
+		ThingName: string | fn.Fn
 	}
 }
 TopicRule :: {
 	Type: "AWS::IoT::TopicRule"
 	Properties: {
-		RuleName?:        string
+		RuleName?:        string | fn.Fn
 		TopicRulePayload: __TopicRulePayload
 	}
 	__Action :: {
@@ -63,91 +65,91 @@ TopicRule :: {
 		StepFunctions?:    __StepFunctionsAction
 	}
 	__CloudwatchAlarmAction :: {
-		AlarmName:   string
-		RoleArn:     string
-		StateReason: string
-		StateValue:  string
+		AlarmName:   string | fn.Fn
+		RoleArn:     string | fn.Fn
+		StateReason: string | fn.Fn
+		StateValue:  string | fn.Fn
 	}
 	__CloudwatchMetricAction :: {
-		MetricName:       string
-		MetricNamespace:  string
-		MetricTimestamp?: string
-		MetricUnit:       string
-		MetricValue:      string
-		RoleArn:          string
+		MetricName:       string | fn.Fn
+		MetricNamespace:  string | fn.Fn
+		MetricTimestamp?: string | fn.Fn
+		MetricUnit:       string | fn.Fn
+		MetricValue:      string | fn.Fn
+		RoleArn:          string | fn.Fn
 	}
 	__DynamoDBAction :: {
-		HashKeyField:   string
-		HashKeyType?:   string
-		HashKeyValue:   string
-		PayloadField?:  string
-		RangeKeyField?: string
-		RangeKeyType?:  string
-		RangeKeyValue?: string
-		RoleArn:        string
-		TableName:      string
+		HashKeyField:   string | fn.Fn
+		HashKeyType?:   string | fn.Fn
+		HashKeyValue:   string | fn.Fn
+		PayloadField?:  string | fn.Fn
+		RangeKeyField?: string | fn.Fn
+		RangeKeyType?:  string | fn.Fn
+		RangeKeyValue?: string | fn.Fn
+		RoleArn:        string | fn.Fn
+		TableName:      string | fn.Fn
 	}
 	__DynamoDBv2Action :: {
 		PutItem?: __PutItemInput
-		RoleArn?: string
+		RoleArn?: string | fn.Fn
 	}
 	__ElasticsearchAction :: {
-		Endpoint: string
-		Id:       string
-		Index:    string
-		RoleArn:  string
-		Type:     string
+		Endpoint: string | fn.Fn
+		Id:       string | fn.Fn
+		Index:    string | fn.Fn
+		RoleArn:  string | fn.Fn
+		Type:     string | fn.Fn
 	}
 	__FirehoseAction :: {
-		DeliveryStreamName: string
-		RoleArn:            string
-		Separator?:         string
+		DeliveryStreamName: string | fn.Fn
+		RoleArn:            string | fn.Fn
+		Separator?:         string | fn.Fn
 	}
 	__IotAnalyticsAction :: {
-		ChannelName: string
-		RoleArn:     string
+		ChannelName: string | fn.Fn
+		RoleArn:     string | fn.Fn
 	}
 	__KinesisAction :: {
-		PartitionKey?: string
-		RoleArn:       string
-		StreamName:    string
+		PartitionKey?: string | fn.Fn
+		RoleArn:       string | fn.Fn
+		StreamName:    string | fn.Fn
 	}
 	__LambdaAction :: {
-		FunctionArn?: string
+		FunctionArn?: string | fn.Fn
 	}
 	__PutItemInput :: {
-		TableName: string
+		TableName: string | fn.Fn
 	}
 	__RepublishAction :: {
-		RoleArn: string
-		Topic:   string
+		RoleArn: string | fn.Fn
+		Topic:   string | fn.Fn
 	}
 	__S3Action :: {
-		BucketName: string
-		Key:        string
-		RoleArn:    string
+		BucketName: string | fn.Fn
+		Key:        string | fn.Fn
+		RoleArn:    string | fn.Fn
 	}
 	__SnsAction :: {
-		MessageFormat?: string
-		RoleArn:        string
-		TargetArn:      string
+		MessageFormat?: string | fn.Fn
+		RoleArn:        string | fn.Fn
+		TargetArn:      string | fn.Fn
 	}
 	__SqsAction :: {
-		QueueUrl:   string
-		RoleArn:    string
-		UseBase64?: bool
+		QueueUrl:   string | fn.Fn
+		RoleArn:    string | fn.Fn
+		UseBase64?: bool | fn.Fn
 	}
 	__StepFunctionsAction :: {
-		ExecutionNamePrefix?: string
-		RoleArn:              string
-		StateMachineName:     string
+		ExecutionNamePrefix?: string | fn.Fn
+		RoleArn:              string | fn.Fn
+		StateMachineName:     string | fn.Fn
 	}
 	__TopicRulePayload :: {
 		Actions: [...__Action]
-		AwsIotSqlVersion?: string
-		Description?:      string
+		AwsIotSqlVersion?: string | fn.Fn
+		Description?:      string | fn.Fn
 		ErrorAction?:      __Action
-		RuleDisabled:      bool
-		Sql:               string
+		RuleDisabled:      bool | fn.Fn
+		Sql:               string | fn.Fn
 	}
 }

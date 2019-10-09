@@ -1,31 +1,33 @@
 package MediaLive
 
+import "github.com/TangoGroup/fn"
+
 Channel :: {
 	Type: "AWS::MediaLive::Channel"
 	Properties: {
-		ChannelClass?: string
+		ChannelClass?: string | fn.Fn
 		Destinations?: [...__OutputDestination]
 		EncoderSettings?: {
-		}
+		} | fn.Fn
 		InputAttachments?: [...__InputAttachment]
 		InputSpecification?: __InputSpecification
-		LogLevel?:           string
-		Name?:               string
-		RoleArn?:            string
-		Tags?: {
-		}
+		LogLevel?:           string | fn.Fn
+		Name?:               string | fn.Fn
+		RoleArn?:            string | fn.Fn
+		Tags?:               {
+		} | fn.Fn
 	}
 	__AribSourceSettings :: {
 	}
 	__AudioLanguageSelection :: {
-		LanguageCode?:            string
-		LanguageSelectionPolicy?: string
+		LanguageCode?:            string | fn.Fn
+		LanguageSelectionPolicy?: string | fn.Fn
 	}
 	__AudioPidSelection :: {
-		Pid?: int
+		Pid?: int | fn.Fn
 	}
 	__AudioSelector :: {
-		Name?:             string
+		Name?:             string | fn.Fn
 		SelectorSettings?: __AudioSelectorSettings
 	}
 	__AudioSelectorSettings :: {
@@ -33,8 +35,8 @@ Channel :: {
 		AudioPidSelection?:      __AudioPidSelection
 	}
 	__CaptionSelector :: {
-		LanguageCode?:     string
-		Name?:             string
+		LanguageCode?:     string | fn.Fn
+		Name?:             string | fn.Fn
 		SelectorSettings?: __CaptionSelectorSettings
 	}
 	__CaptionSelectorSettings :: {
@@ -46,79 +48,79 @@ Channel :: {
 		TeletextSourceSettings?: __TeletextSourceSettings
 	}
 	__DvbSubSourceSettings :: {
-		Pid?: int
+		Pid?: int | fn.Fn
 	}
 	__EmbeddedSourceSettings :: {
-		Convert608To708?:        string
-		Scte20Detection?:        string
-		Source608ChannelNumber?: int
-		Source608TrackNumber?:   int
+		Convert608To708?:        string | fn.Fn
+		Scte20Detection?:        string | fn.Fn
+		Source608ChannelNumber?: int | fn.Fn
+		Source608TrackNumber?:   int | fn.Fn
 	}
 	__HlsInputSettings :: {
-		Bandwidth?:      int
-		BufferSegments?: int
-		Retries?:        int
-		RetryInterval?:  int
+		Bandwidth?:      int | fn.Fn
+		BufferSegments?: int | fn.Fn
+		Retries?:        int | fn.Fn
+		RetryInterval?:  int | fn.Fn
 	}
 	__InputAttachment :: {
-		InputAttachmentName?: string
-		InputId?:             string
+		InputAttachmentName?: string | fn.Fn
+		InputId?:             string | fn.Fn
 		InputSettings?:       __InputSettings
 	}
 	__InputSettings :: {
 		AudioSelectors?: [...__AudioSelector]
 		CaptionSelectors?: [...__CaptionSelector]
-		DeblockFilter?:        string
-		DenoiseFilter?:        string
-		FilterStrength?:       int
-		InputFilter?:          string
+		DeblockFilter?:        string | fn.Fn
+		DenoiseFilter?:        string | fn.Fn
+		FilterStrength?:       int | fn.Fn
+		InputFilter?:          string | fn.Fn
 		NetworkInputSettings?: __NetworkInputSettings
-		SourceEndBehavior?:    string
+		SourceEndBehavior?:    string | fn.Fn
 		VideoSelector?:        __VideoSelector
 	}
 	__InputSpecification :: {
-		Codec?:          string
-		MaximumBitrate?: string
-		Resolution?:     string
+		Codec?:          string | fn.Fn
+		MaximumBitrate?: string | fn.Fn
+		Resolution?:     string | fn.Fn
 	}
 	__MediaPackageOutputDestinationSettings :: {
-		ChannelId?: string
+		ChannelId?: string | fn.Fn
 	}
 	__NetworkInputSettings :: {
 		HlsInputSettings?: __HlsInputSettings
-		ServerValidation?: string
+		ServerValidation?: string | fn.Fn
 	}
 	__OutputDestination :: {
-		Id?: string
+		Id?: string | fn.Fn
 		MediaPackageSettings?: [...__MediaPackageOutputDestinationSettings]
 		Settings?: [...__OutputDestinationSettings]
 	}
 	__OutputDestinationSettings :: {
-		PasswordParam?: string
-		StreamName?:    string
-		Url?:           string
-		Username?:      string
+		PasswordParam?: string | fn.Fn
+		StreamName?:    string | fn.Fn
+		Url?:           string | fn.Fn
+		Username?:      string | fn.Fn
 	}
 	__Scte20SourceSettings :: {
-		Convert608To708?:        string
-		Source608ChannelNumber?: int
+		Convert608To708?:        string | fn.Fn
+		Source608ChannelNumber?: int | fn.Fn
 	}
 	__Scte27SourceSettings :: {
-		Pid?: int
+		Pid?: int | fn.Fn
 	}
 	__TeletextSourceSettings :: {
-		PageNumber?: string
+		PageNumber?: string | fn.Fn
 	}
 	__VideoSelector :: {
-		ColorSpace?:       string
-		ColorSpaceUsage?:  string
+		ColorSpace?:       string | fn.Fn
+		ColorSpaceUsage?:  string | fn.Fn
 		SelectorSettings?: __VideoSelectorSettings
 	}
 	__VideoSelectorPid :: {
-		Pid?: int
+		Pid?: int | fn.Fn
 	}
 	__VideoSelectorProgramId :: {
-		ProgramId?: int
+		ProgramId?: int | fn.Fn
 	}
 	__VideoSelectorSettings :: {
 		VideoSelectorPid?:       __VideoSelectorPid
@@ -129,40 +131,40 @@ Input :: {
 	Type: "AWS::MediaLive::Input"
 	Properties: {
 		Destinations?: [...__InputDestinationRequest]
-		InputSecurityGroups?: [...string]
+		InputSecurityGroups?: [...string] | fn.Fn
 		MediaConnectFlows?: [...__MediaConnectFlowRequest]
-		Name?:    string
-		RoleArn?: string
+		Name?:    string | fn.Fn
+		RoleArn?: string | fn.Fn
 		Sources?: [...__InputSourceRequest]
 		Tags?: {
-		}
-		Type?: string
+		} | fn.Fn
+		Type?: string | fn.Fn
 		Vpc?:  __InputVpcRequest
 	}
 	__InputDestinationRequest :: {
-		StreamName?: string
+		StreamName?: string | fn.Fn
 	}
 	__InputSourceRequest :: {
-		PasswordParam?: string
-		Url?:           string
-		Username?:      string
+		PasswordParam?: string | fn.Fn
+		Url?:           string | fn.Fn
+		Username?:      string | fn.Fn
 	}
 	__InputVpcRequest :: {
-		SecurityGroupIds?: [...string]
-		SubnetIds?: [...string]
+		SecurityGroupIds?: [...string] | fn.Fn
+		SubnetIds?:        [...string] | fn.Fn
 	}
 	__MediaConnectFlowRequest :: {
-		FlowArn?: string
+		FlowArn?: string | fn.Fn
 	}
 }
 InputSecurityGroup :: {
 	Type: "AWS::MediaLive::InputSecurityGroup"
 	Properties: {
 		Tags?: {
-		}
+		} | fn.Fn
 		WhitelistRules?: [...__InputWhitelistRuleCidr]
 	}
 	__InputWhitelistRuleCidr :: {
-		Cidr?: string
+		Cidr?: string | fn.Fn
 	}
 }

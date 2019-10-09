@@ -1,9 +1,11 @@
 package IoTAnalytics
 
+import "github.com/TangoGroup/fn"
+
 Channel :: {
 	Type: "AWS::IoTAnalytics::Channel"
 	Properties: {
-		ChannelName?:     string
+		ChannelName?:     string | fn.Fn
 		ChannelStorage?:  __ChannelStorage
 		RetentionPeriod?: __RetentionPeriod
 		Tags?: [...__Tag]
@@ -13,13 +15,13 @@ Channel :: {
 		ServiceManagedS3?:  __ServiceManagedS3
 	}
 	__CustomerManagedS3 :: {
-		Bucket:     string
-		KeyPrefix?: string
-		RoleArn:    string
+		Bucket:     string | fn.Fn
+		KeyPrefix?: string | fn.Fn
+		RoleArn:    string | fn.Fn
 	}
 	__RetentionPeriod :: {
-		NumberOfDays?: int
-		Unlimited?:    bool
+		NumberOfDays?: int | fn.Fn
+		Unlimited?:    bool | fn.Fn
 	}
 	__ServiceManagedS3 :: {
 	}
@@ -29,112 +31,112 @@ Dataset :: {
 	Properties: {
 		Actions: [...__Action]
 		ContentDeliveryRules?: [...__DatasetContentDeliveryRule]
-		DatasetName?:     string
+		DatasetName?:     string | fn.Fn
 		RetentionPeriod?: __RetentionPeriod
 		Tags?: [...__Tag]
 		Triggers?: [...__Trigger]
 		VersioningConfiguration?: __VersioningConfiguration
 	}
 	__Action :: {
-		ActionName:       string
+		ActionName:       string | fn.Fn
 		ContainerAction?: __ContainerAction
 		QueryAction?:     __QueryAction
 	}
 	__ContainerAction :: {
-		ExecutionRoleArn:      string
-		Image:                 string
+		ExecutionRoleArn:      string | fn.Fn
+		Image:                 string | fn.Fn
 		ResourceConfiguration: __ResourceConfiguration
 		Variables?: [...__Variable]
 	}
 	__DatasetContentDeliveryRule :: {
 		Destination: __DatasetContentDeliveryRuleDestination
-		EntryName?:  string
+		EntryName?:  string | fn.Fn
 	}
 	__DatasetContentDeliveryRuleDestination :: {
 		IotEventsDestinationConfiguration?: __IotEventsDestinationConfiguration
 		S3DestinationConfiguration?:        __S3DestinationConfiguration
 	}
 	__DatasetContentVersionValue :: {
-		DatasetName?: string
+		DatasetName?: string | fn.Fn
 	}
 	__DeltaTime :: {
-		OffsetSeconds:  int
-		TimeExpression: string
+		OffsetSeconds:  int | fn.Fn
+		TimeExpression: string | fn.Fn
 	}
 	__Filter :: {
 		DeltaTime?: __DeltaTime
 	}
 	__GlueConfiguration :: {
-		DatabaseName: string
-		TableName:    string
+		DatabaseName: string | fn.Fn
+		TableName:    string | fn.Fn
 	}
 	__IotEventsDestinationConfiguration :: {
-		InputName: string
-		RoleArn:   string
+		InputName: string | fn.Fn
+		RoleArn:   string | fn.Fn
 	}
 	__OutputFileUriValue :: {
-		FileName?: string
+		FileName?: string | fn.Fn
 	}
 	__QueryAction :: {
 		Filters?: [...__Filter]
-		SqlQuery: string
+		SqlQuery: string | fn.Fn
 	}
 	__ResourceConfiguration :: {
-		ComputeType:    string
-		VolumeSizeInGB: int
+		ComputeType:    string | fn.Fn
+		VolumeSizeInGB: int | fn.Fn
 	}
 	__RetentionPeriod :: {
-		NumberOfDays: int
-		Unlimited:    bool
+		NumberOfDays: int | fn.Fn
+		Unlimited:    bool | fn.Fn
 	}
 	__S3DestinationConfiguration :: {
-		Bucket:             string
+		Bucket:             string | fn.Fn
 		GlueConfiguration?: __GlueConfiguration
-		Key:                string
-		RoleArn:            string
+		Key:                string | fn.Fn
+		RoleArn:            string | fn.Fn
 	}
 	__Schedule :: {
-		ScheduleExpression: string
+		ScheduleExpression: string | fn.Fn
 	}
 	__Trigger :: {
 		Schedule?:          __Schedule
 		TriggeringDataset?: __TriggeringDataset
 	}
 	__TriggeringDataset :: {
-		DatasetName: string
+		DatasetName: string | fn.Fn
 	}
 	__Variable :: {
 		DatasetContentVersionValue?: __DatasetContentVersionValue
-		DoubleValue?:                float
+		DoubleValue?:                float | fn.Fn
 		OutputFileUriValue?:         __OutputFileUriValue
-		StringValue?:                string
-		VariableName:                string
+		StringValue?:                string | fn.Fn
+		VariableName:                string | fn.Fn
 	}
 	__VersioningConfiguration :: {
-		MaxVersions?: int
-		Unlimited?:   bool
+		MaxVersions?: int | fn.Fn
+		Unlimited?:   bool | fn.Fn
 	}
 }
 Datastore :: {
 	Type: "AWS::IoTAnalytics::Datastore"
 	Properties: {
-		DatastoreName?:    string
+		DatastoreName?:    string | fn.Fn
 		DatastoreStorage?: __DatastoreStorage
 		RetentionPeriod?:  __RetentionPeriod
 		Tags?: [...__Tag]
 	}
 	__CustomerManagedS3 :: {
-		Bucket:     string
-		KeyPrefix?: string
-		RoleArn:    string
+		Bucket:     string | fn.Fn
+		KeyPrefix?: string | fn.Fn
+		RoleArn:    string | fn.Fn
 	}
 	__DatastoreStorage :: {
 		CustomerManagedS3?: __CustomerManagedS3
 		ServiceManagedS3?:  __ServiceManagedS3
 	}
 	__RetentionPeriod :: {
-		NumberOfDays?: int
-		Unlimited?:    bool
+		NumberOfDays?: int | fn.Fn
+		Unlimited?:    bool | fn.Fn
 	}
 	__ServiceManagedS3 :: {
 	}
@@ -143,7 +145,7 @@ Pipeline :: {
 	Type: "AWS::IoTAnalytics::Pipeline"
 	Properties: {
 		PipelineActivities: [...__Activity]
-		PipelineName?: string
+		PipelineName?: string | fn.Fn
 		Tags?: [...__Tag]
 	}
 	__Activity :: {
@@ -160,58 +162,58 @@ Pipeline :: {
 	}
 	__AddAttributes :: {
 		Attributes?: {
-		}
-		Name?: string
-		Next?: string
+		} | fn.Fn
+		Name?: string | fn.Fn
+		Next?: string | fn.Fn
 	}
 	__Channel :: {
-		ChannelName?: string
-		Name?:        string
-		Next?:        string
+		ChannelName?: string | fn.Fn
+		Name?:        string | fn.Fn
+		Next?:        string | fn.Fn
 	}
 	__Datastore :: {
-		DatastoreName?: string
-		Name?:          string
+		DatastoreName?: string | fn.Fn
+		Name?:          string | fn.Fn
 	}
 	__DeviceRegistryEnrich :: {
-		Attribute?: string
-		Name?:      string
-		Next?:      string
-		RoleArn?:   string
-		ThingName?: string
+		Attribute?: string | fn.Fn
+		Name?:      string | fn.Fn
+		Next?:      string | fn.Fn
+		RoleArn?:   string | fn.Fn
+		ThingName?: string | fn.Fn
 	}
 	__DeviceShadowEnrich :: {
-		Attribute?: string
-		Name?:      string
-		Next?:      string
-		RoleArn?:   string
-		ThingName?: string
+		Attribute?: string | fn.Fn
+		Name?:      string | fn.Fn
+		Next?:      string | fn.Fn
+		RoleArn?:   string | fn.Fn
+		ThingName?: string | fn.Fn
 	}
 	__Filter :: {
-		Filter?: string
-		Name?:   string
-		Next?:   string
+		Filter?: string | fn.Fn
+		Name?:   string | fn.Fn
+		Next?:   string | fn.Fn
 	}
 	__Lambda :: {
-		BatchSize?:  int
-		LambdaName?: string
-		Name?:       string
-		Next?:       string
+		BatchSize?:  int | fn.Fn
+		LambdaName?: string | fn.Fn
+		Name?:       string | fn.Fn
+		Next?:       string | fn.Fn
 	}
 	__Math :: {
-		Attribute?: string
-		Math?:      string
-		Name?:      string
-		Next?:      string
+		Attribute?: string | fn.Fn
+		Math?:      string | fn.Fn
+		Name?:      string | fn.Fn
+		Next?:      string | fn.Fn
 	}
 	__RemoveAttributes :: {
-		Attributes?: [...string]
-		Name?: string
-		Next?: string
+		Attributes?: [...string] | fn.Fn
+		Name?:       string | fn.Fn
+		Next?:       string | fn.Fn
 	}
 	__SelectAttributes :: {
-		Attributes?: [...string]
-		Name?: string
-		Next?: string
+		Attributes?: [...string] | fn.Fn
+		Name?:       string | fn.Fn
+		Next?:       string | fn.Fn
 	}
 }

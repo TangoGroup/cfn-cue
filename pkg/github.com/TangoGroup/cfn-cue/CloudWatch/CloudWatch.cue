@@ -1,55 +1,53 @@
 package CloudWatch
 
+import "github.com/TangoGroup/fn"
+
 Alarm :: {
 	Type: "AWS::CloudWatch::Alarm"
 	Properties: {
-		ActionsEnabled?: bool
-		AlarmActions?: [...string]
-		AlarmDescription?:  string
-		AlarmName?:         string
-		ComparisonOperator: "GreaterThanOrEqualToThreshold" | "GreaterThanThreshold" | "LessThanThreshold" | "LessThanOrEqualToThreshold" | "LessThanLowerOrGreaterThanUpperThreshold" | "LessThanLowerThreshold" | "GreaterThanUpperThreshold"
-		ComparisonOperator: string
-		DatapointsToAlarm?: int
+		ActionsEnabled?:    bool | fn.Fn
+		AlarmActions?:      [...string] | fn.Fn
+		AlarmDescription?:  string | fn.Fn
+		AlarmName?:         string | fn.Fn
+		ComparisonOperator: (string & ("GreaterThanOrEqualToThreshold" | "GreaterThanThreshold" | "LessThanThreshold" | "LessThanOrEqualToThreshold" | "LessThanLowerOrGreaterThanUpperThreshold" | "LessThanLowerThreshold" | "GreaterThanUpperThreshold")) | fn.Fn
+		DatapointsToAlarm?: int | fn.Fn
 		Dimensions?: [...__Dimension]
-		EvaluateLowSampleCountPercentile?: string
-		EvaluationPeriods:                 int
-		ExtendedStatistic?:                string
-		InsufficientDataActions?: [...string]
-		MetricName?: string
+		EvaluateLowSampleCountPercentile?: string | fn.Fn
+		EvaluationPeriods:                 int | fn.Fn
+		ExtendedStatistic?:                string | fn.Fn
+		InsufficientDataActions?:          [...string] | fn.Fn
+		MetricName?:                       string | fn.Fn
 		Metrics?: [...__MetricDataQuery]
-		Namespace?: string
-		OKActions?: [...string]
-		Period?:            int
-		Statistic?:         "Average" | "Maximum" | "Minimum" | "SampleCount" | "Sum"
-		Statistic?:         string
-		Threshold?:         float
-		ThresholdMetricId?: string
-		TreatMissingData?:  "breaching" | "ignore" | "missing" | "notBreaching"
-		TreatMissingData?:  string
-		Unit?:              "Bits" | "Bits/Second" | "Bytes" | "Bytes/Second" | "Count" | "Count/Second" | "Gigabits" | "Gigabits/Second" | "Gigabytes" | "Gigabytes/Second" | "Kilobits" | "Kilobits/Second" | "Kilobytes" | "Kilobytes/Second" | "Megabits" | "Megabits/Second" | "Megabytes" | "Megabytes/Second" | "Microseconds" | "Milliseconds" | "None" | "Percent" | "Seconds" | "Terabits" | "Terabits/Second" | "Terabytes" | "Terabytes/Second"
-		Unit?:              string
+		Namespace?:         string | fn.Fn
+		OKActions?:         [...string] | fn.Fn
+		Period?:            int | fn.Fn
+		Statistic?:         (string & ("Average" | "Maximum" | "Minimum" | "SampleCount" | "Sum")) | fn.Fn
+		Threshold?:         float | fn.Fn
+		ThresholdMetricId?: string | fn.Fn
+		TreatMissingData?:  (string & ("breaching" | "ignore" | "missing" | "notBreaching")) | fn.Fn
+		Unit?:              (string & ("Bits" | "Bits/Second" | "Bytes" | "Bytes/Second" | "Count" | "Count/Second" | "Gigabits" | "Gigabits/Second" | "Gigabytes" | "Gigabytes/Second" | "Kilobits" | "Kilobits/Second" | "Kilobytes" | "Kilobytes/Second" | "Megabits" | "Megabits/Second" | "Megabytes" | "Megabytes/Second" | "Microseconds" | "Milliseconds" | "None" | "Percent" | "Seconds" | "Terabits" | "Terabits/Second" | "Terabytes" | "Terabytes/Second")) | fn.Fn
 	}
 	__Dimension :: {
-		Name:  string
-		Value: string
+		Name:  string | fn.Fn
+		Value: string | fn.Fn
 	}
 	__Metric :: {
 		Dimensions?: [...__Dimension]
-		MetricName?: string
-		Namespace?:  string
+		MetricName?: string | fn.Fn
+		Namespace?:  string | fn.Fn
 	}
 	__MetricDataQuery :: {
-		Expression?: string
-		Id:          string
-		Label?:      string
+		Expression?: string | fn.Fn
+		Id:          string | fn.Fn
+		Label?:      string | fn.Fn
 		MetricStat?: __MetricStat
-		ReturnData?: bool
+		ReturnData?: bool | fn.Fn
 	}
 	__MetricStat :: {
 		Metric: __Metric
-		Period: int
-		Stat:   string
-		Unit?:  string
+		Period: int | fn.Fn
+		Stat:   string | fn.Fn
+		Unit?:  string | fn.Fn
 	}
 }
 AnomalyDetector :: {
@@ -57,27 +55,27 @@ AnomalyDetector :: {
 	Properties: {
 		Configuration?: __Configuration
 		Dimensions?: [...__Dimension]
-		MetricName: string
-		Namespace:  string
-		Stat:       string
+		MetricName: string | fn.Fn
+		Namespace:  string | fn.Fn
+		Stat:       string | fn.Fn
 	}
 	__Configuration :: {
 		ExcludedTimeRanges?: [...__Range]
-		MetricTimeZone?: string
+		MetricTimeZone?: string | fn.Fn
 	}
 	__Dimension :: {
-		Name:  string
-		Value: string
+		Name:  string | fn.Fn
+		Value: string | fn.Fn
 	}
 	__Range :: {
-		EndTime:   string
-		StartTime: string
+		EndTime:   string | fn.Fn
+		StartTime: string | fn.Fn
 	}
 }
 Dashboard :: {
 	Type: "AWS::CloudWatch::Dashboard"
 	Properties: {
-		DashboardBody:  string
-		DashboardName?: string
+		DashboardBody:  string | fn.Fn
+		DashboardName?: string | fn.Fn
 	}
 }

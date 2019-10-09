@@ -1,40 +1,42 @@
 package DataPipeline
 
+import "github.com/TangoGroup/fn"
+
 Pipeline :: {
 	Type: "AWS::DataPipeline::Pipeline"
 	Properties: {
-		Activate?:    bool
-		Description?: string
-		Name:         string
+		Activate?:    bool | fn.Fn
+		Description?: string | fn.Fn
+		Name:         string | fn.Fn
 		ParameterObjects: [...__ParameterObject]
 		ParameterValues?: [...__ParameterValue]
 		PipelineObjects?: [...__PipelineObject]
 		PipelineTags?: [...__PipelineTag]
 	}
 	__Field :: {
-		Key:          string
-		RefValue?:    string
-		StringValue?: string
+		Key:          string | fn.Fn
+		RefValue?:    string | fn.Fn
+		StringValue?: string | fn.Fn
 	}
 	__ParameterAttribute :: {
-		Key:         string
-		StringValue: string
+		Key:         string | fn.Fn
+		StringValue: string | fn.Fn
 	}
 	__ParameterObject :: {
 		Attributes: [...__ParameterAttribute]
-		Id: string
+		Id: string | fn.Fn
 	}
 	__ParameterValue :: {
-		Id:          string
-		StringValue: string
+		Id:          string | fn.Fn
+		StringValue: string | fn.Fn
 	}
 	__PipelineObject :: {
 		Fields: [...__Field]
-		Id:   string
-		Name: string
+		Id:   string | fn.Fn
+		Name: string | fn.Fn
 	}
 	__PipelineTag :: {
-		Key:   string
-		Value: string
+		Key:   string | fn.Fn
+		Value: string | fn.Fn
 	}
 }

@@ -1,56 +1,54 @@
 package Events
 
+import "github.com/TangoGroup/fn"
+
 EventBusPolicy :: {
 	Type: "AWS::Events::EventBusPolicy"
 	Properties: {
-		Action:        "events:PutEvents"
-		Action:        string
+		Action:        (string & ("events:PutEvents")) | fn.Fn
 		Condition?:    __Condition
-		EventBusName?: string
-		Principal:     string
-		StatementId:   string
+		EventBusName?: string | fn.Fn
+		Principal:     string | fn.Fn
+		StatementId:   string | fn.Fn
 	}
 	__Condition :: {
-		Key?:   "aws:PrincipalOrgID"
-		Key?:   string
-		Type?:  "StringEquals"
-		Type?:  string
-		Value?: string
+		Key?:   (string & ("aws:PrincipalOrgID")) | fn.Fn
+		Type?:  (string & ("StringEquals")) | fn.Fn
+		Value?: string | fn.Fn
 	}
 }
 Rule :: {
 	Type: "AWS::Events::Rule"
 	Properties: {
-		Description?: string
+		Description?:  string | fn.Fn
 		EventPattern?: {
-		}
-		Name?:               string
-		RoleArn?:            string
-		ScheduleExpression?: string
-		State?:              "DISABLED" | "ENABLED"
-		State?:              string
+		} | fn.Fn
+		Name?:               string | fn.Fn
+		RoleArn?:            string | fn.Fn
+		ScheduleExpression?: string | fn.Fn
+		State?:              (string & ("DISABLED" | "ENABLED")) | fn.Fn
 		Targets?: [...__Target]
 	}
 	__AwsVpcConfiguration :: {
-		AssignPublicIp?: string
-		SecurityGroups?: [...string]
-		Subnets: [...string]
+		AssignPublicIp?: string | fn.Fn
+		SecurityGroups?: [...string] | fn.Fn
+		Subnets:         [...string] | fn.Fn
 	}
 	__EcsParameters :: {
-		Group?:                string
-		LaunchType?:           string
+		Group?:                string | fn.Fn
+		LaunchType?:           string | fn.Fn
 		NetworkConfiguration?: __NetworkConfiguration
-		PlatformVersion?:      string
-		TaskCount?:            int
-		TaskDefinitionArn:     string
+		PlatformVersion?:      string | fn.Fn
+		TaskCount?:            int | fn.Fn
+		TaskDefinitionArn:     string | fn.Fn
 	}
 	__InputTransformer :: {
 		InputPathsMap?: {
 		}
-		InputTemplate: string
+		InputTemplate: string | fn.Fn
 	}
 	__KinesisParameters :: {
-		PartitionKeyPath: string
+		PartitionKeyPath: string | fn.Fn
 	}
 	__NetworkConfiguration :: {
 		AwsVpcConfiguration?: __AwsVpcConfiguration
@@ -59,21 +57,21 @@ Rule :: {
 		RunCommandTargets: [...__RunCommandTarget]
 	}
 	__RunCommandTarget :: {
-		Key: string
-		Values: [...string]
+		Key:    string | fn.Fn
+		Values: [...string] | fn.Fn
 	}
 	__SqsParameters :: {
-		MessageGroupId: string
+		MessageGroupId: string | fn.Fn
 	}
 	__Target :: {
-		Arn:                   string
+		Arn:                   string | fn.Fn
 		EcsParameters?:        __EcsParameters
-		Id:                    string
-		Input?:                string
-		InputPath?:            string
+		Id:                    string | fn.Fn
+		Input?:                string | fn.Fn
+		InputPath?:            string | fn.Fn
 		InputTransformer?:     __InputTransformer
 		KinesisParameters?:    __KinesisParameters
-		RoleArn?:              string
+		RoleArn?:              string | fn.Fn
 		RunCommandParameters?: __RunCommandParameters
 		SqsParameters?:        __SqsParameters
 	}

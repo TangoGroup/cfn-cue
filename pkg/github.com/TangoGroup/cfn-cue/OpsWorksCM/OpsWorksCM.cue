@@ -1,28 +1,30 @@
 package OpsWorksCM
 
+import "github.com/TangoGroup/fn"
+
 Server :: {
 	Type: "AWS::OpsWorksCM::Server"
 	Properties: {
-		AssociatePublicIpAddress?: bool
-		BackupId?:                 string
-		BackupRetentionCount?:     int
-		DisableAutomatedBackup?:   bool
-		Engine?:                   string
+		AssociatePublicIpAddress?: bool | fn.Fn
+		BackupId?:                 string | fn.Fn
+		BackupRetentionCount?:     int | fn.Fn
+		DisableAutomatedBackup?:   bool | fn.Fn
+		Engine?:                   string | fn.Fn
 		EngineAttributes?: [...__EngineAttribute]
-		EngineModel?:                string
-		EngineVersion?:              string
-		InstanceProfileArn:          string
-		InstanceType:                string
-		KeyPair?:                    string
-		PreferredBackupWindow?:      string
-		PreferredMaintenanceWindow?: string
-		SecurityGroupIds?: [...string]
-		ServerName?:    string
-		ServiceRoleArn: string
-		SubnetIds?: [...string]
+		EngineModel?:                string | fn.Fn
+		EngineVersion?:              string | fn.Fn
+		InstanceProfileArn:          string | fn.Fn
+		InstanceType:                string | fn.Fn
+		KeyPair?:                    string | fn.Fn
+		PreferredBackupWindow?:      string | fn.Fn
+		PreferredMaintenanceWindow?: string | fn.Fn
+		SecurityGroupIds?:           [...string] | fn.Fn
+		ServerName?:                 string | fn.Fn
+		ServiceRoleArn:              string | fn.Fn
+		SubnetIds?:                  [...string] | fn.Fn
 	}
 	__EngineAttribute :: {
-		Name?:  string
-		Value?: string
+		Name?:  string | fn.Fn
+		Value?: string | fn.Fn
 	}
 }

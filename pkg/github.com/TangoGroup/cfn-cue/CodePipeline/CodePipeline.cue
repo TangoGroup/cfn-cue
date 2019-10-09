@@ -1,36 +1,36 @@
 package CodePipeline
 
+import "github.com/TangoGroup/fn"
+
 CustomActionType :: {
 	Type: "AWS::CodePipeline::CustomActionType"
 	Properties: {
-		Category: "Approval" | "Build" | "Deploy" | "Invoke" | "Source" | "Test"
-		Category: string
+		Category: (string & ("Approval" | "Build" | "Deploy" | "Invoke" | "Source" | "Test")) | fn.Fn
 		ConfigurationProperties?: [...__ConfigurationProperties]
 		InputArtifactDetails:  __ArtifactDetails
 		OutputArtifactDetails: __ArtifactDetails
-		Provider:              string
+		Provider:              string | fn.Fn
 		Settings?:             __Settings
-		Version:               string
+		Version:               string | fn.Fn
 	}
 	__ArtifactDetails :: {
-		MaximumCount: int
-		MinimumCount: int
+		MaximumCount: int | fn.Fn
+		MinimumCount: int | fn.Fn
 	}
 	__ConfigurationProperties :: {
-		Description?: string
-		Key:          bool
-		Name:         string
-		Queryable?:   bool
-		Required:     bool
-		Secret:       bool
-		Type?:        "Boolean" | "Number" | "String"
-		Type?:        string
+		Description?: string | fn.Fn
+		Key:          bool | fn.Fn
+		Name:         string | fn.Fn
+		Queryable?:   bool | fn.Fn
+		Required:     bool | fn.Fn
+		Secret:       bool | fn.Fn
+		Type?:        (string & ("Boolean" | "Number" | "String")) | fn.Fn
 	}
 	__Settings :: {
-		EntityUrlTemplate?:          string
-		ExecutionUrlTemplate?:       string
-		RevisionUrlTemplate?:        string
-		ThirdPartyConfigurationUrl?: string
+		EntityUrlTemplate?:          string | fn.Fn
+		ExecutionUrlTemplate?:       string | fn.Fn
+		RevisionUrlTemplate?:        string | fn.Fn
+		ThirdPartyConfigurationUrl?: string | fn.Fn
 	}
 }
 Pipeline :: {
@@ -39,84 +39,79 @@ Pipeline :: {
 		ArtifactStore?: __ArtifactStore
 		ArtifactStores?: [...__ArtifactStoreMap]
 		DisableInboundStageTransitions?: [...__StageTransition]
-		Name?:                     string
-		RestartExecutionOnUpdate?: bool
-		RoleArn:                   string
+		Name?:                     string | fn.Fn
+		RestartExecutionOnUpdate?: bool | fn.Fn
+		RoleArn:                   string | fn.Fn
 		Stages: [...__StageDeclaration]
 	}
 	__ActionDeclaration :: {
-		ActionTypeId: __ActionTypeId
+		ActionTypeId:   __ActionTypeId
 		Configuration?: {
-		}
+		} | fn.Fn
 		InputArtifacts?: [...__InputArtifact]
-		Name: string
+		Name: string | fn.Fn
 		OutputArtifacts?: [...__OutputArtifact]
-		Region?:   string
-		RoleArn?:  string
-		RunOrder?: int
+		Region?:   string | fn.Fn
+		RoleArn?:  string | fn.Fn
+		RunOrder?: int | fn.Fn
 	}
 	__ActionTypeId :: {
-		Category: "Approval" | "Build" | "Deploy" | "Invoke" | "Source" | "Test"
-		Category: string
-		Owner:    "AWS" | "Custom" | "ThirdParty"
-		Owner:    string
-		Provider: string
-		Version:  string
+		Category: (string & ("Approval" | "Build" | "Deploy" | "Invoke" | "Source" | "Test")) | fn.Fn
+		Owner:    (string & ("AWS" | "Custom" | "ThirdParty")) | fn.Fn
+		Provider: string | fn.Fn
+		Version:  string | fn.Fn
 	}
 	__ArtifactStore :: {
 		EncryptionKey?: __EncryptionKey
-		Location:       string
-		Type:           "S3"
-		Type:           string
+		Location:       string | fn.Fn
+		Type:           (string & ("S3")) | fn.Fn
 	}
 	__ArtifactStoreMap :: {
 		ArtifactStore: __ArtifactStore
-		Region:        string
+		Region:        string | fn.Fn
 	}
 	__BlockerDeclaration :: {
-		Name: string
-		Type: "Schedule"
-		Type: string
+		Name: string | fn.Fn
+		Type: (string & ("Schedule")) | fn.Fn
 	}
 	__EncryptionKey :: {
-		Id:   string
-		Type: string
+		Id:   string | fn.Fn
+		Type: string | fn.Fn
 	}
 	__InputArtifact :: {
-		Name: string
+		Name: string | fn.Fn
 	}
 	__OutputArtifact :: {
-		Name: string
+		Name: string | fn.Fn
 	}
 	__StageDeclaration :: {
 		Actions: [...__ActionDeclaration]
 		Blockers?: [...__BlockerDeclaration]
-		Name: string
+		Name: string | fn.Fn
 	}
 	__StageTransition :: {
-		Reason:    string
-		StageName: string
+		Reason:    string | fn.Fn
+		StageName: string | fn.Fn
 	}
 }
 Webhook :: {
 	Type: "AWS::CodePipeline::Webhook"
 	Properties: {
-		Authentication:              "GITHUB_HMAC" | "IP" | "UNAUTHENTICATED"
-		Authentication:              string
+		Authentication:              (string & ("GITHUB_HMAC" | "IP" | "UNAUTHENTICATED")) | fn.Fn
 		AuthenticationConfiguration: __WebhookAuthConfiguration
 		Filters: [...__WebhookFilterRule]
-		Name?:                   string
-		RegisterWithThirdParty?: bool
-		TargetAction:            string
-		TargetPipeline:          string
-		TargetPipelineVersion:   int
+		Name?:                   string | fn.Fn
+		RegisterWithThirdParty?: bool | fn.Fn
+		TargetAction:            string | fn.Fn
+		TargetPipeline:          string | fn.Fn
+		TargetPipelineVersion:   int | fn.Fn
 	}
 	__WebhookAuthConfiguration :: {
-		AllowedIPRange?: string
-		SecretToken?:    string
+		AllowedIPRange?: string | fn.Fn
+		SecretToken?:    string | fn.Fn
 	}
 	__WebhookFilterRule :: {
-		JsonPath:     string
-		MatchEquals?: string
+		JsonPath:     string | fn.Fn
+		MatchEquals?: string | fn.Fn
 	}
 }

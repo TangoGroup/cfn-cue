@@ -1,127 +1,126 @@
 package AppStream
 
+import "github.com/TangoGroup/fn"
+
 DirectoryConfig :: {
 	Type: "AWS::AppStream::DirectoryConfig"
 	Properties: {
-		DirectoryName: string
-		OrganizationalUnitDistinguishedNames: [...string]
-		ServiceAccountCredentials: __ServiceAccountCredentials
+		DirectoryName:                        string | fn.Fn
+		OrganizationalUnitDistinguishedNames: [...string] | fn.Fn
+		ServiceAccountCredentials:            __ServiceAccountCredentials
 	}
 	__ServiceAccountCredentials :: {
-		AccountName:     string
-		AccountPassword: string
+		AccountName:     string | fn.Fn
+		AccountPassword: string | fn.Fn
 	}
 }
 Fleet :: {
 	Type: "AWS::AppStream::Fleet"
 	Properties: {
 		ComputeCapacity:                 __ComputeCapacity
-		Description?:                    string
-		DisconnectTimeoutInSeconds?:     >=60 & <=360000
-		DisconnectTimeoutInSeconds?:     int
-		DisplayName?:                    string
+		Description?:                    string | fn.Fn
+		DisconnectTimeoutInSeconds?:     (int & (>=60 & <=360000)) | fn.Fn
+		DisplayName?:                    string | fn.Fn
 		DomainJoinInfo?:                 __DomainJoinInfo
-		EnableDefaultInternetAccess?:    bool
-		FleetType?:                      string
-		IdleDisconnectTimeoutInSeconds?: >=0 & <=3600
-		IdleDisconnectTimeoutInSeconds?: int
-		ImageArn?:                       string
-		ImageName?:                      string
-		InstanceType:                    string
-		MaxUserDurationInSeconds?:       >=600 & <=360000
-		MaxUserDurationInSeconds?:       int
-		Name?:                           string
+		EnableDefaultInternetAccess?:    bool | fn.Fn
+		FleetType?:                      string | fn.Fn
+		IdleDisconnectTimeoutInSeconds?: (int & (>=0 & <=3600)) | fn.Fn
+		ImageArn?:                       string | fn.Fn
+		ImageName?:                      string | fn.Fn
+		InstanceType:                    string | fn.Fn
+		MaxUserDurationInSeconds?:       (int & (>=600 & <=360000)) | fn.Fn
+		Name?:                           string | fn.Fn
 		Tags?: [...__Tag]
 		VpcConfig?: __VpcConfig
 	}
 	__ComputeCapacity :: {
-		DesiredInstances: int
+		DesiredInstances: int | fn.Fn
 	}
 	__DomainJoinInfo :: {
-		DirectoryName?:                       string
-		OrganizationalUnitDistinguishedName?: string
+		DirectoryName?:                       string | fn.Fn
+		OrganizationalUnitDistinguishedName?: string | fn.Fn
 	}
 	__VpcConfig :: {
-		SecurityGroupIds?: [...string]
-		SubnetIds?: [...string]
+		SecurityGroupIds?: [...string] | fn.Fn
+		SubnetIds?:        [...string] | fn.Fn
 	}
 }
 ImageBuilder :: {
 	Type: "AWS::AppStream::ImageBuilder"
 	Properties: {
-		AppstreamAgentVersion?:       string
-		Description?:                 string
-		DisplayName?:                 string
+		AppstreamAgentVersion?:       string | fn.Fn
+		Description?:                 string | fn.Fn
+		DisplayName?:                 string | fn.Fn
 		DomainJoinInfo?:              __DomainJoinInfo
-		EnableDefaultInternetAccess?: bool
-		ImageArn?:                    string
-		ImageName?:                   string
-		InstanceType:                 string
-		Name?:                        string
+		EnableDefaultInternetAccess?: bool | fn.Fn
+		ImageArn?:                    string | fn.Fn
+		ImageName?:                   string | fn.Fn
+		InstanceType:                 string | fn.Fn
+		Name?:                        string | fn.Fn
 		Tags?: [...__Tag]
 		VpcConfig?: __VpcConfig
 	}
 	__DomainJoinInfo :: {
-		DirectoryName?:                       string
-		OrganizationalUnitDistinguishedName?: string
+		DirectoryName?:                       string | fn.Fn
+		OrganizationalUnitDistinguishedName?: string | fn.Fn
 	}
 	__VpcConfig :: {
-		SecurityGroupIds?: [...string]
-		SubnetIds?: [...string]
+		SecurityGroupIds?: [...string] | fn.Fn
+		SubnetIds?:        [...string] | fn.Fn
 	}
 }
 Stack :: {
 	Type: "AWS::AppStream::Stack"
 	Properties: {
-		ApplicationSettings?: __ApplicationSettings
-		AttributesToDelete?: [...string]
-		DeleteStorageConnectors?: bool
-		Description?:             string
-		DisplayName?:             string
-		FeedbackURL?:             string
-		Name?:                    string
-		RedirectURL?:             string
+		ApplicationSettings?:     __ApplicationSettings
+		AttributesToDelete?:      [...string] | fn.Fn
+		DeleteStorageConnectors?: bool | fn.Fn
+		Description?:             string | fn.Fn
+		DisplayName?:             string | fn.Fn
+		FeedbackURL?:             string | fn.Fn
+		Name?:                    string | fn.Fn
+		RedirectURL?:             string | fn.Fn
 		StorageConnectors?: [...__StorageConnector]
 		Tags?: [...__Tag]
 		UserSettings?: [...__UserSetting]
 	}
 	__ApplicationSettings :: {
-		Enabled:        bool
-		SettingsGroup?: string
+		Enabled:        bool | fn.Fn
+		SettingsGroup?: string | fn.Fn
 	}
 	__StorageConnector :: {
-		ConnectorType: string
-		Domains?: [...string]
-		ResourceIdentifier?: string
+		ConnectorType:       string | fn.Fn
+		Domains?:            [...string] | fn.Fn
+		ResourceIdentifier?: string | fn.Fn
 	}
 	__UserSetting :: {
-		Action:     string
-		Permission: string
+		Action:     string | fn.Fn
+		Permission: string | fn.Fn
 	}
 }
 StackFleetAssociation :: {
 	Type: "AWS::AppStream::StackFleetAssociation"
 	Properties: {
-		FleetName: string
-		StackName: string
+		FleetName: string | fn.Fn
+		StackName: string | fn.Fn
 	}
 }
 StackUserAssociation :: {
 	Type: "AWS::AppStream::StackUserAssociation"
 	Properties: {
-		AuthenticationType:     string
-		SendEmailNotification?: bool
-		StackName:              string
-		UserName:               string
+		AuthenticationType:     string | fn.Fn
+		SendEmailNotification?: bool | fn.Fn
+		StackName:              string | fn.Fn
+		UserName:               string | fn.Fn
 	}
 }
 User :: {
 	Type: "AWS::AppStream::User"
 	Properties: {
-		AuthenticationType: string
-		FirstName?:         string
-		LastName?:          string
-		MessageAction?:     string
-		UserName:           string
+		AuthenticationType: string | fn.Fn
+		FirstName?:         string | fn.Fn
+		LastName?:          string | fn.Fn
+		MessageAction?:     string | fn.Fn
+		UserName:           string | fn.Fn
 	}
 }

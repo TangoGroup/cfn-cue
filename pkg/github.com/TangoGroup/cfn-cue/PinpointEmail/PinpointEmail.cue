@@ -1,81 +1,83 @@
 package PinpointEmail
 
+import "github.com/TangoGroup/fn"
+
 ConfigurationSet :: {
 	Type: "AWS::PinpointEmail::ConfigurationSet"
 	Properties: {
 		DeliveryOptions?:   __DeliveryOptions
-		Name:               string
+		Name:               string | fn.Fn
 		ReputationOptions?: __ReputationOptions
 		SendingOptions?:    __SendingOptions
 		Tags?: [...__Tags]
 		TrackingOptions?: __TrackingOptions
 	}
 	__DeliveryOptions :: {
-		SendingPoolName?: string
+		SendingPoolName?: string | fn.Fn
 	}
 	__ReputationOptions :: {
-		ReputationMetricsEnabled?: bool
+		ReputationMetricsEnabled?: bool | fn.Fn
 	}
 	__SendingOptions :: {
-		SendingEnabled?: bool
+		SendingEnabled?: bool | fn.Fn
 	}
 	__Tags :: {
-		Key?:   string
-		Value?: string
+		Key?:   string | fn.Fn
+		Value?: string | fn.Fn
 	}
 	__TrackingOptions :: {
-		CustomRedirectDomain?: string
+		CustomRedirectDomain?: string | fn.Fn
 	}
 }
 ConfigurationSetEventDestination :: {
 	Type: "AWS::PinpointEmail::ConfigurationSetEventDestination"
 	Properties: {
-		ConfigurationSetName: string
+		ConfigurationSetName: string | fn.Fn
 		EventDestination?:    __EventDestination
-		EventDestinationName: string
+		EventDestinationName: string | fn.Fn
 	}
 	__CloudWatchDestination :: {
 		DimensionConfigurations?: [...__DimensionConfiguration]
 	}
 	__DimensionConfiguration :: {
-		DefaultDimensionValue: string
-		DimensionName:         string
-		DimensionValueSource:  string
+		DefaultDimensionValue: string | fn.Fn
+		DimensionName:         string | fn.Fn
+		DimensionValueSource:  string | fn.Fn
 	}
 	__EventDestination :: {
 		CloudWatchDestination?:      __CloudWatchDestination
-		Enabled?:                    bool
+		Enabled?:                    bool | fn.Fn
 		KinesisFirehoseDestination?: __KinesisFirehoseDestination
-		MatchingEventTypes: [...string]
-		PinpointDestination?: __PinpointDestination
-		SnsDestination?:      __SnsDestination
+		MatchingEventTypes:          [...string] | fn.Fn
+		PinpointDestination?:        __PinpointDestination
+		SnsDestination?:             __SnsDestination
 	}
 	__KinesisFirehoseDestination :: {
-		DeliveryStreamArn: string
-		IamRoleArn:        string
+		DeliveryStreamArn: string | fn.Fn
+		IamRoleArn:        string | fn.Fn
 	}
 	__PinpointDestination :: {
-		ApplicationArn?: string
+		ApplicationArn?: string | fn.Fn
 	}
 	__SnsDestination :: {
-		TopicArn: string
+		TopicArn: string | fn.Fn
 	}
 }
 Identity :: {
 	Type: "AWS::PinpointEmail::Identity"
 	Properties: {
-		DkimSigningEnabled?:        bool
-		FeedbackForwardingEnabled?: bool
+		DkimSigningEnabled?:        bool | fn.Fn
+		FeedbackForwardingEnabled?: bool | fn.Fn
 		MailFromAttributes?:        __MailFromAttributes
-		Name:                       string
+		Name:                       string | fn.Fn
 		Tags?: [...__Tags]
 	}
 	__MailFromAttributes :: {
-		BehaviorOnMxFailure?: string
-		MailFromDomain?:      string
+		BehaviorOnMxFailure?: string | fn.Fn
+		MailFromDomain?:      string | fn.Fn
 	}
 	__Tags :: {
-		Key?:   string
-		Value?: string
+		Key?:   string | fn.Fn
+		Value?: string | fn.Fn
 	}
 }

@@ -1,234 +1,231 @@
 package ECS
 
+import "github.com/TangoGroup/fn"
+
 Cluster :: {
 	Type: "AWS::ECS::Cluster"
 	Properties: {
-		ClusterName?: string
+		ClusterName?: string | fn.Fn
 		Tags?: [...__Tag]
 	}
 }
 Service :: {
 	Type: "AWS::ECS::Service"
 	Properties: {
-		Cluster?:                       string
+		Cluster?:                       string | fn.Fn
 		DeploymentConfiguration?:       __DeploymentConfiguration
-		DesiredCount?:                  int
-		EnableECSManagedTags?:          bool
-		HealthCheckGracePeriodSeconds?: int
-		LaunchType?:                    "EC2" | "FARGATE"
-		LaunchType?:                    string
+		DesiredCount?:                  int | fn.Fn
+		EnableECSManagedTags?:          bool | fn.Fn
+		HealthCheckGracePeriodSeconds?: int | fn.Fn
+		LaunchType?:                    (string & ("EC2" | "FARGATE")) | fn.Fn
 		LoadBalancers?: [...__LoadBalancer]
 		NetworkConfiguration?: __NetworkConfiguration
 		PlacementConstraints?: [...__PlacementConstraint]
 		PlacementStrategies?: [...__PlacementStrategy]
-		PlatformVersion?:    string
-		PropagateTags?:      string
-		Role?:               string
-		SchedulingStrategy?: "DAEMON" | "REPLICA"
-		SchedulingStrategy?: string
-		ServiceName?:        string
+		PlatformVersion?:    string | fn.Fn
+		PropagateTags?:      string | fn.Fn
+		Role?:               string | fn.Fn
+		SchedulingStrategy?: (string & ("DAEMON" | "REPLICA")) | fn.Fn
+		ServiceName?:        string | fn.Fn
 		ServiceRegistries?: [...__ServiceRegistry]
 		Tags?: [...__Tag]
-		TaskDefinition: string
+		TaskDefinition: string | fn.Fn
 	}
 	__AwsVpcConfiguration :: {
-		AssignPublicIp?: string
-		SecurityGroups?: [...string]
-		Subnets: [...string]
+		AssignPublicIp?: string | fn.Fn
+		SecurityGroups?: [...string] | fn.Fn
+		Subnets:         [...string] | fn.Fn
 	}
 	__DeploymentConfiguration :: {
-		MaximumPercent?:        int
-		MinimumHealthyPercent?: int
+		MaximumPercent?:        int | fn.Fn
+		MinimumHealthyPercent?: int | fn.Fn
 	}
 	__LoadBalancer :: {
-		ContainerName?:    string
-		ContainerPort:     int
-		LoadBalancerName?: string
-		TargetGroupArn?:   string
+		ContainerName?:    string | fn.Fn
+		ContainerPort:     int | fn.Fn
+		LoadBalancerName?: string | fn.Fn
+		TargetGroupArn?:   string | fn.Fn
 	}
 	__NetworkConfiguration :: {
 		AwsvpcConfiguration?: __AwsVpcConfiguration
 	}
 	__PlacementConstraint :: {
-		Expression?: string
-		Type:        string
+		Expression?: string | fn.Fn
+		Type:        string | fn.Fn
 	}
 	__PlacementStrategy :: {
-		Field?: string
-		Type:   string
+		Field?: string | fn.Fn
+		Type:   string | fn.Fn
 	}
 	__ServiceRegistry :: {
-		ContainerName?: string
-		ContainerPort?: int
-		Port?:          int
-		RegistryArn?:   string
+		ContainerName?: string | fn.Fn
+		ContainerPort?: int | fn.Fn
+		Port?:          int | fn.Fn
+		RegistryArn?:   string | fn.Fn
 	}
 }
 TaskDefinition :: {
 	Type: "AWS::ECS::TaskDefinition"
 	Properties: {
 		ContainerDefinitions?: [...__ContainerDefinition]
-		Cpu?:              string
-		ExecutionRoleArn?: =~#"arn:(aws[a-zA-Z-]*)?:iam::\d{12}:role/[a-zA-Z_0-9+=,.@\-_/]+"#
-		ExecutionRoleArn?: string
-		Family?:           string
-		IpcMode?:          string
-		Memory?:           string
-		NetworkMode?:      "awsvpc" | "bridge" | "host" | "none"
-		NetworkMode?:      string
-		PidMode?:          string
+		Cpu?:              string | fn.Fn
+		ExecutionRoleArn?: (string & (=~#"arn:(aws[a-zA-Z-]*)?:iam::\d{12}:role/[a-zA-Z_0-9+=,.@\-_/]+"#)) | fn.Fn
+		Family?:           string | fn.Fn
+		IpcMode?:          string | fn.Fn
+		Memory?:           string | fn.Fn
+		NetworkMode?:      (string & ("awsvpc" | "bridge" | "host" | "none")) | fn.Fn
+		PidMode?:          string | fn.Fn
 		PlacementConstraints?: [...__TaskDefinitionPlacementConstraint]
-		ProxyConfiguration?: __ProxyConfiguration
-		RequiresCompatibilities?: [...string]
+		ProxyConfiguration?:      __ProxyConfiguration
+		RequiresCompatibilities?: [...string] | fn.Fn
 		Tags?: [...__Tag]
-		TaskRoleArn?: string
+		TaskRoleArn?: string | fn.Fn
 		Volumes?: [...__Volume]
 	}
 	__ContainerDefinition :: {
-		Command?: [...string]
-		Cpu?: int
+		Command?: [...string] | fn.Fn
+		Cpu?:     int | fn.Fn
 		DependsOn?: [...__ContainerDependency]
-		DisableNetworking?: bool
-		DnsSearchDomains?: [...string]
-		DnsServers?: [...string]
+		DisableNetworking?: bool | fn.Fn
+		DnsSearchDomains?:  [...string] | fn.Fn
+		DnsServers?:        [...string] | fn.Fn
 		DockerLabels?: {
 		}
-		DockerSecurityOptions?: [...string]
-		EntryPoint?: [...string]
+		DockerSecurityOptions?: [...string] | fn.Fn
+		EntryPoint?:            [...string] | fn.Fn
 		Environment?: [...__KeyValuePair]
-		Essential?: bool
+		Essential?: bool | fn.Fn
 		ExtraHosts?: [...__HostEntry]
-		HealthCheck?: __HealthCheck
-		Hostname?:    string
-		Image?:       string
-		Interactive?: bool
-		Links?: [...string]
+		HealthCheck?:       __HealthCheck
+		Hostname?:          string | fn.Fn
+		Image?:             string | fn.Fn
+		Interactive?:       bool | fn.Fn
+		Links?:             [...string] | fn.Fn
 		LinuxParameters?:   __LinuxParameters
 		LogConfiguration?:  __LogConfiguration
-		Memory?:            int
-		MemoryReservation?: int
+		Memory?:            int | fn.Fn
+		MemoryReservation?: int | fn.Fn
 		MountPoints?: [...__MountPoint]
-		Name?: string
+		Name?: string | fn.Fn
 		PortMappings?: [...__PortMapping]
-		Privileged?:             bool
-		PseudoTerminal?:         bool
-		ReadonlyRootFilesystem?: bool
+		Privileged?:             bool | fn.Fn
+		PseudoTerminal?:         bool | fn.Fn
+		ReadonlyRootFilesystem?: bool | fn.Fn
 		RepositoryCredentials?:  __RepositoryCredentials
 		ResourceRequirements?: [...__ResourceRequirement]
 		Secrets?: [...__Secret]
-		StartTimeout?: int
-		StopTimeout?:  int
+		StartTimeout?: int | fn.Fn
+		StopTimeout?:  int | fn.Fn
 		SystemControls?: [...__SystemControl]
 		Ulimits?: [...__Ulimit]
-		User?: string
+		User?: string | fn.Fn
 		VolumesFrom?: [...__VolumeFrom]
-		WorkingDirectory?: string
+		WorkingDirectory?: string | fn.Fn
 	}
 	__ContainerDependency :: {
-		Condition:     string
-		ContainerName: string
+		Condition:     string | fn.Fn
+		ContainerName: string | fn.Fn
 	}
 	__Device :: {
-		ContainerPath?: string
-		HostPath:       string
-		Permissions?: [...string]
+		ContainerPath?: string | fn.Fn
+		HostPath:       string | fn.Fn
+		Permissions?:   [...string] | fn.Fn
 	}
 	__DockerVolumeConfiguration :: {
-		Autoprovision?: bool
-		Driver?:        string
+		Autoprovision?: bool | fn.Fn
+		Driver?:        string | fn.Fn
 		DriverOpts?: {
 		}
 		Labels?: {
 		}
-		Scope?: string
+		Scope?: string | fn.Fn
 	}
 	__HealthCheck :: {
-		Command: [...string]
-		Interval?:    int
-		Retries?:     int
-		StartPeriod?: int
-		Timeout?:     int
+		Command:      [...string] | fn.Fn
+		Interval?:    int | fn.Fn
+		Retries?:     int | fn.Fn
+		StartPeriod?: int | fn.Fn
+		Timeout?:     int | fn.Fn
 	}
 	__HostEntry :: {
-		Hostname:  string
-		IpAddress: string
+		Hostname:  string | fn.Fn
+		IpAddress: string | fn.Fn
 	}
 	__HostVolumeProperties :: {
-		SourcePath?: string
+		SourcePath?: string | fn.Fn
 	}
 	__KernelCapabilities :: {
-		Add?: [...string]
-		Drop?: [...string]
+		Add?:  [...string] | fn.Fn
+		Drop?: [...string] | fn.Fn
 	}
 	__KeyValuePair :: {
-		Name?:  string
-		Value?: string
+		Name?:  string | fn.Fn
+		Value?: string | fn.Fn
 	}
 	__LinuxParameters :: {
 		Capabilities?: __KernelCapabilities
 		Devices?: [...__Device]
-		InitProcessEnabled?: bool
-		SharedMemorySize?:   int
+		InitProcessEnabled?: bool | fn.Fn
+		SharedMemorySize?:   int | fn.Fn
 		Tmpfs?: [...__Tmpfs]
 	}
 	__LogConfiguration :: {
-		LogDriver: string
+		LogDriver: string | fn.Fn
 		Options?: {
 		}
 		SecretOptions?: [...__Secret]
 	}
 	__MountPoint :: {
-		ContainerPath?: string
-		ReadOnly?:      bool
-		SourceVolume?:  string
+		ContainerPath?: string | fn.Fn
+		ReadOnly?:      bool | fn.Fn
+		SourceVolume?:  string | fn.Fn
 	}
 	__PortMapping :: {
-		ContainerPort?: int
-		HostPort?:      int
-		Protocol?:      string
+		ContainerPort?: int | fn.Fn
+		HostPort?:      int | fn.Fn
+		Protocol?:      string | fn.Fn
 	}
 	__ProxyConfiguration :: {
-		ContainerName: string
+		ContainerName: string | fn.Fn
 		ProxyConfigurationProperties?: [...__KeyValuePair]
-		Type?: "APPMESH"
-		Type?: string
+		Type?: (string & ("APPMESH")) | fn.Fn
 	}
 	__RepositoryCredentials :: {
-		CredentialsParameter?: string
+		CredentialsParameter?: string | fn.Fn
 	}
 	__ResourceRequirement :: {
-		Type:  string
-		Value: string
+		Type:  string | fn.Fn
+		Value: string | fn.Fn
 	}
 	__Secret :: {
-		Name:      string
-		ValueFrom: string
+		Name:      string | fn.Fn
+		ValueFrom: string | fn.Fn
 	}
 	__SystemControl :: {
-		Namespace: string
-		Value:     string
+		Namespace: string | fn.Fn
+		Value:     string | fn.Fn
 	}
 	__TaskDefinitionPlacementConstraint :: {
-		Expression?: string
-		Type:        string
+		Expression?: string | fn.Fn
+		Type:        string | fn.Fn
 	}
 	__Tmpfs :: {
-		ContainerPath?: string
-		MountOptions?: [...string]
-		Size: int
+		ContainerPath?: string | fn.Fn
+		MountOptions?:  [...string] | fn.Fn
+		Size:           int | fn.Fn
 	}
 	__Ulimit :: {
-		HardLimit: int
-		Name:      string
-		SoftLimit: int
+		HardLimit: int | fn.Fn
+		Name:      string | fn.Fn
+		SoftLimit: int | fn.Fn
 	}
 	__Volume :: {
 		DockerVolumeConfiguration?: __DockerVolumeConfiguration
 		Host?:                      __HostVolumeProperties
-		Name?:                      string
+		Name?:                      string | fn.Fn
 	}
 	__VolumeFrom :: {
-		ReadOnly?:        bool
-		SourceContainer?: string
+		ReadOnly?:        bool | fn.Fn
+		SourceContainer?: string | fn.Fn
 	}
 }

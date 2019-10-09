@@ -1,165 +1,167 @@
 package ServiceCatalog
 
+import "github.com/TangoGroup/fn"
+
 AcceptedPortfolioShare :: {
 	Type: "AWS::ServiceCatalog::AcceptedPortfolioShare"
 	Properties: {
-		AcceptLanguage?: string
-		PortfolioId:     string
+		AcceptLanguage?: string | fn.Fn
+		PortfolioId:     string | fn.Fn
 	}
 }
 CloudFormationProduct :: {
 	Type: "AWS::ServiceCatalog::CloudFormationProduct"
 	Properties: {
-		AcceptLanguage?: string
-		Description?:    string
-		Distributor?:    string
-		Name:            string
-		Owner:           string
+		AcceptLanguage?: string | fn.Fn
+		Description?:    string | fn.Fn
+		Distributor?:    string | fn.Fn
+		Name:            string | fn.Fn
+		Owner:           string | fn.Fn
 		ProvisioningArtifactParameters: [...__ProvisioningArtifactProperties]
-		SupportDescription?: string
-		SupportEmail?:       string
-		SupportUrl?:         string
+		SupportDescription?: string | fn.Fn
+		SupportEmail?:       string | fn.Fn
+		SupportUrl?:         string | fn.Fn
 		Tags?: [...__Tag]
 	}
 	__ProvisioningArtifactProperties :: {
-		Description?:               string
-		DisableTemplateValidation?: bool
-		Info: {
-		}
-		Name?: string
+		Description?:               string | fn.Fn
+		DisableTemplateValidation?: bool | fn.Fn
+		Info:                       {
+		} | fn.Fn
+		Name?: string | fn.Fn
 	}
 }
 CloudFormationProvisionedProduct :: {
 	Type: "AWS::ServiceCatalog::CloudFormationProvisionedProduct"
 	Properties: {
-		AcceptLanguage?: string
-		NotificationArns?: [...string]
-		PathId?:                   string
-		ProductId?:                string
-		ProductName?:              string
-		ProvisionedProductName?:   string
-		ProvisioningArtifactId?:   string
-		ProvisioningArtifactName?: string
+		AcceptLanguage?:           string | fn.Fn
+		NotificationArns?:         [...string] | fn.Fn
+		PathId?:                   string | fn.Fn
+		ProductId?:                string | fn.Fn
+		ProductName?:              string | fn.Fn
+		ProvisionedProductName?:   string | fn.Fn
+		ProvisioningArtifactId?:   string | fn.Fn
+		ProvisioningArtifactName?: string | fn.Fn
 		ProvisioningParameters?: [...__ProvisioningParameter]
 		ProvisioningPreferences?: __ProvisioningPreferences
 		Tags?: [...__Tag]
 	}
 	__ProvisioningParameter :: {
-		Key?:   string
-		Value?: string
+		Key?:   string | fn.Fn
+		Value?: string | fn.Fn
 	}
 	__ProvisioningPreferences :: {
-		StackSetAccounts?: [...string]
-		StackSetFailureToleranceCount?:      int
-		StackSetFailureTolerancePercentage?: int
-		StackSetMaxConcurrencyCount?:        int
-		StackSetMaxConcurrencyPercentage?:   int
-		StackSetOperationType?:              string
-		StackSetRegions?: [...string]
+		StackSetAccounts?:                   [...string] | fn.Fn
+		StackSetFailureToleranceCount?:      int | fn.Fn
+		StackSetFailureTolerancePercentage?: int | fn.Fn
+		StackSetMaxConcurrencyCount?:        int | fn.Fn
+		StackSetMaxConcurrencyPercentage?:   int | fn.Fn
+		StackSetOperationType?:              string | fn.Fn
+		StackSetRegions?:                    [...string] | fn.Fn
 	}
 }
 LaunchNotificationConstraint :: {
 	Type: "AWS::ServiceCatalog::LaunchNotificationConstraint"
 	Properties: {
-		AcceptLanguage?: string
-		Description?:    string
-		NotificationArns: [...string]
-		PortfolioId: string
-		ProductId:   string
+		AcceptLanguage?:  string | fn.Fn
+		Description?:     string | fn.Fn
+		NotificationArns: [...string] | fn.Fn
+		PortfolioId:      string | fn.Fn
+		ProductId:        string | fn.Fn
 	}
 }
 LaunchRoleConstraint :: {
 	Type: "AWS::ServiceCatalog::LaunchRoleConstraint"
 	Properties: {
-		AcceptLanguage?: string
-		Description?:    string
-		PortfolioId:     string
-		ProductId:       string
-		RoleArn:         string
+		AcceptLanguage?: string | fn.Fn
+		Description?:    string | fn.Fn
+		PortfolioId:     string | fn.Fn
+		ProductId:       string | fn.Fn
+		RoleArn:         string | fn.Fn
 	}
 }
 LaunchTemplateConstraint :: {
 	Type: "AWS::ServiceCatalog::LaunchTemplateConstraint"
 	Properties: {
-		AcceptLanguage?: string
-		Description?:    string
-		PortfolioId:     string
-		ProductId:       string
-		Rules:           string
+		AcceptLanguage?: string | fn.Fn
+		Description?:    string | fn.Fn
+		PortfolioId:     string | fn.Fn
+		ProductId:       string | fn.Fn
+		Rules:           string | fn.Fn
 	}
 }
 Portfolio :: {
 	Type: "AWS::ServiceCatalog::Portfolio"
 	Properties: {
-		AcceptLanguage?: string
-		Description?:    string
-		DisplayName:     string
-		ProviderName:    string
+		AcceptLanguage?: string | fn.Fn
+		Description?:    string | fn.Fn
+		DisplayName:     string | fn.Fn
+		ProviderName:    string | fn.Fn
 		Tags?: [...__Tag]
 	}
 }
 PortfolioPrincipalAssociation :: {
 	Type: "AWS::ServiceCatalog::PortfolioPrincipalAssociation"
 	Properties: {
-		AcceptLanguage?: string
-		PortfolioId:     string
-		PrincipalARN:    string
-		PrincipalType:   string
+		AcceptLanguage?: string | fn.Fn
+		PortfolioId:     string | fn.Fn
+		PrincipalARN:    string | fn.Fn
+		PrincipalType:   string | fn.Fn
 	}
 }
 PortfolioProductAssociation :: {
 	Type: "AWS::ServiceCatalog::PortfolioProductAssociation"
 	Properties: {
-		AcceptLanguage?:    string
-		PortfolioId:        string
-		ProductId:          string
-		SourcePortfolioId?: string
+		AcceptLanguage?:    string | fn.Fn
+		PortfolioId:        string | fn.Fn
+		ProductId:          string | fn.Fn
+		SourcePortfolioId?: string | fn.Fn
 	}
 }
 PortfolioShare :: {
 	Type: "AWS::ServiceCatalog::PortfolioShare"
 	Properties: {
-		AcceptLanguage?: string
-		AccountId:       string
-		PortfolioId:     string
+		AcceptLanguage?: string | fn.Fn
+		AccountId:       string | fn.Fn
+		PortfolioId:     string | fn.Fn
 	}
 }
 ResourceUpdateConstraint :: {
 	Type: "AWS::ServiceCatalog::ResourceUpdateConstraint"
 	Properties: {
-		AcceptLanguage?:               string
-		Description?:                  string
-		PortfolioId:                   string
-		ProductId:                     string
-		TagUpdateOnProvisionedProduct: string
+		AcceptLanguage?:               string | fn.Fn
+		Description?:                  string | fn.Fn
+		PortfolioId:                   string | fn.Fn
+		ProductId:                     string | fn.Fn
+		TagUpdateOnProvisionedProduct: string | fn.Fn
 	}
 }
 StackSetConstraint :: {
 	Type: "AWS::ServiceCatalog::StackSetConstraint"
 	Properties: {
-		AcceptLanguage?: string
-		AccountList: [...string]
-		AdminRole:     string
-		Description:   string
-		ExecutionRole: string
-		PortfolioId:   string
-		ProductId:     string
-		RegionList: [...string]
-		StackInstanceControl: string
+		AcceptLanguage?:      string | fn.Fn
+		AccountList:          [...string] | fn.Fn
+		AdminRole:            string | fn.Fn
+		Description:          string | fn.Fn
+		ExecutionRole:        string | fn.Fn
+		PortfolioId:          string | fn.Fn
+		ProductId:            string | fn.Fn
+		RegionList:           [...string] | fn.Fn
+		StackInstanceControl: string | fn.Fn
 	}
 }
 TagOption :: {
 	Type: "AWS::ServiceCatalog::TagOption"
 	Properties: {
-		Active?: bool
-		Key:     string
-		Value:   string
+		Active?: bool | fn.Fn
+		Key:     string | fn.Fn
+		Value:   string | fn.Fn
 	}
 }
 TagOptionAssociation :: {
 	Type: "AWS::ServiceCatalog::TagOptionAssociation"
 	Properties: {
-		ResourceId:  string
-		TagOptionId: string
+		ResourceId:  string | fn.Fn
+		TagOptionId: string | fn.Fn
 	}
 }

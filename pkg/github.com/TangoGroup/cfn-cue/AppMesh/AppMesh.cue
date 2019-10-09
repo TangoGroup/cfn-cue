@@ -1,14 +1,16 @@
 package AppMesh
 
+import "github.com/TangoGroup/fn"
+
 Mesh :: {
 	Type: "AWS::AppMesh::Mesh"
 	Properties: {
-		MeshName: string
+		MeshName: string | fn.Fn
 		Spec?:    __MeshSpec
 		Tags?: [...__Tag]
 	}
 	__EgressFilter :: {
-		Type: string
+		Type: string | fn.Fn
 	}
 	__MeshSpec :: {
 		EgressFilter?: __EgressFilter
@@ -17,28 +19,28 @@ Mesh :: {
 Route :: {
 	Type: "AWS::AppMesh::Route"
 	Properties: {
-		MeshName:  string
-		RouteName: string
+		MeshName:  string | fn.Fn
+		RouteName: string | fn.Fn
 		Spec:      __RouteSpec
 		Tags?: [...__Tag]
-		VirtualRouterName: string
+		VirtualRouterName: string | fn.Fn
 	}
 	__Duration :: {
-		Unit:  string
-		Value: int
+		Unit:  string | fn.Fn
+		Value: int | fn.Fn
 	}
 	__HeaderMatchMethod :: {
-		Exact?:  string
-		Prefix?: string
+		Exact?:  string | fn.Fn
+		Prefix?: string | fn.Fn
 		Range?:  __MatchRange
-		Regex?:  string
-		Suffix?: string
+		Regex?:  string | fn.Fn
+		Suffix?: string | fn.Fn
 	}
 	__HttpRetryPolicy :: {
-		HttpRetryEvents?: [...string]
-		MaxRetries:      int
-		PerRetryTimeout: __Duration
-		TcpRetryEvents?: [...string]
+		HttpRetryEvents?: [...string] | fn.Fn
+		MaxRetries:       int | fn.Fn
+		PerRetryTimeout:  __Duration
+		TcpRetryEvents?:  [...string] | fn.Fn
 	}
 	__HttpRoute :: {
 		Action:       __HttpRouteAction
@@ -49,23 +51,23 @@ Route :: {
 		WeightedTargets: [...__WeightedTarget]
 	}
 	__HttpRouteHeader :: {
-		Invert?: bool
+		Invert?: bool | fn.Fn
 		Match?:  __HeaderMatchMethod
-		Name:    string
+		Name:    string | fn.Fn
 	}
 	__HttpRouteMatch :: {
 		Headers?: [...__HttpRouteHeader]
-		Method?: string
-		Prefix:  string
-		Scheme?: string
+		Method?: string | fn.Fn
+		Prefix:  string | fn.Fn
+		Scheme?: string | fn.Fn
 	}
 	__MatchRange :: {
-		End:   int
-		Start: int
+		End:   int | fn.Fn
+		Start: int | fn.Fn
 	}
 	__RouteSpec :: {
 		HttpRoute?: __HttpRoute
-		Priority?:  int
+		Priority?:  int | fn.Fn
 		TcpRoute?:  __TcpRoute
 	}
 	__TcpRoute :: {
@@ -75,47 +77,47 @@ Route :: {
 		WeightedTargets: [...__WeightedTarget]
 	}
 	__WeightedTarget :: {
-		VirtualNode: string
-		Weight:      int
+		VirtualNode: string | fn.Fn
+		Weight:      int | fn.Fn
 	}
 }
 VirtualNode :: {
 	Type: "AWS::AppMesh::VirtualNode"
 	Properties: {
-		MeshName: string
+		MeshName: string | fn.Fn
 		Spec:     __VirtualNodeSpec
 		Tags?: [...__Tag]
-		VirtualNodeName: string
+		VirtualNodeName: string | fn.Fn
 	}
 	__AccessLog :: {
 		File?: __FileAccessLog
 	}
 	__AwsCloudMapInstanceAttribute :: {
-		Key:   string
-		Value: string
+		Key:   string | fn.Fn
+		Value: string | fn.Fn
 	}
 	__AwsCloudMapServiceDiscovery :: {
 		Attributes?: [...__AwsCloudMapInstanceAttribute]
-		NamespaceName: string
-		ServiceName:   string
+		NamespaceName: string | fn.Fn
+		ServiceName:   string | fn.Fn
 	}
 	__Backend :: {
 		VirtualService?: __VirtualServiceBackend
 	}
 	__DnsServiceDiscovery :: {
-		Hostname: string
+		Hostname: string | fn.Fn
 	}
 	__FileAccessLog :: {
-		Path: string
+		Path: string | fn.Fn
 	}
 	__HealthCheck :: {
-		HealthyThreshold:   int
-		IntervalMillis:     int
-		Path?:              string
-		Port?:              int
-		Protocol:           string
-		TimeoutMillis:      int
-		UnhealthyThreshold: int
+		HealthyThreshold:   int | fn.Fn
+		IntervalMillis:     int | fn.Fn
+		Path?:              string | fn.Fn
+		Port?:              int | fn.Fn
+		Protocol:           string | fn.Fn
+		TimeoutMillis:      int | fn.Fn
+		UnhealthyThreshold: int | fn.Fn
 	}
 	__Listener :: {
 		HealthCheck?: __HealthCheck
@@ -125,8 +127,8 @@ VirtualNode :: {
 		AccessLog?: __AccessLog
 	}
 	__PortMapping :: {
-		Port:     int
-		Protocol: string
+		Port:     int | fn.Fn
+		Protocol: string | fn.Fn
 	}
 	__ServiceDiscovery :: {
 		AWSCloudMap?: __AwsCloudMapServiceDiscovery
@@ -139,20 +141,20 @@ VirtualNode :: {
 		ServiceDiscovery?: __ServiceDiscovery
 	}
 	__VirtualServiceBackend :: {
-		VirtualServiceName: string
+		VirtualServiceName: string | fn.Fn
 	}
 }
 VirtualRouter :: {
 	Type: "AWS::AppMesh::VirtualRouter"
 	Properties: {
-		MeshName: string
+		MeshName: string | fn.Fn
 		Spec:     __VirtualRouterSpec
 		Tags?: [...__Tag]
-		VirtualRouterName: string
+		VirtualRouterName: string | fn.Fn
 	}
 	__PortMapping :: {
-		Port:     int
-		Protocol: string
+		Port:     int | fn.Fn
+		Protocol: string | fn.Fn
 	}
 	__VirtualRouterListener :: {
 		PortMapping: __PortMapping
@@ -164,16 +166,16 @@ VirtualRouter :: {
 VirtualService :: {
 	Type: "AWS::AppMesh::VirtualService"
 	Properties: {
-		MeshName: string
+		MeshName: string | fn.Fn
 		Spec:     __VirtualServiceSpec
 		Tags?: [...__Tag]
-		VirtualServiceName: string
+		VirtualServiceName: string | fn.Fn
 	}
 	__VirtualNodeServiceProvider :: {
-		VirtualNodeName: string
+		VirtualNodeName: string | fn.Fn
 	}
 	__VirtualRouterServiceProvider :: {
-		VirtualRouterName: string
+		VirtualRouterName: string | fn.Fn
 	}
 	__VirtualServiceProvider :: {
 		VirtualNode?:   __VirtualNodeServiceProvider

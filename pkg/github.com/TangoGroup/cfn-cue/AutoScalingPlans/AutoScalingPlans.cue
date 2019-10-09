@@ -1,5 +1,7 @@
 package AutoScalingPlans
 
+import "github.com/TangoGroup/fn"
+
 ScalingPlan :: {
 	Type: "AWS::AutoScalingPlans::ScalingPlan"
 	Properties: {
@@ -7,68 +9,62 @@ ScalingPlan :: {
 		ScalingInstructions: [...__ScalingInstruction]
 	}
 	__ApplicationSource :: {
-		CloudFormationStackARN?: string
+		CloudFormationStackARN?: string | fn.Fn
 		TagFilters?: [...__TagFilter]
 	}
 	__CustomizedLoadMetricSpecification :: {
 		Dimensions?: [...__MetricDimension]
-		MetricName: string
-		Namespace:  string
-		Statistic:  string
-		Unit?:      string
+		MetricName: string | fn.Fn
+		Namespace:  string | fn.Fn
+		Statistic:  string | fn.Fn
+		Unit?:      string | fn.Fn
 	}
 	__CustomizedScalingMetricSpecification :: {
 		Dimensions?: [...__MetricDimension]
-		MetricName: string
-		Namespace:  string
-		Statistic:  "Average" | "Minimum" | "Maximum" | "SampleCount" | "Sum"
-		Statistic:  string
-		Unit?:      string
+		MetricName: string | fn.Fn
+		Namespace:  string | fn.Fn
+		Statistic:  (string & ("Average" | "Minimum" | "Maximum" | "SampleCount" | "Sum")) | fn.Fn
+		Unit?:      string | fn.Fn
 	}
 	__MetricDimension :: {
-		Name:  string
-		Value: string
+		Name:  string | fn.Fn
+		Value: string | fn.Fn
 	}
 	__PredefinedLoadMetricSpecification :: {
-		PredefinedLoadMetricType: string
-		ResourceLabel?:           string
+		PredefinedLoadMetricType: string | fn.Fn
+		ResourceLabel?:           string | fn.Fn
 	}
 	__PredefinedScalingMetricSpecification :: {
-		PredefinedScalingMetricType: "ALBRequestCountPerTarget" | "ASGAverageCPUUtilization" | "ASGAverageNetworkIn" | "ASGAverageNetworkOut"
-		PredefinedScalingMetricType: string
-		ResourceLabel?:              string
+		PredefinedScalingMetricType: (string & ("ALBRequestCountPerTarget" | "ASGAverageCPUUtilization" | "ASGAverageNetworkIn" | "ASGAverageNetworkOut")) | fn.Fn
+		ResourceLabel?:              string | fn.Fn
 	}
 	__ScalingInstruction :: {
 		CustomizedLoadMetricSpecification?:    __CustomizedLoadMetricSpecification
-		DisableDynamicScaling?:                bool
-		MaxCapacity:                           int
-		MinCapacity:                           int
+		DisableDynamicScaling?:                bool | fn.Fn
+		MaxCapacity:                           int | fn.Fn
+		MinCapacity:                           int | fn.Fn
 		PredefinedLoadMetricSpecification?:    __PredefinedLoadMetricSpecification
-		PredictiveScalingMaxCapacityBehavior?: "SetForecastCapacityToMaxCapacity" | "SetMaxCapacityToForecastCapacity" | "SetMaxCapacityAboveForecastCapacity"
-		PredictiveScalingMaxCapacityBehavior?: string
-		PredictiveScalingMaxCapacityBuffer?:   int
-		PredictiveScalingMode?:                "ForecastAndScale" | "ForecastOnly"
-		PredictiveScalingMode?:                string
-		ResourceId:                            string
-		ScalableDimension:                     "autoscaling:autoScalingGroup:DesiredCapacity" | "ecs:service:DesiredCount" | "ec2:spot-fleet-request:TargetCapacity" | "dynamodb:table:ReadCapacityUnits" | "dynamodb:table:WriteCapacityUnits" | "dynamodb:index:ReadCapacityUnits" | "dynamodb:index:WriteCapacityUnits" | "rds:cluster:ReadReplicaCount"
-		ScalableDimension:                     string
-		ScalingPolicyUpdateBehavior?:          string
-		ScheduledActionBufferTime?:            int
-		ServiceNamespace:                      "autoscaling" | "dynamodb" | "ecs" | "ec2" | "rds"
-		ServiceNamespace:                      string
+		PredictiveScalingMaxCapacityBehavior?: (string & ("SetForecastCapacityToMaxCapacity" | "SetMaxCapacityToForecastCapacity" | "SetMaxCapacityAboveForecastCapacity")) | fn.Fn
+		PredictiveScalingMaxCapacityBuffer?:   int | fn.Fn
+		PredictiveScalingMode?:                (string & ("ForecastAndScale" | "ForecastOnly")) | fn.Fn
+		ResourceId:                            string | fn.Fn
+		ScalableDimension:                     (string & ("autoscaling:autoScalingGroup:DesiredCapacity" | "ecs:service:DesiredCount" | "ec2:spot-fleet-request:TargetCapacity" | "dynamodb:table:ReadCapacityUnits" | "dynamodb:table:WriteCapacityUnits" | "dynamodb:index:ReadCapacityUnits" | "dynamodb:index:WriteCapacityUnits" | "rds:cluster:ReadReplicaCount")) | fn.Fn
+		ScalingPolicyUpdateBehavior?:          string | fn.Fn
+		ScheduledActionBufferTime?:            int | fn.Fn
+		ServiceNamespace:                      (string & ("autoscaling" | "dynamodb" | "ecs" | "ec2" | "rds")) | fn.Fn
 		TargetTrackingConfigurations: [...__TargetTrackingConfiguration]
 	}
 	__TagFilter :: {
-		Key: string
-		Values?: [...string]
+		Key:     string | fn.Fn
+		Values?: [...string] | fn.Fn
 	}
 	__TargetTrackingConfiguration :: {
 		CustomizedScalingMetricSpecification?: __CustomizedScalingMetricSpecification
-		DisableScaleIn?:                       bool
-		EstimatedInstanceWarmup?:              int
+		DisableScaleIn?:                       bool | fn.Fn
+		EstimatedInstanceWarmup?:              int | fn.Fn
 		PredefinedScalingMetricSpecification?: __PredefinedScalingMetricSpecification
-		ScaleInCooldown?:                      int
-		ScaleOutCooldown?:                     int
-		TargetValue:                           float
+		ScaleInCooldown?:                      int | fn.Fn
+		ScaleOutCooldown?:                     int | fn.Fn
+		TargetValue:                           float | fn.Fn
 	}
 }

@@ -1,109 +1,110 @@
 package WAF
 
+import "github.com/TangoGroup/fn"
+
 ByteMatchSet :: {
 	Type: "AWS::WAF::ByteMatchSet"
 	Properties: {
 		ByteMatchTuples?: [...__ByteMatchTuple]
-		Name: string
+		Name: string | fn.Fn
 	}
 	__ByteMatchTuple :: {
 		FieldToMatch:         __FieldToMatch
-		PositionalConstraint: string
-		TargetString?:        string
-		TargetStringBase64?:  string
-		TextTransformation:   string
+		PositionalConstraint: string | fn.Fn
+		TargetString?:        string | fn.Fn
+		TargetStringBase64?:  string | fn.Fn
+		TextTransformation:   string | fn.Fn
 	}
 	__FieldToMatch :: {
-		Data?: string
-		Type:  string
+		Data?: string | fn.Fn
+		Type:  string | fn.Fn
 	}
 }
 IPSet :: {
 	Type: "AWS::WAF::IPSet"
 	Properties: {
 		IPSetDescriptors?: [...__IPSetDescriptor]
-		Name: string
+		Name: string | fn.Fn
 	}
 	__IPSetDescriptor :: {
-		Type:  string
-		Value: string
+		Type:  string | fn.Fn
+		Value: string | fn.Fn
 	}
 }
 Rule :: {
 	Type: "AWS::WAF::Rule"
 	Properties: {
-		MetricName: string
-		Name:       string
+		MetricName: string | fn.Fn
+		Name:       string | fn.Fn
 		Predicates?: [...__Predicate]
 	}
 	__Predicate :: {
-		DataId:  string
-		Negated: bool
-		Type:    "ByteMatch" | "GeoMatch" | "IPMatch" | "RegexMatch" | "SizeConstraint" | "SqlInjectionMatch" | "XssMatch"
-		Type:    string
+		DataId:  string | fn.Fn
+		Negated: bool | fn.Fn
+		Type:    (string & ("ByteMatch" | "GeoMatch" | "IPMatch" | "RegexMatch" | "SizeConstraint" | "SqlInjectionMatch" | "XssMatch")) | fn.Fn
 	}
 }
 SizeConstraintSet :: {
 	Type: "AWS::WAF::SizeConstraintSet"
 	Properties: {
-		Name: string
+		Name: string | fn.Fn
 		SizeConstraints: [...__SizeConstraint]
 	}
 	__FieldToMatch :: {
-		Data?: string
-		Type:  string
+		Data?: string | fn.Fn
+		Type:  string | fn.Fn
 	}
 	__SizeConstraint :: {
-		ComparisonOperator: string
+		ComparisonOperator: string | fn.Fn
 		FieldToMatch:       __FieldToMatch
-		Size:               int
-		TextTransformation: string
+		Size:               int | fn.Fn
+		TextTransformation: string | fn.Fn
 	}
 }
 SqlInjectionMatchSet :: {
 	Type: "AWS::WAF::SqlInjectionMatchSet"
 	Properties: {
-		Name: string
+		Name: string | fn.Fn
 		SqlInjectionMatchTuples?: [...__SqlInjectionMatchTuple]
 	}
 	__FieldToMatch :: {
-		Data?: string
-		Type:  string
+		Data?: string | fn.Fn
+		Type:  string | fn.Fn
 	}
 	__SqlInjectionMatchTuple :: {
 		FieldToMatch:       __FieldToMatch
-		TextTransformation: string
+		TextTransformation: string | fn.Fn
 	}
 }
 WebACL :: {
 	Type: "AWS::WAF::WebACL"
 	Properties: {
 		DefaultAction: __WafAction
-		MetricName:    string
-		Name:          string
+		MetricName:    string | fn.Fn
+		Name:          string | fn.Fn
 		Rules?: [...__ActivatedRule]
 	}
 	__ActivatedRule :: {
 		Action?:  __WafAction
-		Priority: int
-		RuleId:   string
+		Priority: int | fn.Fn
+		RuleId:   string | fn.Fn
 	}
 	__WafAction :: {
-		Type: string
+		Type: string | fn.Fn
 	}
 }
 XssMatchSet :: {
 	Type: "AWS::WAF::XssMatchSet"
 	Properties: {
-		Name: string
+		Name: string | fn.Fn
 		XssMatchTuples: [...__XssMatchTuple]
 	}
 	__FieldToMatch :: {
-		Data?: string
-		Type:  string
+		Data?: string | fn.Fn
+		Type:  string | fn.Fn
 	}
 	__XssMatchTuple :: {
 		FieldToMatch:       __FieldToMatch
-		TextTransformation: string
+		TextTransformation: string | fn.Fn
 	}
 }
