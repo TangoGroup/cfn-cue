@@ -71,6 +71,7 @@ func createFieldFromProperty(name string, prop Property, constraints []ast.Expr)
 			Elts: []ast.Expr{&ast.Ellipsis{Type: itemType}},
 		}
 	} else if prop.IsMap() {
+		// TODO: Clean up Maps...
 		value = &ast.StructLit{}
 	} else {
 		if prop.IsPrimitive() {
