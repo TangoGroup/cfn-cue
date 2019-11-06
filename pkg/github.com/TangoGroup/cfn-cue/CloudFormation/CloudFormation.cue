@@ -4,9 +4,7 @@ import "github.com/TangoGroup/fn"
 
 CustomResource :: {
 	Type: "AWS::CloudFormation::CustomResource"
-	Properties: {
-		ServiceToken: string | fn.Fn
-	}
+	Properties: ServiceToken: string | fn.Fn
 }
 Macro :: {
 	Type: "AWS::CloudFormation::Macro"

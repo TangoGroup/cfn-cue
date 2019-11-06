@@ -4,8 +4,6 @@ import "github.com/TangoGroup/fn"
 
 Hub :: {
 	Type: "AWS::SecurityHub::Hub"
-	Properties: {
-		Tags?: {
-		} | fn.Fn
-	}
+	Properties: Tags?: {
+	} | fn.Fn
 }

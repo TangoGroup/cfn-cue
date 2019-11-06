@@ -4,9 +4,7 @@ import "github.com/TangoGroup/fn"
 
 Account :: {
 	Type: "AWS::ApiGateway::Account"
-	Properties: {
-		CloudWatchRoleArn?: string | fn.Fn
-	}
+	Properties: CloudWatchRoleArn?: string | fn.Fn
 }
 ApiKey :: {
 	Type: "AWS::ApiGateway::ApiKey"
@@ -50,9 +48,7 @@ BasePathMapping :: {
 }
 ClientCertificate :: {
 	Type: "AWS::ApiGateway::ClientCertificate"
-	Properties: {
-		Description?: string | fn.Fn
-	}
+	Properties: Description?: string | fn.Fn
 }
 Deployment :: {
 	Type: "AWS::ApiGateway::Deployment"

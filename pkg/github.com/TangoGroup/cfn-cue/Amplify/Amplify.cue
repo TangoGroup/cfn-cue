@@ -24,8 +24,10 @@ App :: {
 		BuildSpec?:                  string | fn.Fn
 		EnableAutoBranchCreation?:   bool | fn.Fn
 		EnableAutoBuild?:            bool | fn.Fn
+		EnablePullRequestPreview?:   bool | fn.Fn
 		EnvironmentVariables?: [...__EnvironmentVariable]
-		Stage?: string | fn.Fn
+		PullRequestEnvironmentName?: string | fn.Fn
+		Stage?:                      string | fn.Fn
 	}
 	__BasicAuthConfig :: {
 		EnableBasicAuth?: bool | fn.Fn
@@ -46,14 +48,16 @@ App :: {
 Branch :: {
 	Type: "AWS::Amplify::Branch"
 	Properties: {
-		AppId:            string | fn.Fn
-		BasicAuthConfig?: __BasicAuthConfig
-		BranchName:       string | fn.Fn
-		BuildSpec?:       string | fn.Fn
-		Description?:     string | fn.Fn
-		EnableAutoBuild?: bool | fn.Fn
+		AppId:                     string | fn.Fn
+		BasicAuthConfig?:          __BasicAuthConfig
+		BranchName:                string | fn.Fn
+		BuildSpec?:                string | fn.Fn
+		Description?:              string | fn.Fn
+		EnableAutoBuild?:          bool | fn.Fn
+		EnablePullRequestPreview?: bool | fn.Fn
 		EnvironmentVariables?: [...__EnvironmentVariable]
-		Stage?: string | fn.Fn
+		PullRequestEnvironmentName?: string | fn.Fn
+		Stage?:                      string | fn.Fn
 		Tags?: [...__Tag]
 	}
 	__BasicAuthConfig :: {

@@ -50,6 +50,7 @@ IdentityPoolRoleAttachment :: {
 	}
 	__RoleMapping :: {
 		AmbiguousRoleResolution?: string | fn.Fn
+		IdentityProvider?:        string | fn.Fn
 		RulesConfiguration?:      __RulesConfigurationType
 		Type:                     string | fn.Fn
 	}

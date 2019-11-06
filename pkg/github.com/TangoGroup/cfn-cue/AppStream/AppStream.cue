@@ -48,6 +48,7 @@ Fleet :: {
 ImageBuilder :: {
 	Type: "AWS::AppStream::ImageBuilder"
 	Properties: {
+		AccessEndpoints?: [...__AccessEndpoint]
 		AppstreamAgentVersion?:       string | fn.Fn
 		Description?:                 string | fn.Fn
 		DisplayName?:                 string | fn.Fn
@@ -59,6 +60,10 @@ ImageBuilder :: {
 		Name?:                        string | fn.Fn
 		Tags?: [...__Tag]
 		VpcConfig?: __VpcConfig
+	}
+	__AccessEndpoint :: {
+		EndpointType: string | fn.Fn
+		VpceId:       string | fn.Fn
 	}
 	__DomainJoinInfo :: {
 		DirectoryName?:                       string | fn.Fn
@@ -72,17 +77,23 @@ ImageBuilder :: {
 Stack :: {
 	Type: "AWS::AppStream::Stack"
 	Properties: {
+		AccessEndpoints?: [...__AccessEndpoint]
 		ApplicationSettings?:     __ApplicationSettings
 		AttributesToDelete?:      [...string] | fn.Fn
 		DeleteStorageConnectors?: bool | fn.Fn
 		Description?:             string | fn.Fn
 		DisplayName?:             string | fn.Fn
+		EmbedHostDomains?:        [...string] | fn.Fn
 		FeedbackURL?:             string | fn.Fn
 		Name?:                    string | fn.Fn
 		RedirectURL?:             string | fn.Fn
 		StorageConnectors?: [...__StorageConnector]
 		Tags?: [...__Tag]
 		UserSettings?: [...__UserSetting]
+	}
+	__AccessEndpoint :: {
+		EndpointType: string | fn.Fn
+		VpceId:       string | fn.Fn
 	}
 	__ApplicationSettings :: {
 		Enabled:        bool | fn.Fn

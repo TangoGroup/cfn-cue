@@ -4,9 +4,7 @@ import "github.com/TangoGroup/fn"
 
 CloudFrontOriginAccessIdentity :: {
 	Type: "AWS::CloudFront::CloudFrontOriginAccessIdentity"
-	Properties: {
-		CloudFrontOriginAccessIdentityConfig: __CloudFrontOriginAccessIdentityConfig
-	}
+	Properties: CloudFrontOriginAccessIdentityConfig: __CloudFrontOriginAccessIdentityConfig
 	__CloudFrontOriginAccessIdentityConfig :: {
 		Comment: string | fn.Fn
 	}

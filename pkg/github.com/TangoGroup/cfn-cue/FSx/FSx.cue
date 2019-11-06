@@ -6,12 +6,12 @@ FileSystem :: {
 	Type: "AWS::FSx::FileSystem"
 	Properties: {
 		BackupId?:            string | fn.Fn
-		FileSystemType?:      string | fn.Fn
+		FileSystemType:       string | fn.Fn
 		KmsKeyId?:            string | fn.Fn
 		LustreConfiguration?: __LustreConfiguration
 		SecurityGroupIds?:    [...string] | fn.Fn
 		StorageCapacity?:     (int & (>=300 & <=65536)) | fn.Fn
-		SubnetIds?:           [...string] | fn.Fn
+		SubnetIds:            [...string] | fn.Fn
 		Tags?: [...__Tag]
 		WindowsConfiguration?: __WindowsConfiguration
 	}
@@ -21,12 +21,21 @@ FileSystem :: {
 		ImportedFileChunkSize?:      int | fn.Fn
 		WeeklyMaintenanceStartTime?: string | fn.Fn
 	}
+	__SelfManagedActiveDirectoryConfiguration :: {
+		DnsIps?:                              [...string] | fn.Fn
+		DomainName?:                          string | fn.Fn
+		FileSystemAdministratorsGroup?:       string | fn.Fn
+		OrganizationalUnitDistinguishedName?: string | fn.Fn
+		Password?:                            string | fn.Fn
+		UserName?:                            string | fn.Fn
+	}
 	__WindowsConfiguration :: {
-		ActiveDirectoryId?:             string | fn.Fn
-		AutomaticBackupRetentionDays?:  int | fn.Fn
-		CopyTagsToBackups?:             bool | fn.Fn
-		DailyAutomaticBackupStartTime?: string | fn.Fn
-		ThroughputCapacity?:            int | fn.Fn
-		WeeklyMaintenanceStartTime?:    string | fn.Fn
+		ActiveDirectoryId?:                       string | fn.Fn
+		AutomaticBackupRetentionDays?:            int | fn.Fn
+		CopyTagsToBackups?:                       bool | fn.Fn
+		DailyAutomaticBackupStartTime?:           string | fn.Fn
+		SelfManagedActiveDirectoryConfiguration?: __SelfManagedActiveDirectoryConfiguration
+		ThroughputCapacity?:                      int | fn.Fn
+		WeeklyMaintenanceStartTime?:              string | fn.Fn
 	}
 }

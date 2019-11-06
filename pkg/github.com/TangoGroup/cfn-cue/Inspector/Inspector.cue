@@ -21,7 +21,5 @@ AssessmentTemplate :: {
 }
 ResourceGroup :: {
 	Type: "AWS::Inspector::ResourceGroup"
-	Properties: {
-		ResourceGroupTags: [...__Tag]
-	}
+	Properties: ResourceGroupTags: [...__Tag]
 }

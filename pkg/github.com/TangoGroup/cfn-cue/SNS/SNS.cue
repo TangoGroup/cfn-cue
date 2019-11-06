@@ -22,6 +22,7 @@ Topic :: {
 		DisplayName?:    string | fn.Fn
 		KmsMasterKeyId?: string | fn.Fn
 		Subscription?: [...__Subscription]
+		Tags?: [...__Tag]
 		TopicName?: string | fn.Fn
 	}
 	__Subscription :: {

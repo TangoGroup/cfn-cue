@@ -81,9 +81,7 @@ ReplicationGroup :: {
 }
 SecurityGroup :: {
 	Type: "AWS::ElastiCache::SecurityGroup"
-	Properties: {
-		Description: string | fn.Fn
-	}
+	Properties: Description: string | fn.Fn
 }
 SecurityGroupIngress :: {
 	Type: "AWS::ElastiCache::SecurityGroupIngress"

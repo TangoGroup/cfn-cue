@@ -12,20 +12,21 @@ ComputeEnvironment :: {
 		Type:                    string | fn.Fn
 	}
 	__ComputeResources :: {
-		BidPercentage?:    int | fn.Fn
-		DesiredvCpus?:     int | fn.Fn
-		Ec2KeyPair?:       string | fn.Fn
-		ImageId?:          string | fn.Fn
-		InstanceRole:      string | fn.Fn
-		InstanceTypes:     [...string] | fn.Fn
-		LaunchTemplate?:   __LaunchTemplateSpecification
-		MaxvCpus:          int | fn.Fn
-		MinvCpus:          int | fn.Fn
-		PlacementGroup?:   string | fn.Fn
-		SecurityGroupIds?: [...string] | fn.Fn
-		SpotIamFleetRole?: (string & (=~#"arn:(aws[a-zA-Z-]*)?:iam::\d{12}:role/[a-zA-Z_0-9+=,.@\-_/]+"#)) | fn.Fn
-		Subnets:           [...string] | fn.Fn
-		Tags?:             {
+		AllocationStrategy?: string | fn.Fn
+		BidPercentage?:      int | fn.Fn
+		DesiredvCpus?:       int | fn.Fn
+		Ec2KeyPair?:         string | fn.Fn
+		ImageId?:            string | fn.Fn
+		InstanceRole:        string | fn.Fn
+		InstanceTypes:       [...string] | fn.Fn
+		LaunchTemplate?:     __LaunchTemplateSpecification
+		MaxvCpus:            int | fn.Fn
+		MinvCpus:            int | fn.Fn
+		PlacementGroup?:     string | fn.Fn
+		SecurityGroupIds?:   [...string] | fn.Fn
+		SpotIamFleetRole?:   (string & (=~#"arn:(aws[a-zA-Z-]*)?:iam::\d{12}:role/[a-zA-Z_0-9+=,.@\-_/]+"#)) | fn.Fn
+		Subnets:             [...string] | fn.Fn
+		Tags?:               {
 		} | fn.Fn
 		Type: string | fn.Fn
 	}

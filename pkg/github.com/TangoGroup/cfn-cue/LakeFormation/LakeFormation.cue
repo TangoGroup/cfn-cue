@@ -4,9 +4,7 @@ import "github.com/TangoGroup/fn"
 
 DataLakeSettings :: {
 	Type: "AWS::LakeFormation::DataLakeSettings"
-	Properties: {
-		Admins?: __Admins
-	}
+	Properties: Admins?: __Admins
 	__Admins :: {
 	}
 	__DataLakePrincipal :: {

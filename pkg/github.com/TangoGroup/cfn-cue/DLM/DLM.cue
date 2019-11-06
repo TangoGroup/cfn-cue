@@ -15,6 +15,10 @@ LifecyclePolicy :: {
 		IntervalUnit: string | fn.Fn
 		Times?:       [...string] | fn.Fn
 	}
+	__FastRestoreRule :: {
+		AvailabilityZones?: [...string] | fn.Fn
+		Count:              int | fn.Fn
+	}
 	__Parameters :: {
 		ExcludeBootVolume?: bool | fn.Fn
 	}
@@ -29,10 +33,11 @@ LifecyclePolicy :: {
 		Count: int | fn.Fn
 	}
 	__Schedule :: {
-		CopyTags?:   bool | fn.Fn
-		CreateRule?: __CreateRule
-		Name?:       string | fn.Fn
-		RetainRule?: __RetainRule
+		CopyTags?:        bool | fn.Fn
+		CreateRule?:      __CreateRule
+		FastRestoreRule?: __FastRestoreRule
+		Name?:            string | fn.Fn
+		RetainRule?:      __RetainRule
 		TagsToAdd?: [...__Tag]
 		VariableTags?: [...__Tag]
 	}

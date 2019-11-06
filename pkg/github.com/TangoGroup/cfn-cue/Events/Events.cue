@@ -2,6 +2,13 @@ package Events
 
 import "github.com/TangoGroup/fn"
 
+EventBus :: {
+	Type: "AWS::Events::EventBus"
+	Properties: {
+		EventSourceName?: string | fn.Fn
+		Name:             string | fn.Fn
+	}
+}
 EventBusPolicy :: {
 	Type: "AWS::Events::EventBusPolicy"
 	Properties: {

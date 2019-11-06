@@ -4,9 +4,7 @@ import "github.com/TangoGroup/fn"
 
 ConfigurationSet :: {
 	Type: "AWS::SES::ConfigurationSet"
-	Properties: {
-		Name?: string | fn.Fn
-	}
+	Properties: Name?: string | fn.Fn
 }
 ConfigurationSetEventDestination :: {
 	Type: "AWS::SES::ConfigurationSetEventDestination"
@@ -36,9 +34,7 @@ ConfigurationSetEventDestination :: {
 }
 ReceiptFilter :: {
 	Type: "AWS::SES::ReceiptFilter"
-	Properties: {
-		Filter: __Filter
-	}
+	Properties: Filter: __Filter
 	__Filter :: {
 		IpFilter: __IpFilter
 		Name?:    string | fn.Fn
@@ -109,15 +105,11 @@ ReceiptRule :: {
 }
 ReceiptRuleSet :: {
 	Type: "AWS::SES::ReceiptRuleSet"
-	Properties: {
-		RuleSetName?: string | fn.Fn
-	}
+	Properties: RuleSetName?: string | fn.Fn
 }
 Template :: {
 	Type: "AWS::SES::Template"
-	Properties: {
-		Template?: __Template
-	}
+	Properties: Template?: __Template
 	__Template :: {
 		HtmlPart?:     string | fn.Fn
 		SubjectPart?:  string | fn.Fn

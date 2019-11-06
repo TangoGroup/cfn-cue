@@ -62,7 +62,7 @@ Crawler :: {
 		Classifiers?:                  [...string] | fn.Fn
 		Configuration?:                string | fn.Fn
 		CrawlerSecurityConfiguration?: string | fn.Fn
-		DatabaseName:                  string | fn.Fn
+		DatabaseName?:                 string | fn.Fn
 		Description?:                  string | fn.Fn
 		Name?:                         string | fn.Fn
 		Role:                          string | fn.Fn
@@ -72,6 +72,13 @@ Crawler :: {
 		Tags?:                         {
 		} | fn.Fn
 		Targets: __Targets
+	}
+	__CatalogTarget :: {
+		DatabaseName?: string | fn.Fn
+		Tables?:       [...string] | fn.Fn
+	}
+	__DynamoDBTarget :: {
+		Path?: string | fn.Fn
 	}
 	__JdbcTarget :: {
 		ConnectionName?: string | fn.Fn
@@ -90,6 +97,8 @@ Crawler :: {
 		UpdateBehavior?: (string & ("LOG" | "UPDATE_IN_DATABASE")) | fn.Fn
 	}
 	__Targets :: {
+		CatalogTargets?: [...__CatalogTarget]
+		DynamoDBTargets?: [...__DynamoDBTarget]
 		JdbcTargets?: [...__JdbcTarget]
 		S3Targets?: [...__S3Target]
 	}

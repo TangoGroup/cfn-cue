@@ -4,7 +4,5 @@ import "github.com/TangoGroup/fn"
 
 Domain :: {
 	Type: "AWS::SDB::Domain"
-	Properties: {
-		Description?: string | fn.Fn
-	}
+	Properties: Description?: string | fn.Fn
 }

@@ -29,6 +29,38 @@ Route :: {
 		Unit:  string | fn.Fn
 		Value: int | fn.Fn
 	}
+	__GrpcRetryPolicy :: {
+		GrpcRetryEvents?: [...string] | fn.Fn
+		HttpRetryEvents?: [...string] | fn.Fn
+		MaxRetries:       int | fn.Fn
+		PerRetryTimeout:  __Duration
+		TcpRetryEvents?:  [...string] | fn.Fn
+	}
+	__GrpcRoute :: {
+		Action:       __GrpcRouteAction
+		Match:        __GrpcRouteMatch
+		RetryPolicy?: __GrpcRetryPolicy
+	}
+	__GrpcRouteAction :: {
+		WeightedTargets: [...__WeightedTarget]
+	}
+	__GrpcRouteMatch :: {
+		Metadata?: [...__GrpcRouteMetadata]
+		MethodName?:  string | fn.Fn
+		ServiceName?: string | fn.Fn
+	}
+	__GrpcRouteMetadata :: {
+		Invert?: bool | fn.Fn
+		Match?:  __GrpcRouteMetadataMatchMethod
+		Name:    string | fn.Fn
+	}
+	__GrpcRouteMetadataMatchMethod :: {
+		Exact?:  string | fn.Fn
+		Prefix?: string | fn.Fn
+		Range?:  __MatchRange
+		Regex?:  string | fn.Fn
+		Suffix?: string | fn.Fn
+	}
 	__HeaderMatchMethod :: {
 		Exact?:  string | fn.Fn
 		Prefix?: string | fn.Fn
@@ -66,9 +98,11 @@ Route :: {
 		Start: int | fn.Fn
 	}
 	__RouteSpec :: {
-		HttpRoute?: __HttpRoute
-		Priority?:  int | fn.Fn
-		TcpRoute?:  __TcpRoute
+		GrpcRoute?:  __GrpcRoute
+		Http2Route?: __HttpRoute
+		HttpRoute?:  __HttpRoute
+		Priority?:   int | fn.Fn
+		TcpRoute?:   __TcpRoute
 	}
 	__TcpRoute :: {
 		Action: __TcpRouteAction
