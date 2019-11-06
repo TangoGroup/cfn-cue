@@ -69,9 +69,7 @@ func createFieldFromProperty(name string, prop Property, constraints []ast.Expr)
 		} else {
 			itemType = mapFromCFNTypeToCue(prop.ItemType)
 		}
-		value = &ast.ListLit{
-			Elts: []ast.Expr{&ast.Ellipsis{Type: itemType}},
-		}
+		value = ast.NewList(&ast.Ellipsis{Type: itemType})
 	} else if prop.IsMap() {
 		// TODO: Clean up Maps...
 		value = &ast.StructLit{}
@@ -158,15 +156,8 @@ func createExprFromNumberMinMax(prop Property, min, max float64) (expr ast.Expr)
 }
 
 func createExprFromStringMinMax(prop Property, min, max int64) (expr ast.Expr) {
-	minLen := &ast.CallExpr{
-		Fun:  &ast.BasicLit{Value: "strings.MinRunes"},
-		Args: []ast.Expr{&ast.BasicLit{Value: strconv.FormatInt(min, 10)}},
-	}
-
-	maxLen := &ast.CallExpr{
-		Fun:  &ast.BasicLit{Value: "strings.MaxRunes"},
-		Args: []ast.Expr{&ast.BasicLit{Value: strconv.FormatInt(max, 10)}},
-	}
+	minLen := ast.NewCall(ast.NewIdent("strings.MinRunes"), &ast.BasicLit{Value: strconv.FormatInt(min, 10)})
+	maxLen := ast.NewCall(ast.NewIdent("strings.MaxRunes"), &ast.BasicLit{Value: strconv.FormatInt(max, 10)})
 
 	return &ast.BinaryExpr{X: minLen, Op: token.AND, Y: maxLen}
 }
