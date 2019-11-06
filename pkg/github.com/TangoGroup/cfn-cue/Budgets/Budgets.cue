@@ -5,22 +5,22 @@ import "github.com/TangoGroup/fn"
 Budget :: {
 	Type: "AWS::Budgets::Budget"
 	Properties: {
-		Budget: __BudgetData
-		NotificationsWithSubscribers?: [...__NotificationWithSubscribers]
+		Budget: propBudgetData
+		NotificationsWithSubscribers?: [...propNotificationWithSubscribers]
 	}
-	__BudgetData :: {
-		BudgetLimit?: __Spend
+	propBudgetData :: {
+		BudgetLimit?: propSpend
 		BudgetName?:  string | fn.Fn
 		BudgetType:   (string & ("COST" | "RI_COVERAGE" | "RI_UTILIZATION" | "USAGE")) | fn.Fn
 		CostFilters?: {
 		} | fn.Fn
-		CostTypes?:           __CostTypes
+		CostTypes?:           propCostTypes
 		PlannedBudgetLimits?: {
 		} | fn.Fn
-		TimePeriod?: __TimePeriod
+		TimePeriod?: propTimePeriod
 		TimeUnit:    (string & ("ANNUALLY" | "DAILY" | "MONTHLY" | "QUARTERLY")) | fn.Fn
 	}
-	__CostTypes :: {
+	propCostTypes :: {
 		IncludeCredit?:            bool | fn.Fn
 		IncludeDiscount?:          bool | fn.Fn
 		IncludeOtherSubscription?: bool | fn.Fn
@@ -33,25 +33,25 @@ Budget :: {
 		UseAmortized?:             bool | fn.Fn
 		UseBlended?:               bool | fn.Fn
 	}
-	__Notification :: {
+	propNotification :: {
 		ComparisonOperator: (string & ("EQUAL_TO" | "GREATER_THAN" | "LESS_THAN")) | fn.Fn
 		NotificationType:   (string & ("ACTUAL" | "FORECASTED")) | fn.Fn
 		Threshold:          (float & (>=0.1 & <=1000000000)) | fn.Fn
 		ThresholdType?:     (string & ("ABSOLUTE_VALUE" | "PERCENTAGE")) | fn.Fn
 	}
-	__NotificationWithSubscribers :: {
-		Notification: __Notification
-		Subscribers: [...__Subscriber]
+	propNotificationWithSubscribers :: {
+		Notification: propNotification
+		Subscribers: [...propSubscriber]
 	}
-	__Spend :: {
+	propSpend :: {
 		Amount: float | fn.Fn
 		Unit:   string | fn.Fn
 	}
-	__Subscriber :: {
+	propSubscriber :: {
 		Address:          string | fn.Fn
 		SubscriptionType: (string & ("EMAIL" | "SNS")) | fn.Fn
 	}
-	__TimePeriod :: {
+	propTimePeriod :: {
 		End?:   string | fn.Fn
 		Start?: string | fn.Fn
 	}

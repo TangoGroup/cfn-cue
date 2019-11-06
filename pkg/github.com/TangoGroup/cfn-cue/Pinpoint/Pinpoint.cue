@@ -79,23 +79,23 @@ ApplicationSettings :: {
 	Type: "AWS::Pinpoint::ApplicationSettings"
 	Properties: {
 		ApplicationId:             string | fn.Fn
-		CampaignHook?:             __CampaignHook
+		CampaignHook?:             propCampaignHook
 		CloudWatchMetricsEnabled?: bool | fn.Fn
-		Limits?:                   __Limits
-		QuietTime?:                __QuietTime
+		Limits?:                   propLimits
+		QuietTime?:                propQuietTime
 	}
-	__CampaignHook :: {
+	propCampaignHook :: {
 		LambdaFunctionName?: string | fn.Fn
 		Mode?:               string | fn.Fn
 		WebUrl?:             string | fn.Fn
 	}
-	__Limits :: {
+	propLimits :: {
 		Daily?:             int | fn.Fn
 		MaximumDuration?:   int | fn.Fn
 		MessagesPerSecond?: int | fn.Fn
 		Total?:             int | fn.Fn
 	}
-	__QuietTime :: {
+	propQuietTime :: {
 		End:   string | fn.Fn
 		Start: string | fn.Fn
 	}
@@ -112,16 +112,16 @@ BaiduChannel :: {
 Campaign :: {
 	Type: "AWS::Pinpoint::Campaign"
 	Properties: {
-		AdditionalTreatments?: [...__WriteTreatmentResource]
+		AdditionalTreatments?: [...propWriteTreatmentResource]
 		ApplicationId:        string | fn.Fn
-		CampaignHook?:        __CampaignHook
+		CampaignHook?:        propCampaignHook
 		Description?:         string | fn.Fn
 		HoldoutPercent?:      int | fn.Fn
 		IsPaused?:            bool | fn.Fn
-		Limits?:              __Limits
-		MessageConfiguration: __MessageConfiguration
+		Limits?:              propLimits
+		MessageConfiguration: propMessageConfiguration
 		Name:                 string | fn.Fn
-		Schedule:             __Schedule
+		Schedule:             propSchedule
 		SegmentId:            string | fn.Fn
 		SegmentVersion?:      int | fn.Fn
 		Tags?:                {
@@ -129,44 +129,44 @@ Campaign :: {
 		TreatmentDescription?: string | fn.Fn
 		TreatmentName?:        string | fn.Fn
 	}
-	__AttributeDimension :: {
+	propAttributeDimension :: {
 		AttributeType?: string | fn.Fn
 		Values?:        [...string] | fn.Fn
 	}
-	__CampaignEmailMessage :: {
+	propCampaignEmailMessage :: {
 		Body?:        string | fn.Fn
 		FromAddress?: string | fn.Fn
 		HtmlBody?:    string | fn.Fn
 		Title?:       string | fn.Fn
 	}
-	__CampaignEventFilter :: {
-		Dimensions?: __EventDimensions
+	propCampaignEventFilter :: {
+		Dimensions?: propEventDimensions
 		FilterType?: string | fn.Fn
 	}
-	__CampaignHook :: {
+	propCampaignHook :: {
 		LambdaFunctionName?: string | fn.Fn
 		Mode?:               string | fn.Fn
 		WebUrl?:             string | fn.Fn
 	}
-	__CampaignSmsMessage :: {
+	propCampaignSmsMessage :: {
 		Body?:        string | fn.Fn
 		MessageType?: string | fn.Fn
 		SenderId?:    string | fn.Fn
 	}
-	__EventDimensions :: {
+	propEventDimensions :: {
 		Attributes?: {
 		} | fn.Fn
-		EventType?: __SetDimension
+		EventType?: propSetDimension
 		Metrics?:   {
 		} | fn.Fn
 	}
-	__Limits :: {
+	propLimits :: {
 		Daily?:             int | fn.Fn
 		MaximumDuration?:   int | fn.Fn
 		MessagesPerSecond?: int | fn.Fn
 		Total?:             int | fn.Fn
 	}
-	__Message :: {
+	propMessage :: {
 		Action?:            string | fn.Fn
 		Body?:              string | fn.Fn
 		ImageIconUrl?:      string | fn.Fn
@@ -180,39 +180,39 @@ Campaign :: {
 		Title?:             string | fn.Fn
 		Url?:               string | fn.Fn
 	}
-	__MessageConfiguration :: {
-		ADMMessage?:     __Message
-		APNSMessage?:    __Message
-		BaiduMessage?:   __Message
-		DefaultMessage?: __Message
-		EmailMessage?:   __CampaignEmailMessage
-		GCMMessage?:     __Message
-		SMSMessage?:     __CampaignSmsMessage
+	propMessageConfiguration :: {
+		ADMMessage?:     propMessage
+		APNSMessage?:    propMessage
+		BaiduMessage?:   propMessage
+		DefaultMessage?: propMessage
+		EmailMessage?:   propCampaignEmailMessage
+		GCMMessage?:     propMessage
+		SMSMessage?:     propCampaignSmsMessage
 	}
-	__MetricDimension :: {
+	propMetricDimension :: {
 		ComparisonOperator?: string | fn.Fn
 		Value?:              float | fn.Fn
 	}
-	__QuietTime :: {
+	propQuietTime :: {
 		End:   string | fn.Fn
 		Start: string | fn.Fn
 	}
-	__Schedule :: {
+	propSchedule :: {
 		EndTime?:     string | fn.Fn
-		EventFilter?: __CampaignEventFilter
+		EventFilter?: propCampaignEventFilter
 		Frequency?:   string | fn.Fn
 		IsLocalTime?: bool | fn.Fn
-		QuietTime?:   __QuietTime
+		QuietTime?:   propQuietTime
 		StartTime?:   string | fn.Fn
 		TimeZone?:    string | fn.Fn
 	}
-	__SetDimension :: {
+	propSetDimension :: {
 		DimensionType?: string | fn.Fn
 		Values?:        [...string] | fn.Fn
 	}
-	__WriteTreatmentResource :: {
-		MessageConfiguration?: __MessageConfiguration
-		Schedule?:             __Schedule
+	propWriteTreatmentResource :: {
+		MessageConfiguration?: propMessageConfiguration
+		Schedule?:             propSchedule
 		SizePercent?:          int | fn.Fn
 		TreatmentDescription?: string | fn.Fn
 		TreatmentName?:        string | fn.Fn
@@ -258,69 +258,69 @@ Segment :: {
 	Type: "AWS::Pinpoint::Segment"
 	Properties: {
 		ApplicationId:  string | fn.Fn
-		Dimensions?:    __SegmentDimensions
+		Dimensions?:    propSegmentDimensions
 		Name:           string | fn.Fn
-		SegmentGroups?: __SegmentGroups
+		SegmentGroups?: propSegmentGroups
 		Tags?:          {
 		} | fn.Fn
 	}
-	__AttributeDimension :: {
+	propAttributeDimension :: {
 		AttributeType?: string | fn.Fn
 		Values?:        [...string] | fn.Fn
 	}
-	__Behavior :: {
-		Recency?: __Recency
+	propBehavior :: {
+		Recency?: propRecency
 	}
-	__Coordinates :: {
+	propCoordinates :: {
 		Latitude:  float | fn.Fn
 		Longitude: float | fn.Fn
 	}
-	__Demographic :: {
-		AppVersion?: __SetDimension
-		Channel?:    __SetDimension
-		DeviceType?: __SetDimension
-		Make?:       __SetDimension
-		Model?:      __SetDimension
-		Platform?:   __SetDimension
+	propDemographic :: {
+		AppVersion?: propSetDimension
+		Channel?:    propSetDimension
+		DeviceType?: propSetDimension
+		Make?:       propSetDimension
+		Model?:      propSetDimension
+		Platform?:   propSetDimension
 	}
-	__GPSPoint :: {
-		Coordinates:       __Coordinates
+	propGPSPoint :: {
+		Coordinates:       propCoordinates
 		RangeInKilometers: float | fn.Fn
 	}
-	__Groups :: {
-		Dimensions?: [...__SegmentDimensions]
-		SourceSegments?: [...__SourceSegments]
+	propGroups :: {
+		Dimensions?: [...propSegmentDimensions]
+		SourceSegments?: [...propSourceSegments]
 		SourceType?: string | fn.Fn
 		Type?:       string | fn.Fn
 	}
-	__Location :: {
-		Country?:  __SetDimension
-		GPSPoint?: __GPSPoint
+	propLocation :: {
+		Country?:  propSetDimension
+		GPSPoint?: propGPSPoint
 	}
-	__Recency :: {
+	propRecency :: {
 		Duration:    string | fn.Fn
 		RecencyType: string | fn.Fn
 	}
-	__SegmentDimensions :: {
+	propSegmentDimensions :: {
 		Attributes?: {
 		} | fn.Fn
-		Behavior?:    __Behavior
-		Demographic?: __Demographic
-		Location?:    __Location
+		Behavior?:    propBehavior
+		Demographic?: propDemographic
+		Location?:    propLocation
 		Metrics?:     {
 		} | fn.Fn
 		UserAttributes?: {
 		} | fn.Fn
 	}
-	__SegmentGroups :: {
-		Groups?: [...__Groups]
+	propSegmentGroups :: {
+		Groups?: [...propGroups]
 		Include?: string | fn.Fn
 	}
-	__SetDimension :: {
+	propSetDimension :: {
 		DimensionType?: string | fn.Fn
 		Values?:        [...string] | fn.Fn
 	}
-	__SourceSegments :: {
+	propSourceSegments :: {
 		Id:       string | fn.Fn
 		Version?: int | fn.Fn
 	}

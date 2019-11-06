@@ -5,17 +5,17 @@ import "github.com/TangoGroup/fn"
 Server :: {
 	Type: "AWS::Transfer::Server"
 	Properties: {
-		EndpointDetails?:         __EndpointDetails
+		EndpointDetails?:         propEndpointDetails
 		EndpointType?:            string | fn.Fn
-		IdentityProviderDetails?: __IdentityProviderDetails
+		IdentityProviderDetails?: propIdentityProviderDetails
 		IdentityProviderType?:    string | fn.Fn
 		LoggingRole?:             string | fn.Fn
-		Tags?: [...__Tag]
+		Tags?: [...propTag]
 	}
-	__EndpointDetails :: {
+	propEndpointDetails :: {
 		VpcEndpointId: string | fn.Fn
 	}
-	__IdentityProviderDetails :: {
+	propIdentityProviderDetails :: {
 		InvocationRole: string | fn.Fn
 		Url:            string | fn.Fn
 	}
@@ -27,10 +27,10 @@ User :: {
 		Policy?:        string | fn.Fn
 		Role:           string | fn.Fn
 		ServerId:       string | fn.Fn
-		SshPublicKeys?: [...__SshPublicKey]
-		Tags?: [...__Tag]
+		SshPublicKeys?: [...propSshPublicKey]
+		Tags?: [...propTag]
 		UserName: string | fn.Fn
 	}
-	__SshPublicKey :: {
+	propSshPublicKey :: {
 	}
 }

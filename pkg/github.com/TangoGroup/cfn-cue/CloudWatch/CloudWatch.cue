@@ -11,13 +11,13 @@ Alarm :: {
 		AlarmName?:         string | fn.Fn
 		ComparisonOperator: (string & ("GreaterThanOrEqualToThreshold" | "GreaterThanThreshold" | "LessThanThreshold" | "LessThanOrEqualToThreshold" | "LessThanLowerOrGreaterThanUpperThreshold" | "LessThanLowerThreshold" | "GreaterThanUpperThreshold")) | fn.Fn
 		DatapointsToAlarm?: int | fn.Fn
-		Dimensions?: [...__Dimension]
+		Dimensions?: [...propDimension]
 		EvaluateLowSampleCountPercentile?: string | fn.Fn
 		EvaluationPeriods:                 int | fn.Fn
 		ExtendedStatistic?:                string | fn.Fn
 		InsufficientDataActions?:          [...string] | fn.Fn
 		MetricName?:                       string | fn.Fn
-		Metrics?: [...__MetricDataQuery]
+		Metrics?: [...propMetricDataQuery]
 		Namespace?:         string | fn.Fn
 		OKActions?:         [...string] | fn.Fn
 		Period?:            int | fn.Fn
@@ -27,24 +27,24 @@ Alarm :: {
 		TreatMissingData?:  (string & ("breaching" | "ignore" | "missing" | "notBreaching")) | fn.Fn
 		Unit?:              (string & ("Bits" | "Bits/Second" | "Bytes" | "Bytes/Second" | "Count" | "Count/Second" | "Gigabits" | "Gigabits/Second" | "Gigabytes" | "Gigabytes/Second" | "Kilobits" | "Kilobits/Second" | "Kilobytes" | "Kilobytes/Second" | "Megabits" | "Megabits/Second" | "Megabytes" | "Megabytes/Second" | "Microseconds" | "Milliseconds" | "None" | "Percent" | "Seconds" | "Terabits" | "Terabits/Second" | "Terabytes" | "Terabytes/Second")) | fn.Fn
 	}
-	__Dimension :: {
+	propDimension :: {
 		Name:  string | fn.Fn
 		Value: string | fn.Fn
 	}
-	__Metric :: {
-		Dimensions?: [...__Dimension]
+	propMetric :: {
+		Dimensions?: [...propDimension]
 		MetricName?: string | fn.Fn
 		Namespace?:  string | fn.Fn
 	}
-	__MetricDataQuery :: {
+	propMetricDataQuery :: {
 		Expression?: string | fn.Fn
 		Id:          string | fn.Fn
 		Label?:      string | fn.Fn
-		MetricStat?: __MetricStat
+		MetricStat?: propMetricStat
 		ReturnData?: bool | fn.Fn
 	}
-	__MetricStat :: {
-		Metric: __Metric
+	propMetricStat :: {
+		Metric: propMetric
 		Period: int | fn.Fn
 		Stat:   string | fn.Fn
 		Unit?:  string | fn.Fn
@@ -53,21 +53,21 @@ Alarm :: {
 AnomalyDetector :: {
 	Type: "AWS::CloudWatch::AnomalyDetector"
 	Properties: {
-		Configuration?: __Configuration
-		Dimensions?: [...__Dimension]
+		Configuration?: propConfiguration
+		Dimensions?: [...propDimension]
 		MetricName: string | fn.Fn
 		Namespace:  string | fn.Fn
 		Stat:       string | fn.Fn
 	}
-	__Configuration :: {
-		ExcludedTimeRanges?: [...__Range]
+	propConfiguration :: {
+		ExcludedTimeRanges?: [...propRange]
 		MetricTimeZone?: string | fn.Fn
 	}
-	__Dimension :: {
+	propDimension :: {
 		Name:  string | fn.Fn
 		Value: string | fn.Fn
 	}
-	__Range :: {
+	propRange :: {
 		EndTime:   string | fn.Fn
 		StartTime: string | fn.Fn
 	}

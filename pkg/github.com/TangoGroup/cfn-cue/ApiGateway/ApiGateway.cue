@@ -14,10 +14,10 @@ ApiKey :: {
 		Enabled?:            bool | fn.Fn
 		GenerateDistinctId?: bool | fn.Fn
 		Name?:               string | fn.Fn
-		StageKeys?: [...__StageKey]
+		StageKeys?: [...propStageKey]
 		Value?: string | fn.Fn
 	}
-	__StageKey :: {
+	propStageKey :: {
 		RestApiId?: string | fn.Fn
 		StageName?: string | fn.Fn
 	}
@@ -53,29 +53,29 @@ ClientCertificate :: {
 Deployment :: {
 	Type: "AWS::ApiGateway::Deployment"
 	Properties: {
-		DeploymentCanarySettings?: __DeploymentCanarySettings
+		DeploymentCanarySettings?: propDeploymentCanarySettings
 		Description?:              string | fn.Fn
 		RestApiId:                 string | fn.Fn
-		StageDescription?:         __StageDescription
+		StageDescription?:         propStageDescription
 		StageName?:                string | fn.Fn
 	}
-	__AccessLogSetting :: {
+	propAccessLogSetting :: {
 		DestinationArn?: string | fn.Fn
 		Format?:         string | fn.Fn
 	}
-	__CanarySetting :: {
+	propCanarySetting :: {
 		PercentTraffic?: float | fn.Fn
 		StageVariableOverrides?: {
 		}
 		UseStageCache?: bool | fn.Fn
 	}
-	__DeploymentCanarySettings :: {
+	propDeploymentCanarySettings :: {
 		PercentTraffic?: float | fn.Fn
 		StageVariableOverrides?: {
 		}
 		UseStageCache?: bool | fn.Fn
 	}
-	__MethodSetting :: {
+	propMethodSetting :: {
 		CacheDataEncrypted?:   bool | fn.Fn
 		CacheTtlInSeconds?:    int | fn.Fn
 		CachingEnabled?:       bool | fn.Fn
@@ -87,22 +87,22 @@ Deployment :: {
 		ThrottlingBurstLimit?: int | fn.Fn
 		ThrottlingRateLimit?:  float | fn.Fn
 	}
-	__StageDescription :: {
-		AccessLogSetting?:     __AccessLogSetting
+	propStageDescription :: {
+		AccessLogSetting?:     propAccessLogSetting
 		CacheClusterEnabled?:  bool | fn.Fn
 		CacheClusterSize?:     string | fn.Fn
 		CacheDataEncrypted?:   bool | fn.Fn
 		CacheTtlInSeconds?:    int | fn.Fn
 		CachingEnabled?:       bool | fn.Fn
-		CanarySetting?:        __CanarySetting
+		CanarySetting?:        propCanarySetting
 		ClientCertificateId?:  string | fn.Fn
 		DataTraceEnabled?:     bool | fn.Fn
 		Description?:          string | fn.Fn
 		DocumentationVersion?: string | fn.Fn
 		LoggingLevel?:         string | fn.Fn
-		MethodSettings?: [...__MethodSetting]
+		MethodSettings?: [...propMethodSetting]
 		MetricsEnabled?: bool | fn.Fn
-		Tags?: [...__Tag]
+		Tags?: [...propTag]
 		ThrottlingBurstLimit?: int | fn.Fn
 		ThrottlingRateLimit?:  float | fn.Fn
 		TracingEnabled?:       bool | fn.Fn
@@ -113,11 +113,11 @@ Deployment :: {
 DocumentationPart :: {
 	Type: "AWS::ApiGateway::DocumentationPart"
 	Properties: {
-		Location:   __Location
+		Location:   propLocation
 		Properties: string | fn.Fn
 		RestApiId:  string | fn.Fn
 	}
-	__Location :: {
+	propLocation :: {
 		Method?:     string | fn.Fn
 		Name?:       string | fn.Fn
 		Path?:       string | fn.Fn
@@ -138,10 +138,10 @@ DomainName :: {
 	Properties: {
 		CertificateArn?:         string | fn.Fn
 		DomainName:              string | fn.Fn
-		EndpointConfiguration?:  __EndpointConfiguration
+		EndpointConfiguration?:  propEndpointConfiguration
 		RegionalCertificateArn?: string | fn.Fn
 	}
-	__EndpointConfiguration :: {
+	propEndpointConfiguration :: {
 		Types?: [...string] | fn.Fn
 	}
 }
@@ -165,8 +165,8 @@ Method :: {
 		AuthorizationType?:   string | fn.Fn
 		AuthorizerId?:        string | fn.Fn
 		HttpMethod:           string | fn.Fn
-		Integration?:         __Integration
-		MethodResponses?: [...__MethodResponse]
+		Integration?:         propIntegration
+		MethodResponses?: [...propMethodResponse]
 		OperationName?: string | fn.Fn
 		RequestModels?: {
 		}
@@ -176,7 +176,7 @@ Method :: {
 		ResourceId:          string | fn.Fn
 		RestApiId:           string | fn.Fn
 	}
-	__Integration :: {
+	propIntegration :: {
 		CacheKeyParameters?:    [...string] | fn.Fn
 		CacheNamespace?:        string | fn.Fn
 		ConnectionId?:          string | fn.Fn
@@ -184,7 +184,7 @@ Method :: {
 		ContentHandling?:       string | fn.Fn
 		Credentials?:           string | fn.Fn
 		IntegrationHttpMethod?: string | fn.Fn
-		IntegrationResponses?: [...__IntegrationResponse]
+		IntegrationResponses?: [...propIntegrationResponse]
 		PassthroughBehavior?: string | fn.Fn
 		RequestParameters?: {
 		}
@@ -194,7 +194,7 @@ Method :: {
 		Type?:            string | fn.Fn
 		Uri?:             string | fn.Fn
 	}
-	__IntegrationResponse :: {
+	propIntegrationResponse :: {
 		ContentHandling?: string | fn.Fn
 		ResponseParameters?: {
 		}
@@ -203,7 +203,7 @@ Method :: {
 		SelectionPattern?: string | fn.Fn
 		StatusCode:        string | fn.Fn
 	}
-	__MethodResponse :: {
+	propMethodResponse :: {
 		ResponseModels?: {
 		}
 		ResponseParameters?: {
@@ -246,10 +246,10 @@ RestApi :: {
 		BinaryMediaTypes?: [...string] | fn.Fn
 		Body?:             {
 		} | fn.Fn
-		BodyS3Location?:         __S3Location
+		BodyS3Location?:         propS3Location
 		CloneFrom?:              string | fn.Fn
 		Description?:            string | fn.Fn
-		EndpointConfiguration?:  __EndpointConfiguration
+		EndpointConfiguration?:  propEndpointConfiguration
 		FailOnWarnings?:         bool | fn.Fn
 		MinimumCompressionSize?: int | fn.Fn
 		Name?:                   string | fn.Fn
@@ -258,10 +258,10 @@ RestApi :: {
 		Policy?: {
 		} | fn.Fn
 	}
-	__EndpointConfiguration :: {
+	propEndpointConfiguration :: {
 		Types?: [...string] | fn.Fn
 	}
-	__S3Location :: {
+	propS3Location :: {
 		Bucket?:  string | fn.Fn
 		ETag?:    string | fn.Fn
 		Key?:     string | fn.Fn
@@ -271,34 +271,34 @@ RestApi :: {
 Stage :: {
 	Type: "AWS::ApiGateway::Stage"
 	Properties: {
-		AccessLogSetting?:     __AccessLogSetting
+		AccessLogSetting?:     propAccessLogSetting
 		CacheClusterEnabled?:  bool | fn.Fn
 		CacheClusterSize?:     string | fn.Fn
-		CanarySetting?:        __CanarySetting
+		CanarySetting?:        propCanarySetting
 		ClientCertificateId?:  string | fn.Fn
 		DeploymentId?:         string | fn.Fn
 		Description?:          string | fn.Fn
 		DocumentationVersion?: string | fn.Fn
-		MethodSettings?: [...__MethodSetting]
+		MethodSettings?: [...propMethodSetting]
 		RestApiId:  string | fn.Fn
 		StageName?: string | fn.Fn
-		Tags?: [...__Tag]
+		Tags?: [...propTag]
 		TracingEnabled?: bool | fn.Fn
 		Variables?: {
 		}
 	}
-	__AccessLogSetting :: {
+	propAccessLogSetting :: {
 		DestinationArn?: string | fn.Fn
 		Format?:         string | fn.Fn
 	}
-	__CanarySetting :: {
+	propCanarySetting :: {
 		DeploymentId?:   string | fn.Fn
 		PercentTraffic?: float | fn.Fn
 		StageVariableOverrides?: {
 		}
 		UseStageCache?: bool | fn.Fn
 	}
-	__MethodSetting :: {
+	propMethodSetting :: {
 		CacheDataEncrypted?:   bool | fn.Fn
 		CacheTtlInSeconds?:    int | fn.Fn
 		CachingEnabled?:       bool | fn.Fn
@@ -314,24 +314,24 @@ Stage :: {
 UsagePlan :: {
 	Type: "AWS::ApiGateway::UsagePlan"
 	Properties: {
-		ApiStages?: [...__ApiStage]
+		ApiStages?: [...propApiStage]
 		Description?:   string | fn.Fn
-		Quota?:         __QuotaSettings
-		Throttle?:      __ThrottleSettings
+		Quota?:         propQuotaSettings
+		Throttle?:      propThrottleSettings
 		UsagePlanName?: string | fn.Fn
 	}
-	__ApiStage :: {
+	propApiStage :: {
 		ApiId?: string | fn.Fn
 		Stage?: string | fn.Fn
 		Throttle?: {
 		}
 	}
-	__QuotaSettings :: {
+	propQuotaSettings :: {
 		Limit?:  int | fn.Fn
 		Offset?: int | fn.Fn
 		Period?: string | fn.Fn
 	}
-	__ThrottleSettings :: {
+	propThrottleSettings :: {
 		BurstLimit?: int | fn.Fn
 		RateLimit?:  float | fn.Fn
 	}

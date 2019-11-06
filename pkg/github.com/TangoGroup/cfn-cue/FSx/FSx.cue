@@ -8,20 +8,20 @@ FileSystem :: {
 		BackupId?:            string | fn.Fn
 		FileSystemType:       string | fn.Fn
 		KmsKeyId?:            string | fn.Fn
-		LustreConfiguration?: __LustreConfiguration
+		LustreConfiguration?: propLustreConfiguration
 		SecurityGroupIds?:    [...string] | fn.Fn
 		StorageCapacity?:     (int & (>=300 & <=65536)) | fn.Fn
 		SubnetIds:            [...string] | fn.Fn
-		Tags?: [...__Tag]
-		WindowsConfiguration?: __WindowsConfiguration
+		Tags?: [...propTag]
+		WindowsConfiguration?: propWindowsConfiguration
 	}
-	__LustreConfiguration :: {
+	propLustreConfiguration :: {
 		ExportPath?:                 string | fn.Fn
 		ImportPath?:                 string | fn.Fn
 		ImportedFileChunkSize?:      int | fn.Fn
 		WeeklyMaintenanceStartTime?: string | fn.Fn
 	}
-	__SelfManagedActiveDirectoryConfiguration :: {
+	propSelfManagedActiveDirectoryConfiguration :: {
 		DnsIps?:                              [...string] | fn.Fn
 		DomainName?:                          string | fn.Fn
 		FileSystemAdministratorsGroup?:       string | fn.Fn
@@ -29,12 +29,12 @@ FileSystem :: {
 		Password?:                            string | fn.Fn
 		UserName?:                            string | fn.Fn
 	}
-	__WindowsConfiguration :: {
+	propWindowsConfiguration :: {
 		ActiveDirectoryId?:                       string | fn.Fn
 		AutomaticBackupRetentionDays?:            int | fn.Fn
 		CopyTagsToBackups?:                       bool | fn.Fn
 		DailyAutomaticBackupStartTime?:           string | fn.Fn
-		SelfManagedActiveDirectoryConfiguration?: __SelfManagedActiveDirectoryConfiguration
+		SelfManagedActiveDirectoryConfiguration?: propSelfManagedActiveDirectoryConfiguration
 		ThroughputCapacity?:                      int | fn.Fn
 		WeeklyMaintenanceStartTime?:              string | fn.Fn
 	}

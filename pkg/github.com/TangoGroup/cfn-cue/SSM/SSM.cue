@@ -9,23 +9,23 @@ Association :: {
 		DocumentVersion?: string | fn.Fn
 		InstanceId?:      string | fn.Fn
 		Name:             string | fn.Fn
-		OutputLocation?:  __InstanceAssociationOutputLocation
+		OutputLocation?:  propInstanceAssociationOutputLocation
 		Parameters?: {
 		}
 		ScheduleExpression?: string | fn.Fn
-		Targets?: [...__Target]
+		Targets?: [...propTarget]
 	}
-	__InstanceAssociationOutputLocation :: {
-		S3Location?: __S3OutputLocation
+	propInstanceAssociationOutputLocation :: {
+		S3Location?: propS3OutputLocation
 	}
-	__ParameterValues :: {
+	propParameterValues :: {
 		ParameterValues: [...string] | fn.Fn
 	}
-	__S3OutputLocation :: {
+	propS3OutputLocation :: {
 		OutputS3BucketName?: string | fn.Fn
 		OutputS3KeyPrefix?:  string | fn.Fn
 	}
-	__Target :: {
+	propTarget :: {
 		Key:    string | fn.Fn
 		Values: [...string] | fn.Fn
 	}
@@ -36,7 +36,7 @@ Document :: {
 		Content: {
 		} | fn.Fn
 		DocumentType?: string | fn.Fn
-		Tags?: [...__Tag]
+		Tags?: [...propTag]
 	}
 }
 MaintenanceWindow :: {
@@ -51,7 +51,7 @@ MaintenanceWindow :: {
 		Schedule:                 string | fn.Fn
 		ScheduleTimezone?:        string | fn.Fn
 		StartDate?:               string | fn.Fn
-		Tags?: [...__Tag]
+		Tags?: [...propTag]
 	}
 }
 MaintenanceWindowTarget :: {
@@ -61,10 +61,10 @@ MaintenanceWindowTarget :: {
 		Name?:             string | fn.Fn
 		OwnerInformation?: string | fn.Fn
 		ResourceType:      string | fn.Fn
-		Targets: [...__Target]
+		Targets: [...propTarget]
 		WindowId: string | fn.Fn
 	}
-	__Target :: {
+	propTarget :: {
 		Key:     string | fn.Fn
 		Values?: [...string] | fn.Fn
 	}
@@ -73,40 +73,40 @@ MaintenanceWindowTask :: {
 	Type: "AWS::SSM::MaintenanceWindowTask"
 	Properties: {
 		Description?:    string | fn.Fn
-		LoggingInfo?:    __LoggingInfo
+		LoggingInfo?:    propLoggingInfo
 		MaxConcurrency:  string | fn.Fn
 		MaxErrors:       string | fn.Fn
 		Name?:           string | fn.Fn
 		Priority:        int | fn.Fn
 		ServiceRoleArn?: string | fn.Fn
-		Targets: [...__Target]
+		Targets: [...propTarget]
 		TaskArn:                   string | fn.Fn
-		TaskInvocationParameters?: __TaskInvocationParameters
+		TaskInvocationParameters?: propTaskInvocationParameters
 		TaskParameters?:           {
 		} | fn.Fn
 		TaskType: string | fn.Fn
 		WindowId: string | fn.Fn
 	}
-	__LoggingInfo :: {
+	propLoggingInfo :: {
 		Region:    string | fn.Fn
 		S3Bucket:  string | fn.Fn
 		S3Prefix?: string | fn.Fn
 	}
-	__MaintenanceWindowAutomationParameters :: {
+	propMaintenanceWindowAutomationParameters :: {
 		DocumentVersion?: string | fn.Fn
 		Parameters?:      {
 		} | fn.Fn
 	}
-	__MaintenanceWindowLambdaParameters :: {
+	propMaintenanceWindowLambdaParameters :: {
 		ClientContext?: string | fn.Fn
 		Payload?:       string | fn.Fn
 		Qualifier?:     string | fn.Fn
 	}
-	__MaintenanceWindowRunCommandParameters :: {
+	propMaintenanceWindowRunCommandParameters :: {
 		Comment?:            string | fn.Fn
 		DocumentHash?:       string | fn.Fn
 		DocumentHashType?:   string | fn.Fn
-		NotificationConfig?: __NotificationConfig
+		NotificationConfig?: propNotificationConfig
 		OutputS3BucketName?: string | fn.Fn
 		OutputS3KeyPrefix?:  string | fn.Fn
 		Parameters?:         {
@@ -114,24 +114,24 @@ MaintenanceWindowTask :: {
 		ServiceRoleArn?: string | fn.Fn
 		TimeoutSeconds?: int | fn.Fn
 	}
-	__MaintenanceWindowStepFunctionsParameters :: {
+	propMaintenanceWindowStepFunctionsParameters :: {
 		Input?: string | fn.Fn
 		Name?:  string | fn.Fn
 	}
-	__NotificationConfig :: {
+	propNotificationConfig :: {
 		NotificationArn:     string | fn.Fn
 		NotificationEvents?: [...string] | fn.Fn
 		NotificationType?:   string | fn.Fn
 	}
-	__Target :: {
+	propTarget :: {
 		Key:     string | fn.Fn
 		Values?: [...string] | fn.Fn
 	}
-	__TaskInvocationParameters :: {
-		MaintenanceWindowAutomationParameters?:    __MaintenanceWindowAutomationParameters
-		MaintenanceWindowLambdaParameters?:        __MaintenanceWindowLambdaParameters
-		MaintenanceWindowRunCommandParameters?:    __MaintenanceWindowRunCommandParameters
-		MaintenanceWindowStepFunctionsParameters?: __MaintenanceWindowStepFunctionsParameters
+	propTaskInvocationParameters :: {
+		MaintenanceWindowAutomationParameters?:    propMaintenanceWindowAutomationParameters
+		MaintenanceWindowLambdaParameters?:        propMaintenanceWindowLambdaParameters
+		MaintenanceWindowRunCommandParameters?:    propMaintenanceWindowRunCommandParameters
+		MaintenanceWindowStepFunctionsParameters?: propMaintenanceWindowStepFunctionsParameters
 	}
 }
 Parameter :: {
@@ -151,40 +151,40 @@ Parameter :: {
 PatchBaseline :: {
 	Type: "AWS::SSM::PatchBaseline"
 	Properties: {
-		ApprovalRules?:                    __RuleGroup
+		ApprovalRules?:                    propRuleGroup
 		ApprovedPatches?:                  [...string] | fn.Fn
 		ApprovedPatchesComplianceLevel?:   string | fn.Fn
 		ApprovedPatchesEnableNonSecurity?: bool | fn.Fn
 		Description?:                      string | fn.Fn
-		GlobalFilters?:                    __PatchFilterGroup
+		GlobalFilters?:                    propPatchFilterGroup
 		Name:                              string | fn.Fn
 		OperatingSystem?:                  string | fn.Fn
 		PatchGroups?:                      [...string] | fn.Fn
 		RejectedPatches?:                  [...string] | fn.Fn
 		RejectedPatchesAction?:            string | fn.Fn
-		Sources?: [...__PatchSource]
-		Tags?: [...__Tag]
+		Sources?: [...propPatchSource]
+		Tags?: [...propTag]
 	}
-	__PatchFilter :: {
+	propPatchFilter :: {
 		Key?:    string | fn.Fn
 		Values?: [...string] | fn.Fn
 	}
-	__PatchFilterGroup :: {
-		PatchFilters?: [...__PatchFilter]
+	propPatchFilterGroup :: {
+		PatchFilters?: [...propPatchFilter]
 	}
-	__PatchSource :: {
+	propPatchSource :: {
 		Configuration?: string | fn.Fn
 		Name?:          string | fn.Fn
 		Products?:      [...string] | fn.Fn
 	}
-	__Rule :: {
+	propRule :: {
 		ApproveAfterDays?:  int | fn.Fn
 		ComplianceLevel?:   string | fn.Fn
 		EnableNonSecurity?: bool | fn.Fn
-		PatchFilterGroup?:  __PatchFilterGroup
+		PatchFilterGroup?:  propPatchFilterGroup
 	}
-	__RuleGroup :: {
-		PatchRules?: [...__Rule]
+	propRuleGroup :: {
+		PatchRules?: [...propRule]
 	}
 }
 ResourceDataSync :: {

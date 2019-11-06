@@ -15,21 +15,21 @@ Filter :: {
 		Action:          (string & ("ARCHIVE" | "NOOP")) | fn.Fn
 		Description:     string | fn.Fn
 		DetectorId:      string | fn.Fn
-		FindingCriteria: __FindingCriteria
+		FindingCriteria: propFindingCriteria
 		Name?:           string | fn.Fn
 		Rank:            int | fn.Fn
 	}
-	__Condition :: {
+	propCondition :: {
 		Eq?:  [...string] | fn.Fn
 		Gte?: int | fn.Fn
 		Lt?:  int | fn.Fn
 		Lte?: int | fn.Fn
 		Neq?: [...string] | fn.Fn
 	}
-	__FindingCriteria :: {
+	propFindingCriteria :: {
 		Criterion?: {
 		} | fn.Fn
-		ItemType?: __Condition
+		ItemType?: propCondition
 	}
 }
 IPSet :: {

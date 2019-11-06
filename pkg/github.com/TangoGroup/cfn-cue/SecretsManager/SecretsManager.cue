@@ -14,10 +14,10 @@ RotationSchedule :: {
 	Type: "AWS::SecretsManager::RotationSchedule"
 	Properties: {
 		RotationLambdaARN?: string | fn.Fn
-		RotationRules?:     __RotationRules
+		RotationRules?:     propRotationRules
 		SecretId:           string | fn.Fn
 	}
-	__RotationRules :: {
+	propRotationRules :: {
 		AutomaticallyAfterDays?: int | fn.Fn
 	}
 }
@@ -25,13 +25,13 @@ Secret :: {
 	Type: "AWS::SecretsManager::Secret"
 	Properties: {
 		Description?:          string | fn.Fn
-		GenerateSecretString?: __GenerateSecretString
+		GenerateSecretString?: propGenerateSecretString
 		KmsKeyId?:             string | fn.Fn
 		Name?:                 string | fn.Fn
 		SecretString?:         string | fn.Fn
-		Tags?: [...__Tag]
+		Tags?: [...propTag]
 	}
-	__GenerateSecretString :: {
+	propGenerateSecretString :: {
 		ExcludeCharacters?:       string | fn.Fn
 		ExcludeLowercase?:        bool | fn.Fn
 		ExcludeNumbers?:          bool | fn.Fn

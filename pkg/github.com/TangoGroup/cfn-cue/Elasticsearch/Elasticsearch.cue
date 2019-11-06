@@ -10,45 +10,45 @@ Domain :: {
 		AdvancedOptions?: {
 		}
 		DomainName?:                  string | fn.Fn
-		EBSOptions?:                  __EBSOptions
-		ElasticsearchClusterConfig?:  __ElasticsearchClusterConfig
+		EBSOptions?:                  propEBSOptions
+		ElasticsearchClusterConfig?:  propElasticsearchClusterConfig
 		ElasticsearchVersion?:        string | fn.Fn
-		EncryptionAtRestOptions?:     __EncryptionAtRestOptions
-		NodeToNodeEncryptionOptions?: __NodeToNodeEncryptionOptions
-		SnapshotOptions?:             __SnapshotOptions
-		Tags?: [...__Tag]
-		VPCOptions?: __VPCOptions
+		EncryptionAtRestOptions?:     propEncryptionAtRestOptions
+		NodeToNodeEncryptionOptions?: propNodeToNodeEncryptionOptions
+		SnapshotOptions?:             propSnapshotOptions
+		Tags?: [...propTag]
+		VPCOptions?: propVPCOptions
 	}
-	__EBSOptions :: {
+	propEBSOptions :: {
 		EBSEnabled?: bool | fn.Fn
 		Iops?:       int | fn.Fn
 		VolumeSize?: int | fn.Fn
 		VolumeType?: string | fn.Fn
 	}
-	__ElasticsearchClusterConfig :: {
+	propElasticsearchClusterConfig :: {
 		DedicatedMasterCount?:   int | fn.Fn
 		DedicatedMasterEnabled?: bool | fn.Fn
 		DedicatedMasterType?:    string | fn.Fn
 		InstanceCount?:          int | fn.Fn
 		InstanceType?:           string | fn.Fn
-		ZoneAwarenessConfig?:    __ZoneAwarenessConfig
+		ZoneAwarenessConfig?:    propZoneAwarenessConfig
 		ZoneAwarenessEnabled?:   bool | fn.Fn
 	}
-	__EncryptionAtRestOptions :: {
+	propEncryptionAtRestOptions :: {
 		Enabled?:  bool | fn.Fn
 		KmsKeyId?: string | fn.Fn
 	}
-	__NodeToNodeEncryptionOptions :: {
+	propNodeToNodeEncryptionOptions :: {
 		Enabled?: bool | fn.Fn
 	}
-	__SnapshotOptions :: {
+	propSnapshotOptions :: {
 		AutomatedSnapshotStartHour?: int | fn.Fn
 	}
-	__VPCOptions :: {
+	propVPCOptions :: {
 		SecurityGroupIds?: [...string] | fn.Fn
 		SubnetIds?:        [...string] | fn.Fn
 	}
-	__ZoneAwarenessConfig :: {
+	propZoneAwarenessConfig :: {
 		AvailabilityZoneCount?: int | fn.Fn
 	}
 }

@@ -15,48 +15,48 @@ DataSource :: {
 	Properties: {
 		ApiId:                     string | fn.Fn
 		Description?:              string | fn.Fn
-		DynamoDBConfig?:           __DynamoDBConfig
-		ElasticsearchConfig?:      __ElasticsearchConfig
-		HttpConfig?:               __HttpConfig
-		LambdaConfig?:             __LambdaConfig
+		DynamoDBConfig?:           propDynamoDBConfig
+		ElasticsearchConfig?:      propElasticsearchConfig
+		HttpConfig?:               propHttpConfig
+		LambdaConfig?:             propLambdaConfig
 		Name:                      string | fn.Fn
-		RelationalDatabaseConfig?: __RelationalDatabaseConfig
+		RelationalDatabaseConfig?: propRelationalDatabaseConfig
 		ServiceRoleArn?:           string | fn.Fn
 		Type:                      (string & ("AMAZON_DYNAMODB" | "AMAZON_ELASTICSEARCH" | "AWS_LAMBDA" | "HTTP" | "NONE" | "RELATIONAL_DATABASE")) | fn.Fn
 	}
-	__AuthorizationConfig :: {
+	propAuthorizationConfig :: {
 		AuthorizationType: string | fn.Fn
-		AwsIamConfig?:     __AwsIamConfig
+		AwsIamConfig?:     propAwsIamConfig
 	}
-	__AwsIamConfig :: {
+	propAwsIamConfig :: {
 		SigningRegion?:      string | fn.Fn
 		SigningServiceName?: string | fn.Fn
 	}
-	__DynamoDBConfig :: {
+	propDynamoDBConfig :: {
 		AwsRegion:             string | fn.Fn
 		TableName:             string | fn.Fn
 		UseCallerCredentials?: bool | fn.Fn
 	}
-	__ElasticsearchConfig :: {
+	propElasticsearchConfig :: {
 		AwsRegion: string | fn.Fn
 		Endpoint:  string | fn.Fn
 	}
-	__HttpConfig :: {
-		AuthorizationConfig?: __AuthorizationConfig
+	propHttpConfig :: {
+		AuthorizationConfig?: propAuthorizationConfig
 		Endpoint:             string | fn.Fn
 	}
-	__LambdaConfig :: {
+	propLambdaConfig :: {
 		LambdaFunctionArn: string | fn.Fn
 	}
-	__RdsHttpEndpointConfig :: {
+	propRdsHttpEndpointConfig :: {
 		AwsRegion:           string | fn.Fn
 		AwsSecretStoreArn:   string | fn.Fn
 		DatabaseName?:       string | fn.Fn
 		DbClusterIdentifier: string | fn.Fn
 		Schema?:             string | fn.Fn
 	}
-	__RelationalDatabaseConfig :: {
-		RdsHttpEndpointConfig?:       __RdsHttpEndpointConfig
+	propRelationalDatabaseConfig :: {
+		RdsHttpEndpointConfig?:       propRdsHttpEndpointConfig
 		RelationalDatabaseSourceType: string | fn.Fn
 	}
 }
@@ -77,40 +77,40 @@ FunctionConfiguration :: {
 GraphQLApi :: {
 	Type: "AWS::AppSync::GraphQLApi"
 	Properties: {
-		AdditionalAuthenticationProviders?: __AdditionalAuthenticationProviders
+		AdditionalAuthenticationProviders?: propAdditionalAuthenticationProviders
 		AuthenticationType:                 (string & ("AMAZON_COGNITO_USER_POOLS" | "API_KEY" | "AWS_IAM" | "OPENID_CONNECT")) | fn.Fn
-		LogConfig?:                         __LogConfig
+		LogConfig?:                         propLogConfig
 		Name:                               string | fn.Fn
-		OpenIDConnectConfig?:               __OpenIDConnectConfig
-		Tags?:                              __Tags
-		UserPoolConfig?:                    __UserPoolConfig
+		OpenIDConnectConfig?:               propOpenIDConnectConfig
+		Tags?:                              propTags
+		UserPoolConfig?:                    propUserPoolConfig
 	}
-	__AdditionalAuthenticationProvider :: {
+	propAdditionalAuthenticationProvider :: {
 		AuthenticationType:   string | fn.Fn
-		OpenIDConnectConfig?: __OpenIDConnectConfig
-		UserPoolConfig?:      __CognitoUserPoolConfig
+		OpenIDConnectConfig?: propOpenIDConnectConfig
+		UserPoolConfig?:      propCognitoUserPoolConfig
 	}
-	__AdditionalAuthenticationProviders :: {
+	propAdditionalAuthenticationProviders :: {
 	}
-	__CognitoUserPoolConfig :: {
+	propCognitoUserPoolConfig :: {
 		AppIdClientRegex?: string | fn.Fn
 		AwsRegion?:        string | fn.Fn
 		UserPoolId?:       string | fn.Fn
 	}
-	__LogConfig :: {
+	propLogConfig :: {
 		CloudWatchLogsRoleArn?: string | fn.Fn
 		ExcludeVerboseContent?: bool | fn.Fn
 		FieldLogLevel?:         string | fn.Fn
 	}
-	__OpenIDConnectConfig :: {
+	propOpenIDConnectConfig :: {
 		AuthTTL?:  float | fn.Fn
 		ClientId?: string | fn.Fn
 		IatTTL?:   float | fn.Fn
 		Issuer?:   string | fn.Fn
 	}
-	__Tags :: {
+	propTags :: {
 	}
-	__UserPoolConfig :: {
+	propUserPoolConfig :: {
 		AppIdClientRegex?: string | fn.Fn
 		AwsRegion?:        string | fn.Fn
 		DefaultAction?:    string | fn.Fn
@@ -132,14 +132,14 @@ Resolver :: {
 		DataSourceName?:                    string | fn.Fn
 		FieldName:                          string | fn.Fn
 		Kind?:                              (string & ("PIPELINE" | "UNIT")) | fn.Fn
-		PipelineConfig?:                    __PipelineConfig
+		PipelineConfig?:                    propPipelineConfig
 		RequestMappingTemplate?:            string | fn.Fn
 		RequestMappingTemplateS3Location?:  string | fn.Fn
 		ResponseMappingTemplate?:           string | fn.Fn
 		ResponseMappingTemplateS3Location?: string | fn.Fn
 		TypeName:                           string | fn.Fn
 	}
-	__PipelineConfig :: {
+	propPipelineConfig :: {
 		Functions?: [...string] | fn.Fn
 	}
 }

@@ -6,9 +6,9 @@ Activity :: {
 	Type: "AWS::StepFunctions::Activity"
 	Properties: {
 		Name: string | fn.Fn
-		Tags?: [...__TagsEntry]
+		Tags?: [...propTagsEntry]
 	}
-	__TagsEntry :: {
+	propTagsEntry :: {
 		Key:   string | fn.Fn
 		Value: string | fn.Fn
 	}
@@ -19,9 +19,9 @@ StateMachine :: {
 		DefinitionString:  string | fn.Fn
 		RoleArn:           string | fn.Fn
 		StateMachineName?: string | fn.Fn
-		Tags?: [...__TagsEntry]
+		Tags?: [...propTagsEntry]
 	}
-	__TagsEntry :: {
+	propTagsEntry :: {
 		Key:   string | fn.Fn
 		Value: string | fn.Fn
 	}

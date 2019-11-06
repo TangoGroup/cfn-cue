@@ -7,9 +7,9 @@ DirectoryConfig :: {
 	Properties: {
 		DirectoryName:                        string | fn.Fn
 		OrganizationalUnitDistinguishedNames: [...string] | fn.Fn
-		ServiceAccountCredentials:            __ServiceAccountCredentials
+		ServiceAccountCredentials:            propServiceAccountCredentials
 	}
-	__ServiceAccountCredentials :: {
+	propServiceAccountCredentials :: {
 		AccountName:     string | fn.Fn
 		AccountPassword: string | fn.Fn
 	}
@@ -17,11 +17,11 @@ DirectoryConfig :: {
 Fleet :: {
 	Type: "AWS::AppStream::Fleet"
 	Properties: {
-		ComputeCapacity:                 __ComputeCapacity
+		ComputeCapacity:                 propComputeCapacity
 		Description?:                    string | fn.Fn
 		DisconnectTimeoutInSeconds?:     (int & (>=60 & <=360000)) | fn.Fn
 		DisplayName?:                    string | fn.Fn
-		DomainJoinInfo?:                 __DomainJoinInfo
+		DomainJoinInfo?:                 propDomainJoinInfo
 		EnableDefaultInternetAccess?:    bool | fn.Fn
 		FleetType?:                      string | fn.Fn
 		IdleDisconnectTimeoutInSeconds?: (int & (>=0 & <=3600)) | fn.Fn
@@ -30,17 +30,17 @@ Fleet :: {
 		InstanceType:                    string | fn.Fn
 		MaxUserDurationInSeconds?:       (int & (>=600 & <=360000)) | fn.Fn
 		Name?:                           string | fn.Fn
-		Tags?: [...__Tag]
-		VpcConfig?: __VpcConfig
+		Tags?: [...propTag]
+		VpcConfig?: propVpcConfig
 	}
-	__ComputeCapacity :: {
+	propComputeCapacity :: {
 		DesiredInstances: int | fn.Fn
 	}
-	__DomainJoinInfo :: {
+	propDomainJoinInfo :: {
 		DirectoryName?:                       string | fn.Fn
 		OrganizationalUnitDistinguishedName?: string | fn.Fn
 	}
-	__VpcConfig :: {
+	propVpcConfig :: {
 		SecurityGroupIds?: [...string] | fn.Fn
 		SubnetIds?:        [...string] | fn.Fn
 	}
@@ -48,28 +48,28 @@ Fleet :: {
 ImageBuilder :: {
 	Type: "AWS::AppStream::ImageBuilder"
 	Properties: {
-		AccessEndpoints?: [...__AccessEndpoint]
+		AccessEndpoints?: [...propAccessEndpoint]
 		AppstreamAgentVersion?:       string | fn.Fn
 		Description?:                 string | fn.Fn
 		DisplayName?:                 string | fn.Fn
-		DomainJoinInfo?:              __DomainJoinInfo
+		DomainJoinInfo?:              propDomainJoinInfo
 		EnableDefaultInternetAccess?: bool | fn.Fn
 		ImageArn?:                    string | fn.Fn
 		ImageName?:                   string | fn.Fn
 		InstanceType:                 string | fn.Fn
 		Name?:                        string | fn.Fn
-		Tags?: [...__Tag]
-		VpcConfig?: __VpcConfig
+		Tags?: [...propTag]
+		VpcConfig?: propVpcConfig
 	}
-	__AccessEndpoint :: {
+	propAccessEndpoint :: {
 		EndpointType: string | fn.Fn
 		VpceId:       string | fn.Fn
 	}
-	__DomainJoinInfo :: {
+	propDomainJoinInfo :: {
 		DirectoryName?:                       string | fn.Fn
 		OrganizationalUnitDistinguishedName?: string | fn.Fn
 	}
-	__VpcConfig :: {
+	propVpcConfig :: {
 		SecurityGroupIds?: [...string] | fn.Fn
 		SubnetIds?:        [...string] | fn.Fn
 	}
@@ -77,8 +77,8 @@ ImageBuilder :: {
 Stack :: {
 	Type: "AWS::AppStream::Stack"
 	Properties: {
-		AccessEndpoints?: [...__AccessEndpoint]
-		ApplicationSettings?:     __ApplicationSettings
+		AccessEndpoints?: [...propAccessEndpoint]
+		ApplicationSettings?:     propApplicationSettings
 		AttributesToDelete?:      [...string] | fn.Fn
 		DeleteStorageConnectors?: bool | fn.Fn
 		Description?:             string | fn.Fn
@@ -87,24 +87,24 @@ Stack :: {
 		FeedbackURL?:             string | fn.Fn
 		Name?:                    string | fn.Fn
 		RedirectURL?:             string | fn.Fn
-		StorageConnectors?: [...__StorageConnector]
-		Tags?: [...__Tag]
-		UserSettings?: [...__UserSetting]
+		StorageConnectors?: [...propStorageConnector]
+		Tags?: [...propTag]
+		UserSettings?: [...propUserSetting]
 	}
-	__AccessEndpoint :: {
+	propAccessEndpoint :: {
 		EndpointType: string | fn.Fn
 		VpceId:       string | fn.Fn
 	}
-	__ApplicationSettings :: {
+	propApplicationSettings :: {
 		Enabled:        bool | fn.Fn
 		SettingsGroup?: string | fn.Fn
 	}
-	__StorageConnector :: {
+	propStorageConnector :: {
 		ConnectorType:       string | fn.Fn
 		Domains?:            [...string] | fn.Fn
 		ResourceIdentifier?: string | fn.Fn
 	}
-	__UserSetting :: {
+	propUserSetting :: {
 		Action:     string | fn.Fn
 		Permission: string | fn.Fn
 	}

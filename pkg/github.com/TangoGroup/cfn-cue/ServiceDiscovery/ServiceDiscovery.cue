@@ -37,27 +37,27 @@ Service :: {
 	Type: "AWS::ServiceDiscovery::Service"
 	Properties: {
 		Description?:             string | fn.Fn
-		DnsConfig?:               __DnsConfig
-		HealthCheckConfig?:       __HealthCheckConfig
-		HealthCheckCustomConfig?: __HealthCheckCustomConfig
+		DnsConfig?:               propDnsConfig
+		HealthCheckConfig?:       propHealthCheckConfig
+		HealthCheckCustomConfig?: propHealthCheckCustomConfig
 		Name?:                    string | fn.Fn
 		NamespaceId?:             string | fn.Fn
 	}
-	__DnsConfig :: {
-		DnsRecords: [...__DnsRecord]
+	propDnsConfig :: {
+		DnsRecords: [...propDnsRecord]
 		NamespaceId?:   string | fn.Fn
 		RoutingPolicy?: string | fn.Fn
 	}
-	__DnsRecord :: {
+	propDnsRecord :: {
 		TTL:  float | fn.Fn
 		Type: (string & ("A" | "AAAA" | "SRV")) | fn.Fn
 	}
-	__HealthCheckConfig :: {
+	propHealthCheckConfig :: {
 		FailureThreshold?: float | fn.Fn
 		ResourcePath?:     string | fn.Fn
 		Type:              (string & ("HTTP" | "HTTPS" | "TCP")) | fn.Fn
 	}
-	__HealthCheckCustomConfig :: {
+	propHealthCheckCustomConfig :: {
 		FailureThreshold?: float | fn.Fn
 	}
 }

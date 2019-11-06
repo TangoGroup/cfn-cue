@@ -5,23 +5,23 @@ import "github.com/TangoGroup/fn"
 Listener :: {
 	Type: "AWS::ElasticLoadBalancingV2::Listener"
 	Properties: {
-		Certificates?: [...__Certificate]
-		DefaultActions: [...__Action]
+		Certificates?: [...propCertificate]
+		DefaultActions: [...propAction]
 		LoadBalancerArn: string | fn.Fn
 		Port:            (int & (>=1 & <=65535)) | fn.Fn
 		Protocol:        string | fn.Fn
 		SslPolicy?:      string | fn.Fn
 	}
-	__Action :: {
-		AuthenticateCognitoConfig?: __AuthenticateCognitoConfig
-		AuthenticateOidcConfig?:    __AuthenticateOidcConfig
-		FixedResponseConfig?:       __FixedResponseConfig
+	propAction :: {
+		AuthenticateCognitoConfig?: propAuthenticateCognitoConfig
+		AuthenticateOidcConfig?:    propAuthenticateOidcConfig
+		FixedResponseConfig?:       propFixedResponseConfig
 		Order?:                     int | fn.Fn
-		RedirectConfig?:            __RedirectConfig
+		RedirectConfig?:            propRedirectConfig
 		TargetGroupArn?:            string | fn.Fn
 		Type:                       string | fn.Fn
 	}
-	__AuthenticateCognitoConfig :: {
+	propAuthenticateCognitoConfig :: {
 		AuthenticationRequestExtraParams?: {
 		}
 		OnUnauthenticatedRequest?: string | fn.Fn
@@ -32,7 +32,7 @@ Listener :: {
 		UserPoolClientId:          string | fn.Fn
 		UserPoolDomain:            string | fn.Fn
 	}
-	__AuthenticateOidcConfig :: {
+	propAuthenticateOidcConfig :: {
 		AuthenticationRequestExtraParams?: {
 		}
 		AuthorizationEndpoint:     string | fn.Fn
@@ -46,15 +46,15 @@ Listener :: {
 		TokenEndpoint:             string | fn.Fn
 		UserInfoEndpoint:          string | fn.Fn
 	}
-	__Certificate :: {
+	propCertificate :: {
 		CertificateArn?: string | fn.Fn
 	}
-	__FixedResponseConfig :: {
+	propFixedResponseConfig :: {
 		ContentType?: string | fn.Fn
 		MessageBody?: string | fn.Fn
 		StatusCode:   string | fn.Fn
 	}
-	__RedirectConfig :: {
+	propRedirectConfig :: {
 		Host?:      string | fn.Fn
 		Path?:      string | fn.Fn
 		Port?:      string | fn.Fn
@@ -66,31 +66,31 @@ Listener :: {
 ListenerCertificate :: {
 	Type: "AWS::ElasticLoadBalancingV2::ListenerCertificate"
 	Properties: {
-		Certificates: [...__Certificate]
+		Certificates: [...propCertificate]
 		ListenerArn: string | fn.Fn
 	}
-	__Certificate :: {
+	propCertificate :: {
 		CertificateArn?: string | fn.Fn
 	}
 }
 ListenerRule :: {
 	Type: "AWS::ElasticLoadBalancingV2::ListenerRule"
 	Properties: {
-		Actions: [...__Action]
-		Conditions: [...__RuleCondition]
+		Actions: [...propAction]
+		Conditions: [...propRuleCondition]
 		ListenerArn: string | fn.Fn
 		Priority:    int | fn.Fn
 	}
-	__Action :: {
-		AuthenticateCognitoConfig?: __AuthenticateCognitoConfig
-		AuthenticateOidcConfig?:    __AuthenticateOidcConfig
-		FixedResponseConfig?:       __FixedResponseConfig
+	propAction :: {
+		AuthenticateCognitoConfig?: propAuthenticateCognitoConfig
+		AuthenticateOidcConfig?:    propAuthenticateOidcConfig
+		FixedResponseConfig?:       propFixedResponseConfig
 		Order?:                     int | fn.Fn
-		RedirectConfig?:            __RedirectConfig
+		RedirectConfig?:            propRedirectConfig
 		TargetGroupArn?:            string | fn.Fn
 		Type:                       string | fn.Fn
 	}
-	__AuthenticateCognitoConfig :: {
+	propAuthenticateCognitoConfig :: {
 		AuthenticationRequestExtraParams?: {
 		}
 		OnUnauthenticatedRequest?: string | fn.Fn
@@ -101,7 +101,7 @@ ListenerRule :: {
 		UserPoolClientId:          string | fn.Fn
 		UserPoolDomain:            string | fn.Fn
 	}
-	__AuthenticateOidcConfig :: {
+	propAuthenticateOidcConfig :: {
 		AuthenticationRequestExtraParams?: {
 		}
 		AuthorizationEndpoint:     string | fn.Fn
@@ -115,32 +115,32 @@ ListenerRule :: {
 		TokenEndpoint:             string | fn.Fn
 		UserInfoEndpoint:          string | fn.Fn
 	}
-	__FixedResponseConfig :: {
+	propFixedResponseConfig :: {
 		ContentType?: string | fn.Fn
 		MessageBody?: string | fn.Fn
 		StatusCode:   string | fn.Fn
 	}
-	__HostHeaderConfig :: {
+	propHostHeaderConfig :: {
 		Values?: [...string] | fn.Fn
 	}
-	__HttpHeaderConfig :: {
+	propHttpHeaderConfig :: {
 		HttpHeaderName?: string | fn.Fn
 		Values?:         [...string] | fn.Fn
 	}
-	__HttpRequestMethodConfig :: {
+	propHttpRequestMethodConfig :: {
 		Values?: [...string] | fn.Fn
 	}
-	__PathPatternConfig :: {
+	propPathPatternConfig :: {
 		Values?: [...string] | fn.Fn
 	}
-	__QueryStringConfig :: {
-		Values?: [...__QueryStringKeyValue]
+	propQueryStringConfig :: {
+		Values?: [...propQueryStringKeyValue]
 	}
-	__QueryStringKeyValue :: {
+	propQueryStringKeyValue :: {
 		Key?:   string | fn.Fn
 		Value?: string | fn.Fn
 	}
-	__RedirectConfig :: {
+	propRedirectConfig :: {
 		Host?:      string | fn.Fn
 		Path?:      string | fn.Fn
 		Port?:      string | fn.Fn
@@ -148,17 +148,17 @@ ListenerRule :: {
 		Query?:     string | fn.Fn
 		StatusCode: string | fn.Fn
 	}
-	__RuleCondition :: {
+	propRuleCondition :: {
 		Field?:                   string | fn.Fn
-		HostHeaderConfig?:        __HostHeaderConfig
-		HttpHeaderConfig?:        __HttpHeaderConfig
-		HttpRequestMethodConfig?: __HttpRequestMethodConfig
-		PathPatternConfig?:       __PathPatternConfig
-		QueryStringConfig?:       __QueryStringConfig
-		SourceIpConfig?:          __SourceIpConfig
+		HostHeaderConfig?:        propHostHeaderConfig
+		HttpHeaderConfig?:        propHttpHeaderConfig
+		HttpRequestMethodConfig?: propHttpRequestMethodConfig
+		PathPatternConfig?:       propPathPatternConfig
+		QueryStringConfig?:       propQueryStringConfig
+		SourceIpConfig?:          propSourceIpConfig
 		Values?:                  [...string] | fn.Fn
 	}
-	__SourceIpConfig :: {
+	propSourceIpConfig :: {
 		Values?: [...string] | fn.Fn
 	}
 }
@@ -166,20 +166,20 @@ LoadBalancer :: {
 	Type: "AWS::ElasticLoadBalancingV2::LoadBalancer"
 	Properties: {
 		IpAddressType?: string | fn.Fn
-		LoadBalancerAttributes?: [...__LoadBalancerAttribute]
+		LoadBalancerAttributes?: [...propLoadBalancerAttribute]
 		Name?:           string | fn.Fn
 		Scheme?:         string | fn.Fn
 		SecurityGroups?: [...string] | fn.Fn
-		SubnetMappings?: [...__SubnetMapping]
+		SubnetMappings?: [...propSubnetMapping]
 		Subnets?: [...string] | fn.Fn
-		Tags?: [...__Tag]
+		Tags?: [...propTag]
 		Type?: string | fn.Fn
 	}
-	__LoadBalancerAttribute :: {
+	propLoadBalancerAttribute :: {
 		Key?:   string | fn.Fn
 		Value?: string | fn.Fn
 	}
-	__SubnetMapping :: {
+	propSubnetMapping :: {
 		AllocationId: string | fn.Fn
 		SubnetId:     string | fn.Fn
 	}
@@ -194,26 +194,26 @@ TargetGroup :: {
 		HealthCheckProtocol?:        string | fn.Fn
 		HealthCheckTimeoutSeconds?:  (int & (>=2 & <=120)) | fn.Fn
 		HealthyThresholdCount?:      (int & (>=2 & <=10)) | fn.Fn
-		Matcher?:                    __Matcher
+		Matcher?:                    propMatcher
 		Name?:                       string | fn.Fn
 		Port?:                       int | fn.Fn
 		Protocol?:                   string | fn.Fn
-		Tags?: [...__Tag]
-		TargetGroupAttributes?: [...__TargetGroupAttribute]
+		Tags?: [...propTag]
+		TargetGroupAttributes?: [...propTargetGroupAttribute]
 		TargetType?: string | fn.Fn
-		Targets?: [...__TargetDescription]
+		Targets?: [...propTargetDescription]
 		UnhealthyThresholdCount?: (int & (>=2 & <=10)) | fn.Fn
 		VpcId?:                   string | fn.Fn
 	}
-	__Matcher :: {
+	propMatcher :: {
 		HttpCode: string | fn.Fn
 	}
-	__TargetDescription :: {
+	propTargetDescription :: {
 		AvailabilityZone?: string | fn.Fn
 		Id:                string | fn.Fn
 		Port?:             int | fn.Fn
 	}
-	__TargetGroupAttribute :: {
+	propTargetGroupAttribute :: {
 		Key?:   string | fn.Fn
 		Value?: string | fn.Fn
 	}

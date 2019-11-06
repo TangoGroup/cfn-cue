@@ -21,11 +21,11 @@ Topic :: {
 	Properties: {
 		DisplayName?:    string | fn.Fn
 		KmsMasterKeyId?: string | fn.Fn
-		Subscription?: [...__Subscription]
-		Tags?: [...__Tag]
+		Subscription?: [...propSubscription]
+		Tags?: [...propTag]
 		TopicName?: string | fn.Fn
 	}
-	__Subscription :: {
+	propSubscription :: {
 		Endpoint: string | fn.Fn
 		Protocol: string | fn.Fn
 	}

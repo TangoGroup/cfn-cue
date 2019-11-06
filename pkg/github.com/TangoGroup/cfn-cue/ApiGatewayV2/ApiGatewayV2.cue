@@ -50,11 +50,11 @@ DomainName :: {
 	Type: "AWS::ApiGatewayV2::DomainName"
 	Properties: {
 		DomainName: string | fn.Fn
-		DomainNameConfigurations?: [...__DomainNameConfiguration]
+		DomainNameConfigurations?: [...propDomainNameConfiguration]
 		Tags?: {
 		} | fn.Fn
 	}
-	__DomainNameConfiguration :: {
+	propDomainNameConfiguration :: {
 		CertificateArn?:  string | fn.Fn
 		CertificateName?: string | fn.Fn
 		EndpointType?:    string | fn.Fn
@@ -123,7 +123,7 @@ Route :: {
 		RouteResponseSelectionExpression?: string | fn.Fn
 		Target?:                           string | fn.Fn
 	}
-	__ParameterConstraints :: {
+	propParameterConstraints :: {
 		Required: bool | fn.Fn
 	}
 }
@@ -139,17 +139,17 @@ RouteResponse :: {
 		RouteId:          string | fn.Fn
 		RouteResponseKey: string | fn.Fn
 	}
-	__ParameterConstraints :: {
+	propParameterConstraints :: {
 		Required: bool | fn.Fn
 	}
 }
 Stage :: {
 	Type: "AWS::ApiGatewayV2::Stage"
 	Properties: {
-		AccessLogSettings?:    __AccessLogSettings
+		AccessLogSettings?:    propAccessLogSettings
 		ApiId:                 string | fn.Fn
 		ClientCertificateId?:  string | fn.Fn
-		DefaultRouteSettings?: __RouteSettings
+		DefaultRouteSettings?: propRouteSettings
 		DeploymentId:          string | fn.Fn
 		Description?:          string | fn.Fn
 		RouteSettings?:        {
@@ -160,11 +160,11 @@ Stage :: {
 		Tags?: {
 		} | fn.Fn
 	}
-	__AccessLogSettings :: {
+	propAccessLogSettings :: {
 		DestinationArn?: string | fn.Fn
 		Format?:         string | fn.Fn
 	}
-	__RouteSettings :: {
+	propRouteSettings :: {
 		DataTraceEnabled?:       bool | fn.Fn
 		DetailedMetricsEnabled?: bool | fn.Fn
 		LoggingLevel?:           string | fn.Fn

@@ -5,15 +5,15 @@ import "github.com/TangoGroup/fn"
 HealthCheck :: {
 	Type: "AWS::Route53::HealthCheck"
 	Properties: {
-		HealthCheckConfig: __HealthCheckConfig
-		HealthCheckTags?: [...__HealthCheckTag]
+		HealthCheckConfig: propHealthCheckConfig
+		HealthCheckTags?: [...propHealthCheckTag]
 	}
-	__AlarmIdentifier :: {
+	propAlarmIdentifier :: {
 		Name:   string | fn.Fn
 		Region: string | fn.Fn
 	}
-	__HealthCheckConfig :: {
-		AlarmIdentifier?:              __AlarmIdentifier
+	propHealthCheckConfig :: {
+		AlarmIdentifier?:              propAlarmIdentifier
 		ChildHealthChecks?:            [...string] | fn.Fn
 		EnableSNI?:                    bool | fn.Fn
 		FailureThreshold?:             int | fn.Fn
@@ -30,7 +30,7 @@ HealthCheck :: {
 		SearchString?:                 string | fn.Fn
 		Type:                          (string & ("CALCULATED" | "CLOUDWATCH_METRIC" | "HTTP_STR_MATCH" | "HTTP" | "HTTPS_STR_MATCH" | "HTTPS" | "TCP")) | fn.Fn
 	}
-	__HealthCheckTag :: {
+	propHealthCheckTag :: {
 		Key:   string | fn.Fn
 		Value: string | fn.Fn
 	}
@@ -38,23 +38,23 @@ HealthCheck :: {
 HostedZone :: {
 	Type: "AWS::Route53::HostedZone"
 	Properties: {
-		HostedZoneConfig?: __HostedZoneConfig
-		HostedZoneTags?: [...__HostedZoneTag]
+		HostedZoneConfig?: propHostedZoneConfig
+		HostedZoneTags?: [...propHostedZoneTag]
 		Name:                string | fn.Fn
-		QueryLoggingConfig?: __QueryLoggingConfig
-		VPCs?: [...__VPC]
+		QueryLoggingConfig?: propQueryLoggingConfig
+		VPCs?: [...propVPC]
 	}
-	__HostedZoneConfig :: {
+	propHostedZoneConfig :: {
 		Comment?: string | fn.Fn
 	}
-	__HostedZoneTag :: {
+	propHostedZoneTag :: {
 		Key:   string | fn.Fn
 		Value: string | fn.Fn
 	}
-	__QueryLoggingConfig :: {
+	propQueryLoggingConfig :: {
 		CloudWatchLogsLogGroupArn: string | fn.Fn
 	}
-	__VPC :: {
+	propVPC :: {
 		VPCId:     string | fn.Fn
 		VPCRegion: string | fn.Fn
 	}
@@ -62,10 +62,10 @@ HostedZone :: {
 RecordSet :: {
 	Type: "AWS::Route53::RecordSet"
 	Properties: {
-		AliasTarget?:      __AliasTarget
+		AliasTarget?:      propAliasTarget
 		Comment?:          string | fn.Fn
 		Failover?:         (string & ("PRIMARY" | "SECONDARY")) | fn.Fn
-		GeoLocation?:      __GeoLocation
+		GeoLocation?:      propGeoLocation
 		HealthCheckId?:    string | fn.Fn
 		HostedZoneId?:     string | fn.Fn
 		HostedZoneName?:   string | fn.Fn
@@ -78,12 +78,12 @@ RecordSet :: {
 		Type:              (string & ("A" | "AAAA" | "CAA" | "CNAME" | "MX" | "NAPTR" | "NS" | "PTR" | "SOA" | "SPF" | "SRV" | "TXT")) | fn.Fn
 		Weight?:           int | fn.Fn
 	}
-	__AliasTarget :: {
+	propAliasTarget :: {
 		DNSName:               string | fn.Fn
 		EvaluateTargetHealth?: bool | fn.Fn
 		HostedZoneId:          string | fn.Fn
 	}
-	__GeoLocation :: {
+	propGeoLocation :: {
 		ContinentCode?:   (string & ("AF" | "AN" | "AS" | "EU" | "NA" | "OC" | "SA")) | fn.Fn
 		CountryCode?:     string | fn.Fn
 		SubdivisionCode?: string | fn.Fn
@@ -95,23 +95,23 @@ RecordSetGroup :: {
 		Comment?:        string | fn.Fn
 		HostedZoneId?:   string | fn.Fn
 		HostedZoneName?: string | fn.Fn
-		RecordSets?: [...__RecordSet]
+		RecordSets?: [...propRecordSet]
 	}
-	__AliasTarget :: {
+	propAliasTarget :: {
 		DNSName:               string | fn.Fn
 		EvaluateTargetHealth?: bool | fn.Fn
 		HostedZoneId:          string | fn.Fn
 	}
-	__GeoLocation :: {
+	propGeoLocation :: {
 		ContinentCode?:   (string & ("AF" | "AN" | "AS" | "EU" | "NA" | "OC" | "SA")) | fn.Fn
 		CountryCode?:     string | fn.Fn
 		SubdivisionCode?: string | fn.Fn
 	}
-	__RecordSet :: {
-		AliasTarget?:      __AliasTarget
+	propRecordSet :: {
+		AliasTarget?:      propAliasTarget
 		Comment?:          string | fn.Fn
 		Failover?:         (string & ("PRIMARY" | "SECONDARY")) | fn.Fn
-		GeoLocation?:      __GeoLocation
+		GeoLocation?:      propGeoLocation
 		HealthCheckId?:    string | fn.Fn
 		HostedZoneId?:     string | fn.Fn
 		HostedZoneName?:   string | fn.Fn

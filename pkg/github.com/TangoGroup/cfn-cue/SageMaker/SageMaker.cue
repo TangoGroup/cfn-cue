@@ -6,9 +6,9 @@ CodeRepository :: {
 	Type: "AWS::SageMaker::CodeRepository"
 	Properties: {
 		CodeRepositoryName?: string | fn.Fn
-		GitConfig:           __GitConfig
+		GitConfig:           propGitConfig
 	}
-	__GitConfig :: {
+	propGitConfig :: {
 		Branch?:       string | fn.Fn
 		RepositoryUrl: string | fn.Fn
 		SecretArn?:    string | fn.Fn
@@ -19,7 +19,7 @@ Endpoint :: {
 	Properties: {
 		EndpointConfigName: string | fn.Fn
 		EndpointName?:      string | fn.Fn
-		Tags?: [...__Tag]
+		Tags?: [...propTag]
 	}
 }
 EndpointConfig :: {
@@ -27,10 +27,10 @@ EndpointConfig :: {
 	Properties: {
 		EndpointConfigName?: string | fn.Fn
 		KmsKeyId?:           string | fn.Fn
-		ProductionVariants: [...__ProductionVariant]
-		Tags?: [...__Tag]
+		ProductionVariants: [...propProductionVariant]
+		Tags?: [...propTag]
 	}
-	__ProductionVariant :: {
+	propProductionVariant :: {
 		AcceleratorType?:     string | fn.Fn
 		InitialInstanceCount: int | fn.Fn
 		InitialVariantWeight: float | fn.Fn
@@ -42,21 +42,21 @@ EndpointConfig :: {
 Model :: {
 	Type: "AWS::SageMaker::Model"
 	Properties: {
-		Containers?: [...__ContainerDefinition]
+		Containers?: [...propContainerDefinition]
 		ExecutionRoleArn:  string | fn.Fn
 		ModelName?:        string | fn.Fn
-		PrimaryContainer?: __ContainerDefinition
-		Tags?: [...__Tag]
-		VpcConfig?: __VpcConfig
+		PrimaryContainer?: propContainerDefinition
+		Tags?: [...propTag]
+		VpcConfig?: propVpcConfig
 	}
-	__ContainerDefinition :: {
+	propContainerDefinition :: {
 		ContainerHostname?: string | fn.Fn
 		Environment?:       {
 		} | fn.Fn
 		Image:         string | fn.Fn
 		ModelDataUrl?: string | fn.Fn
 	}
-	__VpcConfig :: {
+	propVpcConfig :: {
 		SecurityGroupIds: [...string] | fn.Fn
 		Subnets:          [...string] | fn.Fn
 	}
@@ -76,7 +76,7 @@ NotebookInstance :: {
 		RootAccess?:                 string | fn.Fn
 		SecurityGroupIds?:           [...string] | fn.Fn
 		SubnetId?:                   string | fn.Fn
-		Tags?: [...__Tag]
+		Tags?: [...propTag]
 		VolumeSizeInGB?: (int & (>=5 & <=16384)) | fn.Fn
 	}
 }
@@ -84,10 +84,10 @@ NotebookInstanceLifecycleConfig :: {
 	Type: "AWS::SageMaker::NotebookInstanceLifecycleConfig"
 	Properties: {
 		NotebookInstanceLifecycleConfigName?: string | fn.Fn
-		OnCreate?: [...__NotebookInstanceLifecycleHook]
-		OnStart?: [...__NotebookInstanceLifecycleHook]
+		OnCreate?: [...propNotebookInstanceLifecycleHook]
+		OnStart?: [...propNotebookInstanceLifecycleHook]
 	}
-	__NotebookInstanceLifecycleHook :: {
+	propNotebookInstanceLifecycleHook :: {
 		Content?: string | fn.Fn
 	}
 }
@@ -95,20 +95,20 @@ Workteam :: {
 	Type: "AWS::SageMaker::Workteam"
 	Properties: {
 		Description?: string | fn.Fn
-		MemberDefinitions?: [...__MemberDefinition]
-		NotificationConfiguration?: __NotificationConfiguration
-		Tags?: [...__Tag]
+		MemberDefinitions?: [...propMemberDefinition]
+		NotificationConfiguration?: propNotificationConfiguration
+		Tags?: [...propTag]
 		WorkteamName?: string | fn.Fn
 	}
-	__CognitoMemberDefinition :: {
+	propCognitoMemberDefinition :: {
 		CognitoClientId:  string | fn.Fn
 		CognitoUserGroup: string | fn.Fn
 		CognitoUserPool:  string | fn.Fn
 	}
-	__MemberDefinition :: {
-		CognitoMemberDefinition: __CognitoMemberDefinition
+	propMemberDefinition :: {
+		CognitoMemberDefinition: propCognitoMemberDefinition
 	}
-	__NotificationConfiguration :: {
+	propNotificationConfiguration :: {
 		NotificationTopicArn: string | fn.Fn
 	}
 }

@@ -8,34 +8,34 @@ Pipeline :: {
 		Activate?:    bool | fn.Fn
 		Description?: string | fn.Fn
 		Name:         string | fn.Fn
-		ParameterObjects: [...__ParameterObject]
-		ParameterValues?: [...__ParameterValue]
-		PipelineObjects?: [...__PipelineObject]
-		PipelineTags?: [...__PipelineTag]
+		ParameterObjects: [...propParameterObject]
+		ParameterValues?: [...propParameterValue]
+		PipelineObjects?: [...propPipelineObject]
+		PipelineTags?: [...propPipelineTag]
 	}
-	__Field :: {
+	propField :: {
 		Key:          string | fn.Fn
 		RefValue?:    string | fn.Fn
 		StringValue?: string | fn.Fn
 	}
-	__ParameterAttribute :: {
+	propParameterAttribute :: {
 		Key:         string | fn.Fn
 		StringValue: string | fn.Fn
 	}
-	__ParameterObject :: {
-		Attributes: [...__ParameterAttribute]
+	propParameterObject :: {
+		Attributes: [...propParameterAttribute]
 		Id: string | fn.Fn
 	}
-	__ParameterValue :: {
+	propParameterValue :: {
 		Id:          string | fn.Fn
 		StringValue: string | fn.Fn
 	}
-	__PipelineObject :: {
-		Fields: [...__Field]
+	propPipelineObject :: {
+		Fields: [...propField]
 		Id:   string | fn.Fn
 		Name: string | fn.Fn
 	}
-	__PipelineTag :: {
+	propPipelineTag :: {
 		Key:   string | fn.Fn
 		Value: string | fn.Fn
 	}

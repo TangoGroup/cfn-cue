@@ -5,17 +5,17 @@ import "github.com/TangoGroup/fn"
 ByteMatchSet :: {
 	Type: "AWS::WAFRegional::ByteMatchSet"
 	Properties: {
-		ByteMatchTuples?: [...__ByteMatchTuple]
+		ByteMatchTuples?: [...propByteMatchTuple]
 		Name: string | fn.Fn
 	}
-	__ByteMatchTuple :: {
-		FieldToMatch:         __FieldToMatch
+	propByteMatchTuple :: {
+		FieldToMatch:         propFieldToMatch
 		PositionalConstraint: string | fn.Fn
 		TargetString?:        string | fn.Fn
 		TargetStringBase64?:  string | fn.Fn
 		TextTransformation:   string | fn.Fn
 	}
-	__FieldToMatch :: {
+	propFieldToMatch :: {
 		Data?: string | fn.Fn
 		Type:  string | fn.Fn
 	}
@@ -23,10 +23,10 @@ ByteMatchSet :: {
 GeoMatchSet :: {
 	Type: "AWS::WAFRegional::GeoMatchSet"
 	Properties: {
-		GeoMatchConstraints?: [...__GeoMatchConstraint]
+		GeoMatchConstraints?: [...propGeoMatchConstraint]
 		Name: string | fn.Fn
 	}
-	__GeoMatchConstraint :: {
+	propGeoMatchConstraint :: {
 		Type:  string | fn.Fn
 		Value: string | fn.Fn
 	}
@@ -34,10 +34,10 @@ GeoMatchSet :: {
 IPSet :: {
 	Type: "AWS::WAFRegional::IPSet"
 	Properties: {
-		IPSetDescriptors?: [...__IPSetDescriptor]
+		IPSetDescriptors?: [...propIPSetDescriptor]
 		Name: string | fn.Fn
 	}
-	__IPSetDescriptor :: {
+	propIPSetDescriptor :: {
 		Type:  string | fn.Fn
 		Value: string | fn.Fn
 	}
@@ -45,13 +45,13 @@ IPSet :: {
 RateBasedRule :: {
 	Type: "AWS::WAFRegional::RateBasedRule"
 	Properties: {
-		MatchPredicates?: [...__Predicate]
+		MatchPredicates?: [...propPredicate]
 		MetricName: string | fn.Fn
 		Name:       string | fn.Fn
 		RateKey:    string | fn.Fn
 		RateLimit:  int | fn.Fn
 	}
-	__Predicate :: {
+	propPredicate :: {
 		DataId:  string | fn.Fn
 		Negated: bool | fn.Fn
 		Type:    string | fn.Fn
@@ -69,9 +69,9 @@ Rule :: {
 	Properties: {
 		MetricName: string | fn.Fn
 		Name:       string | fn.Fn
-		Predicates?: [...__Predicate]
+		Predicates?: [...propPredicate]
 	}
-	__Predicate :: {
+	propPredicate :: {
 		DataId:  string | fn.Fn
 		Negated: bool | fn.Fn
 		Type:    (string & ("ByteMatch" | "GeoMatch" | "IPMatch" | "RegexMatch" | "SizeConstraint" | "SqlInjectionMatch" | "XssMatch")) | fn.Fn
@@ -81,15 +81,15 @@ SizeConstraintSet :: {
 	Type: "AWS::WAFRegional::SizeConstraintSet"
 	Properties: {
 		Name: string | fn.Fn
-		SizeConstraints?: [...__SizeConstraint]
+		SizeConstraints?: [...propSizeConstraint]
 	}
-	__FieldToMatch :: {
+	propFieldToMatch :: {
 		Data?: string | fn.Fn
 		Type:  string | fn.Fn
 	}
-	__SizeConstraint :: {
+	propSizeConstraint :: {
 		ComparisonOperator: string | fn.Fn
-		FieldToMatch:       __FieldToMatch
+		FieldToMatch:       propFieldToMatch
 		Size:               int | fn.Fn
 		TextTransformation: string | fn.Fn
 	}
@@ -98,30 +98,30 @@ SqlInjectionMatchSet :: {
 	Type: "AWS::WAFRegional::SqlInjectionMatchSet"
 	Properties: {
 		Name: string | fn.Fn
-		SqlInjectionMatchTuples?: [...__SqlInjectionMatchTuple]
+		SqlInjectionMatchTuples?: [...propSqlInjectionMatchTuple]
 	}
-	__FieldToMatch :: {
+	propFieldToMatch :: {
 		Data?: string | fn.Fn
 		Type:  string | fn.Fn
 	}
-	__SqlInjectionMatchTuple :: {
-		FieldToMatch:       __FieldToMatch
+	propSqlInjectionMatchTuple :: {
+		FieldToMatch:       propFieldToMatch
 		TextTransformation: string | fn.Fn
 	}
 }
 WebACL :: {
 	Type: "AWS::WAFRegional::WebACL"
 	Properties: {
-		DefaultAction: __Action
+		DefaultAction: propAction
 		MetricName:    string | fn.Fn
 		Name:          string | fn.Fn
-		Rules?: [...__Rule]
+		Rules?: [...propRule]
 	}
-	__Action :: {
+	propAction :: {
 		Type: string | fn.Fn
 	}
-	__Rule :: {
-		Action:   __Action
+	propRule :: {
+		Action:   propAction
 		Priority: int | fn.Fn
 		RuleId:   string | fn.Fn
 	}
@@ -137,14 +137,14 @@ XssMatchSet :: {
 	Type: "AWS::WAFRegional::XssMatchSet"
 	Properties: {
 		Name: string | fn.Fn
-		XssMatchTuples?: [...__XssMatchTuple]
+		XssMatchTuples?: [...propXssMatchTuple]
 	}
-	__FieldToMatch :: {
+	propFieldToMatch :: {
 		Data?: string | fn.Fn
 		Type:  string | fn.Fn
 	}
-	__XssMatchTuple :: {
-		FieldToMatch:       __FieldToMatch
+	propXssMatchTuple :: {
+		FieldToMatch:       propFieldToMatch
 		TextTransformation: string | fn.Fn
 	}
 }

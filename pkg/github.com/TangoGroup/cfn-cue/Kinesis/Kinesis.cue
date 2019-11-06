@@ -8,10 +8,10 @@ Stream :: {
 		Name?:                 string | fn.Fn
 		RetentionPeriodHours?: (int & (>=1 & <=168)) | fn.Fn
 		ShardCount:            (int & (>=1 & <=100000)) | fn.Fn
-		StreamEncryption?:     __StreamEncryption
-		Tags?: [...__Tag]
+		StreamEncryption?:     propStreamEncryption
+		Tags?: [...propTag]
 	}
-	__StreamEncryption :: {
+	propStreamEncryption :: {
 		EncryptionType: string | fn.Fn
 		KeyId:          string | fn.Fn
 	}

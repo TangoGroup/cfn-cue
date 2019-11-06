@@ -6,9 +6,9 @@ FlowTemplate :: {
 	Type: "AWS::IoTThingsGraph::FlowTemplate"
 	Properties: {
 		CompatibleNamespaceVersion?: float | fn.Fn
-		Definition:                  __DefinitionDocument
+		Definition:                  propDefinitionDocument
 	}
-	__DefinitionDocument :: {
+	propDefinitionDocument :: {
 		Language: string | fn.Fn
 		Text:     string | fn.Fn
 	}

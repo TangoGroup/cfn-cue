@@ -5,52 +5,52 @@ import "github.com/TangoGroup/fn"
 LoadBalancer :: {
 	Type: "AWS::ElasticLoadBalancing::LoadBalancer"
 	Properties: {
-		AccessLoggingPolicy?: __AccessLoggingPolicy
-		AppCookieStickinessPolicy?: [...__AppCookieStickinessPolicy]
+		AccessLoggingPolicy?: propAccessLoggingPolicy
+		AppCookieStickinessPolicy?: [...propAppCookieStickinessPolicy]
 		AvailabilityZones?:        [...string] | fn.Fn
-		ConnectionDrainingPolicy?: __ConnectionDrainingPolicy
-		ConnectionSettings?:       __ConnectionSettings
+		ConnectionDrainingPolicy?: propConnectionDrainingPolicy
+		ConnectionSettings?:       propConnectionSettings
 		CrossZone?:                bool | fn.Fn
-		HealthCheck?:              __HealthCheck
+		HealthCheck?:              propHealthCheck
 		Instances?:                [...string] | fn.Fn
-		LBCookieStickinessPolicy?: [...__LBCookieStickinessPolicy]
-		Listeners: [...__Listeners]
+		LBCookieStickinessPolicy?: [...propLBCookieStickinessPolicy]
+		Listeners: [...propListeners]
 		LoadBalancerName?: string | fn.Fn
-		Policies?: [...__Policies]
+		Policies?: [...propPolicies]
 		Scheme?:         string | fn.Fn
 		SecurityGroups?: [...string] | fn.Fn
 		Subnets?:        [...string] | fn.Fn
-		Tags?: [...__Tag]
+		Tags?: [...propTag]
 	}
-	__AccessLoggingPolicy :: {
+	propAccessLoggingPolicy :: {
 		EmitInterval?:   int | fn.Fn
 		Enabled:         bool | fn.Fn
 		S3BucketName:    string | fn.Fn
 		S3BucketPrefix?: string | fn.Fn
 	}
-	__AppCookieStickinessPolicy :: {
+	propAppCookieStickinessPolicy :: {
 		CookieName: string | fn.Fn
 		PolicyName: string | fn.Fn
 	}
-	__ConnectionDrainingPolicy :: {
+	propConnectionDrainingPolicy :: {
 		Enabled:  bool | fn.Fn
 		Timeout?: int | fn.Fn
 	}
-	__ConnectionSettings :: {
+	propConnectionSettings :: {
 		IdleTimeout: int | fn.Fn
 	}
-	__HealthCheck :: {
+	propHealthCheck :: {
 		HealthyThreshold:   string | fn.Fn
 		Interval:           string | fn.Fn
 		Target:             string | fn.Fn
 		Timeout:            string | fn.Fn
 		UnhealthyThreshold: string | fn.Fn
 	}
-	__LBCookieStickinessPolicy :: {
+	propLBCookieStickinessPolicy :: {
 		CookieExpirationPeriod?: string | fn.Fn
 		PolicyName?:             string | fn.Fn
 	}
-	__Listeners :: {
+	propListeners :: {
 		InstancePort:      (string & (>=1 & <=65535)) | fn.Fn
 		InstanceProtocol?: string | fn.Fn
 		LoadBalancerPort:  (string & (>=1 & <=65535)) | fn.Fn
@@ -58,7 +58,7 @@ LoadBalancer :: {
 		Protocol:          string | fn.Fn
 		SSLCertificateId?: string | fn.Fn
 	}
-	__Policies :: {
+	propPolicies :: {
 		Attributes: [...{
 		}] | fn.Fn
 		InstancePorts?:     [...string] | fn.Fn

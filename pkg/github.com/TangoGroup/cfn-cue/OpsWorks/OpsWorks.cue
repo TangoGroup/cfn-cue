@@ -5,31 +5,31 @@ import "github.com/TangoGroup/fn"
 App :: {
 	Type: "AWS::OpsWorks::App"
 	Properties: {
-		AppSource?: __Source
+		AppSource?: propSource
 		Attributes?: {
 		}
-		DataSources?: [...__DataSource]
+		DataSources?: [...propDataSource]
 		Description?: string | fn.Fn
 		Domains?:     [...string] | fn.Fn
 		EnableSsl?:   bool | fn.Fn
-		Environment?: [...__EnvironmentVariable]
+		Environment?: [...propEnvironmentVariable]
 		Name:              string | fn.Fn
 		Shortname?:        string | fn.Fn
-		SslConfiguration?: __SslConfiguration
+		SslConfiguration?: propSslConfiguration
 		StackId:           string | fn.Fn
 		Type:              string | fn.Fn
 	}
-	__DataSource :: {
+	propDataSource :: {
 		Arn?:          string | fn.Fn
 		DatabaseName?: string | fn.Fn
 		Type?:         string | fn.Fn
 	}
-	__EnvironmentVariable :: {
+	propEnvironmentVariable :: {
 		Key:     string | fn.Fn
 		Secure?: bool | fn.Fn
 		Value:   string | fn.Fn
 	}
-	__Source :: {
+	propSource :: {
 		Password?: string | fn.Fn
 		Revision?: string | fn.Fn
 		SshKey?:   string | fn.Fn
@@ -37,7 +37,7 @@ App :: {
 		Url?:      string | fn.Fn
 		Username?: string | fn.Fn
 	}
-	__SslConfiguration :: {
+	propSslConfiguration :: {
 		Certificate?: string | fn.Fn
 		Chain?:       string | fn.Fn
 		PrivateKey?:  string | fn.Fn
@@ -58,7 +58,7 @@ Instance :: {
 		Architecture?:     string | fn.Fn
 		AutoScalingType?:  string | fn.Fn
 		AvailabilityZone?: string | fn.Fn
-		BlockDeviceMappings?: [...__BlockDeviceMapping]
+		BlockDeviceMappings?: [...propBlockDeviceMapping]
 		EbsOptimized?:         bool | fn.Fn
 		ElasticIps?:           [...string] | fn.Fn
 		Hostname?:             string | fn.Fn
@@ -71,24 +71,24 @@ Instance :: {
 		StackId:               string | fn.Fn
 		SubnetId?:             string | fn.Fn
 		Tenancy?:              string | fn.Fn
-		TimeBasedAutoScaling?: __TimeBasedAutoScaling
+		TimeBasedAutoScaling?: propTimeBasedAutoScaling
 		VirtualizationType?:   string | fn.Fn
 		Volumes?:              [...string] | fn.Fn
 	}
-	__BlockDeviceMapping :: {
+	propBlockDeviceMapping :: {
 		DeviceName?:  string | fn.Fn
-		Ebs?:         __EbsBlockDevice
+		Ebs?:         propEbsBlockDevice
 		NoDevice?:    string | fn.Fn
 		VirtualName?: string | fn.Fn
 	}
-	__EbsBlockDevice :: {
+	propEbsBlockDevice :: {
 		DeleteOnTermination?: bool | fn.Fn
 		Iops?:                int | fn.Fn
 		SnapshotId?:          string | fn.Fn
 		VolumeSize?:          int | fn.Fn
 		VolumeType?:          (string & ("gp2" | "io1" | "sc1" | "st1" | "standard")) | fn.Fn
 	}
-	__TimeBasedAutoScaling :: {
+	propTimeBasedAutoScaling :: {
 		Friday?: {
 		}
 		Monday?: {
@@ -115,22 +115,22 @@ Layer :: {
 		CustomInstanceProfileArn?: string | fn.Fn
 		CustomJson?:               {
 		} | fn.Fn
-		CustomRecipes?:               __Recipes
+		CustomRecipes?:               propRecipes
 		CustomSecurityGroupIds?:      [...string] | fn.Fn
 		EnableAutoHealing:            bool | fn.Fn
 		InstallUpdatesOnBoot?:        bool | fn.Fn
-		LifecycleEventConfiguration?: __LifecycleEventConfiguration
-		LoadBasedAutoScaling?:        __LoadBasedAutoScaling
+		LifecycleEventConfiguration?: propLifecycleEventConfiguration
+		LoadBasedAutoScaling?:        propLoadBasedAutoScaling
 		Name:                         string | fn.Fn
 		Packages?:                    [...string] | fn.Fn
 		Shortname:                    string | fn.Fn
 		StackId:                      string | fn.Fn
-		Tags?: [...__Tag]
+		Tags?: [...propTag]
 		Type:                      string | fn.Fn
 		UseEbsOptimizedInstances?: bool | fn.Fn
-		VolumeConfigurations?: [...__VolumeConfiguration]
+		VolumeConfigurations?: [...propVolumeConfiguration]
 	}
-	__AutoScalingThresholds :: {
+	propAutoScalingThresholds :: {
 		CpuThreshold?:       float | fn.Fn
 		IgnoreMetricsTime?:  int | fn.Fn
 		InstanceCount?:      int | fn.Fn
@@ -138,26 +138,26 @@ Layer :: {
 		MemoryThreshold?:    float | fn.Fn
 		ThresholdsWaitTime?: int | fn.Fn
 	}
-	__LifecycleEventConfiguration :: {
-		ShutdownEventConfiguration?: __ShutdownEventConfiguration
+	propLifecycleEventConfiguration :: {
+		ShutdownEventConfiguration?: propShutdownEventConfiguration
 	}
-	__LoadBasedAutoScaling :: {
-		DownScaling?: __AutoScalingThresholds
+	propLoadBasedAutoScaling :: {
+		DownScaling?: propAutoScalingThresholds
 		Enable?:      bool | fn.Fn
-		UpScaling?:   __AutoScalingThresholds
+		UpScaling?:   propAutoScalingThresholds
 	}
-	__Recipes :: {
+	propRecipes :: {
 		Configure?: [...string] | fn.Fn
 		Deploy?:    [...string] | fn.Fn
 		Setup?:     [...string] | fn.Fn
 		Shutdown?:  [...string] | fn.Fn
 		Undeploy?:  [...string] | fn.Fn
 	}
-	__ShutdownEventConfiguration :: {
+	propShutdownEventConfiguration :: {
 		DelayUntilElbConnectionsDrained?: bool | fn.Fn
 		ExecutionTimeout?:                int | fn.Fn
 	}
-	__VolumeConfiguration :: {
+	propVolumeConfiguration :: {
 		Encrypted?:     bool | fn.Fn
 		Iops?:          int | fn.Fn
 		MountPoint?:    string | fn.Fn
@@ -173,11 +173,11 @@ Stack :: {
 		AgentVersion?: string | fn.Fn
 		Attributes?: {
 		}
-		ChefConfiguration?:     __ChefConfiguration
+		ChefConfiguration?:     propChefConfiguration
 		CloneAppIds?:           [...string] | fn.Fn
 		ClonePermissions?:      bool | fn.Fn
-		ConfigurationManager?:  __StackConfigurationManager
-		CustomCookbooksSource?: __Source
+		ConfigurationManager?:  propStackConfigurationManager
+		CustomCookbooksSource?: propSource
 		CustomJson?:            {
 		} | fn.Fn
 		DefaultAvailabilityZone?:  string | fn.Fn
@@ -187,31 +187,31 @@ Stack :: {
 		DefaultSshKeyName?:        string | fn.Fn
 		DefaultSubnetId?:          string | fn.Fn
 		EcsClusterArn?:            string | fn.Fn
-		ElasticIps?: [...__ElasticIp]
+		ElasticIps?: [...propElasticIp]
 		HostnameTheme?: string | fn.Fn
 		Name:           string | fn.Fn
-		RdsDbInstances?: [...__RdsDbInstance]
+		RdsDbInstances?: [...propRdsDbInstance]
 		ServiceRoleArn: string | fn.Fn
 		SourceStackId?: string | fn.Fn
-		Tags?: [...__Tag]
+		Tags?: [...propTag]
 		UseCustomCookbooks?:        bool | fn.Fn
 		UseOpsworksSecurityGroups?: bool | fn.Fn
 		VpcId?:                     string | fn.Fn
 	}
-	__ChefConfiguration :: {
+	propChefConfiguration :: {
 		BerkshelfVersion?: string | fn.Fn
 		ManageBerkshelf?:  bool | fn.Fn
 	}
-	__ElasticIp :: {
+	propElasticIp :: {
 		Ip:    string | fn.Fn
 		Name?: string | fn.Fn
 	}
-	__RdsDbInstance :: {
+	propRdsDbInstance :: {
 		DbPassword:       string | fn.Fn
 		DbUser:           string | fn.Fn
 		RdsDbInstanceArn: string | fn.Fn
 	}
-	__Source :: {
+	propSource :: {
 		Password?: string | fn.Fn
 		Revision?: string | fn.Fn
 		SshKey?:   string | fn.Fn
@@ -219,7 +219,7 @@ Stack :: {
 		Url?:      string | fn.Fn
 		Username?: string | fn.Fn
 	}
-	__StackConfigurationManager :: {
+	propStackConfigurationManager :: {
 		Name?:    string | fn.Fn
 		Version?: string | fn.Fn
 	}

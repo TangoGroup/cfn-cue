@@ -7,38 +7,38 @@ LifecyclePolicy :: {
 	Properties: {
 		Description?:     string | fn.Fn
 		ExecutionRoleArn: string | fn.Fn
-		PolicyDetails?:   __PolicyDetails
+		PolicyDetails?:   propPolicyDetails
 		State:            (string & ("DISABLED" | "ENABLED")) | fn.Fn
 	}
-	__CreateRule :: {
+	propCreateRule :: {
 		Interval:     int | fn.Fn
 		IntervalUnit: string | fn.Fn
 		Times?:       [...string] | fn.Fn
 	}
-	__FastRestoreRule :: {
+	propFastRestoreRule :: {
 		AvailabilityZones?: [...string] | fn.Fn
 		Count:              int | fn.Fn
 	}
-	__Parameters :: {
+	propParameters :: {
 		ExcludeBootVolume?: bool | fn.Fn
 	}
-	__PolicyDetails :: {
-		Parameters?:    __Parameters
+	propPolicyDetails :: {
+		Parameters?:    propParameters
 		PolicyType?:    string | fn.Fn
 		ResourceTypes?: ([...string] & ("INSTANCE" | "VOLUME")) | fn.Fn
-		Schedules?: [...__Schedule]
-		TargetTags?: [...__Tag]
+		Schedules?: [...propSchedule]
+		TargetTags?: [...propTag]
 	}
-	__RetainRule :: {
+	propRetainRule :: {
 		Count: int | fn.Fn
 	}
-	__Schedule :: {
+	propSchedule :: {
 		CopyTags?:        bool | fn.Fn
-		CreateRule?:      __CreateRule
-		FastRestoreRule?: __FastRestoreRule
+		CreateRule?:      propCreateRule
+		FastRestoreRule?: propFastRestoreRule
 		Name?:            string | fn.Fn
-		RetainRule?:      __RetainRule
-		TagsToAdd?: [...__Tag]
-		VariableTags?: [...__Tag]
+		RetainRule?:      propRetainRule
+		TagsToAdd?: [...propTag]
+		VariableTags?: [...propTag]
 	}
 }

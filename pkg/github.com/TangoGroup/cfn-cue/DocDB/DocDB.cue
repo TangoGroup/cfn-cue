@@ -20,7 +20,7 @@ DBCluster :: {
 		PreferredMaintenanceWindow?:  string | fn.Fn
 		SnapshotIdentifier?:          string | fn.Fn
 		StorageEncrypted?:            bool | fn.Fn
-		Tags?: [...__Tag]
+		Tags?: [...propTag]
 		VpcSecurityGroupIds?: [...string] | fn.Fn
 	}
 }
@@ -32,7 +32,7 @@ DBClusterParameterGroup :: {
 		Name?:       string | fn.Fn
 		Parameters:  {
 		} | fn.Fn
-		Tags?: [...__Tag]
+		Tags?: [...propTag]
 	}
 }
 DBInstance :: {
@@ -44,7 +44,7 @@ DBInstance :: {
 		DBInstanceClass:             (string & ("db.r4.16xlarge" | "db.r4.2xlarge" | "db.r4.4xlarge" | "db.r4.8xlarge" | "db.r4.large" | "db.r4.xlarge" | "db.r5.12xlarge" | "db.r5.24xlarge" | "db.r5.2xlarge" | "db.r5.4xlarge" | "db.r5.large" | "db.r5.xlarge")) | fn.Fn
 		DBInstanceIdentifier?:       string | fn.Fn
 		PreferredMaintenanceWindow?: string | fn.Fn
-		Tags?: [...__Tag]
+		Tags?: [...propTag]
 	}
 }
 DBSubnetGroup :: {
@@ -53,6 +53,6 @@ DBSubnetGroup :: {
 		DBSubnetGroupDescription: string | fn.Fn
 		DBSubnetGroupName?:       string | fn.Fn
 		SubnetIds:                [...string] | fn.Fn
-		Tags?: [...__Tag]
+		Tags?: [...propTag]
 	}
 }

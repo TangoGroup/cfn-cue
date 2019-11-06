@@ -7,9 +7,9 @@ Alias :: {
 	Properties: {
 		Description?:    string | fn.Fn
 		Name:            string | fn.Fn
-		RoutingStrategy: __RoutingStrategy
+		RoutingStrategy: propRoutingStrategy
 	}
-	__RoutingStrategy :: {
+	propRoutingStrategy :: {
 		FleetId?: string | fn.Fn
 		Message?: string | fn.Fn
 		Type:     string | fn.Fn
@@ -19,10 +19,10 @@ Build :: {
 	Type: "AWS::GameLift::Build"
 	Properties: {
 		Name?:            string | fn.Fn
-		StorageLocation?: __S3Location
+		StorageLocation?: propS3Location
 		Version?:         string | fn.Fn
 	}
-	__S3Location :: {
+	propS3Location :: {
 		Bucket:  string | fn.Fn
 		Key:     string | fn.Fn
 		RoleArn: string | fn.Fn
@@ -34,7 +34,7 @@ Fleet :: {
 		BuildId:             string | fn.Fn
 		Description?:        string | fn.Fn
 		DesiredEC2Instances: int | fn.Fn
-		EC2InboundPermissions?: [...__IpPermission]
+		EC2InboundPermissions?: [...propIpPermission]
 		EC2InstanceType:         string | fn.Fn
 		LogPaths?:               [...string] | fn.Fn
 		MaxSize?:                int | fn.Fn
@@ -43,7 +43,7 @@ Fleet :: {
 		ServerLaunchParameters?: string | fn.Fn
 		ServerLaunchPath:        string | fn.Fn
 	}
-	__IpPermission :: {
+	propIpPermission :: {
 		FromPort: int | fn.Fn
 		IpRange:  string | fn.Fn
 		Protocol: string | fn.Fn

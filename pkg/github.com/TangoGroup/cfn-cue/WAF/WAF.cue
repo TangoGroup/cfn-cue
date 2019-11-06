@@ -5,17 +5,17 @@ import "github.com/TangoGroup/fn"
 ByteMatchSet :: {
 	Type: "AWS::WAF::ByteMatchSet"
 	Properties: {
-		ByteMatchTuples?: [...__ByteMatchTuple]
+		ByteMatchTuples?: [...propByteMatchTuple]
 		Name: string | fn.Fn
 	}
-	__ByteMatchTuple :: {
-		FieldToMatch:         __FieldToMatch
+	propByteMatchTuple :: {
+		FieldToMatch:         propFieldToMatch
 		PositionalConstraint: string | fn.Fn
 		TargetString?:        string | fn.Fn
 		TargetStringBase64?:  string | fn.Fn
 		TextTransformation:   string | fn.Fn
 	}
-	__FieldToMatch :: {
+	propFieldToMatch :: {
 		Data?: string | fn.Fn
 		Type:  string | fn.Fn
 	}
@@ -23,10 +23,10 @@ ByteMatchSet :: {
 IPSet :: {
 	Type: "AWS::WAF::IPSet"
 	Properties: {
-		IPSetDescriptors?: [...__IPSetDescriptor]
+		IPSetDescriptors?: [...propIPSetDescriptor]
 		Name: string | fn.Fn
 	}
-	__IPSetDescriptor :: {
+	propIPSetDescriptor :: {
 		Type:  string | fn.Fn
 		Value: string | fn.Fn
 	}
@@ -36,9 +36,9 @@ Rule :: {
 	Properties: {
 		MetricName: string | fn.Fn
 		Name:       string | fn.Fn
-		Predicates?: [...__Predicate]
+		Predicates?: [...propPredicate]
 	}
-	__Predicate :: {
+	propPredicate :: {
 		DataId:  string | fn.Fn
 		Negated: bool | fn.Fn
 		Type:    (string & ("ByteMatch" | "GeoMatch" | "IPMatch" | "RegexMatch" | "SizeConstraint" | "SqlInjectionMatch" | "XssMatch")) | fn.Fn
@@ -48,15 +48,15 @@ SizeConstraintSet :: {
 	Type: "AWS::WAF::SizeConstraintSet"
 	Properties: {
 		Name: string | fn.Fn
-		SizeConstraints: [...__SizeConstraint]
+		SizeConstraints: [...propSizeConstraint]
 	}
-	__FieldToMatch :: {
+	propFieldToMatch :: {
 		Data?: string | fn.Fn
 		Type:  string | fn.Fn
 	}
-	__SizeConstraint :: {
+	propSizeConstraint :: {
 		ComparisonOperator: string | fn.Fn
-		FieldToMatch:       __FieldToMatch
+		FieldToMatch:       propFieldToMatch
 		Size:               int | fn.Fn
 		TextTransformation: string | fn.Fn
 	}
@@ -65,31 +65,31 @@ SqlInjectionMatchSet :: {
 	Type: "AWS::WAF::SqlInjectionMatchSet"
 	Properties: {
 		Name: string | fn.Fn
-		SqlInjectionMatchTuples?: [...__SqlInjectionMatchTuple]
+		SqlInjectionMatchTuples?: [...propSqlInjectionMatchTuple]
 	}
-	__FieldToMatch :: {
+	propFieldToMatch :: {
 		Data?: string | fn.Fn
 		Type:  string | fn.Fn
 	}
-	__SqlInjectionMatchTuple :: {
-		FieldToMatch:       __FieldToMatch
+	propSqlInjectionMatchTuple :: {
+		FieldToMatch:       propFieldToMatch
 		TextTransformation: string | fn.Fn
 	}
 }
 WebACL :: {
 	Type: "AWS::WAF::WebACL"
 	Properties: {
-		DefaultAction: __WafAction
+		DefaultAction: propWafAction
 		MetricName:    string | fn.Fn
 		Name:          string | fn.Fn
-		Rules?: [...__ActivatedRule]
+		Rules?: [...propActivatedRule]
 	}
-	__ActivatedRule :: {
-		Action?:  __WafAction
+	propActivatedRule :: {
+		Action?:  propWafAction
 		Priority: int | fn.Fn
 		RuleId:   string | fn.Fn
 	}
-	__WafAction :: {
+	propWafAction :: {
 		Type: string | fn.Fn
 	}
 }
@@ -97,14 +97,14 @@ XssMatchSet :: {
 	Type: "AWS::WAF::XssMatchSet"
 	Properties: {
 		Name: string | fn.Fn
-		XssMatchTuples: [...__XssMatchTuple]
+		XssMatchTuples: [...propXssMatchTuple]
 	}
-	__FieldToMatch :: {
+	propFieldToMatch :: {
 		Data?: string | fn.Fn
 		Type:  string | fn.Fn
 	}
-	__XssMatchTuple :: {
-		FieldToMatch:       __FieldToMatch
+	propXssMatchTuple :: {
+		FieldToMatch:       propFieldToMatch
 		TextTransformation: string | fn.Fn
 	}
 }

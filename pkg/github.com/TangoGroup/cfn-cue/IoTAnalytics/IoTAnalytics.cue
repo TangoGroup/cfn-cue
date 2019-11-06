@@ -6,113 +6,113 @@ Channel :: {
 	Type: "AWS::IoTAnalytics::Channel"
 	Properties: {
 		ChannelName?:     string | fn.Fn
-		ChannelStorage?:  __ChannelStorage
-		RetentionPeriod?: __RetentionPeriod
-		Tags?: [...__Tag]
+		ChannelStorage?:  propChannelStorage
+		RetentionPeriod?: propRetentionPeriod
+		Tags?: [...propTag]
 	}
-	__ChannelStorage :: {
-		CustomerManagedS3?: __CustomerManagedS3
-		ServiceManagedS3?:  __ServiceManagedS3
+	propChannelStorage :: {
+		CustomerManagedS3?: propCustomerManagedS3
+		ServiceManagedS3?:  propServiceManagedS3
 	}
-	__CustomerManagedS3 :: {
+	propCustomerManagedS3 :: {
 		Bucket:     string | fn.Fn
 		KeyPrefix?: string | fn.Fn
 		RoleArn:    string | fn.Fn
 	}
-	__RetentionPeriod :: {
+	propRetentionPeriod :: {
 		NumberOfDays?: int | fn.Fn
 		Unlimited?:    bool | fn.Fn
 	}
-	__ServiceManagedS3 :: {
+	propServiceManagedS3 :: {
 	}
 }
 Dataset :: {
 	Type: "AWS::IoTAnalytics::Dataset"
 	Properties: {
-		Actions: [...__Action]
-		ContentDeliveryRules?: [...__DatasetContentDeliveryRule]
+		Actions: [...propAction]
+		ContentDeliveryRules?: [...propDatasetContentDeliveryRule]
 		DatasetName?:     string | fn.Fn
-		RetentionPeriod?: __RetentionPeriod
-		Tags?: [...__Tag]
-		Triggers?: [...__Trigger]
-		VersioningConfiguration?: __VersioningConfiguration
+		RetentionPeriod?: propRetentionPeriod
+		Tags?: [...propTag]
+		Triggers?: [...propTrigger]
+		VersioningConfiguration?: propVersioningConfiguration
 	}
-	__Action :: {
+	propAction :: {
 		ActionName:       string | fn.Fn
-		ContainerAction?: __ContainerAction
-		QueryAction?:     __QueryAction
+		ContainerAction?: propContainerAction
+		QueryAction?:     propQueryAction
 	}
-	__ContainerAction :: {
+	propContainerAction :: {
 		ExecutionRoleArn:      string | fn.Fn
 		Image:                 string | fn.Fn
-		ResourceConfiguration: __ResourceConfiguration
-		Variables?: [...__Variable]
+		ResourceConfiguration: propResourceConfiguration
+		Variables?: [...propVariable]
 	}
-	__DatasetContentDeliveryRule :: {
-		Destination: __DatasetContentDeliveryRuleDestination
+	propDatasetContentDeliveryRule :: {
+		Destination: propDatasetContentDeliveryRuleDestination
 		EntryName?:  string | fn.Fn
 	}
-	__DatasetContentDeliveryRuleDestination :: {
-		IotEventsDestinationConfiguration?: __IotEventsDestinationConfiguration
-		S3DestinationConfiguration?:        __S3DestinationConfiguration
+	propDatasetContentDeliveryRuleDestination :: {
+		IotEventsDestinationConfiguration?: propIotEventsDestinationConfiguration
+		S3DestinationConfiguration?:        propS3DestinationConfiguration
 	}
-	__DatasetContentVersionValue :: {
+	propDatasetContentVersionValue :: {
 		DatasetName?: string | fn.Fn
 	}
-	__DeltaTime :: {
+	propDeltaTime :: {
 		OffsetSeconds:  int | fn.Fn
 		TimeExpression: string | fn.Fn
 	}
-	__Filter :: {
-		DeltaTime?: __DeltaTime
+	propFilter :: {
+		DeltaTime?: propDeltaTime
 	}
-	__GlueConfiguration :: {
+	propGlueConfiguration :: {
 		DatabaseName: string | fn.Fn
 		TableName:    string | fn.Fn
 	}
-	__IotEventsDestinationConfiguration :: {
+	propIotEventsDestinationConfiguration :: {
 		InputName: string | fn.Fn
 		RoleArn:   string | fn.Fn
 	}
-	__OutputFileUriValue :: {
+	propOutputFileUriValue :: {
 		FileName?: string | fn.Fn
 	}
-	__QueryAction :: {
-		Filters?: [...__Filter]
+	propQueryAction :: {
+		Filters?: [...propFilter]
 		SqlQuery: string | fn.Fn
 	}
-	__ResourceConfiguration :: {
+	propResourceConfiguration :: {
 		ComputeType:    string | fn.Fn
 		VolumeSizeInGB: int | fn.Fn
 	}
-	__RetentionPeriod :: {
+	propRetentionPeriod :: {
 		NumberOfDays: int | fn.Fn
 		Unlimited:    bool | fn.Fn
 	}
-	__S3DestinationConfiguration :: {
+	propS3DestinationConfiguration :: {
 		Bucket:             string | fn.Fn
-		GlueConfiguration?: __GlueConfiguration
+		GlueConfiguration?: propGlueConfiguration
 		Key:                string | fn.Fn
 		RoleArn:            string | fn.Fn
 	}
-	__Schedule :: {
+	propSchedule :: {
 		ScheduleExpression: string | fn.Fn
 	}
-	__Trigger :: {
-		Schedule?:          __Schedule
-		TriggeringDataset?: __TriggeringDataset
+	propTrigger :: {
+		Schedule?:          propSchedule
+		TriggeringDataset?: propTriggeringDataset
 	}
-	__TriggeringDataset :: {
+	propTriggeringDataset :: {
 		DatasetName: string | fn.Fn
 	}
-	__Variable :: {
-		DatasetContentVersionValue?: __DatasetContentVersionValue
+	propVariable :: {
+		DatasetContentVersionValue?: propDatasetContentVersionValue
 		DoubleValue?:                float | fn.Fn
-		OutputFileUriValue?:         __OutputFileUriValue
+		OutputFileUriValue?:         propOutputFileUriValue
 		StringValue?:                string | fn.Fn
 		VariableName:                string | fn.Fn
 	}
-	__VersioningConfiguration :: {
+	propVersioningConfiguration :: {
 		MaxVersions?: int | fn.Fn
 		Unlimited?:   bool | fn.Fn
 	}
@@ -121,97 +121,97 @@ Datastore :: {
 	Type: "AWS::IoTAnalytics::Datastore"
 	Properties: {
 		DatastoreName?:    string | fn.Fn
-		DatastoreStorage?: __DatastoreStorage
-		RetentionPeriod?:  __RetentionPeriod
-		Tags?: [...__Tag]
+		DatastoreStorage?: propDatastoreStorage
+		RetentionPeriod?:  propRetentionPeriod
+		Tags?: [...propTag]
 	}
-	__CustomerManagedS3 :: {
+	propCustomerManagedS3 :: {
 		Bucket:     string | fn.Fn
 		KeyPrefix?: string | fn.Fn
 		RoleArn:    string | fn.Fn
 	}
-	__DatastoreStorage :: {
-		CustomerManagedS3?: __CustomerManagedS3
-		ServiceManagedS3?:  __ServiceManagedS3
+	propDatastoreStorage :: {
+		CustomerManagedS3?: propCustomerManagedS3
+		ServiceManagedS3?:  propServiceManagedS3
 	}
-	__RetentionPeriod :: {
+	propRetentionPeriod :: {
 		NumberOfDays?: int | fn.Fn
 		Unlimited?:    bool | fn.Fn
 	}
-	__ServiceManagedS3 :: {
+	propServiceManagedS3 :: {
 	}
 }
 Pipeline :: {
 	Type: "AWS::IoTAnalytics::Pipeline"
 	Properties: {
-		PipelineActivities: [...__Activity]
+		PipelineActivities: [...propActivity]
 		PipelineName?: string | fn.Fn
-		Tags?: [...__Tag]
+		Tags?: [...propTag]
 	}
-	__Activity :: {
-		AddAttributes?:        __AddAttributes
-		Channel?:              __Channel
-		Datastore?:            __Datastore
-		DeviceRegistryEnrich?: __DeviceRegistryEnrich
-		DeviceShadowEnrich?:   __DeviceShadowEnrich
-		Filter?:               __Filter
-		Lambda?:               __Lambda
-		Math?:                 __Math
-		RemoveAttributes?:     __RemoveAttributes
-		SelectAttributes?:     __SelectAttributes
+	propActivity :: {
+		AddAttributes?:        propAddAttributes
+		Channel?:              propChannel
+		Datastore?:            propDatastore
+		DeviceRegistryEnrich?: propDeviceRegistryEnrich
+		DeviceShadowEnrich?:   propDeviceShadowEnrich
+		Filter?:               propFilter
+		Lambda?:               propLambda
+		Math?:                 propMath
+		RemoveAttributes?:     propRemoveAttributes
+		SelectAttributes?:     propSelectAttributes
 	}
-	__AddAttributes :: {
+	propAddAttributes :: {
 		Attributes?: {
 		} | fn.Fn
 		Name?: string | fn.Fn
 		Next?: string | fn.Fn
 	}
-	__Channel :: {
+	propChannel :: {
 		ChannelName?: string | fn.Fn
 		Name?:        string | fn.Fn
 		Next?:        string | fn.Fn
 	}
-	__Datastore :: {
+	propDatastore :: {
 		DatastoreName?: string | fn.Fn
 		Name?:          string | fn.Fn
 	}
-	__DeviceRegistryEnrich :: {
+	propDeviceRegistryEnrich :: {
 		Attribute?: string | fn.Fn
 		Name?:      string | fn.Fn
 		Next?:      string | fn.Fn
 		RoleArn?:   string | fn.Fn
 		ThingName?: string | fn.Fn
 	}
-	__DeviceShadowEnrich :: {
+	propDeviceShadowEnrich :: {
 		Attribute?: string | fn.Fn
 		Name?:      string | fn.Fn
 		Next?:      string | fn.Fn
 		RoleArn?:   string | fn.Fn
 		ThingName?: string | fn.Fn
 	}
-	__Filter :: {
+	propFilter :: {
 		Filter?: string | fn.Fn
 		Name?:   string | fn.Fn
 		Next?:   string | fn.Fn
 	}
-	__Lambda :: {
+	propLambda :: {
 		BatchSize?:  int | fn.Fn
 		LambdaName?: string | fn.Fn
 		Name?:       string | fn.Fn
 		Next?:       string | fn.Fn
 	}
-	__Math :: {
+	propMath :: {
 		Attribute?: string | fn.Fn
 		Math?:      string | fn.Fn
 		Name?:      string | fn.Fn
 		Next?:      string | fn.Fn
 	}
-	__RemoveAttributes :: {
+	propRemoveAttributes :: {
 		Attributes?: [...string] | fn.Fn
 		Name?:       string | fn.Fn
 		Next?:       string | fn.Fn
 	}
-	__SelectAttributes :: {
+	propSelectAttributes :: {
 		Attributes?: [...string] | fn.Fn
 		Name?:       string | fn.Fn
 		Next?:       string | fn.Fn

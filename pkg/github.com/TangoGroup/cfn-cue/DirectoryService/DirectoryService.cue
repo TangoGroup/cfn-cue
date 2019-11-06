@@ -11,9 +11,9 @@ MicrosoftAD :: {
 		Name:         string | fn.Fn
 		Password:     string | fn.Fn
 		ShortName?:   string | fn.Fn
-		VpcSettings:  __VpcSettings
+		VpcSettings:  propVpcSettings
 	}
-	__VpcSettings :: {
+	propVpcSettings :: {
 		SubnetIds: [...string] | fn.Fn
 		VpcId:     string | fn.Fn
 	}
@@ -28,9 +28,9 @@ SimpleAD :: {
 		Password:     string | fn.Fn
 		ShortName?:   string | fn.Fn
 		Size:         (string & ("Large" | "Small")) | fn.Fn
-		VpcSettings:  __VpcSettings
+		VpcSettings:  propVpcSettings
 	}
-	__VpcSettings :: {
+	propVpcSettings :: {
 		SubnetIds: [...string] | fn.Fn
 		VpcId:     string | fn.Fn
 	}

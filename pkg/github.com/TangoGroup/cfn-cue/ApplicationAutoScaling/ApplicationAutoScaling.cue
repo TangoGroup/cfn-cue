@@ -10,22 +10,22 @@ ScalableTarget :: {
 		ResourceId:        string | fn.Fn
 		RoleARN:           string | fn.Fn
 		ScalableDimension: string | fn.Fn
-		ScheduledActions?: [...__ScheduledAction]
+		ScheduledActions?: [...propScheduledAction]
 		ServiceNamespace: string | fn.Fn
-		SuspendedState?:  __SuspendedState
+		SuspendedState?:  propSuspendedState
 	}
-	__ScalableTargetAction :: {
+	propScalableTargetAction :: {
 		MaxCapacity?: int | fn.Fn
 		MinCapacity?: int | fn.Fn
 	}
-	__ScheduledAction :: {
+	propScheduledAction :: {
 		EndTime?:              time.Time | fn.Fn
-		ScalableTargetAction?: __ScalableTargetAction
+		ScalableTargetAction?: propScalableTargetAction
 		Schedule:              string | fn.Fn
 		ScheduledActionName:   string | fn.Fn
 		StartTime?:            time.Time | fn.Fn
 	}
-	__SuspendedState :: {
+	propSuspendedState :: {
 		DynamicScalingInSuspended?:  bool | fn.Fn
 		DynamicScalingOutSuspended?: bool | fn.Fn
 		ScheduledScalingSuspended?:  bool | fn.Fn
@@ -40,40 +40,40 @@ ScalingPolicy :: {
 		ScalableDimension?:                        string | fn.Fn
 		ScalingTargetId?:                          string | fn.Fn
 		ServiceNamespace?:                         string | fn.Fn
-		StepScalingPolicyConfiguration?:           __StepScalingPolicyConfiguration
-		TargetTrackingScalingPolicyConfiguration?: __TargetTrackingScalingPolicyConfiguration
+		StepScalingPolicyConfiguration?:           propStepScalingPolicyConfiguration
+		TargetTrackingScalingPolicyConfiguration?: propTargetTrackingScalingPolicyConfiguration
 	}
-	__CustomizedMetricSpecification :: {
-		Dimensions?: [...__MetricDimension]
+	propCustomizedMetricSpecification :: {
+		Dimensions?: [...propMetricDimension]
 		MetricName: string | fn.Fn
 		Namespace:  string | fn.Fn
 		Statistic:  (string & ("Average" | "Minimum" | "Maximum" | "SampleCount" | "Sum")) | fn.Fn
 		Unit?:      string | fn.Fn
 	}
-	__MetricDimension :: {
+	propMetricDimension :: {
 		Name:  string | fn.Fn
 		Value: string | fn.Fn
 	}
-	__PredefinedMetricSpecification :: {
+	propPredefinedMetricSpecification :: {
 		PredefinedMetricType: (string & ("ALBRequestCountPerTarget" | "DynamoDBReadCapacityUtilization" | "DynamoDBWriteCapacityUtilization" | "EC2SpotFleetRequestAverageCPUUtilization" | "EC2SpotFleetRequestAverageNetworkIn" | "EC2SpotFleetRequestAverageNetworkOut" | "ECSServiceAverageCPUUtilization" | "ECSServiceAverageMemoryUtilization" | "RDSReaderAverageCPUUtilization" | "RDSReaderAverageDatabaseConnections" | "SageMakerVariantInvocationsPerInstance")) | fn.Fn
 		ResourceLabel?:       string | fn.Fn
 	}
-	__StepAdjustment :: {
+	propStepAdjustment :: {
 		MetricIntervalLowerBound?: float | fn.Fn
 		MetricIntervalUpperBound?: float | fn.Fn
 		ScalingAdjustment:         int | fn.Fn
 	}
-	__StepScalingPolicyConfiguration :: {
+	propStepScalingPolicyConfiguration :: {
 		AdjustmentType?:         string | fn.Fn
 		Cooldown?:               int | fn.Fn
 		MetricAggregationType?:  string | fn.Fn
 		MinAdjustmentMagnitude?: int | fn.Fn
-		StepAdjustments?: [...__StepAdjustment]
+		StepAdjustments?: [...propStepAdjustment]
 	}
-	__TargetTrackingScalingPolicyConfiguration :: {
-		CustomizedMetricSpecification?: __CustomizedMetricSpecification
+	propTargetTrackingScalingPolicyConfiguration :: {
+		CustomizedMetricSpecification?: propCustomizedMetricSpecification
 		DisableScaleIn?:                bool | fn.Fn
-		PredefinedMetricSpecification?: __PredefinedMetricSpecification
+		PredefinedMetricSpecification?: propPredefinedMetricSpecification
 		ScaleInCooldown?:               int | fn.Fn
 		ScaleOutCooldown?:              int | fn.Fn
 		TargetValue:                    float | fn.Fn

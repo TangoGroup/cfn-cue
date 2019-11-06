@@ -7,11 +7,11 @@ Container :: {
 	Properties: {
 		AccessLoggingEnabled?: bool | fn.Fn
 		ContainerName:         string | fn.Fn
-		CorsPolicy?: [...__CorsRule]
+		CorsPolicy?: [...propCorsRule]
 		LifecyclePolicy?: string | fn.Fn
 		Policy?:          string | fn.Fn
 	}
-	__CorsRule :: {
+	propCorsRule :: {
 		AllowedHeaders?: [...string] | fn.Fn
 		AllowedMethods?: [...string] | fn.Fn
 		AllowedOrigins?: [...string] | fn.Fn

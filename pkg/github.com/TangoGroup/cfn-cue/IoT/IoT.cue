@@ -27,10 +27,10 @@ PolicyPrincipalAttachment :: {
 Thing :: {
 	Type: "AWS::IoT::Thing"
 	Properties: {
-		AttributePayload?: __AttributePayload
+		AttributePayload?: propAttributePayload
 		ThingName?:        string | fn.Fn
 	}
-	__AttributePayload :: {
+	propAttributePayload :: {
 		Attributes?: {
 		}
 	}
@@ -46,31 +46,31 @@ TopicRule :: {
 	Type: "AWS::IoT::TopicRule"
 	Properties: {
 		RuleName?:        string | fn.Fn
-		TopicRulePayload: __TopicRulePayload
+		TopicRulePayload: propTopicRulePayload
 	}
-	__Action :: {
-		CloudwatchAlarm?:  __CloudwatchAlarmAction
-		CloudwatchMetric?: __CloudwatchMetricAction
-		DynamoDB?:         __DynamoDBAction
-		DynamoDBv2?:       __DynamoDBv2Action
-		Elasticsearch?:    __ElasticsearchAction
-		Firehose?:         __FirehoseAction
-		IotAnalytics?:     __IotAnalyticsAction
-		Kinesis?:          __KinesisAction
-		Lambda?:           __LambdaAction
-		Republish?:        __RepublishAction
-		S3?:               __S3Action
-		Sns?:              __SnsAction
-		Sqs?:              __SqsAction
-		StepFunctions?:    __StepFunctionsAction
+	propAction :: {
+		CloudwatchAlarm?:  propCloudwatchAlarmAction
+		CloudwatchMetric?: propCloudwatchMetricAction
+		DynamoDB?:         propDynamoDBAction
+		DynamoDBv2?:       propDynamoDBv2Action
+		Elasticsearch?:    propElasticsearchAction
+		Firehose?:         propFirehoseAction
+		IotAnalytics?:     propIotAnalyticsAction
+		Kinesis?:          propKinesisAction
+		Lambda?:           propLambdaAction
+		Republish?:        propRepublishAction
+		S3?:               propS3Action
+		Sns?:              propSnsAction
+		Sqs?:              propSqsAction
+		StepFunctions?:    propStepFunctionsAction
 	}
-	__CloudwatchAlarmAction :: {
+	propCloudwatchAlarmAction :: {
 		AlarmName:   string | fn.Fn
 		RoleArn:     string | fn.Fn
 		StateReason: string | fn.Fn
 		StateValue:  string | fn.Fn
 	}
-	__CloudwatchMetricAction :: {
+	propCloudwatchMetricAction :: {
 		MetricName:       string | fn.Fn
 		MetricNamespace:  string | fn.Fn
 		MetricTimestamp?: string | fn.Fn
@@ -78,7 +78,7 @@ TopicRule :: {
 		MetricValue:      string | fn.Fn
 		RoleArn:          string | fn.Fn
 	}
-	__DynamoDBAction :: {
+	propDynamoDBAction :: {
 		HashKeyField:   string | fn.Fn
 		HashKeyType?:   string | fn.Fn
 		HashKeyValue:   string | fn.Fn
@@ -89,66 +89,66 @@ TopicRule :: {
 		RoleArn:        string | fn.Fn
 		TableName:      string | fn.Fn
 	}
-	__DynamoDBv2Action :: {
-		PutItem?: __PutItemInput
+	propDynamoDBv2Action :: {
+		PutItem?: propPutItemInput
 		RoleArn?: string | fn.Fn
 	}
-	__ElasticsearchAction :: {
+	propElasticsearchAction :: {
 		Endpoint: string | fn.Fn
 		Id:       string | fn.Fn
 		Index:    string | fn.Fn
 		RoleArn:  string | fn.Fn
 		Type:     string | fn.Fn
 	}
-	__FirehoseAction :: {
+	propFirehoseAction :: {
 		DeliveryStreamName: string | fn.Fn
 		RoleArn:            string | fn.Fn
 		Separator?:         string | fn.Fn
 	}
-	__IotAnalyticsAction :: {
+	propIotAnalyticsAction :: {
 		ChannelName: string | fn.Fn
 		RoleArn:     string | fn.Fn
 	}
-	__KinesisAction :: {
+	propKinesisAction :: {
 		PartitionKey?: string | fn.Fn
 		RoleArn:       string | fn.Fn
 		StreamName:    string | fn.Fn
 	}
-	__LambdaAction :: {
+	propLambdaAction :: {
 		FunctionArn?: string | fn.Fn
 	}
-	__PutItemInput :: {
+	propPutItemInput :: {
 		TableName: string | fn.Fn
 	}
-	__RepublishAction :: {
+	propRepublishAction :: {
 		RoleArn: string | fn.Fn
 		Topic:   string | fn.Fn
 	}
-	__S3Action :: {
+	propS3Action :: {
 		BucketName: string | fn.Fn
 		Key:        string | fn.Fn
 		RoleArn:    string | fn.Fn
 	}
-	__SnsAction :: {
+	propSnsAction :: {
 		MessageFormat?: string | fn.Fn
 		RoleArn:        string | fn.Fn
 		TargetArn:      string | fn.Fn
 	}
-	__SqsAction :: {
+	propSqsAction :: {
 		QueueUrl:   string | fn.Fn
 		RoleArn:    string | fn.Fn
 		UseBase64?: bool | fn.Fn
 	}
-	__StepFunctionsAction :: {
+	propStepFunctionsAction :: {
 		ExecutionNamePrefix?: string | fn.Fn
 		RoleArn:              string | fn.Fn
 		StateMachineName:     string | fn.Fn
 	}
-	__TopicRulePayload :: {
-		Actions: [...__Action]
+	propTopicRulePayload :: {
+		Actions: [...propAction]
 		AwsIotSqlVersion?: string | fn.Fn
 		Description?:      string | fn.Fn
-		ErrorAction?:      __Action
+		ErrorAction?:      propAction
 		RuleDisabled:      bool | fn.Fn
 		Sql:               string | fn.Fn
 	}

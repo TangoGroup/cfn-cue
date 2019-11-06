@@ -17,6 +17,8 @@ import (
 	"cuelang.org/go/cue/token"
 )
 
+const propertyPrefix = "prop"
+
 func mapFromCFNTypeToCue(cfnType string) (lit ast.Expr) {
 	switch cfnType {
 	case "String":
@@ -33,7 +35,7 @@ func mapFromCFNTypeToCue(cfnType string) (lit ast.Expr) {
 		lit = &ast.BasicLit{Value: "time.Time"}
 	default:
 		// TODO clean this up... feels super ugly.
-		lit = &ast.BasicLit{Value: "__" + cfnType}
+		lit = &ast.BasicLit{Value: propertyPrefix + cfnType}
 	}
 	return lit
 }
@@ -375,7 +377,7 @@ func main() {
 				properties := createStructFromResource(prop.Properties, spec.ValueTypes)
 				resourceElts = append(resourceElts,
 					&ast.Field{
-						Label: ast.NewIdent("__" + propName),
+						Label: ast.NewIdent(propertyPrefix + propName),
 						Token: token.ISA,
 						Value: &properties,
 					})

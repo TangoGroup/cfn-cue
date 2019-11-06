@@ -8,7 +8,7 @@ Trail :: {
 		CloudWatchLogsLogGroupArn?: string | fn.Fn
 		CloudWatchLogsRoleArn?:     string | fn.Fn
 		EnableLogFileValidation?:   bool | fn.Fn
-		EventSelectors?: [...__EventSelector]
+		EventSelectors?: [...propEventSelector]
 		IncludeGlobalServiceEvents?: bool | fn.Fn
 		IsLogging:                   bool | fn.Fn
 		IsMultiRegionTrail?:         bool | fn.Fn
@@ -16,15 +16,15 @@ Trail :: {
 		S3BucketName:                string | fn.Fn
 		S3KeyPrefix?:                string | fn.Fn
 		SnsTopicName?:               string | fn.Fn
-		Tags?: [...__Tag]
+		Tags?: [...propTag]
 		TrailName?: string | fn.Fn
 	}
-	__DataResource :: {
+	propDataResource :: {
 		Type:    (string & ("AWS::Lambda::Function" | "AWS::S3::Object")) | fn.Fn
 		Values?: [...string] | fn.Fn
 	}
-	__EventSelector :: {
-		DataResources?: [...__DataResource]
+	propEventSelector :: {
+		DataResources?: [...propDataResource]
 		IncludeManagementEvents?: bool | fn.Fn
 		ReadWriteType?:           (string & ("All" | "ReadOnly" | "WriteOnly")) | fn.Fn
 	}

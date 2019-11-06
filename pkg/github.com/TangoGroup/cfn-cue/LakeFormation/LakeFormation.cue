@@ -4,32 +4,32 @@ import "github.com/TangoGroup/fn"
 
 DataLakeSettings :: {
 	Type: "AWS::LakeFormation::DataLakeSettings"
-	Properties: Admins?: __Admins
-	__Admins :: {
+	Properties: Admins?: propAdmins
+	propAdmins :: {
 	}
-	__DataLakePrincipal :: {
+	propDataLakePrincipal :: {
 		DataLakePrincipalIdentifier?: string | fn.Fn
 	}
 }
 Permissions :: {
 	Type: "AWS::LakeFormation::Permissions"
 	Properties: {
-		DataLakePrincipal:           __DataLakePrincipal
+		DataLakePrincipal:           propDataLakePrincipal
 		Permissions?:                [...string] | fn.Fn
 		PermissionsWithGrantOption?: [...string] | fn.Fn
-		Resource:                    __Resource
+		Resource:                    propResource
 	}
-	__DataLakePrincipal :: {
+	propDataLakePrincipal :: {
 		DataLakePrincipalIdentifier?: string | fn.Fn
 	}
-	__DatabaseResource :: {
+	propDatabaseResource :: {
 		Name?: string | fn.Fn
 	}
-	__Resource :: {
-		DatabaseResource?: __DatabaseResource
-		TableResource?:    __TableResource
+	propResource :: {
+		DatabaseResource?: propDatabaseResource
+		TableResource?:    propTableResource
 	}
-	__TableResource :: {
+	propTableResource :: {
 		DatabaseName?: string | fn.Fn
 		Name?:         string | fn.Fn
 	}

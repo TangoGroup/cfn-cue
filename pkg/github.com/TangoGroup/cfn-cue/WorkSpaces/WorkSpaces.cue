@@ -8,13 +8,13 @@ Workspace :: {
 		BundleId:                     string | fn.Fn
 		DirectoryId:                  string | fn.Fn
 		RootVolumeEncryptionEnabled?: bool | fn.Fn
-		Tags?: [...__Tag]
+		Tags?: [...propTag]
 		UserName:                     string | fn.Fn
 		UserVolumeEncryptionEnabled?: bool | fn.Fn
 		VolumeEncryptionKey?:         string | fn.Fn
-		WorkspaceProperties?:         __WorkspaceProperties
+		WorkspaceProperties?:         propWorkspaceProperties
 	}
-	__WorkspaceProperties :: {
+	propWorkspaceProperties :: {
 		ComputeTypeName?:                     (string & ("GRAPHICS" | "PERFORMANCE" | "POWER" | "STANDARD" | "VALUE")) | fn.Fn
 		RootVolumeSizeGib?:                   int | fn.Fn
 		RunningMode?:                         (string & ("ALWAYS_ON" | "AUTO_STOP")) | fn.Fn

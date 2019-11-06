@@ -10,7 +10,7 @@ Server :: {
 		BackupRetentionCount?:     int | fn.Fn
 		DisableAutomatedBackup?:   bool | fn.Fn
 		Engine?:                   string | fn.Fn
-		EngineAttributes?: [...__EngineAttribute]
+		EngineAttributes?: [...propEngineAttribute]
 		EngineModel?:                string | fn.Fn
 		EngineVersion?:              string | fn.Fn
 		InstanceProfileArn:          string | fn.Fn
@@ -23,7 +23,7 @@ Server :: {
 		ServiceRoleArn:              string | fn.Fn
 		SubnetIds?:                  [...string] | fn.Fn
 	}
-	__EngineAttribute :: {
+	propEngineAttribute :: {
 		Name?:  string | fn.Fn
 		Value?: string | fn.Fn
 	}

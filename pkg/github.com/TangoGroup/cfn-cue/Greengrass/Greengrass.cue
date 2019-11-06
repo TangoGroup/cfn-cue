@@ -5,28 +5,28 @@ import "github.com/TangoGroup/fn"
 ConnectorDefinition :: {
 	Type: "AWS::Greengrass::ConnectorDefinition"
 	Properties: {
-		InitialVersion?: __ConnectorDefinitionVersion
+		InitialVersion?: propConnectorDefinitionVersion
 		Name:            string | fn.Fn
 		Tags?:           {
 		} | fn.Fn
 	}
-	__Connector :: {
+	propConnector :: {
 		ConnectorArn: string | fn.Fn
 		Id:           string | fn.Fn
 		Parameters?:  {
 		} | fn.Fn
 	}
-	__ConnectorDefinitionVersion :: {
-		Connectors: [...__Connector]
+	propConnectorDefinitionVersion :: {
+		Connectors: [...propConnector]
 	}
 }
 ConnectorDefinitionVersion :: {
 	Type: "AWS::Greengrass::ConnectorDefinitionVersion"
 	Properties: {
 		ConnectorDefinitionId: string | fn.Fn
-		Connectors: [...__Connector]
+		Connectors: [...propConnector]
 	}
-	__Connector :: {
+	propConnector :: {
 		ConnectorArn: string | fn.Fn
 		Id:           string | fn.Fn
 		Parameters?:  {
@@ -36,28 +36,28 @@ ConnectorDefinitionVersion :: {
 CoreDefinition :: {
 	Type: "AWS::Greengrass::CoreDefinition"
 	Properties: {
-		InitialVersion?: __CoreDefinitionVersion
+		InitialVersion?: propCoreDefinitionVersion
 		Name:            string | fn.Fn
 		Tags?:           {
 		} | fn.Fn
 	}
-	__Core :: {
+	propCore :: {
 		CertificateArn: string | fn.Fn
 		Id:             string | fn.Fn
 		SyncShadow?:    bool | fn.Fn
 		ThingArn:       string | fn.Fn
 	}
-	__CoreDefinitionVersion :: {
-		Cores: [...__Core]
+	propCoreDefinitionVersion :: {
+		Cores: [...propCore]
 	}
 }
 CoreDefinitionVersion :: {
 	Type: "AWS::Greengrass::CoreDefinitionVersion"
 	Properties: {
 		CoreDefinitionId: string | fn.Fn
-		Cores: [...__Core]
+		Cores: [...propCore]
 	}
-	__Core :: {
+	propCore :: {
 		CertificateArn: string | fn.Fn
 		Id:             string | fn.Fn
 		SyncShadow?:    bool | fn.Fn
@@ -67,28 +67,28 @@ CoreDefinitionVersion :: {
 DeviceDefinition :: {
 	Type: "AWS::Greengrass::DeviceDefinition"
 	Properties: {
-		InitialVersion?: __DeviceDefinitionVersion
+		InitialVersion?: propDeviceDefinitionVersion
 		Name:            string | fn.Fn
 		Tags?:           {
 		} | fn.Fn
 	}
-	__Device :: {
+	propDevice :: {
 		CertificateArn: string | fn.Fn
 		Id:             string | fn.Fn
 		SyncShadow?:    bool | fn.Fn
 		ThingArn:       string | fn.Fn
 	}
-	__DeviceDefinitionVersion :: {
-		Devices: [...__Device]
+	propDeviceDefinitionVersion :: {
+		Devices: [...propDevice]
 	}
 }
 DeviceDefinitionVersion :: {
 	Type: "AWS::Greengrass::DeviceDefinitionVersion"
 	Properties: {
 		DeviceDefinitionId: string | fn.Fn
-		Devices: [...__Device]
+		Devices: [...propDevice]
 	}
-	__Device :: {
+	propDevice :: {
 		CertificateArn: string | fn.Fn
 		Id:             string | fn.Fn
 		SyncShadow?:    bool | fn.Fn
@@ -98,48 +98,48 @@ DeviceDefinitionVersion :: {
 FunctionDefinition :: {
 	Type: "AWS::Greengrass::FunctionDefinition"
 	Properties: {
-		InitialVersion?: __FunctionDefinitionVersion
+		InitialVersion?: propFunctionDefinitionVersion
 		Name:            string | fn.Fn
 		Tags?:           {
 		} | fn.Fn
 	}
-	__DefaultConfig :: {
-		Execution: __Execution
+	propDefaultConfig :: {
+		Execution: propExecution
 	}
-	__Environment :: {
+	propEnvironment :: {
 		AccessSysfs?: bool | fn.Fn
-		Execution?:   __Execution
-		ResourceAccessPolicies?: [...__ResourceAccessPolicy]
+		Execution?:   propExecution
+		ResourceAccessPolicies?: [...propResourceAccessPolicy]
 		Variables?: {
 		} | fn.Fn
 	}
-	__Execution :: {
+	propExecution :: {
 		IsolationMode?: string | fn.Fn
-		RunAs?:         __RunAs
+		RunAs?:         propRunAs
 	}
-	__Function :: {
+	propFunction :: {
 		FunctionArn:           string | fn.Fn
-		FunctionConfiguration: __FunctionConfiguration
+		FunctionConfiguration: propFunctionConfiguration
 		Id:                    string | fn.Fn
 	}
-	__FunctionConfiguration :: {
+	propFunctionConfiguration :: {
 		EncodingType?: string | fn.Fn
-		Environment?:  __Environment
+		Environment?:  propEnvironment
 		ExecArgs?:     string | fn.Fn
 		Executable?:   string | fn.Fn
 		MemorySize?:   int | fn.Fn
 		Pinned?:       bool | fn.Fn
 		Timeout?:      int | fn.Fn
 	}
-	__FunctionDefinitionVersion :: {
-		DefaultConfig?: __DefaultConfig
-		Functions: [...__Function]
+	propFunctionDefinitionVersion :: {
+		DefaultConfig?: propDefaultConfig
+		Functions: [...propFunction]
 	}
-	__ResourceAccessPolicy :: {
+	propResourceAccessPolicy :: {
 		Permission?: string | fn.Fn
 		ResourceId:  string | fn.Fn
 	}
-	__RunAs :: {
+	propRunAs :: {
 		Gid?: int | fn.Fn
 		Uid?: int | fn.Fn
 	}
@@ -147,43 +147,43 @@ FunctionDefinition :: {
 FunctionDefinitionVersion :: {
 	Type: "AWS::Greengrass::FunctionDefinitionVersion"
 	Properties: {
-		DefaultConfig?:       __DefaultConfig
+		DefaultConfig?:       propDefaultConfig
 		FunctionDefinitionId: string | fn.Fn
-		Functions: [...__Function]
+		Functions: [...propFunction]
 	}
-	__DefaultConfig :: {
-		Execution: __Execution
+	propDefaultConfig :: {
+		Execution: propExecution
 	}
-	__Environment :: {
+	propEnvironment :: {
 		AccessSysfs?: bool | fn.Fn
-		Execution?:   __Execution
-		ResourceAccessPolicies?: [...__ResourceAccessPolicy]
+		Execution?:   propExecution
+		ResourceAccessPolicies?: [...propResourceAccessPolicy]
 		Variables?: {
 		} | fn.Fn
 	}
-	__Execution :: {
+	propExecution :: {
 		IsolationMode?: string | fn.Fn
-		RunAs?:         __RunAs
+		RunAs?:         propRunAs
 	}
-	__Function :: {
+	propFunction :: {
 		FunctionArn:           string | fn.Fn
-		FunctionConfiguration: __FunctionConfiguration
+		FunctionConfiguration: propFunctionConfiguration
 		Id:                    string | fn.Fn
 	}
-	__FunctionConfiguration :: {
+	propFunctionConfiguration :: {
 		EncodingType?: string | fn.Fn
-		Environment?:  __Environment
+		Environment?:  propEnvironment
 		ExecArgs?:     string | fn.Fn
 		Executable?:   string | fn.Fn
 		MemorySize?:   int | fn.Fn
 		Pinned?:       bool | fn.Fn
 		Timeout?:      int | fn.Fn
 	}
-	__ResourceAccessPolicy :: {
+	propResourceAccessPolicy :: {
 		Permission?: string | fn.Fn
 		ResourceId:  string | fn.Fn
 	}
-	__RunAs :: {
+	propRunAs :: {
 		Gid?: int | fn.Fn
 		Uid?: int | fn.Fn
 	}
@@ -191,13 +191,13 @@ FunctionDefinitionVersion :: {
 Group :: {
 	Type: "AWS::Greengrass::Group"
 	Properties: {
-		InitialVersion?: __GroupVersion
+		InitialVersion?: propGroupVersion
 		Name:            string | fn.Fn
 		RoleArn?:        string | fn.Fn
 		Tags?:           {
 		} | fn.Fn
 	}
-	__GroupVersion :: {
+	propGroupVersion :: {
 		ConnectorDefinitionVersionArn?:    string | fn.Fn
 		CoreDefinitionVersionArn?:         string | fn.Fn
 		DeviceDefinitionVersionArn?:       string | fn.Fn
@@ -223,29 +223,29 @@ GroupVersion :: {
 LoggerDefinition :: {
 	Type: "AWS::Greengrass::LoggerDefinition"
 	Properties: {
-		InitialVersion?: __LoggerDefinitionVersion
+		InitialVersion?: propLoggerDefinitionVersion
 		Name:            string | fn.Fn
 		Tags?:           {
 		} | fn.Fn
 	}
-	__Logger :: {
+	propLogger :: {
 		Component: string | fn.Fn
 		Id:        string | fn.Fn
 		Level:     string | fn.Fn
 		Space?:    int | fn.Fn
 		Type:      string | fn.Fn
 	}
-	__LoggerDefinitionVersion :: {
-		Loggers: [...__Logger]
+	propLoggerDefinitionVersion :: {
+		Loggers: [...propLogger]
 	}
 }
 LoggerDefinitionVersion :: {
 	Type: "AWS::Greengrass::LoggerDefinitionVersion"
 	Properties: {
 		LoggerDefinitionId: string | fn.Fn
-		Loggers: [...__Logger]
+		Loggers: [...propLogger]
 	}
-	__Logger :: {
+	propLogger :: {
 		Component: string | fn.Fn
 		Id:        string | fn.Fn
 		Level:     string | fn.Fn
@@ -256,48 +256,48 @@ LoggerDefinitionVersion :: {
 ResourceDefinition :: {
 	Type: "AWS::Greengrass::ResourceDefinition"
 	Properties: {
-		InitialVersion?: __ResourceDefinitionVersion
+		InitialVersion?: propResourceDefinitionVersion
 		Name:            string | fn.Fn
 		Tags?:           {
 		} | fn.Fn
 	}
-	__GroupOwnerSetting :: {
+	propGroupOwnerSetting :: {
 		AutoAddGroupOwner: bool | fn.Fn
 		GroupOwner?:       string | fn.Fn
 	}
-	__LocalDeviceResourceData :: {
-		GroupOwnerSetting?: __GroupOwnerSetting
+	propLocalDeviceResourceData :: {
+		GroupOwnerSetting?: propGroupOwnerSetting
 		SourcePath:         string | fn.Fn
 	}
-	__LocalVolumeResourceData :: {
+	propLocalVolumeResourceData :: {
 		DestinationPath:    string | fn.Fn
-		GroupOwnerSetting?: __GroupOwnerSetting
+		GroupOwnerSetting?: propGroupOwnerSetting
 		SourcePath:         string | fn.Fn
 	}
-	__ResourceDataContainer :: {
-		LocalDeviceResourceData?:                   __LocalDeviceResourceData
-		LocalVolumeResourceData?:                   __LocalVolumeResourceData
-		S3MachineLearningModelResourceData?:        __S3MachineLearningModelResourceData
-		SageMakerMachineLearningModelResourceData?: __SageMakerMachineLearningModelResourceData
-		SecretsManagerSecretResourceData?:          __SecretsManagerSecretResourceData
+	propResourceDataContainer :: {
+		LocalDeviceResourceData?:                   propLocalDeviceResourceData
+		LocalVolumeResourceData?:                   propLocalVolumeResourceData
+		S3MachineLearningModelResourceData?:        propS3MachineLearningModelResourceData
+		SageMakerMachineLearningModelResourceData?: propSageMakerMachineLearningModelResourceData
+		SecretsManagerSecretResourceData?:          propSecretsManagerSecretResourceData
 	}
-	__ResourceDefinitionVersion :: {
-		Resources: [...__ResourceInstance]
+	propResourceDefinitionVersion :: {
+		Resources: [...propResourceInstance]
 	}
-	__ResourceInstance :: {
+	propResourceInstance :: {
 		Id:                    string | fn.Fn
 		Name:                  string | fn.Fn
-		ResourceDataContainer: __ResourceDataContainer
+		ResourceDataContainer: propResourceDataContainer
 	}
-	__S3MachineLearningModelResourceData :: {
+	propS3MachineLearningModelResourceData :: {
 		DestinationPath: string | fn.Fn
 		S3Uri:           string | fn.Fn
 	}
-	__SageMakerMachineLearningModelResourceData :: {
+	propSageMakerMachineLearningModelResourceData :: {
 		DestinationPath: string | fn.Fn
 		SageMakerJobArn: string | fn.Fn
 	}
-	__SecretsManagerSecretResourceData :: {
+	propSecretsManagerSecretResourceData :: {
 		ARN:                                string | fn.Fn
 		AdditionalStagingLabelsToDownload?: [...string] | fn.Fn
 	}
@@ -306,42 +306,42 @@ ResourceDefinitionVersion :: {
 	Type: "AWS::Greengrass::ResourceDefinitionVersion"
 	Properties: {
 		ResourceDefinitionId: string | fn.Fn
-		Resources: [...__ResourceInstance]
+		Resources: [...propResourceInstance]
 	}
-	__GroupOwnerSetting :: {
+	propGroupOwnerSetting :: {
 		AutoAddGroupOwner: bool | fn.Fn
 		GroupOwner?:       string | fn.Fn
 	}
-	__LocalDeviceResourceData :: {
-		GroupOwnerSetting?: __GroupOwnerSetting
+	propLocalDeviceResourceData :: {
+		GroupOwnerSetting?: propGroupOwnerSetting
 		SourcePath:         string | fn.Fn
 	}
-	__LocalVolumeResourceData :: {
+	propLocalVolumeResourceData :: {
 		DestinationPath:    string | fn.Fn
-		GroupOwnerSetting?: __GroupOwnerSetting
+		GroupOwnerSetting?: propGroupOwnerSetting
 		SourcePath:         string | fn.Fn
 	}
-	__ResourceDataContainer :: {
-		LocalDeviceResourceData?:                   __LocalDeviceResourceData
-		LocalVolumeResourceData?:                   __LocalVolumeResourceData
-		S3MachineLearningModelResourceData?:        __S3MachineLearningModelResourceData
-		SageMakerMachineLearningModelResourceData?: __SageMakerMachineLearningModelResourceData
-		SecretsManagerSecretResourceData?:          __SecretsManagerSecretResourceData
+	propResourceDataContainer :: {
+		LocalDeviceResourceData?:                   propLocalDeviceResourceData
+		LocalVolumeResourceData?:                   propLocalVolumeResourceData
+		S3MachineLearningModelResourceData?:        propS3MachineLearningModelResourceData
+		SageMakerMachineLearningModelResourceData?: propSageMakerMachineLearningModelResourceData
+		SecretsManagerSecretResourceData?:          propSecretsManagerSecretResourceData
 	}
-	__ResourceInstance :: {
+	propResourceInstance :: {
 		Id:                    string | fn.Fn
 		Name:                  string | fn.Fn
-		ResourceDataContainer: __ResourceDataContainer
+		ResourceDataContainer: propResourceDataContainer
 	}
-	__S3MachineLearningModelResourceData :: {
+	propS3MachineLearningModelResourceData :: {
 		DestinationPath: string | fn.Fn
 		S3Uri:           string | fn.Fn
 	}
-	__SageMakerMachineLearningModelResourceData :: {
+	propSageMakerMachineLearningModelResourceData :: {
 		DestinationPath: string | fn.Fn
 		SageMakerJobArn: string | fn.Fn
 	}
-	__SecretsManagerSecretResourceData :: {
+	propSecretsManagerSecretResourceData :: {
 		ARN:                                string | fn.Fn
 		AdditionalStagingLabelsToDownload?: [...string] | fn.Fn
 	}
@@ -349,28 +349,28 @@ ResourceDefinitionVersion :: {
 SubscriptionDefinition :: {
 	Type: "AWS::Greengrass::SubscriptionDefinition"
 	Properties: {
-		InitialVersion?: __SubscriptionDefinitionVersion
+		InitialVersion?: propSubscriptionDefinitionVersion
 		Name:            string | fn.Fn
 		Tags?:           {
 		} | fn.Fn
 	}
-	__Subscription :: {
+	propSubscription :: {
 		Id:      string | fn.Fn
 		Source:  string | fn.Fn
 		Subject: string | fn.Fn
 		Target:  string | fn.Fn
 	}
-	__SubscriptionDefinitionVersion :: {
-		Subscriptions: [...__Subscription]
+	propSubscriptionDefinitionVersion :: {
+		Subscriptions: [...propSubscription]
 	}
 }
 SubscriptionDefinitionVersion :: {
 	Type: "AWS::Greengrass::SubscriptionDefinitionVersion"
 	Properties: {
 		SubscriptionDefinitionId: string | fn.Fn
-		Subscriptions: [...__Subscription]
+		Subscriptions: [...propSubscription]
 	}
-	__Subscription :: {
+	propSubscription :: {
 		Id:      string | fn.Fn
 		Source:  string | fn.Fn
 		Subject: string | fn.Fn

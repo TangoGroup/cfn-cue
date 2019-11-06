@@ -30,9 +30,9 @@ MetricFilter :: {
 	Properties: {
 		FilterPattern: string | fn.Fn
 		LogGroupName:  string | fn.Fn
-		MetricTransformations: [...__MetricTransformation]
+		MetricTransformations: [...propMetricTransformation]
 	}
-	__MetricTransformation :: {
+	propMetricTransformation :: {
 		DefaultValue?:   float | fn.Fn
 		MetricName:      string | fn.Fn
 		MetricNamespace: string | fn.Fn

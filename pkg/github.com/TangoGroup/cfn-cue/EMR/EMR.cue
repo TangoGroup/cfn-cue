@@ -7,43 +7,43 @@ Cluster :: {
 	Properties: {
 		AdditionalInfo?: {
 		} | fn.Fn
-		Applications?: [...__Application]
+		Applications?: [...propApplication]
 		AutoScalingRole?: string | fn.Fn
-		BootstrapActions?: [...__BootstrapActionConfig]
-		Configurations?: [...__Configuration]
+		BootstrapActions?: [...propBootstrapActionConfig]
+		Configurations?: [...propConfiguration]
 		CustomAmiId?:           string | fn.Fn
 		EbsRootVolumeSize?:     int | fn.Fn
-		Instances:              __JobFlowInstancesConfig
+		Instances:              propJobFlowInstancesConfig
 		JobFlowRole:            (string & (=~#"[a-zA-Z0-9+=,.@\-_]+"#)) | fn.Fn
-		KerberosAttributes?:    __KerberosAttributes
+		KerberosAttributes?:    propKerberosAttributes
 		LogUri?:                string | fn.Fn
 		Name:                   string | fn.Fn
 		ReleaseLabel?:          string | fn.Fn
 		ScaleDownBehavior?:     string | fn.Fn
 		SecurityConfiguration?: string | fn.Fn
 		ServiceRole:            string | fn.Fn
-		Steps?: [...__StepConfig]
-		Tags?: [...__Tag]
+		Steps?: [...propStepConfig]
+		Tags?: [...propTag]
 		VisibleToAllUsers?: bool | fn.Fn
 	}
-	__Application :: {
+	propApplication :: {
 		AdditionalInfo?: {
 		}
 		Args?:    [...string] | fn.Fn
 		Name?:    string | fn.Fn
 		Version?: string | fn.Fn
 	}
-	__AutoScalingPolicy :: {
-		Constraints: __ScalingConstraints
-		Rules: [...__ScalingRule]
+	propAutoScalingPolicy :: {
+		Constraints: propScalingConstraints
+		Rules: [...propScalingRule]
 	}
-	__BootstrapActionConfig :: {
+	propBootstrapActionConfig :: {
 		Name:                  string | fn.Fn
-		ScriptBootstrapAction: __ScriptBootstrapActionConfig
+		ScriptBootstrapAction: propScriptBootstrapActionConfig
 	}
-	__CloudWatchAlarmDefinition :: {
+	propCloudWatchAlarmDefinition :: {
 		ComparisonOperator: string | fn.Fn
-		Dimensions?: [...__MetricDimension]
+		Dimensions?: [...propMetricDimension]
 		EvaluationPeriods?: int | fn.Fn
 		MetricName:         string | fn.Fn
 		Namespace?:         string | fn.Fn
@@ -52,59 +52,59 @@ Cluster :: {
 		Threshold:          float | fn.Fn
 		Unit?:              string | fn.Fn
 	}
-	__Configuration :: {
+	propConfiguration :: {
 		Classification?: string | fn.Fn
 		ConfigurationProperties?: {
 		}
-		Configurations?: [...__Configuration]
+		Configurations?: [...propConfiguration]
 	}
-	__EbsBlockDeviceConfig :: {
-		VolumeSpecification: __VolumeSpecification
+	propEbsBlockDeviceConfig :: {
+		VolumeSpecification: propVolumeSpecification
 		VolumesPerInstance?: int | fn.Fn
 	}
-	__EbsConfiguration :: {
-		EbsBlockDeviceConfigs?: [...__EbsBlockDeviceConfig]
+	propEbsConfiguration :: {
+		EbsBlockDeviceConfigs?: [...propEbsBlockDeviceConfig]
 		EbsOptimized?: bool | fn.Fn
 	}
-	__HadoopJarStepConfig :: {
+	propHadoopJarStepConfig :: {
 		Args?:      [...string] | fn.Fn
 		Jar:        string | fn.Fn
 		MainClass?: string | fn.Fn
-		StepProperties?: [...__KeyValue]
+		StepProperties?: [...propKeyValue]
 	}
-	__InstanceFleetConfig :: {
-		InstanceTypeConfigs?: [...__InstanceTypeConfig]
-		LaunchSpecifications?:   __InstanceFleetProvisioningSpecifications
+	propInstanceFleetConfig :: {
+		InstanceTypeConfigs?: [...propInstanceTypeConfig]
+		LaunchSpecifications?:   propInstanceFleetProvisioningSpecifications
 		Name?:                   string | fn.Fn
 		TargetOnDemandCapacity?: int | fn.Fn
 		TargetSpotCapacity?:     int | fn.Fn
 	}
-	__InstanceFleetProvisioningSpecifications :: {
-		SpotSpecification: __SpotProvisioningSpecification
+	propInstanceFleetProvisioningSpecifications :: {
+		SpotSpecification: propSpotProvisioningSpecification
 	}
-	__InstanceGroupConfig :: {
-		AutoScalingPolicy?: __AutoScalingPolicy
+	propInstanceGroupConfig :: {
+		AutoScalingPolicy?: propAutoScalingPolicy
 		BidPrice?:          string | fn.Fn
-		Configurations?: [...__Configuration]
-		EbsConfiguration?: __EbsConfiguration
+		Configurations?: [...propConfiguration]
+		EbsConfiguration?: propEbsConfiguration
 		InstanceCount:     int | fn.Fn
 		InstanceType:      string | fn.Fn
 		Market?:           string | fn.Fn
 		Name?:             string | fn.Fn
 	}
-	__InstanceTypeConfig :: {
+	propInstanceTypeConfig :: {
 		BidPrice?:                            string | fn.Fn
 		BidPriceAsPercentageOfOnDemandPrice?: float | fn.Fn
-		Configurations?: [...__Configuration]
-		EbsConfiguration?: __EbsConfiguration
+		Configurations?: [...propConfiguration]
+		EbsConfiguration?: propEbsConfiguration
 		InstanceType:      string | fn.Fn
 		WeightedCapacity?: int | fn.Fn
 	}
-	__JobFlowInstancesConfig :: {
+	propJobFlowInstancesConfig :: {
 		AdditionalMasterSecurityGroups?: [...string] | fn.Fn
 		AdditionalSlaveSecurityGroups?:  [...string] | fn.Fn
-		CoreInstanceFleet?:              __InstanceFleetConfig
-		CoreInstanceGroup?:              __InstanceGroupConfig
+		CoreInstanceFleet?:              propInstanceFleetConfig
+		CoreInstanceGroup?:              propInstanceGroupConfig
 		Ec2KeyName?:                     string | fn.Fn
 		Ec2SubnetId?:                    string | fn.Fn
 		Ec2SubnetIds?:                   [...string] | fn.Fn
@@ -112,67 +112,67 @@ Cluster :: {
 		EmrManagedSlaveSecurityGroup?:   string | fn.Fn
 		HadoopVersion?:                  string | fn.Fn
 		KeepJobFlowAliveWhenNoSteps?:    bool | fn.Fn
-		MasterInstanceFleet?:            __InstanceFleetConfig
-		MasterInstanceGroup?:            __InstanceGroupConfig
-		Placement?:                      __PlacementType
+		MasterInstanceFleet?:            propInstanceFleetConfig
+		MasterInstanceGroup?:            propInstanceGroupConfig
+		Placement?:                      propPlacementType
 		ServiceAccessSecurityGroup?:     string | fn.Fn
 		TerminationProtected?:           bool | fn.Fn
 	}
-	__KerberosAttributes :: {
+	propKerberosAttributes :: {
 		ADDomainJoinPassword?:             string | fn.Fn
 		ADDomainJoinUser?:                 string | fn.Fn
 		CrossRealmTrustPrincipalPassword?: string | fn.Fn
 		KdcAdminPassword:                  string | fn.Fn
 		Realm:                             string | fn.Fn
 	}
-	__KeyValue :: {
+	propKeyValue :: {
 		Key?:   string | fn.Fn
 		Value?: string | fn.Fn
 	}
-	__MetricDimension :: {
+	propMetricDimension :: {
 		Key:   string | fn.Fn
 		Value: string | fn.Fn
 	}
-	__PlacementType :: {
+	propPlacementType :: {
 		AvailabilityZone: string | fn.Fn
 	}
-	__ScalingAction :: {
+	propScalingAction :: {
 		Market?:                          string | fn.Fn
-		SimpleScalingPolicyConfiguration: __SimpleScalingPolicyConfiguration
+		SimpleScalingPolicyConfiguration: propSimpleScalingPolicyConfiguration
 	}
-	__ScalingConstraints :: {
+	propScalingConstraints :: {
 		MaxCapacity: int | fn.Fn
 		MinCapacity: int | fn.Fn
 	}
-	__ScalingRule :: {
-		Action:       __ScalingAction
+	propScalingRule :: {
+		Action:       propScalingAction
 		Description?: string | fn.Fn
 		Name:         string | fn.Fn
-		Trigger:      __ScalingTrigger
+		Trigger:      propScalingTrigger
 	}
-	__ScalingTrigger :: {
-		CloudWatchAlarmDefinition: __CloudWatchAlarmDefinition
+	propScalingTrigger :: {
+		CloudWatchAlarmDefinition: propCloudWatchAlarmDefinition
 	}
-	__ScriptBootstrapActionConfig :: {
+	propScriptBootstrapActionConfig :: {
 		Args?: [...string] | fn.Fn
 		Path:  string | fn.Fn
 	}
-	__SimpleScalingPolicyConfiguration :: {
+	propSimpleScalingPolicyConfiguration :: {
 		AdjustmentType?:   string | fn.Fn
 		CoolDown?:         int | fn.Fn
 		ScalingAdjustment: int | fn.Fn
 	}
-	__SpotProvisioningSpecification :: {
+	propSpotProvisioningSpecification :: {
 		BlockDurationMinutes?:  int | fn.Fn
 		TimeoutAction:          string | fn.Fn
 		TimeoutDurationMinutes: int | fn.Fn
 	}
-	__StepConfig :: {
+	propStepConfig :: {
 		ActionOnFailure?: string | fn.Fn
-		HadoopJarStep:    __HadoopJarStepConfig
+		HadoopJarStep:    propHadoopJarStepConfig
 		Name:             string | fn.Fn
 	}
-	__VolumeSpecification :: {
+	propVolumeSpecification :: {
 		Iops?:      int | fn.Fn
 		SizeInGB:   int | fn.Fn
 		VolumeType: string | fn.Fn
@@ -183,43 +183,43 @@ InstanceFleetConfig :: {
 	Properties: {
 		ClusterId:         string | fn.Fn
 		InstanceFleetType: string | fn.Fn
-		InstanceTypeConfigs?: [...__InstanceTypeConfig]
-		LaunchSpecifications?:   __InstanceFleetProvisioningSpecifications
+		InstanceTypeConfigs?: [...propInstanceTypeConfig]
+		LaunchSpecifications?:   propInstanceFleetProvisioningSpecifications
 		Name?:                   string | fn.Fn
 		TargetOnDemandCapacity?: int | fn.Fn
 		TargetSpotCapacity?:     int | fn.Fn
 	}
-	__Configuration :: {
+	propConfiguration :: {
 		Classification?: string | fn.Fn
 		ConfigurationProperties?: {
 		}
-		Configurations?: [...__Configuration]
+		Configurations?: [...propConfiguration]
 	}
-	__EbsBlockDeviceConfig :: {
-		VolumeSpecification: __VolumeSpecification
+	propEbsBlockDeviceConfig :: {
+		VolumeSpecification: propVolumeSpecification
 		VolumesPerInstance?: int | fn.Fn
 	}
-	__EbsConfiguration :: {
-		EbsBlockDeviceConfigs?: [...__EbsBlockDeviceConfig]
+	propEbsConfiguration :: {
+		EbsBlockDeviceConfigs?: [...propEbsBlockDeviceConfig]
 		EbsOptimized?: bool | fn.Fn
 	}
-	__InstanceFleetProvisioningSpecifications :: {
-		SpotSpecification: __SpotProvisioningSpecification
+	propInstanceFleetProvisioningSpecifications :: {
+		SpotSpecification: propSpotProvisioningSpecification
 	}
-	__InstanceTypeConfig :: {
+	propInstanceTypeConfig :: {
 		BidPrice?:                            string | fn.Fn
 		BidPriceAsPercentageOfOnDemandPrice?: float | fn.Fn
-		Configurations?: [...__Configuration]
-		EbsConfiguration?: __EbsConfiguration
+		Configurations?: [...propConfiguration]
+		EbsConfiguration?: propEbsConfiguration
 		InstanceType:      string | fn.Fn
 		WeightedCapacity?: int | fn.Fn
 	}
-	__SpotProvisioningSpecification :: {
+	propSpotProvisioningSpecification :: {
 		BlockDurationMinutes?:  int | fn.Fn
 		TimeoutAction:          string | fn.Fn
 		TimeoutDurationMinutes: int | fn.Fn
 	}
-	__VolumeSpecification :: {
+	propVolumeSpecification :: {
 		Iops?:      int | fn.Fn
 		SizeInGB:   int | fn.Fn
 		VolumeType: string | fn.Fn
@@ -228,10 +228,10 @@ InstanceFleetConfig :: {
 InstanceGroupConfig :: {
 	Type: "AWS::EMR::InstanceGroupConfig"
 	Properties: {
-		AutoScalingPolicy?: __AutoScalingPolicy
+		AutoScalingPolicy?: propAutoScalingPolicy
 		BidPrice?:          string | fn.Fn
-		Configurations?: [...__Configuration]
-		EbsConfiguration?: __EbsConfiguration
+		Configurations?: [...propConfiguration]
+		EbsConfiguration?: propEbsConfiguration
 		InstanceCount:     int | fn.Fn
 		InstanceRole:      string | fn.Fn
 		InstanceType:      string | fn.Fn
@@ -239,13 +239,13 @@ InstanceGroupConfig :: {
 		Market?:           string | fn.Fn
 		Name?:             string | fn.Fn
 	}
-	__AutoScalingPolicy :: {
-		Constraints: __ScalingConstraints
-		Rules: [...__ScalingRule]
+	propAutoScalingPolicy :: {
+		Constraints: propScalingConstraints
+		Rules: [...propScalingRule]
 	}
-	__CloudWatchAlarmDefinition :: {
+	propCloudWatchAlarmDefinition :: {
 		ComparisonOperator: string | fn.Fn
-		Dimensions?: [...__MetricDimension]
+		Dimensions?: [...propMetricDimension]
 		EvaluationPeriods?: int | fn.Fn
 		MetricName:         string | fn.Fn
 		Namespace?:         string | fn.Fn
@@ -254,47 +254,47 @@ InstanceGroupConfig :: {
 		Threshold:          float | fn.Fn
 		Unit?:              string | fn.Fn
 	}
-	__Configuration :: {
+	propConfiguration :: {
 		Classification?: string | fn.Fn
 		ConfigurationProperties?: {
 		}
-		Configurations?: [...__Configuration]
+		Configurations?: [...propConfiguration]
 	}
-	__EbsBlockDeviceConfig :: {
-		VolumeSpecification: __VolumeSpecification
+	propEbsBlockDeviceConfig :: {
+		VolumeSpecification: propVolumeSpecification
 		VolumesPerInstance?: int | fn.Fn
 	}
-	__EbsConfiguration :: {
-		EbsBlockDeviceConfigs?: [...__EbsBlockDeviceConfig]
+	propEbsConfiguration :: {
+		EbsBlockDeviceConfigs?: [...propEbsBlockDeviceConfig]
 		EbsOptimized?: bool | fn.Fn
 	}
-	__MetricDimension :: {
+	propMetricDimension :: {
 		Key:   string | fn.Fn
 		Value: string | fn.Fn
 	}
-	__ScalingAction :: {
+	propScalingAction :: {
 		Market?:                          string | fn.Fn
-		SimpleScalingPolicyConfiguration: __SimpleScalingPolicyConfiguration
+		SimpleScalingPolicyConfiguration: propSimpleScalingPolicyConfiguration
 	}
-	__ScalingConstraints :: {
+	propScalingConstraints :: {
 		MaxCapacity: int | fn.Fn
 		MinCapacity: int | fn.Fn
 	}
-	__ScalingRule :: {
-		Action:       __ScalingAction
+	propScalingRule :: {
+		Action:       propScalingAction
 		Description?: string | fn.Fn
 		Name:         string | fn.Fn
-		Trigger:      __ScalingTrigger
+		Trigger:      propScalingTrigger
 	}
-	__ScalingTrigger :: {
-		CloudWatchAlarmDefinition: __CloudWatchAlarmDefinition
+	propScalingTrigger :: {
+		CloudWatchAlarmDefinition: propCloudWatchAlarmDefinition
 	}
-	__SimpleScalingPolicyConfiguration :: {
+	propSimpleScalingPolicyConfiguration :: {
 		AdjustmentType?:   string | fn.Fn
 		CoolDown?:         int | fn.Fn
 		ScalingAdjustment: int | fn.Fn
 	}
-	__VolumeSpecification :: {
+	propVolumeSpecification :: {
 		Iops?:      int | fn.Fn
 		SizeInGB:   int | fn.Fn
 		VolumeType: string | fn.Fn
@@ -312,17 +312,17 @@ Step :: {
 	Type: "AWS::EMR::Step"
 	Properties: {
 		ActionOnFailure: string | fn.Fn
-		HadoopJarStep:   __HadoopJarStepConfig
+		HadoopJarStep:   propHadoopJarStepConfig
 		JobFlowId:       string | fn.Fn
 		Name:            string | fn.Fn
 	}
-	__HadoopJarStepConfig :: {
+	propHadoopJarStepConfig :: {
 		Args?:      [...string] | fn.Fn
 		Jar:        string | fn.Fn
 		MainClass?: string | fn.Fn
-		StepProperties?: [...__KeyValue]
+		StepProperties?: [...propKeyValue]
 	}
-	__KeyValue :: {
+	propKeyValue :: {
 		Key?:   string | fn.Fn
 		Value?: string | fn.Fn
 	}

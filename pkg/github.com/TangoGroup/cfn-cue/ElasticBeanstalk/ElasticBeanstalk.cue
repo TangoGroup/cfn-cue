@@ -7,22 +7,22 @@ Application :: {
 	Properties: {
 		ApplicationName?:         string | fn.Fn
 		Description?:             string | fn.Fn
-		ResourceLifecycleConfig?: __ApplicationResourceLifecycleConfig
+		ResourceLifecycleConfig?: propApplicationResourceLifecycleConfig
 	}
-	__ApplicationResourceLifecycleConfig :: {
+	propApplicationResourceLifecycleConfig :: {
 		ServiceRole?:            (string & (=~#"arn:(aws[a-zA-Z-]*)?:iam::\d{12}:role/[a-zA-Z_0-9+=,.@\-_/]+"#)) | fn.Fn
-		VersionLifecycleConfig?: __ApplicationVersionLifecycleConfig
+		VersionLifecycleConfig?: propApplicationVersionLifecycleConfig
 	}
-	__ApplicationVersionLifecycleConfig :: {
-		MaxAgeRule?:   __MaxAgeRule
-		MaxCountRule?: __MaxCountRule
+	propApplicationVersionLifecycleConfig :: {
+		MaxAgeRule?:   propMaxAgeRule
+		MaxCountRule?: propMaxCountRule
 	}
-	__MaxAgeRule :: {
+	propMaxAgeRule :: {
 		DeleteSourceFromS3?: bool | fn.Fn
 		Enabled?:            bool | fn.Fn
 		MaxAgeInDays?:       int | fn.Fn
 	}
-	__MaxCountRule :: {
+	propMaxCountRule :: {
 		DeleteSourceFromS3?: bool | fn.Fn
 		Enabled?:            bool | fn.Fn
 		MaxCount?:           int | fn.Fn
@@ -33,9 +33,9 @@ ApplicationVersion :: {
 	Properties: {
 		ApplicationName: string | fn.Fn
 		Description?:    string | fn.Fn
-		SourceBundle:    __SourceBundle
+		SourceBundle:    propSourceBundle
 	}
-	__SourceBundle :: {
+	propSourceBundle :: {
 		S3Bucket: string | fn.Fn
 		S3Key:    string | fn.Fn
 	}
@@ -46,18 +46,18 @@ ConfigurationTemplate :: {
 		ApplicationName: string | fn.Fn
 		Description?:    string | fn.Fn
 		EnvironmentId?:  string | fn.Fn
-		OptionSettings?: [...__ConfigurationOptionSetting]
+		OptionSettings?: [...propConfigurationOptionSetting]
 		PlatformArn?:         string | fn.Fn
 		SolutionStackName?:   string | fn.Fn
-		SourceConfiguration?: __SourceConfiguration
+		SourceConfiguration?: propSourceConfiguration
 	}
-	__ConfigurationOptionSetting :: {
+	propConfigurationOptionSetting :: {
 		Namespace:     string | fn.Fn
 		OptionName:    string | fn.Fn
 		ResourceName?: string | fn.Fn
 		Value?:        string | fn.Fn
 	}
-	__SourceConfiguration :: {
+	propSourceConfiguration :: {
 		ApplicationName: string | fn.Fn
 		TemplateName:    string | fn.Fn
 	}
@@ -69,21 +69,21 @@ Environment :: {
 		CNAMEPrefix?:     string | fn.Fn
 		Description?:     string | fn.Fn
 		EnvironmentName?: string | fn.Fn
-		OptionSettings?: [...__OptionSetting]
+		OptionSettings?: [...propOptionSetting]
 		PlatformArn?:       string | fn.Fn
 		SolutionStackName?: string | fn.Fn
-		Tags?: [...__Tag]
+		Tags?: [...propTag]
 		TemplateName?: string | fn.Fn
-		Tier?:         __Tier
+		Tier?:         propTier
 		VersionLabel?: string | fn.Fn
 	}
-	__OptionSetting :: {
+	propOptionSetting :: {
 		Namespace:     string | fn.Fn
 		OptionName:    string | fn.Fn
 		ResourceName?: string | fn.Fn
 		Value?:        string | fn.Fn
 	}
-	__Tier :: {
+	propTier :: {
 		Name?:    string | fn.Fn
 		Type?:    string | fn.Fn
 		Version?: string | fn.Fn

@@ -10,10 +10,10 @@ EnvironmentEC2 :: {
 		InstanceType:              string | fn.Fn
 		Name?:                     string | fn.Fn
 		OwnerArn?:                 string | fn.Fn
-		Repositories?: [...__Repository]
+		Repositories?: [...propRepository]
 		SubnetId?: string | fn.Fn
 	}
-	__Repository :: {
+	propRepository :: {
 		PathComponent: string | fn.Fn
 		RepositoryUrl: string | fn.Fn
 	}

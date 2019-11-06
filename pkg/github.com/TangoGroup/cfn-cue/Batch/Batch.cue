@@ -6,12 +6,12 @@ ComputeEnvironment :: {
 	Type: "AWS::Batch::ComputeEnvironment"
 	Properties: {
 		ComputeEnvironmentName?: string | fn.Fn
-		ComputeResources?:       __ComputeResources
+		ComputeResources?:       propComputeResources
 		ServiceRole:             (string & (=~#"arn:(aws[a-zA-Z-]*)?:iam::\d{12}:role/[a-zA-Z_0-9+=,.@\-_/]+"#)) | fn.Fn
 		State?:                  string | fn.Fn
 		Type:                    string | fn.Fn
 	}
-	__ComputeResources :: {
+	propComputeResources :: {
 		AllocationStrategy?: string | fn.Fn
 		BidPercentage?:      int | fn.Fn
 		DesiredvCpus?:       int | fn.Fn
@@ -19,7 +19,7 @@ ComputeEnvironment :: {
 		ImageId?:            string | fn.Fn
 		InstanceRole:        string | fn.Fn
 		InstanceTypes:       [...string] | fn.Fn
-		LaunchTemplate?:     __LaunchTemplateSpecification
+		LaunchTemplate?:     propLaunchTemplateSpecification
 		MaxvCpus:            int | fn.Fn
 		MinvCpus:            int | fn.Fn
 		PlacementGroup?:     string | fn.Fn
@@ -30,7 +30,7 @@ ComputeEnvironment :: {
 		} | fn.Fn
 		Type: string | fn.Fn
 	}
-	__LaunchTemplateSpecification :: {
+	propLaunchTemplateSpecification :: {
 		LaunchTemplateId?:   string | fn.Fn
 		LaunchTemplateName?: string | fn.Fn
 		Version?:            string | fn.Fn
@@ -39,90 +39,90 @@ ComputeEnvironment :: {
 JobDefinition :: {
 	Type: "AWS::Batch::JobDefinition"
 	Properties: {
-		ContainerProperties?: __ContainerProperties
+		ContainerProperties?: propContainerProperties
 		JobDefinitionName?:   string | fn.Fn
-		NodeProperties?:      __NodeProperties
+		NodeProperties?:      propNodeProperties
 		Parameters?:          {
 		} | fn.Fn
-		RetryStrategy?: __RetryStrategy
-		Timeout?:       __Timeout
+		RetryStrategy?: propRetryStrategy
+		Timeout?:       propTimeout
 		Type:           string | fn.Fn
 	}
-	__ContainerProperties :: {
+	propContainerProperties :: {
 		Command?: [...string] | fn.Fn
-		Environment?: [...__Environment]
+		Environment?: [...propEnvironment]
 		Image:            string | fn.Fn
 		InstanceType?:    string | fn.Fn
 		JobRoleArn?:      string | fn.Fn
-		LinuxParameters?: __LinuxParameters
+		LinuxParameters?: propLinuxParameters
 		Memory:           int | fn.Fn
-		MountPoints?: [...__MountPoints]
+		MountPoints?: [...propMountPoints]
 		Privileged?:             bool | fn.Fn
 		ReadonlyRootFilesystem?: bool | fn.Fn
-		ResourceRequirements?: [...__ResourceRequirement]
-		Ulimits?: [...__Ulimit]
+		ResourceRequirements?: [...propResourceRequirement]
+		Ulimits?: [...propUlimit]
 		User?: string | fn.Fn
 		Vcpus: int | fn.Fn
-		Volumes?: [...__Volumes]
+		Volumes?: [...propVolumes]
 	}
-	__Device :: {
+	propDevice :: {
 		ContainerPath?: string | fn.Fn
 		HostPath?:      string | fn.Fn
 		Permissions?:   [...string] | fn.Fn
 	}
-	__Environment :: {
+	propEnvironment :: {
 		Name?:  string | fn.Fn
 		Value?: string | fn.Fn
 	}
-	__LinuxParameters :: {
-		Devices?: [...__Device]
+	propLinuxParameters :: {
+		Devices?: [...propDevice]
 	}
-	__MountPoints :: {
+	propMountPoints :: {
 		ContainerPath?: string | fn.Fn
 		ReadOnly?:      bool | fn.Fn
 		SourceVolume?:  string | fn.Fn
 	}
-	__NodeProperties :: {
+	propNodeProperties :: {
 		MainNode: int | fn.Fn
-		NodeRangeProperties: [...__NodeRangeProperty]
+		NodeRangeProperties: [...propNodeRangeProperty]
 		NumNodes: int | fn.Fn
 	}
-	__NodeRangeProperty :: {
-		Container?:  __ContainerProperties
+	propNodeRangeProperty :: {
+		Container?:  propContainerProperties
 		TargetNodes: string | fn.Fn
 	}
-	__ResourceRequirement :: {
+	propResourceRequirement :: {
 		Type?:  string | fn.Fn
 		Value?: string | fn.Fn
 	}
-	__RetryStrategy :: {
+	propRetryStrategy :: {
 		Attempts?: int | fn.Fn
 	}
-	__Timeout :: {
+	propTimeout :: {
 		AttemptDurationSeconds?: int | fn.Fn
 	}
-	__Ulimit :: {
+	propUlimit :: {
 		HardLimit: int | fn.Fn
 		Name:      string | fn.Fn
 		SoftLimit: int | fn.Fn
 	}
-	__Volumes :: {
-		Host?: __VolumesHost
+	propVolumes :: {
+		Host?: propVolumesHost
 		Name?: string | fn.Fn
 	}
-	__VolumesHost :: {
+	propVolumesHost :: {
 		SourcePath?: string | fn.Fn
 	}
 }
 JobQueue :: {
 	Type: "AWS::Batch::JobQueue"
 	Properties: {
-		ComputeEnvironmentOrder: [...__ComputeEnvironmentOrder]
+		ComputeEnvironmentOrder: [...propComputeEnvironmentOrder]
 		JobQueueName?: string | fn.Fn
 		Priority:      int | fn.Fn
 		State?:        string | fn.Fn
 	}
-	__ComputeEnvironmentOrder :: {
+	propComputeEnvironmentOrder :: {
 		ComputeEnvironment: string | fn.Fn
 		Order:              int | fn.Fn
 	}

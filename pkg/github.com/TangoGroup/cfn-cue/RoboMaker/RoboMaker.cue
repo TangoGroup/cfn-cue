@@ -26,16 +26,16 @@ RobotApplication :: {
 	Properties: {
 		CurrentRevisionId?: string | fn.Fn
 		Name?:              string | fn.Fn
-		RobotSoftwareSuite: __RobotSoftwareSuite
-		Sources: [...__SourceConfig]
+		RobotSoftwareSuite: propRobotSoftwareSuite
+		Sources: [...propSourceConfig]
 		Tags?: {
 		} | fn.Fn
 	}
-	__RobotSoftwareSuite :: {
+	propRobotSoftwareSuite :: {
 		Name:    string | fn.Fn
 		Version: string | fn.Fn
 	}
-	__SourceConfig :: {
+	propSourceConfig :: {
 		Architecture: string | fn.Fn
 		S3Bucket:     string | fn.Fn
 		S3Key:        string | fn.Fn
@@ -53,26 +53,26 @@ SimulationApplication :: {
 	Properties: {
 		CurrentRevisionId?:      string | fn.Fn
 		Name?:                   string | fn.Fn
-		RenderingEngine:         __RenderingEngine
-		RobotSoftwareSuite:      __RobotSoftwareSuite
-		SimulationSoftwareSuite: __SimulationSoftwareSuite
-		Sources: [...__SourceConfig]
+		RenderingEngine:         propRenderingEngine
+		RobotSoftwareSuite:      propRobotSoftwareSuite
+		SimulationSoftwareSuite: propSimulationSoftwareSuite
+		Sources: [...propSourceConfig]
 		Tags?: {
 		} | fn.Fn
 	}
-	__RenderingEngine :: {
+	propRenderingEngine :: {
 		Name:    string | fn.Fn
 		Version: string | fn.Fn
 	}
-	__RobotSoftwareSuite :: {
+	propRobotSoftwareSuite :: {
 		Name:    string | fn.Fn
 		Version: string | fn.Fn
 	}
-	__SimulationSoftwareSuite :: {
+	propSimulationSoftwareSuite :: {
 		Name:    string | fn.Fn
 		Version: string | fn.Fn
 	}
-	__SourceConfig :: {
+	propSourceConfig :: {
 		Architecture: string | fn.Fn
 		S3Bucket:     string | fn.Fn
 		S3Key:        string | fn.Fn

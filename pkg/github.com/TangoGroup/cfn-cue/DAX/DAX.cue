@@ -14,13 +14,13 @@ Cluster :: {
 		ParameterGroupName?:         string | fn.Fn
 		PreferredMaintenanceWindow?: string | fn.Fn
 		ReplicationFactor:           int | fn.Fn
-		SSESpecification?:           __SSESpecification
+		SSESpecification?:           propSSESpecification
 		SecurityGroupIds?:           [...string] | fn.Fn
 		SubnetGroupName?:            string | fn.Fn
 		Tags?:                       {
 		} | fn.Fn
 	}
-	__SSESpecification :: {
+	propSSESpecification :: {
 		SSEEnabled?: bool | fn.Fn
 	}
 }

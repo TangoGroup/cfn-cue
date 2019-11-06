@@ -21,7 +21,7 @@ Cluster :: {
 		HsmConfigurationIdentifier?:       string | fn.Fn
 		IamRoles?:                         [...string] | fn.Fn
 		KmsKeyId?:                         string | fn.Fn
-		LoggingProperties?:                __LoggingProperties
+		LoggingProperties?:                propLoggingProperties
 		MasterUserPassword:                string | fn.Fn
 		MasterUsername:                    string | fn.Fn
 		NodeType:                          (string & ("dc1.8xlarge" | "dc1.large" | "dc2.8xlarge" | "dc2.large" | "ds1.8xlarge" | "ds1.xlarge" | "ds2.8xlarge" | "ds2.xlarge")) | fn.Fn
@@ -32,10 +32,10 @@ Cluster :: {
 		PubliclyAccessible?:               bool | fn.Fn
 		SnapshotClusterIdentifier?:        string | fn.Fn
 		SnapshotIdentifier?:               string | fn.Fn
-		Tags?: [...__Tag]
+		Tags?: [...propTag]
 		VpcSecurityGroupIds?: [...string] | fn.Fn
 	}
-	__LoggingProperties :: {
+	propLoggingProperties :: {
 		BucketName:   string | fn.Fn
 		S3KeyPrefix?: string | fn.Fn
 	}
@@ -45,10 +45,10 @@ ClusterParameterGroup :: {
 	Properties: {
 		Description:          string | fn.Fn
 		ParameterGroupFamily: string | fn.Fn
-		Parameters?: [...__Parameter]
-		Tags?: [...__Tag]
+		Parameters?: [...propParameter]
+		Tags?: [...propTag]
 	}
-	__Parameter :: {
+	propParameter :: {
 		ParameterName:  string | fn.Fn
 		ParameterValue: string | fn.Fn
 	}
@@ -57,7 +57,7 @@ ClusterSecurityGroup :: {
 	Type: "AWS::Redshift::ClusterSecurityGroup"
 	Properties: {
 		Description: string | fn.Fn
-		Tags?: [...__Tag]
+		Tags?: [...propTag]
 	}
 }
 ClusterSecurityGroupIngress :: {
@@ -74,6 +74,6 @@ ClusterSubnetGroup :: {
 	Properties: {
 		Description: string | fn.Fn
 		SubnetIds:   [...string] | fn.Fn
-		Tags?: [...__Tag]
+		Tags?: [...propTag]
 	}
 }

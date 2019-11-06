@@ -10,36 +10,36 @@ ConfigurationSetEventDestination :: {
 	Type: "AWS::SES::ConfigurationSetEventDestination"
 	Properties: {
 		ConfigurationSetName: string | fn.Fn
-		EventDestination:     __EventDestination
+		EventDestination:     propEventDestination
 	}
-	__CloudWatchDestination :: {
-		DimensionConfigurations?: [...__DimensionConfiguration]
+	propCloudWatchDestination :: {
+		DimensionConfigurations?: [...propDimensionConfiguration]
 	}
-	__DimensionConfiguration :: {
+	propDimensionConfiguration :: {
 		DefaultDimensionValue: string | fn.Fn
 		DimensionName:         string | fn.Fn
 		DimensionValueSource:  string | fn.Fn
 	}
-	__EventDestination :: {
-		CloudWatchDestination?:      __CloudWatchDestination
+	propEventDestination :: {
+		CloudWatchDestination?:      propCloudWatchDestination
 		Enabled?:                    bool | fn.Fn
-		KinesisFirehoseDestination?: __KinesisFirehoseDestination
+		KinesisFirehoseDestination?: propKinesisFirehoseDestination
 		MatchingEventTypes:          [...string] | fn.Fn
 		Name?:                       string | fn.Fn
 	}
-	__KinesisFirehoseDestination :: {
+	propKinesisFirehoseDestination :: {
 		DeliveryStreamARN: string | fn.Fn
 		IAMRoleARN:        string | fn.Fn
 	}
 }
 ReceiptFilter :: {
 	Type: "AWS::SES::ReceiptFilter"
-	Properties: Filter: __Filter
-	__Filter :: {
-		IpFilter: __IpFilter
+	Properties: Filter: propFilter
+	propFilter :: {
+		IpFilter: propIpFilter
 		Name?:    string | fn.Fn
 	}
-	__IpFilter :: {
+	propIpFilter :: {
 		Cidr:   string | fn.Fn
 		Policy: string | fn.Fn
 	}
@@ -48,57 +48,57 @@ ReceiptRule :: {
 	Type: "AWS::SES::ReceiptRule"
 	Properties: {
 		After?:      string | fn.Fn
-		Rule:        __Rule
+		Rule:        propRule
 		RuleSetName: string | fn.Fn
 	}
-	__Action :: {
-		AddHeaderAction?: __AddHeaderAction
-		BounceAction?:    __BounceAction
-		LambdaAction?:    __LambdaAction
-		S3Action?:        __S3Action
-		SNSAction?:       __SNSAction
-		StopAction?:      __StopAction
-		WorkmailAction?:  __WorkmailAction
+	propAction :: {
+		AddHeaderAction?: propAddHeaderAction
+		BounceAction?:    propBounceAction
+		LambdaAction?:    propLambdaAction
+		S3Action?:        propS3Action
+		SNSAction?:       propSNSAction
+		StopAction?:      propStopAction
+		WorkmailAction?:  propWorkmailAction
 	}
-	__AddHeaderAction :: {
+	propAddHeaderAction :: {
 		HeaderName:  string | fn.Fn
 		HeaderValue: string | fn.Fn
 	}
-	__BounceAction :: {
+	propBounceAction :: {
 		Message:       string | fn.Fn
 		Sender:        string | fn.Fn
 		SmtpReplyCode: string | fn.Fn
 		StatusCode?:   string | fn.Fn
 		TopicArn?:     string | fn.Fn
 	}
-	__LambdaAction :: {
+	propLambdaAction :: {
 		FunctionArn:     string | fn.Fn
 		InvocationType?: string | fn.Fn
 		TopicArn?:       string | fn.Fn
 	}
-	__Rule :: {
-		Actions?: [...__Action]
+	propRule :: {
+		Actions?: [...propAction]
 		Enabled?:     bool | fn.Fn
 		Name?:        string | fn.Fn
 		Recipients?:  [...string] | fn.Fn
 		ScanEnabled?: bool | fn.Fn
 		TlsPolicy?:   (string & ("Optional" | "Require")) | fn.Fn
 	}
-	__S3Action :: {
+	propS3Action :: {
 		BucketName:       string | fn.Fn
 		KmsKeyArn?:       string | fn.Fn
 		ObjectKeyPrefix?: string | fn.Fn
 		TopicArn?:        string | fn.Fn
 	}
-	__SNSAction :: {
+	propSNSAction :: {
 		Encoding?: string | fn.Fn
 		TopicArn?: string | fn.Fn
 	}
-	__StopAction :: {
+	propStopAction :: {
 		Scope:     string | fn.Fn
 		TopicArn?: string | fn.Fn
 	}
-	__WorkmailAction :: {
+	propWorkmailAction :: {
 		OrganizationArn: string | fn.Fn
 		TopicArn?:       string | fn.Fn
 	}
@@ -109,8 +109,8 @@ ReceiptRuleSet :: {
 }
 Template :: {
 	Type: "AWS::SES::Template"
-	Properties: Template?: __Template
-	__Template :: {
+	Properties: Template?: propTemplate
+	propTemplate :: {
 		HtmlPart?:     string | fn.Fn
 		SubjectPart?:  string | fn.Fn
 		TemplateName?: string | fn.Fn

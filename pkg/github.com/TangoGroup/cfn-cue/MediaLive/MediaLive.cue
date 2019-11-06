@@ -6,154 +6,154 @@ Channel :: {
 	Type: "AWS::MediaLive::Channel"
 	Properties: {
 		ChannelClass?: string | fn.Fn
-		Destinations?: [...__OutputDestination]
+		Destinations?: [...propOutputDestination]
 		EncoderSettings?: {
 		} | fn.Fn
-		InputAttachments?: [...__InputAttachment]
-		InputSpecification?: __InputSpecification
+		InputAttachments?: [...propInputAttachment]
+		InputSpecification?: propInputSpecification
 		LogLevel?:           string | fn.Fn
 		Name?:               string | fn.Fn
 		RoleArn?:            string | fn.Fn
 		Tags?:               {
 		} | fn.Fn
 	}
-	__AribSourceSettings :: {
+	propAribSourceSettings :: {
 	}
-	__AudioLanguageSelection :: {
+	propAudioLanguageSelection :: {
 		LanguageCode?:            string | fn.Fn
 		LanguageSelectionPolicy?: string | fn.Fn
 	}
-	__AudioPidSelection :: {
+	propAudioPidSelection :: {
 		Pid?: int | fn.Fn
 	}
-	__AudioSelector :: {
+	propAudioSelector :: {
 		Name?:             string | fn.Fn
-		SelectorSettings?: __AudioSelectorSettings
+		SelectorSettings?: propAudioSelectorSettings
 	}
-	__AudioSelectorSettings :: {
-		AudioLanguageSelection?: __AudioLanguageSelection
-		AudioPidSelection?:      __AudioPidSelection
+	propAudioSelectorSettings :: {
+		AudioLanguageSelection?: propAudioLanguageSelection
+		AudioPidSelection?:      propAudioPidSelection
 	}
-	__CaptionSelector :: {
+	propCaptionSelector :: {
 		LanguageCode?:     string | fn.Fn
 		Name?:             string | fn.Fn
-		SelectorSettings?: __CaptionSelectorSettings
+		SelectorSettings?: propCaptionSelectorSettings
 	}
-	__CaptionSelectorSettings :: {
-		AribSourceSettings?:     __AribSourceSettings
-		DvbSubSourceSettings?:   __DvbSubSourceSettings
-		EmbeddedSourceSettings?: __EmbeddedSourceSettings
-		Scte20SourceSettings?:   __Scte20SourceSettings
-		Scte27SourceSettings?:   __Scte27SourceSettings
-		TeletextSourceSettings?: __TeletextSourceSettings
+	propCaptionSelectorSettings :: {
+		AribSourceSettings?:     propAribSourceSettings
+		DvbSubSourceSettings?:   propDvbSubSourceSettings
+		EmbeddedSourceSettings?: propEmbeddedSourceSettings
+		Scte20SourceSettings?:   propScte20SourceSettings
+		Scte27SourceSettings?:   propScte27SourceSettings
+		TeletextSourceSettings?: propTeletextSourceSettings
 	}
-	__DvbSubSourceSettings :: {
+	propDvbSubSourceSettings :: {
 		Pid?: int | fn.Fn
 	}
-	__EmbeddedSourceSettings :: {
+	propEmbeddedSourceSettings :: {
 		Convert608To708?:        string | fn.Fn
 		Scte20Detection?:        string | fn.Fn
 		Source608ChannelNumber?: int | fn.Fn
 		Source608TrackNumber?:   int | fn.Fn
 	}
-	__HlsInputSettings :: {
+	propHlsInputSettings :: {
 		Bandwidth?:      int | fn.Fn
 		BufferSegments?: int | fn.Fn
 		Retries?:        int | fn.Fn
 		RetryInterval?:  int | fn.Fn
 	}
-	__InputAttachment :: {
+	propInputAttachment :: {
 		InputAttachmentName?: string | fn.Fn
 		InputId?:             string | fn.Fn
-		InputSettings?:       __InputSettings
+		InputSettings?:       propInputSettings
 	}
-	__InputSettings :: {
-		AudioSelectors?: [...__AudioSelector]
-		CaptionSelectors?: [...__CaptionSelector]
+	propInputSettings :: {
+		AudioSelectors?: [...propAudioSelector]
+		CaptionSelectors?: [...propCaptionSelector]
 		DeblockFilter?:        string | fn.Fn
 		DenoiseFilter?:        string | fn.Fn
 		FilterStrength?:       int | fn.Fn
 		InputFilter?:          string | fn.Fn
-		NetworkInputSettings?: __NetworkInputSettings
+		NetworkInputSettings?: propNetworkInputSettings
 		SourceEndBehavior?:    string | fn.Fn
-		VideoSelector?:        __VideoSelector
+		VideoSelector?:        propVideoSelector
 	}
-	__InputSpecification :: {
+	propInputSpecification :: {
 		Codec?:          string | fn.Fn
 		MaximumBitrate?: string | fn.Fn
 		Resolution?:     string | fn.Fn
 	}
-	__MediaPackageOutputDestinationSettings :: {
+	propMediaPackageOutputDestinationSettings :: {
 		ChannelId?: string | fn.Fn
 	}
-	__NetworkInputSettings :: {
-		HlsInputSettings?: __HlsInputSettings
+	propNetworkInputSettings :: {
+		HlsInputSettings?: propHlsInputSettings
 		ServerValidation?: string | fn.Fn
 	}
-	__OutputDestination :: {
+	propOutputDestination :: {
 		Id?: string | fn.Fn
-		MediaPackageSettings?: [...__MediaPackageOutputDestinationSettings]
-		Settings?: [...__OutputDestinationSettings]
+		MediaPackageSettings?: [...propMediaPackageOutputDestinationSettings]
+		Settings?: [...propOutputDestinationSettings]
 	}
-	__OutputDestinationSettings :: {
+	propOutputDestinationSettings :: {
 		PasswordParam?: string | fn.Fn
 		StreamName?:    string | fn.Fn
 		Url?:           string | fn.Fn
 		Username?:      string | fn.Fn
 	}
-	__Scte20SourceSettings :: {
+	propScte20SourceSettings :: {
 		Convert608To708?:        string | fn.Fn
 		Source608ChannelNumber?: int | fn.Fn
 	}
-	__Scte27SourceSettings :: {
+	propScte27SourceSettings :: {
 		Pid?: int | fn.Fn
 	}
-	__TeletextSourceSettings :: {
+	propTeletextSourceSettings :: {
 		PageNumber?: string | fn.Fn
 	}
-	__VideoSelector :: {
+	propVideoSelector :: {
 		ColorSpace?:       string | fn.Fn
 		ColorSpaceUsage?:  string | fn.Fn
-		SelectorSettings?: __VideoSelectorSettings
+		SelectorSettings?: propVideoSelectorSettings
 	}
-	__VideoSelectorPid :: {
+	propVideoSelectorPid :: {
 		Pid?: int | fn.Fn
 	}
-	__VideoSelectorProgramId :: {
+	propVideoSelectorProgramId :: {
 		ProgramId?: int | fn.Fn
 	}
-	__VideoSelectorSettings :: {
-		VideoSelectorPid?:       __VideoSelectorPid
-		VideoSelectorProgramId?: __VideoSelectorProgramId
+	propVideoSelectorSettings :: {
+		VideoSelectorPid?:       propVideoSelectorPid
+		VideoSelectorProgramId?: propVideoSelectorProgramId
 	}
 }
 Input :: {
 	Type: "AWS::MediaLive::Input"
 	Properties: {
-		Destinations?: [...__InputDestinationRequest]
+		Destinations?: [...propInputDestinationRequest]
 		InputSecurityGroups?: [...string] | fn.Fn
-		MediaConnectFlows?: [...__MediaConnectFlowRequest]
+		MediaConnectFlows?: [...propMediaConnectFlowRequest]
 		Name?:    string | fn.Fn
 		RoleArn?: string | fn.Fn
-		Sources?: [...__InputSourceRequest]
+		Sources?: [...propInputSourceRequest]
 		Tags?: {
 		} | fn.Fn
 		Type?: string | fn.Fn
-		Vpc?:  __InputVpcRequest
+		Vpc?:  propInputVpcRequest
 	}
-	__InputDestinationRequest :: {
+	propInputDestinationRequest :: {
 		StreamName?: string | fn.Fn
 	}
-	__InputSourceRequest :: {
+	propInputSourceRequest :: {
 		PasswordParam?: string | fn.Fn
 		Url?:           string | fn.Fn
 		Username?:      string | fn.Fn
 	}
-	__InputVpcRequest :: {
+	propInputVpcRequest :: {
 		SecurityGroupIds?: [...string] | fn.Fn
 		SubnetIds?:        [...string] | fn.Fn
 	}
-	__MediaConnectFlowRequest :: {
+	propMediaConnectFlowRequest :: {
 		FlowArn?: string | fn.Fn
 	}
 }
@@ -162,9 +162,9 @@ InputSecurityGroup :: {
 	Properties: {
 		Tags?: {
 		} | fn.Fn
-		WhitelistRules?: [...__InputWhitelistRuleCidr]
+		WhitelistRules?: [...propInputWhitelistRuleCidr]
 	}
-	__InputWhitelistRuleCidr :: {
+	propInputWhitelistRuleCidr :: {
 		Cidr?: string | fn.Fn
 	}
 }

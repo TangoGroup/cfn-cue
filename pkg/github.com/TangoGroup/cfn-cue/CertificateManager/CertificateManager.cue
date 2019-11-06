@@ -6,12 +6,12 @@ Certificate :: {
 	Type: "AWS::CertificateManager::Certificate"
 	Properties: {
 		DomainName: string | fn.Fn
-		DomainValidationOptions?: [...__DomainValidationOption]
+		DomainValidationOptions?: [...propDomainValidationOption]
 		SubjectAlternativeNames?: [...string] | fn.Fn
-		Tags?: [...__Tag]
+		Tags?: [...propTag]
 		ValidationMethod?: (string & ("DNS" | "EMAIL")) | fn.Fn
 	}
-	__DomainValidationOption :: {
+	propDomainValidationOption :: {
 		DomainName:       string | fn.Fn
 		ValidationDomain: string | fn.Fn
 	}

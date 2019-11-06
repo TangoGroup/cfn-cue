@@ -13,22 +13,22 @@ AutoScalingGroup :: {
 		HealthCheckType?:         (string & ("EC2" | "ELB")) | fn.Fn
 		InstanceId?:              string | fn.Fn
 		LaunchConfigurationName?: string | fn.Fn
-		LaunchTemplate?:          __LaunchTemplateSpecification
-		LifecycleHookSpecificationList?: [...__LifecycleHookSpecification]
+		LaunchTemplate?:          propLaunchTemplateSpecification
+		LifecycleHookSpecificationList?: [...propLifecycleHookSpecification]
 		LoadBalancerNames?: [...string] | fn.Fn
 		MaxSize:            string | fn.Fn
-		MetricsCollection?: [...__MetricsCollection]
+		MetricsCollection?: [...propMetricsCollection]
 		MinSize:               string | fn.Fn
-		MixedInstancesPolicy?: __MixedInstancesPolicy
-		NotificationConfigurations?: [...__NotificationConfiguration]
+		MixedInstancesPolicy?: propMixedInstancesPolicy
+		NotificationConfigurations?: [...propNotificationConfiguration]
 		PlacementGroup?:       string | fn.Fn
 		ServiceLinkedRoleARN?: string | fn.Fn
-		Tags?: [...__TagProperty]
+		Tags?: [...propTagProperty]
 		TargetGroupARNs?:     [...string] | fn.Fn
 		TerminationPolicies?: [...string] | fn.Fn
 		VPCZoneIdentifier?:   [...string] | fn.Fn
 	}
-	__InstancesDistribution :: {
+	propInstancesDistribution :: {
 		OnDemandAllocationStrategy?:          string | fn.Fn
 		OnDemandBaseCapacity?:                int | fn.Fn
 		OnDemandPercentageAboveBaseCapacity?: int | fn.Fn
@@ -36,19 +36,19 @@ AutoScalingGroup :: {
 		SpotInstancePools?:                   int | fn.Fn
 		SpotMaxPrice?:                        string | fn.Fn
 	}
-	__LaunchTemplate :: {
-		LaunchTemplateSpecification: __LaunchTemplateSpecification
-		Overrides?: [...__LaunchTemplateOverrides]
+	propLaunchTemplate :: {
+		LaunchTemplateSpecification: propLaunchTemplateSpecification
+		Overrides?: [...propLaunchTemplateOverrides]
 	}
-	__LaunchTemplateOverrides :: {
+	propLaunchTemplateOverrides :: {
 		InstanceType?: string | fn.Fn
 	}
-	__LaunchTemplateSpecification :: {
+	propLaunchTemplateSpecification :: {
 		LaunchTemplateId?:   string | fn.Fn
 		LaunchTemplateName?: string | fn.Fn
 		Version:             string | fn.Fn
 	}
-	__LifecycleHookSpecification :: {
+	propLifecycleHookSpecification :: {
 		DefaultResult?:         (string & ("ABANDON" | "CONTINUE")) | fn.Fn
 		HeartbeatTimeout?:      int | fn.Fn
 		LifecycleHookName:      string | fn.Fn
@@ -57,19 +57,19 @@ AutoScalingGroup :: {
 		NotificationTargetARN?: string | fn.Fn
 		RoleARN?:               string | fn.Fn
 	}
-	__MetricsCollection :: {
+	propMetricsCollection :: {
 		Granularity: string | fn.Fn
 		Metrics?:    [...string] | fn.Fn
 	}
-	__MixedInstancesPolicy :: {
-		InstancesDistribution?: __InstancesDistribution
-		LaunchTemplate:         __LaunchTemplate
+	propMixedInstancesPolicy :: {
+		InstancesDistribution?: propInstancesDistribution
+		LaunchTemplate:         propLaunchTemplate
 	}
-	__NotificationConfiguration :: {
+	propNotificationConfiguration :: {
 		NotificationTypes?: [...string] | fn.Fn
 		TopicARN:           string | fn.Fn
 	}
-	__TagProperty :: {
+	propTagProperty :: {
 		Key:               string | fn.Fn
 		PropagateAtLaunch: bool | fn.Fn
 		Value:             string | fn.Fn
@@ -79,7 +79,7 @@ LaunchConfiguration :: {
 	Type: "AWS::AutoScaling::LaunchConfiguration"
 	Properties: {
 		AssociatePublicIpAddress?: bool | fn.Fn
-		BlockDeviceMappings?: [...__BlockDeviceMapping]
+		BlockDeviceMappings?: [...propBlockDeviceMapping]
 		ClassicLinkVPCId?:             string | fn.Fn
 		ClassicLinkVPCSecurityGroups?: [...string] | fn.Fn
 		EbsOptimized?:                 bool | fn.Fn
@@ -97,7 +97,7 @@ LaunchConfiguration :: {
 		SpotPrice?:                    string | fn.Fn
 		UserData?:                     string | fn.Fn
 	}
-	__BlockDevice :: {
+	propBlockDevice :: {
 		DeleteOnTermination?: bool | fn.Fn
 		Encrypted?:           bool | fn.Fn
 		Iops?:                int | fn.Fn
@@ -105,9 +105,9 @@ LaunchConfiguration :: {
 		VolumeSize?:          int | fn.Fn
 		VolumeType?:          (string & ("gp2" | "io1" | "sc1" | "st1" | "standard")) | fn.Fn
 	}
-	__BlockDeviceMapping :: {
+	propBlockDeviceMapping :: {
 		DeviceName:   string | fn.Fn
-		Ebs?:         __BlockDevice
+		Ebs?:         propBlockDevice
 		NoDevice?:    bool | fn.Fn
 		VirtualName?: string | fn.Fn
 	}
@@ -136,33 +136,33 @@ ScalingPolicy :: {
 		MinAdjustmentMagnitude?:  int | fn.Fn
 		PolicyType?:              (string & ("SimpleScaling" | "StepScaling" | "TargetTrackingScaling")) | fn.Fn
 		ScalingAdjustment?:       int | fn.Fn
-		StepAdjustments?: [...__StepAdjustment]
-		TargetTrackingConfiguration?: __TargetTrackingConfiguration
+		StepAdjustments?: [...propStepAdjustment]
+		TargetTrackingConfiguration?: propTargetTrackingConfiguration
 	}
-	__CustomizedMetricSpecification :: {
-		Dimensions?: [...__MetricDimension]
+	propCustomizedMetricSpecification :: {
+		Dimensions?: [...propMetricDimension]
 		MetricName: string | fn.Fn
 		Namespace:  string | fn.Fn
 		Statistic:  (string & ("Average" | "Minimum" | "Maximum" | "SampleCount" | "Sum")) | fn.Fn
 		Unit?:      string | fn.Fn
 	}
-	__MetricDimension :: {
+	propMetricDimension :: {
 		Name:  string | fn.Fn
 		Value: string | fn.Fn
 	}
-	__PredefinedMetricSpecification :: {
+	propPredefinedMetricSpecification :: {
 		PredefinedMetricType: (string & ("ALBRequestCountPerTarget" | "ASGAverageCPUUtilization" | "ASGAverageNetworkIn" | "ASGAverageNetworkOut")) | fn.Fn
 		ResourceLabel?:       string | fn.Fn
 	}
-	__StepAdjustment :: {
+	propStepAdjustment :: {
 		MetricIntervalLowerBound?: float | fn.Fn
 		MetricIntervalUpperBound?: float | fn.Fn
 		ScalingAdjustment:         int | fn.Fn
 	}
-	__TargetTrackingConfiguration :: {
-		CustomizedMetricSpecification?: __CustomizedMetricSpecification
+	propTargetTrackingConfiguration :: {
+		CustomizedMetricSpecification?: propCustomizedMetricSpecification
 		DisableScaleIn?:                bool | fn.Fn
-		PredefinedMetricSpecification?: __PredefinedMetricSpecification
+		PredefinedMetricSpecification?: propPredefinedMetricSpecification
 		TargetValue:                    float | fn.Fn
 	}
 }

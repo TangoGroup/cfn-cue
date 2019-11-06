@@ -16,7 +16,7 @@ Queue :: {
 		ReceiveMessageWaitTimeSeconds?: (int & (>=0 & <=20)) | fn.Fn
 		RedrivePolicy?:                 {
 		} | fn.Fn
-		Tags?: [...__Tag]
+		Tags?: [...propTag]
 		VisibilityTimeout?: (int & (>=0 & <=43200)) | fn.Fn
 	}
 }

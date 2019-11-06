@@ -5,27 +5,27 @@ import "github.com/TangoGroup/fn"
 ConfigurationSet :: {
 	Type: "AWS::PinpointEmail::ConfigurationSet"
 	Properties: {
-		DeliveryOptions?:   __DeliveryOptions
+		DeliveryOptions?:   propDeliveryOptions
 		Name:               string | fn.Fn
-		ReputationOptions?: __ReputationOptions
-		SendingOptions?:    __SendingOptions
-		Tags?: [...__Tags]
-		TrackingOptions?: __TrackingOptions
+		ReputationOptions?: propReputationOptions
+		SendingOptions?:    propSendingOptions
+		Tags?: [...propTags]
+		TrackingOptions?: propTrackingOptions
 	}
-	__DeliveryOptions :: {
+	propDeliveryOptions :: {
 		SendingPoolName?: string | fn.Fn
 	}
-	__ReputationOptions :: {
+	propReputationOptions :: {
 		ReputationMetricsEnabled?: bool | fn.Fn
 	}
-	__SendingOptions :: {
+	propSendingOptions :: {
 		SendingEnabled?: bool | fn.Fn
 	}
-	__Tags :: {
+	propTags :: {
 		Key?:   string | fn.Fn
 		Value?: string | fn.Fn
 	}
-	__TrackingOptions :: {
+	propTrackingOptions :: {
 		CustomRedirectDomain?: string | fn.Fn
 	}
 }
@@ -33,33 +33,33 @@ ConfigurationSetEventDestination :: {
 	Type: "AWS::PinpointEmail::ConfigurationSetEventDestination"
 	Properties: {
 		ConfigurationSetName: string | fn.Fn
-		EventDestination?:    __EventDestination
+		EventDestination?:    propEventDestination
 		EventDestinationName: string | fn.Fn
 	}
-	__CloudWatchDestination :: {
-		DimensionConfigurations?: [...__DimensionConfiguration]
+	propCloudWatchDestination :: {
+		DimensionConfigurations?: [...propDimensionConfiguration]
 	}
-	__DimensionConfiguration :: {
+	propDimensionConfiguration :: {
 		DefaultDimensionValue: string | fn.Fn
 		DimensionName:         string | fn.Fn
 		DimensionValueSource:  string | fn.Fn
 	}
-	__EventDestination :: {
-		CloudWatchDestination?:      __CloudWatchDestination
+	propEventDestination :: {
+		CloudWatchDestination?:      propCloudWatchDestination
 		Enabled?:                    bool | fn.Fn
-		KinesisFirehoseDestination?: __KinesisFirehoseDestination
+		KinesisFirehoseDestination?: propKinesisFirehoseDestination
 		MatchingEventTypes:          [...string] | fn.Fn
-		PinpointDestination?:        __PinpointDestination
-		SnsDestination?:             __SnsDestination
+		PinpointDestination?:        propPinpointDestination
+		SnsDestination?:             propSnsDestination
 	}
-	__KinesisFirehoseDestination :: {
+	propKinesisFirehoseDestination :: {
 		DeliveryStreamArn: string | fn.Fn
 		IamRoleArn:        string | fn.Fn
 	}
-	__PinpointDestination :: {
+	propPinpointDestination :: {
 		ApplicationArn?: string | fn.Fn
 	}
-	__SnsDestination :: {
+	propSnsDestination :: {
 		TopicArn: string | fn.Fn
 	}
 }
@@ -68,15 +68,15 @@ Identity :: {
 	Properties: {
 		DkimSigningEnabled?:        bool | fn.Fn
 		FeedbackForwardingEnabled?: bool | fn.Fn
-		MailFromAttributes?:        __MailFromAttributes
+		MailFromAttributes?:        propMailFromAttributes
 		Name:                       string | fn.Fn
-		Tags?: [...__Tags]
+		Tags?: [...propTags]
 	}
-	__MailFromAttributes :: {
+	propMailFromAttributes :: {
 		BehaviorOnMxFailure?: string | fn.Fn
 		MailFromDomain?:      string | fn.Fn
 	}
-	__Tags :: {
+	propTags :: {
 		Key?:   string | fn.Fn
 		Value?: string | fn.Fn
 	}

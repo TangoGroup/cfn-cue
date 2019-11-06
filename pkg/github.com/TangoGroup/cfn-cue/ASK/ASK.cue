@@ -5,21 +5,21 @@ import "github.com/TangoGroup/fn"
 Skill :: {
 	Type: "Alexa::ASK::Skill"
 	Properties: {
-		AuthenticationConfiguration: __AuthenticationConfiguration
-		SkillPackage:                __SkillPackage
+		AuthenticationConfiguration: propAuthenticationConfiguration
+		SkillPackage:                propSkillPackage
 		VendorId:                    string | fn.Fn
 	}
-	__AuthenticationConfiguration :: {
+	propAuthenticationConfiguration :: {
 		ClientId:     string | fn.Fn
 		ClientSecret: string | fn.Fn
 		RefreshToken: string | fn.Fn
 	}
-	__Overrides :: {
+	propOverrides :: {
 		Manifest?: {
 		} | fn.Fn
 	}
-	__SkillPackage :: {
-		Overrides?:       __Overrides
+	propSkillPackage :: {
+		Overrides?:       propOverrides
 		S3Bucket:         string | fn.Fn
 		S3BucketRole?:    string | fn.Fn
 		S3Key:            string | fn.Fn

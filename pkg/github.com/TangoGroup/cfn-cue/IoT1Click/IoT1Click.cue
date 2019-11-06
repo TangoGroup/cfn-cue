@@ -24,15 +24,15 @@ Project :: {
 	Type: "AWS::IoT1Click::Project"
 	Properties: {
 		Description?:      string | fn.Fn
-		PlacementTemplate: __PlacementTemplate
+		PlacementTemplate: propPlacementTemplate
 		ProjectName?:      string | fn.Fn
 	}
-	__DeviceTemplate :: {
+	propDeviceTemplate :: {
 		CallbackOverrides?: {
 		} | fn.Fn
 		DeviceType?: string | fn.Fn
 	}
-	__PlacementTemplate :: {
+	propPlacementTemplate :: {
 		DefaultAttributes?: {
 		} | fn.Fn
 		DeviceTemplates?: {

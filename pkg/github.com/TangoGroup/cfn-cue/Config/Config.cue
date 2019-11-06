@@ -17,21 +17,21 @@ ConfigRule :: {
 		InputParameters?: {
 		} | fn.Fn
 		MaximumExecutionFrequency?: (string & ("One_Hour" | "Six_Hours" | "Three_Hours" | "Twelve_Hours" | "TwentyFour_Hours")) | fn.Fn
-		Scope?:                     __Scope
-		Source:                     __Source
+		Scope?:                     propScope
+		Source:                     propSource
 	}
-	__Scope :: {
+	propScope :: {
 		ComplianceResourceId?:    string | fn.Fn
 		ComplianceResourceTypes?: ([...string] & ("AWS::ACM::Certificate" | "AWS::AutoScaling::AutoScalingGroup" | "AWS::AutoScaling::LaunchConfiguration" | "AWS::AutoScaling::ScalingPolicy" | "AWS::AutoScaling::ScheduledAction" | "AWS::CloudFormation::Stack" | "AWS::CloudFront::Distribution" | "AWS::CloudFront::StreamingDistribution" | "AWS::CloudTrail::Trail" | "AWS::CloudWatch::Alarm" | "AWS::CodeBuild::Project" | "AWS::CodePipeline::Pipeline" | "AWS::DynamoDB::Table" | "AWS::EC2::CustomerGateway" | "AWS::EC2::EIP" | "AWS::EC2::Host" | "AWS::EC2::Instance" | "AWS::EC2::InternetGateway" | "AWS::EC2::NetworkAcl" | "AWS::EC2::NetworkInterface" | "AWS::EC2::RouteTable" | "AWS::EC2::SecurityGroup" | "AWS::EC2::Subnet" | "AWS::EC2::Volume" | "AWS::EC2::VPC" | "AWS::EC2::VPNConnection" | "AWS::EC2::VPNGateway" | "AWS::ElasticBeanstalk::Application" | "AWS::ElasticBeanstalk::ApplicationVersion" | "AWS::ElasticBeanstalk::Environment" | "AWS::ElasticLoadBalancing::LoadBalancer" | "AWS::ElasticLoadBalancingV2::LoadBalancer" | "AWS::IAM::Group" | "AWS::IAM::Policy" | "AWS::IAM::Role" | "AWS::IAM::User" | "AWS::Lambda::Function" | "AWS::RDS::DBInstance" | "AWS::RDS::DBSecurityGroup" | "AWS::RDS::DBSnapshot" | "AWS::RDS::DBSubnetGroup" | "AWS::RDS::EventSubscription" | "AWS::Redshift::Cluster" | "AWS::Redshift::ClusterParameterGroup" | "AWS::Redshift::ClusterSecurityGroup" | "AWS::Redshift::ClusterSnapshot" | "AWS::Redshift::ClusterSubnetGroup" | "AWS::Redshift::EventSubscription" | "AWS::S3::Bucket" | "AWS::ServiceCatalog::CloudFormationProduct" | "AWS::ServiceCatalog::CloudFormationProvisionedProduct" | "AWS::ServiceCatalog::Portfolio" | "AWS::Shield::Protection" | "AWS::ShieldRegional::Protection" | "AWS::SSM::AssociationCompliance" | "AWS::SSM::ManagedInstanceInventory" | "AWS::SSM::PatchCompliance" | "AWS::WAF::RateBasedRule" | "AWS::WAF::Rule" | "AWS::WAF::RuleGroup" | "AWS::WAF::WebACL" | "AWS::WAFRegional::RateBasedRule" | "AWS::WAFRegional::Rule" | "AWS::WAFRegional::RuleGroup" | "AWS::WAFRegional::WebACL" | "AWS::XRay::EncryptionConfig")) | fn.Fn
 		TagKey?:                  string | fn.Fn
 		TagValue?:                string | fn.Fn
 	}
-	__Source :: {
+	propSource :: {
 		Owner: (string & ("AWS" | "CUSTOM_LAMBDA")) | fn.Fn
-		SourceDetails?: [...__SourceDetail]
+		SourceDetails?: [...propSourceDetail]
 		SourceIdentifier: string | fn.Fn
 	}
-	__SourceDetail :: {
+	propSourceDetail :: {
 		EventSource:                (string & ("aws.config")) | fn.Fn
 		MaximumExecutionFrequency?: (string & ("One_Hour" | "Six_Hours" | "Three_Hours" | "Twelve_Hours" | "TwentyFour_Hours")) | fn.Fn
 		MessageType:                (string & ("ConfigurationItemChangeNotification" | "ConfigurationSnapshotDeliveryCompleted" | "OversizedConfigurationItemChangeNotification" | "ScheduledNotification")) | fn.Fn
@@ -40,16 +40,16 @@ ConfigRule :: {
 ConfigurationAggregator :: {
 	Type: "AWS::Config::ConfigurationAggregator"
 	Properties: {
-		AccountAggregationSources?: [...__AccountAggregationSource]
+		AccountAggregationSources?: [...propAccountAggregationSource]
 		ConfigurationAggregatorName:    string | fn.Fn
-		OrganizationAggregationSource?: __OrganizationAggregationSource
+		OrganizationAggregationSource?: propOrganizationAggregationSource
 	}
-	__AccountAggregationSource :: {
+	propAccountAggregationSource :: {
 		AccountIds:     [...string] | fn.Fn
 		AllAwsRegions?: bool | fn.Fn
 		AwsRegions?:    [...string] | fn.Fn
 	}
-	__OrganizationAggregationSource :: {
+	propOrganizationAggregationSource :: {
 		AllAwsRegions?: bool | fn.Fn
 		AwsRegions?:    [...string] | fn.Fn
 		RoleArn:        string | fn.Fn
@@ -59,10 +59,10 @@ ConfigurationRecorder :: {
 	Type: "AWS::Config::ConfigurationRecorder"
 	Properties: {
 		Name?:           string | fn.Fn
-		RecordingGroup?: __RecordingGroup
+		RecordingGroup?: propRecordingGroup
 		RoleARN:         string | fn.Fn
 	}
-	__RecordingGroup :: {
+	propRecordingGroup :: {
 		AllSupported?:               bool | fn.Fn
 		IncludeGlobalResourceTypes?: bool | fn.Fn
 		ResourceTypes?:              ([...string] & ("AWS::ACM::Certificate" | "AWS::AutoScaling::AutoScalingGroup" | "AWS::AutoScaling::LaunchConfiguration" | "AWS::AutoScaling::ScalingPolicy" | "AWS::AutoScaling::ScheduledAction" | "AWS::CloudFormation::Stack" | "AWS::CloudFront::Distribution" | "AWS::CloudFront::StreamingDistribution" | "AWS::CloudTrail::Trail" | "AWS::CloudWatch::Alarm" | "AWS::CodeBuild::Project" | "AWS::CodePipeline::Pipeline" | "AWS::DynamoDB::Table" | "AWS::EC2::CustomerGateway" | "AWS::EC2::EIP" | "AWS::EC2::Host" | "AWS::EC2::Instance" | "AWS::EC2::InternetGateway" | "AWS::EC2::NetworkAcl" | "AWS::EC2::NetworkInterface" | "AWS::EC2::RouteTable" | "AWS::EC2::SecurityGroup" | "AWS::EC2::Subnet" | "AWS::EC2::Volume" | "AWS::EC2::VPC" | "AWS::EC2::VPNConnection" | "AWS::EC2::VPNGateway" | "AWS::ElasticBeanstalk::Application" | "AWS::ElasticBeanstalk::ApplicationVersion" | "AWS::ElasticBeanstalk::Environment" | "AWS::ElasticLoadBalancing::LoadBalancer" | "AWS::ElasticLoadBalancingV2::LoadBalancer" | "AWS::IAM::Group" | "AWS::IAM::Policy" | "AWS::IAM::Role" | "AWS::IAM::User" | "AWS::Lambda::Function" | "AWS::RDS::DBInstance" | "AWS::RDS::DBSecurityGroup" | "AWS::RDS::DBSnapshot" | "AWS::RDS::DBSubnetGroup" | "AWS::RDS::EventSubscription" | "AWS::Redshift::Cluster" | "AWS::Redshift::ClusterParameterGroup" | "AWS::Redshift::ClusterSecurityGroup" | "AWS::Redshift::ClusterSnapshot" | "AWS::Redshift::ClusterSubnetGroup" | "AWS::Redshift::EventSubscription" | "AWS::S3::Bucket" | "AWS::ServiceCatalog::CloudFormationProduct" | "AWS::ServiceCatalog::CloudFormationProvisionedProduct" | "AWS::ServiceCatalog::Portfolio" | "AWS::Shield::Protection" | "AWS::ShieldRegional::Protection" | "AWS::SSM::AssociationCompliance" | "AWS::SSM::ManagedInstanceInventory" | "AWS::SSM::PatchCompliance" | "AWS::WAF::RateBasedRule" | "AWS::WAF::Rule" | "AWS::WAF::RuleGroup" | "AWS::WAF::WebACL" | "AWS::WAFRegional::RateBasedRule" | "AWS::WAFRegional::Rule" | "AWS::WAFRegional::RuleGroup" | "AWS::WAFRegional::WebACL" | "AWS::XRay::EncryptionConfig")) | fn.Fn
@@ -71,13 +71,13 @@ ConfigurationRecorder :: {
 DeliveryChannel :: {
 	Type: "AWS::Config::DeliveryChannel"
 	Properties: {
-		ConfigSnapshotDeliveryProperties?: __ConfigSnapshotDeliveryProperties
+		ConfigSnapshotDeliveryProperties?: propConfigSnapshotDeliveryProperties
 		Name?:                             string | fn.Fn
 		S3BucketName:                      string | fn.Fn
 		S3KeyPrefix?:                      string | fn.Fn
 		SnsTopicARN?:                      string | fn.Fn
 	}
-	__ConfigSnapshotDeliveryProperties :: {
+	propConfigSnapshotDeliveryProperties :: {
 		DeliveryFrequency?: (string & ("One_Hour" | "Six_Hours" | "Three_Hours" | "Twelve_Hours" | "TwentyFour_Hours")) | fn.Fn
 	}
 }
@@ -86,10 +86,10 @@ OrganizationConfigRule :: {
 	Properties: {
 		ExcludedAccounts?:                [...string] | fn.Fn
 		OrganizationConfigRuleName:       string | fn.Fn
-		OrganizationCustomRuleMetadata?:  __OrganizationCustomRuleMetadata
-		OrganizationManagedRuleMetadata?: __OrganizationManagedRuleMetadata
+		OrganizationCustomRuleMetadata?:  propOrganizationCustomRuleMetadata
+		OrganizationManagedRuleMetadata?: propOrganizationManagedRuleMetadata
 	}
-	__OrganizationCustomRuleMetadata :: {
+	propOrganizationCustomRuleMetadata :: {
 		Description?:                       string | fn.Fn
 		InputParameters?:                   string | fn.Fn
 		LambdaFunctionArn:                  string | fn.Fn
@@ -100,7 +100,7 @@ OrganizationConfigRule :: {
 		TagKeyScope?:                       string | fn.Fn
 		TagValueScope?:                     string | fn.Fn
 	}
-	__OrganizationManagedRuleMetadata :: {
+	propOrganizationManagedRuleMetadata :: {
 		Description?:               string | fn.Fn
 		InputParameters?:           string | fn.Fn
 		MaximumExecutionFrequency?: string | fn.Fn
@@ -116,7 +116,7 @@ RemediationConfiguration :: {
 	Properties: {
 		Automatic?:                bool | fn.Fn
 		ConfigRuleName:            string | fn.Fn
-		ExecutionControls?:        __ExecutionControls
+		ExecutionControls?:        propExecutionControls
 		MaximumAutomaticAttempts?: int | fn.Fn
 		Parameters?:               {
 		} | fn.Fn
@@ -126,21 +126,21 @@ RemediationConfiguration :: {
 		TargetType:           string | fn.Fn
 		TargetVersion?:       string | fn.Fn
 	}
-	__ExecutionControls :: {
-		SsmControls?: __SsmControls
+	propExecutionControls :: {
+		SsmControls?: propSsmControls
 	}
-	__RemediationParameterValue :: {
-		ResourceValue?: __ResourceValue
-		StaticValue?:   __StaticValue
+	propRemediationParameterValue :: {
+		ResourceValue?: propResourceValue
+		StaticValue?:   propStaticValue
 	}
-	__ResourceValue :: {
+	propResourceValue :: {
 		Value?: string | fn.Fn
 	}
-	__SsmControls :: {
+	propSsmControls :: {
 		ConcurrentExecutionRatePercentage?: int | fn.Fn
 		ErrorPercentage?:                   int | fn.Fn
 	}
-	__StaticValue :: {
+	propStaticValue :: {
 		Values?: [...string] | fn.Fn
 	}
 }

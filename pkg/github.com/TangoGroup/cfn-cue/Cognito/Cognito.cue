@@ -8,27 +8,27 @@ IdentityPool :: {
 		AllowUnauthenticatedIdentities: bool | fn.Fn
 		CognitoEvents?:                 {
 		} | fn.Fn
-		CognitoIdentityProviders?: [...__CognitoIdentityProvider]
-		CognitoStreams?:            __CognitoStreams
+		CognitoIdentityProviders?: [...propCognitoIdentityProvider]
+		CognitoStreams?:            propCognitoStreams
 		DeveloperProviderName?:     string | fn.Fn
 		IdentityPoolName?:          string | fn.Fn
 		OpenIdConnectProviderARNs?: [...string] | fn.Fn
-		PushSync?:                  __PushSync
+		PushSync?:                  propPushSync
 		SamlProviderARNs?:          [...string] | fn.Fn
 		SupportedLoginProviders?:   {
 		} | fn.Fn
 	}
-	__CognitoIdentityProvider :: {
+	propCognitoIdentityProvider :: {
 		ClientId?:             string | fn.Fn
 		ProviderName?:         string | fn.Fn
 		ServerSideTokenCheck?: bool | fn.Fn
 	}
-	__CognitoStreams :: {
+	propCognitoStreams :: {
 		RoleArn?:         string | fn.Fn
 		StreamName?:      string | fn.Fn
 		StreamingStatus?: (string & ("DISABLED" | "ENABLED")) | fn.Fn
 	}
-	__PushSync :: {
+	propPushSync :: {
 		ApplicationArns?: [...string] | fn.Fn
 		RoleArn?:         string | fn.Fn
 	}
@@ -42,67 +42,67 @@ IdentityPoolRoleAttachment :: {
 		Roles?: {
 		} | fn.Fn
 	}
-	__MappingRule :: {
+	propMappingRule :: {
 		Claim:     string | fn.Fn
 		MatchType: string | fn.Fn
 		RoleARN:   string | fn.Fn
 		Value:     string | fn.Fn
 	}
-	__RoleMapping :: {
+	propRoleMapping :: {
 		AmbiguousRoleResolution?: string | fn.Fn
 		IdentityProvider?:        string | fn.Fn
-		RulesConfiguration?:      __RulesConfigurationType
+		RulesConfiguration?:      propRulesConfigurationType
 		Type:                     string | fn.Fn
 	}
-	__RulesConfigurationType :: {
-		Rules: [...__MappingRule]
+	propRulesConfigurationType :: {
+		Rules: [...propMappingRule]
 	}
 }
 UserPool :: {
 	Type: "AWS::Cognito::UserPool"
 	Properties: {
-		AdminCreateUserConfig?:    __AdminCreateUserConfig
+		AdminCreateUserConfig?:    propAdminCreateUserConfig
 		AliasAttributes?:          ([...string] & ("email" | "phone_number" | "preferred_username")) | fn.Fn
 		AutoVerifiedAttributes?:   ([...string] & ("email" | "phone_number")) | fn.Fn
-		DeviceConfiguration?:      __DeviceConfiguration
-		EmailConfiguration?:       __EmailConfiguration
+		DeviceConfiguration?:      propDeviceConfiguration
+		EmailConfiguration?:       propEmailConfiguration
 		EmailVerificationMessage?: string | fn.Fn
 		EmailVerificationSubject?: string | fn.Fn
 		EnabledMfas?:              [...string] | fn.Fn
-		LambdaConfig?:             __LambdaConfig
+		LambdaConfig?:             propLambdaConfig
 		MfaConfiguration?:         (string & ("OFF" | "ON" | "OPTIONAL")) | fn.Fn
-		Policies?:                 __Policies
-		Schema?: [...__SchemaAttribute]
+		Policies?:                 propPolicies
+		Schema?: [...propSchemaAttribute]
 		SmsAuthenticationMessage?: string | fn.Fn
-		SmsConfiguration?:         __SmsConfiguration
+		SmsConfiguration?:         propSmsConfiguration
 		SmsVerificationMessage?:   string | fn.Fn
-		UserPoolAddOns?:           __UserPoolAddOns
+		UserPoolAddOns?:           propUserPoolAddOns
 		UserPoolName?:             string | fn.Fn
 		UserPoolTags?:             {
 		} | fn.Fn
 		UsernameAttributes?:          ([...string] & ("email" | "phone_number")) | fn.Fn
-		VerificationMessageTemplate?: __VerificationMessageTemplate
+		VerificationMessageTemplate?: propVerificationMessageTemplate
 	}
-	__AdminCreateUserConfig :: {
+	propAdminCreateUserConfig :: {
 		AllowAdminCreateUserOnly?:  bool | fn.Fn
-		InviteMessageTemplate?:     __InviteMessageTemplate
+		InviteMessageTemplate?:     propInviteMessageTemplate
 		UnusedAccountValidityDays?: int | fn.Fn
 	}
-	__DeviceConfiguration :: {
+	propDeviceConfiguration :: {
 		ChallengeRequiredOnNewDevice?:     bool | fn.Fn
 		DeviceOnlyRememberedOnUserPrompt?: bool | fn.Fn
 	}
-	__EmailConfiguration :: {
+	propEmailConfiguration :: {
 		EmailSendingAccount?: string | fn.Fn
 		ReplyToEmailAddress?: string | fn.Fn
 		SourceArn?:           string | fn.Fn
 	}
-	__InviteMessageTemplate :: {
+	propInviteMessageTemplate :: {
 		EmailMessage?: string | fn.Fn
 		EmailSubject?: string | fn.Fn
 		SMSMessage?:   string | fn.Fn
 	}
-	__LambdaConfig :: {
+	propLambdaConfig :: {
 		CreateAuthChallenge?:         string | fn.Fn
 		CustomMessage?:               string | fn.Fn
 		DefineAuthChallenge?:         string | fn.Fn
@@ -114,11 +114,11 @@ UserPool :: {
 		UserMigration?:               string | fn.Fn
 		VerifyAuthChallengeResponse?: string | fn.Fn
 	}
-	__NumberAttributeConstraints :: {
+	propNumberAttributeConstraints :: {
 		MaxValue?: string | fn.Fn
 		MinValue?: string | fn.Fn
 	}
-	__PasswordPolicy :: {
+	propPasswordPolicy :: {
 		MinimumLength?:                 int | fn.Fn
 		RequireLowercase?:              bool | fn.Fn
 		RequireNumbers?:                bool | fn.Fn
@@ -126,30 +126,30 @@ UserPool :: {
 		RequireUppercase?:              bool | fn.Fn
 		TemporaryPasswordValidityDays?: int | fn.Fn
 	}
-	__Policies :: {
-		PasswordPolicy?: __PasswordPolicy
+	propPolicies :: {
+		PasswordPolicy?: propPasswordPolicy
 	}
-	__SchemaAttribute :: {
+	propSchemaAttribute :: {
 		AttributeDataType?:          (string & ("Boolean" | "DateTime" | "Number" | "String")) | fn.Fn
 		DeveloperOnlyAttribute?:     bool | fn.Fn
 		Mutable?:                    bool | fn.Fn
 		Name?:                       string | fn.Fn
-		NumberAttributeConstraints?: __NumberAttributeConstraints
+		NumberAttributeConstraints?: propNumberAttributeConstraints
 		Required?:                   bool | fn.Fn
-		StringAttributeConstraints?: __StringAttributeConstraints
+		StringAttributeConstraints?: propStringAttributeConstraints
 	}
-	__SmsConfiguration :: {
+	propSmsConfiguration :: {
 		ExternalId:    string | fn.Fn
 		SnsCallerArn?: string | fn.Fn
 	}
-	__StringAttributeConstraints :: {
+	propStringAttributeConstraints :: {
 		MaxLength?: string | fn.Fn
 		MinLength?: string | fn.Fn
 	}
-	__UserPoolAddOns :: {
+	propUserPoolAddOns :: {
 		AdvancedSecurityMode?: string | fn.Fn
 	}
-	__VerificationMessageTemplate :: {
+	propVerificationMessageTemplate :: {
 		DefaultEmailOption?: string | fn.Fn
 		EmailMessage?:       string | fn.Fn
 		EmailMessageByLink?: string | fn.Fn
@@ -164,7 +164,7 @@ UserPoolClient :: {
 		AllowedOAuthFlows?:               [...string] | fn.Fn
 		AllowedOAuthFlowsUserPoolClient?: bool | fn.Fn
 		AllowedOAuthScopes?:              [...string] | fn.Fn
-		AnalyticsConfiguration?:          __AnalyticsConfiguration
+		AnalyticsConfiguration?:          propAnalyticsConfiguration
 		CallbackURLs?:                    [...string] | fn.Fn
 		ClientName?:                      string | fn.Fn
 		DefaultRedirectURI?:              string | fn.Fn
@@ -177,7 +177,7 @@ UserPoolClient :: {
 		UserPoolId:                       string | fn.Fn
 		WriteAttributes?:                 [...string] | fn.Fn
 	}
-	__AnalyticsConfiguration :: {
+	propAnalyticsConfiguration :: {
 		ApplicationId?:  string | fn.Fn
 		ExternalId?:     string | fn.Fn
 		RoleArn?:        string | fn.Fn
@@ -187,11 +187,11 @@ UserPoolClient :: {
 UserPoolDomain :: {
 	Type: "AWS::Cognito::UserPoolDomain"
 	Properties: {
-		CustomDomainConfig?: __CustomDomainConfigType
+		CustomDomainConfig?: propCustomDomainConfigType
 		Domain:              string | fn.Fn
 		UserPoolId:          string | fn.Fn
 	}
-	__CustomDomainConfigType :: {
+	propCustomDomainConfigType :: {
 		CertificateArn?: string | fn.Fn
 	}
 }
@@ -223,10 +223,10 @@ UserPoolResourceServer :: {
 	Properties: {
 		Identifier: string | fn.Fn
 		Name:       string | fn.Fn
-		Scopes?: [...__ResourceServerScopeType]
+		Scopes?: [...propResourceServerScopeType]
 		UserPoolId: string | fn.Fn
 	}
-	__ResourceServerScopeType :: {
+	propResourceServerScopeType :: {
 		ScopeDescription: string | fn.Fn
 		ScopeName:        string | fn.Fn
 	}
@@ -234,46 +234,46 @@ UserPoolResourceServer :: {
 UserPoolRiskConfigurationAttachment :: {
 	Type: "AWS::Cognito::UserPoolRiskConfigurationAttachment"
 	Properties: {
-		AccountTakeoverRiskConfiguration?:        __AccountTakeoverRiskConfigurationType
+		AccountTakeoverRiskConfiguration?:        propAccountTakeoverRiskConfigurationType
 		ClientId:                                 string | fn.Fn
-		CompromisedCredentialsRiskConfiguration?: __CompromisedCredentialsRiskConfigurationType
-		RiskExceptionConfiguration?:              __RiskExceptionConfigurationType
+		CompromisedCredentialsRiskConfiguration?: propCompromisedCredentialsRiskConfigurationType
+		RiskExceptionConfiguration?:              propRiskExceptionConfigurationType
 		UserPoolId:                               string | fn.Fn
 	}
-	__AccountTakeoverActionType :: {
+	propAccountTakeoverActionType :: {
 		EventAction: string | fn.Fn
 		Notify:      bool | fn.Fn
 	}
-	__AccountTakeoverActionsType :: {
-		HighAction?:   __AccountTakeoverActionType
-		LowAction?:    __AccountTakeoverActionType
-		MediumAction?: __AccountTakeoverActionType
+	propAccountTakeoverActionsType :: {
+		HighAction?:   propAccountTakeoverActionType
+		LowAction?:    propAccountTakeoverActionType
+		MediumAction?: propAccountTakeoverActionType
 	}
-	__AccountTakeoverRiskConfigurationType :: {
-		Actions:              __AccountTakeoverActionsType
-		NotifyConfiguration?: __NotifyConfigurationType
+	propAccountTakeoverRiskConfigurationType :: {
+		Actions:              propAccountTakeoverActionsType
+		NotifyConfiguration?: propNotifyConfigurationType
 	}
-	__CompromisedCredentialsActionsType :: {
+	propCompromisedCredentialsActionsType :: {
 		EventAction: string | fn.Fn
 	}
-	__CompromisedCredentialsRiskConfigurationType :: {
-		Actions:      __CompromisedCredentialsActionsType
+	propCompromisedCredentialsRiskConfigurationType :: {
+		Actions:      propCompromisedCredentialsActionsType
 		EventFilter?: [...string] | fn.Fn
 	}
-	__NotifyConfigurationType :: {
-		BlockEmail?:    __NotifyEmailType
+	propNotifyConfigurationType :: {
+		BlockEmail?:    propNotifyEmailType
 		From?:          string | fn.Fn
-		MfaEmail?:      __NotifyEmailType
-		NoActionEmail?: __NotifyEmailType
+		MfaEmail?:      propNotifyEmailType
+		NoActionEmail?: propNotifyEmailType
 		ReplyTo?:       string | fn.Fn
 		SourceArn:      string | fn.Fn
 	}
-	__NotifyEmailType :: {
+	propNotifyEmailType :: {
 		HtmlBody?: string | fn.Fn
 		Subject:   string | fn.Fn
 		TextBody?: string | fn.Fn
 	}
-	__RiskExceptionConfigurationType :: {
+	propRiskExceptionConfigurationType :: {
 		BlockedIPRangeList?: [...string] | fn.Fn
 		SkippedIPRangeList?: [...string] | fn.Fn
 	}
@@ -292,12 +292,12 @@ UserPoolUser :: {
 		DesiredDeliveryMediums?: ([...string] & ("EMAIL" | "SMS")) | fn.Fn
 		ForceAliasCreation?:     bool | fn.Fn
 		MessageAction?:          (string & ("RESEND" | "SUPPRESS")) | fn.Fn
-		UserAttributes?: [...__AttributeType]
+		UserAttributes?: [...propAttributeType]
 		UserPoolId: string | fn.Fn
 		Username?:  string | fn.Fn
-		ValidationData?: [...__AttributeType]
+		ValidationData?: [...propAttributeType]
 	}
-	__AttributeType :: {
+	propAttributeType :: {
 		Name?:  string | fn.Fn
 		Value?: string | fn.Fn
 	}

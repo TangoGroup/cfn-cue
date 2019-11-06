@@ -15,38 +15,38 @@ Endpoint :: {
 	Properties: {
 		CertificateArn?:            string | fn.Fn
 		DatabaseName?:              string | fn.Fn
-		DynamoDbSettings?:          __DynamoDbSettings
-		ElasticsearchSettings?:     __ElasticsearchSettings
+		DynamoDbSettings?:          propDynamoDbSettings
+		ElasticsearchSettings?:     propElasticsearchSettings
 		EndpointIdentifier?:        string | fn.Fn
 		EndpointType:               (string & ("source" | "target")) | fn.Fn
 		EngineName:                 (string & ("aurora-postgresql" | "aurora" | "azuredb" | "db2" | "dynamodb" | "mariadb" | "mongodb" | "mysql" | "oracle" | "postgres" | "redshift" | "s3" | "sqlserver" | "sybase")) | fn.Fn
 		ExtraConnectionAttributes?: string | fn.Fn
-		KinesisSettings?:           __KinesisSettings
+		KinesisSettings?:           propKinesisSettings
 		KmsKeyId?:                  string | fn.Fn
-		MongoDbSettings?:           __MongoDbSettings
+		MongoDbSettings?:           propMongoDbSettings
 		Password?:                  string | fn.Fn
 		Port?:                      int | fn.Fn
-		S3Settings?:                __S3Settings
+		S3Settings?:                propS3Settings
 		ServerName?:                string | fn.Fn
 		SslMode?:                   (string & ("none" | "require" | "verify-ca" | "verify-full")) | fn.Fn
-		Tags?: [...__Tag]
+		Tags?: [...propTag]
 		Username?: string | fn.Fn
 	}
-	__DynamoDbSettings :: {
+	propDynamoDbSettings :: {
 		ServiceAccessRoleArn?: string | fn.Fn
 	}
-	__ElasticsearchSettings :: {
+	propElasticsearchSettings :: {
 		EndpointUri?:             string | fn.Fn
 		ErrorRetryDuration?:      int | fn.Fn
 		FullLoadErrorPercentage?: int | fn.Fn
 		ServiceAccessRoleArn?:    string | fn.Fn
 	}
-	__KinesisSettings :: {
+	propKinesisSettings :: {
 		MessageFormat?:        string | fn.Fn
 		ServiceAccessRoleArn?: string | fn.Fn
 		StreamArn?:            string | fn.Fn
 	}
-	__MongoDbSettings :: {
+	propMongoDbSettings :: {
 		AuthMechanism?:     string | fn.Fn
 		AuthSource?:        string | fn.Fn
 		AuthType?:          string | fn.Fn
@@ -59,7 +59,7 @@ Endpoint :: {
 		ServerName?:        string | fn.Fn
 		Username?:          string | fn.Fn
 	}
-	__S3Settings :: {
+	propS3Settings :: {
 		BucketFolder?:            string | fn.Fn
 		BucketName?:              string | fn.Fn
 		CompressionType?:         string | fn.Fn
@@ -78,7 +78,7 @@ EventSubscription :: {
 		SourceIds?:        [...string] | fn.Fn
 		SourceType?:       string | fn.Fn
 		SubscriptionName?: string | fn.Fn
-		Tags?: [...__Tag]
+		Tags?: [...propTag]
 	}
 }
 ReplicationInstance :: {
@@ -96,7 +96,7 @@ ReplicationInstance :: {
 		ReplicationInstanceClass:          string | fn.Fn
 		ReplicationInstanceIdentifier?:    string | fn.Fn
 		ReplicationSubnetGroupIdentifier?: string | fn.Fn
-		Tags?: [...__Tag]
+		Tags?: [...propTag]
 		VpcSecurityGroupIds?: [...string] | fn.Fn
 	}
 }
@@ -106,7 +106,7 @@ ReplicationSubnetGroup :: {
 		ReplicationSubnetGroupDescription: string | fn.Fn
 		ReplicationSubnetGroupIdentifier?: string | fn.Fn
 		SubnetIds:                         [...string] | fn.Fn
-		Tags?: [...__Tag]
+		Tags?: [...propTag]
 	}
 }
 ReplicationTask :: {
@@ -121,7 +121,7 @@ ReplicationTask :: {
 		ReplicationTaskSettings?:   string | fn.Fn
 		SourceEndpointArn:          string | fn.Fn
 		TableMappings:              string | fn.Fn
-		Tags?: [...__Tag]
+		Tags?: [...propTag]
 		TargetEndpointArn: string | fn.Fn
 	}
 }

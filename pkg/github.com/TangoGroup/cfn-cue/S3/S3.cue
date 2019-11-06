@@ -5,47 +5,47 @@ import "github.com/TangoGroup/fn"
 Bucket :: {
 	Type: "AWS::S3::Bucket"
 	Properties: {
-		AccelerateConfiguration?: __AccelerateConfiguration
+		AccelerateConfiguration?: propAccelerateConfiguration
 		AccessControl?:           (string & ("AuthenticatedRead" | "AwsExecRead" | "BucketOwnerFullControl" | "BucketOwnerRead" | "LogDeliveryWrite" | "Private" | "PublicRead" | "PublicReadWrite")) | fn.Fn
-		AnalyticsConfigurations?: [...__AnalyticsConfiguration]
-		BucketEncryption?:  __BucketEncryption
+		AnalyticsConfigurations?: [...propAnalyticsConfiguration]
+		BucketEncryption?:  propBucketEncryption
 		BucketName?:        string | fn.Fn
-		CorsConfiguration?: __CorsConfiguration
-		InventoryConfigurations?: [...__InventoryConfiguration]
-		LifecycleConfiguration?: __LifecycleConfiguration
-		LoggingConfiguration?:   __LoggingConfiguration
-		MetricsConfigurations?: [...__MetricsConfiguration]
-		NotificationConfiguration?:      __NotificationConfiguration
-		ObjectLockConfiguration?:        __ObjectLockConfiguration
+		CorsConfiguration?: propCorsConfiguration
+		InventoryConfigurations?: [...propInventoryConfiguration]
+		LifecycleConfiguration?: propLifecycleConfiguration
+		LoggingConfiguration?:   propLoggingConfiguration
+		MetricsConfigurations?: [...propMetricsConfiguration]
+		NotificationConfiguration?:      propNotificationConfiguration
+		ObjectLockConfiguration?:        propObjectLockConfiguration
 		ObjectLockEnabled?:              bool | fn.Fn
-		PublicAccessBlockConfiguration?: __PublicAccessBlockConfiguration
-		ReplicationConfiguration?:       __ReplicationConfiguration
-		Tags?: [...__Tag]
-		VersioningConfiguration?: __VersioningConfiguration
-		WebsiteConfiguration?:    __WebsiteConfiguration
+		PublicAccessBlockConfiguration?: propPublicAccessBlockConfiguration
+		ReplicationConfiguration?:       propReplicationConfiguration
+		Tags?: [...propTag]
+		VersioningConfiguration?: propVersioningConfiguration
+		WebsiteConfiguration?:    propWebsiteConfiguration
 	}
-	__AbortIncompleteMultipartUpload :: {
+	propAbortIncompleteMultipartUpload :: {
 		DaysAfterInitiation: int | fn.Fn
 	}
-	__AccelerateConfiguration :: {
+	propAccelerateConfiguration :: {
 		AccelerationStatus: (string & ("Enabled" | "Suspended")) | fn.Fn
 	}
-	__AccessControlTranslation :: {
+	propAccessControlTranslation :: {
 		Owner: string | fn.Fn
 	}
-	__AnalyticsConfiguration :: {
+	propAnalyticsConfiguration :: {
 		Id:                   string | fn.Fn
 		Prefix?:              string | fn.Fn
-		StorageClassAnalysis: __StorageClassAnalysis
-		TagFilters?: [...__TagFilter]
+		StorageClassAnalysis: propStorageClassAnalysis
+		TagFilters?: [...propTagFilter]
 	}
-	__BucketEncryption :: {
-		ServerSideEncryptionConfiguration: [...__ServerSideEncryptionRule]
+	propBucketEncryption :: {
+		ServerSideEncryptionConfiguration: [...propServerSideEncryptionRule]
 	}
-	__CorsConfiguration :: {
-		CorsRules: [...__CorsRule]
+	propCorsConfiguration :: {
+		CorsRules: [...propCorsRule]
 	}
-	__CorsRule :: {
+	propCorsRule :: {
 		AllowedHeaders?: [...string] | fn.Fn
 		AllowedMethods:  [...string] | fn.Fn
 		AllowedOrigins:  [...string] | fn.Fn
@@ -53,30 +53,30 @@ Bucket :: {
 		Id?:             string | fn.Fn
 		MaxAge?:         int | fn.Fn
 	}
-	__DataExport :: {
-		Destination:         __Destination
+	propDataExport :: {
+		Destination:         propDestination
 		OutputSchemaVersion: string | fn.Fn
 	}
-	__DefaultRetention :: {
+	propDefaultRetention :: {
 		Days?:  int | fn.Fn
 		Mode?:  string | fn.Fn
 		Years?: int | fn.Fn
 	}
-	__Destination :: {
+	propDestination :: {
 		BucketAccountId?: string | fn.Fn
 		BucketArn:        string | fn.Fn
 		Format:           string | fn.Fn
 		Prefix?:          string | fn.Fn
 	}
-	__EncryptionConfiguration :: {
+	propEncryptionConfiguration :: {
 		ReplicaKmsKeyID: string | fn.Fn
 	}
-	__FilterRule :: {
+	propFilterRule :: {
 		Name:  string | fn.Fn
 		Value: string | fn.Fn
 	}
-	__InventoryConfiguration :: {
-		Destination:            __Destination
+	propInventoryConfiguration :: {
+		Destination:            propDestination
 		Enabled:                bool | fn.Fn
 		Id:                     string | fn.Fn
 		IncludedObjectVersions: string | fn.Fn
@@ -84,145 +84,145 @@ Bucket :: {
 		Prefix?:                string | fn.Fn
 		ScheduleFrequency:      string | fn.Fn
 	}
-	__LambdaConfiguration :: {
+	propLambdaConfiguration :: {
 		Event:    string | fn.Fn
-		Filter?:  __NotificationFilter
+		Filter?:  propNotificationFilter
 		Function: string | fn.Fn
 	}
-	__LifecycleConfiguration :: {
-		Rules: [...__Rule]
+	propLifecycleConfiguration :: {
+		Rules: [...propRule]
 	}
-	__LoggingConfiguration :: {
+	propLoggingConfiguration :: {
 		DestinationBucketName?: string | fn.Fn
 		LogFilePrefix?:         string | fn.Fn
 	}
-	__MetricsConfiguration :: {
+	propMetricsConfiguration :: {
 		Id:      string | fn.Fn
 		Prefix?: string | fn.Fn
-		TagFilters?: [...__TagFilter]
+		TagFilters?: [...propTagFilter]
 	}
-	__NoncurrentVersionTransition :: {
+	propNoncurrentVersionTransition :: {
 		StorageClass:     string | fn.Fn
 		TransitionInDays: int | fn.Fn
 	}
-	__NotificationConfiguration :: {
-		LambdaConfigurations?: [...__LambdaConfiguration]
-		QueueConfigurations?: [...__QueueConfiguration]
-		TopicConfigurations?: [...__TopicConfiguration]
+	propNotificationConfiguration :: {
+		LambdaConfigurations?: [...propLambdaConfiguration]
+		QueueConfigurations?: [...propQueueConfiguration]
+		TopicConfigurations?: [...propTopicConfiguration]
 	}
-	__NotificationFilter :: {
-		S3Key: __S3KeyFilter
+	propNotificationFilter :: {
+		S3Key: propS3KeyFilter
 	}
-	__ObjectLockConfiguration :: {
+	propObjectLockConfiguration :: {
 		ObjectLockEnabled?: string | fn.Fn
-		Rule?:              __ObjectLockRule
+		Rule?:              propObjectLockRule
 	}
-	__ObjectLockRule :: {
-		DefaultRetention?: __DefaultRetention
+	propObjectLockRule :: {
+		DefaultRetention?: propDefaultRetention
 	}
-	__PublicAccessBlockConfiguration :: {
+	propPublicAccessBlockConfiguration :: {
 		BlockPublicAcls?:       bool | fn.Fn
 		BlockPublicPolicy?:     bool | fn.Fn
 		IgnorePublicAcls?:      bool | fn.Fn
 		RestrictPublicBuckets?: bool | fn.Fn
 	}
-	__QueueConfiguration :: {
+	propQueueConfiguration :: {
 		Event:   string | fn.Fn
-		Filter?: __NotificationFilter
+		Filter?: propNotificationFilter
 		Queue:   string | fn.Fn
 	}
-	__RedirectAllRequestsTo :: {
+	propRedirectAllRequestsTo :: {
 		HostName:  string | fn.Fn
 		Protocol?: (string & ("http" | "https")) | fn.Fn
 	}
-	__RedirectRule :: {
+	propRedirectRule :: {
 		HostName?:             string | fn.Fn
 		HttpRedirectCode?:     string | fn.Fn
 		Protocol?:             string | fn.Fn
 		ReplaceKeyPrefixWith?: string | fn.Fn
 		ReplaceKeyWith?:       string | fn.Fn
 	}
-	__ReplicationConfiguration :: {
+	propReplicationConfiguration :: {
 		Role: (string & (=~#"arn:(aws[a-zA-Z-]*)?:iam::\d{12}:role/[a-zA-Z_0-9+=,.@\-_/]+"#)) | fn.Fn
-		Rules: [...__ReplicationRule]
+		Rules: [...propReplicationRule]
 	}
-	__ReplicationDestination :: {
-		AccessControlTranslation?: __AccessControlTranslation
+	propReplicationDestination :: {
+		AccessControlTranslation?: propAccessControlTranslation
 		Account?:                  string | fn.Fn
 		Bucket:                    string | fn.Fn
-		EncryptionConfiguration?:  __EncryptionConfiguration
+		EncryptionConfiguration?:  propEncryptionConfiguration
 		StorageClass?:             string | fn.Fn
 	}
-	__ReplicationRule :: {
-		Destination:              __ReplicationDestination
+	propReplicationRule :: {
+		Destination:              propReplicationDestination
 		Id?:                      string | fn.Fn
 		Prefix:                   string | fn.Fn
-		SourceSelectionCriteria?: __SourceSelectionCriteria
+		SourceSelectionCriteria?: propSourceSelectionCriteria
 		Status:                   string | fn.Fn
 	}
-	__RoutingRule :: {
-		RedirectRule:          __RedirectRule
-		RoutingRuleCondition?: __RoutingRuleCondition
+	propRoutingRule :: {
+		RedirectRule:          propRedirectRule
+		RoutingRuleCondition?: propRoutingRuleCondition
 	}
-	__RoutingRuleCondition :: {
+	propRoutingRuleCondition :: {
 		HttpErrorCodeReturnedEquals?: string | fn.Fn
 		KeyPrefixEquals?:             string | fn.Fn
 	}
-	__Rule :: {
-		AbortIncompleteMultipartUpload?:    __AbortIncompleteMultipartUpload
+	propRule :: {
+		AbortIncompleteMultipartUpload?:    propAbortIncompleteMultipartUpload
 		ExpirationDate?:                    time.Time | fn.Fn
 		ExpirationInDays?:                  int | fn.Fn
 		Id?:                                string | fn.Fn
 		NoncurrentVersionExpirationInDays?: int | fn.Fn
-		NoncurrentVersionTransition?:       __NoncurrentVersionTransition
-		NoncurrentVersionTransitions?: [...__NoncurrentVersionTransition]
+		NoncurrentVersionTransition?:       propNoncurrentVersionTransition
+		NoncurrentVersionTransitions?: [...propNoncurrentVersionTransition]
 		Prefix?: string | fn.Fn
 		Status:  string | fn.Fn
-		TagFilters?: [...__TagFilter]
-		Transition?: __Transition
-		Transitions?: [...__Transition]
+		TagFilters?: [...propTagFilter]
+		Transition?: propTransition
+		Transitions?: [...propTransition]
 	}
-	__S3KeyFilter :: {
-		Rules: [...__FilterRule]
+	propS3KeyFilter :: {
+		Rules: [...propFilterRule]
 	}
-	__ServerSideEncryptionByDefault :: {
+	propServerSideEncryptionByDefault :: {
 		KMSMasterKeyID?: string | fn.Fn
 		SSEAlgorithm:    (string & ("AES256" | "aws:kms")) | fn.Fn
 	}
-	__ServerSideEncryptionRule :: {
-		ServerSideEncryptionByDefault?: __ServerSideEncryptionByDefault
+	propServerSideEncryptionRule :: {
+		ServerSideEncryptionByDefault?: propServerSideEncryptionByDefault
 	}
-	__SourceSelectionCriteria :: {
-		SseKmsEncryptedObjects: __SseKmsEncryptedObjects
+	propSourceSelectionCriteria :: {
+		SseKmsEncryptedObjects: propSseKmsEncryptedObjects
 	}
-	__SseKmsEncryptedObjects :: {
+	propSseKmsEncryptedObjects :: {
 		Status: string | fn.Fn
 	}
-	__StorageClassAnalysis :: {
-		DataExport?: __DataExport
+	propStorageClassAnalysis :: {
+		DataExport?: propDataExport
 	}
-	__TagFilter :: {
+	propTagFilter :: {
 		Key:   string | fn.Fn
 		Value: string | fn.Fn
 	}
-	__TopicConfiguration :: {
+	propTopicConfiguration :: {
 		Event:   (string & ("s3:ObjectCreated:*" | "s3:ObjectCreated:CompleteMultipartUpload" | "s3:ObjectCreated:Copy" | "s3:ObjectCreated:Post" | "s3:ObjectCreated:Put" | "s3:ObjectRemoved:*" | "s3:ObjectRemoved:Delete" | "s3:ObjectRemoved:DeleteMarkerCreated" | "s3:ObjectRestore:Completed" | "s3:ObjectRestore:Post" | "s3:ReducedRedundancyLostObject")) | fn.Fn
-		Filter?: __NotificationFilter
+		Filter?: propNotificationFilter
 		Topic:   string | fn.Fn
 	}
-	__Transition :: {
+	propTransition :: {
 		StorageClass:      string | fn.Fn
 		TransitionDate?:   time.Time | fn.Fn
 		TransitionInDays?: int | fn.Fn
 	}
-	__VersioningConfiguration :: {
+	propVersioningConfiguration :: {
 		Status: (string & ("Enabled" | "Suspended")) | fn.Fn
 	}
-	__WebsiteConfiguration :: {
+	propWebsiteConfiguration :: {
 		ErrorDocument?:         string | fn.Fn
 		IndexDocument?:         string | fn.Fn
-		RedirectAllRequestsTo?: __RedirectAllRequestsTo
-		RoutingRules?: [...__RoutingRule]
+		RedirectAllRequestsTo?: propRedirectAllRequestsTo
+		RoutingRules?: [...propRoutingRule]
 	}
 }
 BucketPolicy :: {

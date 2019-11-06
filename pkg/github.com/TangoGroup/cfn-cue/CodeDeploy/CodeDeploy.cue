@@ -13,9 +13,9 @@ DeploymentConfig :: {
 	Type: "AWS::CodeDeploy::DeploymentConfig"
 	Properties: {
 		DeploymentConfigName?: string | fn.Fn
-		MinimumHealthyHosts?:  __MinimumHealthyHosts
+		MinimumHealthyHosts?:  propMinimumHealthyHosts
 	}
-	__MinimumHealthyHosts :: {
+	propMinimumHealthyHosts :: {
 		Type:  (string & ("FLEET_PERCENT" | "HOST_COUNT")) | fn.Fn
 		Value: int | fn.Fn
 	}
@@ -23,92 +23,92 @@ DeploymentConfig :: {
 DeploymentGroup :: {
 	Type: "AWS::CodeDeploy::DeploymentGroup"
 	Properties: {
-		AlarmConfiguration?:        __AlarmConfiguration
+		AlarmConfiguration?:        propAlarmConfiguration
 		ApplicationName:            string | fn.Fn
-		AutoRollbackConfiguration?: __AutoRollbackConfiguration
+		AutoRollbackConfiguration?: propAutoRollbackConfiguration
 		AutoScalingGroups?:         [...string] | fn.Fn
-		Deployment?:                __Deployment
+		Deployment?:                propDeployment
 		DeploymentConfigName?:      string | fn.Fn
 		DeploymentGroupName?:       string | fn.Fn
-		DeploymentStyle?:           __DeploymentStyle
-		Ec2TagFilters?: [...__EC2TagFilter]
-		Ec2TagSet?:        __EC2TagSet
-		LoadBalancerInfo?: __LoadBalancerInfo
-		OnPremisesInstanceTagFilters?: [...__TagFilter]
-		OnPremisesTagSet?: __OnPremisesTagSet
+		DeploymentStyle?:           propDeploymentStyle
+		Ec2TagFilters?: [...propEC2TagFilter]
+		Ec2TagSet?:        propEC2TagSet
+		LoadBalancerInfo?: propLoadBalancerInfo
+		OnPremisesInstanceTagFilters?: [...propTagFilter]
+		OnPremisesTagSet?: propOnPremisesTagSet
 		ServiceRoleArn:    string | fn.Fn
-		TriggerConfigurations?: [...__TriggerConfig]
+		TriggerConfigurations?: [...propTriggerConfig]
 	}
-	__Alarm :: {
+	propAlarm :: {
 		Name?: string | fn.Fn
 	}
-	__AlarmConfiguration :: {
-		Alarms?: [...__Alarm]
+	propAlarmConfiguration :: {
+		Alarms?: [...propAlarm]
 		Enabled?:                bool | fn.Fn
 		IgnorePollAlarmFailure?: bool | fn.Fn
 	}
-	__AutoRollbackConfiguration :: {
+	propAutoRollbackConfiguration :: {
 		Enabled?: bool | fn.Fn
 		Events?:  ([...string] & ("DEPLOYMENT_FAILURE" | "DEPLOYMENT_STOP_ON_ALARM" | "DEPLOYMENT_STOP_ON_REQUEST")) | fn.Fn
 	}
-	__Deployment :: {
+	propDeployment :: {
 		Description?:                   string | fn.Fn
 		IgnoreApplicationStopFailures?: bool | fn.Fn
-		Revision:                       __RevisionLocation
+		Revision:                       propRevisionLocation
 	}
-	__DeploymentStyle :: {
+	propDeploymentStyle :: {
 		DeploymentOption?: (string & ("WITH_TRAFFIC_CONTROL" | "WITHOUT_TRAFFIC_CONTROL")) | fn.Fn
 		DeploymentType?:   (string & ("BLUE_GREEN" | "IN_PLACE")) | fn.Fn
 	}
-	__EC2TagFilter :: {
+	propEC2TagFilter :: {
 		Key?:   string | fn.Fn
 		Type?:  string | fn.Fn
 		Value?: string | fn.Fn
 	}
-	__EC2TagSet :: {
-		Ec2TagSetList?: [...__EC2TagSetListObject]
+	propEC2TagSet :: {
+		Ec2TagSetList?: [...propEC2TagSetListObject]
 	}
-	__EC2TagSetListObject :: {
-		Ec2TagGroup?: [...__EC2TagFilter]
+	propEC2TagSetListObject :: {
+		Ec2TagGroup?: [...propEC2TagFilter]
 	}
-	__ELBInfo :: {
+	propELBInfo :: {
 		Name?: string | fn.Fn
 	}
-	__GitHubLocation :: {
+	propGitHubLocation :: {
 		CommitId:   string | fn.Fn
 		Repository: string | fn.Fn
 	}
-	__LoadBalancerInfo :: {
-		ElbInfoList?: [...__ELBInfo]
-		TargetGroupInfoList?: [...__TargetGroupInfo]
+	propLoadBalancerInfo :: {
+		ElbInfoList?: [...propELBInfo]
+		TargetGroupInfoList?: [...propTargetGroupInfo]
 	}
-	__OnPremisesTagSet :: {
-		OnPremisesTagSetList?: [...__OnPremisesTagSetListObject]
+	propOnPremisesTagSet :: {
+		OnPremisesTagSetList?: [...propOnPremisesTagSetListObject]
 	}
-	__OnPremisesTagSetListObject :: {
-		OnPremisesTagGroup?: [...__TagFilter]
+	propOnPremisesTagSetListObject :: {
+		OnPremisesTagGroup?: [...propTagFilter]
 	}
-	__RevisionLocation :: {
-		GitHubLocation?: __GitHubLocation
+	propRevisionLocation :: {
+		GitHubLocation?: propGitHubLocation
 		RevisionType?:   string | fn.Fn
-		S3Location?:     __S3Location
+		S3Location?:     propS3Location
 	}
-	__S3Location :: {
+	propS3Location :: {
 		Bucket:      string | fn.Fn
 		BundleType?: string | fn.Fn
 		ETag?:       string | fn.Fn
 		Key:         string | fn.Fn
 		Version?:    string | fn.Fn
 	}
-	__TagFilter :: {
+	propTagFilter :: {
 		Key?:   string | fn.Fn
 		Type?:  string | fn.Fn
 		Value?: string | fn.Fn
 	}
-	__TargetGroupInfo :: {
+	propTargetGroupInfo :: {
 		Name?: string | fn.Fn
 	}
-	__TriggerConfig :: {
+	propTriggerConfig :: {
 		TriggerEvents?:    ([...string] & ("DeploymentFailure" | "DeploymentReady" | "DeploymentRollback" | "DeploymentStart" | "DeploymentStop" | "DeploymentSuccess" | "InstanceFailure" | "InstanceReady" | "InstanceStart" | "InstanceSuccess")) | fn.Fn
 		TriggerName?:      string | fn.Fn
 		TriggerTargetArn?: string | fn.Fn

@@ -5,13 +5,13 @@ import "github.com/TangoGroup/fn"
 Repository :: {
 	Type: "AWS::ECR::Repository"
 	Properties: {
-		LifecyclePolicy?:      __LifecyclePolicy
+		LifecyclePolicy?:      propLifecyclePolicy
 		RepositoryName?:       string | fn.Fn
 		RepositoryPolicyText?: {
 		} | fn.Fn
-		Tags?: [...__Tag]
+		Tags?: [...propTag]
 	}
-	__LifecyclePolicy :: {
+	propLifecyclePolicy :: {
 		LifecyclePolicyText?: string | fn.Fn
 		RegistryId?:          string | fn.Fn
 	}

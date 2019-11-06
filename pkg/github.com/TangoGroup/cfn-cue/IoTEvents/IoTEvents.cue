@@ -5,86 +5,86 @@ import "github.com/TangoGroup/fn"
 DetectorModel :: {
 	Type: "AWS::IoTEvents::DetectorModel"
 	Properties: {
-		DetectorModelDefinition?:  __DetectorModelDefinition
+		DetectorModelDefinition?:  propDetectorModelDefinition
 		DetectorModelDescription?: string | fn.Fn
 		DetectorModelName?:        string | fn.Fn
 		Key?:                      string | fn.Fn
 		RoleArn?:                  string | fn.Fn
-		Tags?: [...__Tag]
+		Tags?: [...propTag]
 	}
-	__Action :: {
-		ClearTimer?:      __ClearTimer
-		Firehose?:        __Firehose
-		IotEvents?:       __IotEvents
-		IotTopicPublish?: __IotTopicPublish
-		Lambda?:          __Lambda
-		ResetTimer?:      __ResetTimer
-		SetTimer?:        __SetTimer
-		SetVariable?:     __SetVariable
-		Sns?:             __Sns
-		Sqs?:             __Sqs
+	propAction :: {
+		ClearTimer?:      propClearTimer
+		Firehose?:        propFirehose
+		IotEvents?:       propIotEvents
+		IotTopicPublish?: propIotTopicPublish
+		Lambda?:          propLambda
+		ResetTimer?:      propResetTimer
+		SetTimer?:        propSetTimer
+		SetVariable?:     propSetVariable
+		Sns?:             propSns
+		Sqs?:             propSqs
 	}
-	__ClearTimer :: {
+	propClearTimer :: {
 		TimerName?: string | fn.Fn
 	}
-	__DetectorModelDefinition :: {
+	propDetectorModelDefinition :: {
 		InitialStateName?: string | fn.Fn
-		States?: [...__State]
+		States?: [...propState]
 	}
-	__Event :: {
-		Actions?: [...__Action]
+	propEvent :: {
+		Actions?: [...propAction]
 		Condition?: string | fn.Fn
 		EventName?: string | fn.Fn
 	}
-	__Firehose :: {
+	propFirehose :: {
 		DeliveryStreamName?: string | fn.Fn
 		Separator?:          string | fn.Fn
 	}
-	__IotEvents :: {
+	propIotEvents :: {
 		InputName?: string | fn.Fn
 	}
-	__IotTopicPublish :: {
+	propIotTopicPublish :: {
 		MqttTopic?: string | fn.Fn
 	}
-	__Lambda :: {
+	propLambda :: {
 		FunctionArn?: string | fn.Fn
 	}
-	__OnEnter :: {
-		Events?: [...__Event]
+	propOnEnter :: {
+		Events?: [...propEvent]
 	}
-	__OnExit :: {
-		Events?: [...__Event]
+	propOnExit :: {
+		Events?: [...propEvent]
 	}
-	__OnInput :: {
-		Events?: [...__Event]
-		TransitionEvents?: [...__TransitionEvent]
+	propOnInput :: {
+		Events?: [...propEvent]
+		TransitionEvents?: [...propTransitionEvent]
 	}
-	__ResetTimer :: {
+	propResetTimer :: {
 		TimerName?: string | fn.Fn
 	}
-	__SetTimer :: {
+	propSetTimer :: {
 		Seconds?:   int | fn.Fn
 		TimerName?: string | fn.Fn
 	}
-	__SetVariable :: {
+	propSetVariable :: {
 		Value?:        string | fn.Fn
 		VariableName?: string | fn.Fn
 	}
-	__Sns :: {
+	propSns :: {
 		TargetArn?: string | fn.Fn
 	}
-	__Sqs :: {
+	propSqs :: {
 		QueueUrl?:  string | fn.Fn
 		UseBase64?: bool | fn.Fn
 	}
-	__State :: {
-		OnEnter?:   __OnEnter
-		OnExit?:    __OnExit
-		OnInput?:   __OnInput
+	propState :: {
+		OnEnter?:   propOnEnter
+		OnExit?:    propOnExit
+		OnInput?:   propOnInput
 		StateName?: string | fn.Fn
 	}
-	__TransitionEvent :: {
-		Actions?: [...__Action]
+	propTransitionEvent :: {
+		Actions?: [...propAction]
 		Condition?: string | fn.Fn
 		EventName?: string | fn.Fn
 		NextState?: string | fn.Fn
@@ -93,15 +93,15 @@ DetectorModel :: {
 Input :: {
 	Type: "AWS::IoTEvents::Input"
 	Properties: {
-		InputDefinition?:  __InputDefinition
+		InputDefinition?:  propInputDefinition
 		InputDescription?: string | fn.Fn
 		InputName?:        string | fn.Fn
-		Tags?: [...__Tag]
+		Tags?: [...propTag]
 	}
-	__Attribute :: {
+	propAttribute :: {
 		JsonPath?: string | fn.Fn
 	}
-	__InputDefinition :: {
-		Attributes?: [...__Attribute]
+	propInputDefinition :: {
+		Attributes?: [...propAttribute]
 	}
 }

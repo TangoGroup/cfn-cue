@@ -7,95 +7,95 @@ DeliveryStream :: {
 	Properties: {
 		DeliveryStreamName?:                    string | fn.Fn
 		DeliveryStreamType?:                    string | fn.Fn
-		ElasticsearchDestinationConfiguration?: __ElasticsearchDestinationConfiguration
-		ExtendedS3DestinationConfiguration?:    __ExtendedS3DestinationConfiguration
-		KinesisStreamSourceConfiguration?:      __KinesisStreamSourceConfiguration
-		RedshiftDestinationConfiguration?:      __RedshiftDestinationConfiguration
-		S3DestinationConfiguration?:            __S3DestinationConfiguration
-		SplunkDestinationConfiguration?:        __SplunkDestinationConfiguration
+		ElasticsearchDestinationConfiguration?: propElasticsearchDestinationConfiguration
+		ExtendedS3DestinationConfiguration?:    propExtendedS3DestinationConfiguration
+		KinesisStreamSourceConfiguration?:      propKinesisStreamSourceConfiguration
+		RedshiftDestinationConfiguration?:      propRedshiftDestinationConfiguration
+		S3DestinationConfiguration?:            propS3DestinationConfiguration
+		SplunkDestinationConfiguration?:        propSplunkDestinationConfiguration
 	}
-	__BufferingHints :: {
+	propBufferingHints :: {
 		IntervalInSeconds: int | fn.Fn
 		SizeInMBs:         int | fn.Fn
 	}
-	__CloudWatchLoggingOptions :: {
+	propCloudWatchLoggingOptions :: {
 		Enabled?:       bool | fn.Fn
 		LogGroupName?:  string | fn.Fn
 		LogStreamName?: string | fn.Fn
 	}
-	__CopyCommand :: {
+	propCopyCommand :: {
 		CopyOptions?:      string | fn.Fn
 		DataTableColumns?: string | fn.Fn
 		DataTableName:     string | fn.Fn
 	}
-	__DataFormatConversionConfiguration :: {
+	propDataFormatConversionConfiguration :: {
 		Enabled:                   bool | fn.Fn
-		InputFormatConfiguration:  __InputFormatConfiguration
-		OutputFormatConfiguration: __OutputFormatConfiguration
-		SchemaConfiguration:       __SchemaConfiguration
+		InputFormatConfiguration:  propInputFormatConfiguration
+		OutputFormatConfiguration: propOutputFormatConfiguration
+		SchemaConfiguration:       propSchemaConfiguration
 	}
-	__Deserializer :: {
-		HiveJsonSerDe?:  __HiveJsonSerDe
-		OpenXJsonSerDe?: __OpenXJsonSerDe
+	propDeserializer :: {
+		HiveJsonSerDe?:  propHiveJsonSerDe
+		OpenXJsonSerDe?: propOpenXJsonSerDe
 	}
-	__ElasticsearchBufferingHints :: {
+	propElasticsearchBufferingHints :: {
 		IntervalInSeconds: int | fn.Fn
 		SizeInMBs:         int | fn.Fn
 	}
-	__ElasticsearchDestinationConfiguration :: {
-		BufferingHints:            __ElasticsearchBufferingHints
-		CloudWatchLoggingOptions?: __CloudWatchLoggingOptions
+	propElasticsearchDestinationConfiguration :: {
+		BufferingHints:            propElasticsearchBufferingHints
+		CloudWatchLoggingOptions?: propCloudWatchLoggingOptions
 		DomainARN:                 string | fn.Fn
 		IndexName:                 string | fn.Fn
 		IndexRotationPeriod:       string | fn.Fn
-		ProcessingConfiguration?:  __ProcessingConfiguration
-		RetryOptions:              __ElasticsearchRetryOptions
+		ProcessingConfiguration?:  propProcessingConfiguration
+		RetryOptions:              propElasticsearchRetryOptions
 		RoleARN:                   string | fn.Fn
 		S3BackupMode:              string | fn.Fn
-		S3Configuration:           __S3DestinationConfiguration
+		S3Configuration:           propS3DestinationConfiguration
 		TypeName:                  string | fn.Fn
 	}
-	__ElasticsearchRetryOptions :: {
+	propElasticsearchRetryOptions :: {
 		DurationInSeconds: int | fn.Fn
 	}
-	__EncryptionConfiguration :: {
-		KMSEncryptionConfig?: __KMSEncryptionConfig
+	propEncryptionConfiguration :: {
+		KMSEncryptionConfig?: propKMSEncryptionConfig
 		NoEncryptionConfig?:  string | fn.Fn
 	}
-	__ExtendedS3DestinationConfiguration :: {
+	propExtendedS3DestinationConfiguration :: {
 		BucketARN:                          string | fn.Fn
-		BufferingHints:                     __BufferingHints
-		CloudWatchLoggingOptions?:          __CloudWatchLoggingOptions
+		BufferingHints:                     propBufferingHints
+		CloudWatchLoggingOptions?:          propCloudWatchLoggingOptions
 		CompressionFormat:                  string | fn.Fn
-		DataFormatConversionConfiguration?: __DataFormatConversionConfiguration
-		EncryptionConfiguration?:           __EncryptionConfiguration
+		DataFormatConversionConfiguration?: propDataFormatConversionConfiguration
+		EncryptionConfiguration?:           propEncryptionConfiguration
 		ErrorOutputPrefix?:                 string | fn.Fn
 		Prefix?:                            string | fn.Fn
-		ProcessingConfiguration?:           __ProcessingConfiguration
+		ProcessingConfiguration?:           propProcessingConfiguration
 		RoleARN:                            string | fn.Fn
-		S3BackupConfiguration?:             __S3DestinationConfiguration
+		S3BackupConfiguration?:             propS3DestinationConfiguration
 		S3BackupMode?:                      string | fn.Fn
 	}
-	__HiveJsonSerDe :: {
+	propHiveJsonSerDe :: {
 		TimestampFormats?: [...string] | fn.Fn
 	}
-	__InputFormatConfiguration :: {
-		Deserializer: __Deserializer
+	propInputFormatConfiguration :: {
+		Deserializer: propDeserializer
 	}
-	__KMSEncryptionConfig :: {
+	propKMSEncryptionConfig :: {
 		AWSKMSKeyARN: string | fn.Fn
 	}
-	__KinesisStreamSourceConfiguration :: {
+	propKinesisStreamSourceConfiguration :: {
 		KinesisStreamARN: string | fn.Fn
 		RoleARN:          string | fn.Fn
 	}
-	__OpenXJsonSerDe :: {
+	propOpenXJsonSerDe :: {
 		CaseInsensitive?: bool | fn.Fn
 		ColumnToJsonKeyMappings?: {
 		}
 		ConvertDotsInJsonKeysToUnderscores?: bool | fn.Fn
 	}
-	__OrcSerDe :: {
+	propOrcSerDe :: {
 		BlockSizeBytes?:                      int | fn.Fn
 		BloomFilterColumns?:                  [...string] | fn.Fn
 		BloomFilterFalsePositiveProbability?: float | fn.Fn
@@ -107,10 +107,10 @@ DeliveryStream :: {
 		RowIndexStride?:                      int | fn.Fn
 		StripeSizeBytes?:                     int | fn.Fn
 	}
-	__OutputFormatConfiguration :: {
-		Serializer: __Serializer
+	propOutputFormatConfiguration :: {
+		Serializer: propSerializer
 	}
-	__ParquetSerDe :: {
+	propParquetSerDe :: {
 		BlockSizeBytes?:              int | fn.Fn
 		Compression?:                 string | fn.Fn
 		EnableDictionaryCompression?: bool | fn.Fn
@@ -118,39 +118,39 @@ DeliveryStream :: {
 		PageSizeBytes?:               int | fn.Fn
 		WriterVersion?:               string | fn.Fn
 	}
-	__ProcessingConfiguration :: {
+	propProcessingConfiguration :: {
 		Enabled?: bool | fn.Fn
-		Processors?: [...__Processor]
+		Processors?: [...propProcessor]
 	}
-	__Processor :: {
-		Parameters: [...__ProcessorParameter]
+	propProcessor :: {
+		Parameters: [...propProcessorParameter]
 		Type: string | fn.Fn
 	}
-	__ProcessorParameter :: {
+	propProcessorParameter :: {
 		ParameterName:  string | fn.Fn
 		ParameterValue: string | fn.Fn
 	}
-	__RedshiftDestinationConfiguration :: {
-		CloudWatchLoggingOptions?: __CloudWatchLoggingOptions
+	propRedshiftDestinationConfiguration :: {
+		CloudWatchLoggingOptions?: propCloudWatchLoggingOptions
 		ClusterJDBCURL:            string | fn.Fn
-		CopyCommand:               __CopyCommand
+		CopyCommand:               propCopyCommand
 		Password:                  string | fn.Fn
-		ProcessingConfiguration?:  __ProcessingConfiguration
+		ProcessingConfiguration?:  propProcessingConfiguration
 		RoleARN:                   string | fn.Fn
-		S3Configuration:           __S3DestinationConfiguration
+		S3Configuration:           propS3DestinationConfiguration
 		Username:                  string | fn.Fn
 	}
-	__S3DestinationConfiguration :: {
+	propS3DestinationConfiguration :: {
 		BucketARN:                 string | fn.Fn
-		BufferingHints:            __BufferingHints
-		CloudWatchLoggingOptions?: __CloudWatchLoggingOptions
+		BufferingHints:            propBufferingHints
+		CloudWatchLoggingOptions?: propCloudWatchLoggingOptions
 		CompressionFormat:         string | fn.Fn
-		EncryptionConfiguration?:  __EncryptionConfiguration
+		EncryptionConfiguration?:  propEncryptionConfiguration
 		ErrorOutputPrefix?:        string | fn.Fn
 		Prefix?:                   string | fn.Fn
 		RoleARN:                   string | fn.Fn
 	}
-	__SchemaConfiguration :: {
+	propSchemaConfiguration :: {
 		CatalogId:    string | fn.Fn
 		DatabaseName: string | fn.Fn
 		Region:       string | fn.Fn
@@ -158,22 +158,22 @@ DeliveryStream :: {
 		TableName:    string | fn.Fn
 		VersionId:    string | fn.Fn
 	}
-	__Serializer :: {
-		OrcSerDe?:     __OrcSerDe
-		ParquetSerDe?: __ParquetSerDe
+	propSerializer :: {
+		OrcSerDe?:     propOrcSerDe
+		ParquetSerDe?: propParquetSerDe
 	}
-	__SplunkDestinationConfiguration :: {
-		CloudWatchLoggingOptions?:          __CloudWatchLoggingOptions
+	propSplunkDestinationConfiguration :: {
+		CloudWatchLoggingOptions?:          propCloudWatchLoggingOptions
 		HECAcknowledgmentTimeoutInSeconds?: int | fn.Fn
 		HECEndpoint:                        string | fn.Fn
 		HECEndpointType:                    string | fn.Fn
 		HECToken:                           string | fn.Fn
-		ProcessingConfiguration?:           __ProcessingConfiguration
-		RetryOptions?:                      __SplunkRetryOptions
+		ProcessingConfiguration?:           propProcessingConfiguration
+		RetryOptions?:                      propSplunkRetryOptions
 		S3BackupMode?:                      string | fn.Fn
-		S3Configuration:                    __S3DestinationConfiguration
+		S3Configuration:                    propS3DestinationConfiguration
 	}
-	__SplunkRetryOptions :: {
+	propSplunkRetryOptions :: {
 		DurationInSeconds: int | fn.Fn
 	}
 }

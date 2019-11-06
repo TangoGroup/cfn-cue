@@ -6,18 +6,18 @@ FileSystem :: {
 	Type: "AWS::EFS::FileSystem"
 	Properties: {
 		Encrypted?: bool | fn.Fn
-		FileSystemTags?: [...__ElasticFileSystemTag]
+		FileSystemTags?: [...propElasticFileSystemTag]
 		KmsKeyId?: string | fn.Fn
-		LifecyclePolicies?: [...__LifecyclePolicy]
+		LifecyclePolicies?: [...propLifecyclePolicy]
 		PerformanceMode?:              (string & ("generalPurpose" | "maxIO")) | fn.Fn
 		ProvisionedThroughputInMibps?: float | fn.Fn
 		ThroughputMode?:               (string & ("bursting" | "provisioned")) | fn.Fn
 	}
-	__ElasticFileSystemTag :: {
+	propElasticFileSystemTag :: {
 		Key:   string | fn.Fn
 		Value: string | fn.Fn
 	}
-	__LifecyclePolicy :: {
+	propLifecyclePolicy :: {
 		TransitionToIA: (string & ("AFTER_14_DAYS" | "AFTER_30_DAYS" | "AFTER_60_DAYS" | "AFTER_90_DAYS")) | fn.Fn
 	}
 }

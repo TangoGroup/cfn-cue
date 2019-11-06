@@ -17,13 +17,13 @@ CloudFormationProduct :: {
 		Distributor?:    string | fn.Fn
 		Name:            string | fn.Fn
 		Owner:           string | fn.Fn
-		ProvisioningArtifactParameters: [...__ProvisioningArtifactProperties]
+		ProvisioningArtifactParameters: [...propProvisioningArtifactProperties]
 		SupportDescription?: string | fn.Fn
 		SupportEmail?:       string | fn.Fn
 		SupportUrl?:         string | fn.Fn
-		Tags?: [...__Tag]
+		Tags?: [...propTag]
 	}
-	__ProvisioningArtifactProperties :: {
+	propProvisioningArtifactProperties :: {
 		Description?:               string | fn.Fn
 		DisableTemplateValidation?: bool | fn.Fn
 		Info:                       {
@@ -42,15 +42,15 @@ CloudFormationProvisionedProduct :: {
 		ProvisionedProductName?:   string | fn.Fn
 		ProvisioningArtifactId?:   string | fn.Fn
 		ProvisioningArtifactName?: string | fn.Fn
-		ProvisioningParameters?: [...__ProvisioningParameter]
-		ProvisioningPreferences?: __ProvisioningPreferences
-		Tags?: [...__Tag]
+		ProvisioningParameters?: [...propProvisioningParameter]
+		ProvisioningPreferences?: propProvisioningPreferences
+		Tags?: [...propTag]
 	}
-	__ProvisioningParameter :: {
+	propProvisioningParameter :: {
 		Key?:   string | fn.Fn
 		Value?: string | fn.Fn
 	}
-	__ProvisioningPreferences :: {
+	propProvisioningPreferences :: {
 		StackSetAccounts?:                   [...string] | fn.Fn
 		StackSetFailureToleranceCount?:      int | fn.Fn
 		StackSetFailureTolerancePercentage?: int | fn.Fn
@@ -97,7 +97,7 @@ Portfolio :: {
 		Description?:    string | fn.Fn
 		DisplayName:     string | fn.Fn
 		ProviderName:    string | fn.Fn
-		Tags?: [...__Tag]
+		Tags?: [...propTag]
 	}
 }
 PortfolioPrincipalAssociation :: {

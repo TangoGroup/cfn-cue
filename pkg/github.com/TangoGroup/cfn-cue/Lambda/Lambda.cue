@@ -9,12 +9,12 @@ Alias :: {
 		FunctionName:    string | fn.Fn
 		FunctionVersion: string | fn.Fn
 		Name:            string | fn.Fn
-		RoutingConfig?:  __AliasRoutingConfiguration
+		RoutingConfig?:  propAliasRoutingConfiguration
 	}
-	__AliasRoutingConfiguration :: {
-		AdditionalVersionWeights: [...__VersionWeight]
+	propAliasRoutingConfiguration :: {
+		AdditionalVersionWeights: [...propVersionWeight]
 	}
-	__VersionWeight :: {
+	propVersionWeight :: {
 		FunctionVersion: string | fn.Fn
 		FunctionWeight:  float | fn.Fn
 	}
@@ -33,10 +33,10 @@ EventSourceMapping :: {
 Function :: {
 	Type: "AWS::Lambda::Function"
 	Properties: {
-		Code:                          __Code
-		DeadLetterConfig?:             __DeadLetterConfig
+		Code:                          propCode
+		DeadLetterConfig?:             propDeadLetterConfig
 		Description?:                  string | fn.Fn
-		Environment?:                  __Environment
+		Environment?:                  propEnvironment
 		FunctionName?:                 string | fn.Fn
 		Handler:                       string | fn.Fn
 		KmsKeyArn?:                    string | fn.Fn
@@ -45,28 +45,28 @@ Function :: {
 		ReservedConcurrentExecutions?: int | fn.Fn
 		Role:                          (string & (=~#"arn:(aws[a-zA-Z-]*)?:iam::\d{12}:role/[a-zA-Z_0-9+=,.@\-_/]+"#)) | fn.Fn
 		Runtime:                       (string & ("dotnetcore1.0" | "dotnetcore2.0" | "dotnetcore2.1" | "go1.x" | "java8" | "nodejs" | "nodejs4.3-edge" | "nodejs4.3" | "nodejs6.10" | "nodejs8.10" | "nodejs10.x" | "provided" | "python2.7" | "python3.6" | "python3.7" | "ruby2.5")) | fn.Fn
-		Tags?: [...__Tag]
+		Tags?: [...propTag]
 		Timeout?:       (int & (>=1 & <=900)) | fn.Fn
-		TracingConfig?: __TracingConfig
-		VpcConfig?:     __VpcConfig
+		TracingConfig?: propTracingConfig
+		VpcConfig?:     propVpcConfig
 	}
-	__Code :: {
+	propCode :: {
 		S3Bucket?:        string | fn.Fn
 		S3Key?:           string | fn.Fn
 		S3ObjectVersion?: string | fn.Fn
 		ZipFile?:         string | fn.Fn
 	}
-	__DeadLetterConfig :: {
+	propDeadLetterConfig :: {
 		TargetArn?: string | fn.Fn
 	}
-	__Environment :: {
+	propEnvironment :: {
 		Variables?: {
 		}
 	}
-	__TracingConfig :: {
+	propTracingConfig :: {
 		Mode?: string | fn.Fn
 	}
-	__VpcConfig :: {
+	propVpcConfig :: {
 		SecurityGroupIds: [...string] | fn.Fn
 		SubnetIds:        [...string] | fn.Fn
 	}
@@ -75,12 +75,12 @@ LayerVersion :: {
 	Type: "AWS::Lambda::LayerVersion"
 	Properties: {
 		CompatibleRuntimes?: [...string] | fn.Fn
-		Content:             __Content
+		Content:             propContent
 		Description?:        string | fn.Fn
 		LayerName?:          string | fn.Fn
 		LicenseInfo?:        string | fn.Fn
 	}
-	__Content :: {
+	propContent :: {
 		S3Bucket:         string | fn.Fn
 		S3Key:            string | fn.Fn
 		S3ObjectVersion?: string | fn.Fn

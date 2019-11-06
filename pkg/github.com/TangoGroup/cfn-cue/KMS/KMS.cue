@@ -19,6 +19,6 @@ Key :: {
 		} | fn.Fn
 		KeyUsage?:            string | fn.Fn
 		PendingWindowInDays?: (int & (>=7 & <=30)) | fn.Fn
-		Tags?: [...__Tag]
+		Tags?: [...propTag]
 	}
 }

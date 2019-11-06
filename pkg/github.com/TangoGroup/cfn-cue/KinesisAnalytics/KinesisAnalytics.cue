@@ -8,57 +8,57 @@ Application :: {
 		ApplicationCode?:        string | fn.Fn
 		ApplicationDescription?: string | fn.Fn
 		ApplicationName?:        string | fn.Fn
-		Inputs: [...__Input]
+		Inputs: [...propInput]
 	}
-	__CSVMappingParameters :: {
+	propCSVMappingParameters :: {
 		RecordColumnDelimiter: string | fn.Fn
 		RecordRowDelimiter:    string | fn.Fn
 	}
-	__Input :: {
-		InputParallelism?:             __InputParallelism
-		InputProcessingConfiguration?: __InputProcessingConfiguration
-		InputSchema:                   __InputSchema
-		KinesisFirehoseInput?:         __KinesisFirehoseInput
-		KinesisStreamsInput?:          __KinesisStreamsInput
+	propInput :: {
+		InputParallelism?:             propInputParallelism
+		InputProcessingConfiguration?: propInputProcessingConfiguration
+		InputSchema:                   propInputSchema
+		KinesisFirehoseInput?:         propKinesisFirehoseInput
+		KinesisStreamsInput?:          propKinesisStreamsInput
 		NamePrefix:                    string | fn.Fn
 	}
-	__InputLambdaProcessor :: {
+	propInputLambdaProcessor :: {
 		ResourceARN: string | fn.Fn
 		RoleARN:     string | fn.Fn
 	}
-	__InputParallelism :: {
+	propInputParallelism :: {
 		Count?: int | fn.Fn
 	}
-	__InputProcessingConfiguration :: {
-		InputLambdaProcessor?: __InputLambdaProcessor
+	propInputProcessingConfiguration :: {
+		InputLambdaProcessor?: propInputLambdaProcessor
 	}
-	__InputSchema :: {
-		RecordColumns: [...__RecordColumn]
+	propInputSchema :: {
+		RecordColumns: [...propRecordColumn]
 		RecordEncoding?: string | fn.Fn
-		RecordFormat:    __RecordFormat
+		RecordFormat:    propRecordFormat
 	}
-	__JSONMappingParameters :: {
+	propJSONMappingParameters :: {
 		RecordRowPath: string | fn.Fn
 	}
-	__KinesisFirehoseInput :: {
+	propKinesisFirehoseInput :: {
 		ResourceARN: string | fn.Fn
 		RoleARN:     string | fn.Fn
 	}
-	__KinesisStreamsInput :: {
+	propKinesisStreamsInput :: {
 		ResourceARN: string | fn.Fn
 		RoleARN:     string | fn.Fn
 	}
-	__MappingParameters :: {
-		CSVMappingParameters?:  __CSVMappingParameters
-		JSONMappingParameters?: __JSONMappingParameters
+	propMappingParameters :: {
+		CSVMappingParameters?:  propCSVMappingParameters
+		JSONMappingParameters?: propJSONMappingParameters
 	}
-	__RecordColumn :: {
+	propRecordColumn :: {
 		Mapping?: string | fn.Fn
 		Name:     string | fn.Fn
 		SqlType:  string | fn.Fn
 	}
-	__RecordFormat :: {
-		MappingParameters?: __MappingParameters
+	propRecordFormat :: {
+		MappingParameters?: propMappingParameters
 		RecordFormatType:   string | fn.Fn
 	}
 }
@@ -66,28 +66,28 @@ ApplicationOutput :: {
 	Type: "AWS::KinesisAnalytics::ApplicationOutput"
 	Properties: {
 		ApplicationName: string | fn.Fn
-		Output:          __Output
+		Output:          propOutput
 	}
-	__DestinationSchema :: {
+	propDestinationSchema :: {
 		RecordFormatType?: string | fn.Fn
 	}
-	__KinesisFirehoseOutput :: {
+	propKinesisFirehoseOutput :: {
 		ResourceARN: string | fn.Fn
 		RoleARN:     string | fn.Fn
 	}
-	__KinesisStreamsOutput :: {
+	propKinesisStreamsOutput :: {
 		ResourceARN: string | fn.Fn
 		RoleARN:     string | fn.Fn
 	}
-	__LambdaOutput :: {
+	propLambdaOutput :: {
 		ResourceARN: string | fn.Fn
 		RoleARN:     string | fn.Fn
 	}
-	__Output :: {
-		DestinationSchema:      __DestinationSchema
-		KinesisFirehoseOutput?: __KinesisFirehoseOutput
-		KinesisStreamsOutput?:  __KinesisStreamsOutput
-		LambdaOutput?:          __LambdaOutput
+	propOutput :: {
+		DestinationSchema:      propDestinationSchema
+		KinesisFirehoseOutput?: propKinesisFirehoseOutput
+		KinesisStreamsOutput?:  propKinesisStreamsOutput
+		LambdaOutput?:          propLambdaOutput
 		Name?:                  string | fn.Fn
 	}
 }
@@ -95,39 +95,39 @@ ApplicationReferenceDataSource :: {
 	Type: "AWS::KinesisAnalytics::ApplicationReferenceDataSource"
 	Properties: {
 		ApplicationName:     string | fn.Fn
-		ReferenceDataSource: __ReferenceDataSource
+		ReferenceDataSource: propReferenceDataSource
 	}
-	__CSVMappingParameters :: {
+	propCSVMappingParameters :: {
 		RecordColumnDelimiter: string | fn.Fn
 		RecordRowDelimiter:    string | fn.Fn
 	}
-	__JSONMappingParameters :: {
+	propJSONMappingParameters :: {
 		RecordRowPath: string | fn.Fn
 	}
-	__MappingParameters :: {
-		CSVMappingParameters?:  __CSVMappingParameters
-		JSONMappingParameters?: __JSONMappingParameters
+	propMappingParameters :: {
+		CSVMappingParameters?:  propCSVMappingParameters
+		JSONMappingParameters?: propJSONMappingParameters
 	}
-	__RecordColumn :: {
+	propRecordColumn :: {
 		Mapping?: string | fn.Fn
 		Name:     string | fn.Fn
 		SqlType:  string | fn.Fn
 	}
-	__RecordFormat :: {
-		MappingParameters?: __MappingParameters
+	propRecordFormat :: {
+		MappingParameters?: propMappingParameters
 		RecordFormatType:   string | fn.Fn
 	}
-	__ReferenceDataSource :: {
-		ReferenceSchema:        __ReferenceSchema
-		S3ReferenceDataSource?: __S3ReferenceDataSource
+	propReferenceDataSource :: {
+		ReferenceSchema:        propReferenceSchema
+		S3ReferenceDataSource?: propS3ReferenceDataSource
 		TableName?:             string | fn.Fn
 	}
-	__ReferenceSchema :: {
-		RecordColumns: [...__RecordColumn]
+	propReferenceSchema :: {
+		RecordColumns: [...propRecordColumn]
 		RecordEncoding?: string | fn.Fn
-		RecordFormat:    __RecordFormat
+		RecordFormat:    propRecordFormat
 	}
-	__S3ReferenceDataSource :: {
+	propS3ReferenceDataSource :: {
 		BucketARN:        string | fn.Fn
 		FileKey:          string | fn.Fn
 		ReferenceRoleARN: string | fn.Fn

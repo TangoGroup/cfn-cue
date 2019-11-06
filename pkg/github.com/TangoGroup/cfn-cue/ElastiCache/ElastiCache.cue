@@ -24,7 +24,7 @@ CacheCluster :: {
 		SnapshotName?:               string | fn.Fn
 		SnapshotRetentionLimit?:     int | fn.Fn
 		SnapshotWindow?:             string | fn.Fn
-		Tags?: [...__Tag]
+		Tags?: [...propTag]
 		VpcSecurityGroupIds?: [...string] | fn.Fn
 	}
 }
@@ -51,7 +51,7 @@ ReplicationGroup :: {
 		Engine?:                   string | fn.Fn
 		EngineVersion?:            string | fn.Fn
 		KmsKeyId?:                 string | fn.Fn
-		NodeGroupConfiguration?: [...__NodeGroupConfiguration]
+		NodeGroupConfiguration?: [...propNodeGroupConfiguration]
 		NotificationTopicArn?:       string | fn.Fn
 		NumCacheClusters?:           (int & (>=1 & <=6)) | fn.Fn
 		NumNodeGroups?:              int | fn.Fn
@@ -68,10 +68,10 @@ ReplicationGroup :: {
 		SnapshotRetentionLimit?:     int | fn.Fn
 		SnapshotWindow?:             string | fn.Fn
 		SnapshottingClusterId?:      string | fn.Fn
-		Tags?: [...__Tag]
+		Tags?: [...propTag]
 		TransitEncryptionEnabled?: bool | fn.Fn
 	}
-	__NodeGroupConfiguration :: {
+	propNodeGroupConfiguration :: {
 		NodeGroupId?:              string | fn.Fn
 		PrimaryAvailabilityZone?:  string | fn.Fn
 		ReplicaAvailabilityZones?: [...string] | fn.Fn

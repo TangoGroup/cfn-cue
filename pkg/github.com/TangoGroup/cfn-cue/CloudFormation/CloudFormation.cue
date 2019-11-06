@@ -22,7 +22,7 @@ Stack :: {
 		NotificationARNs?: [...string] | fn.Fn
 		Parameters?: {
 		}
-		Tags?: [...__Tag]
+		Tags?: [...propTag]
 		TemplateURL:       string | fn.Fn
 		TimeoutInMinutes?: int | fn.Fn
 	}

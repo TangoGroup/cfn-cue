@@ -6,18 +6,18 @@ CustomActionType :: {
 	Type: "AWS::CodePipeline::CustomActionType"
 	Properties: {
 		Category: (string & ("Approval" | "Build" | "Deploy" | "Invoke" | "Source" | "Test")) | fn.Fn
-		ConfigurationProperties?: [...__ConfigurationProperties]
-		InputArtifactDetails:  __ArtifactDetails
-		OutputArtifactDetails: __ArtifactDetails
+		ConfigurationProperties?: [...propConfigurationProperties]
+		InputArtifactDetails:  propArtifactDetails
+		OutputArtifactDetails: propArtifactDetails
 		Provider:              string | fn.Fn
-		Settings?:             __Settings
+		Settings?:             propSettings
 		Version:               string | fn.Fn
 	}
-	__ArtifactDetails :: {
+	propArtifactDetails :: {
 		MaximumCount: int | fn.Fn
 		MinimumCount: int | fn.Fn
 	}
-	__ConfigurationProperties :: {
+	propConfigurationProperties :: {
 		Description?: string | fn.Fn
 		Key:          bool | fn.Fn
 		Name:         string | fn.Fn
@@ -26,7 +26,7 @@ CustomActionType :: {
 		Secret:       bool | fn.Fn
 		Type?:        (string & ("Boolean" | "Number" | "String")) | fn.Fn
 	}
-	__Settings :: {
+	propSettings :: {
 		EntityUrlTemplate?:          string | fn.Fn
 		ExecutionUrlTemplate?:       string | fn.Fn
 		RevisionUrlTemplate?:        string | fn.Fn
@@ -36,60 +36,60 @@ CustomActionType :: {
 Pipeline :: {
 	Type: "AWS::CodePipeline::Pipeline"
 	Properties: {
-		ArtifactStore?: __ArtifactStore
-		ArtifactStores?: [...__ArtifactStoreMap]
-		DisableInboundStageTransitions?: [...__StageTransition]
+		ArtifactStore?: propArtifactStore
+		ArtifactStores?: [...propArtifactStoreMap]
+		DisableInboundStageTransitions?: [...propStageTransition]
 		Name?:                     string | fn.Fn
 		RestartExecutionOnUpdate?: bool | fn.Fn
 		RoleArn:                   string | fn.Fn
-		Stages: [...__StageDeclaration]
+		Stages: [...propStageDeclaration]
 	}
-	__ActionDeclaration :: {
-		ActionTypeId:   __ActionTypeId
+	propActionDeclaration :: {
+		ActionTypeId:   propActionTypeId
 		Configuration?: {
 		} | fn.Fn
-		InputArtifacts?: [...__InputArtifact]
+		InputArtifacts?: [...propInputArtifact]
 		Name: string | fn.Fn
-		OutputArtifacts?: [...__OutputArtifact]
+		OutputArtifacts?: [...propOutputArtifact]
 		Region?:   string | fn.Fn
 		RoleArn?:  string | fn.Fn
 		RunOrder?: int | fn.Fn
 	}
-	__ActionTypeId :: {
+	propActionTypeId :: {
 		Category: (string & ("Approval" | "Build" | "Deploy" | "Invoke" | "Source" | "Test")) | fn.Fn
 		Owner:    (string & ("AWS" | "Custom" | "ThirdParty")) | fn.Fn
 		Provider: string | fn.Fn
 		Version:  string | fn.Fn
 	}
-	__ArtifactStore :: {
-		EncryptionKey?: __EncryptionKey
+	propArtifactStore :: {
+		EncryptionKey?: propEncryptionKey
 		Location:       string | fn.Fn
 		Type:           (string & ("S3")) | fn.Fn
 	}
-	__ArtifactStoreMap :: {
-		ArtifactStore: __ArtifactStore
+	propArtifactStoreMap :: {
+		ArtifactStore: propArtifactStore
 		Region:        string | fn.Fn
 	}
-	__BlockerDeclaration :: {
+	propBlockerDeclaration :: {
 		Name: string | fn.Fn
 		Type: (string & ("Schedule")) | fn.Fn
 	}
-	__EncryptionKey :: {
+	propEncryptionKey :: {
 		Id:   string | fn.Fn
 		Type: string | fn.Fn
 	}
-	__InputArtifact :: {
+	propInputArtifact :: {
 		Name: string | fn.Fn
 	}
-	__OutputArtifact :: {
+	propOutputArtifact :: {
 		Name: string | fn.Fn
 	}
-	__StageDeclaration :: {
-		Actions: [...__ActionDeclaration]
-		Blockers?: [...__BlockerDeclaration]
+	propStageDeclaration :: {
+		Actions: [...propActionDeclaration]
+		Blockers?: [...propBlockerDeclaration]
 		Name: string | fn.Fn
 	}
-	__StageTransition :: {
+	propStageTransition :: {
 		Reason:    string | fn.Fn
 		StageName: string | fn.Fn
 	}
@@ -98,19 +98,19 @@ Webhook :: {
 	Type: "AWS::CodePipeline::Webhook"
 	Properties: {
 		Authentication:              (string & ("GITHUB_HMAC" | "IP" | "UNAUTHENTICATED")) | fn.Fn
-		AuthenticationConfiguration: __WebhookAuthConfiguration
-		Filters: [...__WebhookFilterRule]
+		AuthenticationConfiguration: propWebhookAuthConfiguration
+		Filters: [...propWebhookFilterRule]
 		Name?:                   string | fn.Fn
 		RegisterWithThirdParty?: bool | fn.Fn
 		TargetAction:            string | fn.Fn
 		TargetPipeline:          string | fn.Fn
 		TargetPipelineVersion:   int | fn.Fn
 	}
-	__WebhookAuthConfiguration :: {
+	propWebhookAuthConfiguration :: {
 		AllowedIPRange?: string | fn.Fn
 		SecretToken?:    string | fn.Fn
 	}
-	__WebhookFilterRule :: {
+	propWebhookFilterRule :: {
 		JsonPath:     string | fn.Fn
 		MatchEquals?: string | fn.Fn
 	}

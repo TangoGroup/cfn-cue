@@ -5,7 +5,7 @@ import "github.com/TangoGroup/fn"
 DBCluster :: {
 	Type: "AWS::RDS::DBCluster"
 	Properties: {
-		AssociatedRoles?: [...__DBClusterRole]
+		AssociatedRoles?: [...propDBClusterRole]
 		AvailabilityZones?:               [...string] | fn.Fn
 		BacktrackWindow?:                 int | fn.Fn
 		BackupRetentionPeriod?:           (int & (>=1 & <=35)) | fn.Fn
@@ -27,21 +27,21 @@ DBCluster :: {
 		PreferredMaintenanceWindow?:      string | fn.Fn
 		ReplicationSourceIdentifier?:     string | fn.Fn
 		RestoreType?:                     string | fn.Fn
-		ScalingConfiguration?:            __ScalingConfiguration
+		ScalingConfiguration?:            propScalingConfiguration
 		SnapshotIdentifier?:              string | fn.Fn
 		SourceDBClusterIdentifier?:       string | fn.Fn
 		SourceRegion?:                    string | fn.Fn
 		StorageEncrypted?:                bool | fn.Fn
-		Tags?: [...__Tag]
+		Tags?: [...propTag]
 		UseLatestRestorableTime?: bool | fn.Fn
 		VpcSecurityGroupIds?:     [...string] | fn.Fn
 	}
-	__DBClusterRole :: {
+	propDBClusterRole :: {
 		FeatureName?: string | fn.Fn
 		RoleArn:      string | fn.Fn
 		Status?:      string | fn.Fn
 	}
-	__ScalingConfiguration :: {
+	propScalingConfiguration :: {
 		AutoPause?:             bool | fn.Fn
 		MaxCapacity?:           int | fn.Fn
 		MinCapacity?:           int | fn.Fn
@@ -55,7 +55,7 @@ DBClusterParameterGroup :: {
 		Family:      string | fn.Fn
 		Parameters:  {
 		} | fn.Fn
-		Tags?: [...__Tag]
+		Tags?: [...propTag]
 	}
 }
 DBInstance :: {
@@ -63,7 +63,7 @@ DBInstance :: {
 	Properties: {
 		AllocatedStorage?:         string | fn.Fn
 		AllowMajorVersionUpgrade?: bool | fn.Fn
-		AssociatedRoles?: [...__DBInstanceRole]
+		AssociatedRoles?: [...propDBInstanceRole]
 		AutoMinorVersionUpgrade?:            bool | fn.Fn
 		AvailabilityZone?:                   string | fn.Fn
 		BackupRetentionPeriod?:              (int & (>=0 & <=35)) | fn.Fn
@@ -100,24 +100,24 @@ DBInstance :: {
 		Port?:                               string | fn.Fn
 		PreferredBackupWindow?:              string | fn.Fn
 		PreferredMaintenanceWindow?:         string | fn.Fn
-		ProcessorFeatures?: [...__ProcessorFeature]
+		ProcessorFeatures?: [...propProcessorFeature]
 		PromotionTier?:              (int & (>=0 & <=15)) | fn.Fn
 		PubliclyAccessible?:         bool | fn.Fn
 		SourceDBInstanceIdentifier?: string | fn.Fn
 		SourceRegion?:               string | fn.Fn
 		StorageEncrypted?:           bool | fn.Fn
 		StorageType?:                string | fn.Fn
-		Tags?: [...__Tag]
+		Tags?: [...propTag]
 		Timezone?:                    string | fn.Fn
 		UseDefaultProcessorFeatures?: bool | fn.Fn
 		VPCSecurityGroups?:           [...string] | fn.Fn
 	}
-	__DBInstanceRole :: {
+	propDBInstanceRole :: {
 		FeatureName: string | fn.Fn
 		RoleArn:     string | fn.Fn
 		Status?:     string | fn.Fn
 	}
-	__ProcessorFeature :: {
+	propProcessorFeature :: {
 		Name?:  string | fn.Fn
 		Value?: string | fn.Fn
 	}
@@ -129,18 +129,18 @@ DBParameterGroup :: {
 		Family:      string | fn.Fn
 		Parameters?: {
 		}
-		Tags?: [...__Tag]
+		Tags?: [...propTag]
 	}
 }
 DBSecurityGroup :: {
 	Type: "AWS::RDS::DBSecurityGroup"
 	Properties: {
-		DBSecurityGroupIngress: [...__Ingress]
+		DBSecurityGroupIngress: [...propIngress]
 		EC2VpcId?:        string | fn.Fn
 		GroupDescription: string | fn.Fn
-		Tags?: [...__Tag]
+		Tags?: [...propTag]
 	}
-	__Ingress :: {
+	propIngress :: {
 		CIDRIP?:                  string | fn.Fn
 		EC2SecurityGroupId?:      string | fn.Fn
 		EC2SecurityGroupName?:    string | fn.Fn
@@ -163,7 +163,7 @@ DBSubnetGroup :: {
 		DBSubnetGroupDescription: string | fn.Fn
 		DBSubnetGroupName?:       string | fn.Fn
 		SubnetIds:                [...string] | fn.Fn
-		Tags?: [...__Tag]
+		Tags?: [...propTag]
 	}
 }
 EventSubscription :: {
@@ -181,19 +181,19 @@ OptionGroup :: {
 	Properties: {
 		EngineName:         string | fn.Fn
 		MajorEngineVersion: string | fn.Fn
-		OptionConfigurations: [...__OptionConfiguration]
+		OptionConfigurations: [...propOptionConfiguration]
 		OptionGroupDescription: string | fn.Fn
-		Tags?: [...__Tag]
+		Tags?: [...propTag]
 	}
-	__OptionConfiguration :: {
+	propOptionConfiguration :: {
 		DBSecurityGroupMemberships?: [...string] | fn.Fn
 		OptionName:                  string | fn.Fn
-		OptionSettings?: [...__OptionSetting]
+		OptionSettings?: [...propOptionSetting]
 		OptionVersion?:               string | fn.Fn
 		Port?:                        int | fn.Fn
 		VpcSecurityGroupMemberships?: [...string] | fn.Fn
 	}
-	__OptionSetting :: {
+	propOptionSetting :: {
 		Name?:  string | fn.Fn
 		Value?: string | fn.Fn
 	}

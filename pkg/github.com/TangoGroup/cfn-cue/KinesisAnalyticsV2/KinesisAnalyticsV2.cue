@@ -5,125 +5,125 @@ import "github.com/TangoGroup/fn"
 Application :: {
 	Type: "AWS::KinesisAnalyticsV2::Application"
 	Properties: {
-		ApplicationConfiguration?: __ApplicationConfiguration
+		ApplicationConfiguration?: propApplicationConfiguration
 		ApplicationDescription?:   string | fn.Fn
 		ApplicationName?:          string | fn.Fn
 		RuntimeEnvironment:        string | fn.Fn
 		ServiceExecutionRole:      string | fn.Fn
 	}
-	__ApplicationCodeConfiguration :: {
-		CodeContent:     __CodeContent
+	propApplicationCodeConfiguration :: {
+		CodeContent:     propCodeContent
 		CodeContentType: string | fn.Fn
 	}
-	__ApplicationConfiguration :: {
-		ApplicationCodeConfiguration?:     __ApplicationCodeConfiguration
-		ApplicationSnapshotConfiguration?: __ApplicationSnapshotConfiguration
-		EnvironmentProperties?:            __EnvironmentProperties
-		FlinkApplicationConfiguration?:    __FlinkApplicationConfiguration
-		SqlApplicationConfiguration?:      __SqlApplicationConfiguration
+	propApplicationConfiguration :: {
+		ApplicationCodeConfiguration?:     propApplicationCodeConfiguration
+		ApplicationSnapshotConfiguration?: propApplicationSnapshotConfiguration
+		EnvironmentProperties?:            propEnvironmentProperties
+		FlinkApplicationConfiguration?:    propFlinkApplicationConfiguration
+		SqlApplicationConfiguration?:      propSqlApplicationConfiguration
 	}
-	__ApplicationSnapshotConfiguration :: {
+	propApplicationSnapshotConfiguration :: {
 		SnapshotsEnabled: bool | fn.Fn
 	}
-	__CSVMappingParameters :: {
+	propCSVMappingParameters :: {
 		RecordColumnDelimiter: string | fn.Fn
 		RecordRowDelimiter:    string | fn.Fn
 	}
-	__CheckpointConfiguration :: {
+	propCheckpointConfiguration :: {
 		CheckpointInterval?:         int | fn.Fn
 		CheckpointingEnabled?:       bool | fn.Fn
 		ConfigurationType:           string | fn.Fn
 		MinPauseBetweenCheckpoints?: int | fn.Fn
 	}
-	__CodeContent :: {
-		S3ContentLocation?: __S3ContentLocation
+	propCodeContent :: {
+		S3ContentLocation?: propS3ContentLocation
 		TextContent?:       string | fn.Fn
 		ZipFileContent?:    string | fn.Fn
 	}
-	__EnvironmentProperties :: {
-		PropertyGroups?: [...__PropertyGroup]
+	propEnvironmentProperties :: {
+		PropertyGroups?: [...propPropertyGroup]
 	}
-	__FlinkApplicationConfiguration :: {
-		CheckpointConfiguration?:  __CheckpointConfiguration
-		MonitoringConfiguration?:  __MonitoringConfiguration
-		ParallelismConfiguration?: __ParallelismConfiguration
+	propFlinkApplicationConfiguration :: {
+		CheckpointConfiguration?:  propCheckpointConfiguration
+		MonitoringConfiguration?:  propMonitoringConfiguration
+		ParallelismConfiguration?: propParallelismConfiguration
 	}
-	__Input :: {
-		InputParallelism?:             __InputParallelism
-		InputProcessingConfiguration?: __InputProcessingConfiguration
-		InputSchema:                   __InputSchema
-		KinesisFirehoseInput?:         __KinesisFirehoseInput
-		KinesisStreamsInput?:          __KinesisStreamsInput
+	propInput :: {
+		InputParallelism?:             propInputParallelism
+		InputProcessingConfiguration?: propInputProcessingConfiguration
+		InputSchema:                   propInputSchema
+		KinesisFirehoseInput?:         propKinesisFirehoseInput
+		KinesisStreamsInput?:          propKinesisStreamsInput
 		NamePrefix:                    string | fn.Fn
 	}
-	__InputLambdaProcessor :: {
+	propInputLambdaProcessor :: {
 		ResourceARN: string | fn.Fn
 	}
-	__InputParallelism :: {
+	propInputParallelism :: {
 		Count?: int | fn.Fn
 	}
-	__InputProcessingConfiguration :: {
-		InputLambdaProcessor?: __InputLambdaProcessor
+	propInputProcessingConfiguration :: {
+		InputLambdaProcessor?: propInputLambdaProcessor
 	}
-	__InputSchema :: {
-		RecordColumns: [...__RecordColumn]
+	propInputSchema :: {
+		RecordColumns: [...propRecordColumn]
 		RecordEncoding?: string | fn.Fn
-		RecordFormat:    __RecordFormat
+		RecordFormat:    propRecordFormat
 	}
-	__JSONMappingParameters :: {
+	propJSONMappingParameters :: {
 		RecordRowPath: string | fn.Fn
 	}
-	__KinesisFirehoseInput :: {
+	propKinesisFirehoseInput :: {
 		ResourceARN: string | fn.Fn
 	}
-	__KinesisStreamsInput :: {
+	propKinesisStreamsInput :: {
 		ResourceARN: string | fn.Fn
 	}
-	__MappingParameters :: {
-		CSVMappingParameters?:  __CSVMappingParameters
-		JSONMappingParameters?: __JSONMappingParameters
+	propMappingParameters :: {
+		CSVMappingParameters?:  propCSVMappingParameters
+		JSONMappingParameters?: propJSONMappingParameters
 	}
-	__MonitoringConfiguration :: {
+	propMonitoringConfiguration :: {
 		ConfigurationType: string | fn.Fn
 		LogLevel?:         string | fn.Fn
 		MetricsLevel?:     string | fn.Fn
 	}
-	__ParallelismConfiguration :: {
+	propParallelismConfiguration :: {
 		AutoScalingEnabled?: bool | fn.Fn
 		ConfigurationType:   string | fn.Fn
 		Parallelism?:        int | fn.Fn
 		ParallelismPerKPU?:  int | fn.Fn
 	}
-	__PropertyGroup :: {
+	propPropertyGroup :: {
 		PropertyGroupId?: string | fn.Fn
 		PropertyMap?:     {
 		} | fn.Fn
 	}
-	__RecordColumn :: {
+	propRecordColumn :: {
 		Mapping?: string | fn.Fn
 		Name:     string | fn.Fn
 		SqlType:  string | fn.Fn
 	}
-	__RecordFormat :: {
-		MappingParameters?: __MappingParameters
+	propRecordFormat :: {
+		MappingParameters?: propMappingParameters
 		RecordFormatType:   string | fn.Fn
 	}
-	__S3ContentLocation :: {
+	propS3ContentLocation :: {
 		BucketARN?:     string | fn.Fn
 		FileKey?:       string | fn.Fn
 		ObjectVersion?: string | fn.Fn
 	}
-	__SqlApplicationConfiguration :: {
-		Inputs?: [...__Input]
+	propSqlApplicationConfiguration :: {
+		Inputs?: [...propInput]
 	}
 }
 ApplicationCloudWatchLoggingOption :: {
 	Type: "AWS::KinesisAnalyticsV2::ApplicationCloudWatchLoggingOption"
 	Properties: {
 		ApplicationName:         string | fn.Fn
-		CloudWatchLoggingOption: __CloudWatchLoggingOption
+		CloudWatchLoggingOption: propCloudWatchLoggingOption
 	}
-	__CloudWatchLoggingOption :: {
+	propCloudWatchLoggingOption :: {
 		LogStreamARN: string | fn.Fn
 	}
 }
@@ -131,25 +131,25 @@ ApplicationOutput :: {
 	Type: "AWS::KinesisAnalyticsV2::ApplicationOutput"
 	Properties: {
 		ApplicationName: string | fn.Fn
-		Output:          __Output
+		Output:          propOutput
 	}
-	__DestinationSchema :: {
+	propDestinationSchema :: {
 		RecordFormatType?: string | fn.Fn
 	}
-	__KinesisFirehoseOutput :: {
+	propKinesisFirehoseOutput :: {
 		ResourceARN: string | fn.Fn
 	}
-	__KinesisStreamsOutput :: {
+	propKinesisStreamsOutput :: {
 		ResourceARN: string | fn.Fn
 	}
-	__LambdaOutput :: {
+	propLambdaOutput :: {
 		ResourceARN: string | fn.Fn
 	}
-	__Output :: {
-		DestinationSchema:      __DestinationSchema
-		KinesisFirehoseOutput?: __KinesisFirehoseOutput
-		KinesisStreamsOutput?:  __KinesisStreamsOutput
-		LambdaOutput?:          __LambdaOutput
+	propOutput :: {
+		DestinationSchema:      propDestinationSchema
+		KinesisFirehoseOutput?: propKinesisFirehoseOutput
+		KinesisStreamsOutput?:  propKinesisStreamsOutput
+		LambdaOutput?:          propLambdaOutput
 		Name?:                  string | fn.Fn
 	}
 }
@@ -157,39 +157,39 @@ ApplicationReferenceDataSource :: {
 	Type: "AWS::KinesisAnalyticsV2::ApplicationReferenceDataSource"
 	Properties: {
 		ApplicationName:     string | fn.Fn
-		ReferenceDataSource: __ReferenceDataSource
+		ReferenceDataSource: propReferenceDataSource
 	}
-	__CSVMappingParameters :: {
+	propCSVMappingParameters :: {
 		RecordColumnDelimiter: string | fn.Fn
 		RecordRowDelimiter:    string | fn.Fn
 	}
-	__JSONMappingParameters :: {
+	propJSONMappingParameters :: {
 		RecordRowPath: string | fn.Fn
 	}
-	__MappingParameters :: {
-		CSVMappingParameters?:  __CSVMappingParameters
-		JSONMappingParameters?: __JSONMappingParameters
+	propMappingParameters :: {
+		CSVMappingParameters?:  propCSVMappingParameters
+		JSONMappingParameters?: propJSONMappingParameters
 	}
-	__RecordColumn :: {
+	propRecordColumn :: {
 		Mapping?: string | fn.Fn
 		Name:     string | fn.Fn
 		SqlType:  string | fn.Fn
 	}
-	__RecordFormat :: {
-		MappingParameters?: __MappingParameters
+	propRecordFormat :: {
+		MappingParameters?: propMappingParameters
 		RecordFormatType:   string | fn.Fn
 	}
-	__ReferenceDataSource :: {
-		ReferenceSchema:        __ReferenceSchema
-		S3ReferenceDataSource?: __S3ReferenceDataSource
+	propReferenceDataSource :: {
+		ReferenceSchema:        propReferenceSchema
+		S3ReferenceDataSource?: propS3ReferenceDataSource
 		TableName?:             string | fn.Fn
 	}
-	__ReferenceSchema :: {
-		RecordColumns: [...__RecordColumn]
+	propReferenceSchema :: {
+		RecordColumns: [...propRecordColumn]
 		RecordEncoding?: string | fn.Fn
-		RecordFormat:    __RecordFormat
+		RecordFormat:    propRecordFormat
 	}
-	__S3ReferenceDataSource :: {
+	propS3ReferenceDataSource :: {
 		BucketARN: string | fn.Fn
 		FileKey:   string | fn.Fn
 	}

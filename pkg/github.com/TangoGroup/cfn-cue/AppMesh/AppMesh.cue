@@ -6,14 +6,14 @@ Mesh :: {
 	Type: "AWS::AppMesh::Mesh"
 	Properties: {
 		MeshName: string | fn.Fn
-		Spec?:    __MeshSpec
-		Tags?: [...__Tag]
+		Spec?:    propMeshSpec
+		Tags?: [...propTag]
 	}
-	__EgressFilter :: {
+	propEgressFilter :: {
 		Type: string | fn.Fn
 	}
-	__MeshSpec :: {
-		EgressFilter?: __EgressFilter
+	propMeshSpec :: {
+		EgressFilter?: propEgressFilter
 	}
 }
 Route :: {
@@ -21,96 +21,96 @@ Route :: {
 	Properties: {
 		MeshName:  string | fn.Fn
 		RouteName: string | fn.Fn
-		Spec:      __RouteSpec
-		Tags?: [...__Tag]
+		Spec:      propRouteSpec
+		Tags?: [...propTag]
 		VirtualRouterName: string | fn.Fn
 	}
-	__Duration :: {
+	propDuration :: {
 		Unit:  string | fn.Fn
 		Value: int | fn.Fn
 	}
-	__GrpcRetryPolicy :: {
+	propGrpcRetryPolicy :: {
 		GrpcRetryEvents?: [...string] | fn.Fn
 		HttpRetryEvents?: [...string] | fn.Fn
 		MaxRetries:       int | fn.Fn
-		PerRetryTimeout:  __Duration
+		PerRetryTimeout:  propDuration
 		TcpRetryEvents?:  [...string] | fn.Fn
 	}
-	__GrpcRoute :: {
-		Action:       __GrpcRouteAction
-		Match:        __GrpcRouteMatch
-		RetryPolicy?: __GrpcRetryPolicy
+	propGrpcRoute :: {
+		Action:       propGrpcRouteAction
+		Match:        propGrpcRouteMatch
+		RetryPolicy?: propGrpcRetryPolicy
 	}
-	__GrpcRouteAction :: {
-		WeightedTargets: [...__WeightedTarget]
+	propGrpcRouteAction :: {
+		WeightedTargets: [...propWeightedTarget]
 	}
-	__GrpcRouteMatch :: {
-		Metadata?: [...__GrpcRouteMetadata]
+	propGrpcRouteMatch :: {
+		Metadata?: [...propGrpcRouteMetadata]
 		MethodName?:  string | fn.Fn
 		ServiceName?: string | fn.Fn
 	}
-	__GrpcRouteMetadata :: {
+	propGrpcRouteMetadata :: {
 		Invert?: bool | fn.Fn
-		Match?:  __GrpcRouteMetadataMatchMethod
+		Match?:  propGrpcRouteMetadataMatchMethod
 		Name:    string | fn.Fn
 	}
-	__GrpcRouteMetadataMatchMethod :: {
+	propGrpcRouteMetadataMatchMethod :: {
 		Exact?:  string | fn.Fn
 		Prefix?: string | fn.Fn
-		Range?:  __MatchRange
+		Range?:  propMatchRange
 		Regex?:  string | fn.Fn
 		Suffix?: string | fn.Fn
 	}
-	__HeaderMatchMethod :: {
+	propHeaderMatchMethod :: {
 		Exact?:  string | fn.Fn
 		Prefix?: string | fn.Fn
-		Range?:  __MatchRange
+		Range?:  propMatchRange
 		Regex?:  string | fn.Fn
 		Suffix?: string | fn.Fn
 	}
-	__HttpRetryPolicy :: {
+	propHttpRetryPolicy :: {
 		HttpRetryEvents?: [...string] | fn.Fn
 		MaxRetries:       int | fn.Fn
-		PerRetryTimeout:  __Duration
+		PerRetryTimeout:  propDuration
 		TcpRetryEvents?:  [...string] | fn.Fn
 	}
-	__HttpRoute :: {
-		Action:       __HttpRouteAction
-		Match:        __HttpRouteMatch
-		RetryPolicy?: __HttpRetryPolicy
+	propHttpRoute :: {
+		Action:       propHttpRouteAction
+		Match:        propHttpRouteMatch
+		RetryPolicy?: propHttpRetryPolicy
 	}
-	__HttpRouteAction :: {
-		WeightedTargets: [...__WeightedTarget]
+	propHttpRouteAction :: {
+		WeightedTargets: [...propWeightedTarget]
 	}
-	__HttpRouteHeader :: {
+	propHttpRouteHeader :: {
 		Invert?: bool | fn.Fn
-		Match?:  __HeaderMatchMethod
+		Match?:  propHeaderMatchMethod
 		Name:    string | fn.Fn
 	}
-	__HttpRouteMatch :: {
-		Headers?: [...__HttpRouteHeader]
+	propHttpRouteMatch :: {
+		Headers?: [...propHttpRouteHeader]
 		Method?: string | fn.Fn
 		Prefix:  string | fn.Fn
 		Scheme?: string | fn.Fn
 	}
-	__MatchRange :: {
+	propMatchRange :: {
 		End:   int | fn.Fn
 		Start: int | fn.Fn
 	}
-	__RouteSpec :: {
-		GrpcRoute?:  __GrpcRoute
-		Http2Route?: __HttpRoute
-		HttpRoute?:  __HttpRoute
+	propRouteSpec :: {
+		GrpcRoute?:  propGrpcRoute
+		Http2Route?: propHttpRoute
+		HttpRoute?:  propHttpRoute
 		Priority?:   int | fn.Fn
-		TcpRoute?:   __TcpRoute
+		TcpRoute?:   propTcpRoute
 	}
-	__TcpRoute :: {
-		Action: __TcpRouteAction
+	propTcpRoute :: {
+		Action: propTcpRouteAction
 	}
-	__TcpRouteAction :: {
-		WeightedTargets: [...__WeightedTarget]
+	propTcpRouteAction :: {
+		WeightedTargets: [...propWeightedTarget]
 	}
-	__WeightedTarget :: {
+	propWeightedTarget :: {
 		VirtualNode: string | fn.Fn
 		Weight:      int | fn.Fn
 	}
@@ -119,32 +119,32 @@ VirtualNode :: {
 	Type: "AWS::AppMesh::VirtualNode"
 	Properties: {
 		MeshName: string | fn.Fn
-		Spec:     __VirtualNodeSpec
-		Tags?: [...__Tag]
+		Spec:     propVirtualNodeSpec
+		Tags?: [...propTag]
 		VirtualNodeName: string | fn.Fn
 	}
-	__AccessLog :: {
-		File?: __FileAccessLog
+	propAccessLog :: {
+		File?: propFileAccessLog
 	}
-	__AwsCloudMapInstanceAttribute :: {
+	propAwsCloudMapInstanceAttribute :: {
 		Key:   string | fn.Fn
 		Value: string | fn.Fn
 	}
-	__AwsCloudMapServiceDiscovery :: {
-		Attributes?: [...__AwsCloudMapInstanceAttribute]
+	propAwsCloudMapServiceDiscovery :: {
+		Attributes?: [...propAwsCloudMapInstanceAttribute]
 		NamespaceName: string | fn.Fn
 		ServiceName:   string | fn.Fn
 	}
-	__Backend :: {
-		VirtualService?: __VirtualServiceBackend
+	propBackend :: {
+		VirtualService?: propVirtualServiceBackend
 	}
-	__DnsServiceDiscovery :: {
+	propDnsServiceDiscovery :: {
 		Hostname: string | fn.Fn
 	}
-	__FileAccessLog :: {
+	propFileAccessLog :: {
 		Path: string | fn.Fn
 	}
-	__HealthCheck :: {
+	propHealthCheck :: {
 		HealthyThreshold:   int | fn.Fn
 		IntervalMillis:     int | fn.Fn
 		Path?:              string | fn.Fn
@@ -153,28 +153,28 @@ VirtualNode :: {
 		TimeoutMillis:      int | fn.Fn
 		UnhealthyThreshold: int | fn.Fn
 	}
-	__Listener :: {
-		HealthCheck?: __HealthCheck
-		PortMapping:  __PortMapping
+	propListener :: {
+		HealthCheck?: propHealthCheck
+		PortMapping:  propPortMapping
 	}
-	__Logging :: {
-		AccessLog?: __AccessLog
+	propLogging :: {
+		AccessLog?: propAccessLog
 	}
-	__PortMapping :: {
+	propPortMapping :: {
 		Port:     int | fn.Fn
 		Protocol: string | fn.Fn
 	}
-	__ServiceDiscovery :: {
-		AWSCloudMap?: __AwsCloudMapServiceDiscovery
-		DNS?:         __DnsServiceDiscovery
+	propServiceDiscovery :: {
+		AWSCloudMap?: propAwsCloudMapServiceDiscovery
+		DNS?:         propDnsServiceDiscovery
 	}
-	__VirtualNodeSpec :: {
-		Backends?: [...__Backend]
-		Listeners?: [...__Listener]
-		Logging?:          __Logging
-		ServiceDiscovery?: __ServiceDiscovery
+	propVirtualNodeSpec :: {
+		Backends?: [...propBackend]
+		Listeners?: [...propListener]
+		Logging?:          propLogging
+		ServiceDiscovery?: propServiceDiscovery
 	}
-	__VirtualServiceBackend :: {
+	propVirtualServiceBackend :: {
 		VirtualServiceName: string | fn.Fn
 	}
 }
@@ -182,40 +182,40 @@ VirtualRouter :: {
 	Type: "AWS::AppMesh::VirtualRouter"
 	Properties: {
 		MeshName: string | fn.Fn
-		Spec:     __VirtualRouterSpec
-		Tags?: [...__Tag]
+		Spec:     propVirtualRouterSpec
+		Tags?: [...propTag]
 		VirtualRouterName: string | fn.Fn
 	}
-	__PortMapping :: {
+	propPortMapping :: {
 		Port:     int | fn.Fn
 		Protocol: string | fn.Fn
 	}
-	__VirtualRouterListener :: {
-		PortMapping: __PortMapping
+	propVirtualRouterListener :: {
+		PortMapping: propPortMapping
 	}
-	__VirtualRouterSpec :: {
-		Listeners: [...__VirtualRouterListener]
+	propVirtualRouterSpec :: {
+		Listeners: [...propVirtualRouterListener]
 	}
 }
 VirtualService :: {
 	Type: "AWS::AppMesh::VirtualService"
 	Properties: {
 		MeshName: string | fn.Fn
-		Spec:     __VirtualServiceSpec
-		Tags?: [...__Tag]
+		Spec:     propVirtualServiceSpec
+		Tags?: [...propTag]
 		VirtualServiceName: string | fn.Fn
 	}
-	__VirtualNodeServiceProvider :: {
+	propVirtualNodeServiceProvider :: {
 		VirtualNodeName: string | fn.Fn
 	}
-	__VirtualRouterServiceProvider :: {
+	propVirtualRouterServiceProvider :: {
 		VirtualRouterName: string | fn.Fn
 	}
-	__VirtualServiceProvider :: {
-		VirtualNode?:   __VirtualNodeServiceProvider
-		VirtualRouter?: __VirtualRouterServiceProvider
+	propVirtualServiceProvider :: {
+		VirtualNode?:   propVirtualNodeServiceProvider
+		VirtualRouter?: propVirtualRouterServiceProvider
 	}
-	__VirtualServiceSpec :: {
-		Provider?: __VirtualServiceProvider
+	propVirtualServiceSpec :: {
+		Provider?: propVirtualServiceProvider
 	}
 }

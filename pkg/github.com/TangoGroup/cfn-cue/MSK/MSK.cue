@@ -5,49 +5,49 @@ import "github.com/TangoGroup/fn"
 Cluster :: {
 	Type: "AWS::MSK::Cluster"
 	Properties: {
-		BrokerNodeGroupInfo:   __BrokerNodeGroupInfo
-		ClientAuthentication?: __ClientAuthentication
+		BrokerNodeGroupInfo:   propBrokerNodeGroupInfo
+		ClientAuthentication?: propClientAuthentication
 		ClusterName:           string | fn.Fn
-		ConfigurationInfo?:    __ConfigurationInfo
-		EncryptionInfo?:       __EncryptionInfo
+		ConfigurationInfo?:    propConfigurationInfo
+		EncryptionInfo?:       propEncryptionInfo
 		EnhancedMonitoring?:   string | fn.Fn
 		KafkaVersion:          string | fn.Fn
 		NumberOfBrokerNodes:   int | fn.Fn
 		Tags?:                 {
 		} | fn.Fn
 	}
-	__BrokerNodeGroupInfo :: {
+	propBrokerNodeGroupInfo :: {
 		BrokerAZDistribution?: string | fn.Fn
 		ClientSubnets:         [...string] | fn.Fn
 		InstanceType:          string | fn.Fn
 		SecurityGroups?:       [...string] | fn.Fn
-		StorageInfo?:          __StorageInfo
+		StorageInfo?:          propStorageInfo
 	}
-	__ClientAuthentication :: {
-		Tls?: __Tls
+	propClientAuthentication :: {
+		Tls?: propTls
 	}
-	__ConfigurationInfo :: {
+	propConfigurationInfo :: {
 		Arn:      string | fn.Fn
 		Revision: int | fn.Fn
 	}
-	__EBSStorageInfo :: {
+	propEBSStorageInfo :: {
 		VolumeSize?: int | fn.Fn
 	}
-	__EncryptionAtRest :: {
+	propEncryptionAtRest :: {
 		DataVolumeKMSKeyId: string | fn.Fn
 	}
-	__EncryptionInTransit :: {
+	propEncryptionInTransit :: {
 		ClientBroker?: string | fn.Fn
 		InCluster?:    bool | fn.Fn
 	}
-	__EncryptionInfo :: {
-		EncryptionAtRest?:    __EncryptionAtRest
-		EncryptionInTransit?: __EncryptionInTransit
+	propEncryptionInfo :: {
+		EncryptionAtRest?:    propEncryptionAtRest
+		EncryptionInTransit?: propEncryptionInTransit
 	}
-	__StorageInfo :: {
-		EBSStorageInfo?: __EBSStorageInfo
+	propStorageInfo :: {
+		EBSStorageInfo?: propEBSStorageInfo
 	}
-	__Tls :: {
+	propTls :: {
 		CertificateAuthorityArnList?: [...string] | fn.Fn
 	}
 }

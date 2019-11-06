@@ -5,45 +5,45 @@ import "github.com/TangoGroup/fn"
 ScalingPlan :: {
 	Type: "AWS::AutoScalingPlans::ScalingPlan"
 	Properties: {
-		ApplicationSource: __ApplicationSource
-		ScalingInstructions: [...__ScalingInstruction]
+		ApplicationSource: propApplicationSource
+		ScalingInstructions: [...propScalingInstruction]
 	}
-	__ApplicationSource :: {
+	propApplicationSource :: {
 		CloudFormationStackARN?: string | fn.Fn
-		TagFilters?: [...__TagFilter]
+		TagFilters?: [...propTagFilter]
 	}
-	__CustomizedLoadMetricSpecification :: {
-		Dimensions?: [...__MetricDimension]
+	propCustomizedLoadMetricSpecification :: {
+		Dimensions?: [...propMetricDimension]
 		MetricName: string | fn.Fn
 		Namespace:  string | fn.Fn
 		Statistic:  string | fn.Fn
 		Unit?:      string | fn.Fn
 	}
-	__CustomizedScalingMetricSpecification :: {
-		Dimensions?: [...__MetricDimension]
+	propCustomizedScalingMetricSpecification :: {
+		Dimensions?: [...propMetricDimension]
 		MetricName: string | fn.Fn
 		Namespace:  string | fn.Fn
 		Statistic:  (string & ("Average" | "Minimum" | "Maximum" | "SampleCount" | "Sum")) | fn.Fn
 		Unit?:      string | fn.Fn
 	}
-	__MetricDimension :: {
+	propMetricDimension :: {
 		Name:  string | fn.Fn
 		Value: string | fn.Fn
 	}
-	__PredefinedLoadMetricSpecification :: {
+	propPredefinedLoadMetricSpecification :: {
 		PredefinedLoadMetricType: string | fn.Fn
 		ResourceLabel?:           string | fn.Fn
 	}
-	__PredefinedScalingMetricSpecification :: {
+	propPredefinedScalingMetricSpecification :: {
 		PredefinedScalingMetricType: (string & ("ALBRequestCountPerTarget" | "ASGAverageCPUUtilization" | "ASGAverageNetworkIn" | "ASGAverageNetworkOut")) | fn.Fn
 		ResourceLabel?:              string | fn.Fn
 	}
-	__ScalingInstruction :: {
-		CustomizedLoadMetricSpecification?:    __CustomizedLoadMetricSpecification
+	propScalingInstruction :: {
+		CustomizedLoadMetricSpecification?:    propCustomizedLoadMetricSpecification
 		DisableDynamicScaling?:                bool | fn.Fn
 		MaxCapacity:                           int | fn.Fn
 		MinCapacity:                           int | fn.Fn
-		PredefinedLoadMetricSpecification?:    __PredefinedLoadMetricSpecification
+		PredefinedLoadMetricSpecification?:    propPredefinedLoadMetricSpecification
 		PredictiveScalingMaxCapacityBehavior?: (string & ("SetForecastCapacityToMaxCapacity" | "SetMaxCapacityToForecastCapacity" | "SetMaxCapacityAboveForecastCapacity")) | fn.Fn
 		PredictiveScalingMaxCapacityBuffer?:   int | fn.Fn
 		PredictiveScalingMode?:                (string & ("ForecastAndScale" | "ForecastOnly")) | fn.Fn
@@ -52,17 +52,17 @@ ScalingPlan :: {
 		ScalingPolicyUpdateBehavior?:          string | fn.Fn
 		ScheduledActionBufferTime?:            int | fn.Fn
 		ServiceNamespace:                      (string & ("autoscaling" | "dynamodb" | "ecs" | "ec2" | "rds")) | fn.Fn
-		TargetTrackingConfigurations: [...__TargetTrackingConfiguration]
+		TargetTrackingConfigurations: [...propTargetTrackingConfiguration]
 	}
-	__TagFilter :: {
+	propTagFilter :: {
 		Key:     string | fn.Fn
 		Values?: [...string] | fn.Fn
 	}
-	__TargetTrackingConfiguration :: {
-		CustomizedScalingMetricSpecification?: __CustomizedScalingMetricSpecification
+	propTargetTrackingConfiguration :: {
+		CustomizedScalingMetricSpecification?: propCustomizedScalingMetricSpecification
 		DisableScaleIn?:                       bool | fn.Fn
 		EstimatedInstanceWarmup?:              int | fn.Fn
-		PredefinedScalingMetricSpecification?: __PredefinedScalingMetricSpecification
+		PredefinedScalingMetricSpecification?: propPredefinedScalingMetricSpecification
 		ScaleInCooldown?:                      int | fn.Fn
 		ScaleOutCooldown?:                     int | fn.Fn
 		TargetValue:                           float | fn.Fn

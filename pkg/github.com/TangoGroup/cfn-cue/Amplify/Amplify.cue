@@ -6,41 +6,41 @@ App :: {
 	Type: "AWS::Amplify::App"
 	Properties: {
 		AccessToken?:              string | fn.Fn
-		AutoBranchCreationConfig?: __AutoBranchCreationConfig
-		BasicAuthConfig?:          __BasicAuthConfig
+		AutoBranchCreationConfig?: propAutoBranchCreationConfig
+		BasicAuthConfig?:          propBasicAuthConfig
 		BuildSpec?:                string | fn.Fn
-		CustomRules?: [...__CustomRule]
+		CustomRules?: [...propCustomRule]
 		Description?: string | fn.Fn
-		EnvironmentVariables?: [...__EnvironmentVariable]
+		EnvironmentVariables?: [...propEnvironmentVariable]
 		IAMServiceRole?: string | fn.Fn
 		Name:            string | fn.Fn
 		OauthToken?:     string | fn.Fn
 		Repository?:     string | fn.Fn
-		Tags?: [...__Tag]
+		Tags?: [...propTag]
 	}
-	__AutoBranchCreationConfig :: {
+	propAutoBranchCreationConfig :: {
 		AutoBranchCreationPatterns?: [...string] | fn.Fn
-		BasicAuthConfig?:            __BasicAuthConfig
+		BasicAuthConfig?:            propBasicAuthConfig
 		BuildSpec?:                  string | fn.Fn
 		EnableAutoBranchCreation?:   bool | fn.Fn
 		EnableAutoBuild?:            bool | fn.Fn
 		EnablePullRequestPreview?:   bool | fn.Fn
-		EnvironmentVariables?: [...__EnvironmentVariable]
+		EnvironmentVariables?: [...propEnvironmentVariable]
 		PullRequestEnvironmentName?: string | fn.Fn
 		Stage?:                      string | fn.Fn
 	}
-	__BasicAuthConfig :: {
+	propBasicAuthConfig :: {
 		EnableBasicAuth?: bool | fn.Fn
 		Password?:        string | fn.Fn
 		Username?:        string | fn.Fn
 	}
-	__CustomRule :: {
+	propCustomRule :: {
 		Condition?: string | fn.Fn
 		Source:     string | fn.Fn
 		Status?:    string | fn.Fn
 		Target:     string | fn.Fn
 	}
-	__EnvironmentVariable :: {
+	propEnvironmentVariable :: {
 		Name:  string | fn.Fn
 		Value: string | fn.Fn
 	}
@@ -49,23 +49,23 @@ Branch :: {
 	Type: "AWS::Amplify::Branch"
 	Properties: {
 		AppId:                     string | fn.Fn
-		BasicAuthConfig?:          __BasicAuthConfig
+		BasicAuthConfig?:          propBasicAuthConfig
 		BranchName:                string | fn.Fn
 		BuildSpec?:                string | fn.Fn
 		Description?:              string | fn.Fn
 		EnableAutoBuild?:          bool | fn.Fn
 		EnablePullRequestPreview?: bool | fn.Fn
-		EnvironmentVariables?: [...__EnvironmentVariable]
+		EnvironmentVariables?: [...propEnvironmentVariable]
 		PullRequestEnvironmentName?: string | fn.Fn
 		Stage?:                      string | fn.Fn
-		Tags?: [...__Tag]
+		Tags?: [...propTag]
 	}
-	__BasicAuthConfig :: {
+	propBasicAuthConfig :: {
 		EnableBasicAuth?: bool | fn.Fn
 		Password:         string | fn.Fn
 		Username:         string | fn.Fn
 	}
-	__EnvironmentVariable :: {
+	propEnvironmentVariable :: {
 		Name:  string | fn.Fn
 		Value: string | fn.Fn
 	}
@@ -75,9 +75,9 @@ Domain :: {
 	Properties: {
 		AppId:      string | fn.Fn
 		DomainName: string | fn.Fn
-		SubDomainSettings: [...__SubDomainSetting]
+		SubDomainSettings: [...propSubDomainSetting]
 	}
-	__SubDomainSetting :: {
+	propSubDomainSetting :: {
 		BranchName: string | fn.Fn
 		Prefix:     string | fn.Fn
 	}

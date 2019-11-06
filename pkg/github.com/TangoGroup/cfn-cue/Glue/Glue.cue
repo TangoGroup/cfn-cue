@@ -5,12 +5,12 @@ import "github.com/TangoGroup/fn"
 Classifier :: {
 	Type: "AWS::Glue::Classifier"
 	Properties: {
-		CsvClassifier?:  __CsvClassifier
-		GrokClassifier?: __GrokClassifier
-		JsonClassifier?: __JsonClassifier
-		XMLClassifier?:  __XMLClassifier
+		CsvClassifier?:  propCsvClassifier
+		GrokClassifier?: propGrokClassifier
+		JsonClassifier?: propJsonClassifier
+		XMLClassifier?:  propXMLClassifier
 	}
-	__CsvClassifier :: {
+	propCsvClassifier :: {
 		AllowSingleColumn?:    bool | fn.Fn
 		ContainsHeader?:       string | fn.Fn
 		Delimiter?:            string | fn.Fn
@@ -19,17 +19,17 @@ Classifier :: {
 		Name?:                 string | fn.Fn
 		QuoteSymbol?:          string | fn.Fn
 	}
-	__GrokClassifier :: {
+	propGrokClassifier :: {
 		Classification:  string | fn.Fn
 		CustomPatterns?: string | fn.Fn
 		GrokPattern:     string | fn.Fn
 		Name?:           string | fn.Fn
 	}
-	__JsonClassifier :: {
+	propJsonClassifier :: {
 		JsonPath: string | fn.Fn
 		Name?:    string | fn.Fn
 	}
-	__XMLClassifier :: {
+	propXMLClassifier :: {
 		Classification: string | fn.Fn
 		Name?:          string | fn.Fn
 		RowTag:         string | fn.Fn
@@ -39,18 +39,18 @@ Connection :: {
 	Type: "AWS::Glue::Connection"
 	Properties: {
 		CatalogId:       string | fn.Fn
-		ConnectionInput: __ConnectionInput
+		ConnectionInput: propConnectionInput
 	}
-	__ConnectionInput :: {
+	propConnectionInput :: {
 		ConnectionProperties: {
 		} | fn.Fn
 		ConnectionType:                  (string & ("JDBC" | "SFTP")) | fn.Fn
 		Description?:                    string | fn.Fn
 		MatchCriteria?:                  [...string] | fn.Fn
 		Name?:                           string | fn.Fn
-		PhysicalConnectionRequirements?: __PhysicalConnectionRequirements
+		PhysicalConnectionRequirements?: propPhysicalConnectionRequirements
 	}
-	__PhysicalConnectionRequirements :: {
+	propPhysicalConnectionRequirements :: {
 		AvailabilityZone?:    string | fn.Fn
 		SecurityGroupIdList?: [...string] | fn.Fn
 		SubnetId?:            string | fn.Fn
@@ -66,58 +66,58 @@ Crawler :: {
 		Description?:                  string | fn.Fn
 		Name?:                         string | fn.Fn
 		Role:                          string | fn.Fn
-		Schedule?:                     __Schedule
-		SchemaChangePolicy?:           __SchemaChangePolicy
+		Schedule?:                     propSchedule
+		SchemaChangePolicy?:           propSchemaChangePolicy
 		TablePrefix?:                  string | fn.Fn
 		Tags?:                         {
 		} | fn.Fn
-		Targets: __Targets
+		Targets: propTargets
 	}
-	__CatalogTarget :: {
+	propCatalogTarget :: {
 		DatabaseName?: string | fn.Fn
 		Tables?:       [...string] | fn.Fn
 	}
-	__DynamoDBTarget :: {
+	propDynamoDBTarget :: {
 		Path?: string | fn.Fn
 	}
-	__JdbcTarget :: {
+	propJdbcTarget :: {
 		ConnectionName?: string | fn.Fn
 		Exclusions?:     [...string] | fn.Fn
 		Path?:           string | fn.Fn
 	}
-	__S3Target :: {
+	propS3Target :: {
 		Exclusions?: [...string] | fn.Fn
 		Path?:       string | fn.Fn
 	}
-	__Schedule :: {
+	propSchedule :: {
 		ScheduleExpression?: string | fn.Fn
 	}
-	__SchemaChangePolicy :: {
+	propSchemaChangePolicy :: {
 		DeleteBehavior?: (string & ("DELETE_FROM_DATABASE" | "DEPRECATE_IN_DATABASE" | "LOG")) | fn.Fn
 		UpdateBehavior?: (string & ("LOG" | "UPDATE_IN_DATABASE")) | fn.Fn
 	}
-	__Targets :: {
-		CatalogTargets?: [...__CatalogTarget]
-		DynamoDBTargets?: [...__DynamoDBTarget]
-		JdbcTargets?: [...__JdbcTarget]
-		S3Targets?: [...__S3Target]
+	propTargets :: {
+		CatalogTargets?: [...propCatalogTarget]
+		DynamoDBTargets?: [...propDynamoDBTarget]
+		JdbcTargets?: [...propJdbcTarget]
+		S3Targets?: [...propS3Target]
 	}
 }
 DataCatalogEncryptionSettings :: {
 	Type: "AWS::Glue::DataCatalogEncryptionSettings"
 	Properties: {
 		CatalogId:                     string | fn.Fn
-		DataCatalogEncryptionSettings: __DataCatalogEncryptionSettings
+		DataCatalogEncryptionSettings: propDataCatalogEncryptionSettings
 	}
-	__ConnectionPasswordEncryption :: {
+	propConnectionPasswordEncryption :: {
 		KmsKeyId?:                          string | fn.Fn
 		ReturnConnectionPasswordEncrypted?: bool | fn.Fn
 	}
-	__DataCatalogEncryptionSettings :: {
-		ConnectionPasswordEncryption?: __ConnectionPasswordEncryption
-		EncryptionAtRest?:             __EncryptionAtRest
+	propDataCatalogEncryptionSettings :: {
+		ConnectionPasswordEncryption?: propConnectionPasswordEncryption
+		EncryptionAtRest?:             propEncryptionAtRest
 	}
-	__EncryptionAtRest :: {
+	propEncryptionAtRest :: {
 		CatalogEncryptionMode?: string | fn.Fn
 		SseAwsKmsKeyId?:        string | fn.Fn
 	}
@@ -126,9 +126,9 @@ Database :: {
 	Type: "AWS::Glue::Database"
 	Properties: {
 		CatalogId:     string | fn.Fn
-		DatabaseInput: __DatabaseInput
+		DatabaseInput: propDatabaseInput
 	}
-	__DatabaseInput :: {
+	propDatabaseInput :: {
 		Description?: string | fn.Fn
 		LocationUri?: string | fn.Fn
 		Name?:        string | fn.Fn
@@ -161,18 +161,18 @@ Job :: {
 	Type: "AWS::Glue::Job"
 	Properties: {
 		AllocatedCapacity?: float | fn.Fn
-		Command:            __JobCommand
-		Connections?:       __ConnectionsList
+		Command:            propJobCommand
+		Connections?:       propConnectionsList
 		DefaultArguments?:  {
 		} | fn.Fn
 		Description?:           string | fn.Fn
-		ExecutionProperty?:     __ExecutionProperty
+		ExecutionProperty?:     propExecutionProperty
 		GlueVersion?:           string | fn.Fn
 		LogUri?:                string | fn.Fn
 		MaxCapacity?:           float | fn.Fn
 		MaxRetries?:            float | fn.Fn
 		Name?:                  string | fn.Fn
-		NotificationProperty?:  __NotificationProperty
+		NotificationProperty?:  propNotificationProperty
 		NumberOfWorkers?:       (int & (>=0 & <=299)) | fn.Fn
 		Role:                   string | fn.Fn
 		SecurityConfiguration?: string | fn.Fn
@@ -181,18 +181,18 @@ Job :: {
 		Timeout?:    int | fn.Fn
 		WorkerType?: string | fn.Fn
 	}
-	__ConnectionsList :: {
+	propConnectionsList :: {
 		Connections?: [...string] | fn.Fn
 	}
-	__ExecutionProperty :: {
+	propExecutionProperty :: {
 		MaxConcurrentRuns?: float | fn.Fn
 	}
-	__JobCommand :: {
+	propJobCommand :: {
 		Name?:           string | fn.Fn
 		PythonVersion?:  string | fn.Fn
 		ScriptLocation?: string | fn.Fn
 	}
-	__NotificationProperty :: {
+	propNotificationProperty :: {
 		NotifyDelayAfter?: int | fn.Fn
 	}
 }
@@ -200,33 +200,33 @@ MLTransform :: {
 	Type: "AWS::Glue::MLTransform"
 	Properties: {
 		Description?:        string | fn.Fn
-		InputRecordTables:   __InputRecordTables
+		InputRecordTables:   propInputRecordTables
 		MaxCapacity?:        (float & (>=1 & <=100)) | fn.Fn
 		MaxRetries?:         int | fn.Fn
 		Name?:               string | fn.Fn
 		NumberOfWorkers?:    int | fn.Fn
 		Role:                string | fn.Fn
 		Timeout?:            int | fn.Fn
-		TransformParameters: __TransformParameters
+		TransformParameters: propTransformParameters
 		WorkerType?:         string | fn.Fn
 	}
-	__FindMatchesParameters :: {
+	propFindMatchesParameters :: {
 		AccuracyCostTradeoff?:    float | fn.Fn
 		EnforceProvidedLabels?:   bool | fn.Fn
 		PrecisionRecallTradeoff?: float | fn.Fn
 		PrimaryKeyColumnName:     string | fn.Fn
 	}
-	__GlueTables :: {
+	propGlueTables :: {
 		CatalogId?:      string | fn.Fn
 		ConnectionName?: string | fn.Fn
 		DatabaseName:    string | fn.Fn
 		TableName:       string | fn.Fn
 	}
-	__InputRecordTables :: {
-		GlueTables?: [...__GlueTables]
+	propInputRecordTables :: {
+		GlueTables?: [...propGlueTables]
 	}
-	__TransformParameters :: {
-		FindMatchesParameters?: __FindMatchesParameters
+	propTransformParameters :: {
+		FindMatchesParameters?: propFindMatchesParameters
 		TransformType:          string | fn.Fn
 	}
 }
@@ -235,39 +235,39 @@ Partition :: {
 	Properties: {
 		CatalogId:      string | fn.Fn
 		DatabaseName:   string | fn.Fn
-		PartitionInput: __PartitionInput
+		PartitionInput: propPartitionInput
 		TableName:      string | fn.Fn
 	}
-	__Column :: {
+	propColumn :: {
 		Comment?: string | fn.Fn
 		Name:     string | fn.Fn
 		Type?:    string | fn.Fn
 	}
-	__Order :: {
+	propOrder :: {
 		Column:     string | fn.Fn
 		SortOrder?: int | fn.Fn
 	}
-	__PartitionInput :: {
+	propPartitionInput :: {
 		Parameters?: {
 		} | fn.Fn
-		StorageDescriptor?: __StorageDescriptor
+		StorageDescriptor?: propStorageDescriptor
 		Values:             [...string] | fn.Fn
 	}
-	__SerdeInfo :: {
+	propSerdeInfo :: {
 		Name?:       string | fn.Fn
 		Parameters?: {
 		} | fn.Fn
 		SerializationLibrary?: string | fn.Fn
 	}
-	__SkewedInfo :: {
+	propSkewedInfo :: {
 		SkewedColumnNames?:             [...string] | fn.Fn
 		SkewedColumnValueLocationMaps?: {
 		} | fn.Fn
 		SkewedColumnValues?: [...string] | fn.Fn
 	}
-	__StorageDescriptor :: {
+	propStorageDescriptor :: {
 		BucketColumns?: [...string] | fn.Fn
-		Columns?: [...__Column]
+		Columns?: [...propColumn]
 		Compressed?:      bool | fn.Fn
 		InputFormat?:     string | fn.Fn
 		Location?:        string | fn.Fn
@@ -275,36 +275,36 @@ Partition :: {
 		OutputFormat?:    string | fn.Fn
 		Parameters?:      {
 		} | fn.Fn
-		SerdeInfo?:  __SerdeInfo
-		SkewedInfo?: __SkewedInfo
-		SortColumns?: [...__Order]
+		SerdeInfo?:  propSerdeInfo
+		SkewedInfo?: propSkewedInfo
+		SortColumns?: [...propOrder]
 		StoredAsSubDirectories?: bool | fn.Fn
 	}
 }
 SecurityConfiguration :: {
 	Type: "AWS::Glue::SecurityConfiguration"
 	Properties: {
-		EncryptionConfiguration: __EncryptionConfiguration
+		EncryptionConfiguration: propEncryptionConfiguration
 		Name:                    string | fn.Fn
 	}
-	__CloudWatchEncryption :: {
+	propCloudWatchEncryption :: {
 		CloudWatchEncryptionMode?: string | fn.Fn
 		KmsKeyArn?:                string | fn.Fn
 	}
-	__EncryptionConfiguration :: {
-		CloudWatchEncryption?:   __CloudWatchEncryption
-		JobBookmarksEncryption?: __JobBookmarksEncryption
-		S3Encryptions?:          __S3Encryptions
+	propEncryptionConfiguration :: {
+		CloudWatchEncryption?:   propCloudWatchEncryption
+		JobBookmarksEncryption?: propJobBookmarksEncryption
+		S3Encryptions?:          propS3Encryptions
 	}
-	__JobBookmarksEncryption :: {
+	propJobBookmarksEncryption :: {
 		JobBookmarksEncryptionMode?: string | fn.Fn
 		KmsKeyArn?:                  string | fn.Fn
 	}
-	__S3Encryption :: {
+	propS3Encryption :: {
 		KmsKeyArn?:        string | fn.Fn
 		S3EncryptionMode?: string | fn.Fn
 	}
-	__S3Encryptions :: {
+	propS3Encryptions :: {
 	}
 }
 Table :: {
@@ -312,32 +312,32 @@ Table :: {
 	Properties: {
 		CatalogId:    string | fn.Fn
 		DatabaseName: string | fn.Fn
-		TableInput:   __TableInput
+		TableInput:   propTableInput
 	}
-	__Column :: {
+	propColumn :: {
 		Comment?: string | fn.Fn
 		Name:     string | fn.Fn
 		Type?:    string | fn.Fn
 	}
-	__Order :: {
+	propOrder :: {
 		Column:    string | fn.Fn
 		SortOrder: int | fn.Fn
 	}
-	__SerdeInfo :: {
+	propSerdeInfo :: {
 		Name?:       string | fn.Fn
 		Parameters?: {
 		} | fn.Fn
 		SerializationLibrary?: string | fn.Fn
 	}
-	__SkewedInfo :: {
+	propSkewedInfo :: {
 		SkewedColumnNames?:             [...string] | fn.Fn
 		SkewedColumnValueLocationMaps?: {
 		} | fn.Fn
 		SkewedColumnValues?: [...string] | fn.Fn
 	}
-	__StorageDescriptor :: {
+	propStorageDescriptor :: {
 		BucketColumns?: [...string] | fn.Fn
-		Columns?: [...__Column]
+		Columns?: [...propColumn]
 		Compressed?:      bool | fn.Fn
 		InputFormat?:     string | fn.Fn
 		Location?:        string | fn.Fn
@@ -345,20 +345,20 @@ Table :: {
 		OutputFormat?:    string | fn.Fn
 		Parameters?:      {
 		} | fn.Fn
-		SerdeInfo?:  __SerdeInfo
-		SkewedInfo?: __SkewedInfo
-		SortColumns?: [...__Order]
+		SerdeInfo?:  propSerdeInfo
+		SkewedInfo?: propSkewedInfo
+		SortColumns?: [...propOrder]
 		StoredAsSubDirectories?: bool | fn.Fn
 	}
-	__TableInput :: {
+	propTableInput :: {
 		Description?: string | fn.Fn
 		Name?:        string | fn.Fn
 		Owner?:       string | fn.Fn
 		Parameters?:  {
 		} | fn.Fn
-		PartitionKeys?: [...__Column]
+		PartitionKeys?: [...propColumn]
 		Retention?:         int | fn.Fn
-		StorageDescriptor?: __StorageDescriptor
+		StorageDescriptor?: propStorageDescriptor
 		TableType?:         (string & ("EXTERNAL_TABLE" | "VIRTUAL_VIEW")) | fn.Fn
 		ViewExpandedText?:  string | fn.Fn
 		ViewOriginalText?:  string | fn.Fn
@@ -367,10 +367,10 @@ Table :: {
 Trigger :: {
 	Type: "AWS::Glue::Trigger"
 	Properties: {
-		Actions: [...__Action]
+		Actions: [...propAction]
 		Description?:     string | fn.Fn
 		Name?:            string | fn.Fn
-		Predicate?:       __Predicate
+		Predicate?:       propPredicate
 		Schedule?:        string | fn.Fn
 		StartOnCreation?: bool | fn.Fn
 		Tags?:            {
@@ -378,27 +378,27 @@ Trigger :: {
 		Type:          (string & ("CONDITIONAL" | "ON_DEMAND" | "SCHEDULED")) | fn.Fn
 		WorkflowName?: string | fn.Fn
 	}
-	__Action :: {
+	propAction :: {
 		Arguments?: {
 		} | fn.Fn
 		CrawlerName?:           string | fn.Fn
 		JobName?:               string | fn.Fn
-		NotificationProperty?:  __NotificationProperty
+		NotificationProperty?:  propNotificationProperty
 		SecurityConfiguration?: string | fn.Fn
 		Timeout?:               int | fn.Fn
 	}
-	__Condition :: {
+	propCondition :: {
 		CrawlState?:      string | fn.Fn
 		CrawlerName?:     string | fn.Fn
 		JobName?:         string | fn.Fn
 		LogicalOperator?: (string & ("EQUALS")) | fn.Fn
 		State?:           (string & ("SUCCEEDED")) | fn.Fn
 	}
-	__NotificationProperty :: {
+	propNotificationProperty :: {
 		NotifyDelayAfter?: int | fn.Fn
 	}
-	__Predicate :: {
-		Conditions?: [...__Condition]
+	propPredicate :: {
+		Conditions?: [...propCondition]
 		Logical?: (string & ("AND")) | fn.Fn
 	}
 }

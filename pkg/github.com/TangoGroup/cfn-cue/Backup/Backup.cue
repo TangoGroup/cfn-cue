@@ -5,17 +5,17 @@ import "github.com/TangoGroup/fn"
 BackupPlan :: {
 	Type: "AWS::Backup::BackupPlan"
 	Properties: {
-		BackupPlan:      __BackupPlanResourceType
+		BackupPlan:      propBackupPlanResourceType
 		BackupPlanTags?: {
 		} | fn.Fn
 	}
-	__BackupPlanResourceType :: {
+	propBackupPlanResourceType :: {
 		BackupPlanName: string | fn.Fn
-		BackupPlanRule: [...__BackupRuleResourceType]
+		BackupPlanRule: [...propBackupRuleResourceType]
 	}
-	__BackupRuleResourceType :: {
+	propBackupRuleResourceType :: {
 		CompletionWindowMinutes?: int | fn.Fn
-		Lifecycle?:               __LifecycleResourceType
+		Lifecycle?:               propLifecycleResourceType
 		RecoveryPointTags?:       {
 		} | fn.Fn
 		RuleName:            string | fn.Fn
@@ -23,7 +23,7 @@ BackupPlan :: {
 		StartWindowMinutes?: int | fn.Fn
 		TargetBackupVault:   string | fn.Fn
 	}
-	__LifecycleResourceType :: {
+	propLifecycleResourceType :: {
 		DeleteAfterDays?:            int | fn.Fn
 		MoveToColdStorageAfterDays?: int | fn.Fn
 	}
@@ -32,15 +32,15 @@ BackupSelection :: {
 	Type: "AWS::Backup::BackupSelection"
 	Properties: {
 		BackupPlanId:    string | fn.Fn
-		BackupSelection: __BackupSelectionResourceType
+		BackupSelection: propBackupSelectionResourceType
 	}
-	__BackupSelectionResourceType :: {
+	propBackupSelectionResourceType :: {
 		IamRoleArn: (string & (=~#"arn:(aws[a-zA-Z-]*)?:iam::\d{12}:role/[a-zA-Z_0-9+=,.@\-_/]+"#)) | fn.Fn
-		ListOfTags?: [...__ConditionResourceType]
+		ListOfTags?: [...propConditionResourceType]
 		Resources?:    [...string] | fn.Fn
 		SelectionName: string | fn.Fn
 	}
-	__ConditionResourceType :: {
+	propConditionResourceType :: {
 		ConditionKey:   string | fn.Fn
 		ConditionType:  string | fn.Fn
 		ConditionValue: string | fn.Fn
@@ -55,9 +55,9 @@ BackupVault :: {
 		BackupVaultTags?: {
 		} | fn.Fn
 		EncryptionKeyArn?: string | fn.Fn
-		Notifications?:    __NotificationObjectType
+		Notifications?:    propNotificationObjectType
 	}
-	__NotificationObjectType :: {
+	propNotificationObjectType :: {
 		BackupVaultEvents: [...string] | fn.Fn
 		SNSTopicArn:       string | fn.Fn
 	}

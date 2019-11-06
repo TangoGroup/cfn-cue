@@ -9,6 +9,6 @@ ResourceShare :: {
 		Name:                     string | fn.Fn
 		Principals?:              [...string] | fn.Fn
 		ResourceArns?:            [...string] | fn.Fn
-		Tags?: [...__Tag]
+		Tags?: [...propTag]
 	}
 }

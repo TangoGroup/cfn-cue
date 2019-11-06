@@ -16,9 +16,9 @@ Group :: {
 		GroupName?:         string | fn.Fn
 		ManagedPolicyArns?: [...string] | fn.Fn
 		Path?:              (string & (=~#"^/(.+/)*$"#)) | fn.Fn
-		Policies?: [...__Policy]
+		Policies?: [...propPolicy]
 	}
-	__Policy :: {
+	propPolicy :: {
 		PolicyDocument: {
 		} | fn.Fn
 		PolicyName: (string & (strings.MinRunes(1) & strings.MaxRunes(128)) & (=~#"^[a-zA-Z0-9+=,.@\-_]+$"#)) | fn.Fn
@@ -66,11 +66,11 @@ Role :: {
 		MaxSessionDuration?:  (int & (>=3600 & <=43200)) | fn.Fn
 		Path?:                (string & (=~#"^/(.+/)*$"#)) | fn.Fn
 		PermissionsBoundary?: string | fn.Fn
-		Policies?: [...__Policy]
+		Policies?: [...propPolicy]
 		RoleName?: string | fn.Fn
-		Tags?: [...__Tag]
+		Tags?: [...propTag]
 	}
-	__Policy :: {
+	propPolicy :: {
 		PolicyDocument: {
 		} | fn.Fn
 		PolicyName: (string & (strings.MinRunes(1) & strings.MaxRunes(128)) & (=~#"^[a-zA-Z0-9+=,.@\-_]+$"#)) | fn.Fn
@@ -88,18 +88,18 @@ User :: {
 	Type: "AWS::IAM::User"
 	Properties: {
 		Groups?:              [...string] | fn.Fn
-		LoginProfile?:        __LoginProfile
+		LoginProfile?:        propLoginProfile
 		ManagedPolicyArns?:   [...string] | fn.Fn
 		Path?:                (string & (=~#"^/(.+/)*$"#)) | fn.Fn
 		PermissionsBoundary?: string | fn.Fn
-		Policies?: [...__Policy]
+		Policies?: [...propPolicy]
 		UserName?: string | fn.Fn
 	}
-	__LoginProfile :: {
+	propLoginProfile :: {
 		Password:               string | fn.Fn
 		PasswordResetRequired?: bool | fn.Fn
 	}
-	__Policy :: {
+	propPolicy :: {
 		PolicyDocument: {
 		} | fn.Fn
 		PolicyName: (string & (strings.MinRunes(1) & strings.MaxRunes(128)) & (=~#"^[a-zA-Z0-9+=,.@\-_]+$"#)) | fn.Fn
