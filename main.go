@@ -190,7 +190,7 @@ func createStructFromResource(properties map[string]Property, valueTypes map[str
 		return sortedProperties[i].name < sortedProperties[j].name
 	})
 
-	propertyDecls := make([]ast.Decl, len(sortedProperties))
+	propertyDecls := make([]ast.Decl, 0)
 
 	for _, propertyS := range sortedProperties {
 		property := propertyS.name
