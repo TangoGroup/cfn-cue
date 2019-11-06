@@ -20,8 +20,8 @@ Trail :: {
 		TrailName?: string | fn.Fn
 	}
 	propDataResource :: {
-		Type:    (string & ("AWS::Lambda::Function" | "AWS::S3::Object")) | fn.Fn
-		Values?: [...string] | fn.Fn
+		Type: (string & ("AWS::Lambda::Function" | "AWS::S3::Object")) | fn.Fn
+		Values?: [...(string | fn.Fn)]
 	}
 	propEventSelector :: {
 		DataResources?: [...propDataResource]

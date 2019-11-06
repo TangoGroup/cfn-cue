@@ -11,7 +11,7 @@ Cluster :: {
 		Version?:           string | fn.Fn
 	}
 	propResourcesVpcConfig :: {
-		SecurityGroupIds?: [...string] | fn.Fn
-		SubnetIds:         [...string] | fn.Fn
+		SecurityGroupIds?: [...(string | fn.Fn)]
+		SubnetIds: [...(string | fn.Fn)]
 	}
 }

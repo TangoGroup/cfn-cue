@@ -77,7 +77,7 @@ DeliveryStream :: {
 		S3BackupMode?:                      string | fn.Fn
 	}
 	propHiveJsonSerDe :: {
-		TimestampFormats?: [...string] | fn.Fn
+		TimestampFormats?: [...(string | fn.Fn)]
 	}
 	propInputFormatConfiguration :: {
 		Deserializer: propDeserializer
@@ -96,8 +96,8 @@ DeliveryStream :: {
 		ConvertDotsInJsonKeysToUnderscores?: bool | fn.Fn
 	}
 	propOrcSerDe :: {
-		BlockSizeBytes?:                      int | fn.Fn
-		BloomFilterColumns?:                  [...string] | fn.Fn
+		BlockSizeBytes?: int | fn.Fn
+		BloomFilterColumns?: [...(string | fn.Fn)]
 		BloomFilterFalsePositiveProbability?: float | fn.Fn
 		Compression?:                         string | fn.Fn
 		DictionaryKeyThreshold?:              float | fn.Fn

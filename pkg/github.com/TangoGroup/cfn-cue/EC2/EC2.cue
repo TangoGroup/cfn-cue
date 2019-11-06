@@ -39,7 +39,7 @@ ClientVpnEndpoint :: {
 		ClientCidrBlock:      string | fn.Fn
 		ConnectionLogOptions: propConnectionLogOptions
 		Description?:         string | fn.Fn
-		DnsServers?:          [...string] | fn.Fn
+		DnsServers?: [...(string | fn.Fn)]
 		ServerCertificateArn: string | fn.Fn
 		SplitTunnel?:         bool | fn.Fn
 		TagSpecifications?: [...propTagSpecification]
@@ -94,11 +94,11 @@ CustomerGateway :: {
 DHCPOptions :: {
 	Type: "AWS::EC2::DHCPOptions"
 	Properties: {
-		DomainName?:         string | fn.Fn
-		DomainNameServers?:  [...string] | fn.Fn
-		NetbiosNameServers?: [...string] | fn.Fn
-		NetbiosNodeType?:    (int & (1 | 2 | 4 | 8)) | fn.Fn
-		NtpServers?:         [...string] | fn.Fn
+		DomainName?: string | fn.Fn
+		DomainNameServers?: [...(string | fn.Fn)]
+		NetbiosNameServers?: [...(string | fn.Fn)]
+		NetbiosNodeType?: (int & (1 | 2 | 4 | 8)) | fn.Fn
+		NtpServers?: [...(string | fn.Fn)]
 		Tags?: [...propTag]
 	}
 }
@@ -229,9 +229,9 @@ Instance :: {
 		PlacementGroupName?: string | fn.Fn
 		PrivateIpAddress?:   string | fn.Fn
 		RamdiskId?:          string | fn.Fn
-		SecurityGroupIds?:   [...string] | fn.Fn
-		SecurityGroups?:     [...string] | fn.Fn
-		SourceDestCheck?:    bool | fn.Fn
+		SecurityGroupIds?: [...(string | fn.Fn)]
+		SecurityGroups?: [...(string | fn.Fn)]
+		SourceDestCheck?: bool | fn.Fn
 		SsmAssociations?: [...propSsmAssociation]
 		SubnetId?: string | fn.Fn
 		Tags?: [...propTag]
@@ -240,8 +240,8 @@ Instance :: {
 		Volumes?: [...propVolume]
 	}
 	propAssociationParameter :: {
-		Key:   string | fn.Fn
-		Value: [...string] | fn.Fn
+		Key: string | fn.Fn
+		Value: [...(string | fn.Fn)]
 	}
 	propBlockDeviceMapping :: {
 		DeviceName:   string | fn.Fn
@@ -287,8 +287,8 @@ Instance :: {
 		DeleteOnTermination?:      bool | fn.Fn
 		Description?:              string | fn.Fn
 		DeviceIndex:               string | fn.Fn
-		GroupSet?:                 [...string] | fn.Fn
-		Ipv6AddressCount?:         int | fn.Fn
+		GroupSet?: [...(string | fn.Fn)]
+		Ipv6AddressCount?: int | fn.Fn
 		Ipv6Addresses?: [...propInstanceIpv6Address]
 		NetworkInterfaceId?: string | fn.Fn
 		PrivateIpAddress?:   string | fn.Fn
@@ -387,10 +387,10 @@ LaunchTemplate :: {
 		LicenseSpecifications?: [...propLicenseSpecification]
 		Monitoring?: propMonitoring
 		NetworkInterfaces?: [...propNetworkInterface]
-		Placement?:        propPlacement
-		RamDiskId?:        string | fn.Fn
-		SecurityGroupIds?: [...string] | fn.Fn
-		SecurityGroups?:   [...string] | fn.Fn
+		Placement?: propPlacement
+		RamDiskId?: string | fn.Fn
+		SecurityGroupIds?: [...(string | fn.Fn)]
+		SecurityGroups?: [...(string | fn.Fn)]
 		TagSpecifications?: [...propTagSpecification]
 		UserData?: string | fn.Fn
 	}
@@ -408,9 +408,9 @@ LaunchTemplate :: {
 		DeleteOnTermination?:      bool | fn.Fn
 		Description?:              string | fn.Fn
 		DeviceIndex?:              int | fn.Fn
-		Groups?:                   [...string] | fn.Fn
-		InterfaceType?:            string | fn.Fn
-		Ipv6AddressCount?:         int | fn.Fn
+		Groups?: [...(string | fn.Fn)]
+		InterfaceType?:    string | fn.Fn
+		Ipv6AddressCount?: int | fn.Fn
 		Ipv6Addresses?: [...propIpv6Add]
 		NetworkInterfaceId?: string | fn.Fn
 		PrivateIpAddress?:   string | fn.Fn
@@ -481,8 +481,8 @@ NetworkAclEntry :: {
 NetworkInterface :: {
 	Type: "AWS::EC2::NetworkInterface"
 	Properties: {
-		Description?:      string | fn.Fn
-		GroupSet?:         [...string] | fn.Fn
+		Description?: string | fn.Fn
+		GroupSet?: [...(string | fn.Fn)]
 		InterfaceType?:    string | fn.Fn
 		Ipv6AddressCount?: int | fn.Fn
 		Ipv6Addresses?:    propInstanceIpv6Address
@@ -650,8 +650,8 @@ SpotFleet :: {
 		DeleteOnTermination?:      bool | fn.Fn
 		Description?:              string | fn.Fn
 		DeviceIndex?:              int | fn.Fn
-		Groups?:                   [...string] | fn.Fn
-		Ipv6AddressCount?:         int | fn.Fn
+		Groups?: [...(string | fn.Fn)]
+		Ipv6AddressCount?: int | fn.Fn
 		Ipv6Addresses?: [...propInstanceIpv6Address]
 		NetworkInterfaceId?: string | fn.Fn
 		PrivateIpAddresses?: [...propPrivateIpAddressSpecification]
@@ -767,8 +767,8 @@ SubnetRouteTableAssociation :: {
 TrafficMirrorFilter :: {
 	Type: "AWS::EC2::TrafficMirrorFilter"
 	Properties: {
-		Description?:     string | fn.Fn
-		NetworkServices?: [...string] | fn.Fn
+		Description?: string | fn.Fn
+		NetworkServices?: [...(string | fn.Fn)]
 		Tags?: [...propTag]
 	}
 }
@@ -829,7 +829,7 @@ TransitGateway :: {
 TransitGatewayAttachment :: {
 	Type: "AWS::EC2::TransitGatewayAttachment"
 	Properties: {
-		SubnetIds: [...string] | fn.Fn
+		SubnetIds: [...(string | fn.Fn)]
 		Tags?: [...propTag]
 		TransitGatewayId: string | fn.Fn
 		VpcId:            string | fn.Fn
@@ -896,26 +896,26 @@ VPCEndpoint :: {
 		PolicyDocument?: {
 		} | fn.Fn
 		PrivateDnsEnabled?: bool | fn.Fn
-		RouteTableIds?:     [...string] | fn.Fn
-		SecurityGroupIds?:  [...string] | fn.Fn
-		ServiceName:        string | fn.Fn
-		SubnetIds?:         [...string] | fn.Fn
-		VpcEndpointType?:   (string & ("Gateway" | "Interface")) | fn.Fn
-		VpcId:              string | fn.Fn
+		RouteTableIds?: [...(string | fn.Fn)]
+		SecurityGroupIds?: [...(string | fn.Fn)]
+		ServiceName: string | fn.Fn
+		SubnetIds?: [...(string | fn.Fn)]
+		VpcEndpointType?: (string & ("Gateway" | "Interface")) | fn.Fn
+		VpcId:            string | fn.Fn
 	}
 }
 VPCEndpointService :: {
 	Type: "AWS::EC2::VPCEndpointService"
 	Properties: {
-		AcceptanceRequired?:     bool | fn.Fn
-		NetworkLoadBalancerArns: [...string] | fn.Fn
+		AcceptanceRequired?: bool | fn.Fn
+		NetworkLoadBalancerArns: [...(string | fn.Fn)]
 	}
 }
 VPCEndpointServicePermissions :: {
 	Type: "AWS::EC2::VPCEndpointServicePermissions"
 	Properties: {
-		AllowedPrincipals?: [...string] | fn.Fn
-		ServiceId:          string | fn.Fn
+		AllowedPrincipals?: [...(string | fn.Fn)]
+		ServiceId: string | fn.Fn
 	}
 }
 VPCGatewayAttachment :: {
@@ -971,8 +971,8 @@ VPNGateway :: {
 VPNGatewayRoutePropagation :: {
 	Type: "AWS::EC2::VPNGatewayRoutePropagation"
 	Properties: {
-		RouteTableIds: [...string] | fn.Fn
-		VpnGatewayId:  string | fn.Fn
+		RouteTableIds: [...(string | fn.Fn)]
+		VpnGatewayId: string | fn.Fn
 	}
 }
 Volume :: {

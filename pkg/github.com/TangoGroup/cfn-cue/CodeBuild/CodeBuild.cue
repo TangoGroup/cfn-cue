@@ -67,8 +67,8 @@ Project :: {
 	}
 	propProjectCache :: {
 		Location?: string | fn.Fn
-		Modes?:    [...string] | fn.Fn
-		Type:      (string & ("LOCAL" | "NO_CACHE" | "S3")) | fn.Fn
+		Modes?: [...(string | fn.Fn)]
+		Type: (string & ("LOCAL" | "NO_CACHE" | "S3")) | fn.Fn
 	}
 	propProjectSourceVersion :: {
 		SourceIdentifier: string | fn.Fn
@@ -103,9 +103,9 @@ Project :: {
 		Type:      string | fn.Fn
 	}
 	propVpcConfig :: {
-		SecurityGroupIds?: [...string] | fn.Fn
-		Subnets?:          [...string] | fn.Fn
-		VpcId?:            string | fn.Fn
+		SecurityGroupIds?: [...(string | fn.Fn)]
+		Subnets?: [...(string | fn.Fn)]
+		VpcId?: string | fn.Fn
 	}
 	propWebhookFilter :: {
 		ExcludeMatchedPattern?: bool | fn.Fn

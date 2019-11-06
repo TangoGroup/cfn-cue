@@ -298,8 +298,8 @@ ResourceDefinition :: {
 		SageMakerJobArn: string | fn.Fn
 	}
 	propSecretsManagerSecretResourceData :: {
-		ARN:                                string | fn.Fn
-		AdditionalStagingLabelsToDownload?: [...string] | fn.Fn
+		ARN: string | fn.Fn
+		AdditionalStagingLabelsToDownload?: [...(string | fn.Fn)]
 	}
 }
 ResourceDefinitionVersion :: {
@@ -342,8 +342,8 @@ ResourceDefinitionVersion :: {
 		SageMakerJobArn: string | fn.Fn
 	}
 	propSecretsManagerSecretResourceData :: {
-		ARN:                                string | fn.Fn
-		AdditionalStagingLabelsToDownload?: [...string] | fn.Fn
+		ARN: string | fn.Fn
+		AdditionalStagingLabelsToDownload?: [...(string | fn.Fn)]
 	}
 }
 SubscriptionDefinition :: {

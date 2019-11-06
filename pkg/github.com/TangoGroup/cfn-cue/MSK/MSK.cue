@@ -18,10 +18,10 @@ Cluster :: {
 	}
 	propBrokerNodeGroupInfo :: {
 		BrokerAZDistribution?: string | fn.Fn
-		ClientSubnets:         [...string] | fn.Fn
-		InstanceType:          string | fn.Fn
-		SecurityGroups?:       [...string] | fn.Fn
-		StorageInfo?:          propStorageInfo
+		ClientSubnets: [...(string | fn.Fn)]
+		InstanceType: string | fn.Fn
+		SecurityGroups?: [...(string | fn.Fn)]
+		StorageInfo?: propStorageInfo
 	}
 	propClientAuthentication :: {
 		Tls?: propTls
@@ -48,6 +48,6 @@ Cluster :: {
 		EBSStorageInfo?: propEBSStorageInfo
 	}
 	propTls :: {
-		CertificateAuthorityArnList?: [...string] | fn.Fn
+		CertificateAuthorityArnList?: [...(string | fn.Fn)]
 	}
 }

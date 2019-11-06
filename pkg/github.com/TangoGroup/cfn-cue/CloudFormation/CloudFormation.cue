@@ -19,7 +19,7 @@ Macro :: {
 Stack :: {
 	Type: "AWS::CloudFormation::Stack"
 	Properties: {
-		NotificationARNs?: [...string] | fn.Fn
+		NotificationARNs?: [...(string | fn.Fn)]
 		Parameters?: {
 		}
 		Tags?: [...propTag]

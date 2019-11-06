@@ -14,8 +14,8 @@ MicrosoftAD :: {
 		VpcSettings:  propVpcSettings
 	}
 	propVpcSettings :: {
-		SubnetIds: [...string] | fn.Fn
-		VpcId:     string | fn.Fn
+		SubnetIds: [...(string | fn.Fn)]
+		VpcId: string | fn.Fn
 	}
 }
 SimpleAD :: {
@@ -31,7 +31,7 @@ SimpleAD :: {
 		VpcSettings:  propVpcSettings
 	}
 	propVpcSettings :: {
-		SubnetIds: [...string] | fn.Fn
-		VpcId:     string | fn.Fn
+		SubnetIds: [...(string | fn.Fn)]
+		VpcId: string | fn.Fn
 	}
 }

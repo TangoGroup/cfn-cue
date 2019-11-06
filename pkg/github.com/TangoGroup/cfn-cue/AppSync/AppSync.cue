@@ -140,6 +140,6 @@ Resolver :: {
 		TypeName:                           string | fn.Fn
 	}
 	propPipelineConfig :: {
-		Functions?: [...string] | fn.Fn
+		Functions?: [...(string | fn.Fn)]
 	}
 }

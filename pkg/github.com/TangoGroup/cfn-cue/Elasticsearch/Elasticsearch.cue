@@ -45,8 +45,8 @@ Domain :: {
 		AutomatedSnapshotStartHour?: int | fn.Fn
 	}
 	propVPCOptions :: {
-		SecurityGroupIds?: [...string] | fn.Fn
-		SubnetIds?:        [...string] | fn.Fn
+		SecurityGroupIds?: [...(string | fn.Fn)]
+		SubnetIds?: [...(string | fn.Fn)]
 	}
 	propZoneAwarenessConfig :: {
 		AvailabilityZoneCount?: int | fn.Fn

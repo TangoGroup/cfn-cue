@@ -63,13 +63,12 @@ func createFieldFromProperty(name string, prop Property, constraints []ast.Expr)
 	var value ast.Expr
 
 	if prop.IsList() {
-		var itemType ast.Expr
 		if prop.IsListOfPrimitives() {
-			itemType = prop.getCUEPrimitiveType()
+			value = prop.getCUEPrimitiveType()
 		} else {
-			itemType = mapFromCFNTypeToCue(prop.ItemType)
+			value = mapFromCFNTypeToCue(prop.ItemType)
 		}
-		value = ast.NewList(&ast.Ellipsis{Type: itemType})
+
 	} else if prop.IsMap() {
 		// TODO: Clean up Maps...
 		value = &ast.StructLit{}
@@ -103,9 +102,21 @@ func createFieldFromProperty(name string, prop Property, constraints []ast.Expr)
 		val := &ast.BinaryExpr{
 			X:  value,
 			Op: token.OR,
-			Y:  &ast.BasicLit{Value: "fn.Fn"},
+			Y:  ast.NewSel(ast.NewIdent("fn"), "Fn"),
 		}
 		value = val
+	}
+
+	if prop.IsList() {
+		var val ast.Expr
+		if prop.IsListOfPrimitives() {
+			val = &ast.ParenExpr{
+				X: value,
+			}
+		} else {
+			val = value
+		}
+		value = ast.NewList(&ast.Ellipsis{Type: val})
 	}
 
 	var optional token.Pos
@@ -318,6 +329,24 @@ func main() {
 		resourcesByService[service][resourceName] = resource
 	}
 
+	// allServicesFile := &ast.File{
+	// 	Filename: "aws.cue",
+	// 	Decls: []ast.Decl{
+	// 		&ast.Package{
+	// 			Name: ast.NewIdent("aws"),
+	// 		},
+	// 		&ast.ImportDecl{
+	// 			Specs: []*ast.ImportSpec{
+	// 				&ast.ImportSpec{
+	// 					Path: ast.NewString("github.com/TangoGroup/fn"),
+	// 				},
+	// 			},
+	// 		},
+	// 	},
+	// }
+
+	importDeclarations := make([]ast.ImportSpec, 0)
+
 	for service, resources := range resourcesByService {
 		fmt.Println(service)
 		// fmt.Print("  ")
@@ -385,7 +414,10 @@ func main() {
 		// fmt.Println("")
 		b, _ := format.Node(ff, format.Simplify())
 
-		folder := path.Join("pkg/github.com/TangoGroup/cfn-cue/", service)
+		servicePackage := "github.com/TangoGroup/cfn-cue/" + service
+		importDeclarations = append(importDeclarations, *ast.NewImport(ast.NewIdent(strings.ToLower(service)), servicePackage))
+
+		folder := path.Join("pkg/" + servicePackage)
 
 		os.MkdirAll(folder, os.ModePerm)
 

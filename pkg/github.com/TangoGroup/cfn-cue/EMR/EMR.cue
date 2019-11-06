@@ -29,7 +29,7 @@ Cluster :: {
 	propApplication :: {
 		AdditionalInfo?: {
 		}
-		Args?:    [...string] | fn.Fn
+		Args?: [...(string | fn.Fn)]
 		Name?:    string | fn.Fn
 		Version?: string | fn.Fn
 	}
@@ -67,7 +67,7 @@ Cluster :: {
 		EbsOptimized?: bool | fn.Fn
 	}
 	propHadoopJarStepConfig :: {
-		Args?:      [...string] | fn.Fn
+		Args?: [...(string | fn.Fn)]
 		Jar:        string | fn.Fn
 		MainClass?: string | fn.Fn
 		StepProperties?: [...propKeyValue]
@@ -101,22 +101,22 @@ Cluster :: {
 		WeightedCapacity?: int | fn.Fn
 	}
 	propJobFlowInstancesConfig :: {
-		AdditionalMasterSecurityGroups?: [...string] | fn.Fn
-		AdditionalSlaveSecurityGroups?:  [...string] | fn.Fn
-		CoreInstanceFleet?:              propInstanceFleetConfig
-		CoreInstanceGroup?:              propInstanceGroupConfig
-		Ec2KeyName?:                     string | fn.Fn
-		Ec2SubnetId?:                    string | fn.Fn
-		Ec2SubnetIds?:                   [...string] | fn.Fn
-		EmrManagedMasterSecurityGroup?:  string | fn.Fn
-		EmrManagedSlaveSecurityGroup?:   string | fn.Fn
-		HadoopVersion?:                  string | fn.Fn
-		KeepJobFlowAliveWhenNoSteps?:    bool | fn.Fn
-		MasterInstanceFleet?:            propInstanceFleetConfig
-		MasterInstanceGroup?:            propInstanceGroupConfig
-		Placement?:                      propPlacementType
-		ServiceAccessSecurityGroup?:     string | fn.Fn
-		TerminationProtected?:           bool | fn.Fn
+		AdditionalMasterSecurityGroups?: [...(string | fn.Fn)]
+		AdditionalSlaveSecurityGroups?: [...(string | fn.Fn)]
+		CoreInstanceFleet?: propInstanceFleetConfig
+		CoreInstanceGroup?: propInstanceGroupConfig
+		Ec2KeyName?:        string | fn.Fn
+		Ec2SubnetId?:       string | fn.Fn
+		Ec2SubnetIds?: [...(string | fn.Fn)]
+		EmrManagedMasterSecurityGroup?: string | fn.Fn
+		EmrManagedSlaveSecurityGroup?:  string | fn.Fn
+		HadoopVersion?:                 string | fn.Fn
+		KeepJobFlowAliveWhenNoSteps?:   bool | fn.Fn
+		MasterInstanceFleet?:           propInstanceFleetConfig
+		MasterInstanceGroup?:           propInstanceGroupConfig
+		Placement?:                     propPlacementType
+		ServiceAccessSecurityGroup?:    string | fn.Fn
+		TerminationProtected?:          bool | fn.Fn
 	}
 	propKerberosAttributes :: {
 		ADDomainJoinPassword?:             string | fn.Fn
@@ -154,8 +154,8 @@ Cluster :: {
 		CloudWatchAlarmDefinition: propCloudWatchAlarmDefinition
 	}
 	propScriptBootstrapActionConfig :: {
-		Args?: [...string] | fn.Fn
-		Path:  string | fn.Fn
+		Args?: [...(string | fn.Fn)]
+		Path: string | fn.Fn
 	}
 	propSimpleScalingPolicyConfiguration :: {
 		AdjustmentType?:   string | fn.Fn
@@ -317,7 +317,7 @@ Step :: {
 		Name:            string | fn.Fn
 	}
 	propHadoopJarStepConfig :: {
-		Args?:      [...string] | fn.Fn
+		Args?: [...(string | fn.Fn)]
 		Jar:        string | fn.Fn
 		MainClass?: string | fn.Fn
 		StepProperties?: [...propKeyValue]

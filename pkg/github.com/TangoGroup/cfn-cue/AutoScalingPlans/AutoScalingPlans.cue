@@ -55,8 +55,8 @@ ScalingPlan :: {
 		TargetTrackingConfigurations: [...propTargetTrackingConfiguration]
 	}
 	propTagFilter :: {
-		Key:     string | fn.Fn
-		Values?: [...string] | fn.Fn
+		Key: string | fn.Fn
+		Values?: [...(string | fn.Fn)]
 	}
 	propTargetTrackingConfiguration :: {
 		CustomizedScalingMetricSpecification?: propCustomizedScalingMetricSpecification

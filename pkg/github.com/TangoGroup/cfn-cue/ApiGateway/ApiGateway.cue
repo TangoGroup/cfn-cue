@@ -32,9 +32,9 @@ Authorizer :: {
 		IdentitySource?:               string | fn.Fn
 		IdentityValidationExpression?: string | fn.Fn
 		Name?:                         string | fn.Fn
-		ProviderARNs?:                 [...string] | fn.Fn
-		RestApiId:                     string | fn.Fn
-		Type:                          (string & ("COGNITO_USER_POOLS" | "REQUEST" | "TOKEN")) | fn.Fn
+		ProviderARNs?: [...(string | fn.Fn)]
+		RestApiId: string | fn.Fn
+		Type:      (string & ("COGNITO_USER_POOLS" | "REQUEST" | "TOKEN")) | fn.Fn
 	}
 }
 BasePathMapping :: {
@@ -142,7 +142,7 @@ DomainName :: {
 		RegionalCertificateArn?: string | fn.Fn
 	}
 	propEndpointConfiguration :: {
-		Types?: [...string] | fn.Fn
+		Types?: [...(string | fn.Fn)]
 	}
 }
 GatewayResponse :: {
@@ -160,12 +160,12 @@ GatewayResponse :: {
 Method :: {
 	Type: "AWS::ApiGateway::Method"
 	Properties: {
-		ApiKeyRequired?:      bool | fn.Fn
-		AuthorizationScopes?: [...string] | fn.Fn
-		AuthorizationType?:   string | fn.Fn
-		AuthorizerId?:        string | fn.Fn
-		HttpMethod:           string | fn.Fn
-		Integration?:         propIntegration
+		ApiKeyRequired?: bool | fn.Fn
+		AuthorizationScopes?: [...(string | fn.Fn)]
+		AuthorizationType?: string | fn.Fn
+		AuthorizerId?:      string | fn.Fn
+		HttpMethod:         string | fn.Fn
+		Integration?:       propIntegration
 		MethodResponses?: [...propMethodResponse]
 		OperationName?: string | fn.Fn
 		RequestModels?: {
@@ -177,7 +177,7 @@ Method :: {
 		RestApiId:           string | fn.Fn
 	}
 	propIntegration :: {
-		CacheKeyParameters?:    [...string] | fn.Fn
+		CacheKeyParameters?: [...(string | fn.Fn)]
 		CacheNamespace?:        string | fn.Fn
 		ConnectionId?:          string | fn.Fn
 		ConnectionType?:        string | fn.Fn
@@ -243,8 +243,8 @@ RestApi :: {
 	Type: "AWS::ApiGateway::RestApi"
 	Properties: {
 		ApiKeySourceType?: (string & ("AUTHORIZER" | "HEADER")) | fn.Fn
-		BinaryMediaTypes?: [...string] | fn.Fn
-		Body?:             {
+		BinaryMediaTypes?: [...(string | fn.Fn)]
+		Body?: {
 		} | fn.Fn
 		BodyS3Location?:         propS3Location
 		CloneFrom?:              string | fn.Fn
@@ -259,7 +259,7 @@ RestApi :: {
 		} | fn.Fn
 	}
 	propEndpointConfiguration :: {
-		Types?: [...string] | fn.Fn
+		Types?: [...(string | fn.Fn)]
 	}
 	propS3Location :: {
 		Bucket?:  string | fn.Fn
@@ -349,6 +349,6 @@ VpcLink :: {
 	Properties: {
 		Description?: string | fn.Fn
 		Name:         string | fn.Fn
-		TargetArns:   [...string] | fn.Fn
+		TargetArns: [...(string | fn.Fn)]
 	}
 }

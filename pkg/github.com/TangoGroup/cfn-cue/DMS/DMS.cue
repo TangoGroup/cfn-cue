@@ -72,10 +72,10 @@ Endpoint :: {
 EventSubscription :: {
 	Type: "AWS::DMS::EventSubscription"
 	Properties: {
-		Enabled?:          bool | fn.Fn
-		EventCategories?:  [...string] | fn.Fn
-		SnsTopicArn:       string | fn.Fn
-		SourceIds?:        [...string] | fn.Fn
+		Enabled?: bool | fn.Fn
+		EventCategories?: [...(string | fn.Fn)]
+		SnsTopicArn: string | fn.Fn
+		SourceIds?: [...(string | fn.Fn)]
 		SourceType?:       string | fn.Fn
 		SubscriptionName?: string | fn.Fn
 		Tags?: [...propTag]
@@ -97,7 +97,7 @@ ReplicationInstance :: {
 		ReplicationInstanceIdentifier?:    string | fn.Fn
 		ReplicationSubnetGroupIdentifier?: string | fn.Fn
 		Tags?: [...propTag]
-		VpcSecurityGroupIds?: [...string] | fn.Fn
+		VpcSecurityGroupIds?: [...(string | fn.Fn)]
 	}
 }
 ReplicationSubnetGroup :: {
@@ -105,7 +105,7 @@ ReplicationSubnetGroup :: {
 	Properties: {
 		ReplicationSubnetGroupDescription: string | fn.Fn
 		ReplicationSubnetGroupIdentifier?: string | fn.Fn
-		SubnetIds:                         [...string] | fn.Fn
+		SubnetIds: [...(string | fn.Fn)]
 		Tags?: [...propTag]
 	}
 }

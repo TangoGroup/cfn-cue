@@ -12,10 +12,10 @@ Container :: {
 		Policy?:          string | fn.Fn
 	}
 	propCorsRule :: {
-		AllowedHeaders?: [...string] | fn.Fn
-		AllowedMethods?: [...string] | fn.Fn
-		AllowedOrigins?: [...string] | fn.Fn
-		ExposeHeaders?:  [...string] | fn.Fn
-		MaxAgeSeconds?:  int | fn.Fn
+		AllowedHeaders?: [...(string | fn.Fn)]
+		AllowedMethods?: [...(string | fn.Fn)]
+		AllowedOrigins?: [...(string | fn.Fn)]
+		ExposeHeaders?: [...(string | fn.Fn)]
+		MaxAgeSeconds?: int | fn.Fn
 	}
 }

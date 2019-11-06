@@ -16,8 +16,8 @@ Broker :: {
 		Logs?:                       propLogList
 		MaintenanceWindowStartTime?: propMaintenanceWindow
 		PubliclyAccessible:          bool | fn.Fn
-		SecurityGroups?:             [...string] | fn.Fn
-		SubnetIds?:                  [...string] | fn.Fn
+		SecurityGroups?: [...(string | fn.Fn)]
+		SubnetIds?: [...(string | fn.Fn)]
 		Tags?: [...propTagsEntry]
 		Users: [...propUser]
 	}
@@ -44,9 +44,9 @@ Broker :: {
 	}
 	propUser :: {
 		ConsoleAccess?: bool | fn.Fn
-		Groups?:        [...string] | fn.Fn
-		Password:       string | fn.Fn
-		Username:       string | fn.Fn
+		Groups?: [...(string | fn.Fn)]
+		Password: string | fn.Fn
+		Username: string | fn.Fn
 	}
 }
 Configuration :: {

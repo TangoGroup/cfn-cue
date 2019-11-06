@@ -9,13 +9,13 @@ IdentityPool :: {
 		CognitoEvents?:                 {
 		} | fn.Fn
 		CognitoIdentityProviders?: [...propCognitoIdentityProvider]
-		CognitoStreams?:            propCognitoStreams
-		DeveloperProviderName?:     string | fn.Fn
-		IdentityPoolName?:          string | fn.Fn
-		OpenIdConnectProviderARNs?: [...string] | fn.Fn
-		PushSync?:                  propPushSync
-		SamlProviderARNs?:          [...string] | fn.Fn
-		SupportedLoginProviders?:   {
+		CognitoStreams?:        propCognitoStreams
+		DeveloperProviderName?: string | fn.Fn
+		IdentityPoolName?:      string | fn.Fn
+		OpenIdConnectProviderARNs?: [...(string | fn.Fn)]
+		PushSync?: propPushSync
+		SamlProviderARNs?: [...(string | fn.Fn)]
+		SupportedLoginProviders?: {
 		} | fn.Fn
 	}
 	propCognitoIdentityProvider :: {
@@ -29,8 +29,8 @@ IdentityPool :: {
 		StreamingStatus?: (string & ("DISABLED" | "ENABLED")) | fn.Fn
 	}
 	propPushSync :: {
-		ApplicationArns?: [...string] | fn.Fn
-		RoleArn?:         string | fn.Fn
+		ApplicationArns?: [...(string | fn.Fn)]
+		RoleArn?: string | fn.Fn
 	}
 }
 IdentityPoolRoleAttachment :: {
@@ -61,17 +61,17 @@ IdentityPoolRoleAttachment :: {
 UserPool :: {
 	Type: "AWS::Cognito::UserPool"
 	Properties: {
-		AdminCreateUserConfig?:    propAdminCreateUserConfig
-		AliasAttributes?:          ([...string] & ("email" | "phone_number" | "preferred_username")) | fn.Fn
-		AutoVerifiedAttributes?:   ([...string] & ("email" | "phone_number")) | fn.Fn
+		AdminCreateUserConfig?: propAdminCreateUserConfig
+		AliasAttributes?: [...((string & ("email" | "phone_number" | "preferred_username")) | fn.Fn)]
+		AutoVerifiedAttributes?: [...((string & ("email" | "phone_number")) | fn.Fn)]
 		DeviceConfiguration?:      propDeviceConfiguration
 		EmailConfiguration?:       propEmailConfiguration
 		EmailVerificationMessage?: string | fn.Fn
 		EmailVerificationSubject?: string | fn.Fn
-		EnabledMfas?:              [...string] | fn.Fn
-		LambdaConfig?:             propLambdaConfig
-		MfaConfiguration?:         (string & ("OFF" | "ON" | "OPTIONAL")) | fn.Fn
-		Policies?:                 propPolicies
+		EnabledMfas?: [...(string | fn.Fn)]
+		LambdaConfig?:     propLambdaConfig
+		MfaConfiguration?: (string & ("OFF" | "ON" | "OPTIONAL")) | fn.Fn
+		Policies?:         propPolicies
 		Schema?: [...propSchemaAttribute]
 		SmsAuthenticationMessage?: string | fn.Fn
 		SmsConfiguration?:         propSmsConfiguration
@@ -80,7 +80,7 @@ UserPool :: {
 		UserPoolName?:             string | fn.Fn
 		UserPoolTags?:             {
 		} | fn.Fn
-		UsernameAttributes?:          ([...string] & ("email" | "phone_number")) | fn.Fn
+		UsernameAttributes?: [...((string & ("email" | "phone_number")) | fn.Fn)]
 		VerificationMessageTemplate?: propVerificationMessageTemplate
 	}
 	propAdminCreateUserConfig :: {
@@ -161,21 +161,21 @@ UserPool :: {
 UserPoolClient :: {
 	Type: "AWS::Cognito::UserPoolClient"
 	Properties: {
-		AllowedOAuthFlows?:               [...string] | fn.Fn
+		AllowedOAuthFlows?: [...(string | fn.Fn)]
 		AllowedOAuthFlowsUserPoolClient?: bool | fn.Fn
-		AllowedOAuthScopes?:              [...string] | fn.Fn
-		AnalyticsConfiguration?:          propAnalyticsConfiguration
-		CallbackURLs?:                    [...string] | fn.Fn
-		ClientName?:                      string | fn.Fn
-		DefaultRedirectURI?:              string | fn.Fn
-		ExplicitAuthFlows?:               ([...string] & ("ADMIN_NO_SRP_AUTH" | "CUSTOM_AUTH_FLOW_ONLY" | "USER_PASSWORD_AUTH")) | fn.Fn
-		GenerateSecret?:                  bool | fn.Fn
-		LogoutURLs?:                      [...string] | fn.Fn
-		ReadAttributes?:                  [...string] | fn.Fn
-		RefreshTokenValidity?:            (int & (>=0 & <=3650)) | fn.Fn
-		SupportedIdentityProviders?:      [...string] | fn.Fn
-		UserPoolId:                       string | fn.Fn
-		WriteAttributes?:                 [...string] | fn.Fn
+		AllowedOAuthScopes?: [...(string | fn.Fn)]
+		AnalyticsConfiguration?: propAnalyticsConfiguration
+		CallbackURLs?: [...(string | fn.Fn)]
+		ClientName?:         string | fn.Fn
+		DefaultRedirectURI?: string | fn.Fn
+		ExplicitAuthFlows?: [...((string & ("ADMIN_NO_SRP_AUTH" | "CUSTOM_AUTH_FLOW_ONLY" | "USER_PASSWORD_AUTH")) | fn.Fn)]
+		GenerateSecret?: bool | fn.Fn
+		LogoutURLs?: [...(string | fn.Fn)]
+		ReadAttributes?: [...(string | fn.Fn)]
+		RefreshTokenValidity?: (int & (>=0 & <=3650)) | fn.Fn
+		SupportedIdentityProviders?: [...(string | fn.Fn)]
+		UserPoolId: string | fn.Fn
+		WriteAttributes?: [...(string | fn.Fn)]
 	}
 	propAnalyticsConfiguration :: {
 		ApplicationId?:  string | fn.Fn
@@ -210,7 +210,7 @@ UserPoolIdentityProvider :: {
 	Properties: {
 		AttributeMapping?: {
 		} | fn.Fn
-		IdpIdentifiers?:  [...string] | fn.Fn
+		IdpIdentifiers?: [...(string | fn.Fn)]
 		ProviderDetails?: {
 		} | fn.Fn
 		ProviderName: string | fn.Fn
@@ -257,8 +257,8 @@ UserPoolRiskConfigurationAttachment :: {
 		EventAction: string | fn.Fn
 	}
 	propCompromisedCredentialsRiskConfigurationType :: {
-		Actions:      propCompromisedCredentialsActionsType
-		EventFilter?: [...string] | fn.Fn
+		Actions: propCompromisedCredentialsActionsType
+		EventFilter?: [...(string | fn.Fn)]
 	}
 	propNotifyConfigurationType :: {
 		BlockEmail?:    propNotifyEmailType
@@ -274,8 +274,8 @@ UserPoolRiskConfigurationAttachment :: {
 		TextBody?: string | fn.Fn
 	}
 	propRiskExceptionConfigurationType :: {
-		BlockedIPRangeList?: [...string] | fn.Fn
-		SkippedIPRangeList?: [...string] | fn.Fn
+		BlockedIPRangeList?: [...(string | fn.Fn)]
+		SkippedIPRangeList?: [...(string | fn.Fn)]
 	}
 }
 UserPoolUICustomizationAttachment :: {
@@ -289,9 +289,9 @@ UserPoolUICustomizationAttachment :: {
 UserPoolUser :: {
 	Type: "AWS::Cognito::UserPoolUser"
 	Properties: {
-		DesiredDeliveryMediums?: ([...string] & ("EMAIL" | "SMS")) | fn.Fn
-		ForceAliasCreation?:     bool | fn.Fn
-		MessageAction?:          (string & ("RESEND" | "SUPPRESS")) | fn.Fn
+		DesiredDeliveryMediums?: [...((string & ("EMAIL" | "SMS")) | fn.Fn)]
+		ForceAliasCreation?: bool | fn.Fn
+		MessageAction?:      (string & ("RESEND" | "SUPPRESS")) | fn.Fn
 		UserAttributes?: [...propAttributeType]
 		UserPoolId: string | fn.Fn
 		Username?:  string | fn.Fn

@@ -33,14 +33,14 @@ EventSourceMapping :: {
 Function :: {
 	Type: "AWS::Lambda::Function"
 	Properties: {
-		Code:                          propCode
-		DeadLetterConfig?:             propDeadLetterConfig
-		Description?:                  string | fn.Fn
-		Environment?:                  propEnvironment
-		FunctionName?:                 string | fn.Fn
-		Handler:                       string | fn.Fn
-		KmsKeyArn?:                    string | fn.Fn
-		Layers?:                       [...string] | fn.Fn
+		Code:              propCode
+		DeadLetterConfig?: propDeadLetterConfig
+		Description?:      string | fn.Fn
+		Environment?:      propEnvironment
+		FunctionName?:     string | fn.Fn
+		Handler:           string | fn.Fn
+		KmsKeyArn?:        string | fn.Fn
+		Layers?: [...(string | fn.Fn)]
 		MemorySize?:                   (int & (>=128 & <=3008)) | fn.Fn
 		ReservedConcurrentExecutions?: int | fn.Fn
 		Role:                          (string & (=~#"arn:(aws[a-zA-Z-]*)?:iam::\d{12}:role/[a-zA-Z_0-9+=,.@\-_/]+"#)) | fn.Fn
@@ -67,18 +67,18 @@ Function :: {
 		Mode?: string | fn.Fn
 	}
 	propVpcConfig :: {
-		SecurityGroupIds: [...string] | fn.Fn
-		SubnetIds:        [...string] | fn.Fn
+		SecurityGroupIds: [...(string | fn.Fn)]
+		SubnetIds: [...(string | fn.Fn)]
 	}
 }
 LayerVersion :: {
 	Type: "AWS::Lambda::LayerVersion"
 	Properties: {
-		CompatibleRuntimes?: [...string] | fn.Fn
-		Content:             propContent
-		Description?:        string | fn.Fn
-		LayerName?:          string | fn.Fn
-		LicenseInfo?:        string | fn.Fn
+		CompatibleRuntimes?: [...(string | fn.Fn)]
+		Content:      propContent
+		Description?: string | fn.Fn
+		LayerName?:   string | fn.Fn
+		LicenseInfo?: string | fn.Fn
 	}
 	propContent :: {
 		S3Bucket:         string | fn.Fn

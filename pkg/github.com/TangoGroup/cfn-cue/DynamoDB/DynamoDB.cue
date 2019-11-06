@@ -41,8 +41,8 @@ Table :: {
 		PointInTimeRecoveryEnabled?: bool | fn.Fn
 	}
 	propProjection :: {
-		NonKeyAttributes?: [...string] | fn.Fn
-		ProjectionType?:   (string & ("ALL" | "INCLUDE" | "KEYS_ONLY")) | fn.Fn
+		NonKeyAttributes?: [...(string | fn.Fn)]
+		ProjectionType?: (string & ("ALL" | "INCLUDE" | "KEYS_ONLY")) | fn.Fn
 	}
 	propProvisionedThroughput :: {
 		ReadCapacityUnits:  int | fn.Fn

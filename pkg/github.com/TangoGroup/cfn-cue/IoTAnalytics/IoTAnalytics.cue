@@ -207,13 +207,13 @@ Pipeline :: {
 		Next?:      string | fn.Fn
 	}
 	propRemoveAttributes :: {
-		Attributes?: [...string] | fn.Fn
-		Name?:       string | fn.Fn
-		Next?:       string | fn.Fn
+		Attributes?: [...(string | fn.Fn)]
+		Name?: string | fn.Fn
+		Next?: string | fn.Fn
 	}
 	propSelectAttributes :: {
-		Attributes?: [...string] | fn.Fn
-		Name?:       string | fn.Fn
-		Next?:       string | fn.Fn
+		Attributes?: [...(string | fn.Fn)]
+		Name?: string | fn.Fn
+		Next?: string | fn.Fn
 	}
 }

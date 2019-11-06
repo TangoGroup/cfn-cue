@@ -7,19 +7,19 @@ LoadBalancer :: {
 	Properties: {
 		AccessLoggingPolicy?: propAccessLoggingPolicy
 		AppCookieStickinessPolicy?: [...propAppCookieStickinessPolicy]
-		AvailabilityZones?:        [...string] | fn.Fn
+		AvailabilityZones?: [...(string | fn.Fn)]
 		ConnectionDrainingPolicy?: propConnectionDrainingPolicy
 		ConnectionSettings?:       propConnectionSettings
 		CrossZone?:                bool | fn.Fn
 		HealthCheck?:              propHealthCheck
-		Instances?:                [...string] | fn.Fn
+		Instances?: [...(string | fn.Fn)]
 		LBCookieStickinessPolicy?: [...propLBCookieStickinessPolicy]
 		Listeners: [...propListeners]
 		LoadBalancerName?: string | fn.Fn
 		Policies?: [...propPolicies]
-		Scheme?:         string | fn.Fn
-		SecurityGroups?: [...string] | fn.Fn
-		Subnets?:        [...string] | fn.Fn
+		Scheme?: string | fn.Fn
+		SecurityGroups?: [...(string | fn.Fn)]
+		Subnets?: [...(string | fn.Fn)]
 		Tags?: [...propTag]
 	}
 	propAccessLoggingPolicy :: {
@@ -54,16 +54,16 @@ LoadBalancer :: {
 		InstancePort:      (string & (>=1 & <=65535)) | fn.Fn
 		InstanceProtocol?: string | fn.Fn
 		LoadBalancerPort:  (string & (>=1 & <=65535)) | fn.Fn
-		PolicyNames?:      [...string] | fn.Fn
+		PolicyNames?: [...(string | fn.Fn)]
 		Protocol:          string | fn.Fn
 		SSLCertificateId?: string | fn.Fn
 	}
 	propPolicies :: {
-		Attributes: [...{
-		}] | fn.Fn
-		InstancePorts?:     [...string] | fn.Fn
-		LoadBalancerPorts?: [...string] | fn.Fn
-		PolicyName:         string | fn.Fn
-		PolicyType:         string | fn.Fn
+		Attributes: [...({
+		} | fn.Fn)]
+		InstancePorts?: [...(string | fn.Fn)]
+		LoadBalancerPorts?: [...(string | fn.Fn)]
+		PolicyName: string | fn.Fn
+		PolicyType: string | fn.Fn
 	}
 }

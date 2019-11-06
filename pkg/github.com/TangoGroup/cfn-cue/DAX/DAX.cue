@@ -5,7 +5,7 @@ import "github.com/TangoGroup/fn"
 Cluster :: {
 	Type: "AWS::DAX::Cluster"
 	Properties: {
-		AvailabilityZones?:          [...string] | fn.Fn
+		AvailabilityZones?: [...(string | fn.Fn)]
 		ClusterName?:                string | fn.Fn
 		Description?:                string | fn.Fn
 		IAMRoleARN:                  string | fn.Fn
@@ -15,9 +15,9 @@ Cluster :: {
 		PreferredMaintenanceWindow?: string | fn.Fn
 		ReplicationFactor:           int | fn.Fn
 		SSESpecification?:           propSSESpecification
-		SecurityGroupIds?:           [...string] | fn.Fn
-		SubnetGroupName?:            string | fn.Fn
-		Tags?:                       {
+		SecurityGroupIds?: [...(string | fn.Fn)]
+		SubnetGroupName?: string | fn.Fn
+		Tags?:            {
 		} | fn.Fn
 	}
 	propSSESpecification :: {
@@ -38,6 +38,6 @@ SubnetGroup :: {
 	Properties: {
 		Description?:     string | fn.Fn
 		SubnetGroupName?: string | fn.Fn
-		SubnetIds:        [...string] | fn.Fn
+		SubnetIds: [...(string | fn.Fn)]
 	}
 }

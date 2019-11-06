@@ -48,9 +48,9 @@ ConfigurationSetEventDestination :: {
 		CloudWatchDestination?:      propCloudWatchDestination
 		Enabled?:                    bool | fn.Fn
 		KinesisFirehoseDestination?: propKinesisFirehoseDestination
-		MatchingEventTypes:          [...string] | fn.Fn
-		PinpointDestination?:        propPinpointDestination
-		SnsDestination?:             propSnsDestination
+		MatchingEventTypes: [...(string | fn.Fn)]
+		PinpointDestination?: propPinpointDestination
+		SnsDestination?:      propSnsDestination
 	}
 	propKinesisFirehoseDestination :: {
 		DeliveryStreamArn: string | fn.Fn

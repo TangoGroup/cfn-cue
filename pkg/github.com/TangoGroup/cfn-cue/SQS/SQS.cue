@@ -25,6 +25,6 @@ QueuePolicy :: {
 	Properties: {
 		PolicyDocument: {
 		} | fn.Fn
-		Queues: [...string] | fn.Fn
+		Queues: [...(string | fn.Fn)]
 	}
 }

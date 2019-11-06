@@ -16,24 +16,24 @@ Distribution :: {
 		Tags?: [...propTag]
 	}
 	propCacheBehavior :: {
-		AllowedMethods?:         [...string] | fn.Fn
-		CachedMethods?:          [...string] | fn.Fn
+		AllowedMethods?: [...(string | fn.Fn)]
+		CachedMethods?: [...(string | fn.Fn)]
 		Compress?:               bool | fn.Fn
 		DefaultTTL?:             float | fn.Fn
 		FieldLevelEncryptionId?: string | fn.Fn
 		ForwardedValues:         propForwardedValues
 		LambdaFunctionAssociations?: [...propLambdaFunctionAssociation]
-		MaxTTL?:              float | fn.Fn
-		MinTTL?:              float | fn.Fn
-		PathPattern:          string | fn.Fn
-		SmoothStreaming?:     bool | fn.Fn
-		TargetOriginId:       string | fn.Fn
-		TrustedSigners?:      [...string] | fn.Fn
+		MaxTTL?:          float | fn.Fn
+		MinTTL?:          float | fn.Fn
+		PathPattern:      string | fn.Fn
+		SmoothStreaming?: bool | fn.Fn
+		TargetOriginId:   string | fn.Fn
+		TrustedSigners?: [...(string | fn.Fn)]
 		ViewerProtocolPolicy: (string & ("allow-all" | "https-only" | "redirect-to-https")) | fn.Fn
 	}
 	propCookies :: {
-		Forward:           string | fn.Fn
-		WhitelistedNames?: [...string] | fn.Fn
+		Forward: string | fn.Fn
+		WhitelistedNames?: [...(string | fn.Fn)]
 	}
 	propCustomErrorResponse :: {
 		ErrorCachingMinTTL?: float | fn.Fn
@@ -47,25 +47,25 @@ Distribution :: {
 		OriginKeepaliveTimeout?: int | fn.Fn
 		OriginProtocolPolicy:    (string & ("http-only" | "https-only" | "match-viewer")) | fn.Fn
 		OriginReadTimeout?:      int | fn.Fn
-		OriginSSLProtocols?:     ([...string] & ("SSLv3" | "TLSv1.1" | "TLSv1.2" | "TLSv1")) | fn.Fn
+		OriginSSLProtocols?: [...((string & ("SSLv3" | "TLSv1.1" | "TLSv1.2" | "TLSv1")) | fn.Fn)]
 	}
 	propDefaultCacheBehavior :: {
-		AllowedMethods?:         [...string] | fn.Fn
-		CachedMethods?:          [...string] | fn.Fn
+		AllowedMethods?: [...(string | fn.Fn)]
+		CachedMethods?: [...(string | fn.Fn)]
 		Compress?:               bool | fn.Fn
 		DefaultTTL?:             float | fn.Fn
 		FieldLevelEncryptionId?: string | fn.Fn
 		ForwardedValues:         propForwardedValues
 		LambdaFunctionAssociations?: [...propLambdaFunctionAssociation]
-		MaxTTL?:              float | fn.Fn
-		MinTTL?:              float | fn.Fn
-		SmoothStreaming?:     bool | fn.Fn
-		TargetOriginId:       string | fn.Fn
-		TrustedSigners?:      [...string] | fn.Fn
+		MaxTTL?:          float | fn.Fn
+		MinTTL?:          float | fn.Fn
+		SmoothStreaming?: bool | fn.Fn
+		TargetOriginId:   string | fn.Fn
+		TrustedSigners?: [...(string | fn.Fn)]
 		ViewerProtocolPolicy: (string & ("allow-all" | "https-only" | "redirect-to-https")) | fn.Fn
 	}
 	propDistributionConfig :: {
-		Aliases?: [...string] | fn.Fn
+		Aliases?: [...(string | fn.Fn)]
 		CacheBehaviors?: [...propCacheBehavior]
 		Comment?: string | fn.Fn
 		CustomErrorResponses?: [...propCustomErrorResponse]
@@ -82,13 +82,13 @@ Distribution :: {
 		WebACLId?:          string | fn.Fn
 	}
 	propForwardedValues :: {
-		Cookies?:              propCookies
-		Headers?:              [...string] | fn.Fn
-		QueryString:           bool | fn.Fn
-		QueryStringCacheKeys?: [...string] | fn.Fn
+		Cookies?: propCookies
+		Headers?: [...(string | fn.Fn)]
+		QueryString: bool | fn.Fn
+		QueryStringCacheKeys?: [...(string | fn.Fn)]
 	}
 	propGeoRestriction :: {
-		Locations?:      ([...string] & ("AD" | "AE" | "AF" | "AG" | "AI" | "AL" | "AM" | "AO" | "AQ" | "AR" | "AS" | "AT" | "AU" | "AW" | "AX" | "AZ" | "BA" | "BB" | "BD" | "BE" | "BF" | "BG" | "BH" | "BI" | "BJ" | "BL" | "BM" | "BN" | "BO" | "BQ" | "BR" | "BS" | "BT" | "BV" | "BW" | "BY" | "BZ" | "CA" | "CC" | "CD" | "CF" | "CG" | "CH" | "CI" | "CK" | "CL" | "CM" | "CN" | "CO" | "CR" | "CU" | "CV" | "CW" | "CX" | "CY" | "CZ" | "DE" | "DJ" | "DK" | "DM" | "DO" | "DZ" | "EC" | "EE" | "EG" | "EH" | "ER" | "ES" | "ET" | "FI" | "FJ" | "FK" | "FM" | "FO" | "FR" | "GA" | "GB" | "GD" | "GE" | "GF" | "GG" | "GH" | "GI" | "GL" | "GM" | "GN" | "GP" | "GQ" | "GR" | "GS" | "GT" | "GU" | "GW" | "GY" | "HK" | "HM" | "HN" | "HR" | "HT" | "HU" | "ID" | "IE" | "IL" | "IM" | "IN" | "IO" | "IQ" | "IR" | "IS" | "IT" | "JE" | "JM" | "JO" | "JP" | "KE" | "KG" | "KH" | "KI" | "KM" | "KN" | "KP" | "KR" | "KW" | "KY" | "KZ" | "LA" | "LB" | "LC" | "LI" | "LK" | "LR" | "LS" | "LT" | "LU" | "LV" | "LY" | "MA" | "MC" | "MD" | "ME" | "MF" | "MG" | "MH" | "MK" | "ML" | "MM" | "MN" | "MO" | "MP" | "MQ" | "MR" | "MS" | "MT" | "MU" | "MV" | "MW" | "MX" | "MY" | "MZ" | "NA" | "NC" | "NE" | "NF" | "NG" | "NI" | "NL" | "NO" | "NP" | "NR" | "NU" | "NZ" | "OM" | "PA" | "PE" | "PF" | "PG" | "PH" | "PK" | "PL" | "PM" | "PN" | "PR" | "PS" | "PT" | "PW" | "PY" | "QA" | "RE" | "RO" | "RS" | "RU" | "RW" | "SA" | "SB" | "SC" | "SD" | "SE" | "SG" | "SH" | "SI" | "SJ" | "SK" | "SL" | "SM" | "SN" | "SO" | "SR" | "SS" | "ST" | "SV" | "SX" | "SY" | "SZ" | "TC" | "TD" | "TF" | "TG" | "TH" | "TJ" | "TK" | "TL" | "TM" | "TN" | "TO" | "TR" | "TT" | "TV" | "TW" | "TZ" | "UA" | "UG" | "UM" | "US" | "UY" | "UZ" | "VA" | "VC" | "VE" | "VG" | "VI" | "VN" | "VU" | "WF" | "WS" | "YE" | "YT" | "ZA" | "ZM" | "ZW")) | fn.Fn
+		Locations?: [...((string & ("AD" | "AE" | "AF" | "AG" | "AI" | "AL" | "AM" | "AO" | "AQ" | "AR" | "AS" | "AT" | "AU" | "AW" | "AX" | "AZ" | "BA" | "BB" | "BD" | "BE" | "BF" | "BG" | "BH" | "BI" | "BJ" | "BL" | "BM" | "BN" | "BO" | "BQ" | "BR" | "BS" | "BT" | "BV" | "BW" | "BY" | "BZ" | "CA" | "CC" | "CD" | "CF" | "CG" | "CH" | "CI" | "CK" | "CL" | "CM" | "CN" | "CO" | "CR" | "CU" | "CV" | "CW" | "CX" | "CY" | "CZ" | "DE" | "DJ" | "DK" | "DM" | "DO" | "DZ" | "EC" | "EE" | "EG" | "EH" | "ER" | "ES" | "ET" | "FI" | "FJ" | "FK" | "FM" | "FO" | "FR" | "GA" | "GB" | "GD" | "GE" | "GF" | "GG" | "GH" | "GI" | "GL" | "GM" | "GN" | "GP" | "GQ" | "GR" | "GS" | "GT" | "GU" | "GW" | "GY" | "HK" | "HM" | "HN" | "HR" | "HT" | "HU" | "ID" | "IE" | "IL" | "IM" | "IN" | "IO" | "IQ" | "IR" | "IS" | "IT" | "JE" | "JM" | "JO" | "JP" | "KE" | "KG" | "KH" | "KI" | "KM" | "KN" | "KP" | "KR" | "KW" | "KY" | "KZ" | "LA" | "LB" | "LC" | "LI" | "LK" | "LR" | "LS" | "LT" | "LU" | "LV" | "LY" | "MA" | "MC" | "MD" | "ME" | "MF" | "MG" | "MH" | "MK" | "ML" | "MM" | "MN" | "MO" | "MP" | "MQ" | "MR" | "MS" | "MT" | "MU" | "MV" | "MW" | "MX" | "MY" | "MZ" | "NA" | "NC" | "NE" | "NF" | "NG" | "NI" | "NL" | "NO" | "NP" | "NR" | "NU" | "NZ" | "OM" | "PA" | "PE" | "PF" | "PG" | "PH" | "PK" | "PL" | "PM" | "PN" | "PR" | "PS" | "PT" | "PW" | "PY" | "QA" | "RE" | "RO" | "RS" | "RU" | "RW" | "SA" | "SB" | "SC" | "SD" | "SE" | "SG" | "SH" | "SI" | "SJ" | "SK" | "SL" | "SM" | "SN" | "SO" | "SR" | "SS" | "ST" | "SV" | "SX" | "SY" | "SZ" | "TC" | "TD" | "TF" | "TG" | "TH" | "TJ" | "TK" | "TL" | "TM" | "TN" | "TO" | "TR" | "TT" | "TV" | "TW" | "TZ" | "UA" | "UG" | "UM" | "US" | "UY" | "UZ" | "VA" | "VC" | "VE" | "VG" | "VI" | "VN" | "VU" | "WF" | "WS" | "YE" | "YT" | "ZA" | "ZM" | "ZW")) | fn.Fn)]
 		RestrictionType: (string & ("blacklist" | "none" | "whitelist")) | fn.Fn
 	}
 	propLambdaFunctionAssociation :: {
@@ -142,7 +142,7 @@ StreamingDistribution :: {
 		OriginAccessIdentity: string | fn.Fn
 	}
 	propStreamingDistributionConfig :: {
-		Aliases?:       [...string] | fn.Fn
+		Aliases?: [...(string | fn.Fn)]
 		Comment:        string | fn.Fn
 		Enabled:        bool | fn.Fn
 		Logging?:       propLogging
@@ -151,7 +151,7 @@ StreamingDistribution :: {
 		TrustedSigners: propTrustedSigners
 	}
 	propTrustedSigners :: {
-		AwsAccountNumbers?: [...string] | fn.Fn
-		Enabled:            bool | fn.Fn
+		AwsAccountNumbers?: [...(string | fn.Fn)]
+		Enabled: bool | fn.Fn
 	}
 }

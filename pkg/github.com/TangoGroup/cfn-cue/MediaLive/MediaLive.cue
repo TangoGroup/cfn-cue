@@ -131,7 +131,7 @@ Input :: {
 	Type: "AWS::MediaLive::Input"
 	Properties: {
 		Destinations?: [...propInputDestinationRequest]
-		InputSecurityGroups?: [...string] | fn.Fn
+		InputSecurityGroups?: [...(string | fn.Fn)]
 		MediaConnectFlows?: [...propMediaConnectFlowRequest]
 		Name?:    string | fn.Fn
 		RoleArn?: string | fn.Fn
@@ -150,8 +150,8 @@ Input :: {
 		Username?:      string | fn.Fn
 	}
 	propInputVpcRequest :: {
-		SecurityGroupIds?: [...string] | fn.Fn
-		SubnetIds?:        [...string] | fn.Fn
+		SecurityGroupIds?: [...(string | fn.Fn)]
+		SubnetIds?: [...(string | fn.Fn)]
 	}
 	propMediaConnectFlowRequest :: {
 		FlowArn?: string | fn.Fn

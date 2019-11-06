@@ -37,7 +37,7 @@ BackupSelection :: {
 	propBackupSelectionResourceType :: {
 		IamRoleArn: (string & (=~#"arn:(aws[a-zA-Z-]*)?:iam::\d{12}:role/[a-zA-Z_0-9+=,.@\-_/]+"#)) | fn.Fn
 		ListOfTags?: [...propConditionResourceType]
-		Resources?:    [...string] | fn.Fn
+		Resources?: [...(string | fn.Fn)]
 		SelectionName: string | fn.Fn
 	}
 	propConditionResourceType :: {
@@ -58,7 +58,7 @@ BackupVault :: {
 		Notifications?:    propNotificationObjectType
 	}
 	propNotificationObjectType :: {
-		BackupVaultEvents: [...string] | fn.Fn
-		SNSTopicArn:       string | fn.Fn
+		BackupVaultEvents: [...(string | fn.Fn)]
+		SNSTopicArn: string | fn.Fn
 	}
 }

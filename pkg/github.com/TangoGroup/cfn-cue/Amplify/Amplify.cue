@@ -19,12 +19,12 @@ App :: {
 		Tags?: [...propTag]
 	}
 	propAutoBranchCreationConfig :: {
-		AutoBranchCreationPatterns?: [...string] | fn.Fn
-		BasicAuthConfig?:            propBasicAuthConfig
-		BuildSpec?:                  string | fn.Fn
-		EnableAutoBranchCreation?:   bool | fn.Fn
-		EnableAutoBuild?:            bool | fn.Fn
-		EnablePullRequestPreview?:   bool | fn.Fn
+		AutoBranchCreationPatterns?: [...(string | fn.Fn)]
+		BasicAuthConfig?:          propBasicAuthConfig
+		BuildSpec?:                string | fn.Fn
+		EnableAutoBranchCreation?: bool | fn.Fn
+		EnableAutoBuild?:          bool | fn.Fn
+		EnablePullRequestPreview?: bool | fn.Fn
 		EnvironmentVariables?: [...propEnvironmentVariable]
 		PullRequestEnvironmentName?: string | fn.Fn
 		Stage?:                      string | fn.Fn

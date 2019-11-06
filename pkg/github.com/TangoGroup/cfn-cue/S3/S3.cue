@@ -46,12 +46,12 @@ Bucket :: {
 		CorsRules: [...propCorsRule]
 	}
 	propCorsRule :: {
-		AllowedHeaders?: [...string] | fn.Fn
-		AllowedMethods:  [...string] | fn.Fn
-		AllowedOrigins:  [...string] | fn.Fn
-		ExposedHeaders?: [...string] | fn.Fn
-		Id?:             string | fn.Fn
-		MaxAge?:         int | fn.Fn
+		AllowedHeaders?: [...(string | fn.Fn)]
+		AllowedMethods: [...(string | fn.Fn)]
+		AllowedOrigins: [...(string | fn.Fn)]
+		ExposedHeaders?: [...(string | fn.Fn)]
+		Id?:     string | fn.Fn
+		MaxAge?: int | fn.Fn
 	}
 	propDataExport :: {
 		Destination:         propDestination
@@ -80,9 +80,9 @@ Bucket :: {
 		Enabled:                bool | fn.Fn
 		Id:                     string | fn.Fn
 		IncludedObjectVersions: string | fn.Fn
-		OptionalFields?:        [...string] | fn.Fn
-		Prefix?:                string | fn.Fn
-		ScheduleFrequency:      string | fn.Fn
+		OptionalFields?: [...(string | fn.Fn)]
+		Prefix?:           string | fn.Fn
+		ScheduleFrequency: string | fn.Fn
 	}
 	propLambdaConfiguration :: {
 		Event:    string | fn.Fn

@@ -10,30 +10,30 @@ Cluster :: {
 		AvailabilityZone?:                 string | fn.Fn
 		ClusterIdentifier?:                string | fn.Fn
 		ClusterParameterGroupName?:        string | fn.Fn
-		ClusterSecurityGroups?:            [...string] | fn.Fn
-		ClusterSubnetGroupName?:           string | fn.Fn
-		ClusterType:                       (string & ("multi-node" | "single-node")) | fn.Fn
-		ClusterVersion?:                   (string & ("1.0")) | fn.Fn
-		DBName:                            string | fn.Fn
-		ElasticIp?:                        string | fn.Fn
-		Encrypted?:                        bool | fn.Fn
-		HsmClientCertificateIdentifier?:   string | fn.Fn
-		HsmConfigurationIdentifier?:       string | fn.Fn
-		IamRoles?:                         [...string] | fn.Fn
-		KmsKeyId?:                         string | fn.Fn
-		LoggingProperties?:                propLoggingProperties
-		MasterUserPassword:                string | fn.Fn
-		MasterUsername:                    string | fn.Fn
-		NodeType:                          (string & ("dc1.8xlarge" | "dc1.large" | "dc2.8xlarge" | "dc2.large" | "ds1.8xlarge" | "ds1.xlarge" | "ds2.8xlarge" | "ds2.xlarge")) | fn.Fn
-		NumberOfNodes?:                    (int & (>=1 & <=100)) | fn.Fn
-		OwnerAccount?:                     string | fn.Fn
-		Port?:                             int | fn.Fn
-		PreferredMaintenanceWindow?:       string | fn.Fn
-		PubliclyAccessible?:               bool | fn.Fn
-		SnapshotClusterIdentifier?:        string | fn.Fn
-		SnapshotIdentifier?:               string | fn.Fn
+		ClusterSecurityGroups?: [...(string | fn.Fn)]
+		ClusterSubnetGroupName?:         string | fn.Fn
+		ClusterType:                     (string & ("multi-node" | "single-node")) | fn.Fn
+		ClusterVersion?:                 (string & ("1.0")) | fn.Fn
+		DBName:                          string | fn.Fn
+		ElasticIp?:                      string | fn.Fn
+		Encrypted?:                      bool | fn.Fn
+		HsmClientCertificateIdentifier?: string | fn.Fn
+		HsmConfigurationIdentifier?:     string | fn.Fn
+		IamRoles?: [...(string | fn.Fn)]
+		KmsKeyId?:                   string | fn.Fn
+		LoggingProperties?:          propLoggingProperties
+		MasterUserPassword:          string | fn.Fn
+		MasterUsername:              string | fn.Fn
+		NodeType:                    (string & ("dc1.8xlarge" | "dc1.large" | "dc2.8xlarge" | "dc2.large" | "ds1.8xlarge" | "ds1.xlarge" | "ds2.8xlarge" | "ds2.xlarge")) | fn.Fn
+		NumberOfNodes?:              (int & (>=1 & <=100)) | fn.Fn
+		OwnerAccount?:               string | fn.Fn
+		Port?:                       int | fn.Fn
+		PreferredMaintenanceWindow?: string | fn.Fn
+		PubliclyAccessible?:         bool | fn.Fn
+		SnapshotClusterIdentifier?:  string | fn.Fn
+		SnapshotIdentifier?:         string | fn.Fn
 		Tags?: [...propTag]
-		VpcSecurityGroupIds?: [...string] | fn.Fn
+		VpcSecurityGroupIds?: [...(string | fn.Fn)]
 	}
 	propLoggingProperties :: {
 		BucketName:   string | fn.Fn
@@ -73,7 +73,7 @@ ClusterSubnetGroup :: {
 	Type: "AWS::Redshift::ClusterSubnetGroup"
 	Properties: {
 		Description: string | fn.Fn
-		SubnetIds:   [...string] | fn.Fn
+		SubnetIds: [...(string | fn.Fn)]
 		Tags?: [...propTag]
 	}
 }

@@ -14,10 +14,10 @@ DataLakeSettings :: {
 Permissions :: {
 	Type: "AWS::LakeFormation::Permissions"
 	Properties: {
-		DataLakePrincipal:           propDataLakePrincipal
-		Permissions?:                [...string] | fn.Fn
-		PermissionsWithGrantOption?: [...string] | fn.Fn
-		Resource:                    propResource
+		DataLakePrincipal: propDataLakePrincipal
+		Permissions?: [...(string | fn.Fn)]
+		PermissionsWithGrantOption?: [...(string | fn.Fn)]
+		Resource: propResource
 	}
 	propDataLakePrincipal :: {
 		DataLakePrincipalIdentifier?: string | fn.Fn

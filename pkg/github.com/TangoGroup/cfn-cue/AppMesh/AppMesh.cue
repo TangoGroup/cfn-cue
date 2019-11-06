@@ -30,11 +30,11 @@ Route :: {
 		Value: int | fn.Fn
 	}
 	propGrpcRetryPolicy :: {
-		GrpcRetryEvents?: [...string] | fn.Fn
-		HttpRetryEvents?: [...string] | fn.Fn
-		MaxRetries:       int | fn.Fn
-		PerRetryTimeout:  propDuration
-		TcpRetryEvents?:  [...string] | fn.Fn
+		GrpcRetryEvents?: [...(string | fn.Fn)]
+		HttpRetryEvents?: [...(string | fn.Fn)]
+		MaxRetries:      int | fn.Fn
+		PerRetryTimeout: propDuration
+		TcpRetryEvents?: [...(string | fn.Fn)]
 	}
 	propGrpcRoute :: {
 		Action:       propGrpcRouteAction
@@ -69,10 +69,10 @@ Route :: {
 		Suffix?: string | fn.Fn
 	}
 	propHttpRetryPolicy :: {
-		HttpRetryEvents?: [...string] | fn.Fn
-		MaxRetries:       int | fn.Fn
-		PerRetryTimeout:  propDuration
-		TcpRetryEvents?:  [...string] | fn.Fn
+		HttpRetryEvents?: [...(string | fn.Fn)]
+		MaxRetries:      int | fn.Fn
+		PerRetryTimeout: propDuration
+		TcpRetryEvents?: [...(string | fn.Fn)]
 	}
 	propHttpRoute :: {
 		Action:       propHttpRouteAction

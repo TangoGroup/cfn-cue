@@ -7,8 +7,8 @@ ResolverEndpoint :: {
 	Properties: {
 		Direction: (string & ("INBOUND" | "OUTBOUND")) | fn.Fn
 		IpAddresses: [...propIpAddressRequest]
-		Name?:            string | fn.Fn
-		SecurityGroupIds: [...string] | fn.Fn
+		Name?: string | fn.Fn
+		SecurityGroupIds: [...(string | fn.Fn)]
 		Tags?: [...propTag]
 	}
 	propIpAddressRequest :: {

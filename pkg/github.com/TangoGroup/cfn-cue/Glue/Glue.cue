@@ -15,9 +15,9 @@ Classifier :: {
 		ContainsHeader?:       string | fn.Fn
 		Delimiter?:            string | fn.Fn
 		DisableValueTrimming?: bool | fn.Fn
-		Header?:               [...string] | fn.Fn
-		Name?:                 string | fn.Fn
-		QuoteSymbol?:          string | fn.Fn
+		Header?: [...(string | fn.Fn)]
+		Name?:        string | fn.Fn
+		QuoteSymbol?: string | fn.Fn
 	}
 	propGrokClassifier :: {
 		Classification:  string | fn.Fn
@@ -44,22 +44,22 @@ Connection :: {
 	propConnectionInput :: {
 		ConnectionProperties: {
 		} | fn.Fn
-		ConnectionType:                  (string & ("JDBC" | "SFTP")) | fn.Fn
-		Description?:                    string | fn.Fn
-		MatchCriteria?:                  [...string] | fn.Fn
+		ConnectionType: (string & ("JDBC" | "SFTP")) | fn.Fn
+		Description?:   string | fn.Fn
+		MatchCriteria?: [...(string | fn.Fn)]
 		Name?:                           string | fn.Fn
 		PhysicalConnectionRequirements?: propPhysicalConnectionRequirements
 	}
 	propPhysicalConnectionRequirements :: {
-		AvailabilityZone?:    string | fn.Fn
-		SecurityGroupIdList?: [...string] | fn.Fn
-		SubnetId?:            string | fn.Fn
+		AvailabilityZone?: string | fn.Fn
+		SecurityGroupIdList?: [...(string | fn.Fn)]
+		SubnetId?: string | fn.Fn
 	}
 }
 Crawler :: {
 	Type: "AWS::Glue::Crawler"
 	Properties: {
-		Classifiers?:                  [...string] | fn.Fn
+		Classifiers?: [...(string | fn.Fn)]
 		Configuration?:                string | fn.Fn
 		CrawlerSecurityConfiguration?: string | fn.Fn
 		DatabaseName?:                 string | fn.Fn
@@ -75,19 +75,19 @@ Crawler :: {
 	}
 	propCatalogTarget :: {
 		DatabaseName?: string | fn.Fn
-		Tables?:       [...string] | fn.Fn
+		Tables?: [...(string | fn.Fn)]
 	}
 	propDynamoDBTarget :: {
 		Path?: string | fn.Fn
 	}
 	propJdbcTarget :: {
 		ConnectionName?: string | fn.Fn
-		Exclusions?:     [...string] | fn.Fn
-		Path?:           string | fn.Fn
+		Exclusions?: [...(string | fn.Fn)]
+		Path?: string | fn.Fn
 	}
 	propS3Target :: {
-		Exclusions?: [...string] | fn.Fn
-		Path?:       string | fn.Fn
+		Exclusions?: [...(string | fn.Fn)]
+		Path?: string | fn.Fn
 	}
 	propSchedule :: {
 		ScheduleExpression?: string | fn.Fn
@@ -150,9 +150,9 @@ DevEndpoint :: {
 		PublicKey?:             string | fn.Fn
 		RoleArn:                string | fn.Fn
 		SecurityConfiguration?: string | fn.Fn
-		SecurityGroupIds?:      [...string] | fn.Fn
-		SubnetId?:              string | fn.Fn
-		Tags?:                  {
+		SecurityGroupIds?: [...(string | fn.Fn)]
+		SubnetId?: string | fn.Fn
+		Tags?:     {
 		} | fn.Fn
 		WorkerType?: string | fn.Fn
 	}
@@ -182,7 +182,7 @@ Job :: {
 		WorkerType?: string | fn.Fn
 	}
 	propConnectionsList :: {
-		Connections?: [...string] | fn.Fn
+		Connections?: [...(string | fn.Fn)]
 	}
 	propExecutionProperty :: {
 		MaxConcurrentRuns?: float | fn.Fn
@@ -251,7 +251,7 @@ Partition :: {
 		Parameters?: {
 		} | fn.Fn
 		StorageDescriptor?: propStorageDescriptor
-		Values:             [...string] | fn.Fn
+		Values: [...(string | fn.Fn)]
 	}
 	propSerdeInfo :: {
 		Name?:       string | fn.Fn
@@ -260,13 +260,13 @@ Partition :: {
 		SerializationLibrary?: string | fn.Fn
 	}
 	propSkewedInfo :: {
-		SkewedColumnNames?:             [...string] | fn.Fn
+		SkewedColumnNames?: [...(string | fn.Fn)]
 		SkewedColumnValueLocationMaps?: {
 		} | fn.Fn
-		SkewedColumnValues?: [...string] | fn.Fn
+		SkewedColumnValues?: [...(string | fn.Fn)]
 	}
 	propStorageDescriptor :: {
-		BucketColumns?: [...string] | fn.Fn
+		BucketColumns?: [...(string | fn.Fn)]
 		Columns?: [...propColumn]
 		Compressed?:      bool | fn.Fn
 		InputFormat?:     string | fn.Fn
@@ -330,13 +330,13 @@ Table :: {
 		SerializationLibrary?: string | fn.Fn
 	}
 	propSkewedInfo :: {
-		SkewedColumnNames?:             [...string] | fn.Fn
+		SkewedColumnNames?: [...(string | fn.Fn)]
 		SkewedColumnValueLocationMaps?: {
 		} | fn.Fn
-		SkewedColumnValues?: [...string] | fn.Fn
+		SkewedColumnValues?: [...(string | fn.Fn)]
 	}
 	propStorageDescriptor :: {
-		BucketColumns?: [...string] | fn.Fn
+		BucketColumns?: [...(string | fn.Fn)]
 		Columns?: [...propColumn]
 		Compressed?:      bool | fn.Fn
 		InputFormat?:     string | fn.Fn

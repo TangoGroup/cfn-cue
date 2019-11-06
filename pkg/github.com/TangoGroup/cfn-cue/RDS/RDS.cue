@@ -6,15 +6,15 @@ DBCluster :: {
 	Type: "AWS::RDS::DBCluster"
 	Properties: {
 		AssociatedRoles?: [...propDBClusterRole]
-		AvailabilityZones?:               [...string] | fn.Fn
-		BacktrackWindow?:                 int | fn.Fn
-		BackupRetentionPeriod?:           (int & (>=1 & <=35)) | fn.Fn
-		DBClusterIdentifier?:             string | fn.Fn
-		DBClusterParameterGroupName?:     string | fn.Fn
-		DBSubnetGroupName?:               string | fn.Fn
-		DatabaseName?:                    string | fn.Fn
-		DeletionProtection?:              bool | fn.Fn
-		EnableCloudwatchLogsExports?:     [...string] | fn.Fn
+		AvailabilityZones?: [...(string | fn.Fn)]
+		BacktrackWindow?:             int | fn.Fn
+		BackupRetentionPeriod?:       (int & (>=1 & <=35)) | fn.Fn
+		DBClusterIdentifier?:         string | fn.Fn
+		DBClusterParameterGroupName?: string | fn.Fn
+		DBSubnetGroupName?:           string | fn.Fn
+		DatabaseName?:                string | fn.Fn
+		DeletionProtection?:          bool | fn.Fn
+		EnableCloudwatchLogsExports?: [...(string | fn.Fn)]
 		EnableIAMDatabaseAuthentication?: bool | fn.Fn
 		Engine:                           string | fn.Fn
 		EngineMode?:                      string | fn.Fn
@@ -34,7 +34,7 @@ DBCluster :: {
 		StorageEncrypted?:                bool | fn.Fn
 		Tags?: [...propTag]
 		UseLatestRestorableTime?: bool | fn.Fn
-		VpcSecurityGroupIds?:     [...string] | fn.Fn
+		VpcSecurityGroupIds?: [...(string | fn.Fn)]
 	}
 	propDBClusterRole :: {
 		FeatureName?: string | fn.Fn
@@ -64,24 +64,24 @@ DBInstance :: {
 		AllocatedStorage?:         string | fn.Fn
 		AllowMajorVersionUpgrade?: bool | fn.Fn
 		AssociatedRoles?: [...propDBInstanceRole]
-		AutoMinorVersionUpgrade?:            bool | fn.Fn
-		AvailabilityZone?:                   string | fn.Fn
-		BackupRetentionPeriod?:              (int & (>=0 & <=35)) | fn.Fn
-		CharacterSetName?:                   string | fn.Fn
-		CopyTagsToSnapshot?:                 bool | fn.Fn
-		DBClusterIdentifier?:                string | fn.Fn
-		DBInstanceClass:                     string | fn.Fn
-		DBInstanceIdentifier?:               string | fn.Fn
-		DBName?:                             string | fn.Fn
-		DBParameterGroupName?:               string | fn.Fn
-		DBSecurityGroups?:                   [...string] | fn.Fn
-		DBSnapshotIdentifier?:               string | fn.Fn
-		DBSubnetGroupName?:                  string | fn.Fn
-		DeleteAutomatedBackups?:             bool | fn.Fn
-		DeletionProtection?:                 bool | fn.Fn
-		Domain?:                             string | fn.Fn
-		DomainIAMRoleName?:                  string | fn.Fn
-		EnableCloudwatchLogsExports?:        [...string] | fn.Fn
+		AutoMinorVersionUpgrade?: bool | fn.Fn
+		AvailabilityZone?:        string | fn.Fn
+		BackupRetentionPeriod?:   (int & (>=0 & <=35)) | fn.Fn
+		CharacterSetName?:        string | fn.Fn
+		CopyTagsToSnapshot?:      bool | fn.Fn
+		DBClusterIdentifier?:     string | fn.Fn
+		DBInstanceClass:          string | fn.Fn
+		DBInstanceIdentifier?:    string | fn.Fn
+		DBName?:                  string | fn.Fn
+		DBParameterGroupName?:    string | fn.Fn
+		DBSecurityGroups?: [...(string | fn.Fn)]
+		DBSnapshotIdentifier?:   string | fn.Fn
+		DBSubnetGroupName?:      string | fn.Fn
+		DeleteAutomatedBackups?: bool | fn.Fn
+		DeletionProtection?:     bool | fn.Fn
+		Domain?:                 string | fn.Fn
+		DomainIAMRoleName?:      string | fn.Fn
+		EnableCloudwatchLogsExports?: [...(string | fn.Fn)]
 		EnableIAMDatabaseAuthentication?:    bool | fn.Fn
 		EnablePerformanceInsights?:          bool | fn.Fn
 		Engine?:                             string | fn.Fn
@@ -110,7 +110,7 @@ DBInstance :: {
 		Tags?: [...propTag]
 		Timezone?:                    string | fn.Fn
 		UseDefaultProcessorFeatures?: bool | fn.Fn
-		VPCSecurityGroups?:           [...string] | fn.Fn
+		VPCSecurityGroups?: [...(string | fn.Fn)]
 	}
 	propDBInstanceRole :: {
 		FeatureName: string | fn.Fn
@@ -162,18 +162,18 @@ DBSubnetGroup :: {
 	Properties: {
 		DBSubnetGroupDescription: string | fn.Fn
 		DBSubnetGroupName?:       string | fn.Fn
-		SubnetIds:                [...string] | fn.Fn
+		SubnetIds: [...(string | fn.Fn)]
 		Tags?: [...propTag]
 	}
 }
 EventSubscription :: {
 	Type: "AWS::RDS::EventSubscription"
 	Properties: {
-		Enabled?:         bool | fn.Fn
-		EventCategories?: [...string] | fn.Fn
-		SnsTopicArn:      string | fn.Fn
-		SourceIds?:       [...string] | fn.Fn
-		SourceType?:      string | fn.Fn
+		Enabled?: bool | fn.Fn
+		EventCategories?: [...(string | fn.Fn)]
+		SnsTopicArn: string | fn.Fn
+		SourceIds?: [...(string | fn.Fn)]
+		SourceType?: string | fn.Fn
 	}
 }
 OptionGroup :: {
@@ -186,12 +186,12 @@ OptionGroup :: {
 		Tags?: [...propTag]
 	}
 	propOptionConfiguration :: {
-		DBSecurityGroupMemberships?: [...string] | fn.Fn
-		OptionName:                  string | fn.Fn
+		DBSecurityGroupMemberships?: [...(string | fn.Fn)]
+		OptionName: string | fn.Fn
 		OptionSettings?: [...propOptionSetting]
-		OptionVersion?:               string | fn.Fn
-		Port?:                        int | fn.Fn
-		VpcSecurityGroupMemberships?: [...string] | fn.Fn
+		OptionVersion?: string | fn.Fn
+		Port?:          int | fn.Fn
+		VpcSecurityGroupMemberships?: [...(string | fn.Fn)]
 	}
 	propOptionSetting :: {
 		Name?:  string | fn.Fn

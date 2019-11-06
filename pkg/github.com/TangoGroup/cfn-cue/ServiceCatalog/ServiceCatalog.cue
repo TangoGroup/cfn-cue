@@ -34,8 +34,8 @@ CloudFormationProduct :: {
 CloudFormationProvisionedProduct :: {
 	Type: "AWS::ServiceCatalog::CloudFormationProvisionedProduct"
 	Properties: {
-		AcceptLanguage?:           string | fn.Fn
-		NotificationArns?:         [...string] | fn.Fn
+		AcceptLanguage?: string | fn.Fn
+		NotificationArns?: [...(string | fn.Fn)]
 		PathId?:                   string | fn.Fn
 		ProductId?:                string | fn.Fn
 		ProductName?:              string | fn.Fn
@@ -51,23 +51,23 @@ CloudFormationProvisionedProduct :: {
 		Value?: string | fn.Fn
 	}
 	propProvisioningPreferences :: {
-		StackSetAccounts?:                   [...string] | fn.Fn
+		StackSetAccounts?: [...(string | fn.Fn)]
 		StackSetFailureToleranceCount?:      int | fn.Fn
 		StackSetFailureTolerancePercentage?: int | fn.Fn
 		StackSetMaxConcurrencyCount?:        int | fn.Fn
 		StackSetMaxConcurrencyPercentage?:   int | fn.Fn
 		StackSetOperationType?:              string | fn.Fn
-		StackSetRegions?:                    [...string] | fn.Fn
+		StackSetRegions?: [...(string | fn.Fn)]
 	}
 }
 LaunchNotificationConstraint :: {
 	Type: "AWS::ServiceCatalog::LaunchNotificationConstraint"
 	Properties: {
-		AcceptLanguage?:  string | fn.Fn
-		Description?:     string | fn.Fn
-		NotificationArns: [...string] | fn.Fn
-		PortfolioId:      string | fn.Fn
-		ProductId:        string | fn.Fn
+		AcceptLanguage?: string | fn.Fn
+		Description?:    string | fn.Fn
+		NotificationArns: [...(string | fn.Fn)]
+		PortfolioId: string | fn.Fn
+		ProductId:   string | fn.Fn
 	}
 }
 LaunchRoleConstraint :: {
@@ -139,14 +139,14 @@ ResourceUpdateConstraint :: {
 StackSetConstraint :: {
 	Type: "AWS::ServiceCatalog::StackSetConstraint"
 	Properties: {
-		AcceptLanguage?:      string | fn.Fn
-		AccountList:          [...string] | fn.Fn
-		AdminRole:            string | fn.Fn
-		Description:          string | fn.Fn
-		ExecutionRole:        string | fn.Fn
-		PortfolioId:          string | fn.Fn
-		ProductId:            string | fn.Fn
-		RegionList:           [...string] | fn.Fn
+		AcceptLanguage?: string | fn.Fn
+		AccountList: [...(string | fn.Fn)]
+		AdminRole:     string | fn.Fn
+		Description:   string | fn.Fn
+		ExecutionRole: string | fn.Fn
+		PortfolioId:   string | fn.Fn
+		ProductId:     string | fn.Fn
+		RegionList: [...(string | fn.Fn)]
 		StackInstanceControl: string | fn.Fn
 	}
 }

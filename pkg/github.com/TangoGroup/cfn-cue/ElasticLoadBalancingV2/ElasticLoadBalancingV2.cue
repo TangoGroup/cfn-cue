@@ -121,17 +121,17 @@ ListenerRule :: {
 		StatusCode:   string | fn.Fn
 	}
 	propHostHeaderConfig :: {
-		Values?: [...string] | fn.Fn
+		Values?: [...(string | fn.Fn)]
 	}
 	propHttpHeaderConfig :: {
 		HttpHeaderName?: string | fn.Fn
-		Values?:         [...string] | fn.Fn
+		Values?: [...(string | fn.Fn)]
 	}
 	propHttpRequestMethodConfig :: {
-		Values?: [...string] | fn.Fn
+		Values?: [...(string | fn.Fn)]
 	}
 	propPathPatternConfig :: {
-		Values?: [...string] | fn.Fn
+		Values?: [...(string | fn.Fn)]
 	}
 	propQueryStringConfig :: {
 		Values?: [...propQueryStringKeyValue]
@@ -156,10 +156,10 @@ ListenerRule :: {
 		PathPatternConfig?:       propPathPatternConfig
 		QueryStringConfig?:       propQueryStringConfig
 		SourceIpConfig?:          propSourceIpConfig
-		Values?:                  [...string] | fn.Fn
+		Values?: [...(string | fn.Fn)]
 	}
 	propSourceIpConfig :: {
-		Values?: [...string] | fn.Fn
+		Values?: [...(string | fn.Fn)]
 	}
 }
 LoadBalancer :: {
@@ -167,11 +167,11 @@ LoadBalancer :: {
 	Properties: {
 		IpAddressType?: string | fn.Fn
 		LoadBalancerAttributes?: [...propLoadBalancerAttribute]
-		Name?:           string | fn.Fn
-		Scheme?:         string | fn.Fn
-		SecurityGroups?: [...string] | fn.Fn
+		Name?:   string | fn.Fn
+		Scheme?: string | fn.Fn
+		SecurityGroups?: [...(string | fn.Fn)]
 		SubnetMappings?: [...propSubnetMapping]
-		Subnets?: [...string] | fn.Fn
+		Subnets?: [...(string | fn.Fn)]
 		Tags?: [...propTag]
 		Type?: string | fn.Fn
 	}

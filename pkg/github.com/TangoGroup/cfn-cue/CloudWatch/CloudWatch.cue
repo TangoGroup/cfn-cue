@@ -5,8 +5,8 @@ import "github.com/TangoGroup/fn"
 Alarm :: {
 	Type: "AWS::CloudWatch::Alarm"
 	Properties: {
-		ActionsEnabled?:    bool | fn.Fn
-		AlarmActions?:      [...string] | fn.Fn
+		ActionsEnabled?: bool | fn.Fn
+		AlarmActions?: [...(string | fn.Fn)]
 		AlarmDescription?:  string | fn.Fn
 		AlarmName?:         string | fn.Fn
 		ComparisonOperator: (string & ("GreaterThanOrEqualToThreshold" | "GreaterThanThreshold" | "LessThanThreshold" | "LessThanOrEqualToThreshold" | "LessThanLowerOrGreaterThanUpperThreshold" | "LessThanLowerThreshold" | "GreaterThanUpperThreshold")) | fn.Fn
@@ -15,11 +15,11 @@ Alarm :: {
 		EvaluateLowSampleCountPercentile?: string | fn.Fn
 		EvaluationPeriods:                 int | fn.Fn
 		ExtendedStatistic?:                string | fn.Fn
-		InsufficientDataActions?:          [...string] | fn.Fn
-		MetricName?:                       string | fn.Fn
+		InsufficientDataActions?: [...(string | fn.Fn)]
+		MetricName?: string | fn.Fn
 		Metrics?: [...propMetricDataQuery]
-		Namespace?:         string | fn.Fn
-		OKActions?:         [...string] | fn.Fn
+		Namespace?: string | fn.Fn
+		OKActions?: [...(string | fn.Fn)]
 		Period?:            int | fn.Fn
 		Statistic?:         (string & ("Average" | "Maximum" | "Minimum" | "SampleCount" | "Sum")) | fn.Fn
 		Threshold?:         float | fn.Fn

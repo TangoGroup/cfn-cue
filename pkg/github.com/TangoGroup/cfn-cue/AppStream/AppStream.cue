@@ -5,9 +5,9 @@ import "github.com/TangoGroup/fn"
 DirectoryConfig :: {
 	Type: "AWS::AppStream::DirectoryConfig"
 	Properties: {
-		DirectoryName:                        string | fn.Fn
-		OrganizationalUnitDistinguishedNames: [...string] | fn.Fn
-		ServiceAccountCredentials:            propServiceAccountCredentials
+		DirectoryName: string | fn.Fn
+		OrganizationalUnitDistinguishedNames: [...(string | fn.Fn)]
+		ServiceAccountCredentials: propServiceAccountCredentials
 	}
 	propServiceAccountCredentials :: {
 		AccountName:     string | fn.Fn
@@ -41,8 +41,8 @@ Fleet :: {
 		OrganizationalUnitDistinguishedName?: string | fn.Fn
 	}
 	propVpcConfig :: {
-		SecurityGroupIds?: [...string] | fn.Fn
-		SubnetIds?:        [...string] | fn.Fn
+		SecurityGroupIds?: [...(string | fn.Fn)]
+		SubnetIds?: [...(string | fn.Fn)]
 	}
 }
 ImageBuilder :: {
@@ -70,23 +70,23 @@ ImageBuilder :: {
 		OrganizationalUnitDistinguishedName?: string | fn.Fn
 	}
 	propVpcConfig :: {
-		SecurityGroupIds?: [...string] | fn.Fn
-		SubnetIds?:        [...string] | fn.Fn
+		SecurityGroupIds?: [...(string | fn.Fn)]
+		SubnetIds?: [...(string | fn.Fn)]
 	}
 }
 Stack :: {
 	Type: "AWS::AppStream::Stack"
 	Properties: {
 		AccessEndpoints?: [...propAccessEndpoint]
-		ApplicationSettings?:     propApplicationSettings
-		AttributesToDelete?:      [...string] | fn.Fn
+		ApplicationSettings?: propApplicationSettings
+		AttributesToDelete?: [...(string | fn.Fn)]
 		DeleteStorageConnectors?: bool | fn.Fn
 		Description?:             string | fn.Fn
 		DisplayName?:             string | fn.Fn
-		EmbedHostDomains?:        [...string] | fn.Fn
-		FeedbackURL?:             string | fn.Fn
-		Name?:                    string | fn.Fn
-		RedirectURL?:             string | fn.Fn
+		EmbedHostDomains?: [...(string | fn.Fn)]
+		FeedbackURL?: string | fn.Fn
+		Name?:        string | fn.Fn
+		RedirectURL?: string | fn.Fn
 		StorageConnectors?: [...propStorageConnector]
 		Tags?: [...propTag]
 		UserSettings?: [...propUserSetting]
@@ -100,8 +100,8 @@ Stack :: {
 		SettingsGroup?: string | fn.Fn
 	}
 	propStorageConnector :: {
-		ConnectorType:       string | fn.Fn
-		Domains?:            [...string] | fn.Fn
+		ConnectorType: string | fn.Fn
+		Domains?: [...(string | fn.Fn)]
 		ResourceIdentifier?: string | fn.Fn
 	}
 	propUserSetting :: {

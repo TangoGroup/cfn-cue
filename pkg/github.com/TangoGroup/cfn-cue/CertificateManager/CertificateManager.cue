@@ -7,7 +7,7 @@ Certificate :: {
 	Properties: {
 		DomainName: string | fn.Fn
 		DomainValidationOptions?: [...propDomainValidationOption]
-		SubjectAlternativeNames?: [...string] | fn.Fn
+		SubjectAlternativeNames?: [...(string | fn.Fn)]
 		Tags?: [...propTag]
 		ValidationMethod?: (string & ("DNS" | "EMAIL")) | fn.Fn
 	}

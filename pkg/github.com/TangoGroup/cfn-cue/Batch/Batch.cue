@@ -18,15 +18,15 @@ ComputeEnvironment :: {
 		Ec2KeyPair?:         string | fn.Fn
 		ImageId?:            string | fn.Fn
 		InstanceRole:        string | fn.Fn
-		InstanceTypes:       [...string] | fn.Fn
-		LaunchTemplate?:     propLaunchTemplateSpecification
-		MaxvCpus:            int | fn.Fn
-		MinvCpus:            int | fn.Fn
-		PlacementGroup?:     string | fn.Fn
-		SecurityGroupIds?:   [...string] | fn.Fn
-		SpotIamFleetRole?:   (string & (=~#"arn:(aws[a-zA-Z-]*)?:iam::\d{12}:role/[a-zA-Z_0-9+=,.@\-_/]+"#)) | fn.Fn
-		Subnets:             [...string] | fn.Fn
-		Tags?:               {
+		InstanceTypes: [...(string | fn.Fn)]
+		LaunchTemplate?: propLaunchTemplateSpecification
+		MaxvCpus:        int | fn.Fn
+		MinvCpus:        int | fn.Fn
+		PlacementGroup?: string | fn.Fn
+		SecurityGroupIds?: [...(string | fn.Fn)]
+		SpotIamFleetRole?: (string & (=~#"arn:(aws[a-zA-Z-]*)?:iam::\d{12}:role/[a-zA-Z_0-9+=,.@\-_/]+"#)) | fn.Fn
+		Subnets: [...(string | fn.Fn)]
+		Tags?: {
 		} | fn.Fn
 		Type: string | fn.Fn
 	}
@@ -49,7 +49,7 @@ JobDefinition :: {
 		Type:           string | fn.Fn
 	}
 	propContainerProperties :: {
-		Command?: [...string] | fn.Fn
+		Command?: [...(string | fn.Fn)]
 		Environment?: [...propEnvironment]
 		Image:            string | fn.Fn
 		InstanceType?:    string | fn.Fn
@@ -68,7 +68,7 @@ JobDefinition :: {
 	propDevice :: {
 		ContainerPath?: string | fn.Fn
 		HostPath?:      string | fn.Fn
-		Permissions?:   [...string] | fn.Fn
+		Permissions?: [...(string | fn.Fn)]
 	}
 	propEnvironment :: {
 		Name?:  string | fn.Fn

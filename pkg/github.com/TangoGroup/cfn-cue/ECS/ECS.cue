@@ -33,8 +33,8 @@ Service :: {
 	}
 	propAwsVpcConfiguration :: {
 		AssignPublicIp?: string | fn.Fn
-		SecurityGroups?: [...string] | fn.Fn
-		Subnets:         [...string] | fn.Fn
+		SecurityGroups?: [...(string | fn.Fn)]
+		Subnets: [...(string | fn.Fn)]
 	}
 	propDeploymentConfiguration :: {
 		MaximumPercent?:        int | fn.Fn
@@ -76,31 +76,31 @@ TaskDefinition :: {
 		NetworkMode?:      (string & ("awsvpc" | "bridge" | "host" | "none")) | fn.Fn
 		PidMode?:          string | fn.Fn
 		PlacementConstraints?: [...propTaskDefinitionPlacementConstraint]
-		ProxyConfiguration?:      propProxyConfiguration
-		RequiresCompatibilities?: [...string] | fn.Fn
+		ProxyConfiguration?: propProxyConfiguration
+		RequiresCompatibilities?: [...(string | fn.Fn)]
 		Tags?: [...propTag]
 		TaskRoleArn?: string | fn.Fn
 		Volumes?: [...propVolume]
 	}
 	propContainerDefinition :: {
-		Command?: [...string] | fn.Fn
-		Cpu?:     int | fn.Fn
+		Command?: [...(string | fn.Fn)]
+		Cpu?: int | fn.Fn
 		DependsOn?: [...propContainerDependency]
 		DisableNetworking?: bool | fn.Fn
-		DnsSearchDomains?:  [...string] | fn.Fn
-		DnsServers?:        [...string] | fn.Fn
+		DnsSearchDomains?: [...(string | fn.Fn)]
+		DnsServers?: [...(string | fn.Fn)]
 		DockerLabels?: {
 		}
-		DockerSecurityOptions?: [...string] | fn.Fn
-		EntryPoint?:            [...string] | fn.Fn
+		DockerSecurityOptions?: [...(string | fn.Fn)]
+		EntryPoint?: [...(string | fn.Fn)]
 		Environment?: [...propKeyValuePair]
 		Essential?: bool | fn.Fn
 		ExtraHosts?: [...propHostEntry]
-		HealthCheck?:       propHealthCheck
-		Hostname?:          string | fn.Fn
-		Image?:             string | fn.Fn
-		Interactive?:       bool | fn.Fn
-		Links?:             [...string] | fn.Fn
+		HealthCheck?: propHealthCheck
+		Hostname?:    string | fn.Fn
+		Image?:       string | fn.Fn
+		Interactive?: bool | fn.Fn
+		Links?: [...(string | fn.Fn)]
 		LinuxParameters?:   propLinuxParameters
 		LogConfiguration?:  propLogConfiguration
 		Memory?:            int | fn.Fn
@@ -129,7 +129,7 @@ TaskDefinition :: {
 	propDevice :: {
 		ContainerPath?: string | fn.Fn
 		HostPath:       string | fn.Fn
-		Permissions?:   [...string] | fn.Fn
+		Permissions?: [...(string | fn.Fn)]
 	}
 	propDockerVolumeConfiguration :: {
 		Autoprovision?: bool | fn.Fn
@@ -141,7 +141,7 @@ TaskDefinition :: {
 		Scope?: string | fn.Fn
 	}
 	propHealthCheck :: {
-		Command:      [...string] | fn.Fn
+		Command: [...(string | fn.Fn)]
 		Interval?:    int | fn.Fn
 		Retries?:     int | fn.Fn
 		StartPeriod?: int | fn.Fn
@@ -155,8 +155,8 @@ TaskDefinition :: {
 		SourcePath?: string | fn.Fn
 	}
 	propKernelCapabilities :: {
-		Add?:  [...string] | fn.Fn
-		Drop?: [...string] | fn.Fn
+		Add?: [...(string | fn.Fn)]
+		Drop?: [...(string | fn.Fn)]
 	}
 	propKeyValuePair :: {
 		Name?:  string | fn.Fn
@@ -211,8 +211,8 @@ TaskDefinition :: {
 	}
 	propTmpfs :: {
 		ContainerPath?: string | fn.Fn
-		MountOptions?:  [...string] | fn.Fn
-		Size:           int | fn.Fn
+		MountOptions?: [...(string | fn.Fn)]
+		Size: int | fn.Fn
 	}
 	propUlimit :: {
 		HardLimit: int | fn.Fn

@@ -10,8 +10,8 @@ App :: {
 		}
 		DataSources?: [...propDataSource]
 		Description?: string | fn.Fn
-		Domains?:     [...string] | fn.Fn
-		EnableSsl?:   bool | fn.Fn
+		Domains?: [...(string | fn.Fn)]
+		EnableSsl?: bool | fn.Fn
 		Environment?: [...propEnvironmentVariable]
 		Name:              string | fn.Fn
 		Shortname?:        string | fn.Fn
@@ -59,12 +59,12 @@ Instance :: {
 		AutoScalingType?:  string | fn.Fn
 		AvailabilityZone?: string | fn.Fn
 		BlockDeviceMappings?: [...propBlockDeviceMapping]
-		EbsOptimized?:         bool | fn.Fn
-		ElasticIps?:           [...string] | fn.Fn
+		EbsOptimized?: bool | fn.Fn
+		ElasticIps?: [...(string | fn.Fn)]
 		Hostname?:             string | fn.Fn
 		InstallUpdatesOnBoot?: bool | fn.Fn
 		InstanceType:          string | fn.Fn
-		LayerIds:              [...string] | fn.Fn
+		LayerIds: [...(string | fn.Fn)]
 		Os?:                   string | fn.Fn
 		RootDeviceType?:       string | fn.Fn
 		SshKeyName?:           string | fn.Fn
@@ -73,7 +73,7 @@ Instance :: {
 		Tenancy?:              string | fn.Fn
 		TimeBasedAutoScaling?: propTimeBasedAutoScaling
 		VirtualizationType?:   string | fn.Fn
-		Volumes?:              [...string] | fn.Fn
+		Volumes?: [...(string | fn.Fn)]
 	}
 	propBlockDeviceMapping :: {
 		DeviceName?:  string | fn.Fn
@@ -115,16 +115,16 @@ Layer :: {
 		CustomInstanceProfileArn?: string | fn.Fn
 		CustomJson?:               {
 		} | fn.Fn
-		CustomRecipes?:               propRecipes
-		CustomSecurityGroupIds?:      [...string] | fn.Fn
+		CustomRecipes?: propRecipes
+		CustomSecurityGroupIds?: [...(string | fn.Fn)]
 		EnableAutoHealing:            bool | fn.Fn
 		InstallUpdatesOnBoot?:        bool | fn.Fn
 		LifecycleEventConfiguration?: propLifecycleEventConfiguration
 		LoadBasedAutoScaling?:        propLoadBasedAutoScaling
 		Name:                         string | fn.Fn
-		Packages?:                    [...string] | fn.Fn
-		Shortname:                    string | fn.Fn
-		StackId:                      string | fn.Fn
+		Packages?: [...(string | fn.Fn)]
+		Shortname: string | fn.Fn
+		StackId:   string | fn.Fn
 		Tags?: [...propTag]
 		Type:                      string | fn.Fn
 		UseEbsOptimizedInstances?: bool | fn.Fn
@@ -147,11 +147,11 @@ Layer :: {
 		UpScaling?:   propAutoScalingThresholds
 	}
 	propRecipes :: {
-		Configure?: [...string] | fn.Fn
-		Deploy?:    [...string] | fn.Fn
-		Setup?:     [...string] | fn.Fn
-		Shutdown?:  [...string] | fn.Fn
-		Undeploy?:  [...string] | fn.Fn
+		Configure?: [...(string | fn.Fn)]
+		Deploy?: [...(string | fn.Fn)]
+		Setup?: [...(string | fn.Fn)]
+		Shutdown?: [...(string | fn.Fn)]
+		Undeploy?: [...(string | fn.Fn)]
 	}
 	propShutdownEventConfiguration :: {
 		DelayUntilElbConnectionsDrained?: bool | fn.Fn
@@ -173,8 +173,8 @@ Stack :: {
 		AgentVersion?: string | fn.Fn
 		Attributes?: {
 		}
-		ChefConfiguration?:     propChefConfiguration
-		CloneAppIds?:           [...string] | fn.Fn
+		ChefConfiguration?: propChefConfiguration
+		CloneAppIds?: [...(string | fn.Fn)]
 		ClonePermissions?:      bool | fn.Fn
 		ConfigurationManager?:  propStackConfigurationManager
 		CustomCookbooksSource?: propSource

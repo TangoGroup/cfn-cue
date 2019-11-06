@@ -33,7 +33,7 @@ Authorizer :: {
 		AuthorizerResultTtlInSeconds?: int | fn.Fn
 		AuthorizerType:                string | fn.Fn
 		AuthorizerUri:                 string | fn.Fn
-		IdentitySource:                [...string] | fn.Fn
+		IdentitySource: [...(string | fn.Fn)]
 		IdentityValidationExpression?: string | fn.Fn
 		Name:                          string | fn.Fn
 	}
@@ -108,9 +108,9 @@ Model :: {
 Route :: {
 	Type: "AWS::ApiGatewayV2::Route"
 	Properties: {
-		ApiId:                     string | fn.Fn
-		ApiKeyRequired?:           bool | fn.Fn
-		AuthorizationScopes?:      [...string] | fn.Fn
+		ApiId:           string | fn.Fn
+		ApiKeyRequired?: bool | fn.Fn
+		AuthorizationScopes?: [...(string | fn.Fn)]
 		AuthorizationType?:        string | fn.Fn
 		AuthorizerId?:             string | fn.Fn
 		ModelSelectionExpression?: string | fn.Fn

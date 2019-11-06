@@ -38,8 +38,8 @@ Rule :: {
 	}
 	propAwsVpcConfiguration :: {
 		AssignPublicIp?: string | fn.Fn
-		SecurityGroups?: [...string] | fn.Fn
-		Subnets:         [...string] | fn.Fn
+		SecurityGroups?: [...(string | fn.Fn)]
+		Subnets: [...(string | fn.Fn)]
 	}
 	propEcsParameters :: {
 		Group?:                string | fn.Fn
@@ -64,8 +64,8 @@ Rule :: {
 		RunCommandTargets: [...propRunCommandTarget]
 	}
 	propRunCommandTarget :: {
-		Key:    string | fn.Fn
-		Values: [...string] | fn.Fn
+		Key: string | fn.Fn
+		Values: [...(string | fn.Fn)]
 	}
 	propSqsParameters :: {
 		MessageGroupId: string | fn.Fn

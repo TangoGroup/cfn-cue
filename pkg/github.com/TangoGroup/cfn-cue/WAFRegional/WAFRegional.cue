@@ -60,8 +60,8 @@ RateBasedRule :: {
 RegexPatternSet :: {
 	Type: "AWS::WAFRegional::RegexPatternSet"
 	Properties: {
-		Name:                string | fn.Fn
-		RegexPatternStrings: [...string] | fn.Fn
+		Name: string | fn.Fn
+		RegexPatternStrings: [...(string | fn.Fn)]
 	}
 }
 Rule :: {

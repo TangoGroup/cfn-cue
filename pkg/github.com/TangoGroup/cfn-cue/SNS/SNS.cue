@@ -35,6 +35,6 @@ TopicPolicy :: {
 	Properties: {
 		PolicyDocument: {
 		} | fn.Fn
-		Topics: [...string] | fn.Fn
+		Topics: [...(string | fn.Fn)]
 	}
 }

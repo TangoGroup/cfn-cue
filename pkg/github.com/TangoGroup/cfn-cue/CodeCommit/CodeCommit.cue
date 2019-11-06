@@ -15,11 +15,11 @@ Repository :: {
 		S3: propS3
 	}
 	propRepositoryTrigger :: {
-		Branches?:      [...string] | fn.Fn
+		Branches?: [...(string | fn.Fn)]
 		CustomData?:    string | fn.Fn
 		DestinationArn: string | fn.Fn
-		Events:         ([...string] & ("all" | "createReference" | "deleteReference" | "updateReference")) | fn.Fn
-		Name:           string | fn.Fn
+		Events: [...((string & ("all" | "createReference" | "deleteReference" | "updateReference")) | fn.Fn)]
+		Name: string | fn.Fn
 	}
 	propS3 :: {
 		Bucket:         string | fn.Fn

@@ -24,8 +24,8 @@ ConfigurationSetEventDestination :: {
 		CloudWatchDestination?:      propCloudWatchDestination
 		Enabled?:                    bool | fn.Fn
 		KinesisFirehoseDestination?: propKinesisFirehoseDestination
-		MatchingEventTypes:          [...string] | fn.Fn
-		Name?:                       string | fn.Fn
+		MatchingEventTypes: [...(string | fn.Fn)]
+		Name?: string | fn.Fn
 	}
 	propKinesisFirehoseDestination :: {
 		DeliveryStreamARN: string | fn.Fn
@@ -78,9 +78,9 @@ ReceiptRule :: {
 	}
 	propRule :: {
 		Actions?: [...propAction]
-		Enabled?:     bool | fn.Fn
-		Name?:        string | fn.Fn
-		Recipients?:  [...string] | fn.Fn
+		Enabled?: bool | fn.Fn
+		Name?:    string | fn.Fn
+		Recipients?: [...(string | fn.Fn)]
 		ScanEnabled?: bool | fn.Fn
 		TlsPolicy?:   (string & ("Optional" | "Require")) | fn.Fn
 	}

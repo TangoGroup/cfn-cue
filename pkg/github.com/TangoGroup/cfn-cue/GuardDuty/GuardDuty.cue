@@ -20,11 +20,11 @@ Filter :: {
 		Rank:            int | fn.Fn
 	}
 	propCondition :: {
-		Eq?:  [...string] | fn.Fn
+		Eq?: [...(string | fn.Fn)]
 		Gte?: int | fn.Fn
 		Lt?:  int | fn.Fn
 		Lte?: int | fn.Fn
-		Neq?: [...string] | fn.Fn
+		Neq?: [...(string | fn.Fn)]
 	}
 	propFindingCriteria :: {
 		Criterion?: {

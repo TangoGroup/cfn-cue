@@ -26,11 +26,11 @@ DeploymentGroup :: {
 		AlarmConfiguration?:        propAlarmConfiguration
 		ApplicationName:            string | fn.Fn
 		AutoRollbackConfiguration?: propAutoRollbackConfiguration
-		AutoScalingGroups?:         [...string] | fn.Fn
-		Deployment?:                propDeployment
-		DeploymentConfigName?:      string | fn.Fn
-		DeploymentGroupName?:       string | fn.Fn
-		DeploymentStyle?:           propDeploymentStyle
+		AutoScalingGroups?: [...(string | fn.Fn)]
+		Deployment?:           propDeployment
+		DeploymentConfigName?: string | fn.Fn
+		DeploymentGroupName?:  string | fn.Fn
+		DeploymentStyle?:      propDeploymentStyle
 		Ec2TagFilters?: [...propEC2TagFilter]
 		Ec2TagSet?:        propEC2TagSet
 		LoadBalancerInfo?: propLoadBalancerInfo
@@ -49,7 +49,7 @@ DeploymentGroup :: {
 	}
 	propAutoRollbackConfiguration :: {
 		Enabled?: bool | fn.Fn
-		Events?:  ([...string] & ("DEPLOYMENT_FAILURE" | "DEPLOYMENT_STOP_ON_ALARM" | "DEPLOYMENT_STOP_ON_REQUEST")) | fn.Fn
+		Events?: [...((string & ("DEPLOYMENT_FAILURE" | "DEPLOYMENT_STOP_ON_ALARM" | "DEPLOYMENT_STOP_ON_REQUEST")) | fn.Fn)]
 	}
 	propDeployment :: {
 		Description?:                   string | fn.Fn
@@ -109,7 +109,7 @@ DeploymentGroup :: {
 		Name?: string | fn.Fn
 	}
 	propTriggerConfig :: {
-		TriggerEvents?:    ([...string] & ("DeploymentFailure" | "DeploymentReady" | "DeploymentRollback" | "DeploymentStart" | "DeploymentStop" | "DeploymentSuccess" | "InstanceFailure" | "InstanceReady" | "InstanceStart" | "InstanceSuccess")) | fn.Fn
+		TriggerEvents?: [...((string & ("DeploymentFailure" | "DeploymentReady" | "DeploymentRollback" | "DeploymentStart" | "DeploymentStop" | "DeploymentSuccess" | "InstanceFailure" | "InstanceReady" | "InstanceStart" | "InstanceSuccess")) | fn.Fn)]
 		TriggerName?:      string | fn.Fn
 		TriggerTargetArn?: string | fn.Fn
 	}

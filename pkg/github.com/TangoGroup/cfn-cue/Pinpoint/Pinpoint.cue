@@ -131,7 +131,7 @@ Campaign :: {
 	}
 	propAttributeDimension :: {
 		AttributeType?: string | fn.Fn
-		Values?:        [...string] | fn.Fn
+		Values?: [...(string | fn.Fn)]
 	}
 	propCampaignEmailMessage :: {
 		Body?:        string | fn.Fn
@@ -208,7 +208,7 @@ Campaign :: {
 	}
 	propSetDimension :: {
 		DimensionType?: string | fn.Fn
-		Values?:        [...string] | fn.Fn
+		Values?: [...(string | fn.Fn)]
 	}
 	propWriteTreatmentResource :: {
 		MessageConfiguration?: propMessageConfiguration
@@ -266,7 +266,7 @@ Segment :: {
 	}
 	propAttributeDimension :: {
 		AttributeType?: string | fn.Fn
-		Values?:        [...string] | fn.Fn
+		Values?: [...(string | fn.Fn)]
 	}
 	propBehavior :: {
 		Recency?: propRecency
@@ -318,7 +318,7 @@ Segment :: {
 	}
 	propSetDimension :: {
 		DimensionType?: string | fn.Fn
-		Values?:        [...string] | fn.Fn
+		Values?: [...(string | fn.Fn)]
 	}
 	propSourceSegments :: {
 		Id:       string | fn.Fn

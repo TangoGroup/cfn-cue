@@ -19,15 +19,15 @@ Association :: {
 		S3Location?: propS3OutputLocation
 	}
 	propParameterValues :: {
-		ParameterValues: [...string] | fn.Fn
+		ParameterValues: [...(string | fn.Fn)]
 	}
 	propS3OutputLocation :: {
 		OutputS3BucketName?: string | fn.Fn
 		OutputS3KeyPrefix?:  string | fn.Fn
 	}
 	propTarget :: {
-		Key:    string | fn.Fn
-		Values: [...string] | fn.Fn
+		Key: string | fn.Fn
+		Values: [...(string | fn.Fn)]
 	}
 }
 Document :: {
@@ -65,8 +65,8 @@ MaintenanceWindowTarget :: {
 		WindowId: string | fn.Fn
 	}
 	propTarget :: {
-		Key:     string | fn.Fn
-		Values?: [...string] | fn.Fn
+		Key: string | fn.Fn
+		Values?: [...(string | fn.Fn)]
 	}
 }
 MaintenanceWindowTask :: {
@@ -119,13 +119,13 @@ MaintenanceWindowTask :: {
 		Name?:  string | fn.Fn
 	}
 	propNotificationConfig :: {
-		NotificationArn:     string | fn.Fn
-		NotificationEvents?: [...string] | fn.Fn
-		NotificationType?:   string | fn.Fn
+		NotificationArn: string | fn.Fn
+		NotificationEvents?: [...(string | fn.Fn)]
+		NotificationType?: string | fn.Fn
 	}
 	propTarget :: {
-		Key:     string | fn.Fn
-		Values?: [...string] | fn.Fn
+		Key: string | fn.Fn
+		Values?: [...(string | fn.Fn)]
 	}
 	propTaskInvocationParameters :: {
 		MaintenanceWindowAutomationParameters?:    propMaintenanceWindowAutomationParameters
@@ -151,23 +151,23 @@ Parameter :: {
 PatchBaseline :: {
 	Type: "AWS::SSM::PatchBaseline"
 	Properties: {
-		ApprovalRules?:                    propRuleGroup
-		ApprovedPatches?:                  [...string] | fn.Fn
+		ApprovalRules?: propRuleGroup
+		ApprovedPatches?: [...(string | fn.Fn)]
 		ApprovedPatchesComplianceLevel?:   string | fn.Fn
 		ApprovedPatchesEnableNonSecurity?: bool | fn.Fn
 		Description?:                      string | fn.Fn
 		GlobalFilters?:                    propPatchFilterGroup
 		Name:                              string | fn.Fn
 		OperatingSystem?:                  string | fn.Fn
-		PatchGroups?:                      [...string] | fn.Fn
-		RejectedPatches?:                  [...string] | fn.Fn
-		RejectedPatchesAction?:            string | fn.Fn
+		PatchGroups?: [...(string | fn.Fn)]
+		RejectedPatches?: [...(string | fn.Fn)]
+		RejectedPatchesAction?: string | fn.Fn
 		Sources?: [...propPatchSource]
 		Tags?: [...propTag]
 	}
 	propPatchFilter :: {
-		Key?:    string | fn.Fn
-		Values?: [...string] | fn.Fn
+		Key?: string | fn.Fn
+		Values?: [...(string | fn.Fn)]
 	}
 	propPatchFilterGroup :: {
 		PatchFilters?: [...propPatchFilter]
@@ -175,7 +175,7 @@ PatchBaseline :: {
 	propPatchSource :: {
 		Configuration?: string | fn.Fn
 		Name?:          string | fn.Fn
-		Products?:      [...string] | fn.Fn
+		Products?: [...(string | fn.Fn)]
 	}
 	propRule :: {
 		ApproveAfterDays?:  int | fn.Fn

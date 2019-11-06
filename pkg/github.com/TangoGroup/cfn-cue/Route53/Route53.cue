@@ -13,8 +13,8 @@ HealthCheck :: {
 		Region: string | fn.Fn
 	}
 	propHealthCheckConfig :: {
-		AlarmIdentifier?:              propAlarmIdentifier
-		ChildHealthChecks?:            [...string] | fn.Fn
+		AlarmIdentifier?: propAlarmIdentifier
+		ChildHealthChecks?: [...(string | fn.Fn)]
 		EnableSNI?:                    bool | fn.Fn
 		FailureThreshold?:             int | fn.Fn
 		FullyQualifiedDomainName?:     string | fn.Fn
@@ -24,11 +24,11 @@ HealthCheck :: {
 		Inverted?:                     bool | fn.Fn
 		MeasureLatency?:               bool | fn.Fn
 		Port?:                         int | fn.Fn
-		Regions?:                      [...string] | fn.Fn
-		RequestInterval?:              int | fn.Fn
-		ResourcePath?:                 string | fn.Fn
-		SearchString?:                 string | fn.Fn
-		Type:                          (string & ("CALCULATED" | "CLOUDWATCH_METRIC" | "HTTP_STR_MATCH" | "HTTP" | "HTTPS_STR_MATCH" | "HTTPS" | "TCP")) | fn.Fn
+		Regions?: [...(string | fn.Fn)]
+		RequestInterval?: int | fn.Fn
+		ResourcePath?:    string | fn.Fn
+		SearchString?:    string | fn.Fn
+		Type:             (string & ("CALCULATED" | "CLOUDWATCH_METRIC" | "HTTP_STR_MATCH" | "HTTP" | "HTTPS_STR_MATCH" | "HTTPS" | "TCP")) | fn.Fn
 	}
 	propHealthCheckTag :: {
 		Key:   string | fn.Fn
@@ -72,11 +72,11 @@ RecordSet :: {
 		MultiValueAnswer?: bool | fn.Fn
 		Name:              string | fn.Fn
 		Region?:           string | fn.Fn
-		ResourceRecords?:  [...string] | fn.Fn
-		SetIdentifier?:    string | fn.Fn
-		TTL?:              string | fn.Fn
-		Type:              (string & ("A" | "AAAA" | "CAA" | "CNAME" | "MX" | "NAPTR" | "NS" | "PTR" | "SOA" | "SPF" | "SRV" | "TXT")) | fn.Fn
-		Weight?:           int | fn.Fn
+		ResourceRecords?: [...(string | fn.Fn)]
+		SetIdentifier?: string | fn.Fn
+		TTL?:           string | fn.Fn
+		Type:           (string & ("A" | "AAAA" | "CAA" | "CNAME" | "MX" | "NAPTR" | "NS" | "PTR" | "SOA" | "SPF" | "SRV" | "TXT")) | fn.Fn
+		Weight?:        int | fn.Fn
 	}
 	propAliasTarget :: {
 		DNSName:               string | fn.Fn
@@ -118,10 +118,10 @@ RecordSetGroup :: {
 		MultiValueAnswer?: bool | fn.Fn
 		Name:              string | fn.Fn
 		Region?:           string | fn.Fn
-		ResourceRecords?:  [...string] | fn.Fn
-		SetIdentifier?:    string | fn.Fn
-		TTL?:              string | fn.Fn
-		Type:              (string & ("A" | "AAAA" | "CAA" | "CNAME" | "MX" | "NAPTR" | "NS" | "PTR" | "SOA" | "SPF" | "SRV" | "TXT")) | fn.Fn
-		Weight?:           int | fn.Fn
+		ResourceRecords?: [...(string | fn.Fn)]
+		SetIdentifier?: string | fn.Fn
+		TTL?:           string | fn.Fn
+		Type:           (string & ("A" | "AAAA" | "CAA" | "CNAME" | "MX" | "NAPTR" | "NS" | "PTR" | "SOA" | "SPF" | "SRV" | "TXT")) | fn.Fn
+		Weight?:        int | fn.Fn
 	}
 }

@@ -35,8 +35,8 @@ Fleet :: {
 		Description?:        string | fn.Fn
 		DesiredEC2Instances: int | fn.Fn
 		EC2InboundPermissions?: [...propIpPermission]
-		EC2InstanceType:         string | fn.Fn
-		LogPaths?:               [...string] | fn.Fn
+		EC2InstanceType: string | fn.Fn
+		LogPaths?: [...(string | fn.Fn)]
 		MaxSize?:                int | fn.Fn
 		MinSize?:                int | fn.Fn
 		Name:                    string | fn.Fn
