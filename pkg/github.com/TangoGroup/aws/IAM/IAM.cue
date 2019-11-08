@@ -14,7 +14,7 @@ Group :: {
 	Type: "AWS::IAM::Group"
 	Properties: {
 		GroupName?: string | fn.Fn
-		ManagedPolicyArns?: [...(string | fn.Fn)]
+		ManagedPolicyArns?: [...((string & (=~#"arn:(aws[a-zA-Z-]*)?:iam::(\d{12}|aws):policy/[a-zA-Z_0-9+=,.@\-_/]+"#)) | fn.Fn)]
 		Path?: (string & (=~#"^/(.+/)*$"#)) | fn.Fn
 		Policies?: [...propPolicy]
 	}
@@ -62,7 +62,7 @@ Role :: {
 		AssumeRolePolicyDocument: {
 		} | fn.Fn
 		Description?: string | fn.Fn
-		ManagedPolicyArns?: [...(string | fn.Fn)]
+		ManagedPolicyArns?: [...((string & (=~#"arn:(aws[a-zA-Z-]*)?:iam::(\d{12}|aws):policy/[a-zA-Z_0-9+=,.@\-_/]+"#)) | fn.Fn)]
 		MaxSessionDuration?:  (int & (>=3600 & <=43200)) | fn.Fn
 		Path?:                (string & (=~#"^/(.+/)*$"#)) | fn.Fn
 		PermissionsBoundary?: string | fn.Fn
@@ -89,7 +89,7 @@ User :: {
 	Properties: {
 		Groups?: [...(string | fn.Fn)]
 		LoginProfile?: propLoginProfile
-		ManagedPolicyArns?: [...(string | fn.Fn)]
+		ManagedPolicyArns?: [...((string & (=~#"arn:(aws[a-zA-Z-]*)?:iam::(\d{12}|aws):policy/[a-zA-Z_0-9+=,.@\-_/]+"#)) | fn.Fn)]
 		Path?:                (string & (=~#"^/(.+/)*$"#)) | fn.Fn
 		PermissionsBoundary?: string | fn.Fn
 		Policies?: [...propPolicy]

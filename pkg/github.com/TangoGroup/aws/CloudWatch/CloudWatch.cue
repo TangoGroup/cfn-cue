@@ -6,7 +6,7 @@ Alarm :: {
 	Type: "AWS::CloudWatch::Alarm"
 	Properties: {
 		ActionsEnabled?: bool | fn.Fn
-		AlarmActions?: [...(string | fn.Fn)]
+		AlarmActions?: [...((string & (strings.MinRunes(1) & strings.MaxRunes(1024))) | fn.Fn)]
 		AlarmDescription?:  string | fn.Fn
 		AlarmName?:         string | fn.Fn
 		ComparisonOperator: (string & ("GreaterThanOrEqualToThreshold" | "GreaterThanThreshold" | "LessThanThreshold" | "LessThanOrEqualToThreshold" | "LessThanLowerOrGreaterThanUpperThreshold" | "LessThanLowerThreshold" | "GreaterThanUpperThreshold")) | fn.Fn

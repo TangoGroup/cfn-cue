@@ -40,6 +40,29 @@ func mapFromCFNTypeToCue(cfnType string) (lit ast.Expr) {
 	return lit
 }
 
+func convertTypeToCUE(name string) string {
+	switch name {
+	case "String":
+		return "string"
+	case "Long":
+		return "int"
+	case "Integer":
+		return "int"
+	case "Double":
+		return "float"
+	case "Boolean":
+		return "bool"
+	case "Timestamp":
+		return "time.Time"
+	case "Json":
+		return "struct"
+	case "Map":
+		return "struct"
+	default:
+		return name
+	}
+}
+
 func (p Property) getCUEPrimitiveType() ast.Expr {
 	if p.IsPrimitive() {
 		return mapFromCFNTypeToCue(p.PrimitiveType)
@@ -61,6 +84,12 @@ func (p Property) getCUEPrimitiveType() ast.Expr {
 func createFieldFromProperty(name string, prop Property, constraints []ast.Expr) (node ast.Decl) {
 	// Need to capture Map Types, and put the PrimitiveItemType or ItemType properly into a struct
 	var value ast.Expr
+
+	if prop.IsPrimitive() || prop.IsMapOfPrimitives() || prop.IsListOfPrimitives() {
+		// Do stuff with the Primitives...
+	} else {
+		// This is a more complex type, we need to recurse...
+	}
 
 	if prop.IsList() {
 		if prop.IsListOfPrimitives() {
@@ -180,28 +209,25 @@ func createExprFromPatternRegex(prop Property, regex string) (expr ast.Expr) {
 	}
 }
 
-func createStructFromResource(resource Resource, resourceProperties map[string]Resource, valueTypes map[string]ValueType) (s ast.StructLit) {
-	properties := resource.Properties
-	sortedProperties := []propertyStruct{}
-
-	for propertyName, property := range properties {
-		sortedProperties = append(sortedProperties, propertyStruct{
-			name:     propertyName,
-			property: property,
-		})
+func propertyNames(p map[string]Property) (keys []string) {
+	keys = make([]string, 0, len(p))
+	for key := range p {
+		keys = append(keys, key)
 	}
+	return keys
+}
 
-	sort.Slice(sortedProperties, func(i, j int) bool {
-		return sortedProperties[i].name < sortedProperties[j].name
-	})
+func createStructFromResource(resource Resource, resourceSubproperties map[string]Resource, valueTypes map[string]ValueType) (s ast.StructLit) {
+	properties := resource.Properties
+	propertyNames := propertyNames(resource.Properties)
+	sort.Strings(propertyNames)
 
 	propertyDecls := make([]ast.Decl, 0)
 
-	for _, propertyS := range sortedProperties {
-		propertyName := propertyS.name
-		propertyResource := propertyS.property
+	for _, propertyName := range propertyNames {
+		propertyResource := properties[propertyName]
 		constraints := make([]ast.Expr, 0)
-		if propertyResource.Value.ValueType != "" && propertyResource.Value.ListValueType == "" {
+		if propertyResource.Value.ValueType != "" {
 			valueType := valueTypes[propertyResource.Value.ValueType]
 
 			if valueType.AllowedValues != nil {
@@ -246,31 +272,12 @@ func createStructFromResource(resource Resource, resourceProperties map[string]R
 	return s
 }
 
-func sortResources(resourcesMap map[string]Resource) []resourceStruct {
-	resources := []resourceStruct{}
-
-	for resourceName, resource := range resourcesMap {
-		resources = append(resources, resourceStruct{
-			name:     resourceName,
-			resource: resource,
-		})
+func resourceNamesSlice(p map[string]Resource) (keys []string) {
+	keys = make([]string, 0, len(p))
+	for key := range p {
+		keys = append(keys, key)
 	}
-
-	sort.Slice(resources, func(i, j int) bool {
-		return resources[i].name < resources[j].name
-	})
-	return resources
-}
-
-type resourceStruct struct {
-	name     string
-	fullName string
-	resource Resource
-}
-
-type propertyStruct struct {
-	name     string
-	property Property
+	return keys
 }
 
 func main() {
@@ -312,11 +319,11 @@ func main() {
 		servicesMap[splits[1]] = true
 	}
 
-	services := []string{}
-	for service := range servicesMap {
-		services = append(services, service)
+	serviceNames := make([]string, 0, len(servicesMap))
+	for serviceName := range servicesMap {
+		serviceNames = append(serviceNames, serviceName)
 	}
-	sort.Strings(services)
+	sort.Strings(serviceNames)
 
 	resourcesByService := map[string]map[string]Resource{}
 	for service := range servicesMap {
@@ -336,15 +343,14 @@ func main() {
 
 	resourceTypes := make([]ast.Expr, 0)
 
-	// for service, resources := range resourcesByService {
-	for i, service := range services {
-		resources := resourcesByService[service]
-		fmt.Println(i, ":", service)
+	for i, serviceName := range serviceNames {
+		resources := resourcesByService[serviceName]
+		fmt.Println(i, ":", serviceName)
 		ff := &ast.File{
-			Filename: service,
+			Filename: serviceName,
 			Decls: []ast.Decl{
 				&ast.Package{
-					Name: ast.NewIdent(service),
+					Name: ast.NewIdent(serviceName),
 				},
 				&ast.ImportDecl{
 					Specs: []*ast.ImportSpec{
@@ -356,18 +362,19 @@ func main() {
 			},
 		}
 
-		sortedResources := sortResources(resources)
+		resourceNames := resourceNamesSlice(resources)
+		sort.Strings(resourceNames)
 
-		for _, resourceS := range sortedResources {
-			resourceName := resourceS.name
-			resource := resourceS.resource
+		for _, resourceName := range resourceNames {
+			resource := resources[resourceName]
 			splits := strings.Split(resourceName, "::")
+			resourceSubproperties := propertiesByResource[resourceName]
 
 			// aws := splits[0]
 			resourceStr := splits[2]
 			// fmt.Print(resourceStr + "  ")
 
-			properties := createStructFromResource(resource, propertiesByResource[resourceName], spec.ValueTypes)
+			properties := createStructFromResource(resource, resourceSubproperties, spec.ValueTypes)
 			propertiesStruct := &ast.Field{
 				Label: ast.NewIdent("Properties"),
 				Value: &properties,
@@ -379,21 +386,19 @@ func main() {
 				},
 				propertiesStruct,
 			}
-			sortedResourceProperties := sortResources(propertiesByResource[resourceName])
 
-			for _, propS := range sortedResourceProperties {
-				propName := propS.name
-				prop := propS.resource
-				properties := createStructFromResource(prop, propertiesByResource[resourceName], spec.ValueTypes)
+			subpropertyNames := resourceNamesSlice(resourceSubproperties)
+			sort.Strings(subpropertyNames)
+
+			for _, propName := range subpropertyNames {
+				prop := resourceSubproperties[propName]
+
+				properties := createStructFromResource(prop, resourceSubproperties, spec.ValueTypes)
 				resourceElts = append(resourceElts, &ast.Field{
 					Label: ast.NewIdent(propertyPrefix + propName),
 					Token: token.ISA,
 					Value: &properties,
 				})
-				// &ast.Alias{
-				// 	Ident: ast.NewIdent(propertyPrefix + propName),
-				// 	Expr:  &properties,
-				// })
 			}
 			f := &ast.Field{
 				Label: ast.NewIdent(resourceStr),
@@ -403,17 +408,17 @@ func main() {
 				},
 			}
 			ff.Decls = append(ff.Decls, f)
-			resourceTypes = append(resourceTypes, ast.NewSel(ast.NewIdent(service), resourceStr))
+			resourceTypes = append(resourceTypes, ast.NewSel(ast.NewIdent(serviceName), resourceStr))
 		}
 		// fmt.Println("")
 		b, _ := format.Node(ff, format.Simplify())
 
-		servicePackage := "github.com/TangoGroup/aws/" + service
+		servicePackage := "github.com/TangoGroup/aws/" + serviceName
 
-		importDeclarations = append(importDeclarations, ast.NewImport(ast.NewIdent(strings.ToLower(service)), servicePackage))
+		importDeclarations = append(importDeclarations, ast.NewImport(ast.NewIdent(strings.ToLower(serviceName)), servicePackage))
 		serviceRedeclarations = append(serviceRedeclarations, &ast.Field{
-			Label: ast.NewIdent(service),
-			Value: ast.NewIdent(strings.ToLower(service)),
+			Label: ast.NewIdent(serviceName),
+			Value: ast.NewIdent(strings.ToLower(serviceName)),
 			Token: token.ISA,
 		})
 
@@ -421,7 +426,7 @@ func main() {
 
 		os.MkdirAll(folder, os.ModePerm)
 
-		cuefile, err := os.Create(path.Join(folder, service+".cue"))
+		cuefile, err := os.Create(path.Join(folder, serviceName+".cue"))
 		if err != nil {
 			fmt.Println(err)
 			return
