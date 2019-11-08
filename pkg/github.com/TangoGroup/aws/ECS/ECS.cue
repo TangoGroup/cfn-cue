@@ -71,10 +71,11 @@ TaskDefinition :: {
 		Cpu?:              string | fn.Fn
 		ExecutionRoleArn?: (string & (=~#"arn:(aws[a-zA-Z-]*)?:iam::\d{12}:role/[a-zA-Z_0-9+=,.@\-_/]+"#)) | fn.Fn
 		Family?:           string | fn.Fn
-		IpcMode?:          string | fn.Fn
-		Memory?:           string | fn.Fn
-		NetworkMode?:      (string & ("awsvpc" | "bridge" | "host" | "none")) | fn.Fn
-		PidMode?:          string | fn.Fn
+		InferenceAccelerators?: [...propInferenceAccelerator]
+		IpcMode?:     string | fn.Fn
+		Memory?:      string | fn.Fn
+		NetworkMode?: (string & ("awsvpc" | "bridge" | "host" | "none")) | fn.Fn
+		PidMode?:     string | fn.Fn
 		PlacementConstraints?: [...propTaskDefinitionPlacementConstraint]
 		ProxyConfiguration?: propProxyConfiguration
 		RequiresCompatibilities?: [...(string | fn.Fn)]
@@ -153,6 +154,10 @@ TaskDefinition :: {
 	}
 	propHostVolumeProperties :: {
 		SourcePath?: string | fn.Fn
+	}
+	propInferenceAccelerator :: {
+		DeviceName?: string | fn.Fn
+		DeviceType?: string | fn.Fn
 	}
 	propKernelCapabilities :: {
 		Add?: [...(string | fn.Fn)]

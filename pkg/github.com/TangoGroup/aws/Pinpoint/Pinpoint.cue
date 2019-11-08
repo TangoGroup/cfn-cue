@@ -229,6 +229,17 @@ EmailChannel :: {
 		RoleArn?:          string | fn.Fn
 	}
 }
+EmailTemplate :: {
+	Type: "AWS::Pinpoint::EmailTemplate"
+	Properties: {
+		HtmlPart?: string | fn.Fn
+		Subject:   string | fn.Fn
+		Tags?:     {
+		} | fn.Fn
+		TemplateName: string | fn.Fn
+		TextPart?:    string | fn.Fn
+	}
+}
 EventStream :: {
 	Type: "AWS::Pinpoint::EventStream"
 	Properties: {
@@ -243,6 +254,44 @@ GCMChannel :: {
 		ApiKey:        string | fn.Fn
 		ApplicationId: string | fn.Fn
 		Enabled?:      bool | fn.Fn
+	}
+}
+PushTemplate :: {
+	Type: "AWS::Pinpoint::PushTemplate"
+	Properties: {
+		ADM?:     propAndroidPushNotificationTemplate
+		APNS?:    propAPNSPushNotificationTemplate
+		Baidu?:   propAndroidPushNotificationTemplate
+		Default?: propDefaultPushNotificationTemplate
+		GCM?:     propAndroidPushNotificationTemplate
+		Tags?:    {
+		} | fn.Fn
+		TemplateName: string | fn.Fn
+	}
+	propAPNSPushNotificationTemplate :: {
+		Action?:   string | fn.Fn
+		Body?:     string | fn.Fn
+		MediaUrl?: string | fn.Fn
+		Sound?:    string | fn.Fn
+		Title?:    string | fn.Fn
+		Url?:      string | fn.Fn
+	}
+	propAndroidPushNotificationTemplate :: {
+		Action?:            string | fn.Fn
+		Body?:              string | fn.Fn
+		ImageIconUrl?:      string | fn.Fn
+		ImageUrl?:          string | fn.Fn
+		SmallImageIconUrl?: string | fn.Fn
+		Sound?:             string | fn.Fn
+		Title?:             string | fn.Fn
+		Url?:               string | fn.Fn
+	}
+	propDefaultPushNotificationTemplate :: {
+		Action?: string | fn.Fn
+		Body?:   string | fn.Fn
+		Sound?:  string | fn.Fn
+		Title?:  string | fn.Fn
+		Url?:    string | fn.Fn
 	}
 }
 SMSChannel :: {
@@ -323,6 +372,15 @@ Segment :: {
 	propSourceSegments :: {
 		Id:       string | fn.Fn
 		Version?: int | fn.Fn
+	}
+}
+SmsTemplate :: {
+	Type: "AWS::Pinpoint::SmsTemplate"
+	Properties: {
+		Body:  string | fn.Fn
+		Tags?: {
+		} | fn.Fn
+		TemplateName: string | fn.Fn
 	}
 }
 VoiceChannel :: {

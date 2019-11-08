@@ -11,7 +11,8 @@ CustomActionType :: {
 		OutputArtifactDetails: propArtifactDetails
 		Provider:              string | fn.Fn
 		Settings?:             propSettings
-		Version:               string | fn.Fn
+		Tags?: [...propTag]
+		Version: string | fn.Fn
 	}
 	propArtifactDetails :: {
 		MaximumCount: int | fn.Fn
@@ -43,6 +44,7 @@ Pipeline :: {
 		RestartExecutionOnUpdate?: bool | fn.Fn
 		RoleArn:                   string | fn.Fn
 		Stages: [...propStageDeclaration]
+		Tags?: [...propTag]
 	}
 	propActionDeclaration :: {
 		ActionTypeId:   propActionTypeId

@@ -28,6 +28,7 @@ Rule :: {
 	Type: "AWS::Events::Rule"
 	Properties: {
 		Description?:  string | fn.Fn
+		EventBusName?: string | fn.Fn
 		EventPattern?: {
 		} | fn.Fn
 		Name?:               string | fn.Fn
@@ -40,6 +41,18 @@ Rule :: {
 		AssignPublicIp?: string | fn.Fn
 		SecurityGroups?: [...(string | fn.Fn)]
 		Subnets: [...(string | fn.Fn)]
+	}
+	propBatchArrayProperties :: {
+		Size?: int | fn.Fn
+	}
+	propBatchParameters :: {
+		ArrayProperties?: propBatchArrayProperties
+		JobDefinition:    string | fn.Fn
+		JobName:          string | fn.Fn
+		RetryStrategy?:   propBatchRetryStrategy
+	}
+	propBatchRetryStrategy :: {
+		Attempts?: int | fn.Fn
 	}
 	propEcsParameters :: {
 		Group?:                string | fn.Fn
@@ -72,6 +85,7 @@ Rule :: {
 	}
 	propTarget :: {
 		Arn:                   string | fn.Fn
+		BatchParameters?:      propBatchParameters
 		EcsParameters?:        propEcsParameters
 		Id:                    string | fn.Fn
 		Input?:                string | fn.Fn

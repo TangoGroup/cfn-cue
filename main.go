@@ -180,7 +180,8 @@ func createExprFromPatternRegex(prop Property, regex string) (expr ast.Expr) {
 	}
 }
 
-func createStructFromResource(properties map[string]Property, valueTypes map[string]ValueType) (s ast.StructLit) {
+func createStructFromResource(resource Resource, resourceProperties map[string]Resource, valueTypes map[string]ValueType) (s ast.StructLit) {
+	properties := resource.Properties
 	sortedProperties := []propertyStruct{}
 
 	for propertyName, property := range properties {
@@ -197,7 +198,7 @@ func createStructFromResource(properties map[string]Property, valueTypes map[str
 	propertyDecls := make([]ast.Decl, 0)
 
 	for _, propertyS := range sortedProperties {
-		property := propertyS.name
+		propertyName := propertyS.name
 		propertyResource := propertyS.property
 		constraints := make([]ast.Expr, 0)
 		if propertyResource.Value.ValueType != "" && propertyResource.Value.ListValueType == "" {
@@ -233,10 +234,9 @@ func createStructFromResource(properties map[string]Property, valueTypes map[str
 			// 	propertyDecls = append(propertyDecls, allowedValues)
 			// }
 		} else if propertyResource.Value.ListValueType != "" {
-			fmt.Println("!!!!", propertyResource.Value.ListValueType)
+			// fmt.Println("!!!!", propertyResource.Value.ListValueType)
 		}
-
-		value := createFieldFromProperty(property, propertyResource, constraints)
+		value := createFieldFromProperty(propertyName, propertyResource, constraints)
 		propertyDecls = append(propertyDecls, value)
 	}
 
@@ -316,6 +316,7 @@ func main() {
 	for service := range servicesMap {
 		services = append(services, service)
 	}
+	sort.Strings(services)
 
 	resourcesByService := map[string]map[string]Resource{}
 	for service := range servicesMap {
@@ -329,27 +330,16 @@ func main() {
 		resourcesByService[service][resourceName] = resource
 	}
 
-	// allServicesFile := &ast.File{
-	// 	Filename: "aws.cue",
-	// 	Decls: []ast.Decl{
-	// 		&ast.Package{
-	// 			Name: ast.NewIdent("aws"),
-	// 		},
-	// 		&ast.ImportDecl{
-	// 			Specs: []*ast.ImportSpec{
-	// 				&ast.ImportSpec{
-	// 					Path: ast.NewString("github.com/TangoGroup/fn"),
-	// 				},
-	// 			},
-	// 		},
-	// 	},
-	// }
+	importDeclarations := make([]*ast.ImportSpec, 0)
 
-	importDeclarations := make([]ast.ImportSpec, 0)
+	serviceRedeclarations := make([]ast.Decl, 0)
 
-	for service, resources := range resourcesByService {
-		fmt.Println(service)
-		// fmt.Print("  ")
+	resourceTypes := make([]ast.Expr, 0)
+
+	// for service, resources := range resourcesByService {
+	for i, service := range services {
+		resources := resourcesByService[service]
+		fmt.Println(i, ":", service)
 		ff := &ast.File{
 			Filename: service,
 			Decls: []ast.Decl{
@@ -377,7 +367,7 @@ func main() {
 			resourceStr := splits[2]
 			// fmt.Print(resourceStr + "  ")
 
-			properties := createStructFromResource(resource.Properties, spec.ValueTypes)
+			properties := createStructFromResource(resource, propertiesByResource[resourceName], spec.ValueTypes)
 			propertiesStruct := &ast.Field{
 				Label: ast.NewIdent("Properties"),
 				Value: &properties,
@@ -394,13 +384,16 @@ func main() {
 			for _, propS := range sortedResourceProperties {
 				propName := propS.name
 				prop := propS.resource
-				properties := createStructFromResource(prop.Properties, spec.ValueTypes)
-				resourceElts = append(resourceElts,
-					&ast.Field{
-						Label: ast.NewIdent(propertyPrefix + propName),
-						Token: token.ISA,
-						Value: &properties,
-					})
+				properties := createStructFromResource(prop, propertiesByResource[resourceName], spec.ValueTypes)
+				resourceElts = append(resourceElts, &ast.Field{
+					Label: ast.NewIdent(propertyPrefix + propName),
+					Token: token.ISA,
+					Value: &properties,
+				})
+				// &ast.Alias{
+				// 	Ident: ast.NewIdent(propertyPrefix + propName),
+				// 	Expr:  &properties,
+				// })
 			}
 			f := &ast.Field{
 				Label: ast.NewIdent(resourceStr),
@@ -410,12 +403,19 @@ func main() {
 				},
 			}
 			ff.Decls = append(ff.Decls, f)
+			resourceTypes = append(resourceTypes, ast.NewSel(ast.NewIdent(service), resourceStr))
 		}
 		// fmt.Println("")
 		b, _ := format.Node(ff, format.Simplify())
 
-		servicePackage := "github.com/TangoGroup/cfn-cue/" + service
-		importDeclarations = append(importDeclarations, *ast.NewImport(ast.NewIdent(strings.ToLower(service)), servicePackage))
+		servicePackage := "github.com/TangoGroup/aws/" + service
+
+		importDeclarations = append(importDeclarations, ast.NewImport(ast.NewIdent(strings.ToLower(service)), servicePackage))
+		serviceRedeclarations = append(serviceRedeclarations, &ast.Field{
+			Label: ast.NewIdent(service),
+			Value: ast.NewIdent(strings.ToLower(service)),
+			Token: token.ISA,
+		})
 
 		folder := path.Join("pkg/" + servicePackage)
 
@@ -426,19 +426,103 @@ func main() {
 			fmt.Println(err)
 			return
 		}
-		l, err := cuefile.Write(b)
+		_, err = cuefile.Write(b)
 		if err != nil {
 			fmt.Println(err)
 			cuefile.Close()
 			return
 		}
-		fmt.Println(l, "bytes written successfully")
+		// fmt.Println(l, "bytes written successfully")
 		err = cuefile.Close()
 		if err != nil {
 			fmt.Println(err)
 			return
 		}
 	}
+
+	expr := resourceTypes[0]
+
+	for _, resource := range resourceTypes[1:] {
+		expr = &ast.BinaryExpr{X: expr, Op: token.OR, Y: resource}
+	}
+
+	declarations := []ast.Decl{
+		&ast.Package{
+			Name: ast.NewIdent("aws"),
+		},
+		&ast.ImportDecl{
+			Specs: importDeclarations,
+		},
+	}
+
+	declarations = append(declarations, serviceRedeclarations...)
+
+	declarations = append(declarations, &ast.Field{
+		Label: ast.NewIdent("ResourceTypes"),
+		Value: expr,
+		Token: token.ISA,
+	})
+
+	declarations = append(declarations, &ast.Field{
+		Label: ast.NewIdent("Template"),
+		Token: token.ISA,
+		Value: &ast.StructLit{
+			Elts: []ast.Decl{
+				&ast.Field{
+					Label: ast.NewIdent("AWSTemplateFormatVersion"),
+					Value: ast.NewString("2010-09-09"),
+				},
+				&ast.Field{
+					Label:    ast.NewIdent("Description"),
+					Value:    &ast.BasicLit{Value: "string"},
+					Optional: token.Elided.Pos(),
+				},
+				&ast.Field{
+					Label: ast.NewIdent("Resources"),
+					Value: &ast.StructLit{
+						Elts: []ast.Decl{
+							&ast.Field{
+								Label: ast.NewList(&ast.UnaryExpr{
+									Op: token.MAT,
+									X:  ast.NewString("[a-zA-Z0-9]"),
+								}),
+								Value: ast.NewIdent("ResourceTypes"),
+							},
+						},
+					},
+				},
+			},
+		},
+	})
+
+	allServicesFile := &ast.File{
+		Filename: "aws.cue",
+		Decls:    declarations,
+	}
+
+	b, _ := format.Node(allServicesFile, format.Simplify())
+	packageFolder := "pkg/github.com/TangoGroup/aws/"
+
+	os.MkdirAll(packageFolder, os.ModePerm)
+
+	cuefile, err := os.Create(path.Join(packageFolder, "aws.cue"))
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	_, err = cuefile.Write(b)
+	if err != nil {
+		fmt.Println(err)
+		cuefile.Close()
+		return
+	}
+	// fmt.Println(l, "bytes written successfully")
+	err = cuefile.Close()
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
 }
 
 func downloadSpec(location string) ([]byte, error) {

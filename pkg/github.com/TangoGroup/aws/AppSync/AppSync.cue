@@ -32,10 +32,17 @@ DataSource :: {
 		SigningRegion?:      string | fn.Fn
 		SigningServiceName?: string | fn.Fn
 	}
+	propDeltaSyncConfig :: {
+		BaseTableTTL:       string | fn.Fn
+		DeltaSyncTableName: string | fn.Fn
+		DeltaSyncTableTTL:  string | fn.Fn
+	}
 	propDynamoDBConfig :: {
 		AwsRegion:             string | fn.Fn
+		DeltaSyncConfig?:      propDeltaSyncConfig
 		TableName:             string | fn.Fn
 		UseCallerCredentials?: bool | fn.Fn
+		Versioned?:            bool | fn.Fn
 	}
 	propElasticsearchConfig :: {
 		AwsRegion: string | fn.Fn
@@ -137,9 +144,18 @@ Resolver :: {
 		RequestMappingTemplateS3Location?:  string | fn.Fn
 		ResponseMappingTemplate?:           string | fn.Fn
 		ResponseMappingTemplateS3Location?: string | fn.Fn
+		SyncConfig?:                        propSyncConfig
 		TypeName:                           string | fn.Fn
+	}
+	propLambdaConfig :: {
+		LambdaConflictHandlerARN?: string | fn.Fn
 	}
 	propPipelineConfig :: {
 		Functions?: [...(string | fn.Fn)]
+	}
+	propSyncConfig :: {
+		ConflictDetection: string | fn.Fn
+		ConflictHandler?:  string | fn.Fn
+		LambdaConfig?:     propLambdaConfig
 	}
 }

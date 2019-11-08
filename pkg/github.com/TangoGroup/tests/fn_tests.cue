@@ -1,6 +1,7 @@
 package fn
 
 import "github.com/TangoGroup/fn"
+import "github.com/TangoGroup/aws"
 
 MyGetAZs1: fn.GetAZs & {"Fn::GetAZs" :          ""}
 MyGetAZs2: fn.GetAZs & {"Fn::GetAZs" : {"Ref" : "AWS::Region"}}
@@ -113,4 +114,18 @@ t3: fn.GetAtt & {
 		"myELB",
 		{"Ref": "Keys"},
 	]
+}
+
+template: aws.Template
+template: {
+	Description: "This is a template"
+	Resources S3Bucket1: {
+		aws.S3.Bucket
+		Properties: AccessControl: "Fn::Sub": "S3AccessControl${Stuff}"
+	}
+	Resources S3Bucket2: {
+		aws.S3.Bucket
+		Properties: AccessControl: "Fn::Sub": "S3AccessControl${Stuff}"
+		Properties: BucketEncryption: ServerSideEncryptionConfiguration: [{ServerSideEncryptionByDefault: SSEAlgorithm: "AES256"}]
+	}
 }

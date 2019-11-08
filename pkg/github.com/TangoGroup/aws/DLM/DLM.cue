@@ -15,10 +15,6 @@ LifecyclePolicy :: {
 		IntervalUnit: string | fn.Fn
 		Times?: [...(string | fn.Fn)]
 	}
-	propFastRestoreRule :: {
-		AvailabilityZones?: [...(string | fn.Fn)]
-		Count: int | fn.Fn
-	}
 	propParameters :: {
 		ExcludeBootVolume?: bool | fn.Fn
 	}
@@ -33,11 +29,10 @@ LifecyclePolicy :: {
 		Count: int | fn.Fn
 	}
 	propSchedule :: {
-		CopyTags?:        bool | fn.Fn
-		CreateRule?:      propCreateRule
-		FastRestoreRule?: propFastRestoreRule
-		Name?:            string | fn.Fn
-		RetainRule?:      propRetainRule
+		CopyTags?:   bool | fn.Fn
+		CreateRule?: propCreateRule
+		Name?:       string | fn.Fn
+		RetainRule?: propRetainRule
 		TagsToAdd?: [...propTag]
 		VariableTags?: [...propTag]
 	}

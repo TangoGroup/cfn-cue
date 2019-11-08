@@ -9,11 +9,13 @@ Domain :: {
 		} | fn.Fn
 		AdvancedOptions?: {
 		}
-		DomainName?:                  string | fn.Fn
-		EBSOptions?:                  propEBSOptions
-		ElasticsearchClusterConfig?:  propElasticsearchClusterConfig
-		ElasticsearchVersion?:        string | fn.Fn
-		EncryptionAtRestOptions?:     propEncryptionAtRestOptions
+		DomainName?:                 string | fn.Fn
+		EBSOptions?:                 propEBSOptions
+		ElasticsearchClusterConfig?: propElasticsearchClusterConfig
+		ElasticsearchVersion?:       string | fn.Fn
+		EncryptionAtRestOptions?:    propEncryptionAtRestOptions
+		LogPublishingOptions?: {
+		}
 		NodeToNodeEncryptionOptions?: propNodeToNodeEncryptionOptions
 		SnapshotOptions?:             propSnapshotOptions
 		Tags?: [...propTag]
@@ -37,6 +39,10 @@ Domain :: {
 	propEncryptionAtRestOptions :: {
 		Enabled?:  bool | fn.Fn
 		KmsKeyId?: string | fn.Fn
+	}
+	propLogPublishingOption :: {
+		CloudWatchLogsLogGroupArn?: string | fn.Fn
+		Enabled?:                   bool | fn.Fn
 	}
 	propNodeToNodeEncryptionOptions :: {
 		Enabled?: bool | fn.Fn

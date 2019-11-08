@@ -15,6 +15,7 @@ ApiKey :: {
 		GenerateDistinctId?: bool | fn.Fn
 		Name?:               string | fn.Fn
 		StageKeys?: [...propStageKey]
+		Tags?: [...propTag]
 		Value?: string | fn.Fn
 	}
 	propStageKey :: {
@@ -48,7 +49,10 @@ BasePathMapping :: {
 }
 ClientCertificate :: {
 	Type: "AWS::ApiGateway::ClientCertificate"
-	Properties: Description?: string | fn.Fn
+	Properties: {
+		Description?: string | fn.Fn
+		Tags?: [...propTag]
+	}
 }
 Deployment :: {
 	Type: "AWS::ApiGateway::Deployment"
@@ -140,6 +144,8 @@ DomainName :: {
 		DomainName:              string | fn.Fn
 		EndpointConfiguration?:  propEndpointConfiguration
 		RegionalCertificateArn?: string | fn.Fn
+		SecurityPolicy?:         string | fn.Fn
+		Tags?: [...propTag]
 	}
 	propEndpointConfiguration :: {
 		Types?: [...(string | fn.Fn)]
@@ -257,6 +263,7 @@ RestApi :: {
 		}
 		Policy?: {
 		} | fn.Fn
+		Tags?: [...propTag]
 	}
 	propEndpointConfiguration :: {
 		Types?: [...(string | fn.Fn)]
@@ -315,8 +322,9 @@ UsagePlan :: {
 	Type: "AWS::ApiGateway::UsagePlan"
 	Properties: {
 		ApiStages?: [...propApiStage]
-		Description?:   string | fn.Fn
-		Quota?:         propQuotaSettings
+		Description?: string | fn.Fn
+		Quota?:       propQuotaSettings
+		Tags?: [...propTag]
 		Throttle?:      propThrottleSettings
 		UsagePlanName?: string | fn.Fn
 	}

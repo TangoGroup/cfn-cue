@@ -39,7 +39,6 @@ DBCluster :: {
 	propDBClusterRole :: {
 		FeatureName?: string | fn.Fn
 		RoleArn:      string | fn.Fn
-		Status?:      string | fn.Fn
 	}
 	propScalingConfiguration :: {
 		AutoPause?:             bool | fn.Fn
@@ -115,7 +114,6 @@ DBInstance :: {
 	propDBInstanceRole :: {
 		FeatureName: string | fn.Fn
 		RoleArn:     string | fn.Fn
-		Status?:     string | fn.Fn
 	}
 	propProcessorFeature :: {
 		Name?:  string | fn.Fn
