@@ -12,8 +12,7 @@ HttpNamespace :: {
 Instance :: {
 	Type: "AWS::ServiceDiscovery::Instance"
 	Properties: {
-		InstanceAttributes: {
-		}
+		InstanceAttributes: [string]: string | fn.Fn
 		InstanceId?: string | fn.Fn
 		ServiceId:   string | fn.Fn
 	}

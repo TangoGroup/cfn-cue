@@ -60,8 +60,7 @@ Function :: {
 		TargetArn?: string | fn.Fn
 	}
 	propEnvironment :: {
-		Variables?: {
-		}
+		Variables?: [string]: string | fn.Fn
 	}
 	propTracingConfig :: {
 		Mode?: string | fn.Fn

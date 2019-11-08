@@ -33,8 +33,7 @@ ParameterGroup :: {
 	Properties: {
 		CacheParameterGroupFamily: string | fn.Fn
 		Description:               string | fn.Fn
-		Properties?: {
-		}
+		Properties?: [string]: string | fn.Fn
 	}
 }
 ReplicationGroup :: {

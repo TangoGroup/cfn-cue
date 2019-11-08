@@ -63,89 +63,117 @@ func convertTypeToCUE(name string) string {
 	}
 }
 
-func (p Property) getCUEPrimitiveType() ast.Expr {
+func (p Property) getCUEPrimitiveTypeString() string {
 	if p.IsPrimitive() {
-		return mapFromCFNTypeToCue(p.PrimitiveType)
+		return p.PrimitiveType
 	}
 
 	if p.IsMap() && p.IsMapOfPrimitives() {
-		return mapFromCFNTypeToCue(p.PrimitiveItemType)
+		return p.PrimitiveItemType
 	}
 
 	if p.IsList() && p.IsListOfPrimitives() {
-		return mapFromCFNTypeToCue(p.PrimitiveItemType)
+		return p.PrimitiveItemType
 	}
 
-	return nil
+	return ""
+}
+
+func (p Property) getCUEPrimitiveType() ast.Expr {
+	return mapFromCFNTypeToCue(p.getCUEPrimitiveTypeString())
 }
 
 // func addPrimitiveConstraints()
 
-func createFieldFromProperty(name string, prop Property, constraints []ast.Expr) (node ast.Decl) {
+func createFieldFromProperty(name string, prop Property, valueTypes map[string]ValueType) (node ast.Decl) {
 	// Need to capture Map Types, and put the PrimitiveItemType or ItemType properly into a struct
 	var value ast.Expr
 
 	if prop.IsPrimitive() || prop.IsMapOfPrimitives() || prop.IsListOfPrimitives() {
-		// Do stuff with the Primitives...
-	} else {
-		// This is a more complex type, we need to recurse...
-	}
+		value = prop.getCUEPrimitiveType()
+		constraints := make([]ast.Expr, 0)
+		if prop.Value.ValueType != "" {
+			valueType := valueTypes[prop.Value.ValueType]
 
-	if prop.IsList() {
-		if prop.IsListOfPrimitives() {
-			value = prop.getCUEPrimitiveType()
-		} else {
-			value = mapFromCFNTypeToCue(prop.ItemType)
+			if valueType.AllowedValues != nil {
+				allowedValues := createExprFromAllowedValues(prop, valueType.AllowedValues, prop.getCUEPrimitiveTypeString())
+				constraints = append(constraints, allowedValues)
+			}
+			if valueType.NumberMax > 1 {
+				min := valueType.NumberMin
+				max := valueType.NumberMax
+				allowedValues := createExprFromNumberMinMax(prop, min, max)
+				constraints = append(constraints, allowedValues)
+			}
+			if valueType.StringMax > 0 {
+				min := valueType.StringMin
+				max := valueType.StringMax
+				allowedValues := createExprFromStringMinMax(prop, int64(min), int64(max))
+				constraints = append(constraints, allowedValues)
+			}
+			if valueType.AllowedPatternRegex != "" {
+				regex := valueType.AllowedPatternRegex
+				allowedValues := createExprFromPatternRegex(prop, regex)
+				constraints = append(constraints, allowedValues)
+			}
+			// Going to need to be smarter about this... I need to make sure that the marshalled JSON
+			// string of this struct is less that JSONMax characters.
+			// if valueType.JSONMax > 0 {
+			// 	min := 0
+			// 	max := valueType.JSONMax
+			// 	allowedValues := createFieldFromStringMinMax(property, propertyResource, int64(min), int64(max))
+			// 	propertyDecls = append(propertyDecls, allowedValues)
+			// }
+		}
+		for _, constraint := range constraints {
+			val := &ast.BinaryExpr{
+				X:  value,
+				Op: token.AND,
+				Y: &ast.ParenExpr{
+					X: constraint,
+				},
+			}
+			value = val
 		}
 
-	} else if prop.IsMap() {
-		// TODO: Clean up Maps...
-		value = &ast.StructLit{}
+		if len(constraints) > 0 {
+			val := &ast.ParenExpr{
+				X: value,
+			}
+			value = val
+		}
+
+		value = &ast.BinaryExpr{
+			X:  value,
+			Op: token.OR,
+			Y:  ast.NewSel(ast.NewIdent("fn"), "Fn"),
+		}
+
+		if prop.IsList() {
+			value = &ast.ParenExpr{X: value}
+		}
 	} else {
-		if prop.IsPrimitive() {
-			value = prop.getCUEPrimitiveType()
+		// This is a more complex type, we need to recurse...
+		if prop.IsList() || prop.IsMap() {
+			value = mapFromCFNTypeToCue(prop.ItemType)
 		} else {
 			value = mapFromCFNTypeToCue(prop.Type)
 		}
 	}
 
-	for _, constraint := range constraints {
-		val := &ast.BinaryExpr{
-			X:  value,
-			Op: token.AND,
-			Y: &ast.ParenExpr{
-				X: constraint,
+	if prop.IsList() {
+		value = ast.NewList(&ast.Ellipsis{Type: value})
+	}
+
+	if prop.IsMap() {
+		value = &ast.StructLit{
+			Elts: []ast.Decl{
+				&ast.Field{
+					Label: ast.NewList(&ast.BasicLit{Value: "string"}),
+					Value: value,
+				},
 			},
 		}
-		value = val
-	}
-
-	if len(constraints) > 0 {
-		val := &ast.ParenExpr{
-			X: value,
-		}
-		value = val
-	}
-
-	if prop.IsPrimitive() || prop.IsListOfPrimitives() {
-		val := &ast.BinaryExpr{
-			X:  value,
-			Op: token.OR,
-			Y:  ast.NewSel(ast.NewIdent("fn"), "Fn"),
-		}
-		value = val
-	}
-
-	if prop.IsList() {
-		var val ast.Expr
-		if prop.IsListOfPrimitives() {
-			val = &ast.ParenExpr{
-				X: value,
-			}
-		} else {
-			val = value
-		}
-		value = ast.NewList(&ast.Ellipsis{Type: val})
 	}
 
 	var optional token.Pos
@@ -226,43 +254,8 @@ func createStructFromResource(resource Resource, resourceSubproperties map[strin
 
 	for _, propertyName := range propertyNames {
 		propertyResource := properties[propertyName]
-		constraints := make([]ast.Expr, 0)
-		if propertyResource.Value.ValueType != "" {
-			valueType := valueTypes[propertyResource.Value.ValueType]
 
-			if valueType.AllowedValues != nil {
-				allowedValues := createExprFromAllowedValues(propertyResource, valueType.AllowedValues, propertyResource.PrimitiveType)
-				constraints = append(constraints, allowedValues)
-			}
-			if valueType.NumberMax > 1 {
-				min := valueType.NumberMin
-				max := valueType.NumberMax
-				allowedValues := createExprFromNumberMinMax(propertyResource, min, max)
-				constraints = append(constraints, allowedValues)
-			}
-			if valueType.StringMax > 0 {
-				min := valueType.StringMin
-				max := valueType.StringMax
-				allowedValues := createExprFromStringMinMax(propertyResource, int64(min), int64(max))
-				constraints = append(constraints, allowedValues)
-			}
-			if valueType.AllowedPatternRegex != "" {
-				regex := valueType.AllowedPatternRegex
-				allowedValues := createExprFromPatternRegex(propertyResource, regex)
-				constraints = append(constraints, allowedValues)
-			}
-			// Going to need to be smarter about this... I need to make sure that the marshalled JSON
-			// string of this struct is less that JSONMax characters.
-			// if valueType.JSONMax > 0 {
-			// 	min := 0
-			// 	max := valueType.JSONMax
-			// 	allowedValues := createFieldFromStringMinMax(property, propertyResource, int64(min), int64(max))
-			// 	propertyDecls = append(propertyDecls, allowedValues)
-			// }
-		} else if propertyResource.Value.ListValueType != "" {
-			// fmt.Println("!!!!", propertyResource.Value.ListValueType)
-		}
-		value := createFieldFromProperty(propertyName, propertyResource, constraints)
+		value := createFieldFromProperty(propertyName, propertyResource, valueTypes)
 		propertyDecls = append(propertyDecls, value)
 	}
 

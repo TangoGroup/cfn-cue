@@ -27,8 +27,7 @@ Cluster :: {
 		VisibleToAllUsers?: bool | fn.Fn
 	}
 	propApplication :: {
-		AdditionalInfo?: {
-		}
+		AdditionalInfo?: [string]: string | fn.Fn
 		Args?: [...(string | fn.Fn)]
 		Name?:    string | fn.Fn
 		Version?: string | fn.Fn
@@ -54,8 +53,7 @@ Cluster :: {
 	}
 	propConfiguration :: {
 		Classification?: string | fn.Fn
-		ConfigurationProperties?: {
-		}
+		ConfigurationProperties?: [string]: string | fn.Fn
 		Configurations?: [...propConfiguration]
 	}
 	propEbsBlockDeviceConfig :: {
@@ -191,8 +189,7 @@ InstanceFleetConfig :: {
 	}
 	propConfiguration :: {
 		Classification?: string | fn.Fn
-		ConfigurationProperties?: {
-		}
+		ConfigurationProperties?: [string]: string | fn.Fn
 		Configurations?: [...propConfiguration]
 	}
 	propEbsBlockDeviceConfig :: {
@@ -256,8 +253,7 @@ InstanceGroupConfig :: {
 	}
 	propConfiguration :: {
 		Classification?: string | fn.Fn
-		ConfigurationProperties?: {
-		}
+		ConfigurationProperties?: [string]: string | fn.Fn
 		Configurations?: [...propConfiguration]
 	}
 	propEbsBlockDeviceConfig :: {

@@ -22,8 +22,7 @@ Listener :: {
 		Type:                       string | fn.Fn
 	}
 	propAuthenticateCognitoConfig :: {
-		AuthenticationRequestExtraParams?: {
-		}
+		AuthenticationRequestExtraParams?: [string]: string | fn.Fn
 		OnUnauthenticatedRequest?: string | fn.Fn
 		Scope?:                    string | fn.Fn
 		SessionCookieName?:        string | fn.Fn
@@ -33,8 +32,7 @@ Listener :: {
 		UserPoolDomain:            string | fn.Fn
 	}
 	propAuthenticateOidcConfig :: {
-		AuthenticationRequestExtraParams?: {
-		}
+		AuthenticationRequestExtraParams?: [string]: string | fn.Fn
 		AuthorizationEndpoint:     string | fn.Fn
 		ClientId:                  string | fn.Fn
 		ClientSecret:              string | fn.Fn
@@ -91,8 +89,7 @@ ListenerRule :: {
 		Type:                       string | fn.Fn
 	}
 	propAuthenticateCognitoConfig :: {
-		AuthenticationRequestExtraParams?: {
-		}
+		AuthenticationRequestExtraParams?: [string]: string | fn.Fn
 		OnUnauthenticatedRequest?: string | fn.Fn
 		Scope?:                    string | fn.Fn
 		SessionCookieName?:        string | fn.Fn
@@ -102,8 +99,7 @@ ListenerRule :: {
 		UserPoolDomain:            string | fn.Fn
 	}
 	propAuthenticateOidcConfig :: {
-		AuthenticationRequestExtraParams?: {
-		}
+		AuthenticationRequestExtraParams?: [string]: string | fn.Fn
 		AuthorizationEndpoint:     string | fn.Fn
 		ClientId:                  string | fn.Fn
 		ClientSecret:              string | fn.Fn

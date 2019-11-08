@@ -91,8 +91,7 @@ DeliveryStream :: {
 	}
 	propOpenXJsonSerDe :: {
 		CaseInsensitive?: bool | fn.Fn
-		ColumnToJsonKeyMappings?: {
-		}
+		ColumnToJsonKeyMappings?: [string]: string | fn.Fn
 		ConvertDotsInJsonKeysToUnderscores?: bool | fn.Fn
 	}
 	propOrcSerDe :: {

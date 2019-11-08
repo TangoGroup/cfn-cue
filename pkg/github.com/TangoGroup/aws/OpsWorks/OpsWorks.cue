@@ -6,8 +6,7 @@ App :: {
 	Type: "AWS::OpsWorks::App"
 	Properties: {
 		AppSource?: propSource
-		Attributes?: {
-		}
+		Attributes?: [string]: string | fn.Fn
 		DataSources?: [...propDataSource]
 		Description?: string | fn.Fn
 		Domains?: [...(string | fn.Fn)]
@@ -89,27 +88,19 @@ Instance :: {
 		VolumeType?:          (string & ("gp2" | "io1" | "sc1" | "st1" | "standard")) | fn.Fn
 	}
 	propTimeBasedAutoScaling :: {
-		Friday?: {
-		}
-		Monday?: {
-		}
-		Saturday?: {
-		}
-		Sunday?: {
-		}
-		Thursday?: {
-		}
-		Tuesday?: {
-		}
-		Wednesday?: {
-		}
+		Friday?: [string]:    string | fn.Fn
+		Monday?: [string]:    string | fn.Fn
+		Saturday?: [string]:  string | fn.Fn
+		Sunday?: [string]:    string | fn.Fn
+		Thursday?: [string]:  string | fn.Fn
+		Tuesday?: [string]:   string | fn.Fn
+		Wednesday?: [string]: string | fn.Fn
 	}
 }
 Layer :: {
 	Type: "AWS::OpsWorks::Layer"
 	Properties: {
-		Attributes?: {
-		}
+		Attributes?: [string]: string | fn.Fn
 		AutoAssignElasticIps:      bool | fn.Fn
 		AutoAssignPublicIps:       bool | fn.Fn
 		CustomInstanceProfileArn?: string | fn.Fn
@@ -171,8 +162,7 @@ Stack :: {
 	Type: "AWS::OpsWorks::Stack"
 	Properties: {
 		AgentVersion?: string | fn.Fn
-		Attributes?: {
-		}
+		Attributes?: [string]: string | fn.Fn
 		ChefConfiguration?: propChefConfiguration
 		CloneAppIds?: [...(string | fn.Fn)]
 		ClonePermissions?:      bool | fn.Fn

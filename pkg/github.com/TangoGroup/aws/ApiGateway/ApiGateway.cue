@@ -69,14 +69,12 @@ Deployment :: {
 	}
 	propCanarySetting :: {
 		PercentTraffic?: float | fn.Fn
-		StageVariableOverrides?: {
-		}
+		StageVariableOverrides?: [string]: string | fn.Fn
 		UseStageCache?: bool | fn.Fn
 	}
 	propDeploymentCanarySettings :: {
 		PercentTraffic?: float | fn.Fn
-		StageVariableOverrides?: {
-		}
+		StageVariableOverrides?: [string]: string | fn.Fn
 		UseStageCache?: bool | fn.Fn
 	}
 	propMethodSetting :: {
@@ -110,8 +108,7 @@ Deployment :: {
 		ThrottlingBurstLimit?: int | fn.Fn
 		ThrottlingRateLimit?:  float | fn.Fn
 		TracingEnabled?:       bool | fn.Fn
-		Variables?: {
-		}
+		Variables?: [string]: string | fn.Fn
 	}
 }
 DocumentationPart :: {
@@ -154,10 +151,8 @@ DomainName :: {
 GatewayResponse :: {
 	Type: "AWS::ApiGateway::GatewayResponse"
 	Properties: {
-		ResponseParameters?: {
-		}
-		ResponseTemplates?: {
-		}
+		ResponseParameters?: [string]: string | fn.Fn
+		ResponseTemplates?: [string]:  string | fn.Fn
 		ResponseType: (string & ("ACCESS_DENIED" | "API_CONFIGURATION_ERROR" | "AUTHORIZER_FAILURE" | "AUTHORIZER_CONFIGURATION_ERROR" | "BAD_REQUEST_PARAMETERS" | "BAD_REQUEST_BODY" | "DEFAULT_4XX" | "DEFAULT_5XX" | "EXPIRED_TOKEN" | "INVALID_SIGNATURE" | "INTEGRATION_FAILURE" | "INTEGRATION_TIMEOUT" | "INVALID_API_KEY" | "MISSING_AUTHENTICATION_TOKEN" | "QUOTA_EXCEEDED" | "REQUEST_TOO_LARGE" | "RESOURCE_NOT_FOUND" | "THROTTLED" | "UNAUTHORIZED" | "UNSUPPORTED_MEDIA_TYPE")) | fn.Fn
 		RestApiId:    string | fn.Fn
 		StatusCode?:  string | fn.Fn
@@ -174,10 +169,8 @@ Method :: {
 		Integration?:       propIntegration
 		MethodResponses?: [...propMethodResponse]
 		OperationName?: string | fn.Fn
-		RequestModels?: {
-		}
-		RequestParameters?: {
-		}
+		RequestModels?: [string]:     string | fn.Fn
+		RequestParameters?: [string]: bool | fn.Fn
 		RequestValidatorId?: string | fn.Fn
 		ResourceId:          string | fn.Fn
 		RestApiId:           string | fn.Fn
@@ -192,28 +185,22 @@ Method :: {
 		IntegrationHttpMethod?: string | fn.Fn
 		IntegrationResponses?: [...propIntegrationResponse]
 		PassthroughBehavior?: string | fn.Fn
-		RequestParameters?: {
-		}
-		RequestTemplates?: {
-		}
+		RequestParameters?: [string]: string | fn.Fn
+		RequestTemplates?: [string]:  string | fn.Fn
 		TimeoutInMillis?: int | fn.Fn
 		Type?:            string | fn.Fn
 		Uri?:             string | fn.Fn
 	}
 	propIntegrationResponse :: {
 		ContentHandling?: string | fn.Fn
-		ResponseParameters?: {
-		}
-		ResponseTemplates?: {
-		}
+		ResponseParameters?: [string]: string | fn.Fn
+		ResponseTemplates?: [string]:  string | fn.Fn
 		SelectionPattern?: string | fn.Fn
 		StatusCode:        string | fn.Fn
 	}
 	propMethodResponse :: {
-		ResponseModels?: {
-		}
-		ResponseParameters?: {
-		}
+		ResponseModels?: [string]:     string | fn.Fn
+		ResponseParameters?: [string]: bool | fn.Fn
 		StatusCode: string | fn.Fn
 	}
 }
@@ -259,8 +246,7 @@ RestApi :: {
 		FailOnWarnings?:         bool | fn.Fn
 		MinimumCompressionSize?: int | fn.Fn
 		Name?:                   string | fn.Fn
-		Parameters?: {
-		}
+		Parameters?: [string]: string | fn.Fn
 		Policy?: {
 		} | fn.Fn
 		Tags?: [...propTag]
@@ -291,8 +277,7 @@ Stage :: {
 		StageName?: string | fn.Fn
 		Tags?: [...propTag]
 		TracingEnabled?: bool | fn.Fn
-		Variables?: {
-		}
+		Variables?: [string]: string | fn.Fn
 	}
 	propAccessLogSetting :: {
 		DestinationArn?: string | fn.Fn
@@ -301,8 +286,7 @@ Stage :: {
 	propCanarySetting :: {
 		DeploymentId?:   string | fn.Fn
 		PercentTraffic?: float | fn.Fn
-		StageVariableOverrides?: {
-		}
+		StageVariableOverrides?: [string]: string | fn.Fn
 		UseStageCache?: bool | fn.Fn
 	}
 	propMethodSetting :: {
@@ -331,8 +315,7 @@ UsagePlan :: {
 	propApiStage :: {
 		ApiId?: string | fn.Fn
 		Stage?: string | fn.Fn
-		Throttle?: {
-		}
+		Throttle?: [string]: propThrottleSettings
 	}
 	propQuotaSettings :: {
 		Limit?:  int | fn.Fn

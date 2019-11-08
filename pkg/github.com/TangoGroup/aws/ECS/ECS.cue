@@ -90,8 +90,7 @@ TaskDefinition :: {
 		DisableNetworking?: bool | fn.Fn
 		DnsSearchDomains?: [...(string | fn.Fn)]
 		DnsServers?: [...(string | fn.Fn)]
-		DockerLabels?: {
-		}
+		DockerLabels?: [string]: string | fn.Fn
 		DockerSecurityOptions?: [...(string | fn.Fn)]
 		EntryPoint?: [...(string | fn.Fn)]
 		Environment?: [...propKeyValuePair]
@@ -135,10 +134,8 @@ TaskDefinition :: {
 	propDockerVolumeConfiguration :: {
 		Autoprovision?: bool | fn.Fn
 		Driver?:        string | fn.Fn
-		DriverOpts?: {
-		}
-		Labels?: {
-		}
+		DriverOpts?: [string]: string | fn.Fn
+		Labels?: [string]:     string | fn.Fn
 		Scope?: string | fn.Fn
 	}
 	propHealthCheck :: {
@@ -176,8 +173,7 @@ TaskDefinition :: {
 	}
 	propLogConfiguration :: {
 		LogDriver: string | fn.Fn
-		Options?: {
-		}
+		Options?: [string]: string | fn.Fn
 		SecretOptions?: [...propSecret]
 	}
 	propMountPoint :: {

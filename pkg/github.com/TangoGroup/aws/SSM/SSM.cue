@@ -10,8 +10,7 @@ Association :: {
 		InstanceId?:      string | fn.Fn
 		Name:             string | fn.Fn
 		OutputLocation?:  propInstanceAssociationOutputLocation
-		Parameters?: {
-		}
+		Parameters?: [string]: propParameterValues
 		ScheduleExpression?: string | fn.Fn
 		Targets?: [...propTarget]
 	}

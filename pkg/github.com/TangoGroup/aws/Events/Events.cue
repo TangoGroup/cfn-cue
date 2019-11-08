@@ -63,8 +63,7 @@ Rule :: {
 		TaskDefinitionArn:     string | fn.Fn
 	}
 	propInputTransformer :: {
-		InputPathsMap?: {
-		}
+		InputPathsMap?: [string]: string | fn.Fn
 		InputTemplate: string | fn.Fn
 	}
 	propKinesisParameters :: {

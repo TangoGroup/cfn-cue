@@ -125,8 +125,7 @@ DBParameterGroup :: {
 	Properties: {
 		Description: string | fn.Fn
 		Family:      string | fn.Fn
-		Parameters?: {
-		}
+		Parameters?: [string]: string | fn.Fn
 		Tags?: [...propTag]
 	}
 }

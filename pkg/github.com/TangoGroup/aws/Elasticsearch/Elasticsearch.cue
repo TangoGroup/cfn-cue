@@ -7,15 +7,13 @@ Domain :: {
 	Properties: {
 		AccessPolicies?: {
 		} | fn.Fn
-		AdvancedOptions?: {
-		}
+		AdvancedOptions?: [string]: string | fn.Fn
 		DomainName?:                 string | fn.Fn
 		EBSOptions?:                 propEBSOptions
 		ElasticsearchClusterConfig?: propElasticsearchClusterConfig
 		ElasticsearchVersion?:       string | fn.Fn
 		EncryptionAtRestOptions?:    propEncryptionAtRestOptions
-		LogPublishingOptions?: {
-		}
+		LogPublishingOptions?: [string]: propLogPublishingOption
 		NodeToNodeEncryptionOptions?: propNodeToNodeEncryptionOptions
 		SnapshotOptions?:             propSnapshotOptions
 		Tags?: [...propTag]

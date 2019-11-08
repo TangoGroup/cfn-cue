@@ -31,8 +31,7 @@ Thing :: {
 		ThingName?:        string | fn.Fn
 	}
 	propAttributePayload :: {
-		Attributes?: {
-		}
+		Attributes?: [string]: string | fn.Fn
 	}
 }
 ThingPrincipalAttachment :: {

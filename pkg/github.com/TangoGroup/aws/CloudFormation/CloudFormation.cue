@@ -20,8 +20,7 @@ Stack :: {
 	Type: "AWS::CloudFormation::Stack"
 	Properties: {
 		NotificationARNs?: [...(string | fn.Fn)]
-		Parameters?: {
-		}
+		Parameters?: [string]: string | fn.Fn
 		Tags?: [...propTag]
 		TemplateURL:       string | fn.Fn
 		TimeoutInMinutes?: int | fn.Fn
