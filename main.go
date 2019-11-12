@@ -133,7 +133,6 @@ func createFieldFromProperty(name string, prop Property, resourceSubproperties m
 	var value ast.Expr
 
 	if parentName == "AWS::Transfer::User" && name == "SshPublicKeys" {
-		fmt.Println("!!!!<<<<", parentName)
 		prop = Property{
 			PrimitiveItemType: "String",
 			Type:              "List",
@@ -303,9 +302,7 @@ func createStructFromResource(resourceName string, resource Resource, resourceSu
 
 		value, propImports := createFieldFromProperty(propertyName, propertyResource, resourceSubproperties, valueTypes, resourceName, resource)
 		if len(propImports) > 0 {
-			fmt.Println("struct resource:", propImports)
 			imports = mergeMaps(imports, propImports)
-			fmt.Println("struct resource imports:", imports)
 		}
 		propertyDecls = append(propertyDecls, value)
 	}
@@ -358,6 +355,10 @@ func main() {
 	for _, region := range regions {
 		shortRegion := strings.ReplaceAll(region, "-", "")
 
+		if region != "us-west-2" {
+			continue
+		}
+
 		cloudformationSpec := "https://github.com/aws-cloudformation/cfn-python-lint/raw/master/src/cfnlint/data/CloudSpecs/" + region + ".json"
 		fmt.Println(cloudformationSpec)
 		data, _ := downloadSpec(cloudformationSpec)
@@ -366,11 +367,12 @@ func main() {
 
 		propertiesByResource := map[string]map[string]Resource{}
 
-		for resourcePropertyName, property := range spec.Properties {
-			if len(property.Properties) == 0 {
-				fmt.Println(resourcePropertyName)
-			}
-		}
+		// Find weird/broken properties
+		// for resourcePropertyName, property := range spec.Properties {
+		// 	if len(property.Properties) == 0 {
+		// 		fmt.Println(resourcePropertyName)
+		// 	}
+		// }
 		// panic(0)
 
 		for resourcePropertyName, property := range spec.Properties {
@@ -418,9 +420,9 @@ func main() {
 
 		resourceTypes := make([]ast.Expr, 0)
 
-		for i, serviceName := range serviceNames {
+		for _, serviceName := range serviceNames {
 			resources := resourcesByService[serviceName]
-			fmt.Println(i, ":", serviceName)
+			// fmt.Println(i, ":", serviceName)
 			ff := &ast.File{
 				Filename: serviceName,
 				Decls: []ast.Decl{
@@ -449,7 +451,7 @@ func main() {
 				resourceSubproperties := propertiesByResource[resourceName]
 
 				resourceStr := splits[2]
-				fmt.Println("  " + resourceName)
+				// fmt.Println("  " + resourceName)
 
 				properties, resourceImports := createStructFromResource(resourceName, resource, resourceSubproperties, spec.ValueTypes)
 				importStrings = mergeMaps(importStrings, resourceImports)
@@ -479,7 +481,6 @@ func main() {
 			}
 
 			for importString := range importStrings {
-				fmt.Println("  ~~~", importString)
 				imports.Specs = append(imports.Specs, &ast.ImportSpec{Path: ast.NewString(importString)})
 			}
 
@@ -494,7 +495,6 @@ func main() {
 			}
 
 			ff.Decls = append(ff.Decls, serviceField)
-			// fmt.Println("")
 			b, _ := format.Node(ff, format.Simplify())
 
 			servicePackage := path.Join("github.com/TangoGroup/", shortRegion)
