@@ -83,11 +83,46 @@ func (p Property) getCUEPrimitiveType() ast.Expr {
 	return mapFromCFNTypeToCue(p.getCUEPrimitiveTypeString())
 }
 
-// func addPrimitiveConstraints()
+func addPrimitiveConstraints(prop Property, valueType ValueType) []ast.Expr {
+	constraints := make([]ast.Expr, 0)
+	if prop.Value.ValueType != "" {
+		if valueType.AllowedValues != nil {
+			allowedValues := createExprFromAllowedValues(prop, valueType.AllowedValues, prop.getCUEPrimitiveTypeString())
+			constraints = append(constraints, allowedValues)
+		}
+		if valueType.NumberMax > 1 {
+			min := valueType.NumberMin
+			max := valueType.NumberMax
+			allowedValues := createExprFromNumberMinMax(prop, min, max)
+			constraints = append(constraints, allowedValues)
+		}
+		if valueType.StringMax > 0 {
+			min := valueType.StringMin
+			max := valueType.StringMax
+			allowedValues := createExprFromStringMinMax(prop, int64(min), int64(max))
+			constraints = append(constraints, allowedValues)
+		}
+		if valueType.AllowedPatternRegex != "" {
+			regex := valueType.AllowedPatternRegex
+			allowedValues := createExprFromPatternRegex(prop, regex)
+			constraints = append(constraints, allowedValues)
+		}
+	}
+	return constraints
+}
 
-func createFieldFromProperty(name string, prop Property, valueTypes map[string]ValueType) (node ast.Decl) {
+func createFieldFromProperty(name string, prop Property, resourceSubproperties map[string]Resource, valueTypes map[string]ValueType, parentName string, parentResource Resource) (node ast.Decl) {
 	// Need to capture Map Types, and put the PrimitiveItemType or ItemType properly into a struct
 	var value ast.Expr
+
+	if parentName == "AWS::Transfer::User" && name == "SshPublicKeys" {
+		fmt.Println("!!!!<<<<", parentName)
+		prop = Property{
+			PrimitiveItemType: "String",
+			Type:              "List",
+			Required:          false,
+		}
+	}
 
 	if prop.IsPrimitive() || prop.IsMapOfPrimitives() || prop.IsListOfPrimitives() {
 		value = prop.getCUEPrimitiveType()
@@ -154,10 +189,31 @@ func createFieldFromProperty(name string, prop Property, valueTypes map[string]V
 		}
 	} else {
 		// This is a more complex type, we need to recurse...
+		var typeName string
 		if prop.IsList() || prop.IsMap() {
-			value = mapFromCFNTypeToCue(prop.ItemType)
+			typeName = prop.ItemType
 		} else {
-			value = mapFromCFNTypeToCue(prop.Type)
+			typeName = prop.Type
+		}
+		if typeName == parentResource.Properties[parentName].ItemType {
+			// fmt.Println("name:", name)
+			// fmt.Println("typeName:", typeName)
+			// fmt.Println("parentName:", parentName)
+			// fmt.Println("parentTypeName:", parentResource.Properties[parentName].ItemType)
+
+			// fmt.Println("!!!! prop !!!")
+			// spew.Dump(prop)
+			// fmt.Println("!!!! parentResource !!!")
+			// spew.Dump(parentResource)
+
+			// panic(1)
+			// Weird recursion... might need some cleverness with Aliases to structure this correctly.
+			// value = &ast.BasicLit{Value: parentName}
+			value = &ast.StructLit{}
+		} else {
+			// fmt.Println("Recursing on ", typeName, name)
+			v := createStructFromResource(name, resourceSubproperties[typeName], resourceSubproperties, valueTypes)
+			value = &v
 		}
 	}
 
@@ -245,7 +301,7 @@ func propertyNames(p map[string]Property) (keys []string) {
 	return keys
 }
 
-func createStructFromResource(resource Resource, resourceSubproperties map[string]Resource, valueTypes map[string]ValueType) (s ast.StructLit) {
+func createStructFromResource(resourceName string, fieldNameOverride string, resource Resource, resourceSubproperties map[string]Resource, valueTypes map[string]ValueType) (s ast.StructLit) {
 	properties := resource.Properties
 	propertyNames := propertyNames(resource.Properties)
 	sort.Strings(propertyNames)
@@ -255,7 +311,7 @@ func createStructFromResource(resource Resource, resourceSubproperties map[strin
 	for _, propertyName := range propertyNames {
 		propertyResource := properties[propertyName]
 
-		value := createFieldFromProperty(propertyName, propertyResource, valueTypes)
+		value := createFieldFromProperty(propertyName, propertyResource, resourceSubproperties, valueTypes, resourceName, resource)
 		propertyDecls = append(propertyDecls, value)
 	}
 
@@ -283,6 +339,13 @@ func main() {
 	propertiesByResource := map[string]map[string]Resource{}
 
 	for resourcePropertyName, property := range spec.Properties {
+		if len(property.Properties) == 0 {
+			fmt.Println(resourcePropertyName)
+		}
+	}
+	// panic(0)
+
+	for resourcePropertyName, property := range spec.Properties {
 		splits := strings.Split(resourcePropertyName, ".")
 		if len(splits) > 1 {
 			resourceName := splits[0]
@@ -292,6 +355,10 @@ func main() {
 			propertyName := splits[1]
 			propertiesByResource[resourceName][propertyName] = property
 		}
+	}
+
+	for resourceName := range propertiesByResource {
+		propertiesByResource[resourceName]["Tag"] = spec.Properties["Tag"]
 	}
 
 	// prefixMap := map[string]bool{}
@@ -332,7 +399,7 @@ func main() {
 
 	importDeclarations := make([]*ast.ImportSpec, 0)
 
-	serviceRedeclarations := make([]ast.Decl, 0)
+	// serviceRedeclarations := make([]ast.Decl, 0)
 
 	resourceTypes := make([]ast.Expr, 0)
 
@@ -343,17 +410,25 @@ func main() {
 			Filename: serviceName,
 			Decls: []ast.Decl{
 				&ast.Package{
-					Name: ast.NewIdent(serviceName),
+					Name: ast.NewIdent("uswest2"),
 				},
 				&ast.ImportDecl{
 					Specs: []*ast.ImportSpec{
 						&ast.ImportSpec{
 							Path: ast.NewString("github.com/TangoGroup/fn"),
 						},
+						// &ast.ImportSpec{
+						// 	Path: ast.NewString("strings"),
+						// },
+						// &ast.ImportSpec{
+						// 	Path: ast.NewString("time"),
+						// },
 					},
 				},
 			},
 		}
+
+		serviceResources := make([]ast.Decl, 0)
 
 		resourceNames := resourceNamesSlice(resources)
 		sort.Strings(resourceNames)
@@ -365,9 +440,9 @@ func main() {
 
 			// aws := splits[0]
 			resourceStr := splits[2]
-			// fmt.Print(resourceStr + "  ")
+			fmt.Println("  " + resourceName)
 
-			properties := createStructFromResource(resource, resourceSubproperties, spec.ValueTypes)
+			properties := createStructFromResource(resourceName, "Properties", resource, resourceSubproperties, spec.ValueTypes)
 			propertiesStruct := &ast.Field{
 				Label: ast.NewIdent("Properties"),
 				Value: &properties,
@@ -375,24 +450,25 @@ func main() {
 			resourceElts := []ast.Decl{
 				&ast.Field{
 					Label: ast.NewIdent("Type"),
-					Value: &ast.BasicLit{Kind: token.STRING, Value: "\"" + resourceName + "\""},
+					// Value: &ast.BasicLit{Kind: token.STRING, Value: "\"" + resourceName + "\""},
+					Value: ast.NewString(resourceName),
 				},
 				propertiesStruct,
 			}
 
-			subpropertyNames := resourceNamesSlice(resourceSubproperties)
-			sort.Strings(subpropertyNames)
+			// subpropertyNames := resourceNamesSlice(resourceSubproperties)
+			// sort.Strings(subpropertyNames)
 
-			for _, propName := range subpropertyNames {
-				prop := resourceSubproperties[propName]
+			// for _, propName := range subpropertyNames {
+			// 	prop := resourceSubproperties[propName]
 
-				properties := createStructFromResource(prop, resourceSubproperties, spec.ValueTypes)
-				resourceElts = append(resourceElts, &ast.Field{
-					Label: ast.NewIdent(propertyPrefix + propName),
-					Token: token.ISA,
-					Value: &properties,
-				})
-			}
+			// 	properties := createStructFromResource(prop, resourceSubproperties, spec.ValueTypes)
+			// 	resourceElts = append(resourceElts, &ast.Field{
+			// 		Label: ast.NewIdent(propertyPrefix + propName),
+			// 		Token: token.ISA,
+			// 		Value: &properties,
+			// 	})
+			// }
 			f := &ast.Field{
 				Label: ast.NewIdent(resourceStr),
 				Token: token.ISA,
@@ -400,24 +476,40 @@ func main() {
 					Elts: resourceElts,
 				},
 			}
-			ff.Decls = append(ff.Decls, f)
+
+			serviceResources = append(serviceResources, f)
+
+			// ff.Decls = append(ff.Decls, f)
 			resourceTypes = append(resourceTypes, ast.NewSel(ast.NewIdent(serviceName), resourceStr))
 		}
+
+		serviceField := &ast.Field{
+			Label: ast.NewIdent(serviceName),
+			Token: token.ISA,
+			Value: &ast.StructLit{
+				Elts: serviceResources,
+			},
+		}
+
+		ff.Decls = append(ff.Decls, serviceField)
 		// fmt.Println("")
 		b, _ := format.Node(ff, format.Simplify())
 
-		servicePackage := "github.com/TangoGroup/aws/" + serviceName
+		servicePackage := path.Join("github.com/TangoGroup/", "uswest2")
 
-		importDeclarations = append(importDeclarations, ast.NewImport(ast.NewIdent(strings.ToLower(serviceName)), servicePackage))
-		serviceRedeclarations = append(serviceRedeclarations, &ast.Field{
-			Label: ast.NewIdent(serviceName),
-			Value: ast.NewIdent(strings.ToLower(serviceName)),
-			Token: token.ISA,
-		})
+		importDeclarations = append(importDeclarations,
+			ast.NewImport(ast.NewIdent(strings.ToLower(serviceName)),
+				servicePackage))
+		// serviceRedeclarations = append(serviceRedeclarations, &ast.Field{
+		// 	Label: ast.NewIdent(serviceName),
+		// 	Value: ast.NewIdent(strings.ToLower(serviceName)),
+		// })
 
-		folder := path.Join("pkg/" + servicePackage)
+		folder := path.Join("pkg", servicePackage)
 
 		os.MkdirAll(folder, os.ModePerm)
+
+		fmt.Println("Saving", path.Join(folder, serviceName+".cue"))
 
 		cuefile, err := os.Create(path.Join(folder, serviceName+".cue"))
 		if err != nil {
@@ -446,19 +538,18 @@ func main() {
 
 	declarations := []ast.Decl{
 		&ast.Package{
-			Name: ast.NewIdent("aws"),
+			Name: ast.NewIdent("uswest2"),
 		},
-		&ast.ImportDecl{
-			Specs: importDeclarations,
-		},
+		// &ast.ImportDecl{
+		// 	Specs: importDeclarations,
+		// },
 	}
 
-	declarations = append(declarations, serviceRedeclarations...)
+	// declarations = append(declarations, serviceRedeclarations...)
 
 	declarations = append(declarations, &ast.Field{
 		Label: ast.NewIdent("ResourceTypes"),
 		Value: expr,
-		Token: token.ISA,
 	})
 
 	declarations = append(declarations, &ast.Field{
@@ -499,11 +590,11 @@ func main() {
 	}
 
 	b, _ := format.Node(allServicesFile, format.Simplify())
-	packageFolder := "pkg/github.com/TangoGroup/aws/"
+	packageFolder := "pkg/github.com/TangoGroup/uswest2/"
 
 	os.MkdirAll(packageFolder, os.ModePerm)
 
-	cuefile, err := os.Create(path.Join(packageFolder, "aws.cue"))
+	cuefile, err := os.Create(path.Join(packageFolder, "uswest2.cue"))
 	if err != nil {
 		fmt.Println(err)
 		return

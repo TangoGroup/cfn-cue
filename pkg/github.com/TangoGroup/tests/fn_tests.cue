@@ -1,7 +1,8 @@
 package fn
 
 import "github.com/TangoGroup/fn"
-import "github.com/TangoGroup/aws"
+
+import aws "github.com/TangoGroup/uswest2"
 
 MyGetAZs1: fn.GetAZs & {"Fn::GetAZs" :          ""}
 MyGetAZs2: fn.GetAZs & {"Fn::GetAZs" : {"Ref" : "AWS::Region"}}
@@ -119,13 +120,84 @@ t3: fn.GetAtt & {
 template: aws.Template
 template: {
 	Description: "This is a template"
-	Resources S3Bucket1: {
-		aws.S3.Bucket
-		Properties: AccessControl: "Fn::Sub": "S3AccessControl${Stuff}"
+	Resources: S3Bucket1: aws.S3.Bucket
+	Resources: S3Bucket1: {
+		Properties: AccessControl: Ref: "S3AccessControl"
 	}
-	Resources S3Bucket2: {
-		aws.S3.Bucket
-		Properties: AccessControl: "Fn::Sub": "S3AccessControl${Stuff}"
+	Resources: S3Bucket2: aws.S3.Bucket
+	Resources: S3Bucket2: {
+		Properties: AccessControl: "Fn::Sub":                                                                           "S3AccessControl${Stuff}"
 		Properties: BucketEncryption: ServerSideEncryptionConfiguration: [{ServerSideEncryptionByDefault: SSEAlgorithm: "AES256"}]
+	}
+
+	Resources: EmrCluster: aws.EMR.Cluster
+	Resources: EmrCluster: {
+		Properties: {
+			Name:         "DataBeamEmr"
+			ReleaseLabel: "emr-5.20.0"
+			Applications: [{
+				Name: "Ganglia"
+			}, {
+				Name: "Spark"
+			}, {
+				Name: "Hadoop"
+			}]
+			Configurations: [{
+				Classification: "spark"
+				ConfigurationProperties: maximizeResourceAllocation: "true"
+			}]
+			EbsRootVolumeSize: 16
+			Instances: {
+				MasterInstanceGroup: {
+					Name:          "Master Instance Group"
+					InstanceType:  "m4.large"
+					InstanceCount: 1
+					EbsConfiguration: EbsBlockDeviceConfigs: [{
+						VolumeSpecification: {
+							SizeInGB:   32
+							VolumeType: "gp2"
+						}
+					}]
+					Market: "ON_DEMAND"
+				}
+				CoreInstanceGroup: {
+					Name:          "Core Instance Group"
+					InstanceType:  "r4.xlarge"
+					InstanceCount: 2
+					EbsConfiguration: EbsBlockDeviceConfigs: [{
+						VolumeSpecification: {
+							SizeInGB:   32
+							VolumeType: "gp2"
+						}
+					}]
+					Market:   "SPOT"
+					BidPrice: "0.13"
+				}
+			}
+			JobFlowRole: "EMR_EC2_DefaultRole"
+			ServiceRole: "EMR_DefaultRole"
+			// LogUri: "s3n://example-bucket/logs/"
+			ScaleDownBehavior: "TERMINATE_AT_TASK_COMPLETION"
+			VisibleToAllUsers: true
+		}
+	}
+	Resources: "InstanceSecurityGroup" : {
+		"Type" : "AWS::EC2::SecurityGroup"
+		"Properties" : {
+			"GroupDescription" : "Allow http to client host"
+			"VpcId" : {"Ref" : "myVPC"}
+			"SecurityGroupIngress" : [{
+				"IpProtocol" : "tcp"
+				"FromPort" :   80
+				"ToPort" :     80
+				"CidrIp" :     "0.0.0.0/0"
+			}]
+			"SecurityGroupEgress" : [{
+				"IpProtocol" : "tcp"
+				"FromPort" :   80
+				"ToPort" :     80
+				"CidrIp" :     "0.0.0.0/0"
+			}]
+		}
 	}
 }

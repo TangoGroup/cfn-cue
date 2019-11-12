@@ -72,7 +72,8 @@ Split :: {
 // Sub: https://docs.aws.amazon.com/en_pv/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-sub.html
 Sub :: {
 	// SubFn ::   Base64 | FindInMap | GetAtt | GetAZs | If | ImportValue | Join | Select | Ref
-	"Fn::Sub": string | [string, {<_>: string | Base64 | FindInMap | GetAtt | GetAZs | If | ImportValue | Join | Select | Sub | Ref}]
+	"Fn::Sub": string | [string, {[string]: string | Base64 | FindInMap | GetAtt | GetAZs | If | ImportValue | Join | Select | Sub | Ref}]
+	// "Fn::Sub": string | [string, {[string]: string | Sub | Ref}]
 	// "Fn::Sub": string | [string, {[string | SubFn]: string | SubFn}]
 }
 
@@ -139,3 +140,5 @@ LogicFn :: And | Equals | Not | Or
 ConditionFn :: LogicFn | If
 
 Fn :: Base64 | Cidr | FindInMap | GetAZs | GetAtt | ImportValue | Join | Select | Split | Sub | Transform | Ref | And | Equals | If | Not | Or
+// Fn : Sub | Ref
+// Fn : Sub
