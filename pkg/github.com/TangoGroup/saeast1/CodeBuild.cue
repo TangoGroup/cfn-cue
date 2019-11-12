@@ -107,8 +107,11 @@ CodeBuild :: {
 			}]
 			TimeoutInMinutes?: (int & (>=5 & <=480)) | fn.Fn
 			Triggers?: {
-				FilterGroups?: [...{
-				}]
+				FilterGroups?: [...[...{
+					ExcludeMatchedPattern?: bool | fn.Fn
+					Pattern:                string | fn.Fn
+					Type:                   string | fn.Fn
+				}]]
 				Webhook?: bool | fn.Fn
 			}
 			VpcConfig?: {

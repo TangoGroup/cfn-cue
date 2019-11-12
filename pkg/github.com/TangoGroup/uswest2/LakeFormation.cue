@@ -5,8 +5,9 @@ import "github.com/TangoGroup/fn"
 LakeFormation :: {
 	DataLakeSettings :: {
 		Type: "AWS::LakeFormation::DataLakeSettings"
-		Properties: Admins?: {
-		}
+		Properties: Admins?: [...{
+			DataLakePrincipalIdentifier?: string | fn.Fn
+		}]
 	}
 	Permissions :: {
 		Type: "AWS::LakeFormation::Permissions"

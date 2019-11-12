@@ -253,8 +253,10 @@ Glue :: {
 					JobBookmarksEncryptionMode?: string | fn.Fn
 					KmsKeyArn?:                  string | fn.Fn
 				}
-				S3Encryptions?: {
-				}
+				S3Encryptions?: [...{
+					KmsKeyArn?:        string | fn.Fn
+					S3EncryptionMode?: string | fn.Fn
+				}]
 			}
 			Name: string | fn.Fn
 		}

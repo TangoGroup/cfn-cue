@@ -131,13 +131,43 @@ func mergeMaps(a, b map[string]bool) map[string]bool {
 func createFieldFromProperty(name string, prop Property, resourceSubproperties map[string]Resource, valueTypes map[string]ValueType, parentName string, parentResource Resource) (node *ast.Field, imports map[string]bool) {
 	// Need to capture Map Types, and put the PrimitiveItemType or ItemType properly into a struct
 	var value ast.Expr
+	custom := false
 
+	if parentName == "AWS::AppSync::GraphQLApi" && name == "AdditionalAuthenticationProviders" {
+		prop = Property{ItemType: "AdditionalAuthenticationProvider", Type: "List", Required: false}
+	}
+	if parentName == "AWS::AppSync::GraphQLApi" && name == "Tags" {
+		prop = Property{ItemType: "Tag", Type: "List", Required: false}
+	}
+	if parentName == "AWS::CodeBuild::Project" && name == "FilterGroups" {
+		prop = Property{ItemType: "WebhookFilter", Type: "List", Required: false}
+	}
+	if name == "FilterGroups" && prop.ItemType == "FilterGroup" {
+		var v ast.StructLit
+		v, imports = createStructFromResource(name, resourceSubproperties["WebhookFilter"], resourceSubproperties, valueTypes)
+		value = ast.NewList(&ast.Ellipsis{Type: &v})
+		prop = Property{ItemType: "WebhookFilter", Type: "List", Required: false}
+		custom = true
+	}
+	// AWS::EC2::Instance.NoDevice
+	if name == "NoDevice" && prop.Type == "NoDevice" {
+		prop = Property{PrimitiveType: "String", Required: false}
+	}
+	// AWS::Glue::SecurityConfiguration.S3Encryptions
+	// if name == "S3Encryptions" && prop.Type == "S3Encryption" {
+	if parentName == "EncryptionConfiguration" && name == "S3Encryptions" {
+		prop = Property{ItemType: "S3Encryption", Type: "List", Required: false}
+	}
+	// AWS::IoTAnalytics::Channel.ServiceManagedS3 -- Skipped
+	// AWS::IoTAnalytics::Datastore.ServiceManagedS3 -- Skipped
+	// AWS::LakeFormation::DataLakeSettings.Admins
+	if parentName == "AWS::LakeFormation::DataLakeSettings" && name == "Admins" {
+		prop = Property{ItemType: "DataLakePrincipal", Type: "List", Required: false}
+	}
+	// AWS::MediaLive::Channel.AribSourceSettings -- Skipped
+	// AWS::Transfer::User.SshPublicKey
 	if parentName == "AWS::Transfer::User" && name == "SshPublicKeys" {
-		prop = Property{
-			PrimitiveItemType: "String",
-			Type:              "List",
-			Required:          false,
-		}
+		prop = Property{PrimitiveItemType: "String", Type: "List", Required: false}
 	}
 
 	if prop.IsPrimitive() || prop.IsMapOfPrimitives() || prop.IsListOfPrimitives() {
@@ -174,7 +204,7 @@ func createFieldFromProperty(name string, prop Property, resourceSubproperties m
 		if prop.IsList() {
 			value = &ast.ParenExpr{X: value}
 		}
-	} else {
+	} else if !custom {
 		// This is a more complex type, we need to recurse...
 		var typeName string
 		if prop.IsList() || prop.IsMap() {
@@ -355,9 +385,9 @@ func main() {
 	for _, region := range regions {
 		shortRegion := strings.ReplaceAll(region, "-", "")
 
-		if region != "us-west-2" {
-			continue
-		}
+		// if region != "us-west-2" {
+		// 	continue
+		// }
 
 		cloudformationSpec := "https://github.com/aws-cloudformation/cfn-python-lint/raw/master/src/cfnlint/data/CloudSpecs/" + region + ".json"
 		fmt.Println(cloudformationSpec)
@@ -368,11 +398,17 @@ func main() {
 		propertiesByResource := map[string]map[string]Resource{}
 
 		// Find weird/broken properties
-		// for resourcePropertyName, property := range spec.Properties {
-		// 	if len(property.Properties) == 0 {
-		// 		fmt.Println(resourcePropertyName)
-		// 	}
-		// }
+		fmt.Println("weird/broken properties")
+		weirdProps := []string{}
+		for resourcePropertyName, property := range spec.Properties {
+			if len(property.Properties) == 0 {
+				weirdProps = append(weirdProps, resourcePropertyName)
+			}
+		}
+		sort.Strings(weirdProps)
+		for _, prop := range weirdProps {
+			fmt.Println(prop)
+		}
 		// panic(0)
 
 		for resourcePropertyName, property := range spec.Properties {
@@ -507,7 +543,7 @@ func main() {
 
 			os.MkdirAll(folder, os.ModePerm)
 
-			fmt.Println("Saving", path.Join(folder, serviceName+".cue"))
+			// fmt.Println("Saving", path.Join(folder, serviceName+".cue"))
 
 			cuefile, err := os.Create(path.Join(folder, serviceName+".cue"))
 			if err != nil {

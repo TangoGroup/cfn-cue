@@ -209,8 +209,7 @@ EC2 :: {
 					VolumeSize?:          int | fn.Fn
 					VolumeType?:          (string & ("gp2" | "io1" | "sc1" | "st1" | "standard")) | fn.Fn
 				}
-				NoDevice?: {
-				}
+				NoDevice?:    string | fn.Fn
 				VirtualName?: string | fn.Fn
 			}]
 			CpuOptions?: {
