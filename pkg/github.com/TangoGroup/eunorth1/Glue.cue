@@ -13,6 +13,7 @@ Glue :: {
 			}
 			Connections?: Connections?: [...(string | fn.Fn)]
 			DefaultArguments?: {
+				[string]: _
 			} | fn.Fn
 			Description?: string | fn.Fn
 			ExecutionProperty?: MaxConcurrentRuns?: float | fn.Fn
@@ -22,6 +23,7 @@ Glue :: {
 			Role:                   string | fn.Fn
 			SecurityConfiguration?: string | fn.Fn
 			Tags?:                  {
+				[string]: _
 			} | fn.Fn
 		}
 	}
@@ -30,6 +32,7 @@ Glue :: {
 		Properties: {
 			Actions: [...{
 				Arguments?: {
+					[string]: _
 				} | fn.Fn
 				JobName?:               string | fn.Fn
 				SecurityConfiguration?: string | fn.Fn
@@ -46,6 +49,7 @@ Glue :: {
 			}
 			Schedule?: string | fn.Fn
 			Tags?:     {
+				[string]: _
 			} | fn.Fn
 			Type: (string & ("CONDITIONAL" | "ON_DEMAND" | "SCHEDULED")) | fn.Fn
 		}

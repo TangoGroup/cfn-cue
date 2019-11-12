@@ -16,6 +16,7 @@ SQS :: {
 			QueueName?:                     string | fn.Fn
 			ReceiveMessageWaitTimeSeconds?: (int & (>=0 & <=20)) | fn.Fn
 			RedrivePolicy?:                 {
+				[string]: _
 			} | fn.Fn
 			Tags?: [...{
 			}]
@@ -26,6 +27,7 @@ SQS :: {
 		Type: "AWS::SQS::QueuePolicy"
 		Properties: {
 			PolicyDocument: {
+				[string]: _
 			} | fn.Fn
 			Queues: [...(string | fn.Fn)]
 		}

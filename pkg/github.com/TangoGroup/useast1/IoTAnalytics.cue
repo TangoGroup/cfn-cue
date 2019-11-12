@@ -122,6 +122,7 @@ IoTAnalytics :: {
 			PipelineActivities: [...{
 				AddAttributes?: {
 					Attributes?: {
+						[string]: _
 					} | fn.Fn
 					Name?: string | fn.Fn
 					Next?: string | fn.Fn

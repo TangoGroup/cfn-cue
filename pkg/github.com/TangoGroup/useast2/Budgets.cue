@@ -14,6 +14,7 @@ Budgets :: {
 				BudgetName?:  string | fn.Fn
 				BudgetType:   (string & ("COST" | "RI_COVERAGE" | "RI_UTILIZATION" | "USAGE")) | fn.Fn
 				CostFilters?: {
+					[string]: _
 				} | fn.Fn
 				CostTypes?: {
 					IncludeCredit?:            bool | fn.Fn
@@ -29,6 +30,7 @@ Budgets :: {
 					UseBlended?:               bool | fn.Fn
 				}
 				PlannedBudgetLimits?: {
+					[string]: _
 				} | fn.Fn
 				TimePeriod?: {
 					End?:   string | fn.Fn

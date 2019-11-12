@@ -210,6 +210,7 @@ ApiGateway :: {
 			Name?:        string | fn.Fn
 			RestApiId:    string | fn.Fn
 			Schema?:      {
+				[string]: _
 			} | fn.Fn
 		}
 	}
@@ -236,6 +237,7 @@ ApiGateway :: {
 			ApiKeySourceType?: (string & ("AUTHORIZER" | "HEADER")) | fn.Fn
 			BinaryMediaTypes?: [...(string | fn.Fn)]
 			Body?: {
+				[string]: _
 			} | fn.Fn
 			BodyS3Location?: {
 				Bucket?:  string | fn.Fn
@@ -251,6 +253,7 @@ ApiGateway :: {
 			Name?:                   string | fn.Fn
 			Parameters?: [string]: string | fn.Fn
 			Policy?: {
+				[string]: _
 			} | fn.Fn
 			Tags?: [...{
 				Key:   string | fn.Fn

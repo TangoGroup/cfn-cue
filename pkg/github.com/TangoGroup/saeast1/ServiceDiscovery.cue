@@ -14,6 +14,7 @@ ServiceDiscovery :: {
 		Type: "AWS::ServiceDiscovery::Instance"
 		Properties: {
 			InstanceAttributes: {
+				[string]: _
 			} | fn.Fn
 			InstanceId?: string | fn.Fn
 			ServiceId:   string | fn.Fn

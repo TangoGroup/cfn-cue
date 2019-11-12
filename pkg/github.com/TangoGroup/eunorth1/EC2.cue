@@ -758,6 +758,7 @@ EC2 :: {
 		Type: "AWS::EC2::VPCEndpoint"
 		Properties: {
 			PolicyDocument?: {
+				[string]: _
 			} | fn.Fn
 			PrivateDnsEnabled?: bool | fn.Fn
 			RouteTableIds?: [...(string | fn.Fn)]

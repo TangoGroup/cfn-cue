@@ -13,6 +13,7 @@ ApiGatewayV2 :: {
 			ProtocolType:               string | fn.Fn
 			RouteSelectionExpression:   string | fn.Fn
 			Tags?:                      {
+				[string]: _
 			} | fn.Fn
 			Version?: string | fn.Fn
 		}
@@ -57,6 +58,7 @@ ApiGatewayV2 :: {
 				EndpointType?:    string | fn.Fn
 			}]
 			Tags?: {
+				[string]: _
 			} | fn.Fn
 		}
 	}
@@ -73,8 +75,10 @@ ApiGatewayV2 :: {
 			IntegrationUri?:          string | fn.Fn
 			PassthroughBehavior?:     string | fn.Fn
 			RequestParameters?:       {
+				[string]: _
 			} | fn.Fn
 			RequestTemplates?: {
+				[string]: _
 			} | fn.Fn
 			TemplateSelectionExpression?: string | fn.Fn
 			TimeoutInMillis?:             int | fn.Fn
@@ -88,8 +92,10 @@ ApiGatewayV2 :: {
 			IntegrationId:            string | fn.Fn
 			IntegrationResponseKey:   string | fn.Fn
 			ResponseParameters?:      {
+				[string]: _
 			} | fn.Fn
 			ResponseTemplates?: {
+				[string]: _
 			} | fn.Fn
 			TemplateSelectionExpression?: string | fn.Fn
 		}
@@ -102,6 +108,7 @@ ApiGatewayV2 :: {
 			Description?: string | fn.Fn
 			Name:         string | fn.Fn
 			Schema:       {
+				[string]: _
 			} | fn.Fn
 		}
 	}
@@ -116,8 +123,10 @@ ApiGatewayV2 :: {
 			ModelSelectionExpression?: string | fn.Fn
 			OperationName?:            string | fn.Fn
 			RequestModels?:            {
+				[string]: _
 			} | fn.Fn
 			RequestParameters?: {
+				[string]: _
 			} | fn.Fn
 			RouteKey:                          string | fn.Fn
 			RouteResponseSelectionExpression?: string | fn.Fn
@@ -130,8 +139,10 @@ ApiGatewayV2 :: {
 			ApiId:                     string | fn.Fn
 			ModelSelectionExpression?: string | fn.Fn
 			ResponseModels?:           {
+				[string]: _
 			} | fn.Fn
 			ResponseParameters?: {
+				[string]: _
 			} | fn.Fn
 			RouteId:          string | fn.Fn
 			RouteResponseKey: string | fn.Fn
@@ -156,11 +167,14 @@ ApiGatewayV2 :: {
 			DeploymentId:   string | fn.Fn
 			Description?:   string | fn.Fn
 			RouteSettings?: {
+				[string]: _
 			} | fn.Fn
 			StageName:       string | fn.Fn
 			StageVariables?: {
+				[string]: _
 			} | fn.Fn
 			Tags?: {
+				[string]: _
 			} | fn.Fn
 		}
 	}

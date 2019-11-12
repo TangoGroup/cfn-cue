@@ -26,6 +26,7 @@ SSM :: {
 		Type: "AWS::SSM::Document"
 		Properties: {
 			Content: {
+				[string]: _
 			} | fn.Fn
 			DocumentType?: string | fn.Fn
 			Tags?: [...{
@@ -85,6 +86,7 @@ SSM :: {
 				MaintenanceWindowAutomationParameters?: {
 					DocumentVersion?: string | fn.Fn
 					Parameters?:      {
+						[string]: _
 					} | fn.Fn
 				}
 				MaintenanceWindowLambdaParameters?: {
@@ -104,6 +106,7 @@ SSM :: {
 					OutputS3BucketName?: string | fn.Fn
 					OutputS3KeyPrefix?:  string | fn.Fn
 					Parameters?:         {
+						[string]: _
 					} | fn.Fn
 					ServiceRoleArn?: string | fn.Fn
 					TimeoutSeconds?: int | fn.Fn
@@ -114,6 +117,7 @@ SSM :: {
 				}
 			}
 			TaskParameters?: {
+				[string]: _
 			} | fn.Fn
 			TaskType: string | fn.Fn
 			WindowId: string | fn.Fn

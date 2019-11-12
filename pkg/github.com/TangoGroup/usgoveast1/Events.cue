@@ -22,6 +22,7 @@ Events :: {
 			Description?:  string | fn.Fn
 			EventBusName?: string | fn.Fn
 			EventPattern?: {
+				[string]: _
 			} | fn.Fn
 			Name?:               string | fn.Fn
 			RoleArn?:            string | fn.Fn

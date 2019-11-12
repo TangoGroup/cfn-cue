@@ -14,8 +14,10 @@ IoT1Click :: {
 		Type: "AWS::IoT1Click::Placement"
 		Properties: {
 			AssociatedDevices?: {
+				[string]: _
 			} | fn.Fn
 			Attributes?: {
+				[string]: _
 			} | fn.Fn
 			PlacementName?: string | fn.Fn
 			ProjectName:    string | fn.Fn
@@ -27,8 +29,10 @@ IoT1Click :: {
 			Description?: string | fn.Fn
 			PlacementTemplate: {
 				DefaultAttributes?: {
+					[string]: _
 				} | fn.Fn
 				DeviceTemplates?: {
+					[string]: _
 				} | fn.Fn
 			}
 			ProjectName?: string | fn.Fn

@@ -8,6 +8,7 @@ Cognito :: {
 		Properties: {
 			AllowUnauthenticatedIdentities: bool | fn.Fn
 			CognitoEvents?:                 {
+				[string]: _
 			} | fn.Fn
 			CognitoIdentityProviders?: [...{
 			}]
@@ -20,6 +21,7 @@ Cognito :: {
 			}
 			SamlProviderARNs?: [...(string | fn.Fn)]
 			SupportedLoginProviders?: {
+				[string]: _
 			} | fn.Fn
 		}
 	}
@@ -28,8 +30,10 @@ Cognito :: {
 		Properties: {
 			IdentityPoolId: string | fn.Fn
 			RoleMappings?:  {
+				[string]: _
 			} | fn.Fn
 			Roles?: {
+				[string]: _
 			} | fn.Fn
 		}
 	}
@@ -62,6 +66,7 @@ Cognito :: {
 			}
 			UserPoolName?: string | fn.Fn
 			UserPoolTags?: {
+				[string]: _
 			} | fn.Fn
 			UsernameAttributes?: [...(string | fn.Fn)]
 			VerificationMessageTemplate?: {
@@ -112,9 +117,11 @@ Cognito :: {
 		Type: "AWS::Cognito::UserPoolIdentityProvider"
 		Properties: {
 			AttributeMapping?: {
+				[string]: _
 			} | fn.Fn
 			IdpIdentifiers?: [...(string | fn.Fn)]
 			ProviderDetails?: {
+				[string]: _
 			} | fn.Fn
 			ProviderName: string | fn.Fn
 			ProviderType: string | fn.Fn

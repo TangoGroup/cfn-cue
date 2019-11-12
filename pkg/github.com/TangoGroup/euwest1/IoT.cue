@@ -14,6 +14,7 @@ IoT :: {
 		Type: "AWS::IoT::Policy"
 		Properties: {
 			PolicyDocument: {
+				[string]: _
 			} | fn.Fn
 			PolicyName?: string | fn.Fn
 		}

@@ -29,7 +29,16 @@ func mapFromCFNTypeToCue(cfnType string) (lit ast.Expr) {
 		lit = &ast.BasicLit{Value: "float"}
 	case "Boolean":
 		lit = &ast.BasicLit{Value: "bool"}
-	case "Json", "Map":
+	case "Json":
+		lit = &ast.StructLit{
+			Elts: []ast.Decl{
+				&ast.Field{
+					Label: ast.NewList(&ast.BasicLit{Value: "string"}),
+					Value: &ast.BasicLit{Value: "_"},
+				},
+			},
+		}
+	case "Map":
 		lit = &ast.StructLit{}
 	case "Timestamp":
 		lit = &ast.BasicLit{Value: "time.Time"}
@@ -587,8 +596,9 @@ func main() {
 			Value: &ast.StructLit{
 				Elts: []ast.Decl{
 					&ast.Field{
-						Label: ast.NewIdent("AWSTemplateFormatVersion"),
-						Value: ast.NewString("2010-09-09"),
+						Label:    ast.NewIdent("AWSTemplateFormatVersion"),
+						Value:    ast.NewString("2010-09-09"),
+						Optional: token.Elided.Pos(),
 					},
 					&ast.Field{
 						Label:    ast.NewIdent("Description"),
@@ -596,15 +606,126 @@ func main() {
 						Optional: token.Elided.Pos(),
 					},
 					&ast.Field{
+						Label:    ast.NewIdent("Metadata"),
+						Optional: token.Elided.Pos(),
+						Value: &ast.StructLit{
+							Elts: []ast.Decl{
+								&ast.Field{
+									Label: ast.NewList(&ast.BasicLit{Value: "string"}),
+									Value: &ast.BasicLit{Value: "_"},
+								},
+							},
+						},
+					},
+					&ast.Field{
+						Label:    ast.NewIdent("Parameters"),
+						Optional: token.Elided.Pos(),
+						Value: &ast.StructLit{
+							Elts: []ast.Decl{
+								&ast.Field{
+									Label: ast.NewList(&ast.UnaryExpr{Op: token.MAT, X: ast.NewString("[a-zA-Z0-9]")}),
+									Value: &ast.StructLit{
+										Elts: []ast.Decl{
+											&ast.Field{
+												Label: ast.NewIdent("Type"),
+												Value: &ast.BasicLit{Value: "_"},
+											},
+											&ast.Field{
+												Label:    ast.NewIdent("AllowedPattern"),
+												Value:    &ast.BasicLit{Value: "string"},
+												Optional: token.Elided.Pos(),
+											},
+											&ast.Field{
+												Label:    ast.NewIdent("AllowedValues"),
+												Value:    &ast.BasicLit{Value: "string"},
+												Optional: token.Elided.Pos(),
+											},
+											&ast.Field{
+												Label:    ast.NewIdent("ConstraintDescription"),
+												Value:    &ast.BasicLit{Value: "string"},
+												Optional: token.Elided.Pos(),
+											},
+											&ast.Field{
+												Label:    ast.NewIdent("Default"),
+												Value:    &ast.BasicLit{Value: "string"},
+												Optional: token.Elided.Pos(),
+											},
+											&ast.Field{
+												Label:    ast.NewIdent("Description"),
+												Value:    &ast.BasicLit{Value: "string"},
+												Optional: token.Elided.Pos(),
+											},
+											&ast.Field{
+												Label:    ast.NewIdent("MaxLength"),
+												Value:    &ast.BasicLit{Value: "int"},
+												Optional: token.Elided.Pos(),
+											},
+											&ast.Field{
+												Label:    ast.NewIdent("MaxValue"),
+												Value:    &ast.BasicLit{Value: "int"},
+												Optional: token.Elided.Pos(),
+											},
+											&ast.Field{
+												Label:    ast.NewIdent("MinLength"),
+												Value:    &ast.BasicLit{Value: "int"},
+												Optional: token.Elided.Pos(),
+											},
+											&ast.Field{
+												Label:    ast.NewIdent("MinValue"),
+												Value:    &ast.BasicLit{Value: "int"},
+												Optional: token.Elided.Pos(),
+											},
+											&ast.Field{
+												Label:    ast.NewIdent("NoEcho"),
+												Value:    &ast.BasicLit{Value: "bool"},
+												Optional: token.Elided.Pos(),
+											},
+										},
+									},
+								},
+							},
+						},
+					},
+					&ast.Field{
 						Label: ast.NewIdent("Resources"),
 						Value: &ast.StructLit{
 							Elts: []ast.Decl{
 								&ast.Field{
-									Label: ast.NewList(&ast.UnaryExpr{
-										Op: token.MAT,
-										X:  ast.NewString("[a-zA-Z0-9]"),
-									}),
+									Label: ast.NewList(&ast.UnaryExpr{Op: token.MAT, X: ast.NewString("[a-zA-Z0-9]")}),
 									Value: ast.NewIdent("ResourceTypes"),
+								},
+							},
+						},
+					},
+					&ast.Field{
+						Label:    ast.NewIdent("Outputs"),
+						Optional: token.Elided.Pos(),
+						Value: &ast.StructLit{
+							Elts: []ast.Decl{
+								&ast.Field{
+									Label: ast.NewList(&ast.UnaryExpr{Op: token.MAT, X: ast.NewString("[a-zA-Z0-9]")}),
+									Value: &ast.StructLit{
+										Elts: []ast.Decl{
+											&ast.Field{
+												Label:    ast.NewIdent("Description"),
+												Value:    &ast.BasicLit{Value: "string"},
+												Optional: token.Elided.Pos(),
+											},
+											&ast.Field{Label: ast.NewIdent("Value"), Value: &ast.BasicLit{Value: "_"}},
+											&ast.Field{
+												Label:    ast.NewIdent("Export"),
+												Optional: token.Elided.Pos(),
+												Value: &ast.StructLit{
+													Elts: []ast.Decl{
+														&ast.Field{
+															Label: ast.NewIdent("Name"),
+															Value: &ast.BasicLit{Value: "_"},
+														},
+													},
+												},
+											},
+										},
+									},
 								},
 							},
 						},

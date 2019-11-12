@@ -15,6 +15,7 @@ Backup :: {
 						MoveToColdStorageAfterDays?: int | fn.Fn
 					}
 					RecoveryPointTags?: {
+						[string]: _
 					} | fn.Fn
 					RuleName:            string | fn.Fn
 					ScheduleExpression?: string | fn.Fn
@@ -23,6 +24,7 @@ Backup :: {
 				}]
 			}
 			BackupPlanTags?: {
+				[string]: _
 			} | fn.Fn
 		}
 	}
@@ -46,9 +48,11 @@ Backup :: {
 		Type: "AWS::Backup::BackupVault"
 		Properties: {
 			AccessPolicy?: {
+				[string]: _
 			} | fn.Fn
 			BackupVaultName:  string | fn.Fn
 			BackupVaultTags?: {
+				[string]: _
 			} | fn.Fn
 			EncryptionKeyArn?: string | fn.Fn
 			Notifications?: {

@@ -12,6 +12,7 @@ ECR :: {
 			}
 			RepositoryName?:       string | fn.Fn
 			RepositoryPolicyText?: {
+				[string]: _
 			} | fn.Fn
 			Tags?: [...{
 				Key:   string | fn.Fn

@@ -20,6 +20,7 @@ MediaLive :: {
 				}]
 			}]
 			EncoderSettings?: {
+				[string]: _
 			} | fn.Fn
 			InputAttachments?: [...{
 				InputAttachmentName?: string | fn.Fn
@@ -89,6 +90,7 @@ MediaLive :: {
 			Name?:     string | fn.Fn
 			RoleArn?:  string | fn.Fn
 			Tags?:     {
+				[string]: _
 			} | fn.Fn
 		}
 	}
@@ -110,6 +112,7 @@ MediaLive :: {
 				Username?:      string | fn.Fn
 			}]
 			Tags?: {
+				[string]: _
 			} | fn.Fn
 			Type?: string | fn.Fn
 			Vpc?: {
@@ -122,6 +125,7 @@ MediaLive :: {
 		Type: "AWS::MediaLive::InputSecurityGroup"
 		Properties: {
 			Tags?: {
+				[string]: _
 			} | fn.Fn
 			WhitelistRules?: [...{
 				Cidr?: string | fn.Fn

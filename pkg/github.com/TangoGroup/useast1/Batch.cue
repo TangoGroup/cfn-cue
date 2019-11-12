@@ -27,6 +27,7 @@ Batch :: {
 				SpotIamFleetRole?: (string & (=~#"arn:(aws[a-zA-Z-]*)?:iam::\d{12}:role/[a-zA-Z_0-9+=,.@\-_/]+"#)) | fn.Fn
 				Subnets: [...(string | fn.Fn)]
 				Tags?: {
+					[string]: _
 				} | fn.Fn
 				Type: string | fn.Fn
 			}
@@ -123,6 +124,7 @@ Batch :: {
 				NumNodes: int | fn.Fn
 			}
 			Parameters?: {
+				[string]: _
 			} | fn.Fn
 			RetryStrategy?: Attempts?:         int | fn.Fn
 			Timeout?: AttemptDurationSeconds?: int | fn.Fn

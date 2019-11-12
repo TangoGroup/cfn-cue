@@ -13,6 +13,7 @@ ASK :: {
 			}
 			SkillPackage: {
 				Overrides?: Manifest?: {
+					[string]: _
 				} | fn.Fn
 				S3Bucket:         string | fn.Fn
 				S3BucketRole?:    string | fn.Fn

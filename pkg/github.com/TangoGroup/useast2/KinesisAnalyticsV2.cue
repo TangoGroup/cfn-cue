@@ -23,6 +23,7 @@ KinesisAnalyticsV2 :: {
 				EnvironmentProperties?: PropertyGroups?: [...{
 					PropertyGroupId?: string | fn.Fn
 					PropertyMap?:     {
+						[string]: _
 					} | fn.Fn
 				}]
 				FlinkApplicationConfiguration?: {

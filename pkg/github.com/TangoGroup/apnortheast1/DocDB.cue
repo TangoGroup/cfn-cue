@@ -33,6 +33,7 @@ DocDB :: {
 			Family:      string | fn.Fn
 			Name?:       string | fn.Fn
 			Parameters:  {
+				[string]: _
 			} | fn.Fn
 			Tags?: [...{
 			}]

@@ -55,6 +55,7 @@ RDS :: {
 			Description: string | fn.Fn
 			Family:      string | fn.Fn
 			Parameters:  {
+				[string]: _
 			} | fn.Fn
 			Tags?: [...{
 			}]

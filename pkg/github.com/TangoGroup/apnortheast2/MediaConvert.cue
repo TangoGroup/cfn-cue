@@ -13,9 +13,11 @@ MediaConvert :: {
 			Priority?:    int | fn.Fn
 			Queue?:       string | fn.Fn
 			SettingsJson: {
+				[string]: _
 			} | fn.Fn
 			StatusUpdateInterval?: string | fn.Fn
 			Tags?:                 {
+				[string]: _
 			} | fn.Fn
 		}
 	}
@@ -26,8 +28,10 @@ MediaConvert :: {
 			Description?: string | fn.Fn
 			Name?:        string | fn.Fn
 			SettingsJson: {
+				[string]: _
 			} | fn.Fn
 			Tags?: {
+				[string]: _
 			} | fn.Fn
 		}
 	}
@@ -39,6 +43,7 @@ MediaConvert :: {
 			PricingPlan?: string | fn.Fn
 			Status?:      string | fn.Fn
 			Tags?:        {
+				[string]: _
 			} | fn.Fn
 		}
 	}

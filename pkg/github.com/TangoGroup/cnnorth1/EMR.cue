@@ -7,6 +7,7 @@ EMR :: {
 		Type: "AWS::EMR::Cluster"
 		Properties: {
 			AdditionalInfo?: {
+				[string]: _
 			} | fn.Fn
 			Applications?: [...{
 				AdditionalInfo?: [string]: string | fn.Fn
@@ -360,6 +361,7 @@ EMR :: {
 		Properties: {
 			Name?:                 string | fn.Fn
 			SecurityConfiguration: {
+				[string]: _
 			} | fn.Fn
 		}
 	}

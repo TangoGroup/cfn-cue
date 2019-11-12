@@ -7,9 +7,11 @@ SNS :: {
 		Type: "AWS::SNS::Subscription"
 		Properties: {
 			DeliveryPolicy?: {
+				[string]: _
 			} | fn.Fn
 			Endpoint?:     string | fn.Fn
 			FilterPolicy?: {
+				[string]: _
 			} | fn.Fn
 			Protocol:            (string & ("application" | "email-json" | "email" | "http" | "https" | "lambda" | "sms" | "sqs")) | fn.Fn
 			RawMessageDelivery?: bool | fn.Fn
@@ -37,6 +39,7 @@ SNS :: {
 		Type: "AWS::SNS::TopicPolicy"
 		Properties: {
 			PolicyDocument: {
+				[string]: _
 			} | fn.Fn
 			Topics: [...(string | fn.Fn)]
 		}

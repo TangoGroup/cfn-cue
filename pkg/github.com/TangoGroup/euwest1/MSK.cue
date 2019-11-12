@@ -30,6 +30,7 @@ MSK :: {
 			KafkaVersion:        string | fn.Fn
 			NumberOfBrokerNodes: int | fn.Fn
 			Tags?:               {
+				[string]: _
 			} | fn.Fn
 		}
 	}

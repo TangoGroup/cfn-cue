@@ -26,6 +26,7 @@ SSM :: {
 		Type: "AWS::SSM::Document"
 		Properties: {
 			Content: {
+				[string]: _
 			} | fn.Fn
 			DocumentType?: string | fn.Fn
 			Tags?: [...{

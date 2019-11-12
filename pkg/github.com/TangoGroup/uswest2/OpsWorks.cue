@@ -99,6 +99,7 @@ OpsWorks :: {
 			AutoAssignPublicIps:       bool | fn.Fn
 			CustomInstanceProfileArn?: string | fn.Fn
 			CustomJson?:               {
+				[string]: _
 			} | fn.Fn
 			CustomRecipes?: {
 				Configure?: [...(string | fn.Fn)]
@@ -178,6 +179,7 @@ OpsWorks :: {
 				Username?: string | fn.Fn
 			}
 			CustomJson?: {
+				[string]: _
 			} | fn.Fn
 			DefaultAvailabilityZone?:  string | fn.Fn
 			DefaultInstanceProfileArn: string | fn.Fn

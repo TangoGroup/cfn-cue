@@ -190,6 +190,7 @@ S3 :: {
 		Properties: {
 			Bucket:         string | fn.Fn
 			PolicyDocument: {
+				[string]: _
 			} | fn.Fn
 		}
 	}

@@ -22,6 +22,7 @@ ApiGatewayV2 :: {
 				EndpointType?:    string | fn.Fn
 			}]
 			Tags?: {
+				[string]: _
 			} | fn.Fn
 		}
 	}

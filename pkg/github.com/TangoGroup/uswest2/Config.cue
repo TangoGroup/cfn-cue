@@ -16,6 +16,7 @@ Config :: {
 			ConfigRuleName?:  string | fn.Fn
 			Description?:     string | fn.Fn
 			InputParameters?: {
+				[string]: _
 			} | fn.Fn
 			MaximumExecutionFrequency?: (string & ("One_Hour" | "Six_Hours" | "Three_Hours" | "Twelve_Hours" | "TwentyFour_Hours")) | fn.Fn
 			Scope?: {
@@ -112,6 +113,7 @@ Config :: {
 			}
 			MaximumAutomaticAttempts?: int | fn.Fn
 			Parameters?:               {
+				[string]: _
 			} | fn.Fn
 			ResourceType?:        string | fn.Fn
 			RetryAttemptSeconds?: int | fn.Fn

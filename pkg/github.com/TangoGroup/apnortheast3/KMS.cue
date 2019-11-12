@@ -17,6 +17,7 @@ KMS :: {
 			EnableKeyRotation?: bool | fn.Fn
 			Enabled?:           bool | fn.Fn
 			KeyPolicy:          {
+				[string]: _
 			} | fn.Fn
 			KeyUsage?:            string | fn.Fn
 			PendingWindowInDays?: (int & (>=7 & <=30)) | fn.Fn

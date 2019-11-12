@@ -9,6 +9,7 @@ Config :: {
 			ConfigRuleName?:  string | fn.Fn
 			Description?:     string | fn.Fn
 			InputParameters?: {
+				[string]: _
 			} | fn.Fn
 			MaximumExecutionFrequency?: (string & ("One_Hour" | "Six_Hours" | "Three_Hours" | "Twelve_Hours" | "TwentyFour_Hours")) | fn.Fn
 			Scope?: {

@@ -7,6 +7,7 @@ SecretsManager :: {
 		Type: "AWS::SecretsManager::ResourcePolicy"
 		Properties: {
 			ResourcePolicy: {
+				[string]: _
 			} | fn.Fn
 			SecretId: string | fn.Fn
 		}

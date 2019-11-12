@@ -73,6 +73,7 @@ Pinpoint :: {
 		Properties: {
 			Name:  string | fn.Fn
 			Tags?: {
+				[string]: _
 			} | fn.Fn
 		}
 	}
@@ -199,12 +200,14 @@ Pinpoint :: {
 					EventFilter?: {
 						Dimensions?: {
 							Attributes?: {
+								[string]: _
 							} | fn.Fn
 							EventType?: {
 								DimensionType?: string | fn.Fn
 								Values?: [...(string | fn.Fn)]
 							}
 							Metrics?: {
+								[string]: _
 							} | fn.Fn
 						}
 						FilterType?: string | fn.Fn
@@ -326,12 +329,14 @@ Pinpoint :: {
 				EventFilter?: {
 					Dimensions?: {
 						Attributes?: {
+							[string]: _
 						} | fn.Fn
 						EventType?: {
 							DimensionType?: string | fn.Fn
 							Values?: [...(string | fn.Fn)]
 						}
 						Metrics?: {
+							[string]: _
 						} | fn.Fn
 					}
 					FilterType?: string | fn.Fn
@@ -348,6 +353,7 @@ Pinpoint :: {
 			SegmentId:       string | fn.Fn
 			SegmentVersion?: int | fn.Fn
 			Tags?:           {
+				[string]: _
 			} | fn.Fn
 			TreatmentDescription?: string | fn.Fn
 			TreatmentName?:        string | fn.Fn
@@ -370,6 +376,7 @@ Pinpoint :: {
 			HtmlPart?: string | fn.Fn
 			Subject:   string | fn.Fn
 			Tags?:     {
+				[string]: _
 			} | fn.Fn
 			TemplateName: string | fn.Fn
 			TextPart?:    string | fn.Fn
@@ -440,6 +447,7 @@ Pinpoint :: {
 				Url?:               string | fn.Fn
 			}
 			Tags?: {
+				[string]: _
 			} | fn.Fn
 			TemplateName: string | fn.Fn
 		}
@@ -459,6 +467,7 @@ Pinpoint :: {
 			ApplicationId: string | fn.Fn
 			Dimensions?: {
 				Attributes?: {
+					[string]: _
 				} | fn.Fn
 				Behavior?: Recency?: {
 					Duration:    string | fn.Fn
@@ -504,8 +513,10 @@ Pinpoint :: {
 					}
 				}
 				Metrics?: {
+					[string]: _
 				} | fn.Fn
 				UserAttributes?: {
+					[string]: _
 				} | fn.Fn
 			}
 			Name: string | fn.Fn
@@ -513,6 +524,7 @@ Pinpoint :: {
 				Groups?: [...{
 					Dimensions?: [...{
 						Attributes?: {
+							[string]: _
 						} | fn.Fn
 						Behavior?: Recency?: {
 							Duration:    string | fn.Fn
@@ -558,8 +570,10 @@ Pinpoint :: {
 							}
 						}
 						Metrics?: {
+							[string]: _
 						} | fn.Fn
 						UserAttributes?: {
+							[string]: _
 						} | fn.Fn
 					}]
 					SourceSegments?: [...{
@@ -572,6 +586,7 @@ Pinpoint :: {
 				Include?: string | fn.Fn
 			}
 			Tags?: {
+				[string]: _
 			} | fn.Fn
 		}
 	}
@@ -580,6 +595,7 @@ Pinpoint :: {
 		Properties: {
 			Body:  string | fn.Fn
 			Tags?: {
+				[string]: _
 			} | fn.Fn
 			TemplateName: string | fn.Fn
 		}

@@ -18,6 +18,7 @@ GuardDuty :: {
 			DetectorId:  string | fn.Fn
 			FindingCriteria: {
 				Criterion?: {
+					[string]: _
 				} | fn.Fn
 				ItemType?: {
 					Eq?: [...(string | fn.Fn)]

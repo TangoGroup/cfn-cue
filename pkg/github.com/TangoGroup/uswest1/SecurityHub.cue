@@ -6,6 +6,7 @@ SecurityHub :: {
 	Hub :: {
 		Type: "AWS::SecurityHub::Hub"
 		Properties: Tags?: {
+			[string]: _
 		} | fn.Fn
 	}
 }

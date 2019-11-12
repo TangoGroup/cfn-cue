@@ -19,6 +19,7 @@ DAX :: {
 			SecurityGroupIds?: [...(string | fn.Fn)]
 			SubnetGroupName?: string | fn.Fn
 			Tags?:            {
+				[string]: _
 			} | fn.Fn
 		}
 	}
@@ -28,6 +29,7 @@ DAX :: {
 			Description?:         string | fn.Fn
 			ParameterGroupName?:  string | fn.Fn
 			ParameterNameValues?: {
+				[string]: _
 			} | fn.Fn
 		}
 	}

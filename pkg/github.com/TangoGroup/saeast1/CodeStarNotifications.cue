@@ -12,6 +12,7 @@ CodeStarNotifications :: {
 			Resource: string | fn.Fn
 			Status?:  string | fn.Fn
 			Tags?:    {
+				[string]: _
 			} | fn.Fn
 			Targets: [...{
 				TargetAddress?: string | fn.Fn

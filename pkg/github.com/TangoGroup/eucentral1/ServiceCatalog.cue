@@ -22,6 +22,7 @@ ServiceCatalog :: {
 				Description?:               string | fn.Fn
 				DisableTemplateValidation?: bool | fn.Fn
 				Info:                       {
+					[string]: _
 				} | fn.Fn
 				Name?: string | fn.Fn
 			}]

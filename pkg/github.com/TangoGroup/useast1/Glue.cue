@@ -38,6 +38,7 @@ Glue :: {
 			CatalogId: string | fn.Fn
 			ConnectionInput: {
 				ConnectionProperties: {
+					[string]: _
 				} | fn.Fn
 				ConnectionType: (string & ("JDBC" | "SFTP")) | fn.Fn
 				Description?:   string | fn.Fn
@@ -68,6 +69,7 @@ Glue :: {
 			}
 			TablePrefix?: string | fn.Fn
 			Tags?:        {
+				[string]: _
 			} | fn.Fn
 			Targets: {
 				CatalogTargets?: [...{
@@ -114,6 +116,7 @@ Glue :: {
 				LocationUri?: string | fn.Fn
 				Name?:        string | fn.Fn
 				Parameters?:  {
+					[string]: _
 				} | fn.Fn
 			}
 		}
@@ -122,6 +125,7 @@ Glue :: {
 		Type: "AWS::Glue::DevEndpoint"
 		Properties: {
 			Arguments?: {
+				[string]: _
 			} | fn.Fn
 			EndpointName?:          string | fn.Fn
 			ExtraJarsS3Path?:       string | fn.Fn
@@ -135,6 +139,7 @@ Glue :: {
 			SecurityGroupIds?: [...(string | fn.Fn)]
 			SubnetId?: string | fn.Fn
 			Tags?:     {
+				[string]: _
 			} | fn.Fn
 			WorkerType?: string | fn.Fn
 		}
@@ -150,6 +155,7 @@ Glue :: {
 			}
 			Connections?: Connections?: [...(string | fn.Fn)]
 			DefaultArguments?: {
+				[string]: _
 			} | fn.Fn
 			Description?: string | fn.Fn
 			ExecutionProperty?: MaxConcurrentRuns?: float | fn.Fn
@@ -163,6 +169,7 @@ Glue :: {
 			Role:                   string | fn.Fn
 			SecurityConfiguration?: string | fn.Fn
 			Tags?:                  {
+				[string]: _
 			} | fn.Fn
 			Timeout?:    int | fn.Fn
 			WorkerType?: string | fn.Fn
@@ -203,6 +210,7 @@ Glue :: {
 			DatabaseName: string | fn.Fn
 			PartitionInput: {
 				Parameters?: {
+					[string]: _
 				} | fn.Fn
 				StorageDescriptor?: {
 					BucketColumns?: [...(string | fn.Fn)]
@@ -217,16 +225,19 @@ Glue :: {
 					NumberOfBuckets?: int | fn.Fn
 					OutputFormat?:    string | fn.Fn
 					Parameters?:      {
+						[string]: _
 					} | fn.Fn
 					SerdeInfo?: {
 						Name?:       string | fn.Fn
 						Parameters?: {
+							[string]: _
 						} | fn.Fn
 						SerializationLibrary?: string | fn.Fn
 					}
 					SkewedInfo?: {
 						SkewedColumnNames?: [...(string | fn.Fn)]
 						SkewedColumnValueLocationMaps?: {
+							[string]: _
 						} | fn.Fn
 						SkewedColumnValues?: [...(string | fn.Fn)]
 					}
@@ -271,6 +282,7 @@ Glue :: {
 				Name?:        string | fn.Fn
 				Owner?:       string | fn.Fn
 				Parameters?:  {
+					[string]: _
 				} | fn.Fn
 				PartitionKeys?: [...{
 					Comment?: string | fn.Fn
@@ -291,16 +303,19 @@ Glue :: {
 					NumberOfBuckets?: int | fn.Fn
 					OutputFormat?:    string | fn.Fn
 					Parameters?:      {
+						[string]: _
 					} | fn.Fn
 					SerdeInfo?: {
 						Name?:       string | fn.Fn
 						Parameters?: {
+							[string]: _
 						} | fn.Fn
 						SerializationLibrary?: string | fn.Fn
 					}
 					SkewedInfo?: {
 						SkewedColumnNames?: [...(string | fn.Fn)]
 						SkewedColumnValueLocationMaps?: {
+							[string]: _
 						} | fn.Fn
 						SkewedColumnValues?: [...(string | fn.Fn)]
 					}
@@ -321,6 +336,7 @@ Glue :: {
 		Properties: {
 			Actions: [...{
 				Arguments?: {
+					[string]: _
 				} | fn.Fn
 				CrawlerName?: string | fn.Fn
 				JobName?:     string | fn.Fn
@@ -343,6 +359,7 @@ Glue :: {
 			Schedule?:        string | fn.Fn
 			StartOnCreation?: bool | fn.Fn
 			Tags?:            {
+				[string]: _
 			} | fn.Fn
 			Type:          (string & ("CONDITIONAL" | "ON_DEMAND" | "SCHEDULED")) | fn.Fn
 			WorkflowName?: string | fn.Fn
@@ -352,10 +369,12 @@ Glue :: {
 		Type: "AWS::Glue::Workflow"
 		Properties: {
 			DefaultRunProperties?: {
+				[string]: _
 			} | fn.Fn
 			Description?: string | fn.Fn
 			Name?:        string | fn.Fn
 			Tags?:        {
+				[string]: _
 			} | fn.Fn
 		}
 	}

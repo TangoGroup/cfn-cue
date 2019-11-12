@@ -48,6 +48,7 @@ SageMaker :: {
 			Containers?: [...{
 				ContainerHostname?: string | fn.Fn
 				Environment?:       {
+					[string]: _
 				} | fn.Fn
 				Image:         string | fn.Fn
 				ModelDataUrl?: string | fn.Fn
@@ -57,6 +58,7 @@ SageMaker :: {
 			PrimaryContainer?: {
 				ContainerHostname?: string | fn.Fn
 				Environment?:       {
+					[string]: _
 				} | fn.Fn
 				Image:         string | fn.Fn
 				ModelDataUrl?: string | fn.Fn

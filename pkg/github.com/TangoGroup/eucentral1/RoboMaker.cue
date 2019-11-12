@@ -8,6 +8,7 @@ RoboMaker :: {
 		Properties: {
 			Name?: string | fn.Fn
 			Tags?: {
+				[string]: _
 			} | fn.Fn
 		}
 	}
@@ -19,6 +20,7 @@ RoboMaker :: {
 			GreengrassGroupId: string | fn.Fn
 			Name?:             string | fn.Fn
 			Tags?:             {
+				[string]: _
 			} | fn.Fn
 		}
 	}
@@ -37,6 +39,7 @@ RoboMaker :: {
 				S3Key:        string | fn.Fn
 			}]
 			Tags?: {
+				[string]: _
 			} | fn.Fn
 		}
 	}
@@ -70,6 +73,7 @@ RoboMaker :: {
 				S3Key:        string | fn.Fn
 			}]
 			Tags?: {
+				[string]: _
 			} | fn.Fn
 		}
 	}

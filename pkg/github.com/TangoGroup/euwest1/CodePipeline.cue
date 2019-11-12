@@ -76,6 +76,7 @@ CodePipeline :: {
 						Version:  string | fn.Fn
 					}
 					Configuration?: {
+						[string]: _
 					} | fn.Fn
 					InputArtifacts?: [...{
 						Name: string | fn.Fn

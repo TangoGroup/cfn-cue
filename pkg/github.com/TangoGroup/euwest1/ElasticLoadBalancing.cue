@@ -46,6 +46,7 @@ ElasticLoadBalancing :: {
 			LoadBalancerName?: string | fn.Fn
 			Policies?: [...{
 				Attributes: [...({
+					[string]: _
 				} | fn.Fn)]
 				InstancePorts?: [...(string | fn.Fn)]
 				LoadBalancerPorts?: [...(string | fn.Fn)]

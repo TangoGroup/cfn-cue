@@ -10,10 +10,12 @@ Greengrass :: {
 				ConnectorArn: string | fn.Fn
 				Id:           string | fn.Fn
 				Parameters?:  {
+					[string]: _
 				} | fn.Fn
 			}]
 			Name:  string | fn.Fn
 			Tags?: {
+				[string]: _
 			} | fn.Fn
 		}
 	}
@@ -25,6 +27,7 @@ Greengrass :: {
 				ConnectorArn: string | fn.Fn
 				Id:           string | fn.Fn
 				Parameters?:  {
+					[string]: _
 				} | fn.Fn
 			}]
 		}
@@ -40,6 +43,7 @@ Greengrass :: {
 			}]
 			Name:  string | fn.Fn
 			Tags?: {
+				[string]: _
 			} | fn.Fn
 		}
 	}
@@ -66,6 +70,7 @@ Greengrass :: {
 			}]
 			Name:  string | fn.Fn
 			Tags?: {
+				[string]: _
 			} | fn.Fn
 		}
 	}
@@ -110,6 +115,7 @@ Greengrass :: {
 								ResourceId:  string | fn.Fn
 							}]
 							Variables?: {
+								[string]: _
 							} | fn.Fn
 						}
 						ExecArgs?:   string | fn.Fn
@@ -123,6 +129,7 @@ Greengrass :: {
 			}
 			Name:  string | fn.Fn
 			Tags?: {
+				[string]: _
 			} | fn.Fn
 		}
 	}
@@ -155,6 +162,7 @@ Greengrass :: {
 							ResourceId:  string | fn.Fn
 						}]
 						Variables?: {
+							[string]: _
 						} | fn.Fn
 					}
 					ExecArgs?:   string | fn.Fn
@@ -182,6 +190,7 @@ Greengrass :: {
 			Name:     string | fn.Fn
 			RoleArn?: string | fn.Fn
 			Tags?:    {
+				[string]: _
 			} | fn.Fn
 		}
 	}
@@ -210,6 +219,7 @@ Greengrass :: {
 			}]
 			Name:  string | fn.Fn
 			Tags?: {
+				[string]: _
 			} | fn.Fn
 		}
 	}
@@ -264,6 +274,7 @@ Greengrass :: {
 			}]
 			Name:  string | fn.Fn
 			Tags?: {
+				[string]: _
 			} | fn.Fn
 		}
 	}
@@ -317,6 +328,7 @@ Greengrass :: {
 			}]
 			Name:  string | fn.Fn
 			Tags?: {
+				[string]: _
 			} | fn.Fn
 		}
 	}

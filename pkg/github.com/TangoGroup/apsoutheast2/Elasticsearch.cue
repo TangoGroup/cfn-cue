@@ -7,6 +7,7 @@ Elasticsearch :: {
 		Type: "AWS::Elasticsearch::Domain"
 		Properties: {
 			AccessPolicies?: {
+				[string]: _
 			} | fn.Fn
 			AdvancedOptions?: [string]: string | fn.Fn
 			DomainName?: string | fn.Fn
