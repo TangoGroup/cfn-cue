@@ -27,6 +27,7 @@ EMR :: {
 				Classification?: string | fn.Fn
 				ConfigurationProperties?: [string]: string | fn.Fn
 				Configurations?: [...{
+					[string]: _
 				}]
 			}]
 			CustomAmiId?:       string | fn.Fn
@@ -42,6 +43,7 @@ EMR :: {
 							Classification?: string | fn.Fn
 							ConfigurationProperties?: [string]: string | fn.Fn
 							Configurations?: [...{
+								[string]: _
 							}]
 						}]
 						EbsConfiguration?: {
@@ -105,6 +107,7 @@ EMR :: {
 						Classification?: string | fn.Fn
 						ConfigurationProperties?: [string]: string | fn.Fn
 						Configurations?: [...{
+							[string]: _
 						}]
 					}]
 					EbsConfiguration?: {
@@ -138,6 +141,7 @@ EMR :: {
 							Classification?: string | fn.Fn
 							ConfigurationProperties?: [string]: string | fn.Fn
 							Configurations?: [...{
+								[string]: _
 							}]
 						}]
 						EbsConfiguration?: {
@@ -201,6 +205,7 @@ EMR :: {
 						Classification?: string | fn.Fn
 						ConfigurationProperties?: [string]: string | fn.Fn
 						Configurations?: [...{
+							[string]: _
 						}]
 					}]
 					EbsConfiguration?: {
@@ -269,6 +274,7 @@ EMR :: {
 					Classification?: string | fn.Fn
 					ConfigurationProperties?: [string]: string | fn.Fn
 					Configurations?: [...{
+						[string]: _
 					}]
 				}]
 				EbsConfiguration?: {
@@ -335,6 +341,7 @@ EMR :: {
 				Classification?: string | fn.Fn
 				ConfigurationProperties?: [string]: string | fn.Fn
 				Configurations?: [...{
+					[string]: _
 				}]
 			}]
 			EbsConfiguration?: {

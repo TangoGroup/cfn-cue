@@ -222,22 +222,16 @@ func createFieldFromProperty(name string, prop Property, resourceSubproperties m
 			typeName = prop.Type
 		}
 		if typeName == parentResource.Properties[parentName].ItemType {
-			// fmt.Println("name:", name)
-			// fmt.Println("typeName:", typeName)
-			// fmt.Println("parentName:", parentName)
-			// fmt.Println("parentTypeName:", parentResource.Properties[parentName].ItemType)
-
-			// fmt.Println("!!!! prop !!!")
-			// spew.Dump(prop)
-			// fmt.Println("!!!! parentResource !!!")
-			// spew.Dump(parentResource)
-
-			// panic(1)
 			// Weird recursion... might need some cleverness with Aliases to structure this correctly.
-			// value = &ast.BasicLit{Value: parentName}
-			value = &ast.StructLit{}
+			value = &ast.StructLit{
+				Elts: []ast.Decl{
+					&ast.Field{
+						Label: ast.NewList(&ast.BasicLit{Value: "string"}),
+						Value: &ast.BasicLit{Value: "_"},
+					},
+				},
+			}
 		} else {
-			// fmt.Println("Recursing on ", typeName, name)
 			var v ast.StructLit
 			v, imports = createStructFromResource(name, resourceSubproperties[typeName], resourceSubproperties, valueTypes)
 			value = &v
