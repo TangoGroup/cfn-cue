@@ -360,17 +360,6 @@ func main() {
 		propertiesByResource[resourceName]["Tag"] = spec.Properties["Tag"]
 	}
 
-	// prefixMap := map[string]bool{}
-
-	// for resourceName := range spec.Resources {
-	// 	splits := strings.Split(resourceName, "::")
-	// 	prefixMap[splits[0]] = true
-	// }
-
-	// for prefix := range prefixMap {
-	// 	fmt.Println(prefix)
-	// }
-
 	servicesMap := map[string]bool{}
 
 	for resourceName := range spec.Resources {
@@ -397,8 +386,6 @@ func main() {
 	}
 
 	importDeclarations := make([]*ast.ImportSpec, 0)
-
-	// serviceRedeclarations := make([]ast.Decl, 0)
 
 	resourceTypes := make([]ast.Expr, 0)
 
@@ -445,25 +432,11 @@ func main() {
 			resourceElts := []ast.Decl{
 				&ast.Field{
 					Label: ast.NewIdent("Type"),
-					// Value: &ast.BasicLit{Kind: token.STRING, Value: "\"" + resourceName + "\""},
 					Value: ast.NewString(resourceName),
 				},
 				propertiesStruct,
 			}
 
-			// subpropertyNames := resourceNamesSlice(resourceSubproperties)
-			// sort.Strings(subpropertyNames)
-
-			// for _, propName := range subpropertyNames {
-			// 	prop := resourceSubproperties[propName]
-
-			// 	properties := createStructFromResource(prop, resourceSubproperties, spec.ValueTypes)
-			// 	resourceElts = append(resourceElts, &ast.Field{
-			// 		Label: ast.NewIdent(propertyPrefix + propName),
-			// 		Token: token.ISA,
-			// 		Value: &properties,
-			// 	})
-			// }
 			f := &ast.Field{
 				Label: ast.NewIdent(resourceStr),
 				Token: token.ISA,
@@ -474,7 +447,6 @@ func main() {
 
 			serviceResources = append(serviceResources, f)
 
-			// ff.Decls = append(ff.Decls, f)
 			resourceTypes = append(resourceTypes, ast.NewSel(ast.NewIdent(serviceName), resourceStr))
 		}
 
@@ -502,10 +474,6 @@ func main() {
 		importDeclarations = append(importDeclarations,
 			ast.NewImport(ast.NewIdent(strings.ToLower(serviceName)),
 				servicePackage))
-		// serviceRedeclarations = append(serviceRedeclarations, &ast.Field{
-		// 	Label: ast.NewIdent(serviceName),
-		// 	Value: ast.NewIdent(strings.ToLower(serviceName)),
-		// })
 
 		folder := path.Join("pkg", servicePackage)
 
@@ -542,12 +510,7 @@ func main() {
 		&ast.Package{
 			Name: ast.NewIdent("uswest2"),
 		},
-		// &ast.ImportDecl{
-		// 	Specs: importDeclarations,
-		// },
 	}
-
-	// declarations = append(declarations, serviceRedeclarations...)
 
 	declarations = append(declarations, &ast.Field{
 		Label: ast.NewIdent("ResourceTypes"),
