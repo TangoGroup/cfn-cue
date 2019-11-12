@@ -407,17 +407,17 @@ func main() {
 		propertiesByResource := map[string]map[string]Resource{}
 
 		// Find weird/broken properties
-		fmt.Println("weird/broken properties")
-		weirdProps := []string{}
-		for resourcePropertyName, property := range spec.Properties {
-			if len(property.Properties) == 0 {
-				weirdProps = append(weirdProps, resourcePropertyName)
-			}
-		}
-		sort.Strings(weirdProps)
-		for _, prop := range weirdProps {
-			fmt.Println(prop)
-		}
+		// fmt.Println("weird/broken properties")
+		// weirdProps := []string{}
+		// for resourcePropertyName, property := range spec.Properties {
+		// 	if len(property.Properties) == 0 {
+		// 		weirdProps = append(weirdProps, resourcePropertyName)
+		// 	}
+		// }
+		// sort.Strings(weirdProps)
+		// for _, prop := range weirdProps {
+		// 	fmt.Println(prop)
+		// }
 		// panic(0)
 
 		for resourcePropertyName, property := range spec.Properties {
@@ -590,6 +590,68 @@ func main() {
 			Value: expr,
 		})
 
+		baseParameterTypes := []string{
+			"String",
+			"Number",
+			"List<Number>",
+			"CommaDelimitedList",
+		}
+
+		awsParameterTypesMap := map[string]bool{
+			"AWS::EC2::AvailabilityZone::Name":   true,
+			"AWS::EC2::Image::Id":                true,
+			"AWS::EC2::Instance::Id":             true,
+			"AWS::EC2::KeyPair::KeyName":         false,
+			"AWS::EC2::SecurityGroup::GroupName": true,
+			"AWS::EC2::SecurityGroup::Id":        true,
+			"AWS::EC2::Subnet::Id":               true,
+			"AWS::EC2::Volume::Id":               true,
+			"AWS::EC2::VPC::Id":                  true,
+			"AWS::Route53::HostedZone::Id":       true,
+		}
+
+		awsParameterTypes := []string{}
+		for param := range awsParameterTypesMap {
+			awsParameterTypes = append(awsParameterTypes, param)
+		}
+
+		awsListParameterTypes := []string{}
+		for param, listType := range awsParameterTypesMap {
+			if listType {
+				awsListParameterTypes = append(awsListParameterTypes, "List<"+param+">")
+			}
+		}
+		ssmParameterTypes := []string{
+			"AWS::SSM::Parameter::Name",
+			"AWS::SSM::Parameter::Value<String>",
+			"AWS::SSM::Parameter::Value<List<String>>",
+			"AWS::SSM::Parameter::Value<CommaDelimitedList>",
+		}
+		for _, param := range awsParameterTypes {
+			ssmParameterTypes = append(ssmParameterTypes, "AWS::SSM::Parameter::Value<"+param+">")
+			ssmParameterTypes = append(ssmParameterTypes, "AWS::SSM::Parameter::Value<List<"+param+">>")
+		}
+
+		parameterTypes := []string{}
+		parameterTypes = append(parameterTypes, baseParameterTypes...)
+		parameterTypes = append(parameterTypes, awsParameterTypes...)
+		parameterTypes = append(parameterTypes, awsListParameterTypes...)
+		parameterTypes = append(parameterTypes, ssmParameterTypes...)
+
+		parameterTypesExpr := make([]ast.Expr, 0, len(parameterTypes))
+
+		for _, param := range parameterTypes {
+			parameterTypesExpr = append(parameterTypesExpr, ast.NewString(param))
+		}
+
+		var parameterDisjunction ast.Expr
+
+		parameterDisjunction = parameterTypesExpr[0]
+
+		for _, param := range parameterTypesExpr[1:] {
+			parameterDisjunction = &ast.BinaryExpr{X: parameterDisjunction, Op: token.OR, Y: param}
+		}
+
 		declarations = append(declarations, &ast.Field{
 			Label: ast.NewIdent("Template"),
 			Token: token.ISA,
@@ -628,7 +690,36 @@ func main() {
 										Elts: []ast.Decl{
 											&ast.Field{
 												Label: ast.NewIdent("Type"),
-												Value: &ast.BasicLit{Value: "_"},
+												Value: parameterDisjunction,
+												// String
+												// Number
+												// List<Number>
+												// CommaDelimitedList
+												// AWS::EC2::AvailabilityZone::Name
+												// AWS::EC2::Image::Id
+												// AWS::EC2::Instance::Id
+												// AWS::EC2::KeyPair::KeyName
+												// AWS::EC2::SecurityGroup::GroupName
+												// AWS::EC2::SecurityGroup::Id
+												// AWS::EC2::Subnet::Id
+												// AWS::EC2::Volume::Id
+												// AWS::EC2::VPC::Id
+												// AWS::Route53::HostedZone::Id
+												// List<AWS::EC2::AvailabilityZone::Name>
+												// List<AWS::EC2::Image::Id>
+												// List<AWS::EC2::Instance::Id>
+												// List<AWS::EC2::SecurityGroup::GroupName>
+												// List<AWS::EC2::SecurityGroup::Id>
+												// List<AWS::EC2::Subnet::Id>
+												// List<AWS::EC2::Volume::Id>
+												// List<AWS::EC2::VPC::Id>
+												// List<AWS::Route53::HostedZone::Id>
+												// AWS::SSM::Parameter::Name
+												// AWS::SSM::Parameter::Value<String>
+												// AWS::SSM::Parameter::Value<List<String>>
+												// AWS::SSM::Parameter::Value<CommaDelimitedList>
+												// AWS::SSM::Parameter::Value<AWS-specific parameter type>
+												// AWS::SSM::Parameter::Value<List<AWS-specific parameter type>>
 											},
 											&ast.Field{
 												Label:    ast.NewIdent("AllowedPattern"),
