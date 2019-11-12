@@ -329,159 +329,265 @@ func resourceNamesSlice(p map[string]Resource) (keys []string) {
 }
 
 func main() {
-	cloudformationSpec := "https://github.com/aws-cloudformation/cfn-python-lint/raw/master/src/cfnlint/data/CloudSpecs/us-west-2.json"
-	fmt.Println(cloudformationSpec)
-	data, _ := downloadSpec(cloudformationSpec)
-
-	spec, _ := processSpec("cfn", data)
-
-	propertiesByResource := map[string]map[string]Resource{}
-
-	for resourcePropertyName, property := range spec.Properties {
-		if len(property.Properties) == 0 {
-			fmt.Println(resourcePropertyName)
-		}
+	regions := []string{
+		"ap-east-1",
+		"ap-northeast-1",
+		"ap-northeast-2",
+		"ap-northeast-3",
+		"ap-south-1",
+		"ap-southeast-1",
+		"ap-southeast-2",
+		"ca-central-1",
+		"cn-north-1",
+		"cn-northwest-1",
+		"eu-central-1",
+		"eu-north-1",
+		"eu-west-1",
+		"eu-west-2",
+		"eu-west-3",
+		"me-south-1",
+		"sa-east-1",
+		"us-east-1",
+		"us-east-2",
+		"us-gov-east-1",
+		"us-gov-west-1",
+		"us-west-1",
+		"us-west-2",
 	}
-	// panic(0)
 
-	for resourcePropertyName, property := range spec.Properties {
-		splits := strings.Split(resourcePropertyName, ".")
-		if len(splits) > 1 {
-			resourceName := splits[0]
-			if propertiesByResource[resourceName] == nil {
-				propertiesByResource[resourceName] = map[string]Resource{}
+	for _, region := range regions {
+		shortRegion := strings.ReplaceAll(region, "-", "")
+
+		cloudformationSpec := "https://github.com/aws-cloudformation/cfn-python-lint/raw/master/src/cfnlint/data/CloudSpecs/" + region + ".json"
+		fmt.Println(cloudformationSpec)
+		data, _ := downloadSpec(cloudformationSpec)
+
+		spec, _ := processSpec("cfn", data)
+
+		propertiesByResource := map[string]map[string]Resource{}
+
+		for resourcePropertyName, property := range spec.Properties {
+			if len(property.Properties) == 0 {
+				fmt.Println(resourcePropertyName)
 			}
-			propertyName := splits[1]
-			propertiesByResource[resourceName][propertyName] = property
 		}
-	}
+		// panic(0)
 
-	for resourceName := range propertiesByResource {
-		propertiesByResource[resourceName]["Tag"] = spec.Properties["Tag"]
-	}
-
-	servicesMap := map[string]bool{}
-
-	for resourceName := range spec.Resources {
-		splits := strings.Split(resourceName, "::")
-		servicesMap[splits[1]] = true
-	}
-
-	serviceNames := make([]string, 0, len(servicesMap))
-	for serviceName := range servicesMap {
-		serviceNames = append(serviceNames, serviceName)
-	}
-	sort.Strings(serviceNames)
-
-	resourcesByService := map[string]map[string]Resource{}
-	for service := range servicesMap {
-		resourcesByService[service] = map[string]Resource{}
-	}
-
-	for resourceName, resource := range spec.Resources {
-		splits := strings.Split(resourceName, "::")
-		service := splits[1]
-
-		resourcesByService[service][resourceName] = resource
-	}
-
-	importDeclarations := make([]*ast.ImportSpec, 0)
-
-	resourceTypes := make([]ast.Expr, 0)
-
-	for i, serviceName := range serviceNames {
-		resources := resourcesByService[serviceName]
-		fmt.Println(i, ":", serviceName)
-		ff := &ast.File{
-			Filename: serviceName,
-			Decls: []ast.Decl{
-				&ast.Package{
-					Name: ast.NewIdent("uswest2"),
-				},
-			},
-		}
-		importStrings := map[string]bool{}
-		imports := &ast.ImportDecl{
-			Specs: []*ast.ImportSpec{
-				&ast.ImportSpec{
-					Path: ast.NewString("github.com/TangoGroup/fn"),
-				},
-			},
+		for resourcePropertyName, property := range spec.Properties {
+			splits := strings.Split(resourcePropertyName, ".")
+			if len(splits) > 1 {
+				resourceName := splits[0]
+				if propertiesByResource[resourceName] == nil {
+					propertiesByResource[resourceName] = map[string]Resource{}
+				}
+				propertyName := splits[1]
+				propertiesByResource[resourceName][propertyName] = property
+			}
 		}
 
-		serviceResources := make([]ast.Decl, 0)
+		for resourceName := range propertiesByResource {
+			propertiesByResource[resourceName]["Tag"] = spec.Properties["Tag"]
+		}
 
-		resourceNames := resourceNamesSlice(resources)
-		sort.Strings(resourceNames)
+		servicesMap := map[string]bool{}
 
-		for _, resourceName := range resourceNames {
-			resource := resources[resourceName]
+		for resourceName := range spec.Resources {
 			splits := strings.Split(resourceName, "::")
-			resourceSubproperties := propertiesByResource[resourceName]
+			servicesMap[splits[1]] = true
+		}
 
-			// aws := splits[0]
-			resourceStr := splits[2]
-			fmt.Println("  " + resourceName)
+		serviceNames := make([]string, 0, len(servicesMap))
+		for serviceName := range servicesMap {
+			serviceNames = append(serviceNames, serviceName)
+		}
+		sort.Strings(serviceNames)
 
-			properties, resourceImports := createStructFromResource(resourceName, resource, resourceSubproperties, spec.ValueTypes)
-			importStrings = mergeMaps(importStrings, resourceImports)
-			propertiesStruct := &ast.Field{
-				Label: ast.NewIdent("Properties"),
-				Value: &properties,
-			}
-			resourceElts := []ast.Decl{
-				&ast.Field{
-					Label: ast.NewIdent("Type"),
-					Value: ast.NewString(resourceName),
+		resourcesByService := map[string]map[string]Resource{}
+		for service := range servicesMap {
+			resourcesByService[service] = map[string]Resource{}
+		}
+
+		for resourceName, resource := range spec.Resources {
+			splits := strings.Split(resourceName, "::")
+			service := splits[1]
+
+			resourcesByService[service][resourceName] = resource
+		}
+
+		importDeclarations := make([]*ast.ImportSpec, 0)
+
+		resourceTypes := make([]ast.Expr, 0)
+
+		for i, serviceName := range serviceNames {
+			resources := resourcesByService[serviceName]
+			fmt.Println(i, ":", serviceName)
+			ff := &ast.File{
+				Filename: serviceName,
+				Decls: []ast.Decl{
+					&ast.Package{
+						Name: ast.NewIdent(shortRegion),
+					},
 				},
-				propertiesStruct,
+			}
+			importStrings := map[string]bool{}
+			imports := &ast.ImportDecl{
+				Specs: []*ast.ImportSpec{
+					&ast.ImportSpec{
+						Path: ast.NewString("github.com/TangoGroup/fn"),
+					},
+				},
 			}
 
-			f := &ast.Field{
-				Label: ast.NewIdent(resourceStr),
+			serviceResources := make([]ast.Decl, 0)
+
+			resourceNames := resourceNamesSlice(resources)
+			sort.Strings(resourceNames)
+
+			for _, resourceName := range resourceNames {
+				resource := resources[resourceName]
+				splits := strings.Split(resourceName, "::")
+				resourceSubproperties := propertiesByResource[resourceName]
+
+				resourceStr := splits[2]
+				fmt.Println("  " + resourceName)
+
+				properties, resourceImports := createStructFromResource(resourceName, resource, resourceSubproperties, spec.ValueTypes)
+				importStrings = mergeMaps(importStrings, resourceImports)
+				propertiesStruct := &ast.Field{
+					Label: ast.NewIdent("Properties"),
+					Value: &properties,
+				}
+				resourceElts := []ast.Decl{
+					&ast.Field{
+						Label: ast.NewIdent("Type"),
+						Value: ast.NewString(resourceName),
+					},
+					propertiesStruct,
+				}
+
+				f := &ast.Field{
+					Label: ast.NewIdent(resourceStr),
+					Token: token.ISA,
+					Value: &ast.StructLit{
+						Elts: resourceElts,
+					},
+				}
+
+				serviceResources = append(serviceResources, f)
+
+				resourceTypes = append(resourceTypes, ast.NewSel(ast.NewIdent(serviceName), resourceStr))
+			}
+
+			for importString := range importStrings {
+				fmt.Println("  ~~~", importString)
+				imports.Specs = append(imports.Specs, &ast.ImportSpec{Path: ast.NewString(importString)})
+			}
+
+			ff.Decls = append(ff.Decls, imports)
+
+			serviceField := &ast.Field{
+				Label: ast.NewIdent(serviceName),
 				Token: token.ISA,
 				Value: &ast.StructLit{
-					Elts: resourceElts,
+					Elts: serviceResources,
 				},
 			}
 
-			serviceResources = append(serviceResources, f)
+			ff.Decls = append(ff.Decls, serviceField)
+			// fmt.Println("")
+			b, _ := format.Node(ff, format.Simplify())
 
-			resourceTypes = append(resourceTypes, ast.NewSel(ast.NewIdent(serviceName), resourceStr))
+			servicePackage := path.Join("github.com/TangoGroup/", shortRegion)
+
+			importDeclarations = append(importDeclarations,
+				ast.NewImport(ast.NewIdent(strings.ToLower(serviceName)),
+					servicePackage))
+
+			folder := path.Join("pkg", servicePackage)
+
+			os.MkdirAll(folder, os.ModePerm)
+
+			fmt.Println("Saving", path.Join(folder, serviceName+".cue"))
+
+			cuefile, err := os.Create(path.Join(folder, serviceName+".cue"))
+			if err != nil {
+				fmt.Println(err)
+				return
+			}
+			_, err = cuefile.Write(b)
+			if err != nil {
+				fmt.Println(err)
+				cuefile.Close()
+				return
+			}
+			// fmt.Println(l, "bytes written successfully")
+			err = cuefile.Close()
+			if err != nil {
+				fmt.Println(err)
+				return
+			}
 		}
 
-		for importString := range importStrings {
-			fmt.Println("  ~~~", importString)
-			imports.Specs = append(imports.Specs, &ast.ImportSpec{Path: ast.NewString(importString)})
+		expr := resourceTypes[0]
+
+		for _, resource := range resourceTypes[1:] {
+			expr = &ast.BinaryExpr{X: expr, Op: token.OR, Y: resource}
 		}
 
-		ff.Decls = append(ff.Decls, imports)
-
-		serviceField := &ast.Field{
-			Label: ast.NewIdent(serviceName),
-			Token: token.ISA,
-			Value: &ast.StructLit{
-				Elts: serviceResources,
+		declarations := []ast.Decl{
+			&ast.Package{
+				Name: ast.NewIdent(shortRegion),
 			},
 		}
 
-		ff.Decls = append(ff.Decls, serviceField)
-		// fmt.Println("")
-		b, _ := format.Node(ff, format.Simplify())
+		declarations = append(declarations, &ast.Field{
+			Label: ast.NewIdent("ResourceTypes"),
+			Value: expr,
+		})
 
-		servicePackage := path.Join("github.com/TangoGroup/", "uswest2")
+		declarations = append(declarations, &ast.Field{
+			Label: ast.NewIdent("Template"),
+			Token: token.ISA,
+			Value: &ast.StructLit{
+				Elts: []ast.Decl{
+					&ast.Field{
+						Label: ast.NewIdent("AWSTemplateFormatVersion"),
+						Value: ast.NewString("2010-09-09"),
+					},
+					&ast.Field{
+						Label:    ast.NewIdent("Description"),
+						Value:    &ast.BasicLit{Value: "string"},
+						Optional: token.Elided.Pos(),
+					},
+					&ast.Field{
+						Label: ast.NewIdent("Resources"),
+						Value: &ast.StructLit{
+							Elts: []ast.Decl{
+								&ast.Field{
+									Label: ast.NewList(&ast.UnaryExpr{
+										Op: token.MAT,
+										X:  ast.NewString("[a-zA-Z0-9]"),
+									}),
+									Value: ast.NewIdent("ResourceTypes"),
+								},
+							},
+						},
+					},
+				},
+			},
+		})
 
-		importDeclarations = append(importDeclarations,
-			ast.NewImport(ast.NewIdent(strings.ToLower(serviceName)),
-				servicePackage))
+		allServicesFile := &ast.File{
+			Filename: shortRegion + ".cue",
+			Decls:    declarations,
+		}
 
-		folder := path.Join("pkg", servicePackage)
+		b, _ := format.Node(allServicesFile, format.Simplify())
+		packageFolder := path.Join("pkg/github.com/TangoGroup", shortRegion)
 
-		os.MkdirAll(folder, os.ModePerm)
+		os.MkdirAll(packageFolder, os.ModePerm)
 
-		fmt.Println("Saving", path.Join(folder, serviceName+".cue"))
-
-		cuefile, err := os.Create(path.Join(folder, serviceName+".cue"))
+		cuefile, err := os.Create(path.Join(packageFolder, shortRegion+".cue"))
 		if err != nil {
 			fmt.Println(err)
 			return
@@ -498,83 +604,6 @@ func main() {
 			fmt.Println(err)
 			return
 		}
-	}
-
-	expr := resourceTypes[0]
-
-	for _, resource := range resourceTypes[1:] {
-		expr = &ast.BinaryExpr{X: expr, Op: token.OR, Y: resource}
-	}
-
-	declarations := []ast.Decl{
-		&ast.Package{
-			Name: ast.NewIdent("uswest2"),
-		},
-	}
-
-	declarations = append(declarations, &ast.Field{
-		Label: ast.NewIdent("ResourceTypes"),
-		Value: expr,
-	})
-
-	declarations = append(declarations, &ast.Field{
-		Label: ast.NewIdent("Template"),
-		Token: token.ISA,
-		Value: &ast.StructLit{
-			Elts: []ast.Decl{
-				&ast.Field{
-					Label: ast.NewIdent("AWSTemplateFormatVersion"),
-					Value: ast.NewString("2010-09-09"),
-				},
-				&ast.Field{
-					Label:    ast.NewIdent("Description"),
-					Value:    &ast.BasicLit{Value: "string"},
-					Optional: token.Elided.Pos(),
-				},
-				&ast.Field{
-					Label: ast.NewIdent("Resources"),
-					Value: &ast.StructLit{
-						Elts: []ast.Decl{
-							&ast.Field{
-								Label: ast.NewList(&ast.UnaryExpr{
-									Op: token.MAT,
-									X:  ast.NewString("[a-zA-Z0-9]"),
-								}),
-								Value: ast.NewIdent("ResourceTypes"),
-							},
-						},
-					},
-				},
-			},
-		},
-	})
-
-	allServicesFile := &ast.File{
-		Filename: "aws.cue",
-		Decls:    declarations,
-	}
-
-	b, _ := format.Node(allServicesFile, format.Simplify())
-	packageFolder := "pkg/github.com/TangoGroup/uswest2/"
-
-	os.MkdirAll(packageFolder, os.ModePerm)
-
-	cuefile, err := os.Create(path.Join(packageFolder, "uswest2.cue"))
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
-	_, err = cuefile.Write(b)
-	if err != nil {
-		fmt.Println(err)
-		cuefile.Close()
-		return
-	}
-	// fmt.Println(l, "bytes written successfully")
-	err = cuefile.Close()
-	if err != nil {
-		fmt.Println(err)
-		return
 	}
 
 }
