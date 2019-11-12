@@ -637,6 +637,7 @@ func main() {
 		parameterTypes = append(parameterTypes, awsParameterTypes...)
 		parameterTypes = append(parameterTypes, awsListParameterTypes...)
 		parameterTypes = append(parameterTypes, ssmParameterTypes...)
+		sort.Strings(parameterTypes)
 
 		parameterTypesExpr := make([]ast.Expr, 0, len(parameterTypes))
 
