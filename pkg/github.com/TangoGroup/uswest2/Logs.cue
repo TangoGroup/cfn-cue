@@ -1,6 +1,9 @@
 package uswest2
 
-import "github.com/TangoGroup/fn"
+import (
+	"github.com/TangoGroup/fn"
+	"strings"
+)
 
 Logs :: {
 	Destination :: {

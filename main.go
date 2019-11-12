@@ -63,7 +63,7 @@ func convertTypeToCUE(name string) string {
 	}
 }
 
-func (p Property) getCUEPrimitiveTypeString() string {
+func (p Property) getPrimitiveTypeString() string {
 	if p.IsPrimitive() {
 		return p.PrimitiveType
 	}
@@ -80,14 +80,15 @@ func (p Property) getCUEPrimitiveTypeString() string {
 }
 
 func (p Property) getCUEPrimitiveType() ast.Expr {
-	return mapFromCFNTypeToCue(p.getCUEPrimitiveTypeString())
+	return mapFromCFNTypeToCue(p.getPrimitiveTypeString())
 }
 
-func addPrimitiveConstraints(prop Property, valueType ValueType) []ast.Expr {
-	constraints := make([]ast.Expr, 0)
+func getPrimitiveConstraints(prop Property, valueType ValueType) (constraints []ast.Expr, imports map[string]bool) {
+	constraints = make([]ast.Expr, 0)
+	imports = map[string]bool{}
 	if prop.Value.ValueType != "" {
 		if valueType.AllowedValues != nil {
-			allowedValues := createExprFromAllowedValues(prop, valueType.AllowedValues, prop.getCUEPrimitiveTypeString())
+			allowedValues := createExprFromAllowedValues(prop, valueType.AllowedValues, prop.getPrimitiveTypeString())
 			constraints = append(constraints, allowedValues)
 		}
 		if valueType.NumberMax > 1 {
@@ -101,17 +102,33 @@ func addPrimitiveConstraints(prop Property, valueType ValueType) []ast.Expr {
 			max := valueType.StringMax
 			allowedValues := createExprFromStringMinMax(prop, int64(min), int64(max))
 			constraints = append(constraints, allowedValues)
+			imports["strings"] = true
 		}
 		if valueType.AllowedPatternRegex != "" {
 			regex := valueType.AllowedPatternRegex
 			allowedValues := createExprFromPatternRegex(prop, regex)
 			constraints = append(constraints, allowedValues)
 		}
+		// Going to need to be smarter about this... I need to make sure that the marshalled JSON
+		// string of this struct is less that JSONMax characters.
+		// if valueType.JSONMax > 0 {
+		// 	min := 0
+		// 	max := valueType.JSONMax
+		// 	allowedValues := createFieldFromStringMinMax(property, propertyResource, int64(min), int64(max))
+		// 	propertyDecls = append(propertyDecls, allowedValues)
+		// }
 	}
-	return constraints
+	return constraints, imports
 }
 
-func createFieldFromProperty(name string, prop Property, resourceSubproperties map[string]Resource, valueTypes map[string]ValueType, parentName string, parentResource Resource) (node ast.Decl) {
+func mergeMaps(a, b map[string]bool) map[string]bool {
+	for str := range b {
+		a[str] = true
+	}
+	return a
+}
+
+func createFieldFromProperty(name string, prop Property, resourceSubproperties map[string]Resource, valueTypes map[string]ValueType, parentName string, parentResource Resource) (node *ast.Field, imports map[string]bool) {
 	// Need to capture Map Types, and put the PrimitiveItemType or ItemType properly into a struct
 	var value ast.Expr
 
@@ -125,40 +142,11 @@ func createFieldFromProperty(name string, prop Property, resourceSubproperties m
 	}
 
 	if prop.IsPrimitive() || prop.IsMapOfPrimitives() || prop.IsListOfPrimitives() {
+		var constraints []ast.Expr
 		value = prop.getCUEPrimitiveType()
-		constraints := make([]ast.Expr, 0)
-		if prop.Value.ValueType != "" {
-			valueType := valueTypes[prop.Value.ValueType]
-
-			if valueType.AllowedValues != nil {
-				allowedValues := createExprFromAllowedValues(prop, valueType.AllowedValues, prop.getCUEPrimitiveTypeString())
-				constraints = append(constraints, allowedValues)
-			}
-			if valueType.NumberMax > 1 {
-				min := valueType.NumberMin
-				max := valueType.NumberMax
-				allowedValues := createExprFromNumberMinMax(prop, min, max)
-				constraints = append(constraints, allowedValues)
-			}
-			if valueType.StringMax > 0 {
-				min := valueType.StringMin
-				max := valueType.StringMax
-				allowedValues := createExprFromStringMinMax(prop, int64(min), int64(max))
-				constraints = append(constraints, allowedValues)
-			}
-			if valueType.AllowedPatternRegex != "" {
-				regex := valueType.AllowedPatternRegex
-				allowedValues := createExprFromPatternRegex(prop, regex)
-				constraints = append(constraints, allowedValues)
-			}
-			// Going to need to be smarter about this... I need to make sure that the marshalled JSON
-			// string of this struct is less that JSONMax characters.
-			// if valueType.JSONMax > 0 {
-			// 	min := 0
-			// 	max := valueType.JSONMax
-			// 	allowedValues := createFieldFromStringMinMax(property, propertyResource, int64(min), int64(max))
-			// 	propertyDecls = append(propertyDecls, allowedValues)
-			// }
+		constraints, imports = getPrimitiveConstraints(prop, valueTypes[prop.Value.ValueType])
+		if convertTypeToCUE(prop.getPrimitiveTypeString()) == "time.Time" {
+			imports["time"] = true
 		}
 		for _, constraint := range constraints {
 			val := &ast.BinaryExpr{
@@ -212,7 +200,8 @@ func createFieldFromProperty(name string, prop Property, resourceSubproperties m
 			value = &ast.StructLit{}
 		} else {
 			// fmt.Println("Recursing on ", typeName, name)
-			v := createStructFromResource(name, resourceSubproperties[typeName], resourceSubproperties, valueTypes)
+			var v ast.StructLit
+			v, imports = createStructFromResource(name, resourceSubproperties[typeName], resourceSubproperties, valueTypes)
 			value = &v
 		}
 	}
@@ -245,7 +234,7 @@ func createFieldFromProperty(name string, prop Property, resourceSubproperties m
 		Optional: optional,
 	}
 
-	return node
+	return node, imports
 }
 
 func createExprFromAllowedValues(prop Property, allowedValues []string, propertyType string) (expr ast.Expr) {
@@ -301,24 +290,34 @@ func propertyNames(p map[string]Property) (keys []string) {
 	return keys
 }
 
-func createStructFromResource(resourceName string, fieldNameOverride string, resource Resource, resourceSubproperties map[string]Resource, valueTypes map[string]ValueType) (s ast.StructLit) {
+func createStructFromResource(resourceName string, resource Resource, resourceSubproperties map[string]Resource, valueTypes map[string]ValueType) (s ast.StructLit, imports map[string]bool) {
 	properties := resource.Properties
 	propertyNames := propertyNames(resource.Properties)
 	sort.Strings(propertyNames)
+	imports = map[string]bool{}
 
 	propertyDecls := make([]ast.Decl, 0)
 
 	for _, propertyName := range propertyNames {
 		propertyResource := properties[propertyName]
 
-		value := createFieldFromProperty(propertyName, propertyResource, resourceSubproperties, valueTypes, resourceName, resource)
+		value, propImports := createFieldFromProperty(propertyName, propertyResource, resourceSubproperties, valueTypes, resourceName, resource)
+		if len(propImports) > 0 {
+			fmt.Println("struct resource:", propImports)
+			imports = mergeMaps(imports, propImports)
+			fmt.Println("struct resource imports:", imports)
+		}
 		propertyDecls = append(propertyDecls, value)
 	}
+
+	// if len(imports) > 0 {
+	// 	fmt.Println("struct resource imports:", imports)
+	// }
 
 	s = ast.StructLit{
 		Elts: propertyDecls,
 	}
-	return s
+	return s, imports
 }
 
 func resourceNamesSlice(p map[string]Resource) (keys []string) {
@@ -412,18 +411,13 @@ func main() {
 				&ast.Package{
 					Name: ast.NewIdent("uswest2"),
 				},
-				&ast.ImportDecl{
-					Specs: []*ast.ImportSpec{
-						&ast.ImportSpec{
-							Path: ast.NewString("github.com/TangoGroup/fn"),
-						},
-						// &ast.ImportSpec{
-						// 	Path: ast.NewString("strings"),
-						// },
-						// &ast.ImportSpec{
-						// 	Path: ast.NewString("time"),
-						// },
-					},
+			},
+		}
+		importStrings := map[string]bool{}
+		imports := &ast.ImportDecl{
+			Specs: []*ast.ImportSpec{
+				&ast.ImportSpec{
+					Path: ast.NewString("github.com/TangoGroup/fn"),
 				},
 			},
 		}
@@ -442,7 +436,8 @@ func main() {
 			resourceStr := splits[2]
 			fmt.Println("  " + resourceName)
 
-			properties := createStructFromResource(resourceName, "Properties", resource, resourceSubproperties, spec.ValueTypes)
+			properties, resourceImports := createStructFromResource(resourceName, resource, resourceSubproperties, spec.ValueTypes)
+			importStrings = mergeMaps(importStrings, resourceImports)
 			propertiesStruct := &ast.Field{
 				Label: ast.NewIdent("Properties"),
 				Value: &properties,
@@ -482,6 +477,13 @@ func main() {
 			// ff.Decls = append(ff.Decls, f)
 			resourceTypes = append(resourceTypes, ast.NewSel(ast.NewIdent(serviceName), resourceStr))
 		}
+
+		for importString := range importStrings {
+			fmt.Println("  ~~~", importString)
+			imports.Specs = append(imports.Specs, &ast.ImportSpec{Path: ast.NewString(importString)})
+		}
+
+		ff.Decls = append(ff.Decls, imports)
 
 		serviceField := &ast.Field{
 			Label: ast.NewIdent(serviceName),
