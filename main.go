@@ -484,7 +484,7 @@ func main() {
 			imports := &ast.ImportDecl{
 				Specs: []*ast.ImportSpec{
 					&ast.ImportSpec{
-						Path: ast.NewString("github.com/TangoGroup/fn"),
+						Path: ast.NewString("github.com/TangoGroup/aws/fn"),
 					},
 				},
 			}
@@ -650,7 +650,7 @@ func main() {
 			ff.Decls = append(ff.Decls, serviceField)
 			b, _ := format.Node(ff, format.Simplify())
 
-			servicePackage := path.Join("github.com/TangoGroup/", shortRegion)
+			servicePackage := path.Join("github.com/TangoGroup/aws/", shortRegion)
 
 			importDeclarations = append(importDeclarations,
 				ast.NewImport(ast.NewIdent(strings.ToLower(serviceName)),
@@ -694,7 +694,7 @@ func main() {
 			&ast.ImportDecl{
 				Specs: []*ast.ImportSpec{
 					&ast.ImportSpec{
-						Path: ast.NewString("github.com/TangoGroup/fn"),
+						Path: ast.NewString("github.com/TangoGroup/aws/fn"),
 					},
 				},
 			},
@@ -964,7 +964,7 @@ func main() {
 		}
 
 		b, _ := format.Node(allServicesFile, format.Simplify())
-		packageFolder := path.Join("pkg/github.com/TangoGroup", shortRegion)
+		packageFolder := path.Join("pkg/github.com/TangoGroup/aws", shortRegion)
 
 		os.MkdirAll(packageFolder, os.ModePerm)
 

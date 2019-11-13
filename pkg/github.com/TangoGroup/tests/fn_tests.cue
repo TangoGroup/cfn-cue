@@ -1,8 +1,8 @@
 package fn
 
-import "github.com/TangoGroup/fn"
+import "github.com/TangoGroup/aws/fn"
 
-import aws "github.com/TangoGroup/uswest2"
+import aws "github.com/TangoGroup/aws/uswest2"
 
 MyGetAZs1: fn.GetAZs & {"Fn::GetAZs" :          ""}
 MyGetAZs2: fn.GetAZs & {"Fn::GetAZs" : {"Ref" : "AWS::Region"}}
