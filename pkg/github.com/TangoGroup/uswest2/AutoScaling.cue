@@ -70,6 +70,7 @@ AutoScaling :: {
 			TerminationPolicies?: [...(string | fn.Fn)]
 			VPCZoneIdentifier?: [...(string | fn.Fn)]
 		}
+		DependsOn?: string | [...string]
 	}
 	LaunchConfiguration :: {
 		Type: "AWS::AutoScaling::LaunchConfiguration"
@@ -105,6 +106,7 @@ AutoScaling :: {
 			SpotPrice?: string | fn.Fn
 			UserData?:  string | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 	LifecycleHook :: {
 		Type: "AWS::AutoScaling::LifecycleHook"
@@ -118,6 +120,7 @@ AutoScaling :: {
 			NotificationTargetARN?: string | fn.Fn
 			RoleARN?:               string | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 	ScalingPolicy :: {
 		Type: "AWS::AutoScaling::ScalingPolicy"
@@ -154,6 +157,7 @@ AutoScaling :: {
 				TargetValue: float | fn.Fn
 			}
 		}
+		DependsOn?: string | [...string]
 	}
 	ScheduledAction :: {
 		Type: "AWS::AutoScaling::ScheduledAction"
@@ -166,5 +170,6 @@ AutoScaling :: {
 			Recurrence?:          string | fn.Fn
 			StartTime?:           string | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 }

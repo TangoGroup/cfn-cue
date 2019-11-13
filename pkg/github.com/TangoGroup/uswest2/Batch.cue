@@ -35,6 +35,7 @@ Batch :: {
 			State?:      string | fn.Fn
 			Type:        string | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 	JobDefinition :: {
 		Type: "AWS::Batch::JobDefinition"
@@ -130,6 +131,7 @@ Batch :: {
 			Timeout?: AttemptDurationSeconds?: int | fn.Fn
 			Type: string | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 	JobQueue :: {
 		Type: "AWS::Batch::JobQueue"
@@ -142,5 +144,6 @@ Batch :: {
 			Priority:      int | fn.Fn
 			State?:        string | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 }

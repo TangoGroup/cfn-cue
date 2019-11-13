@@ -33,5 +33,6 @@ MSK :: {
 				[string]: _
 			} | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 }

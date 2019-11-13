@@ -27,5 +27,6 @@ OpsWorksCM :: {
 			ServiceRoleArn: string | fn.Fn
 			SubnetIds?: [...(string | fn.Fn)]
 		}
+		DependsOn?: string | [...string]
 	}
 }

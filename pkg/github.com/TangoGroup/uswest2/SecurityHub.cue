@@ -8,5 +8,6 @@ SecurityHub :: {
 		Properties: Tags?: {
 			[string]: _
 		} | fn.Fn
+		DependsOn?: string | [...string]
 	}
 }

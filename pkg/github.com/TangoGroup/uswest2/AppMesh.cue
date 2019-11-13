@@ -13,6 +13,7 @@ AppMesh :: {
 				Value: string | fn.Fn
 			}]
 		}
+		DependsOn?: string | [...string]
 	}
 	Route :: {
 		Type: "AWS::AppMesh::Route"
@@ -134,6 +135,7 @@ AppMesh :: {
 			}]
 			VirtualRouterName: string | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 	VirtualNode :: {
 		Type: "AWS::AppMesh::VirtualNode"
@@ -177,6 +179,7 @@ AppMesh :: {
 			}]
 			VirtualNodeName: string | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 	VirtualRouter :: {
 		Type: "AWS::AppMesh::VirtualRouter"
@@ -194,6 +197,7 @@ AppMesh :: {
 			}]
 			VirtualRouterName: string | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 	VirtualService :: {
 		Type: "AWS::AppMesh::VirtualService"
@@ -209,5 +213,6 @@ AppMesh :: {
 			}]
 			VirtualServiceName: string | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 }

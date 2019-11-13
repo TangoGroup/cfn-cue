@@ -27,6 +27,7 @@ Backup :: {
 				[string]: _
 			} | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 	BackupSelection :: {
 		Type: "AWS::Backup::BackupSelection"
@@ -43,6 +44,7 @@ Backup :: {
 				SelectionName: string | fn.Fn
 			}
 		}
+		DependsOn?: string | [...string]
 	}
 	BackupVault :: {
 		Type: "AWS::Backup::BackupVault"
@@ -60,5 +62,6 @@ Backup :: {
 				SNSTopicArn: string | fn.Fn
 			}
 		}
+		DependsOn?: string | [...string]
 	}
 }

@@ -11,6 +11,7 @@ Pinpoint :: {
 			ClientSecret:  string | fn.Fn
 			Enabled?:      bool | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 	APNSChannel :: {
 		Type: "AWS::Pinpoint::APNSChannel"
@@ -25,6 +26,7 @@ Pinpoint :: {
 			TokenKey?:                    string | fn.Fn
 			TokenKeyId?:                  string | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 	APNSSandboxChannel :: {
 		Type: "AWS::Pinpoint::APNSSandboxChannel"
@@ -39,6 +41,7 @@ Pinpoint :: {
 			TokenKey?:                    string | fn.Fn
 			TokenKeyId?:                  string | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 	APNSVoipChannel :: {
 		Type: "AWS::Pinpoint::APNSVoipChannel"
@@ -53,6 +56,7 @@ Pinpoint :: {
 			TokenKey?:                    string | fn.Fn
 			TokenKeyId?:                  string | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 	APNSVoipSandboxChannel :: {
 		Type: "AWS::Pinpoint::APNSVoipSandboxChannel"
@@ -67,6 +71,7 @@ Pinpoint :: {
 			TokenKey?:                    string | fn.Fn
 			TokenKeyId?:                  string | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 	App :: {
 		Type: "AWS::Pinpoint::App"
@@ -76,6 +81,7 @@ Pinpoint :: {
 				[string]: _
 			} | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 	ApplicationSettings :: {
 		Type: "AWS::Pinpoint::ApplicationSettings"
@@ -98,6 +104,7 @@ Pinpoint :: {
 				Start: string | fn.Fn
 			}
 		}
+		DependsOn?: string | [...string]
 	}
 	BaiduChannel :: {
 		Type: "AWS::Pinpoint::BaiduChannel"
@@ -107,6 +114,7 @@ Pinpoint :: {
 			Enabled?:      bool | fn.Fn
 			SecretKey:     string | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 	Campaign :: {
 		Type: "AWS::Pinpoint::Campaign"
@@ -358,6 +366,7 @@ Pinpoint :: {
 			TreatmentDescription?: string | fn.Fn
 			TreatmentName?:        string | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 	EmailChannel :: {
 		Type: "AWS::Pinpoint::EmailChannel"
@@ -369,6 +378,7 @@ Pinpoint :: {
 			Identity:          string | fn.Fn
 			RoleArn?:          string | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 	EmailTemplate :: {
 		Type: "AWS::Pinpoint::EmailTemplate"
@@ -381,6 +391,7 @@ Pinpoint :: {
 			TemplateName: string | fn.Fn
 			TextPart?:    string | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 	EventStream :: {
 		Type: "AWS::Pinpoint::EventStream"
@@ -389,6 +400,7 @@ Pinpoint :: {
 			DestinationStreamArn: string | fn.Fn
 			RoleArn:              string | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 	GCMChannel :: {
 		Type: "AWS::Pinpoint::GCMChannel"
@@ -397,6 +409,7 @@ Pinpoint :: {
 			ApplicationId: string | fn.Fn
 			Enabled?:      bool | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 	PushTemplate :: {
 		Type: "AWS::Pinpoint::PushTemplate"
@@ -451,6 +464,7 @@ Pinpoint :: {
 			} | fn.Fn
 			TemplateName: string | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 	SMSChannel :: {
 		Type: "AWS::Pinpoint::SMSChannel"
@@ -460,6 +474,7 @@ Pinpoint :: {
 			SenderId?:     string | fn.Fn
 			ShortCode?:    string | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 	Segment :: {
 		Type: "AWS::Pinpoint::Segment"
@@ -589,6 +604,7 @@ Pinpoint :: {
 				[string]: _
 			} | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 	SmsTemplate :: {
 		Type: "AWS::Pinpoint::SmsTemplate"
@@ -599,6 +615,7 @@ Pinpoint :: {
 			} | fn.Fn
 			TemplateName: string | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 	VoiceChannel :: {
 		Type: "AWS::Pinpoint::VoiceChannel"
@@ -606,5 +623,6 @@ Pinpoint :: {
 			ApplicationId: string | fn.Fn
 			Enabled?:      bool | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 }

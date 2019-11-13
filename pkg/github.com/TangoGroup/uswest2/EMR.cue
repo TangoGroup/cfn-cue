@@ -261,6 +261,7 @@ EMR :: {
 			}]
 			VisibleToAllUsers?: bool | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 	InstanceFleetConfig :: {
 		Type: "AWS::EMR::InstanceFleetConfig"
@@ -300,6 +301,7 @@ EMR :: {
 			TargetOnDemandCapacity?: int | fn.Fn
 			TargetSpotCapacity?:     int | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 	InstanceGroupConfig :: {
 		Type: "AWS::EMR::InstanceGroupConfig"
@@ -362,6 +364,7 @@ EMR :: {
 			Market?:       string | fn.Fn
 			Name?:         string | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 	SecurityConfiguration :: {
 		Type: "AWS::EMR::SecurityConfiguration"
@@ -371,6 +374,7 @@ EMR :: {
 				[string]: _
 			} | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 	Step :: {
 		Type: "AWS::EMR::Step"
@@ -388,5 +392,6 @@ EMR :: {
 			JobFlowId: string | fn.Fn
 			Name:      string | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 }

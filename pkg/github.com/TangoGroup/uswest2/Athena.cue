@@ -11,5 +11,6 @@ Athena :: {
 			Name?:        string | fn.Fn
 			QueryString:  string | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 }

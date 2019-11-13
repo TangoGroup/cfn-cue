@@ -9,6 +9,7 @@ CodeDeploy :: {
 			ApplicationName?: string | fn.Fn
 			ComputePlatform?: (string & ("ECS" | "Lambda" | "Server")) | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 	DeploymentConfig :: {
 		Type: "AWS::CodeDeploy::DeploymentConfig"
@@ -19,6 +20,7 @@ CodeDeploy :: {
 				Value: int | fn.Fn
 			}
 		}
+		DependsOn?: string | [...string]
 	}
 	DeploymentGroup :: {
 		Type: "AWS::CodeDeploy::DeploymentGroup"
@@ -99,5 +101,6 @@ CodeDeploy :: {
 				TriggerTargetArn?: string | fn.Fn
 			}]
 		}
+		DependsOn?: string | [...string]
 	}
 }

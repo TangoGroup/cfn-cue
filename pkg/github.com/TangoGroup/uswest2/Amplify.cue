@@ -51,6 +51,7 @@ Amplify :: {
 				Value: string | fn.Fn
 			}]
 		}
+		DependsOn?: string | [...string]
 	}
 	Branch :: {
 		Type: "AWS::Amplify::Branch"
@@ -77,6 +78,7 @@ Amplify :: {
 				Value: string | fn.Fn
 			}]
 		}
+		DependsOn?: string | [...string]
 	}
 	Domain :: {
 		Type: "AWS::Amplify::Domain"
@@ -88,5 +90,6 @@ Amplify :: {
 				Prefix:     string | fn.Fn
 			}]
 		}
+		DependsOn?: string | [...string]
 	}
 }

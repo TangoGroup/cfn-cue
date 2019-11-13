@@ -20,9 +20,12 @@ Neptune :: {
 			SnapshotIdentifier?:         string | fn.Fn
 			StorageEncrypted?:           bool | fn.Fn
 			Tags?: [...{
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
 			}]
 			VpcSecurityGroupIds?: [...(string | fn.Fn)]
 		}
+		DependsOn?: string | [...string]
 	}
 	DBClusterParameterGroup :: {
 		Type: "AWS::Neptune::DBClusterParameterGroup"
@@ -34,8 +37,11 @@ Neptune :: {
 				[string]: _
 			} | fn.Fn
 			Tags?: [...{
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
 			}]
 		}
+		DependsOn?: string | [...string]
 	}
 	DBInstance :: {
 		Type: "AWS::Neptune::DBInstance"
@@ -51,8 +57,11 @@ Neptune :: {
 			DBSubnetGroupName?:          string | fn.Fn
 			PreferredMaintenanceWindow?: string | fn.Fn
 			Tags?: [...{
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
 			}]
 		}
+		DependsOn?: string | [...string]
 	}
 	DBParameterGroup :: {
 		Type: "AWS::Neptune::DBParameterGroup"
@@ -64,8 +73,11 @@ Neptune :: {
 				[string]: _
 			} | fn.Fn
 			Tags?: [...{
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
 			}]
 		}
+		DependsOn?: string | [...string]
 	}
 	DBSubnetGroup :: {
 		Type: "AWS::Neptune::DBSubnetGroup"
@@ -74,7 +86,10 @@ Neptune :: {
 			DBSubnetGroupName?:       string | fn.Fn
 			SubnetIds: [...(string | fn.Fn)]
 			Tags?: [...{
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
 			}]
 		}
+		DependsOn?: string | [...string]
 	}
 }

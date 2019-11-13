@@ -42,6 +42,7 @@ Redshift :: {
 			}]
 			VpcSecurityGroupIds?: [...(string | fn.Fn)]
 		}
+		DependsOn?: string | [...string]
 	}
 	ClusterParameterGroup :: {
 		Type: "AWS::Redshift::ClusterParameterGroup"
@@ -57,14 +58,18 @@ Redshift :: {
 				Value: string | fn.Fn
 			}]
 		}
+		DependsOn?: string | [...string]
 	}
 	ClusterSecurityGroup :: {
 		Type: "AWS::Redshift::ClusterSecurityGroup"
 		Properties: {
 			Description: string | fn.Fn
 			Tags?: [...{
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
 			}]
 		}
+		DependsOn?: string | [...string]
 	}
 	ClusterSecurityGroupIngress :: {
 		Type: "AWS::Redshift::ClusterSecurityGroupIngress"
@@ -74,6 +79,7 @@ Redshift :: {
 			EC2SecurityGroupName?:    string | fn.Fn
 			EC2SecurityGroupOwnerId?: string | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 	ClusterSubnetGroup :: {
 		Type: "AWS::Redshift::ClusterSubnetGroup"
@@ -81,7 +87,10 @@ Redshift :: {
 			Description: string | fn.Fn
 			SubnetIds: [...(string | fn.Fn)]
 			Tags?: [...{
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
 			}]
 		}
+		DependsOn?: string | [...string]
 	}
 }

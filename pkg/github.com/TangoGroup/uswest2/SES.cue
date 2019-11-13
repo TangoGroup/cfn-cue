@@ -6,6 +6,7 @@ SES :: {
 	ConfigurationSet :: {
 		Type: "AWS::SES::ConfigurationSet"
 		Properties: Name?: string | fn.Fn
+		DependsOn?: string | [...string]
 	}
 	ConfigurationSetEventDestination :: {
 		Type: "AWS::SES::ConfigurationSetEventDestination"
@@ -26,6 +27,7 @@ SES :: {
 				Name?: string | fn.Fn
 			}
 		}
+		DependsOn?: string | [...string]
 	}
 	ReceiptFilter :: {
 		Type: "AWS::SES::ReceiptFilter"
@@ -36,6 +38,7 @@ SES :: {
 			}
 			Name?: string | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 	ReceiptRule :: {
 		Type: "AWS::SES::ReceiptRule"
@@ -86,10 +89,12 @@ SES :: {
 			}
 			RuleSetName: string | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 	ReceiptRuleSet :: {
 		Type: "AWS::SES::ReceiptRuleSet"
 		Properties: RuleSetName?: string | fn.Fn
+		DependsOn?: string | [...string]
 	}
 	Template :: {
 		Type: "AWS::SES::Template"
@@ -99,5 +104,6 @@ SES :: {
 			TemplateName?: string | fn.Fn
 			TextPart?:     string | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 }

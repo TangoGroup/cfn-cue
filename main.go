@@ -426,7 +426,10 @@ func main() {
 			}
 		}
 
-		for resourceName := range propertiesByResource {
+		for resourceName := range spec.Resources {
+			if propertiesByResource[resourceName] == nil {
+				propertiesByResource[resourceName] = map[string]Resource{}
+			}
 			propertiesByResource[resourceName]["Tag"] = spec.Properties["Tag"]
 		}
 
@@ -504,6 +507,15 @@ func main() {
 						Value: ast.NewString(resourceName),
 					},
 					propertiesStruct,
+					&ast.Field{
+						Label:    ast.NewIdent("DependsOn"),
+						Optional: token.Elided.Pos(),
+						Value: &ast.BinaryExpr{
+							X:  ast.NewIdent("string"),
+							Op: token.OR,
+							Y:  ast.NewList(&ast.Ellipsis{Type: ast.NewIdent("string")}),
+						},
+					},
 				}
 
 				f := &ast.Field{

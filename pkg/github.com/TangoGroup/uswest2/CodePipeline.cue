@@ -37,6 +37,7 @@ CodePipeline :: {
 			}]
 			Version: string | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 	Pipeline :: {
 		Type: "AWS::CodePipeline::Pipeline"
@@ -100,6 +101,7 @@ CodePipeline :: {
 				Value: string | fn.Fn
 			}]
 		}
+		DependsOn?: string | [...string]
 	}
 	Webhook :: {
 		Type: "AWS::CodePipeline::Webhook"
@@ -119,5 +121,6 @@ CodePipeline :: {
 			TargetPipeline:          string | fn.Fn
 			TargetPipelineVersion:   int | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 }

@@ -20,6 +20,7 @@ MediaConvert :: {
 				[string]: _
 			} | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 	Preset :: {
 		Type: "AWS::MediaConvert::Preset"
@@ -34,6 +35,7 @@ MediaConvert :: {
 				[string]: _
 			} | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 	Queue :: {
 		Type: "AWS::MediaConvert::Queue"
@@ -46,5 +48,6 @@ MediaConvert :: {
 				[string]: _
 			} | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 }

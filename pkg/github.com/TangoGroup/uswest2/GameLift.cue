@@ -14,6 +14,7 @@ GameLift :: {
 				Type:     string | fn.Fn
 			}
 		}
+		DependsOn?: string | [...string]
 	}
 	Build :: {
 		Type: "AWS::GameLift::Build"
@@ -26,6 +27,7 @@ GameLift :: {
 			}
 			Version?: string | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 	Fleet :: {
 		Type: "AWS::GameLift::Fleet"
@@ -47,5 +49,6 @@ GameLift :: {
 			ServerLaunchParameters?: string | fn.Fn
 			ServerLaunchPath:        string | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 }

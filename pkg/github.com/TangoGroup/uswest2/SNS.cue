@@ -18,6 +18,7 @@ SNS :: {
 			Region?:             string | fn.Fn
 			TopicArn:            string | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 	Topic :: {
 		Type: "AWS::SNS::Topic"
@@ -34,6 +35,7 @@ SNS :: {
 			}]
 			TopicName?: string | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 	TopicPolicy :: {
 		Type: "AWS::SNS::TopicPolicy"
@@ -43,5 +45,6 @@ SNS :: {
 			} | fn.Fn
 			Topics: [...(string | fn.Fn)]
 		}
+		DependsOn?: string | [...string]
 	}
 }

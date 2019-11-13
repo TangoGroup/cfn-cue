@@ -19,5 +19,6 @@ CodeStarNotifications :: {
 				TargetType?:    string | fn.Fn
 			}]
 		}
+		DependsOn?: string | [...string]
 	}
 }

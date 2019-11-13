@@ -9,6 +9,7 @@ IoT1Click :: {
 			DeviceId: string | fn.Fn
 			Enabled:  bool | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 	Placement :: {
 		Type: "AWS::IoT1Click::Placement"
@@ -22,6 +23,7 @@ IoT1Click :: {
 			PlacementName?: string | fn.Fn
 			ProjectName:    string | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 	Project :: {
 		Type: "AWS::IoT1Click::Project"
@@ -37,5 +39,6 @@ IoT1Click :: {
 			}
 			ProjectName?: string | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 }

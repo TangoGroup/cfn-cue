@@ -22,5 +22,6 @@ ASK :: {
 			}
 			VendorId: string | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 }

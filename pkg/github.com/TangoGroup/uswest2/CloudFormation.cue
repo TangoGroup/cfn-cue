@@ -6,6 +6,7 @@ CloudFormation :: {
 	CustomResource :: {
 		Type: "AWS::CloudFormation::CustomResource"
 		Properties: ServiceToken: string | fn.Fn
+		DependsOn?: string | [...string]
 	}
 	Macro :: {
 		Type: "AWS::CloudFormation::Macro"
@@ -16,6 +17,7 @@ CloudFormation :: {
 			LogRoleARN?:   string | fn.Fn
 			Name:          string | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 	Stack :: {
 		Type: "AWS::CloudFormation::Stack"
@@ -23,10 +25,13 @@ CloudFormation :: {
 			NotificationARNs?: [...(string | fn.Fn)]
 			Parameters?: [string]: string | fn.Fn
 			Tags?: [...{
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
 			}]
 			TemplateURL:       string | fn.Fn
 			TimeoutInMinutes?: int | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 	WaitCondition :: {
 		Type: "AWS::CloudFormation::WaitCondition"
@@ -35,10 +40,12 @@ CloudFormation :: {
 			Handle?:  string | fn.Fn
 			Timeout?: (string & (>=0 & <=43200)) | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 	WaitConditionHandle :: {
 		Type: "AWS::CloudFormation::WaitConditionHandle"
 		Properties: {
 		}
+		DependsOn?: string | [...string]
 	}
 }

@@ -93,6 +93,7 @@ MediaLive :: {
 				[string]: _
 			} | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 	Input :: {
 		Type: "AWS::MediaLive::Input"
@@ -120,6 +121,7 @@ MediaLive :: {
 				SubnetIds?: [...(string | fn.Fn)]
 			}
 		}
+		DependsOn?: string | [...string]
 	}
 	InputSecurityGroup :: {
 		Type: "AWS::MediaLive::InputSecurityGroup"
@@ -131,5 +133,6 @@ MediaLive :: {
 				Cidr?: string | fn.Fn
 			}]
 		}
+		DependsOn?: string | [...string]
 	}
 }

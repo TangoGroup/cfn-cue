@@ -62,5 +62,6 @@ DynamoDB :: {
 				Enabled:       bool | fn.Fn
 			}
 		}
+		DependsOn?: string | [...string]
 	}
 }

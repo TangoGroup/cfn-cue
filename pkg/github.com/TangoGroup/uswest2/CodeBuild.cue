@@ -120,6 +120,7 @@ CodeBuild :: {
 				VpcId?: string | fn.Fn
 			}
 		}
+		DependsOn?: string | [...string]
 	}
 	SourceCredential :: {
 		Type: "AWS::CodeBuild::SourceCredential"
@@ -129,5 +130,6 @@ CodeBuild :: {
 			Token:      string | fn.Fn
 			Username?:  string | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 }

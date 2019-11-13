@@ -25,6 +25,7 @@ IoTAnalytics :: {
 				Value: string | fn.Fn
 			}]
 		}
+		DependsOn?: string | [...string]
 	}
 	Dataset :: {
 		Type: "AWS::IoTAnalytics::Dataset"
@@ -92,6 +93,7 @@ IoTAnalytics :: {
 				Unlimited?:   bool | fn.Fn
 			}
 		}
+		DependsOn?: string | [...string]
 	}
 	Datastore :: {
 		Type: "AWS::IoTAnalytics::Datastore"
@@ -115,6 +117,7 @@ IoTAnalytics :: {
 				Value: string | fn.Fn
 			}]
 		}
+		DependsOn?: string | [...string]
 	}
 	Pipeline :: {
 		Type: "AWS::IoTAnalytics::Pipeline"
@@ -184,5 +187,6 @@ IoTAnalytics :: {
 				Value: string | fn.Fn
 			}]
 		}
+		DependsOn?: string | [...string]
 	}
 }

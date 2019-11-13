@@ -8,8 +8,11 @@ ECS :: {
 		Properties: {
 			ClusterName?: string | fn.Fn
 			Tags?: [...{
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
 			}]
 		}
+		DependsOn?: string | [...string]
 	}
 	Service :: {
 		Type: "AWS::ECS::Service"
@@ -59,6 +62,7 @@ ECS :: {
 			}]
 			TaskDefinition: string | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 	TaskDefinition :: {
 		Type: "AWS::ECS::TaskDefinition"
@@ -206,5 +210,6 @@ ECS :: {
 				Name?: string | fn.Fn
 			}]
 		}
+		DependsOn?: string | [...string]
 	}
 }

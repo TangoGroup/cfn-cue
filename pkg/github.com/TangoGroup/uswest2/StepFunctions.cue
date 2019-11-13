@@ -12,6 +12,7 @@ StepFunctions :: {
 				Value: string | fn.Fn
 			}]
 		}
+		DependsOn?: string | [...string]
 	}
 	StateMachine :: {
 		Type: "AWS::StepFunctions::StateMachine"
@@ -24,5 +25,6 @@ StepFunctions :: {
 				Value: string | fn.Fn
 			}]
 		}
+		DependsOn?: string | [...string]
 	}
 }

@@ -43,6 +43,7 @@ AmazonMQ :: {
 				Username: string | fn.Fn
 			}]
 		}
+		DependsOn?: string | [...string]
 	}
 	Configuration :: {
 		Type: "AWS::AmazonMQ::Configuration"
@@ -57,6 +58,7 @@ AmazonMQ :: {
 				Value: string | fn.Fn
 			}]
 		}
+		DependsOn?: string | [...string]
 	}
 	ConfigurationAssociation :: {
 		Type: "AWS::AmazonMQ::ConfigurationAssociation"
@@ -67,5 +69,6 @@ AmazonMQ :: {
 				Revision: int | fn.Fn
 			}
 		}
+		DependsOn?: string | [...string]
 	}
 }

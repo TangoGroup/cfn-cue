@@ -17,6 +17,7 @@ DirectoryService :: {
 				VpcId: string | fn.Fn
 			}
 		}
+		DependsOn?: string | [...string]
 	}
 	SimpleAD :: {
 		Type: "AWS::DirectoryService::SimpleAD"
@@ -33,5 +34,6 @@ DirectoryService :: {
 				VpcId: string | fn.Fn
 			}
 		}
+		DependsOn?: string | [...string]
 	}
 }

@@ -16,6 +16,7 @@ PinpointEmail :: {
 			}]
 			TrackingOptions?: CustomRedirectDomain?: string | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 	ConfigurationSetEventDestination :: {
 		Type: "AWS::PinpointEmail::ConfigurationSetEventDestination"
@@ -38,6 +39,7 @@ PinpointEmail :: {
 			}
 			EventDestinationName: string | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 	Identity :: {
 		Type: "AWS::PinpointEmail::Identity"
@@ -54,5 +56,6 @@ PinpointEmail :: {
 				Value?: string | fn.Fn
 			}]
 		}
+		DependsOn?: string | [...string]
 	}
 }

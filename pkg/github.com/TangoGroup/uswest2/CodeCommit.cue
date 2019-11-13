@@ -28,5 +28,6 @@ CodeCommit :: {
 				Name: string | fn.Fn
 			}]
 		}
+		DependsOn?: string | [...string]
 	}
 }

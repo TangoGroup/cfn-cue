@@ -12,5 +12,6 @@ IoTThingsGraph :: {
 				Text:     string | fn.Fn
 			}
 		}
+		DependsOn?: string | [...string]
 	}
 }

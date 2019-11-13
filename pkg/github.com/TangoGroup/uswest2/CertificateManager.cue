@@ -18,5 +18,6 @@ CertificateManager :: {
 			}]
 			ValidationMethod?: (string & ("DNS" | "EMAIL")) | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 }

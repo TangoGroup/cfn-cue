@@ -24,5 +24,6 @@ WorkSpaces :: {
 				UserVolumeSizeGib?:                   int | fn.Fn
 			}
 		}
+		DependsOn?: string | [...string]
 	}
 }

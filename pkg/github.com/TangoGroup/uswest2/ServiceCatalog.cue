@@ -9,6 +9,7 @@ ServiceCatalog :: {
 			AcceptLanguage?: string | fn.Fn
 			PortfolioId:     string | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 	CloudFormationProduct :: {
 		Type: "AWS::ServiceCatalog::CloudFormationProduct"
@@ -34,6 +35,7 @@ ServiceCatalog :: {
 				Value: string | fn.Fn
 			}]
 		}
+		DependsOn?: string | [...string]
 	}
 	CloudFormationProvisionedProduct :: {
 		Type: "AWS::ServiceCatalog::CloudFormationProvisionedProduct"
@@ -64,6 +66,7 @@ ServiceCatalog :: {
 				Value: string | fn.Fn
 			}]
 		}
+		DependsOn?: string | [...string]
 	}
 	LaunchNotificationConstraint :: {
 		Type: "AWS::ServiceCatalog::LaunchNotificationConstraint"
@@ -74,6 +77,7 @@ ServiceCatalog :: {
 			PortfolioId: string | fn.Fn
 			ProductId:   string | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 	LaunchRoleConstraint :: {
 		Type: "AWS::ServiceCatalog::LaunchRoleConstraint"
@@ -84,6 +88,7 @@ ServiceCatalog :: {
 			ProductId:       string | fn.Fn
 			RoleArn:         string | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 	LaunchTemplateConstraint :: {
 		Type: "AWS::ServiceCatalog::LaunchTemplateConstraint"
@@ -94,6 +99,7 @@ ServiceCatalog :: {
 			ProductId:       string | fn.Fn
 			Rules:           string | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 	Portfolio :: {
 		Type: "AWS::ServiceCatalog::Portfolio"
@@ -103,8 +109,11 @@ ServiceCatalog :: {
 			DisplayName:     string | fn.Fn
 			ProviderName:    string | fn.Fn
 			Tags?: [...{
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
 			}]
 		}
+		DependsOn?: string | [...string]
 	}
 	PortfolioPrincipalAssociation :: {
 		Type: "AWS::ServiceCatalog::PortfolioPrincipalAssociation"
@@ -114,6 +123,7 @@ ServiceCatalog :: {
 			PrincipalARN:    string | fn.Fn
 			PrincipalType:   string | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 	PortfolioProductAssociation :: {
 		Type: "AWS::ServiceCatalog::PortfolioProductAssociation"
@@ -123,6 +133,7 @@ ServiceCatalog :: {
 			ProductId:          string | fn.Fn
 			SourcePortfolioId?: string | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 	PortfolioShare :: {
 		Type: "AWS::ServiceCatalog::PortfolioShare"
@@ -131,6 +142,7 @@ ServiceCatalog :: {
 			AccountId:       string | fn.Fn
 			PortfolioId:     string | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 	ResourceUpdateConstraint :: {
 		Type: "AWS::ServiceCatalog::ResourceUpdateConstraint"
@@ -141,6 +153,7 @@ ServiceCatalog :: {
 			ProductId:                     string | fn.Fn
 			TagUpdateOnProvisionedProduct: string | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 	StackSetConstraint :: {
 		Type: "AWS::ServiceCatalog::StackSetConstraint"
@@ -155,6 +168,7 @@ ServiceCatalog :: {
 			RegionList: [...(string | fn.Fn)]
 			StackInstanceControl: string | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 	TagOption :: {
 		Type: "AWS::ServiceCatalog::TagOption"
@@ -163,6 +177,7 @@ ServiceCatalog :: {
 			Key:     string | fn.Fn
 			Value:   string | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 	TagOptionAssociation :: {
 		Type: "AWS::ServiceCatalog::TagOptionAssociation"
@@ -170,5 +185,6 @@ ServiceCatalog :: {
 			ResourceId:  string | fn.Fn
 			TagOptionId: string | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 }

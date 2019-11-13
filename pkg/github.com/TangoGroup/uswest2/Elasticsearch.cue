@@ -46,5 +46,6 @@ Elasticsearch :: {
 				SubnetIds?: [...(string | fn.Fn)]
 			}
 		}
+		DependsOn?: string | [...string]
 	}
 }

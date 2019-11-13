@@ -18,6 +18,7 @@ Kinesis :: {
 				Value: string | fn.Fn
 			}]
 		}
+		DependsOn?: string | [...string]
 	}
 	StreamConsumer :: {
 		Type: "AWS::Kinesis::StreamConsumer"
@@ -25,5 +26,6 @@ Kinesis :: {
 			ConsumerName: string | fn.Fn
 			StreamARN:    string | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 }

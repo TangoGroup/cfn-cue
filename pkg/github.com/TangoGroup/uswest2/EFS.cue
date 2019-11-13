@@ -19,6 +19,7 @@ EFS :: {
 			ProvisionedThroughputInMibps?: float | fn.Fn
 			ThroughputMode?:               (string & ("bursting" | "provisioned")) | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 	MountTarget :: {
 		Type: "AWS::EFS::MountTarget"
@@ -28,5 +29,6 @@ EFS :: {
 			SecurityGroups: [...(string | fn.Fn)]
 			SubnetId: string | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 }

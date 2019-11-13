@@ -18,5 +18,6 @@ MediaStore :: {
 			LifecyclePolicy?: string | fn.Fn
 			Policy?:          string | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 }

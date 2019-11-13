@@ -30,5 +30,6 @@ CloudTrail :: {
 			}]
 			TrailName?: string | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 }

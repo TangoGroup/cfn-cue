@@ -17,6 +17,7 @@ ApiGatewayV2 :: {
 			} | fn.Fn
 			Version?: string | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 	ApiMapping :: {
 		Type: "AWS::ApiGatewayV2::ApiMapping"
@@ -26,6 +27,7 @@ ApiGatewayV2 :: {
 			DomainName:     string | fn.Fn
 			Stage:          string | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 	Authorizer :: {
 		Type: "AWS::ApiGatewayV2::Authorizer"
@@ -39,6 +41,7 @@ ApiGatewayV2 :: {
 			IdentityValidationExpression?: string | fn.Fn
 			Name:                          string | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 	Deployment :: {
 		Type: "AWS::ApiGatewayV2::Deployment"
@@ -47,6 +50,7 @@ ApiGatewayV2 :: {
 			Description?: string | fn.Fn
 			StageName?:   string | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 	DomainName :: {
 		Type: "AWS::ApiGatewayV2::DomainName"
@@ -61,6 +65,7 @@ ApiGatewayV2 :: {
 				[string]: _
 			} | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 	Integration :: {
 		Type: "AWS::ApiGatewayV2::Integration"
@@ -83,6 +88,7 @@ ApiGatewayV2 :: {
 			TemplateSelectionExpression?: string | fn.Fn
 			TimeoutInMillis?:             int | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 	IntegrationResponse :: {
 		Type: "AWS::ApiGatewayV2::IntegrationResponse"
@@ -99,6 +105,7 @@ ApiGatewayV2 :: {
 			} | fn.Fn
 			TemplateSelectionExpression?: string | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 	Model :: {
 		Type: "AWS::ApiGatewayV2::Model"
@@ -111,6 +118,7 @@ ApiGatewayV2 :: {
 				[string]: _
 			} | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 	Route :: {
 		Type: "AWS::ApiGatewayV2::Route"
@@ -132,6 +140,7 @@ ApiGatewayV2 :: {
 			RouteResponseSelectionExpression?: string | fn.Fn
 			Target?:                           string | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 	RouteResponse :: {
 		Type: "AWS::ApiGatewayV2::RouteResponse"
@@ -147,6 +156,7 @@ ApiGatewayV2 :: {
 			RouteId:          string | fn.Fn
 			RouteResponseKey: string | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 	Stage :: {
 		Type: "AWS::ApiGatewayV2::Stage"
@@ -177,5 +187,6 @@ ApiGatewayV2 :: {
 				[string]: _
 			} | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 }

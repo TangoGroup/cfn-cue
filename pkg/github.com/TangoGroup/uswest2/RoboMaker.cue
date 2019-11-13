@@ -11,6 +11,7 @@ RoboMaker :: {
 				[string]: _
 			} | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 	Robot :: {
 		Type: "AWS::RoboMaker::Robot"
@@ -23,6 +24,7 @@ RoboMaker :: {
 				[string]: _
 			} | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 	RobotApplication :: {
 		Type: "AWS::RoboMaker::RobotApplication"
@@ -42,6 +44,7 @@ RoboMaker :: {
 				[string]: _
 			} | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 	RobotApplicationVersion :: {
 		Type: "AWS::RoboMaker::RobotApplicationVersion"
@@ -49,6 +52,7 @@ RoboMaker :: {
 			Application:        string | fn.Fn
 			CurrentRevisionId?: string | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 	SimulationApplication :: {
 		Type: "AWS::RoboMaker::SimulationApplication"
@@ -76,6 +80,7 @@ RoboMaker :: {
 				[string]: _
 			} | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 	SimulationApplicationVersion :: {
 		Type: "AWS::RoboMaker::SimulationApplicationVersion"
@@ -83,5 +88,6 @@ RoboMaker :: {
 			Application:        string | fn.Fn
 			CurrentRevisionId?: string | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 }

@@ -19,9 +19,12 @@ SQS :: {
 				[string]: _
 			} | fn.Fn
 			Tags?: [...{
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
 			}]
 			VisibilityTimeout?: (int & (>=0 & <=43200)) | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 	QueuePolicy :: {
 		Type: "AWS::SQS::QueuePolicy"
@@ -31,5 +34,6 @@ SQS :: {
 			} | fn.Fn
 			Queues: [...(string | fn.Fn)]
 		}
+		DependsOn?: string | [...string]
 	}
 }

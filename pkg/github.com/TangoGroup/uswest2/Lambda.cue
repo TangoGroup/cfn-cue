@@ -15,6 +15,7 @@ Lambda :: {
 				FunctionWeight:  float | fn.Fn
 			}]
 		}
+		DependsOn?: string | [...string]
 	}
 	EventSourceMapping :: {
 		Type: "AWS::Lambda::EventSourceMapping"
@@ -26,6 +27,7 @@ Lambda :: {
 			MaximumBatchingWindowInSeconds?: int | fn.Fn
 			StartingPosition?:               string | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 	Function :: {
 		Type: "AWS::Lambda::Function"
@@ -58,6 +60,7 @@ Lambda :: {
 				SubnetIds: [...(string | fn.Fn)]
 			}
 		}
+		DependsOn?: string | [...string]
 	}
 	LayerVersion :: {
 		Type: "AWS::Lambda::LayerVersion"
@@ -72,6 +75,7 @@ Lambda :: {
 			LayerName?:   string | fn.Fn
 			LicenseInfo?: string | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 	LayerVersionPermission :: {
 		Type: "AWS::Lambda::LayerVersionPermission"
@@ -81,6 +85,7 @@ Lambda :: {
 			OrganizationId?: string | fn.Fn
 			Principal:       string | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 	Permission :: {
 		Type: "AWS::Lambda::Permission"
@@ -92,6 +97,7 @@ Lambda :: {
 			SourceAccount?:    string | fn.Fn
 			SourceArn?:        string | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 	Version :: {
 		Type: "AWS::Lambda::Version"
@@ -100,5 +106,6 @@ Lambda :: {
 			Description?: string | fn.Fn
 			FunctionName: string | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 }

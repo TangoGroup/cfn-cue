@@ -61,5 +61,6 @@ ElasticLoadBalancing :: {
 				Value: string | fn.Fn
 			}]
 		}
+		DependsOn?: string | [...string]
 	}
 }

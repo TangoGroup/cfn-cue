@@ -13,6 +13,7 @@ AppStream :: {
 				AccountPassword: string | fn.Fn
 			}
 		}
+		DependsOn?: string | [...string]
 	}
 	Fleet :: {
 		Type: "AWS::AppStream::Fleet"
@@ -42,6 +43,7 @@ AppStream :: {
 				SubnetIds?: [...(string | fn.Fn)]
 			}
 		}
+		DependsOn?: string | [...string]
 	}
 	ImageBuilder :: {
 		Type: "AWS::AppStream::ImageBuilder"
@@ -71,6 +73,7 @@ AppStream :: {
 				SubnetIds?: [...(string | fn.Fn)]
 			}
 		}
+		DependsOn?: string | [...string]
 	}
 	Stack :: {
 		Type: "AWS::AppStream::Stack"
@@ -105,6 +108,7 @@ AppStream :: {
 				Permission: string | fn.Fn
 			}]
 		}
+		DependsOn?: string | [...string]
 	}
 	StackFleetAssociation :: {
 		Type: "AWS::AppStream::StackFleetAssociation"
@@ -112,6 +116,7 @@ AppStream :: {
 			FleetName: string | fn.Fn
 			StackName: string | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 	StackUserAssociation :: {
 		Type: "AWS::AppStream::StackUserAssociation"
@@ -121,6 +126,7 @@ AppStream :: {
 			StackName:              string | fn.Fn
 			UserName:               string | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 	User :: {
 		Type: "AWS::AppStream::User"
@@ -131,5 +137,6 @@ AppStream :: {
 			MessageAction?:     string | fn.Fn
 			UserName:           string | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 }

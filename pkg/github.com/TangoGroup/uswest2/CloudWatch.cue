@@ -52,6 +52,7 @@ CloudWatch :: {
 			TreatMissingData?:  (string & ("breaching" | "ignore" | "missing" | "notBreaching")) | fn.Fn
 			Unit?:              (string & ("Bits" | "Bits/Second" | "Bytes" | "Bytes/Second" | "Count" | "Count/Second" | "Gigabits" | "Gigabits/Second" | "Gigabytes" | "Gigabytes/Second" | "Kilobits" | "Kilobits/Second" | "Kilobytes" | "Kilobytes/Second" | "Megabits" | "Megabits/Second" | "Megabytes" | "Megabytes/Second" | "Microseconds" | "Milliseconds" | "None" | "Percent" | "Seconds" | "Terabits" | "Terabits/Second" | "Terabytes" | "Terabytes/Second")) | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 	AnomalyDetector :: {
 		Type: "AWS::CloudWatch::AnomalyDetector"
@@ -71,6 +72,7 @@ CloudWatch :: {
 			Namespace:  string | fn.Fn
 			Stat:       string | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 	Dashboard :: {
 		Type: "AWS::CloudWatch::Dashboard"
@@ -78,5 +80,6 @@ CloudWatch :: {
 			DashboardBody:  string | fn.Fn
 			DashboardName?: string | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 }

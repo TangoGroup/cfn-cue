@@ -51,5 +51,6 @@ Budgets :: {
 				}]
 			}]
 		}
+		DependsOn?: string | [...string]
 	}
 }

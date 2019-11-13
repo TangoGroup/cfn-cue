@@ -48,6 +48,7 @@ RDS :: {
 			UseLatestRestorableTime?: bool | fn.Fn
 			VpcSecurityGroupIds?: [...(string | fn.Fn)]
 		}
+		DependsOn?: string | [...string]
 	}
 	DBClusterParameterGroup :: {
 		Type: "AWS::RDS::DBClusterParameterGroup"
@@ -58,8 +59,11 @@ RDS :: {
 				[string]: _
 			} | fn.Fn
 			Tags?: [...{
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
 			}]
 		}
+		DependsOn?: string | [...string]
 	}
 	DBInstance :: {
 		Type: "AWS::RDS::DBInstance"
@@ -124,6 +128,7 @@ RDS :: {
 			UseDefaultProcessorFeatures?: bool | fn.Fn
 			VPCSecurityGroups?: [...(string | fn.Fn)]
 		}
+		DependsOn?: string | [...string]
 	}
 	DBParameterGroup :: {
 		Type: "AWS::RDS::DBParameterGroup"
@@ -132,8 +137,11 @@ RDS :: {
 			Family:      string | fn.Fn
 			Parameters?: [string]: string | fn.Fn
 			Tags?: [...{
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
 			}]
 		}
+		DependsOn?: string | [...string]
 	}
 	DBSecurityGroup :: {
 		Type: "AWS::RDS::DBSecurityGroup"
@@ -151,6 +159,7 @@ RDS :: {
 				Value: string | fn.Fn
 			}]
 		}
+		DependsOn?: string | [...string]
 	}
 	DBSecurityGroupIngress :: {
 		Type: "AWS::RDS::DBSecurityGroupIngress"
@@ -161,6 +170,7 @@ RDS :: {
 			EC2SecurityGroupName?:    string | fn.Fn
 			EC2SecurityGroupOwnerId?: string | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 	DBSubnetGroup :: {
 		Type: "AWS::RDS::DBSubnetGroup"
@@ -169,8 +179,11 @@ RDS :: {
 			DBSubnetGroupName?:       string | fn.Fn
 			SubnetIds: [...(string | fn.Fn)]
 			Tags?: [...{
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
 			}]
 		}
+		DependsOn?: string | [...string]
 	}
 	EventSubscription :: {
 		Type: "AWS::RDS::EventSubscription"
@@ -181,6 +194,7 @@ RDS :: {
 			SourceIds?: [...(string | fn.Fn)]
 			SourceType?: string | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 	OptionGroup :: {
 		Type: "AWS::RDS::OptionGroup"
@@ -204,5 +218,6 @@ RDS :: {
 				Value: string | fn.Fn
 			}]
 		}
+		DependsOn?: string | [...string]
 	}
 }

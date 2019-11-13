@@ -9,6 +9,7 @@ KMS :: {
 			AliasName:   string | fn.Fn
 			TargetKeyId: string | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 	Key :: {
 		Type: "AWS::KMS::Key"
@@ -22,7 +23,10 @@ KMS :: {
 			KeyUsage?:            string | fn.Fn
 			PendingWindowInDays?: (int & (>=7 & <=30)) | fn.Fn
 			Tags?: [...{
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
 			}]
 		}
+		DependsOn?: string | [...string]
 	}
 }

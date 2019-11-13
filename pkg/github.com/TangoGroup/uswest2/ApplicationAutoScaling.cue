@@ -31,6 +31,7 @@ ApplicationAutoScaling :: {
 				ScheduledScalingSuspended?:  bool | fn.Fn
 			}
 		}
+		DependsOn?: string | [...string]
 	}
 	ScalingPolicy :: {
 		Type: "AWS::ApplicationAutoScaling::ScalingPolicy"
@@ -73,5 +74,6 @@ ApplicationAutoScaling :: {
 				TargetValue:       float | fn.Fn
 			}
 		}
+		DependsOn?: string | [...string]
 	}
 }

@@ -262,5 +262,6 @@ KinesisFirehose :: {
 				}
 			}
 		}
+		DependsOn?: string | [...string]
 	}
 }

@@ -184,6 +184,7 @@ S3 :: {
 				}]
 			}
 		}
+		DependsOn?: string | [...string]
 	}
 	BucketPolicy :: {
 		Type: "AWS::S3::BucketPolicy"
@@ -193,5 +194,6 @@ S3 :: {
 				[string]: _
 			} | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 }

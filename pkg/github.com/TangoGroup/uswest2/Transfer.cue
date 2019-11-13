@@ -19,6 +19,7 @@ Transfer :: {
 				Value: string | fn.Fn
 			}]
 		}
+		DependsOn?: string | [...string]
 	}
 	User :: {
 		Type: "AWS::Transfer::User"
@@ -34,5 +35,6 @@ Transfer :: {
 			}]
 			UserName: string | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 }

@@ -21,6 +21,7 @@ SSM :: {
 				Values: [...(string | fn.Fn)]
 			}]
 		}
+		DependsOn?: string | [...string]
 	}
 	Document :: {
 		Type: "AWS::SSM::Document"
@@ -30,8 +31,11 @@ SSM :: {
 			} | fn.Fn
 			DocumentType?: string | fn.Fn
 			Tags?: [...{
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
 			}]
 		}
+		DependsOn?: string | [...string]
 	}
 	MaintenanceWindow :: {
 		Type: "AWS::SSM::MaintenanceWindow"
@@ -46,8 +50,11 @@ SSM :: {
 			ScheduleTimezone?:        string | fn.Fn
 			StartDate?:               string | fn.Fn
 			Tags?: [...{
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
 			}]
 		}
+		DependsOn?: string | [...string]
 	}
 	MaintenanceWindowTarget :: {
 		Type: "AWS::SSM::MaintenanceWindowTarget"
@@ -62,6 +69,7 @@ SSM :: {
 			}]
 			WindowId: string | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 	MaintenanceWindowTask :: {
 		Type: "AWS::SSM::MaintenanceWindowTask"
@@ -122,6 +130,7 @@ SSM :: {
 			TaskType: string | fn.Fn
 			WindowId: string | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 	Parameter :: {
 		Type: "AWS::SSM::Parameter"
@@ -137,6 +146,7 @@ SSM :: {
 			Type:  string | fn.Fn
 			Value: string | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 	PatchBaseline :: {
 		Type: "AWS::SSM::PatchBaseline"
@@ -173,6 +183,7 @@ SSM :: {
 				Value: string | fn.Fn
 			}]
 		}
+		DependsOn?: string | [...string]
 	}
 	ResourceDataSync :: {
 		Type: "AWS::SSM::ResourceDataSync"
@@ -184,5 +195,6 @@ SSM :: {
 			SyncFormat:    string | fn.Fn
 			SyncName:      string | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 }

@@ -31,6 +31,7 @@ Glue :: {
 				RowTag:         string | fn.Fn
 			}
 		}
+		DependsOn?: string | [...string]
 	}
 	Connection :: {
 		Type: "AWS::Glue::Connection"
@@ -51,6 +52,7 @@ Glue :: {
 				}
 			}
 		}
+		DependsOn?: string | [...string]
 	}
 	Crawler :: {
 		Type: "AWS::Glue::Crawler"
@@ -90,6 +92,7 @@ Glue :: {
 				}]
 			}
 		}
+		DependsOn?: string | [...string]
 	}
 	DataCatalogEncryptionSettings :: {
 		Type: "AWS::Glue::DataCatalogEncryptionSettings"
@@ -106,6 +109,7 @@ Glue :: {
 				}
 			}
 		}
+		DependsOn?: string | [...string]
 	}
 	Database :: {
 		Type: "AWS::Glue::Database"
@@ -120,6 +124,7 @@ Glue :: {
 				} | fn.Fn
 			}
 		}
+		DependsOn?: string | [...string]
 	}
 	DevEndpoint :: {
 		Type: "AWS::Glue::DevEndpoint"
@@ -143,6 +148,7 @@ Glue :: {
 			} | fn.Fn
 			WorkerType?: string | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 	Job :: {
 		Type: "AWS::Glue::Job"
@@ -174,6 +180,7 @@ Glue :: {
 			Timeout?:    int | fn.Fn
 			WorkerType?: string | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 	MLTransform :: {
 		Type: "AWS::Glue::MLTransform"
@@ -202,6 +209,7 @@ Glue :: {
 			}
 			WorkerType?: string | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 	Partition :: {
 		Type: "AWS::Glue::Partition"
@@ -251,6 +259,7 @@ Glue :: {
 			}
 			TableName: string | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 	SecurityConfiguration :: {
 		Type: "AWS::Glue::SecurityConfiguration"
@@ -271,6 +280,7 @@ Glue :: {
 			}
 			Name: string | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 	Table :: {
 		Type: "AWS::Glue::Table"
@@ -330,6 +340,7 @@ Glue :: {
 				ViewOriginalText?: string | fn.Fn
 			}
 		}
+		DependsOn?: string | [...string]
 	}
 	Trigger :: {
 		Type: "AWS::Glue::Trigger"
@@ -364,6 +375,7 @@ Glue :: {
 			Type:          (string & ("CONDITIONAL" | "ON_DEMAND" | "SCHEDULED")) | fn.Fn
 			WorkflowName?: string | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 	Workflow :: {
 		Type: "AWS::Glue::Workflow"
@@ -377,5 +389,6 @@ Glue :: {
 				[string]: _
 			} | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 }

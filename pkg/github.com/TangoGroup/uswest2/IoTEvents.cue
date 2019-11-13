@@ -136,6 +136,7 @@ IoTEvents :: {
 				Value: string | fn.Fn
 			}]
 		}
+		DependsOn?: string | [...string]
 	}
 	Input :: {
 		Type: "AWS::IoTEvents::Input"
@@ -150,5 +151,6 @@ IoTEvents :: {
 				Value: string | fn.Fn
 			}]
 		}
+		DependsOn?: string | [...string]
 	}
 }

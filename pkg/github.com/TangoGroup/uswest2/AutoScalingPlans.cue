@@ -62,5 +62,6 @@ AutoScalingPlans :: {
 				}]
 			}]
 		}
+		DependsOn?: string | [...string]
 	}
 }

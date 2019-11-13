@@ -13,6 +13,7 @@ SageMaker :: {
 				SecretArn?:    string | fn.Fn
 			}
 		}
+		DependsOn?: string | [...string]
 	}
 	Endpoint :: {
 		Type: "AWS::SageMaker::Endpoint"
@@ -20,8 +21,11 @@ SageMaker :: {
 			EndpointConfigName: string | fn.Fn
 			EndpointName?:      string | fn.Fn
 			Tags?: [...{
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
 			}]
 		}
+		DependsOn?: string | [...string]
 	}
 	EndpointConfig :: {
 		Type: "AWS::SageMaker::EndpointConfig"
@@ -41,6 +45,7 @@ SageMaker :: {
 				Value: string | fn.Fn
 			}]
 		}
+		DependsOn?: string | [...string]
 	}
 	Model :: {
 		Type: "AWS::SageMaker::Model"
@@ -72,6 +77,7 @@ SageMaker :: {
 				Subnets: [...(string | fn.Fn)]
 			}
 		}
+		DependsOn?: string | [...string]
 	}
 	NotebookInstance :: {
 		Type: "AWS::SageMaker::NotebookInstance"
@@ -89,9 +95,12 @@ SageMaker :: {
 			SecurityGroupIds?: [...(string | fn.Fn)]
 			SubnetId?: string | fn.Fn
 			Tags?: [...{
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
 			}]
 			VolumeSizeInGB?: (int & (>=5 & <=16384)) | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 	NotebookInstanceLifecycleConfig :: {
 		Type: "AWS::SageMaker::NotebookInstanceLifecycleConfig"
@@ -104,6 +113,7 @@ SageMaker :: {
 				Content?: string | fn.Fn
 			}]
 		}
+		DependsOn?: string | [...string]
 	}
 	Workteam :: {
 		Type: "AWS::SageMaker::Workteam"
@@ -123,5 +133,6 @@ SageMaker :: {
 			}]
 			WorkteamName?: string | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 }

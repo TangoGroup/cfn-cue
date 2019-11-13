@@ -18,6 +18,7 @@ Greengrass :: {
 				[string]: _
 			} | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 	ConnectorDefinitionVersion :: {
 		Type: "AWS::Greengrass::ConnectorDefinitionVersion"
@@ -31,6 +32,7 @@ Greengrass :: {
 				} | fn.Fn
 			}]
 		}
+		DependsOn?: string | [...string]
 	}
 	CoreDefinition :: {
 		Type: "AWS::Greengrass::CoreDefinition"
@@ -46,6 +48,7 @@ Greengrass :: {
 				[string]: _
 			} | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 	CoreDefinitionVersion :: {
 		Type: "AWS::Greengrass::CoreDefinitionVersion"
@@ -58,6 +61,7 @@ Greengrass :: {
 				ThingArn:       string | fn.Fn
 			}]
 		}
+		DependsOn?: string | [...string]
 	}
 	DeviceDefinition :: {
 		Type: "AWS::Greengrass::DeviceDefinition"
@@ -73,6 +77,7 @@ Greengrass :: {
 				[string]: _
 			} | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 	DeviceDefinitionVersion :: {
 		Type: "AWS::Greengrass::DeviceDefinitionVersion"
@@ -85,6 +90,7 @@ Greengrass :: {
 				ThingArn:       string | fn.Fn
 			}]
 		}
+		DependsOn?: string | [...string]
 	}
 	FunctionDefinition :: {
 		Type: "AWS::Greengrass::FunctionDefinition"
@@ -132,6 +138,7 @@ Greengrass :: {
 				[string]: _
 			} | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 	FunctionDefinitionVersion :: {
 		Type: "AWS::Greengrass::FunctionDefinitionVersion"
@@ -174,6 +181,7 @@ Greengrass :: {
 				Id: string | fn.Fn
 			}]
 		}
+		DependsOn?: string | [...string]
 	}
 	Group :: {
 		Type: "AWS::Greengrass::Group"
@@ -193,6 +201,7 @@ Greengrass :: {
 				[string]: _
 			} | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 	GroupVersion :: {
 		Type: "AWS::Greengrass::GroupVersion"
@@ -206,6 +215,7 @@ Greengrass :: {
 			ResourceDefinitionVersionArn?:     string | fn.Fn
 			SubscriptionDefinitionVersionArn?: string | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 	LoggerDefinition :: {
 		Type: "AWS::Greengrass::LoggerDefinition"
@@ -222,6 +232,7 @@ Greengrass :: {
 				[string]: _
 			} | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 	LoggerDefinitionVersion :: {
 		Type: "AWS::Greengrass::LoggerDefinitionVersion"
@@ -235,6 +246,7 @@ Greengrass :: {
 				Type:      string | fn.Fn
 			}]
 		}
+		DependsOn?: string | [...string]
 	}
 	ResourceDefinition :: {
 		Type: "AWS::Greengrass::ResourceDefinition"
@@ -277,6 +289,7 @@ Greengrass :: {
 				[string]: _
 			} | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 	ResourceDefinitionVersion :: {
 		Type: "AWS::Greengrass::ResourceDefinitionVersion"
@@ -316,6 +329,7 @@ Greengrass :: {
 				}
 			}]
 		}
+		DependsOn?: string | [...string]
 	}
 	SubscriptionDefinition :: {
 		Type: "AWS::Greengrass::SubscriptionDefinition"
@@ -331,6 +345,7 @@ Greengrass :: {
 				[string]: _
 			} | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 	SubscriptionDefinitionVersion :: {
 		Type: "AWS::Greengrass::SubscriptionDefinitionVersion"
@@ -343,5 +358,6 @@ Greengrass :: {
 				Target:  string | fn.Fn
 			}]
 		}
+		DependsOn?: string | [...string]
 	}
 }

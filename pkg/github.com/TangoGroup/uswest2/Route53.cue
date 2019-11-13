@@ -32,6 +32,7 @@ Route53 :: {
 				Value: string | fn.Fn
 			}]
 		}
+		DependsOn?: string | [...string]
 	}
 	HostedZone :: {
 		Type: "AWS::Route53::HostedZone"
@@ -48,6 +49,7 @@ Route53 :: {
 				VPCRegion: string | fn.Fn
 			}]
 		}
+		DependsOn?: string | [...string]
 	}
 	RecordSet :: {
 		Type: "AWS::Route53::RecordSet"
@@ -76,6 +78,7 @@ Route53 :: {
 			Type:           (string & ("A" | "AAAA" | "CAA" | "CNAME" | "MX" | "NAPTR" | "NS" | "PTR" | "SOA" | "SPF" | "SRV" | "TXT")) | fn.Fn
 			Weight?:        int | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 	RecordSetGroup :: {
 		Type: "AWS::Route53::RecordSetGroup"
@@ -109,5 +112,6 @@ Route53 :: {
 				Weight?:        int | fn.Fn
 			}]
 		}
+		DependsOn?: string | [...string]
 	}
 }

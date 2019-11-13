@@ -18,5 +18,6 @@ CodeStar :: {
 			RepositoryName:         string | fn.Fn
 			RepositoryOwner:        string | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 }

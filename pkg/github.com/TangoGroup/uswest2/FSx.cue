@@ -39,5 +39,6 @@ FSx :: {
 				WeeklyMaintenanceStartTime?: string | fn.Fn
 			}
 		}
+		DependsOn?: string | [...string]
 	}
 }

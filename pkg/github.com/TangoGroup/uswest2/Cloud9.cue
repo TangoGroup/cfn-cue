@@ -17,5 +17,6 @@ Cloud9 :: {
 			}]
 			SubnetId?: string | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 }

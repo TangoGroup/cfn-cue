@@ -76,6 +76,7 @@ KinesisAnalyticsV2 :: {
 			RuntimeEnvironment:      string | fn.Fn
 			ServiceExecutionRole:    string | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 	ApplicationCloudWatchLoggingOption :: {
 		Type: "AWS::KinesisAnalyticsV2::ApplicationCloudWatchLoggingOption"
@@ -83,6 +84,7 @@ KinesisAnalyticsV2 :: {
 			ApplicationName: string | fn.Fn
 			CloudWatchLoggingOption: LogStreamARN: string | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 	ApplicationOutput :: {
 		Type: "AWS::KinesisAnalyticsV2::ApplicationOutput"
@@ -96,6 +98,7 @@ KinesisAnalyticsV2 :: {
 				Name?: string | fn.Fn
 			}
 		}
+		DependsOn?: string | [...string]
 	}
 	ApplicationReferenceDataSource :: {
 		Type: "AWS::KinesisAnalyticsV2::ApplicationReferenceDataSource"
@@ -127,5 +130,6 @@ KinesisAnalyticsV2 :: {
 				TableName?: string | fn.Fn
 			}
 		}
+		DependsOn?: string | [...string]
 	}
 }

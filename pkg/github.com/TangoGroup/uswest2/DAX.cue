@@ -22,6 +22,7 @@ DAX :: {
 				[string]: _
 			} | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 	ParameterGroup :: {
 		Type: "AWS::DAX::ParameterGroup"
@@ -32,6 +33,7 @@ DAX :: {
 				[string]: _
 			} | fn.Fn
 		}
+		DependsOn?: string | [...string]
 	}
 	SubnetGroup :: {
 		Type: "AWS::DAX::SubnetGroup"
@@ -40,5 +42,6 @@ DAX :: {
 			SubnetGroupName?: string | fn.Fn
 			SubnetIds: [...(string | fn.Fn)]
 		}
+		DependsOn?: string | [...string]
 	}
 }

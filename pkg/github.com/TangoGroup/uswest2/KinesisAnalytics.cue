@@ -44,6 +44,7 @@ KinesisAnalytics :: {
 				NamePrefix: string | fn.Fn
 			}]
 		}
+		DependsOn?: string | [...string]
 	}
 	ApplicationOutput :: {
 		Type: "AWS::KinesisAnalytics::ApplicationOutput"
@@ -66,6 +67,7 @@ KinesisAnalytics :: {
 				Name?: string | fn.Fn
 			}
 		}
+		DependsOn?: string | [...string]
 	}
 	ApplicationReferenceDataSource :: {
 		Type: "AWS::KinesisAnalytics::ApplicationReferenceDataSource"
@@ -98,5 +100,6 @@ KinesisAnalytics :: {
 				TableName?: string | fn.Fn
 			}
 		}
+		DependsOn?: string | [...string]
 	}
 }
