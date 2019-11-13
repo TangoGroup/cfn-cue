@@ -24,8 +24,9 @@ ElasticBeanstalk :: {
 				}
 			}
 		}
-		DependsOn?:      string | [...string]
-		DeletionPolicy?: "Delete" | "Retain"
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
 	}
 	ApplicationVersion :: {
@@ -38,8 +39,9 @@ ElasticBeanstalk :: {
 				S3Key:    string | fn.Fn
 			}
 		}
-		DependsOn?:      string | [...string]
-		DeletionPolicy?: "Delete" | "Retain"
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
 	}
 	ConfigurationTemplate :: {
@@ -61,8 +63,9 @@ ElasticBeanstalk :: {
 				TemplateName:    string | fn.Fn
 			}
 		}
-		DependsOn?:      string | [...string]
-		DeletionPolicy?: "Delete" | "Retain"
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
 	}
 	Environment :: {
@@ -92,8 +95,9 @@ ElasticBeanstalk :: {
 			}
 			VersionLabel?: string | fn.Fn
 		}
-		DependsOn?:      string | [...string]
-		DeletionPolicy?: "Delete" | "Retain"
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
 	}
 }

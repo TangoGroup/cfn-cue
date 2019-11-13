@@ -48,8 +48,9 @@ RDS :: {
 			UseLatestRestorableTime?: bool | fn.Fn
 			VpcSecurityGroupIds?: [...(string | fn.Fn)]
 		}
-		DependsOn?:      string | [...string]
-		DeletionPolicy?: "Delete" | "Retain" | "Snapshot"
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain" | "Snapshot"
+		UpdateReplacePolicy?: "Delete" | "Retain" | "Snapshot"
 		Metadata?: [string]: _
 	}
 	DBClusterParameterGroup :: {
@@ -65,8 +66,9 @@ RDS :: {
 				Value: string | fn.Fn
 			}]
 		}
-		DependsOn?:      string | [...string]
-		DeletionPolicy?: "Delete" | "Retain"
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
 	}
 	DBInstance :: {
@@ -132,8 +134,9 @@ RDS :: {
 			UseDefaultProcessorFeatures?: bool | fn.Fn
 			VPCSecurityGroups?: [...(string | fn.Fn)]
 		}
-		DependsOn?:      string | [...string]
-		DeletionPolicy?: "Delete" | "Retain" | "Snapshot"
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain" | "Snapshot"
+		UpdateReplacePolicy?: "Delete" | "Retain" | "Snapshot"
 		Metadata?: [string]: _
 	}
 	DBParameterGroup :: {
@@ -147,8 +150,9 @@ RDS :: {
 				Value: string | fn.Fn
 			}]
 		}
-		DependsOn?:      string | [...string]
-		DeletionPolicy?: "Delete" | "Retain"
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
 	}
 	DBSecurityGroup :: {
@@ -167,8 +171,9 @@ RDS :: {
 				Value: string | fn.Fn
 			}]
 		}
-		DependsOn?:      string | [...string]
-		DeletionPolicy?: "Delete" | "Retain"
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
 	}
 	DBSecurityGroupIngress :: {
@@ -180,8 +185,9 @@ RDS :: {
 			EC2SecurityGroupName?:    string | fn.Fn
 			EC2SecurityGroupOwnerId?: string | fn.Fn
 		}
-		DependsOn?:      string | [...string]
-		DeletionPolicy?: "Delete" | "Retain"
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
 	}
 	DBSubnetGroup :: {
@@ -195,8 +201,9 @@ RDS :: {
 				Value: string | fn.Fn
 			}]
 		}
-		DependsOn?:      string | [...string]
-		DeletionPolicy?: "Delete" | "Retain"
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
 	}
 	EventSubscription :: {
@@ -208,8 +215,9 @@ RDS :: {
 			SourceIds?: [...(string | fn.Fn)]
 			SourceType?: string | fn.Fn
 		}
-		DependsOn?:      string | [...string]
-		DeletionPolicy?: "Delete" | "Retain"
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
 	}
 	OptionGroup :: {
@@ -234,8 +242,9 @@ RDS :: {
 				Value: string | fn.Fn
 			}]
 		}
-		DependsOn?:      string | [...string]
-		DeletionPolicy?: "Delete" | "Retain"
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
 	}
 }

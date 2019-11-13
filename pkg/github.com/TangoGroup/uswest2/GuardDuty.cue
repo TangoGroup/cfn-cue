@@ -9,8 +9,9 @@ GuardDuty :: {
 			Enable:                      bool | fn.Fn
 			FindingPublishingFrequency?: (string & ("FIFTEEN_MINUTES" | "ONE_HOUR" | "SIX_HOURS")) | fn.Fn
 		}
-		DependsOn?:      string | [...string]
-		DeletionPolicy?: "Delete" | "Retain"
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
 	}
 	Filter :: {
@@ -34,8 +35,9 @@ GuardDuty :: {
 			Name?: string | fn.Fn
 			Rank:  int | fn.Fn
 		}
-		DependsOn?:      string | [...string]
-		DeletionPolicy?: "Delete" | "Retain"
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
 	}
 	IPSet :: {
@@ -47,8 +49,9 @@ GuardDuty :: {
 			Location:   string | fn.Fn
 			Name?:      string | fn.Fn
 		}
-		DependsOn?:      string | [...string]
-		DeletionPolicy?: "Delete" | "Retain"
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
 	}
 	Master :: {
@@ -58,8 +61,9 @@ GuardDuty :: {
 			InvitationId?: string | fn.Fn
 			MasterId:      string | fn.Fn
 		}
-		DependsOn?:      string | [...string]
-		DeletionPolicy?: "Delete" | "Retain"
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
 	}
 	Member :: {
@@ -72,8 +76,9 @@ GuardDuty :: {
 			Message?:                  string | fn.Fn
 			Status?:                   (string & ("Created" | "Disabled" | "Enabled" | "Invited" | "Removed" | "Resigned")) | fn.Fn
 		}
-		DependsOn?:      string | [...string]
-		DeletionPolicy?: "Delete" | "Retain"
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
 	}
 	ThreatIntelSet :: {
@@ -85,8 +90,9 @@ GuardDuty :: {
 			Location:   string | fn.Fn
 			Name?:      string | fn.Fn
 		}
-		DependsOn?:      string | [...string]
-		DeletionPolicy?: "Delete" | "Retain"
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
 	}
 }

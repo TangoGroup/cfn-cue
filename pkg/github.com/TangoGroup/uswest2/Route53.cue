@@ -32,8 +32,9 @@ Route53 :: {
 				Value: string | fn.Fn
 			}]
 		}
-		DependsOn?:      string | [...string]
-		DeletionPolicy?: "Delete" | "Retain"
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
 	}
 	HostedZone :: {
@@ -51,8 +52,9 @@ Route53 :: {
 				VPCRegion: string | fn.Fn
 			}]
 		}
-		DependsOn?:      string | [...string]
-		DeletionPolicy?: "Delete" | "Retain"
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
 	}
 	RecordSet :: {
@@ -82,8 +84,9 @@ Route53 :: {
 			Type:           (string & ("A" | "AAAA" | "CAA" | "CNAME" | "MX" | "NAPTR" | "NS" | "PTR" | "SOA" | "SPF" | "SRV" | "TXT")) | fn.Fn
 			Weight?:        int | fn.Fn
 		}
-		DependsOn?:      string | [...string]
-		DeletionPolicy?: "Delete" | "Retain"
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
 	}
 	RecordSetGroup :: {
@@ -118,8 +121,9 @@ Route53 :: {
 				Weight?:        int | fn.Fn
 			}]
 		}
-		DependsOn?:      string | [...string]
-		DeletionPolicy?: "Delete" | "Retain"
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
 	}
 }

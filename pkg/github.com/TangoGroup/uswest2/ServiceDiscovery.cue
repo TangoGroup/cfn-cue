@@ -9,8 +9,9 @@ ServiceDiscovery :: {
 			Description?: string | fn.Fn
 			Name:         string | fn.Fn
 		}
-		DependsOn?:      string | [...string]
-		DeletionPolicy?: "Delete" | "Retain"
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
 	}
 	Instance :: {
@@ -20,8 +21,9 @@ ServiceDiscovery :: {
 			InstanceId?: string | fn.Fn
 			ServiceId:   string | fn.Fn
 		}
-		DependsOn?:      string | [...string]
-		DeletionPolicy?: "Delete" | "Retain"
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
 	}
 	PrivateDnsNamespace :: {
@@ -31,8 +33,9 @@ ServiceDiscovery :: {
 			Name:         string | fn.Fn
 			Vpc:          string | fn.Fn
 		}
-		DependsOn?:      string | [...string]
-		DeletionPolicy?: "Delete" | "Retain"
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
 	}
 	PublicDnsNamespace :: {
@@ -41,8 +44,9 @@ ServiceDiscovery :: {
 			Description?: string | fn.Fn
 			Name:         string | fn.Fn
 		}
-		DependsOn?:      string | [...string]
-		DeletionPolicy?: "Delete" | "Retain"
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
 	}
 	Service :: {
@@ -66,8 +70,9 @@ ServiceDiscovery :: {
 			Name?:        string | fn.Fn
 			NamespaceId?: string | fn.Fn
 		}
-		DependsOn?:      string | [...string]
-		DeletionPolicy?: "Delete" | "Retain"
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
 	}
 }

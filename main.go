@@ -601,6 +601,11 @@ func main() {
 					Optional: token.Elided.Pos(),
 					Value:    deletionPolicies,
 				})
+				resourceElts = append(resourceElts, &ast.Field{
+					Label:    ast.NewIdent("UpdateReplacePolicy"),
+					Optional: token.Elided.Pos(),
+					Value:    deletionPolicies,
+				})
 
 				resourceElts = append(resourceElts, &ast.Field{
 					Label:    ast.NewIdent("Metadata"),

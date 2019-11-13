@@ -24,8 +24,9 @@ SQS :: {
 			}]
 			VisibilityTimeout?: (int & (>=0 & <=43200)) | fn.Fn
 		}
-		DependsOn?:      string | [...string]
-		DeletionPolicy?: "Delete" | "Retain"
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
 	}
 	QueuePolicy :: {
@@ -36,8 +37,9 @@ SQS :: {
 			} | fn.Fn
 			Queues: [...(string | fn.Fn)]
 		}
-		DependsOn?:      string | [...string]
-		DeletionPolicy?: "Delete" | "Retain"
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
 	}
 }

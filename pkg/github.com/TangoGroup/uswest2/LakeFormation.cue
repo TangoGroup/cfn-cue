@@ -8,8 +8,9 @@ LakeFormation :: {
 		Properties: Admins?: [...{
 			DataLakePrincipalIdentifier?: string | fn.Fn
 		}]
-		DependsOn?:      string | [...string]
-		DeletionPolicy?: "Delete" | "Retain"
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
 	}
 	Permissions :: {
@@ -26,8 +27,9 @@ LakeFormation :: {
 				}
 			}
 		}
-		DependsOn?:      string | [...string]
-		DeletionPolicy?: "Delete" | "Retain"
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
 	}
 	Resource :: {
@@ -37,8 +39,9 @@ LakeFormation :: {
 			RoleArn?:             string | fn.Fn
 			UseServiceLinkedRole: bool | fn.Fn
 		}
-		DependsOn?:      string | [...string]
-		DeletionPolicy?: "Delete" | "Retain"
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
 	}
 }

@@ -55,8 +55,9 @@ ElasticLoadBalancingV2 :: {
 			Protocol:        string | fn.Fn
 			SslPolicy?:      string | fn.Fn
 		}
-		DependsOn?:      string | [...string]
-		DeletionPolicy?: "Delete" | "Retain"
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
 	}
 	ListenerCertificate :: {
@@ -67,8 +68,9 @@ ElasticLoadBalancingV2 :: {
 			}]
 			ListenerArn: string | fn.Fn
 		}
-		DependsOn?:      string | [...string]
-		DeletionPolicy?: "Delete" | "Retain"
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
 	}
 	ListenerRule :: {
@@ -134,8 +136,9 @@ ElasticLoadBalancingV2 :: {
 			ListenerArn: string | fn.Fn
 			Priority:    int | fn.Fn
 		}
-		DependsOn?:      string | [...string]
-		DeletionPolicy?: "Delete" | "Retain"
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
 	}
 	LoadBalancer :: {
@@ -160,8 +163,9 @@ ElasticLoadBalancingV2 :: {
 			}]
 			Type?: string | fn.Fn
 		}
-		DependsOn?:      string | [...string]
-		DeletionPolicy?: "Delete" | "Retain"
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
 	}
 	TargetGroup :: {
@@ -195,8 +199,9 @@ ElasticLoadBalancingV2 :: {
 			UnhealthyThresholdCount?: (int & (>=2 & <=10)) | fn.Fn
 			VpcId?:                   string | fn.Fn
 		}
-		DependsOn?:      string | [...string]
-		DeletionPolicy?: "Delete" | "Retain"
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
 	}
 }

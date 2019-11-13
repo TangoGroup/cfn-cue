@@ -76,8 +76,9 @@ KinesisAnalyticsV2 :: {
 			RuntimeEnvironment:      string | fn.Fn
 			ServiceExecutionRole:    string | fn.Fn
 		}
-		DependsOn?:      string | [...string]
-		DeletionPolicy?: "Delete" | "Retain"
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
 	}
 	ApplicationCloudWatchLoggingOption :: {
@@ -86,8 +87,9 @@ KinesisAnalyticsV2 :: {
 			ApplicationName: string | fn.Fn
 			CloudWatchLoggingOption: LogStreamARN: string | fn.Fn
 		}
-		DependsOn?:      string | [...string]
-		DeletionPolicy?: "Delete" | "Retain"
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
 	}
 	ApplicationOutput :: {
@@ -102,8 +104,9 @@ KinesisAnalyticsV2 :: {
 				Name?: string | fn.Fn
 			}
 		}
-		DependsOn?:      string | [...string]
-		DeletionPolicy?: "Delete" | "Retain"
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
 	}
 	ApplicationReferenceDataSource :: {
@@ -136,8 +139,9 @@ KinesisAnalyticsV2 :: {
 				TableName?: string | fn.Fn
 			}
 		}
-		DependsOn?:      string | [...string]
-		DeletionPolicy?: "Delete" | "Retain"
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
 	}
 }

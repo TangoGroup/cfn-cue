@@ -9,8 +9,9 @@ CloudFormation :: {
 			ServiceToken: string | fn.Fn
 			[string]:     _
 		}
-		DependsOn?:      string | [...string]
-		DeletionPolicy?: "Delete" | "Retain"
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
 	}
 	Macro :: {
@@ -22,8 +23,9 @@ CloudFormation :: {
 			LogRoleARN?:   string | fn.Fn
 			Name:          string | fn.Fn
 		}
-		DependsOn?:      string | [...string]
-		DeletionPolicy?: "Delete" | "Retain"
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
 	}
 	Stack :: {
@@ -38,8 +40,9 @@ CloudFormation :: {
 			TemplateURL:       string | fn.Fn
 			TimeoutInMinutes?: int | fn.Fn
 		}
-		DependsOn?:      string | [...string]
-		DeletionPolicy?: "Delete" | "Retain"
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
 	}
 	WaitCondition :: {
@@ -57,15 +60,17 @@ CloudFormation :: {
 				Timeout?: string
 			}
 		}
-		DeletionPolicy?: "Delete" | "Retain"
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
 	}
 	WaitConditionHandle :: {
 		Type: "AWS::CloudFormation::WaitConditionHandle"
 		Properties: {
 		}
-		DependsOn?:      string | [...string]
-		DeletionPolicy?: "Delete" | "Retain"
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
 	}
 }
