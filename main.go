@@ -340,6 +340,13 @@ func createStructFromResource(resourceName string, resource Resource, resourceSu
 		propertyDecls = append(propertyDecls, value)
 	}
 
+	if resourceName == "AWS::CloudFormation::CustomResource" {
+		propertyDecls = append(propertyDecls, &ast.Field{
+			Label: ast.NewList(&ast.BasicLit{Value: "string"}),
+			Value: &ast.BasicLit{Value: "_"},
+		})
+	}
+
 	// if len(imports) > 0 {
 	// 	fmt.Println("struct resource imports:", imports)
 	// }
@@ -501,11 +508,22 @@ func main() {
 					Label: ast.NewIdent("Properties"),
 					Value: &properties,
 				}
+				resourceType := ast.Field{
+					Label: ast.NewIdent("Type"),
+					Value: ast.NewString(resourceName),
+				}
+				if resourceName == "AWS::CloudFormation::CustomResource" {
+					resourceType.Value = &ast.BinaryExpr{
+						X:  resourceType.Value,
+						Op: token.OR,
+						Y: &ast.UnaryExpr{
+							Op: token.MAT,
+							X:  &ast.BasicLit{Kind: token.STRING, Value: "#\"^Custom::[a-zA-Z0-9_@-]{1,60}$\"#"},
+						},
+					}
+				}
 				resourceElts := []ast.Decl{
-					&ast.Field{
-						Label: ast.NewIdent("Type"),
-						Value: ast.NewString(resourceName),
-					},
+					&resourceType,
 					propertiesStruct,
 					&ast.Field{
 						Label:    ast.NewIdent("DependsOn"),
