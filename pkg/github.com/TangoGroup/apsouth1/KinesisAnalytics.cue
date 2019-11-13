@@ -12,6 +12,10 @@ KinesisAnalytics :: {
 			Inputs: [...{
 			}]
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	ApplicationOutput :: {
 		Type: "AWS::KinesisAnalytics::ApplicationOutput"
@@ -20,6 +24,10 @@ KinesisAnalytics :: {
 			Output: {
 			}
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	ApplicationReferenceDataSource :: {
 		Type: "AWS::KinesisAnalytics::ApplicationReferenceDataSource"
@@ -28,5 +36,9 @@ KinesisAnalytics :: {
 			ReferenceDataSource: {
 			}
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 }

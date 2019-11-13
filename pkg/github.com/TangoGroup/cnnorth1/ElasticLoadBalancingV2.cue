@@ -55,6 +55,10 @@ ElasticLoadBalancingV2 :: {
 			Protocol:        string | fn.Fn
 			SslPolicy?:      string | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	ListenerCertificate :: {
 		Type: "AWS::ElasticLoadBalancingV2::ListenerCertificate"
@@ -64,6 +68,10 @@ ElasticLoadBalancingV2 :: {
 			}]
 			ListenerArn: string | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	ListenerRule :: {
 		Type: "AWS::ElasticLoadBalancingV2::ListenerRule"
@@ -128,6 +136,10 @@ ElasticLoadBalancingV2 :: {
 			ListenerArn: string | fn.Fn
 			Priority:    int | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	LoadBalancer :: {
 		Type: "AWS::ElasticLoadBalancingV2::LoadBalancer"
@@ -151,6 +163,10 @@ ElasticLoadBalancingV2 :: {
 			}]
 			Type?: string | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	TargetGroup :: {
 		Type: "AWS::ElasticLoadBalancingV2::TargetGroup"
@@ -183,5 +199,9 @@ ElasticLoadBalancingV2 :: {
 			UnhealthyThresholdCount?: (int & (>=2 & <=10)) | fn.Fn
 			VpcId?:                   string | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 }

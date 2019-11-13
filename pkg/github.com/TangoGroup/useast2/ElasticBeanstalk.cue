@@ -24,6 +24,10 @@ ElasticBeanstalk :: {
 				}
 			}
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	ApplicationVersion :: {
 		Type: "AWS::ElasticBeanstalk::ApplicationVersion"
@@ -35,6 +39,10 @@ ElasticBeanstalk :: {
 				S3Key:    string | fn.Fn
 			}
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	ConfigurationTemplate :: {
 		Type: "AWS::ElasticBeanstalk::ConfigurationTemplate"
@@ -55,6 +63,10 @@ ElasticBeanstalk :: {
 				TemplateName:    string | fn.Fn
 			}
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	Environment :: {
 		Type: "AWS::ElasticBeanstalk::Environment"
@@ -83,5 +95,9 @@ ElasticBeanstalk :: {
 			}
 			VersionLabel?: string | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 }

@@ -21,6 +21,10 @@ SSM :: {
 				Values: [...(string | fn.Fn)]
 			}]
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	Document :: {
 		Type: "AWS::SSM::Document"
@@ -30,8 +34,14 @@ SSM :: {
 			} | fn.Fn
 			DocumentType?: string | fn.Fn
 			Tags?: [...{
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
 			}]
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	MaintenanceWindowTarget :: {
 		Type: "AWS::SSM::MaintenanceWindowTarget"
@@ -46,5 +56,9 @@ SSM :: {
 			}]
 			WindowId: string | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 }

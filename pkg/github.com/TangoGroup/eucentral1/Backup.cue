@@ -27,6 +27,10 @@ Backup :: {
 				[string]: _
 			} | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	BackupSelection :: {
 		Type: "AWS::Backup::BackupSelection"
@@ -43,6 +47,10 @@ Backup :: {
 				SelectionName: string | fn.Fn
 			}
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	BackupVault :: {
 		Type: "AWS::Backup::BackupVault"
@@ -60,5 +68,9 @@ Backup :: {
 				SNSTopicArn: string | fn.Fn
 			}
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 }

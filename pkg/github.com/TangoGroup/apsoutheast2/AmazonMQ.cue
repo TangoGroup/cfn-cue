@@ -43,6 +43,10 @@ AmazonMQ :: {
 				Username: string | fn.Fn
 			}]
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	Configuration :: {
 		Type: "AWS::AmazonMQ::Configuration"
@@ -57,6 +61,10 @@ AmazonMQ :: {
 				Value: string | fn.Fn
 			}]
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	ConfigurationAssociation :: {
 		Type: "AWS::AmazonMQ::ConfigurationAssociation"
@@ -67,5 +75,9 @@ AmazonMQ :: {
 				Revision: int | fn.Fn
 			}
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 }

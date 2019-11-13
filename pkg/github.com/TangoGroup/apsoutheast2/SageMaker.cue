@@ -13,6 +13,10 @@ SageMaker :: {
 				SecretArn?:    string | fn.Fn
 			}
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	Model :: {
 		Type: "AWS::SageMaker::Model"
@@ -44,6 +48,10 @@ SageMaker :: {
 				Subnets: [...(string | fn.Fn)]
 			}
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	NotebookInstance :: {
 		Type: "AWS::SageMaker::NotebookInstance"
@@ -61,9 +69,15 @@ SageMaker :: {
 			SecurityGroupIds?: [...(string | fn.Fn)]
 			SubnetId?: string | fn.Fn
 			Tags?: [...{
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
 			}]
 			VolumeSizeInGB?: (int & (>=5 & <=16384)) | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	Workteam :: {
 		Type: "AWS::SageMaker::Workteam"
@@ -83,5 +97,9 @@ SageMaker :: {
 			}]
 			WorkteamName?: string | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 }

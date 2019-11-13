@@ -184,6 +184,10 @@ S3 :: {
 				}]
 			}
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	BucketPolicy :: {
 		Type: "AWS::S3::BucketPolicy"
@@ -193,5 +197,9 @@ S3 :: {
 				[string]: _
 			} | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 }

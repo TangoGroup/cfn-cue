@@ -21,6 +21,10 @@ SSM :: {
 				Values: [...(string | fn.Fn)]
 			}]
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	Document :: {
 		Type: "AWS::SSM::Document"
@@ -30,8 +34,14 @@ SSM :: {
 			} | fn.Fn
 			DocumentType?: string | fn.Fn
 			Tags?: [...{
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
 			}]
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	MaintenanceWindow :: {
 		Type: "AWS::SSM::MaintenanceWindow"
@@ -46,8 +56,14 @@ SSM :: {
 			ScheduleTimezone?:        string | fn.Fn
 			StartDate?:               string | fn.Fn
 			Tags?: [...{
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
 			}]
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	MaintenanceWindowTarget :: {
 		Type: "AWS::SSM::MaintenanceWindowTarget"
@@ -62,6 +78,10 @@ SSM :: {
 			}]
 			WindowId: string | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	ResourceDataSync :: {
 		Type: "AWS::SSM::ResourceDataSync"
@@ -73,5 +93,9 @@ SSM :: {
 			SyncFormat:    string | fn.Fn
 			SyncName:      string | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 }

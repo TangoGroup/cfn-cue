@@ -93,6 +93,10 @@ MediaLive :: {
 				[string]: _
 			} | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	Input :: {
 		Type: "AWS::MediaLive::Input"
@@ -120,6 +124,10 @@ MediaLive :: {
 				SubnetIds?: [...(string | fn.Fn)]
 			}
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	InputSecurityGroup :: {
 		Type: "AWS::MediaLive::InputSecurityGroup"
@@ -131,5 +139,9 @@ MediaLive :: {
 				Cidr?: string | fn.Fn
 			}]
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 }

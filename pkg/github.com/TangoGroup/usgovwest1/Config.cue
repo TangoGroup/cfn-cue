@@ -28,6 +28,10 @@ Config :: {
 				SourceIdentifier: string | fn.Fn
 			}
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	ConfigurationRecorder :: {
 		Type: "AWS::Config::ConfigurationRecorder"
@@ -40,6 +44,10 @@ Config :: {
 			}
 			RoleARN: string | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	DeliveryChannel :: {
 		Type: "AWS::Config::DeliveryChannel"
@@ -50,6 +58,10 @@ Config :: {
 			S3KeyPrefix?: string | fn.Fn
 			SnsTopicARN?: string | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	RemediationConfiguration :: {
 		Type: "AWS::Config::RemediationConfiguration"
@@ -70,5 +82,9 @@ Config :: {
 			TargetType:           string | fn.Fn
 			TargetVersion?:       string | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 }

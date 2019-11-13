@@ -6,6 +6,10 @@ ApiGateway :: {
 	Account :: {
 		Type: "AWS::ApiGateway::Account"
 		Properties: CloudWatchRoleArn?: string | fn.Fn
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	ApiKey :: {
 		Type: "AWS::ApiGateway::ApiKey"
@@ -25,6 +29,10 @@ ApiGateway :: {
 			}]
 			Value?: string | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	Authorizer :: {
 		Type: "AWS::ApiGateway::Authorizer"
@@ -40,6 +48,10 @@ ApiGateway :: {
 			RestApiId: string | fn.Fn
 			Type:      (string & ("COGNITO_USER_POOLS" | "REQUEST" | "TOKEN")) | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	BasePathMapping :: {
 		Type: "AWS::ApiGateway::BasePathMapping"
@@ -49,14 +61,24 @@ ApiGateway :: {
 			RestApiId?: string | fn.Fn
 			Stage?:     string | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	ClientCertificate :: {
 		Type: "AWS::ApiGateway::ClientCertificate"
 		Properties: {
 			Description?: string | fn.Fn
 			Tags?: [...{
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
 			}]
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	Deployment :: {
 		Type: "AWS::ApiGateway::Deployment"
@@ -112,6 +134,10 @@ ApiGateway :: {
 			}
 			StageName?: string | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	DocumentationPart :: {
 		Type: "AWS::ApiGateway::DocumentationPart"
@@ -126,6 +152,10 @@ ApiGateway :: {
 			Properties: string | fn.Fn
 			RestApiId:  string | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	DocumentationVersion :: {
 		Type: "AWS::ApiGateway::DocumentationVersion"
@@ -134,6 +164,10 @@ ApiGateway :: {
 			DocumentationVersion: string | fn.Fn
 			RestApiId:            string | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	DomainName :: {
 		Type: "AWS::ApiGateway::DomainName"
@@ -148,6 +182,10 @@ ApiGateway :: {
 				Value: string | fn.Fn
 			}]
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	GatewayResponse :: {
 		Type: "AWS::ApiGateway::GatewayResponse"
@@ -158,6 +196,10 @@ ApiGateway :: {
 			RestApiId:    string | fn.Fn
 			StatusCode?:  string | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	Method :: {
 		Type: "AWS::ApiGateway::Method"
@@ -201,6 +243,10 @@ ApiGateway :: {
 			ResourceId:          string | fn.Fn
 			RestApiId:           string | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	Model :: {
 		Type: "AWS::ApiGateway::Model"
@@ -213,6 +259,10 @@ ApiGateway :: {
 				[string]: _
 			} | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	RequestValidator :: {
 		Type: "AWS::ApiGateway::RequestValidator"
@@ -222,6 +272,10 @@ ApiGateway :: {
 			ValidateRequestBody?:       bool | fn.Fn
 			ValidateRequestParameters?: bool | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	Resource :: {
 		Type: "AWS::ApiGateway::Resource"
@@ -230,6 +284,10 @@ ApiGateway :: {
 			PathPart:  string | fn.Fn
 			RestApiId: string | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	RestApi :: {
 		Type: "AWS::ApiGateway::RestApi"
@@ -260,6 +318,10 @@ ApiGateway :: {
 				Value: string | fn.Fn
 			}]
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	Stage :: {
 		Type: "AWS::ApiGateway::Stage"
@@ -301,6 +363,10 @@ ApiGateway :: {
 			TracingEnabled?: bool | fn.Fn
 			Variables?: [string]: string | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	UsagePlan :: {
 		Type: "AWS::ApiGateway::UsagePlan"
@@ -329,6 +395,10 @@ ApiGateway :: {
 			}
 			UsagePlanName?: string | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	UsagePlanKey :: {
 		Type: "AWS::ApiGateway::UsagePlanKey"
@@ -337,6 +407,10 @@ ApiGateway :: {
 			KeyType:     (string & ("API_KEY")) | fn.Fn
 			UsagePlanId: string | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	VpcLink :: {
 		Type: "AWS::ApiGateway::VpcLink"
@@ -345,5 +419,9 @@ ApiGateway :: {
 			Name:         string | fn.Fn
 			TargetArns: [...(string | fn.Fn)]
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 }

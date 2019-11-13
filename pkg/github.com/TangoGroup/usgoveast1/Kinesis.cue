@@ -18,6 +18,10 @@ Kinesis :: {
 				Value: string | fn.Fn
 			}]
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	StreamConsumer :: {
 		Type: "AWS::Kinesis::StreamConsumer"
@@ -25,5 +29,9 @@ Kinesis :: {
 			ConsumerName: string | fn.Fn
 			StreamARN:    string | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 }

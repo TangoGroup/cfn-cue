@@ -11,6 +11,10 @@ SecretsManager :: {
 			} | fn.Fn
 			SecretId: string | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	RotationSchedule :: {
 		Type: "AWS::SecretsManager::RotationSchedule"
@@ -20,6 +24,10 @@ SecretsManager :: {
 			}
 			SecretId: string | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	Secret :: {
 		Type: "AWS::SecretsManager::Secret"
@@ -31,8 +39,14 @@ SecretsManager :: {
 			Name?:         string | fn.Fn
 			SecretString?: string | fn.Fn
 			Tags?: [...{
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
 			}]
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	SecretTargetAttachment :: {
 		Type: "AWS::SecretsManager::SecretTargetAttachment"
@@ -41,5 +55,9 @@ SecretsManager :: {
 			TargetId:   string | fn.Fn
 			TargetType: string | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 }

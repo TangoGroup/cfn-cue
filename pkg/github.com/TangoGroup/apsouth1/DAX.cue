@@ -23,6 +23,10 @@ DAX :: {
 				[string]: _
 			} | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	ParameterGroup :: {
 		Type: "AWS::DAX::ParameterGroup"
@@ -33,6 +37,10 @@ DAX :: {
 				[string]: _
 			} | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	SubnetGroup :: {
 		Type: "AWS::DAX::SubnetGroup"
@@ -41,5 +49,9 @@ DAX :: {
 			SubnetGroupName?: string | fn.Fn
 			SubnetIds: [...(string | fn.Fn)]
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 }

@@ -31,6 +31,10 @@ Glue :: {
 				RowTag:         string | fn.Fn
 			}
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	Crawler :: {
 		Type: "AWS::Glue::Crawler"
@@ -70,6 +74,10 @@ Glue :: {
 				}]
 			}
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	DataCatalogEncryptionSettings :: {
 		Type: "AWS::Glue::DataCatalogEncryptionSettings"
@@ -86,6 +94,10 @@ Glue :: {
 				}
 			}
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	DevEndpoint :: {
 		Type: "AWS::Glue::DevEndpoint"
@@ -109,6 +121,10 @@ Glue :: {
 			} | fn.Fn
 			WorkerType?: string | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	Job :: {
 		Type: "AWS::Glue::Job"
@@ -140,6 +156,10 @@ Glue :: {
 			Timeout?:    int | fn.Fn
 			WorkerType?: string | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	SecurityConfiguration :: {
 		Type: "AWS::Glue::SecurityConfiguration"
@@ -160,6 +180,10 @@ Glue :: {
 			}
 			Name: string | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	Trigger :: {
 		Type: "AWS::Glue::Trigger"
@@ -194,6 +218,10 @@ Glue :: {
 			Type:          (string & ("CONDITIONAL" | "ON_DEMAND" | "SCHEDULED")) | fn.Fn
 			WorkflowName?: string | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	Workflow :: {
 		Type: "AWS::Glue::Workflow"
@@ -207,5 +235,9 @@ Glue :: {
 				[string]: _
 			} | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 }

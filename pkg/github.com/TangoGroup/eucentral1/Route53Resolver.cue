@@ -12,8 +12,14 @@ Route53Resolver :: {
 			Name?: string | fn.Fn
 			SecurityGroupIds: [...(string | fn.Fn)]
 			Tags?: [...{
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
 			}]
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	ResolverRule :: {
 		Type: "AWS::Route53Resolver::ResolverRule"
@@ -23,10 +29,16 @@ Route53Resolver :: {
 			ResolverEndpointId?: string | fn.Fn
 			RuleType:            string | fn.Fn
 			Tags?: [...{
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
 			}]
 			TargetIps?: [...{
 			}]
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	ResolverRuleAssociation :: {
 		Type: "AWS::Route53Resolver::ResolverRuleAssociation"
@@ -35,5 +47,9 @@ Route53Resolver :: {
 			ResolverRuleId: string | fn.Fn
 			VPCId:          string | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 }

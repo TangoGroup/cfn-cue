@@ -8,6 +8,10 @@ LakeFormation :: {
 		Properties: Admins?: [...{
 			DataLakePrincipalIdentifier?: string | fn.Fn
 		}]
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	Permissions :: {
 		Type: "AWS::LakeFormation::Permissions"
@@ -23,6 +27,10 @@ LakeFormation :: {
 				}
 			}
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	Resource :: {
 		Type: "AWS::LakeFormation::Resource"
@@ -31,5 +39,9 @@ LakeFormation :: {
 			RoleArn?:             string | fn.Fn
 			UseServiceLinkedRole: bool | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 }

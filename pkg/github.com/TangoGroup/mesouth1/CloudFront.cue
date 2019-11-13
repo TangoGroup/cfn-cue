@@ -7,6 +7,10 @@ CloudFront :: {
 		Type: "AWS::CloudFront::CloudFrontOriginAccessIdentity"
 		Properties: CloudFrontOriginAccessIdentityConfig: {
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	Distribution :: {
 		Type: "AWS::CloudFront::Distribution"
@@ -14,8 +18,14 @@ CloudFront :: {
 			DistributionConfig: {
 			}
 			Tags?: [...{
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
 			}]
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	StreamingDistribution :: {
 		Type: "AWS::CloudFront::StreamingDistribution"
@@ -23,7 +33,13 @@ CloudFront :: {
 			StreamingDistributionConfig: {
 			}
 			Tags: [...{
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
 			}]
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 }

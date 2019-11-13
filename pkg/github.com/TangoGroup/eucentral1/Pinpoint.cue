@@ -11,6 +11,10 @@ Pinpoint :: {
 			ClientSecret:  string | fn.Fn
 			Enabled?:      bool | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	APNSChannel :: {
 		Type: "AWS::Pinpoint::APNSChannel"
@@ -25,6 +29,10 @@ Pinpoint :: {
 			TokenKey?:                    string | fn.Fn
 			TokenKeyId?:                  string | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	APNSSandboxChannel :: {
 		Type: "AWS::Pinpoint::APNSSandboxChannel"
@@ -39,6 +47,10 @@ Pinpoint :: {
 			TokenKey?:                    string | fn.Fn
 			TokenKeyId?:                  string | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	APNSVoipChannel :: {
 		Type: "AWS::Pinpoint::APNSVoipChannel"
@@ -53,6 +65,10 @@ Pinpoint :: {
 			TokenKey?:                    string | fn.Fn
 			TokenKeyId?:                  string | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	APNSVoipSandboxChannel :: {
 		Type: "AWS::Pinpoint::APNSVoipSandboxChannel"
@@ -67,6 +83,10 @@ Pinpoint :: {
 			TokenKey?:                    string | fn.Fn
 			TokenKeyId?:                  string | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	App :: {
 		Type: "AWS::Pinpoint::App"
@@ -76,6 +96,10 @@ Pinpoint :: {
 				[string]: _
 			} | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	ApplicationSettings :: {
 		Type: "AWS::Pinpoint::ApplicationSettings"
@@ -98,6 +122,10 @@ Pinpoint :: {
 				Start: string | fn.Fn
 			}
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	BaiduChannel :: {
 		Type: "AWS::Pinpoint::BaiduChannel"
@@ -107,6 +135,10 @@ Pinpoint :: {
 			Enabled?:      bool | fn.Fn
 			SecretKey:     string | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	Campaign :: {
 		Type: "AWS::Pinpoint::Campaign"
@@ -358,6 +390,10 @@ Pinpoint :: {
 			TreatmentDescription?: string | fn.Fn
 			TreatmentName?:        string | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	EmailChannel :: {
 		Type: "AWS::Pinpoint::EmailChannel"
@@ -369,6 +405,10 @@ Pinpoint :: {
 			Identity:          string | fn.Fn
 			RoleArn?:          string | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	EventStream :: {
 		Type: "AWS::Pinpoint::EventStream"
@@ -377,6 +417,10 @@ Pinpoint :: {
 			DestinationStreamArn: string | fn.Fn
 			RoleArn:              string | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	GCMChannel :: {
 		Type: "AWS::Pinpoint::GCMChannel"
@@ -385,6 +429,10 @@ Pinpoint :: {
 			ApplicationId: string | fn.Fn
 			Enabled?:      bool | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	SMSChannel :: {
 		Type: "AWS::Pinpoint::SMSChannel"
@@ -394,6 +442,10 @@ Pinpoint :: {
 			SenderId?:     string | fn.Fn
 			ShortCode?:    string | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	Segment :: {
 		Type: "AWS::Pinpoint::Segment"
@@ -523,6 +575,10 @@ Pinpoint :: {
 				[string]: _
 			} | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	VoiceChannel :: {
 		Type: "AWS::Pinpoint::VoiceChannel"
@@ -530,5 +586,9 @@ Pinpoint :: {
 			ApplicationId: string | fn.Fn
 			Enabled?:      bool | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 }

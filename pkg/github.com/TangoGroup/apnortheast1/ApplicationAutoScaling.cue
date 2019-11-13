@@ -31,6 +31,10 @@ ApplicationAutoScaling :: {
 				ScheduledScalingSuspended?:  bool | fn.Fn
 			}
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	ScalingPolicy :: {
 		Type: "AWS::ApplicationAutoScaling::ScalingPolicy"
@@ -73,5 +77,9 @@ ApplicationAutoScaling :: {
 				TargetValue:       float | fn.Fn
 			}
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 }

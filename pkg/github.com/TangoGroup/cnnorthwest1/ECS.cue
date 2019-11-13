@@ -8,8 +8,14 @@ ECS :: {
 		Properties: {
 			ClusterName?: string | fn.Fn
 			Tags?: [...{
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
 			}]
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	Service :: {
 		Type: "AWS::ECS::Service"
@@ -59,6 +65,10 @@ ECS :: {
 			}]
 			TaskDefinition: string | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	TaskDefinition :: {
 		Type: "AWS::ECS::TaskDefinition"
@@ -206,5 +216,9 @@ ECS :: {
 				Name?: string | fn.Fn
 			}]
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 }

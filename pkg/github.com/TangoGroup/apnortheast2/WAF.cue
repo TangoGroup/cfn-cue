@@ -18,6 +18,10 @@ WAF :: {
 			}]
 			Name: string | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	IPSet :: {
 		Type: "AWS::WAF::IPSet"
@@ -28,6 +32,10 @@ WAF :: {
 			}]
 			Name: string | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	Rule :: {
 		Type: "AWS::WAF::Rule"
@@ -40,6 +48,10 @@ WAF :: {
 				Type:    (string & ("ByteMatch" | "GeoMatch" | "IPMatch" | "RegexMatch" | "SizeConstraint" | "SqlInjectionMatch" | "XssMatch")) | fn.Fn
 			}]
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	SizeConstraintSet :: {
 		Type: "AWS::WAF::SizeConstraintSet"
@@ -55,6 +67,10 @@ WAF :: {
 				TextTransformation: string | fn.Fn
 			}]
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	SqlInjectionMatchSet :: {
 		Type: "AWS::WAF::SqlInjectionMatchSet"
@@ -68,6 +84,10 @@ WAF :: {
 				TextTransformation: string | fn.Fn
 			}]
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	WebACL :: {
 		Type: "AWS::WAF::WebACL"
@@ -81,6 +101,10 @@ WAF :: {
 				RuleId:   string | fn.Fn
 			}]
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	XssMatchSet :: {
 		Type: "AWS::WAF::XssMatchSet"
@@ -94,5 +118,9 @@ WAF :: {
 				TextTransformation: string | fn.Fn
 			}]
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 }

@@ -13,6 +13,10 @@ AppStream :: {
 				AccountPassword: string | fn.Fn
 			}
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	Fleet :: {
 		Type: "AWS::AppStream::Fleet"
@@ -42,6 +46,10 @@ AppStream :: {
 				SubnetIds?: [...(string | fn.Fn)]
 			}
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	ImageBuilder :: {
 		Type: "AWS::AppStream::ImageBuilder"
@@ -71,6 +79,10 @@ AppStream :: {
 				SubnetIds?: [...(string | fn.Fn)]
 			}
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	Stack :: {
 		Type: "AWS::AppStream::Stack"
@@ -105,6 +117,10 @@ AppStream :: {
 				Permission: string | fn.Fn
 			}]
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	StackFleetAssociation :: {
 		Type: "AWS::AppStream::StackFleetAssociation"
@@ -112,6 +128,10 @@ AppStream :: {
 			FleetName: string | fn.Fn
 			StackName: string | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	StackUserAssociation :: {
 		Type: "AWS::AppStream::StackUserAssociation"
@@ -121,6 +141,10 @@ AppStream :: {
 			StackName:              string | fn.Fn
 			UserName:               string | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	User :: {
 		Type: "AWS::AppStream::User"
@@ -131,5 +155,9 @@ AppStream :: {
 			MessageAction?:     string | fn.Fn
 			UserName:           string | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 }

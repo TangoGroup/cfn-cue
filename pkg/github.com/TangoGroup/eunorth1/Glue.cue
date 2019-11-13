@@ -26,6 +26,10 @@ Glue :: {
 				[string]: _
 			} | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	Trigger :: {
 		Type: "AWS::Glue::Trigger"
@@ -53,5 +57,9 @@ Glue :: {
 			} | fn.Fn
 			Type: (string & ("CONDITIONAL" | "ON_DEMAND" | "SCHEDULED")) | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 }

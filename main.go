@@ -395,9 +395,9 @@ func main() {
 	for _, region := range regions {
 		shortRegion := strings.ReplaceAll(region, "-", "")
 
-		if region != "us-west-2" {
-			continue
-		}
+		// if region != "us-west-2" {
+		// 	continue
+		// }
 
 		cloudformationSpec := "https://github.com/aws-cloudformation/cfn-python-lint/raw/master/src/cfnlint/data/CloudSpecs/" + region + ".json"
 		fmt.Println(cloudformationSpec)

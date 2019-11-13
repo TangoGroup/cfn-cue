@@ -16,6 +16,10 @@ PinpointEmail :: {
 			}]
 			TrackingOptions?: CustomRedirectDomain?: string | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	ConfigurationSetEventDestination :: {
 		Type: "AWS::PinpointEmail::ConfigurationSetEventDestination"
@@ -38,6 +42,10 @@ PinpointEmail :: {
 			}
 			EventDestinationName: string | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	DedicatedIpPool :: {
 		Type: "AWS::PinpointEmail::DedicatedIpPool"
@@ -48,6 +56,10 @@ PinpointEmail :: {
 				Value?: string | fn.Fn
 			}]
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	Identity :: {
 		Type: "AWS::PinpointEmail::Identity"
@@ -64,5 +76,9 @@ PinpointEmail :: {
 				Value?: string | fn.Fn
 			}]
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 }

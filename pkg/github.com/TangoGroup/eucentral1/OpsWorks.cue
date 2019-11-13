@@ -38,6 +38,10 @@ OpsWorks :: {
 			StackId: string | fn.Fn
 			Type:    string | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	ElasticLoadBalancerAttachment :: {
 		Type: "AWS::OpsWorks::ElasticLoadBalancerAttachment"
@@ -45,6 +49,10 @@ OpsWorks :: {
 			ElasticLoadBalancerName: string | fn.Fn
 			LayerId:                 string | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	Instance :: {
 		Type: "AWS::OpsWorks::Instance"
@@ -90,6 +98,10 @@ OpsWorks :: {
 			VirtualizationType?: string | fn.Fn
 			Volumes?: [...(string | fn.Fn)]
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	Layer :: {
 		Type: "AWS::OpsWorks::Layer"
@@ -154,6 +166,10 @@ OpsWorks :: {
 				VolumeType?:    (string & ("gp2" | "io1" | "sc1" | "st1" | "standard")) | fn.Fn
 			}]
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	Stack :: {
 		Type: "AWS::OpsWorks::Stack"
@@ -209,6 +225,10 @@ OpsWorks :: {
 			UseOpsworksSecurityGroups?: bool | fn.Fn
 			VpcId?:                     string | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	UserProfile :: {
 		Type: "AWS::OpsWorks::UserProfile"
@@ -218,6 +238,10 @@ OpsWorks :: {
 			SshPublicKey?:        string | fn.Fn
 			SshUsername?:         string | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	Volume :: {
 		Type: "AWS::OpsWorks::Volume"
@@ -227,5 +251,9 @@ OpsWorks :: {
 			Name?:       string | fn.Fn
 			StackId:     string | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 }

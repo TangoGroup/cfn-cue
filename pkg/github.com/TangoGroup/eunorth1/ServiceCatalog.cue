@@ -27,6 +27,10 @@ ServiceCatalog :: {
 				Value: string | fn.Fn
 			}]
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	CloudFormationProvisionedProduct :: {
 		Type: "AWS::ServiceCatalog::CloudFormationProvisionedProduct"
@@ -57,6 +61,10 @@ ServiceCatalog :: {
 				Value: string | fn.Fn
 			}]
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	LaunchNotificationConstraint :: {
 		Type: "AWS::ServiceCatalog::LaunchNotificationConstraint"
@@ -67,6 +75,10 @@ ServiceCatalog :: {
 			PortfolioId: string | fn.Fn
 			ProductId:   string | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	LaunchRoleConstraint :: {
 		Type: "AWS::ServiceCatalog::LaunchRoleConstraint"
@@ -77,6 +89,10 @@ ServiceCatalog :: {
 			ProductId:       string | fn.Fn
 			RoleArn:         string | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	LaunchTemplateConstraint :: {
 		Type: "AWS::ServiceCatalog::LaunchTemplateConstraint"
@@ -87,6 +103,10 @@ ServiceCatalog :: {
 			ProductId:       string | fn.Fn
 			Rules:           string | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	Portfolio :: {
 		Type: "AWS::ServiceCatalog::Portfolio"
@@ -96,8 +116,14 @@ ServiceCatalog :: {
 			DisplayName:     string | fn.Fn
 			ProviderName:    string | fn.Fn
 			Tags?: [...{
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
 			}]
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	PortfolioPrincipalAssociation :: {
 		Type: "AWS::ServiceCatalog::PortfolioPrincipalAssociation"
@@ -107,6 +133,10 @@ ServiceCatalog :: {
 			PrincipalARN:    string | fn.Fn
 			PrincipalType:   string | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	ResourceUpdateConstraint :: {
 		Type: "AWS::ServiceCatalog::ResourceUpdateConstraint"
@@ -117,6 +147,10 @@ ServiceCatalog :: {
 			ProductId:                     string | fn.Fn
 			TagUpdateOnProvisionedProduct: string | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	TagOption :: {
 		Type: "AWS::ServiceCatalog::TagOption"
@@ -125,6 +159,10 @@ ServiceCatalog :: {
 			Key:     string | fn.Fn
 			Value:   string | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	TagOptionAssociation :: {
 		Type: "AWS::ServiceCatalog::TagOptionAssociation"
@@ -132,5 +170,9 @@ ServiceCatalog :: {
 			ResourceId:  string | fn.Fn
 			TagOptionId: string | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 }

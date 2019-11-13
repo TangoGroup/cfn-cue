@@ -261,6 +261,10 @@ EMR :: {
 			}]
 			VisibleToAllUsers?: bool | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	InstanceFleetConfig :: {
 		Type: "AWS::EMR::InstanceFleetConfig"
@@ -300,6 +304,10 @@ EMR :: {
 			TargetOnDemandCapacity?: int | fn.Fn
 			TargetSpotCapacity?:     int | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	InstanceGroupConfig :: {
 		Type: "AWS::EMR::InstanceGroupConfig"
@@ -362,6 +370,10 @@ EMR :: {
 			Market?:       string | fn.Fn
 			Name?:         string | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	SecurityConfiguration :: {
 		Type: "AWS::EMR::SecurityConfiguration"
@@ -371,6 +383,10 @@ EMR :: {
 				[string]: _
 			} | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	Step :: {
 		Type: "AWS::EMR::Step"
@@ -388,5 +404,9 @@ EMR :: {
 			JobFlowId: string | fn.Fn
 			Name:      string | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 }

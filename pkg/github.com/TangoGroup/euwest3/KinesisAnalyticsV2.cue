@@ -13,6 +13,10 @@ KinesisAnalyticsV2 :: {
 			RuntimeEnvironment:      string | fn.Fn
 			ServiceExecutionRole:    string | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	ApplicationCloudWatchLoggingOption :: {
 		Type: "AWS::KinesisAnalyticsV2::ApplicationCloudWatchLoggingOption"
@@ -21,6 +25,10 @@ KinesisAnalyticsV2 :: {
 			CloudWatchLoggingOption: {
 			}
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	ApplicationOutput :: {
 		Type: "AWS::KinesisAnalyticsV2::ApplicationOutput"
@@ -29,6 +37,10 @@ KinesisAnalyticsV2 :: {
 			Output: {
 			}
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	ApplicationReferenceDataSource :: {
 		Type: "AWS::KinesisAnalyticsV2::ApplicationReferenceDataSource"
@@ -37,5 +49,9 @@ KinesisAnalyticsV2 :: {
 			ReferenceDataSource: {
 			}
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 }

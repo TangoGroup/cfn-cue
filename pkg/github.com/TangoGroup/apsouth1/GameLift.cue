@@ -14,6 +14,10 @@ GameLift :: {
 				Type:     string | fn.Fn
 			}
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	Build :: {
 		Type: "AWS::GameLift::Build"
@@ -26,6 +30,10 @@ GameLift :: {
 			}
 			Version?: string | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	Fleet :: {
 		Type: "AWS::GameLift::Fleet"
@@ -47,5 +55,9 @@ GameLift :: {
 			ServerLaunchParameters?: string | fn.Fn
 			ServerLaunchPath:        string | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 }

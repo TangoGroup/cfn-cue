@@ -15,6 +15,10 @@ Events :: {
 			Principal:   string | fn.Fn
 			StatementId: string | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	Rule :: {
 		Type: "AWS::Events::Rule"
@@ -64,5 +68,9 @@ Events :: {
 				SqsParameters?: MessageGroupId: string | fn.Fn
 			}]
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 }

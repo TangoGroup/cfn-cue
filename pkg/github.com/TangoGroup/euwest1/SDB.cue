@@ -6,5 +6,9 @@ SDB :: {
 	Domain :: {
 		Type: "AWS::SDB::Domain"
 		Properties: Description?: string | fn.Fn
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 }

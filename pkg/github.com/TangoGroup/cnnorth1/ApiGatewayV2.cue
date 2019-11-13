@@ -11,6 +11,10 @@ ApiGatewayV2 :: {
 			DomainName:     string | fn.Fn
 			Stage:          string | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	DomainName :: {
 		Type: "AWS::ApiGatewayV2::DomainName"
@@ -25,5 +29,9 @@ ApiGatewayV2 :: {
 				[string]: _
 			} | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 }

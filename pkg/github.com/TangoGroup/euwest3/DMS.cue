@@ -10,6 +10,10 @@ DMS :: {
 			CertificatePem?:        string | fn.Fn
 			CertificateWallet?:     string | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	Endpoint :: {
 		Type: "AWS::DMS::Endpoint"
@@ -36,9 +40,15 @@ DMS :: {
 			ServerName?: string | fn.Fn
 			SslMode?:    string | fn.Fn
 			Tags?: [...{
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
 			}]
 			Username?: string | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	EventSubscription :: {
 		Type: "AWS::DMS::EventSubscription"
@@ -50,8 +60,14 @@ DMS :: {
 			SourceType?:       string | fn.Fn
 			SubscriptionName?: string | fn.Fn
 			Tags?: [...{
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
 			}]
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	ReplicationInstance :: {
 		Type: "AWS::DMS::ReplicationInstance"
@@ -69,9 +85,15 @@ DMS :: {
 			ReplicationInstanceIdentifier?:    string | fn.Fn
 			ReplicationSubnetGroupIdentifier?: string | fn.Fn
 			Tags?: [...{
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
 			}]
 			VpcSecurityGroupIds?: [...(string | fn.Fn)]
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	ReplicationSubnetGroup :: {
 		Type: "AWS::DMS::ReplicationSubnetGroup"
@@ -80,8 +102,14 @@ DMS :: {
 			ReplicationSubnetGroupIdentifier?: string | fn.Fn
 			SubnetIds: [...(string | fn.Fn)]
 			Tags?: [...{
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
 			}]
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	ReplicationTask :: {
 		Type: "AWS::DMS::ReplicationTask"
@@ -96,8 +124,14 @@ DMS :: {
 			SourceEndpointArn:          string | fn.Fn
 			TableMappings:              string | fn.Fn
 			Tags?: [...{
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
 			}]
 			TargetEndpointArn: string | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 }

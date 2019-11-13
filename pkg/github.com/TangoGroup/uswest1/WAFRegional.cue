@@ -18,6 +18,10 @@ WAFRegional :: {
 			}]
 			Name: string | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	GeoMatchSet :: {
 		Type: "AWS::WAFRegional::GeoMatchSet"
@@ -28,6 +32,10 @@ WAFRegional :: {
 			}]
 			Name: string | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	IPSet :: {
 		Type: "AWS::WAFRegional::IPSet"
@@ -38,6 +46,10 @@ WAFRegional :: {
 			}]
 			Name: string | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	RateBasedRule :: {
 		Type: "AWS::WAFRegional::RateBasedRule"
@@ -52,6 +64,10 @@ WAFRegional :: {
 			RateKey:    string | fn.Fn
 			RateLimit:  int | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	RegexPatternSet :: {
 		Type: "AWS::WAFRegional::RegexPatternSet"
@@ -59,6 +75,10 @@ WAFRegional :: {
 			Name: string | fn.Fn
 			RegexPatternStrings: [...(string | fn.Fn)]
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	Rule :: {
 		Type: "AWS::WAFRegional::Rule"
@@ -71,6 +91,10 @@ WAFRegional :: {
 				Type:    (string & ("ByteMatch" | "GeoMatch" | "IPMatch" | "RegexMatch" | "SizeConstraint" | "SqlInjectionMatch" | "XssMatch")) | fn.Fn
 			}]
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	SizeConstraintSet :: {
 		Type: "AWS::WAFRegional::SizeConstraintSet"
@@ -86,6 +110,10 @@ WAFRegional :: {
 				TextTransformation: string | fn.Fn
 			}]
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	SqlInjectionMatchSet :: {
 		Type: "AWS::WAFRegional::SqlInjectionMatchSet"
@@ -99,6 +127,10 @@ WAFRegional :: {
 				TextTransformation: string | fn.Fn
 			}]
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	WebACL :: {
 		Type: "AWS::WAFRegional::WebACL"
@@ -112,6 +144,10 @@ WAFRegional :: {
 				RuleId:   string | fn.Fn
 			}]
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	WebACLAssociation :: {
 		Type: "AWS::WAFRegional::WebACLAssociation"
@@ -119,6 +155,10 @@ WAFRegional :: {
 			ResourceArn: string | fn.Fn
 			WebACLId:    string | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	XssMatchSet :: {
 		Type: "AWS::WAFRegional::XssMatchSet"
@@ -132,5 +172,9 @@ WAFRegional :: {
 				TextTransformation: string | fn.Fn
 			}]
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 }

@@ -9,6 +9,10 @@ Config :: {
 			AuthorizedAccountId: string | fn.Fn
 			AuthorizedAwsRegion: (string & ("ap-northeast-1" | "ap-northeast-2" | "ap-northeast-3" | "ap-south-1" | "ap-southeast-1" | "ap-southeast-2" | "ca-central-1" | "eu-central-1" | "eu-north-1" | "eu-west-1" | "eu-west-2" | "eu-west-3" | "sa-east-1" | "us-east-1" | "us-east-2" | "us-gov-east-1" | "us-gov-west-1" | "us-west-1" | "us-west-2")) | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	ConfigRule :: {
 		Type: "AWS::Config::ConfigRule"
@@ -35,6 +39,10 @@ Config :: {
 				SourceIdentifier: string | fn.Fn
 			}
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	ConfigurationAggregator :: {
 		Type: "AWS::Config::ConfigurationAggregator"
@@ -51,6 +59,10 @@ Config :: {
 				RoleArn: string | fn.Fn
 			}
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	ConfigurationRecorder :: {
 		Type: "AWS::Config::ConfigurationRecorder"
@@ -63,6 +75,10 @@ Config :: {
 			}
 			RoleARN: string | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	DeliveryChannel :: {
 		Type: "AWS::Config::DeliveryChannel"
@@ -73,6 +89,10 @@ Config :: {
 			S3KeyPrefix?: string | fn.Fn
 			SnsTopicARN?: string | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	OrganizationConfigRule :: {
 		Type: "AWS::Config::OrganizationConfigRule"
@@ -101,6 +121,10 @@ Config :: {
 				TagValueScope?: string | fn.Fn
 			}
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	RemediationConfiguration :: {
 		Type: "AWS::Config::RemediationConfiguration"
@@ -121,5 +145,9 @@ Config :: {
 			TargetType:           string | fn.Fn
 			TargetVersion?:       string | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 }

@@ -35,5 +35,9 @@ Batch :: {
 			State?:      string | fn.Fn
 			Type:        string | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 }

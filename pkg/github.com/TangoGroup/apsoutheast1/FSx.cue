@@ -15,9 +15,15 @@ FSx :: {
 			StorageCapacity?: int | fn.Fn
 			SubnetIds: [...(string | fn.Fn)]
 			Tags?: [...{
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
 			}]
 			WindowsConfiguration?: {
 			}
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 }

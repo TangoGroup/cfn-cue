@@ -29,6 +29,10 @@ ManagedBlockchain :: {
 			}
 			NetworkId?: string | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	Node :: {
 		Type: "AWS::ManagedBlockchain::Node"
@@ -40,5 +44,9 @@ ManagedBlockchain :: {
 				InstanceType:     string | fn.Fn
 			}
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 }

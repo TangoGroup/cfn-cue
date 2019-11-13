@@ -20,8 +20,14 @@ Neptune :: {
 			SnapshotIdentifier?:         string | fn.Fn
 			StorageEncrypted?:           bool | fn.Fn
 			Tags?: [...{
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
 			}]
 			VpcSecurityGroupIds?: [...(string | fn.Fn)]
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain" | "Snapshot"
+		UpdateReplacePolicy?: "Delete" | "Retain" | "Snapshot"
+		Metadata?: [string]: _
 	}
 }

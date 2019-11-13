@@ -17,6 +17,10 @@ DirectoryService :: {
 				VpcId: string | fn.Fn
 			}
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	SimpleAD :: {
 		Type: "AWS::DirectoryService::SimpleAD"
@@ -33,5 +37,9 @@ DirectoryService :: {
 				VpcId: string | fn.Fn
 			}
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 }

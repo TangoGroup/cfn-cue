@@ -22,9 +22,15 @@ DocDB :: {
 			SnapshotIdentifier?:         string | fn.Fn
 			StorageEncrypted?:           bool | fn.Fn
 			Tags?: [...{
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
 			}]
 			VpcSecurityGroupIds?: [...(string | fn.Fn)]
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	DBClusterParameterGroup :: {
 		Type: "AWS::DocDB::DBClusterParameterGroup"
@@ -36,8 +42,14 @@ DocDB :: {
 				[string]: _
 			} | fn.Fn
 			Tags?: [...{
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
 			}]
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	DBInstance :: {
 		Type: "AWS::DocDB::DBInstance"
@@ -49,8 +61,14 @@ DocDB :: {
 			DBInstanceIdentifier?:       string | fn.Fn
 			PreferredMaintenanceWindow?: string | fn.Fn
 			Tags?: [...{
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
 			}]
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	DBSubnetGroup :: {
 		Type: "AWS::DocDB::DBSubnetGroup"
@@ -59,7 +77,13 @@ DocDB :: {
 			DBSubnetGroupName?:       string | fn.Fn
 			SubnetIds: [...(string | fn.Fn)]
 			Tags?: [...{
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
 			}]
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 }

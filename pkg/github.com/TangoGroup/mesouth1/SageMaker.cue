@@ -10,6 +10,10 @@ SageMaker :: {
 			GitConfig: {
 			}
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	Endpoint :: {
 		Type: "AWS::SageMaker::Endpoint"
@@ -17,8 +21,14 @@ SageMaker :: {
 			EndpointConfigName: string | fn.Fn
 			EndpointName?:      string | fn.Fn
 			Tags?: [...{
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
 			}]
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	EndpointConfig :: {
 		Type: "AWS::SageMaker::EndpointConfig"
@@ -28,8 +38,14 @@ SageMaker :: {
 			ProductionVariants: [...{
 			}]
 			Tags?: [...{
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
 			}]
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	Model :: {
 		Type: "AWS::SageMaker::Model"
@@ -41,10 +57,16 @@ SageMaker :: {
 			PrimaryContainer?: {
 			}
 			Tags?: [...{
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
 			}]
 			VpcConfig?: {
 			}
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	NotebookInstance :: {
 		Type: "AWS::SageMaker::NotebookInstance"
@@ -62,9 +84,15 @@ SageMaker :: {
 			SecurityGroupIds?: [...(string | fn.Fn)]
 			SubnetId?: string | fn.Fn
 			Tags?: [...{
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
 			}]
 			VolumeSizeInGB?: int | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	NotebookInstanceLifecycleConfig :: {
 		Type: "AWS::SageMaker::NotebookInstanceLifecycleConfig"
@@ -75,6 +103,10 @@ SageMaker :: {
 			OnStart?: [...{
 			}]
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	Workteam :: {
 		Type: "AWS::SageMaker::Workteam"
@@ -85,8 +117,14 @@ SageMaker :: {
 			NotificationConfiguration?: {
 			}
 			Tags?: [...{
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
 			}]
 			WorkteamName?: string | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 }

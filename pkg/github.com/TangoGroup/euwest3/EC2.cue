@@ -27,6 +27,10 @@ EC2 :: {
 			}]
 			Tenancy?: (string & ("dedicated" | "default")) | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	CustomerGateway :: {
 		Type: "AWS::EC2::CustomerGateway"
@@ -34,9 +38,15 @@ EC2 :: {
 			BgpAsn:    int | fn.Fn
 			IpAddress: string | fn.Fn
 			Tags?: [...{
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
 			}]
 			Type: (string & ("ipsec.1")) | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	DHCPOptions :: {
 		Type: "AWS::EC2::DHCPOptions"
@@ -47,8 +57,14 @@ EC2 :: {
 			NetbiosNodeType?: (int & (1 | 2 | 4 | 8)) | fn.Fn
 			NtpServers?: [...(string | fn.Fn)]
 			Tags?: [...{
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
 			}]
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	EC2Fleet :: {
 		Type: "AWS::EC2::EC2Fleet"
@@ -94,6 +110,10 @@ EC2 :: {
 			ValidFrom?:                        string | fn.Fn
 			ValidUntil?:                       string | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	EIP :: {
 		Type: "AWS::EC2::EIP"
@@ -102,6 +122,10 @@ EC2 :: {
 			InstanceId?:     string | fn.Fn
 			PublicIpv4Pool?: string | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	EIPAssociation :: {
 		Type: "AWS::EC2::EIPAssociation"
@@ -112,10 +136,18 @@ EC2 :: {
 			NetworkInterfaceId?: string | fn.Fn
 			PrivateIpAddress?:   string | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	EgressOnlyInternetGateway :: {
 		Type: "AWS::EC2::EgressOnlyInternetGateway"
 		Properties: VpcId: string | fn.Fn
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	FlowLog :: {
 		Type: "AWS::EC2::FlowLog"
@@ -128,6 +160,10 @@ EC2 :: {
 			ResourceType:              (string & ("NetworkInterface" | "Subnet" | "VPC")) | fn.Fn
 			TrafficType:               (string & ("ACCEPT" | "ALL" | "REJECT")) | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	Host :: {
 		Type: "AWS::EC2::Host"
@@ -137,6 +173,10 @@ EC2 :: {
 			HostRecovery?:    string | fn.Fn
 			InstanceType:     string | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	Instance :: {
 		Type: "AWS::EC2::Instance"
@@ -235,11 +275,28 @@ EC2 :: {
 				VolumeId: string | fn.Fn
 			}]
 		}
+		DependsOn?: string | [...string]
+		CreationPolicy?: {
+			AutoScalingCreationPolicy?: MinSuccessfulInstancesPercent?: int
+			ResourceSignal?: {
+				Count?:   int
+				Timeout?: string
+			}
+		}
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	InternetGateway :: {
 		Type: "AWS::EC2::InternetGateway"
 		Properties: Tags?: [...{
+			Key:   string | fn.Fn
+			Value: string | fn.Fn
 		}]
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	LaunchTemplate :: {
 		Type: "AWS::EC2::LaunchTemplate"
@@ -341,6 +398,10 @@ EC2 :: {
 			}
 			LaunchTemplateName?: (string & (strings.MinRunes(3) & strings.MaxRunes(128)) & (=~#"^[a-zA-Z0-9().\-/_]+$"#)) | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	NatGateway :: {
 		Type: "AWS::EC2::NatGateway"
@@ -348,16 +409,28 @@ EC2 :: {
 			AllocationId: string | fn.Fn
 			SubnetId:     string | fn.Fn
 			Tags?: [...{
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
 			}]
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	NetworkAcl :: {
 		Type: "AWS::EC2::NetworkAcl"
 		Properties: {
 			Tags?: [...{
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
 			}]
 			VpcId: string | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	NetworkAclEntry :: {
 		Type: "AWS::EC2::NetworkAclEntry"
@@ -378,6 +451,10 @@ EC2 :: {
 			RuleAction: (string & ("allow" | "deny")) | fn.Fn
 			RuleNumber: (int & (>=1 & <=32766)) | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	NetworkInterface :: {
 		Type: "AWS::EC2::NetworkInterface"
@@ -400,6 +477,10 @@ EC2 :: {
 				Value: string | fn.Fn
 			}]
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	NetworkInterfaceAttachment :: {
 		Type: "AWS::EC2::NetworkInterfaceAttachment"
@@ -409,6 +490,10 @@ EC2 :: {
 			InstanceId:           string | fn.Fn
 			NetworkInterfaceId:   string | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	NetworkInterfacePermission :: {
 		Type: "AWS::EC2::NetworkInterfacePermission"
@@ -417,10 +502,18 @@ EC2 :: {
 			NetworkInterfaceId: string | fn.Fn
 			Permission:         (string & ("EIP-ASSOCIATE" | "INSTANCE-ATTACH")) | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	PlacementGroup :: {
 		Type: "AWS::EC2::PlacementGroup"
 		Properties: Strategy?: (string & ("cluster" | "partition" | "spread")) | fn.Fn
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	Route :: {
 		Type: "AWS::EC2::Route"
@@ -436,14 +529,24 @@ EC2 :: {
 			TransitGatewayId?:            string | fn.Fn
 			VpcPeeringConnectionId?:      string | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	RouteTable :: {
 		Type: "AWS::EC2::RouteTable"
 		Properties: {
 			Tags?: [...{
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
 			}]
 			VpcId: string | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	SecurityGroup :: {
 		Type: "AWS::EC2::SecurityGroup"
@@ -478,6 +581,10 @@ EC2 :: {
 			}]
 			VpcId?: string | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	SecurityGroupEgress :: {
 		Type: "AWS::EC2::SecurityGroupEgress"
@@ -492,6 +599,10 @@ EC2 :: {
 			IpProtocol:                  string | fn.Fn
 			ToPort?:                     int | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	SecurityGroupIngress :: {
 		Type: "AWS::EC2::SecurityGroupIngress"
@@ -509,6 +620,10 @@ EC2 :: {
 			SourceSecurityGroupOwnerId?: string | fn.Fn
 			ToPort?:                     int | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	SpotFleet :: {
 		Type: "AWS::EC2::SpotFleet"
@@ -607,6 +722,10 @@ EC2 :: {
 			ValidFrom?:                        string | fn.Fn
 			ValidUntil?:                       string | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	Subnet :: {
 		Type: "AWS::EC2::Subnet"
@@ -617,9 +736,15 @@ EC2 :: {
 			Ipv6CidrBlock?:               string | fn.Fn
 			MapPublicIpOnLaunch?:         bool | fn.Fn
 			Tags?: [...{
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
 			}]
 			VpcId: string | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	SubnetCidrBlock :: {
 		Type: "AWS::EC2::SubnetCidrBlock"
@@ -627,6 +752,10 @@ EC2 :: {
 			Ipv6CidrBlock: string | fn.Fn
 			SubnetId:      string | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	SubnetNetworkAclAssociation :: {
 		Type: "AWS::EC2::SubnetNetworkAclAssociation"
@@ -634,6 +763,10 @@ EC2 :: {
 			NetworkAclId: string | fn.Fn
 			SubnetId:     string | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	SubnetRouteTableAssociation :: {
 		Type: "AWS::EC2::SubnetRouteTableAssociation"
@@ -641,6 +774,10 @@ EC2 :: {
 			RouteTableId: string | fn.Fn
 			SubnetId:     string | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	TrafficMirrorFilter :: {
 		Type: "AWS::EC2::TrafficMirrorFilter"
@@ -648,8 +785,14 @@ EC2 :: {
 			Description?: string | fn.Fn
 			NetworkServices?: [...(string | fn.Fn)]
 			Tags?: [...{
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
 			}]
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	TrafficMirrorFilterRule :: {
 		Type: "AWS::EC2::TrafficMirrorFilterRule"
@@ -671,6 +814,10 @@ EC2 :: {
 			TrafficDirection:      string | fn.Fn
 			TrafficMirrorFilterId: string | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	TrafficMirrorSession :: {
 		Type: "AWS::EC2::TrafficMirrorSession"
@@ -680,11 +827,17 @@ EC2 :: {
 			PacketLength?:      int | fn.Fn
 			SessionNumber:      int | fn.Fn
 			Tags?: [...{
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
 			}]
 			TrafficMirrorFilterId: string | fn.Fn
 			TrafficMirrorTargetId: string | fn.Fn
 			VirtualNetworkId?:     int | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	TrafficMirrorTarget :: {
 		Type: "AWS::EC2::TrafficMirrorTarget"
@@ -693,8 +846,14 @@ EC2 :: {
 			NetworkInterfaceId?:     string | fn.Fn
 			NetworkLoadBalancerArn?: string | fn.Fn
 			Tags?: [...{
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
 			}]
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	TransitGateway :: {
 		Type: "AWS::EC2::TransitGateway"
@@ -706,19 +865,31 @@ EC2 :: {
 			Description?:                  string | fn.Fn
 			DnsSupport?:                   (string & ("disable" | "enable")) | fn.Fn
 			Tags?: [...{
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
 			}]
 			VpnEcmpSupport?: (string & ("disable" | "enable")) | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	TransitGatewayAttachment :: {
 		Type: "AWS::EC2::TransitGatewayAttachment"
 		Properties: {
 			SubnetIds: [...(string | fn.Fn)]
 			Tags?: [...{
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
 			}]
 			TransitGatewayId: string | fn.Fn
 			VpcId:            string | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	TransitGatewayRoute :: {
 		Type: "AWS::EC2::TransitGatewayRoute"
@@ -728,14 +899,24 @@ EC2 :: {
 			TransitGatewayAttachmentId?: string | fn.Fn
 			TransitGatewayRouteTableId:  string | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	TransitGatewayRouteTable :: {
 		Type: "AWS::EC2::TransitGatewayRouteTable"
 		Properties: {
 			Tags?: [...{
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
 			}]
 			TransitGatewayId: string | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	TransitGatewayRouteTableAssociation :: {
 		Type: "AWS::EC2::TransitGatewayRouteTableAssociation"
@@ -743,6 +924,10 @@ EC2 :: {
 			TransitGatewayAttachmentId: string | fn.Fn
 			TransitGatewayRouteTableId: string | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	TransitGatewayRouteTablePropagation :: {
 		Type: "AWS::EC2::TransitGatewayRouteTablePropagation"
@@ -750,6 +935,10 @@ EC2 :: {
 			TransitGatewayAttachmentId: string | fn.Fn
 			TransitGatewayRouteTableId: string | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	VPC :: {
 		Type: "AWS::EC2::VPC"
@@ -759,8 +948,14 @@ EC2 :: {
 			EnableDnsSupport?:   bool | fn.Fn
 			InstanceTenancy?:    (string & ("dedicated" | "default")) | fn.Fn
 			Tags?: [...{
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
 			}]
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	VPCCidrBlock :: {
 		Type: "AWS::EC2::VPCCidrBlock"
@@ -769,6 +964,10 @@ EC2 :: {
 			CidrBlock?:                   string | fn.Fn
 			VpcId:                        string | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	VPCDHCPOptionsAssociation :: {
 		Type: "AWS::EC2::VPCDHCPOptionsAssociation"
@@ -776,6 +975,10 @@ EC2 :: {
 			DhcpOptionsId: string | fn.Fn
 			VpcId:         string | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	VPCEndpoint :: {
 		Type: "AWS::EC2::VPCEndpoint"
@@ -791,6 +994,10 @@ EC2 :: {
 			VpcEndpointType?: (string & ("Gateway" | "Interface")) | fn.Fn
 			VpcId:            string | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	VPCEndpointService :: {
 		Type: "AWS::EC2::VPCEndpointService"
@@ -798,6 +1005,10 @@ EC2 :: {
 			AcceptanceRequired?: bool | fn.Fn
 			NetworkLoadBalancerArns: [...(string | fn.Fn)]
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	VPCEndpointServicePermissions :: {
 		Type: "AWS::EC2::VPCEndpointServicePermissions"
@@ -805,6 +1016,10 @@ EC2 :: {
 			AllowedPrincipals?: [...(string | fn.Fn)]
 			ServiceId: string | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	VPCGatewayAttachment :: {
 		Type: "AWS::EC2::VPCGatewayAttachment"
@@ -813,6 +1028,10 @@ EC2 :: {
 			VpcId:              string | fn.Fn
 			VpnGatewayId?:      string | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	VPCPeeringConnection :: {
 		Type: "AWS::EC2::VPCPeeringConnection"
@@ -822,9 +1041,15 @@ EC2 :: {
 			PeerRoleArn?: string | fn.Fn
 			PeerVpcId:    string | fn.Fn
 			Tags?: [...{
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
 			}]
 			VpcId: string | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	VPNConnection :: {
 		Type: "AWS::EC2::VPNConnection"
@@ -843,6 +1068,10 @@ EC2 :: {
 				TunnelInsideCidr?: string | fn.Fn
 			}]
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	VPNConnectionRoute :: {
 		Type: "AWS::EC2::VPNConnectionRoute"
@@ -850,15 +1079,25 @@ EC2 :: {
 			DestinationCidrBlock: string | fn.Fn
 			VpnConnectionId:      string | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	VPNGateway :: {
 		Type: "AWS::EC2::VPNGateway"
 		Properties: {
 			AmazonSideAsn?: int | fn.Fn
 			Tags?: [...{
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
 			}]
 			Type: (string & ("ipsec.1")) | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	VPNGatewayRoutePropagation :: {
 		Type: "AWS::EC2::VPNGatewayRoutePropagation"
@@ -866,6 +1105,10 @@ EC2 :: {
 			RouteTableIds: [...(string | fn.Fn)]
 			VpnGatewayId: string | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	Volume :: {
 		Type: "AWS::EC2::Volume"
@@ -878,9 +1121,15 @@ EC2 :: {
 			Size?:            int | fn.Fn
 			SnapshotId?:      string | fn.Fn
 			Tags?: [...{
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
 			}]
 			VolumeType?: (string & ("gp2" | "io1" | "sc1" | "st1" | "standard")) | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain" | "Snapshot"
+		UpdateReplacePolicy?: "Delete" | "Retain" | "Snapshot"
+		Metadata?: [string]: _
 	}
 	VolumeAttachment :: {
 		Type: "AWS::EC2::VolumeAttachment"
@@ -889,5 +1138,9 @@ EC2 :: {
 			InstanceId: string | fn.Fn
 			VolumeId:   string | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 }

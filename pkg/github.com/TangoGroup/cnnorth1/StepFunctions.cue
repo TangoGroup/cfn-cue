@@ -10,6 +10,10 @@ StepFunctions :: {
 			Tags?: [...{
 			}]
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	StateMachine :: {
 		Type: "AWS::StepFunctions::StateMachine"
@@ -20,5 +24,9 @@ StepFunctions :: {
 			Tags?: [...{
 			}]
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 }

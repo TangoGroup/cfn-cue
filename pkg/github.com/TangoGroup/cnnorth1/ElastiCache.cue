@@ -26,9 +26,15 @@ ElastiCache :: {
 			SnapshotRetentionLimit?: int | fn.Fn
 			SnapshotWindow?:         string | fn.Fn
 			Tags?: [...{
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
 			}]
 			VpcSecurityGroupIds?: [...(string | fn.Fn)]
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain" | "Snapshot"
+		UpdateReplacePolicy?: "Delete" | "Retain" | "Snapshot"
+		Metadata?: [string]: _
 	}
 	ParameterGroup :: {
 		Type: "AWS::ElastiCache::ParameterGroup"
@@ -37,6 +43,10 @@ ElastiCache :: {
 			Description:               string | fn.Fn
 			Properties?: [string]: string | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	ReplicationGroup :: {
 		Type: "AWS::ElastiCache::ReplicationGroup"
@@ -81,10 +91,18 @@ ElastiCache :: {
 			}]
 			TransitEncryptionEnabled?: bool | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain" | "Snapshot"
+		UpdateReplacePolicy?: "Delete" | "Retain" | "Snapshot"
+		Metadata?: [string]: _
 	}
 	SecurityGroup :: {
 		Type: "AWS::ElastiCache::SecurityGroup"
 		Properties: Description: string | fn.Fn
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	SecurityGroupIngress :: {
 		Type: "AWS::ElastiCache::SecurityGroupIngress"
@@ -93,6 +111,10 @@ ElastiCache :: {
 			EC2SecurityGroupName:     string | fn.Fn
 			EC2SecurityGroupOwnerId?: string | fn.Fn
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	SubnetGroup :: {
 		Type: "AWS::ElastiCache::SubnetGroup"
@@ -101,5 +123,9 @@ ElastiCache :: {
 			Description:           string | fn.Fn
 			SubnetIds: [...(string | fn.Fn)]
 		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 }
