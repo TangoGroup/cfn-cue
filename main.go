@@ -691,6 +691,13 @@ func main() {
 			&ast.Package{
 				Name: ast.NewIdent(shortRegion),
 			},
+			&ast.ImportDecl{
+				Specs: []*ast.ImportSpec{
+					&ast.ImportSpec{
+						Path: ast.NewString("github.com/TangoGroup/fn"),
+					},
+				},
+			},
 		}
 
 		declarations = append(declarations, &ast.Field{
@@ -761,167 +768,54 @@ func main() {
 			parameterDisjunction = &ast.BinaryExpr{X: parameterDisjunction, Op: token.OR, Y: param}
 		}
 
-		declarations = append(declarations, &ast.Field{
-			Label: ast.NewIdent("Template"),
-			Token: token.ISA,
+		// https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/format-version-structure.html
+		templateVersion := &ast.Field{
+			Label:    ast.NewIdent("AWSTemplateFormatVersion"),
+			Value:    ast.NewString("2010-09-09"),
+			Optional: token.Elided.Pos(),
+		}
+
+		// https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-description-structure.html
+		templateDescription := &ast.Field{
+			Label:    ast.NewIdent("Description"),
+			Value:    &ast.BasicLit{Value: "string"},
+			Optional: token.Elided.Pos(),
+		}
+
+		// https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/metadata-section-structure.html
+		templateMetadata := &ast.Field{
+			Label:    ast.NewIdent("Metadata"),
+			Optional: token.Elided.Pos(),
 			Value: &ast.StructLit{
 				Elts: []ast.Decl{
 					&ast.Field{
-						Label:    ast.NewIdent("AWSTemplateFormatVersion"),
-						Value:    ast.NewString("2010-09-09"),
-						Optional: token.Elided.Pos(),
+						Label: ast.NewList(&ast.BasicLit{Value: "string"}),
+						Value: &ast.BasicLit{Value: "_"},
 					},
+				},
+			},
+		}
+
+		// https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/mappings-section-structure.html
+		templateMappings := &ast.Field{
+			Label:    ast.NewIdent("Mappings"),
+			Optional: token.Elided.Pos(),
+			Value: &ast.StructLit{
+				Elts: []ast.Decl{
 					&ast.Field{
-						Label:    ast.NewIdent("Description"),
-						Value:    &ast.BasicLit{Value: "string"},
-						Optional: token.Elided.Pos(),
-					},
-					&ast.Field{
-						Label:    ast.NewIdent("Metadata"),
-						Optional: token.Elided.Pos(),
+						Label: ast.NewList(&ast.BasicLit{Value: "string"}),
 						Value: &ast.StructLit{
 							Elts: []ast.Decl{
 								&ast.Field{
 									Label: ast.NewList(&ast.BasicLit{Value: "string"}),
-									Value: &ast.BasicLit{Value: "_"},
-								},
-							},
-						},
-					},
-					&ast.Field{
-						Label:    ast.NewIdent("Parameters"),
-						Optional: token.Elided.Pos(),
-						Value: &ast.StructLit{
-							Elts: []ast.Decl{
-								&ast.Field{
-									Label: ast.NewList(&ast.UnaryExpr{Op: token.MAT, X: ast.NewString("[a-zA-Z0-9]")}),
 									Value: &ast.StructLit{
 										Elts: []ast.Decl{
 											&ast.Field{
-												Label: ast.NewIdent("Type"),
-												Value: parameterDisjunction,
-												// String
-												// Number
-												// List<Number>
-												// CommaDelimitedList
-												// AWS::EC2::AvailabilityZone::Name
-												// AWS::EC2::Image::Id
-												// AWS::EC2::Instance::Id
-												// AWS::EC2::KeyPair::KeyName
-												// AWS::EC2::SecurityGroup::GroupName
-												// AWS::EC2::SecurityGroup::Id
-												// AWS::EC2::Subnet::Id
-												// AWS::EC2::Volume::Id
-												// AWS::EC2::VPC::Id
-												// AWS::Route53::HostedZone::Id
-												// List<AWS::EC2::AvailabilityZone::Name>
-												// List<AWS::EC2::Image::Id>
-												// List<AWS::EC2::Instance::Id>
-												// List<AWS::EC2::SecurityGroup::GroupName>
-												// List<AWS::EC2::SecurityGroup::Id>
-												// List<AWS::EC2::Subnet::Id>
-												// List<AWS::EC2::Volume::Id>
-												// List<AWS::EC2::VPC::Id>
-												// List<AWS::Route53::HostedZone::Id>
-												// AWS::SSM::Parameter::Name
-												// AWS::SSM::Parameter::Value<String>
-												// AWS::SSM::Parameter::Value<List<String>>
-												// AWS::SSM::Parameter::Value<CommaDelimitedList>
-												// AWS::SSM::Parameter::Value<AWS-specific parameter type>
-												// AWS::SSM::Parameter::Value<List<AWS-specific parameter type>>
-											},
-											&ast.Field{
-												Label:    ast.NewIdent("AllowedPattern"),
-												Value:    &ast.BasicLit{Value: "string"},
-												Optional: token.Elided.Pos(),
-											},
-											&ast.Field{
-												Label:    ast.NewIdent("AllowedValues"),
-												Value:    &ast.BasicLit{Value: "string"},
-												Optional: token.Elided.Pos(),
-											},
-											&ast.Field{
-												Label:    ast.NewIdent("ConstraintDescription"),
-												Value:    &ast.BasicLit{Value: "string"},
-												Optional: token.Elided.Pos(),
-											},
-											&ast.Field{
-												Label:    ast.NewIdent("Default"),
-												Value:    &ast.BasicLit{Value: "string"},
-												Optional: token.Elided.Pos(),
-											},
-											&ast.Field{
-												Label:    ast.NewIdent("Description"),
-												Value:    &ast.BasicLit{Value: "string"},
-												Optional: token.Elided.Pos(),
-											},
-											&ast.Field{
-												Label:    ast.NewIdent("MaxLength"),
-												Value:    &ast.BasicLit{Value: "int"},
-												Optional: token.Elided.Pos(),
-											},
-											&ast.Field{
-												Label:    ast.NewIdent("MaxValue"),
-												Value:    &ast.BasicLit{Value: "int"},
-												Optional: token.Elided.Pos(),
-											},
-											&ast.Field{
-												Label:    ast.NewIdent("MinLength"),
-												Value:    &ast.BasicLit{Value: "int"},
-												Optional: token.Elided.Pos(),
-											},
-											&ast.Field{
-												Label:    ast.NewIdent("MinValue"),
-												Value:    &ast.BasicLit{Value: "int"},
-												Optional: token.Elided.Pos(),
-											},
-											&ast.Field{
-												Label:    ast.NewIdent("NoEcho"),
-												Value:    &ast.BasicLit{Value: "bool"},
-												Optional: token.Elided.Pos(),
-											},
-										},
-									},
-								},
-							},
-						},
-					},
-					&ast.Field{
-						Label: ast.NewIdent("Resources"),
-						Value: &ast.StructLit{
-							Elts: []ast.Decl{
-								&ast.Field{
-									Label: ast.NewList(&ast.UnaryExpr{Op: token.MAT, X: ast.NewString("[a-zA-Z0-9]")}),
-									Value: ast.NewIdent("ResourceTypes"),
-								},
-							},
-						},
-					},
-					&ast.Field{
-						Label:    ast.NewIdent("Outputs"),
-						Optional: token.Elided.Pos(),
-						Value: &ast.StructLit{
-							Elts: []ast.Decl{
-								&ast.Field{
-									Label: ast.NewList(&ast.UnaryExpr{Op: token.MAT, X: ast.NewString("[a-zA-Z0-9]")}),
-									Value: &ast.StructLit{
-										Elts: []ast.Decl{
-											&ast.Field{
-												Label:    ast.NewIdent("Description"),
-												Value:    &ast.BasicLit{Value: "string"},
-												Optional: token.Elided.Pos(),
-											},
-											&ast.Field{Label: ast.NewIdent("Value"), Value: &ast.BasicLit{Value: "_"}},
-											&ast.Field{
-												Label:    ast.NewIdent("Export"),
-												Optional: token.Elided.Pos(),
-												Value: &ast.StructLit{
-													Elts: []ast.Decl{
-														&ast.Field{
-															Label: ast.NewIdent("Name"),
-															Value: &ast.BasicLit{Value: "_"},
-														},
-													},
+												Label: ast.NewList(&ast.UnaryExpr{Op: token.MAT, X: ast.NewString("[a-zA-Z0-9]")}),
+												Value: &ast.BinaryExpr{
+													X:  &ast.BasicLit{Value: "string"},
+													Op: token.OR,
+													Y:  ast.NewList(&ast.Ellipsis{Type: &ast.BasicLit{Value: "string"}}),
 												},
 											},
 										},
@@ -930,6 +824,165 @@ func main() {
 							},
 						},
 					},
+				},
+			},
+		}
+		conditionsFunctions := []ast.Expr{
+			ast.NewSel(ast.NewIdent("fn"), "And"),
+			ast.NewSel(ast.NewIdent("fn"), "Equals"),
+			ast.NewSel(ast.NewIdent("fn"), "If"),
+			ast.NewSel(ast.NewIdent("fn"), "Not"),
+			ast.NewSel(ast.NewIdent("fn"), "Or"),
+		}
+		conditionsFunctionDisjunction := conditionsFunctions[0]
+		for _, function := range conditionsFunctions[1:] {
+			conditionsFunctionDisjunction = &ast.BinaryExpr{X: conditionsFunctionDisjunction, Op: token.OR, Y: function}
+		}
+		// https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/conditions-section-structure.html
+		templateConditions := &ast.Field{
+			Label:    ast.NewIdent("Conditions"),
+			Optional: token.Elided.Pos(),
+			Value: &ast.StructLit{
+				Elts: []ast.Decl{
+					&ast.Field{
+						Label: ast.NewList(&ast.BasicLit{Value: "string"}),
+						Value: conditionsFunctionDisjunction,
+					},
+				},
+			},
+		}
+		parameterProperties := [][]string{
+			{"AllowedPattern", "string"},
+			{"AllowedValues", "string"},
+			{"ConstraintDescription", "string"},
+			{"Default", "string"},
+			{"Description", "string"},
+			{"MaxLength", "int"},
+			{"MaxValue", "int"},
+			{"MinLength", "int"},
+			{"MinValue", "int"},
+			{"NoEcho", "bool"},
+		}
+		parameterPropertiesFields := []ast.Decl{
+			&ast.Field{
+				Label: ast.NewIdent("Type"),
+				Value: parameterDisjunction,
+				// String
+				// Number
+				// List<Number>
+				// CommaDelimitedList
+				// AWS::EC2::AvailabilityZone::Name
+				// AWS::EC2::Image::Id
+				// AWS::EC2::Instance::Id
+				// AWS::EC2::KeyPair::KeyName
+				// AWS::EC2::SecurityGroup::GroupName
+				// AWS::EC2::SecurityGroup::Id
+				// AWS::EC2::Subnet::Id
+				// AWS::EC2::Volume::Id
+				// AWS::EC2::VPC::Id
+				// AWS::Route53::HostedZone::Id
+				// List<AWS::EC2::AvailabilityZone::Name>
+				// List<AWS::EC2::Image::Id>
+				// List<AWS::EC2::Instance::Id>
+				// List<AWS::EC2::SecurityGroup::GroupName>
+				// List<AWS::EC2::SecurityGroup::Id>
+				// List<AWS::EC2::Subnet::Id>
+				// List<AWS::EC2::Volume::Id>
+				// List<AWS::EC2::VPC::Id>
+				// List<AWS::Route53::HostedZone::Id>
+				// AWS::SSM::Parameter::Name
+				// AWS::SSM::Parameter::Value<String>
+				// AWS::SSM::Parameter::Value<List<String>>
+				// AWS::SSM::Parameter::Value<CommaDelimitedList>
+				// AWS::SSM::Parameter::Value<AWS-specific parameter type>
+				// AWS::SSM::Parameter::Value<List<AWS-specific parameter type>>
+			},
+		}
+
+		for _, arr := range parameterProperties {
+			prop := arr[0]
+			propType := arr[1]
+			parameterPropertiesFields = append(parameterPropertiesFields, &ast.Field{
+				Label:    ast.NewIdent(prop),
+				Value:    &ast.BasicLit{Value: propType},
+				Optional: token.Elided.Pos(),
+			})
+		}
+		// https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/parameters-section-structure.html
+		templateParameters := &ast.Field{
+			Label:    ast.NewIdent("Parameters"),
+			Optional: token.Elided.Pos(),
+			Value: &ast.StructLit{
+				Elts: []ast.Decl{
+					&ast.Field{
+						Label: ast.NewList(&ast.UnaryExpr{Op: token.MAT, X: ast.NewString("[a-zA-Z0-9]")}),
+						Value: &ast.StructLit{
+							Elts: parameterPropertiesFields,
+						},
+					},
+				},
+			},
+		}
+		// https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/resources-section-structure.html
+		templateResources := &ast.Field{
+			Label: ast.NewIdent("Resources"),
+			Value: &ast.StructLit{
+				Elts: []ast.Decl{
+					&ast.Field{
+						Label: ast.NewList(&ast.UnaryExpr{Op: token.MAT, X: ast.NewString("[a-zA-Z0-9]")}),
+						Value: ast.NewIdent("ResourceTypes"),
+					},
+				},
+			},
+		}
+		// https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/outputs-section-structure.html
+		templateOutputs := &ast.Field{
+			Label:    ast.NewIdent("Outputs"),
+			Optional: token.Elided.Pos(),
+			Value: &ast.StructLit{
+				Elts: []ast.Decl{
+					&ast.Field{
+						Label: ast.NewList(&ast.UnaryExpr{Op: token.MAT, X: ast.NewString("[a-zA-Z0-9]")}),
+						Value: &ast.StructLit{
+							Elts: []ast.Decl{
+								&ast.Field{
+									Label:    ast.NewIdent("Description"),
+									Value:    &ast.BasicLit{Value: "string"},
+									Optional: token.Elided.Pos(),
+								},
+								&ast.Field{Label: ast.NewIdent("Value"), Value: &ast.BasicLit{Value: "_"}},
+								&ast.Field{
+									Label:    ast.NewIdent("Export"),
+									Optional: token.Elided.Pos(),
+									Value: &ast.StructLit{
+										Elts: []ast.Decl{
+											&ast.Field{
+												Label: ast.NewIdent("Name"),
+												Value: &ast.BasicLit{Value: "_"},
+											},
+										},
+									},
+								},
+							},
+						},
+					},
+				},
+			},
+		}
+
+		declarations = append(declarations, &ast.Field{
+			Label: ast.NewIdent("Template"),
+			Token: token.ISA,
+			Value: &ast.StructLit{
+				Elts: []ast.Decl{
+					templateVersion,
+					templateDescription,
+					templateMetadata,
+					templateMappings,
+					templateConditions,
+					templateParameters,
+					templateResources,
+					templateOutputs,
 				},
 			},
 		})
