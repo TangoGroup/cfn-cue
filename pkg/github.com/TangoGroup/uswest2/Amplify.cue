@@ -53,6 +53,7 @@ Amplify :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	Branch :: {
 		Type: "AWS::Amplify::Branch"
@@ -81,6 +82,7 @@ Amplify :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	Domain :: {
 		Type: "AWS::Amplify::Domain"
@@ -94,5 +96,6 @@ Amplify :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 }

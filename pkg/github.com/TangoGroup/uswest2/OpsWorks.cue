@@ -40,6 +40,7 @@ OpsWorks :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	ElasticLoadBalancerAttachment :: {
 		Type: "AWS::OpsWorks::ElasticLoadBalancerAttachment"
@@ -49,6 +50,7 @@ OpsWorks :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	Instance :: {
 		Type: "AWS::OpsWorks::Instance"
@@ -96,6 +98,7 @@ OpsWorks :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	Layer :: {
 		Type: "AWS::OpsWorks::Layer"
@@ -162,6 +165,7 @@ OpsWorks :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	Stack :: {
 		Type: "AWS::OpsWorks::Stack"
@@ -219,6 +223,7 @@ OpsWorks :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	UserProfile :: {
 		Type: "AWS::OpsWorks::UserProfile"
@@ -230,6 +235,7 @@ OpsWorks :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	Volume :: {
 		Type: "AWS::OpsWorks::Volume"
@@ -241,5 +247,6 @@ OpsWorks :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 }

@@ -12,6 +12,7 @@ DMS :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	Endpoint :: {
 		Type: "AWS::DMS::Endpoint"
@@ -69,6 +70,7 @@ DMS :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	EventSubscription :: {
 		Type: "AWS::DMS::EventSubscription"
@@ -86,6 +88,7 @@ DMS :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	ReplicationInstance :: {
 		Type: "AWS::DMS::ReplicationInstance"
@@ -110,6 +113,7 @@ DMS :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	ReplicationSubnetGroup :: {
 		Type: "AWS::DMS::ReplicationSubnetGroup"
@@ -124,6 +128,7 @@ DMS :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	ReplicationTask :: {
 		Type: "AWS::DMS::ReplicationTask"
@@ -145,5 +150,6 @@ DMS :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 }

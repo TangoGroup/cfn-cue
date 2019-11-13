@@ -18,6 +18,7 @@ PinpointEmail :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	ConfigurationSetEventDestination :: {
 		Type: "AWS::PinpointEmail::ConfigurationSetEventDestination"
@@ -42,6 +43,7 @@ PinpointEmail :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	Identity :: {
 		Type: "AWS::PinpointEmail::Identity"
@@ -60,5 +62,6 @@ PinpointEmail :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 }

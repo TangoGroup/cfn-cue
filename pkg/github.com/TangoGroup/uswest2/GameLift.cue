@@ -16,6 +16,7 @@ GameLift :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	Build :: {
 		Type: "AWS::GameLift::Build"
@@ -30,6 +31,7 @@ GameLift :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	Fleet :: {
 		Type: "AWS::GameLift::Fleet"
@@ -53,5 +55,6 @@ GameLift :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 }

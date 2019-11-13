@@ -34,6 +34,7 @@ Cognito :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	IdentityPoolRoleAttachment :: {
 		Type: "AWS::Cognito::IdentityPoolRoleAttachment"
@@ -48,6 +49,7 @@ Cognito :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	UserPool :: {
 		Type: "AWS::Cognito::UserPool"
@@ -134,6 +136,7 @@ Cognito :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	UserPoolClient :: {
 		Type: "AWS::Cognito::UserPoolClient"
@@ -161,6 +164,7 @@ Cognito :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	UserPoolDomain :: {
 		Type: "AWS::Cognito::UserPoolDomain"
@@ -171,6 +175,7 @@ Cognito :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	UserPoolGroup :: {
 		Type: "AWS::Cognito::UserPoolGroup"
@@ -183,6 +188,7 @@ Cognito :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	UserPoolIdentityProvider :: {
 		Type: "AWS::Cognito::UserPoolIdentityProvider"
@@ -200,6 +206,7 @@ Cognito :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	UserPoolResourceServer :: {
 		Type: "AWS::Cognito::UserPoolResourceServer"
@@ -214,6 +221,7 @@ Cognito :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	UserPoolRiskConfigurationAttachment :: {
 		Type: "AWS::Cognito::UserPoolRiskConfigurationAttachment"
@@ -267,6 +275,7 @@ Cognito :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	UserPoolUICustomizationAttachment :: {
 		Type: "AWS::Cognito::UserPoolUICustomizationAttachment"
@@ -277,6 +286,7 @@ Cognito :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	UserPoolUser :: {
 		Type: "AWS::Cognito::UserPoolUser"
@@ -297,6 +307,7 @@ Cognito :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	UserPoolUserToGroupAttachment :: {
 		Type: "AWS::Cognito::UserPoolUserToGroupAttachment"
@@ -307,5 +318,6 @@ Cognito :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 }

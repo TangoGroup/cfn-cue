@@ -11,6 +11,7 @@ CloudFormation :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	Macro :: {
 		Type: "AWS::CloudFormation::Macro"
@@ -23,6 +24,7 @@ CloudFormation :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	Stack :: {
 		Type: "AWS::CloudFormation::Stack"
@@ -38,6 +40,7 @@ CloudFormation :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	WaitCondition :: {
 		Type: "AWS::CloudFormation::WaitCondition"
@@ -55,6 +58,7 @@ CloudFormation :: {
 			}
 		}
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	WaitConditionHandle :: {
 		Type: "AWS::CloudFormation::WaitConditionHandle"
@@ -62,5 +66,6 @@ CloudFormation :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 }

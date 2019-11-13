@@ -15,6 +15,7 @@ AppMesh :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	Route :: {
 		Type: "AWS::AppMesh::Route"
@@ -138,6 +139,7 @@ AppMesh :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	VirtualNode :: {
 		Type: "AWS::AppMesh::VirtualNode"
@@ -183,6 +185,7 @@ AppMesh :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	VirtualRouter :: {
 		Type: "AWS::AppMesh::VirtualRouter"
@@ -202,6 +205,7 @@ AppMesh :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	VirtualService :: {
 		Type: "AWS::AppMesh::VirtualService"
@@ -219,5 +223,6 @@ AppMesh :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 }

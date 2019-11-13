@@ -14,6 +14,7 @@ ECS :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	Service :: {
 		Type: "AWS::ECS::Service"
@@ -65,6 +66,7 @@ ECS :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	TaskDefinition :: {
 		Type: "AWS::ECS::TaskDefinition"
@@ -214,5 +216,6 @@ ECS :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 }

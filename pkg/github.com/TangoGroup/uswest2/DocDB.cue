@@ -29,6 +29,7 @@ DocDB :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	DBClusterParameterGroup :: {
 		Type: "AWS::DocDB::DBClusterParameterGroup"
@@ -46,6 +47,7 @@ DocDB :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	DBInstance :: {
 		Type: "AWS::DocDB::DBInstance"
@@ -63,6 +65,7 @@ DocDB :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	DBSubnetGroup :: {
 		Type: "AWS::DocDB::DBSubnetGroup"
@@ -77,5 +80,6 @@ DocDB :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 }

@@ -12,6 +12,7 @@ AppSync :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	DataSource :: {
 		Type: "AWS::AppSync::DataSource"
@@ -60,6 +61,7 @@ AppSync :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	FunctionConfiguration :: {
 		Type: "AWS::AppSync::FunctionConfiguration"
@@ -76,6 +78,7 @@ AppSync :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	GraphQLApi :: {
 		Type: "AWS::AppSync::GraphQLApi"
@@ -120,6 +123,7 @@ AppSync :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	GraphQLSchema :: {
 		Type: "AWS::AppSync::GraphQLSchema"
@@ -130,6 +134,7 @@ AppSync :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	Resolver :: {
 		Type: "AWS::AppSync::Resolver"
@@ -152,5 +157,6 @@ AppSync :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 }

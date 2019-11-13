@@ -602,6 +602,19 @@ func main() {
 					Value:    deletionPolicies,
 				})
 
+				resourceElts = append(resourceElts, &ast.Field{
+					Label:    ast.NewIdent("Metadata"),
+					Optional: token.Elided.Pos(),
+					Value: &ast.StructLit{
+						Elts: []ast.Decl{
+							&ast.Field{
+								Label: ast.NewList(&ast.BasicLit{Value: "string"}),
+								Value: &ast.BasicLit{Value: "_"},
+							},
+						},
+					},
+				})
+
 				f := &ast.Field{
 					Label: ast.NewIdent(resourceStr),
 					Token: token.ISA,

@@ -79,6 +79,7 @@ AutoScaling :: {
 			}
 		}
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	LaunchConfiguration :: {
 		Type: "AWS::AutoScaling::LaunchConfiguration"
@@ -116,6 +117,7 @@ AutoScaling :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	LifecycleHook :: {
 		Type: "AWS::AutoScaling::LifecycleHook"
@@ -131,6 +133,7 @@ AutoScaling :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	ScalingPolicy :: {
 		Type: "AWS::AutoScaling::ScalingPolicy"
@@ -169,6 +172,7 @@ AutoScaling :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	ScheduledAction :: {
 		Type: "AWS::AutoScaling::ScheduledAction"
@@ -183,5 +187,6 @@ AutoScaling :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 }

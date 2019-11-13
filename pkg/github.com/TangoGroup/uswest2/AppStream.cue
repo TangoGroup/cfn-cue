@@ -15,6 +15,7 @@ AppStream :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	Fleet :: {
 		Type: "AWS::AppStream::Fleet"
@@ -46,6 +47,7 @@ AppStream :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	ImageBuilder :: {
 		Type: "AWS::AppStream::ImageBuilder"
@@ -77,6 +79,7 @@ AppStream :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	Stack :: {
 		Type: "AWS::AppStream::Stack"
@@ -113,6 +116,7 @@ AppStream :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	StackFleetAssociation :: {
 		Type: "AWS::AppStream::StackFleetAssociation"
@@ -122,6 +126,7 @@ AppStream :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	StackUserAssociation :: {
 		Type: "AWS::AppStream::StackUserAssociation"
@@ -133,6 +138,7 @@ AppStream :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	User :: {
 		Type: "AWS::AppStream::User"
@@ -145,5 +151,6 @@ AppStream :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 }

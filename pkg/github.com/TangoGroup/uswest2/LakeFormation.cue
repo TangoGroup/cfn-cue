@@ -10,6 +10,7 @@ LakeFormation :: {
 		}]
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	Permissions :: {
 		Type: "AWS::LakeFormation::Permissions"
@@ -27,6 +28,7 @@ LakeFormation :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	Resource :: {
 		Type: "AWS::LakeFormation::Resource"
@@ -37,5 +39,6 @@ LakeFormation :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 }

@@ -44,6 +44,7 @@ Redshift :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain" | "Snapshot"
+		Metadata?: [string]: _
 	}
 	ClusterParameterGroup :: {
 		Type: "AWS::Redshift::ClusterParameterGroup"
@@ -61,6 +62,7 @@ Redshift :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	ClusterSecurityGroup :: {
 		Type: "AWS::Redshift::ClusterSecurityGroup"
@@ -73,6 +75,7 @@ Redshift :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	ClusterSecurityGroupIngress :: {
 		Type: "AWS::Redshift::ClusterSecurityGroupIngress"
@@ -84,6 +87,7 @@ Redshift :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	ClusterSubnetGroup :: {
 		Type: "AWS::Redshift::ClusterSubnetGroup"
@@ -97,5 +101,6 @@ Redshift :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 }

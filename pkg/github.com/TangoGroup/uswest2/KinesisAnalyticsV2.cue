@@ -78,6 +78,7 @@ KinesisAnalyticsV2 :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	ApplicationCloudWatchLoggingOption :: {
 		Type: "AWS::KinesisAnalyticsV2::ApplicationCloudWatchLoggingOption"
@@ -87,6 +88,7 @@ KinesisAnalyticsV2 :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	ApplicationOutput :: {
 		Type: "AWS::KinesisAnalyticsV2::ApplicationOutput"
@@ -102,6 +104,7 @@ KinesisAnalyticsV2 :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	ApplicationReferenceDataSource :: {
 		Type: "AWS::KinesisAnalyticsV2::ApplicationReferenceDataSource"
@@ -135,5 +138,6 @@ KinesisAnalyticsV2 :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 }

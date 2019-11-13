@@ -13,6 +13,7 @@ Pinpoint :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	APNSChannel :: {
 		Type: "AWS::Pinpoint::APNSChannel"
@@ -29,6 +30,7 @@ Pinpoint :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	APNSSandboxChannel :: {
 		Type: "AWS::Pinpoint::APNSSandboxChannel"
@@ -45,6 +47,7 @@ Pinpoint :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	APNSVoipChannel :: {
 		Type: "AWS::Pinpoint::APNSVoipChannel"
@@ -61,6 +64,7 @@ Pinpoint :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	APNSVoipSandboxChannel :: {
 		Type: "AWS::Pinpoint::APNSVoipSandboxChannel"
@@ -77,6 +81,7 @@ Pinpoint :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	App :: {
 		Type: "AWS::Pinpoint::App"
@@ -88,6 +93,7 @@ Pinpoint :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	ApplicationSettings :: {
 		Type: "AWS::Pinpoint::ApplicationSettings"
@@ -112,6 +118,7 @@ Pinpoint :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	BaiduChannel :: {
 		Type: "AWS::Pinpoint::BaiduChannel"
@@ -123,6 +130,7 @@ Pinpoint :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	Campaign :: {
 		Type: "AWS::Pinpoint::Campaign"
@@ -376,6 +384,7 @@ Pinpoint :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	EmailChannel :: {
 		Type: "AWS::Pinpoint::EmailChannel"
@@ -389,6 +398,7 @@ Pinpoint :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	EmailTemplate :: {
 		Type: "AWS::Pinpoint::EmailTemplate"
@@ -403,6 +413,7 @@ Pinpoint :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	EventStream :: {
 		Type: "AWS::Pinpoint::EventStream"
@@ -413,6 +424,7 @@ Pinpoint :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	GCMChannel :: {
 		Type: "AWS::Pinpoint::GCMChannel"
@@ -423,6 +435,7 @@ Pinpoint :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	PushTemplate :: {
 		Type: "AWS::Pinpoint::PushTemplate"
@@ -479,6 +492,7 @@ Pinpoint :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	SMSChannel :: {
 		Type: "AWS::Pinpoint::SMSChannel"
@@ -490,6 +504,7 @@ Pinpoint :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	Segment :: {
 		Type: "AWS::Pinpoint::Segment"
@@ -621,6 +636,7 @@ Pinpoint :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	SmsTemplate :: {
 		Type: "AWS::Pinpoint::SmsTemplate"
@@ -633,6 +649,7 @@ Pinpoint :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	VoiceChannel :: {
 		Type: "AWS::Pinpoint::VoiceChannel"
@@ -642,5 +659,6 @@ Pinpoint :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 }

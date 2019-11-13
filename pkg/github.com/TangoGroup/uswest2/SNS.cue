@@ -20,6 +20,7 @@ SNS :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	Topic :: {
 		Type: "AWS::SNS::Topic"
@@ -38,6 +39,7 @@ SNS :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	TopicPolicy :: {
 		Type: "AWS::SNS::TopicPolicy"
@@ -49,5 +51,6 @@ SNS :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 }

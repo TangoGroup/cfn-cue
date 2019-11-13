@@ -27,6 +27,7 @@ Neptune :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain" | "Snapshot"
+		Metadata?: [string]: _
 	}
 	DBClusterParameterGroup :: {
 		Type: "AWS::Neptune::DBClusterParameterGroup"
@@ -44,6 +45,7 @@ Neptune :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	DBInstance :: {
 		Type: "AWS::Neptune::DBInstance"
@@ -65,6 +67,7 @@ Neptune :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	DBParameterGroup :: {
 		Type: "AWS::Neptune::DBParameterGroup"
@@ -82,6 +85,7 @@ Neptune :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	DBSubnetGroup :: {
 		Type: "AWS::Neptune::DBSubnetGroup"
@@ -96,5 +100,6 @@ Neptune :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 }

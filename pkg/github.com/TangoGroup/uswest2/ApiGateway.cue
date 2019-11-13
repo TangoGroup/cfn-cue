@@ -8,6 +8,7 @@ ApiGateway :: {
 		Properties: CloudWatchRoleArn?: string | fn.Fn
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	ApiKey :: {
 		Type: "AWS::ApiGateway::ApiKey"
@@ -29,6 +30,7 @@ ApiGateway :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	Authorizer :: {
 		Type: "AWS::ApiGateway::Authorizer"
@@ -46,6 +48,7 @@ ApiGateway :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	BasePathMapping :: {
 		Type: "AWS::ApiGateway::BasePathMapping"
@@ -57,6 +60,7 @@ ApiGateway :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	ClientCertificate :: {
 		Type: "AWS::ApiGateway::ClientCertificate"
@@ -69,6 +73,7 @@ ApiGateway :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	Deployment :: {
 		Type: "AWS::ApiGateway::Deployment"
@@ -126,6 +131,7 @@ ApiGateway :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	DocumentationPart :: {
 		Type: "AWS::ApiGateway::DocumentationPart"
@@ -142,6 +148,7 @@ ApiGateway :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	DocumentationVersion :: {
 		Type: "AWS::ApiGateway::DocumentationVersion"
@@ -152,6 +159,7 @@ ApiGateway :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	DomainName :: {
 		Type: "AWS::ApiGateway::DomainName"
@@ -168,6 +176,7 @@ ApiGateway :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	GatewayResponse :: {
 		Type: "AWS::ApiGateway::GatewayResponse"
@@ -180,6 +189,7 @@ ApiGateway :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	Method :: {
 		Type: "AWS::ApiGateway::Method"
@@ -225,6 +235,7 @@ ApiGateway :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	Model :: {
 		Type: "AWS::ApiGateway::Model"
@@ -239,6 +250,7 @@ ApiGateway :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	RequestValidator :: {
 		Type: "AWS::ApiGateway::RequestValidator"
@@ -250,6 +262,7 @@ ApiGateway :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	Resource :: {
 		Type: "AWS::ApiGateway::Resource"
@@ -260,6 +273,7 @@ ApiGateway :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	RestApi :: {
 		Type: "AWS::ApiGateway::RestApi"
@@ -292,6 +306,7 @@ ApiGateway :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	Stage :: {
 		Type: "AWS::ApiGateway::Stage"
@@ -335,6 +350,7 @@ ApiGateway :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	UsagePlan :: {
 		Type: "AWS::ApiGateway::UsagePlan"
@@ -365,6 +381,7 @@ ApiGateway :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	UsagePlanKey :: {
 		Type: "AWS::ApiGateway::UsagePlanKey"
@@ -375,6 +392,7 @@ ApiGateway :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	VpcLink :: {
 		Type: "AWS::ApiGateway::VpcLink"
@@ -385,5 +403,6 @@ ApiGateway :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 }

@@ -11,6 +11,7 @@ Config :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	ConfigRule :: {
 		Type: "AWS::Config::ConfigRule"
@@ -39,6 +40,7 @@ Config :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	ConfigurationAggregator :: {
 		Type: "AWS::Config::ConfigurationAggregator"
@@ -57,6 +59,7 @@ Config :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	ConfigurationRecorder :: {
 		Type: "AWS::Config::ConfigurationRecorder"
@@ -71,6 +74,7 @@ Config :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	DeliveryChannel :: {
 		Type: "AWS::Config::DeliveryChannel"
@@ -83,6 +87,7 @@ Config :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	OrganizationConfigRule :: {
 		Type: "AWS::Config::OrganizationConfigRule"
@@ -113,6 +118,7 @@ Config :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	RemediationConfiguration :: {
 		Type: "AWS::Config::RemediationConfiguration"
@@ -135,5 +141,6 @@ Config :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 }

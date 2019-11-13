@@ -26,6 +26,7 @@ SQS :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	QueuePolicy :: {
 		Type: "AWS::SQS::QueuePolicy"
@@ -37,5 +38,6 @@ SQS :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 }

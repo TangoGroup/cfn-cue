@@ -21,6 +21,7 @@ EFS :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	MountTarget :: {
 		Type: "AWS::EFS::MountTarget"
@@ -32,5 +33,6 @@ EFS :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 }

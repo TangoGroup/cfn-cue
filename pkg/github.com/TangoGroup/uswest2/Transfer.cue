@@ -21,6 +21,7 @@ Transfer :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	User :: {
 		Type: "AWS::Transfer::User"
@@ -38,5 +39,6 @@ Transfer :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 }

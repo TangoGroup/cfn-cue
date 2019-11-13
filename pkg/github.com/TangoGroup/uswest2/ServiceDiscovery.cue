@@ -11,6 +11,7 @@ ServiceDiscovery :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	Instance :: {
 		Type: "AWS::ServiceDiscovery::Instance"
@@ -21,6 +22,7 @@ ServiceDiscovery :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	PrivateDnsNamespace :: {
 		Type: "AWS::ServiceDiscovery::PrivateDnsNamespace"
@@ -31,6 +33,7 @@ ServiceDiscovery :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	PublicDnsNamespace :: {
 		Type: "AWS::ServiceDiscovery::PublicDnsNamespace"
@@ -40,6 +43,7 @@ ServiceDiscovery :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	Service :: {
 		Type: "AWS::ServiceDiscovery::Service"
@@ -64,5 +68,6 @@ ServiceDiscovery :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 }

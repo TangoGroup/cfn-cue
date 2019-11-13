@@ -33,6 +33,7 @@ ApplicationAutoScaling :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	ScalingPolicy :: {
 		Type: "AWS::ApplicationAutoScaling::ScalingPolicy"
@@ -77,5 +78,6 @@ ApplicationAutoScaling :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 }

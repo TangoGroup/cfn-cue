@@ -15,6 +15,7 @@ SageMaker :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	Endpoint :: {
 		Type: "AWS::SageMaker::Endpoint"
@@ -28,6 +29,7 @@ SageMaker :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	EndpointConfig :: {
 		Type: "AWS::SageMaker::EndpointConfig"
@@ -49,6 +51,7 @@ SageMaker :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	Model :: {
 		Type: "AWS::SageMaker::Model"
@@ -82,6 +85,7 @@ SageMaker :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	NotebookInstance :: {
 		Type: "AWS::SageMaker::NotebookInstance"
@@ -106,6 +110,7 @@ SageMaker :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	NotebookInstanceLifecycleConfig :: {
 		Type: "AWS::SageMaker::NotebookInstanceLifecycleConfig"
@@ -120,6 +125,7 @@ SageMaker :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	Workteam :: {
 		Type: "AWS::SageMaker::Workteam"
@@ -141,5 +147,6 @@ SageMaker :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 }

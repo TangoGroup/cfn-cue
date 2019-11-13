@@ -20,6 +20,7 @@ WAF :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	IPSet :: {
 		Type: "AWS::WAF::IPSet"
@@ -32,6 +33,7 @@ WAF :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	Rule :: {
 		Type: "AWS::WAF::Rule"
@@ -46,6 +48,7 @@ WAF :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	SizeConstraintSet :: {
 		Type: "AWS::WAF::SizeConstraintSet"
@@ -63,6 +66,7 @@ WAF :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	SqlInjectionMatchSet :: {
 		Type: "AWS::WAF::SqlInjectionMatchSet"
@@ -78,6 +82,7 @@ WAF :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	WebACL :: {
 		Type: "AWS::WAF::WebACL"
@@ -93,6 +98,7 @@ WAF :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	XssMatchSet :: {
 		Type: "AWS::WAF::XssMatchSet"
@@ -108,5 +114,6 @@ WAF :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 }

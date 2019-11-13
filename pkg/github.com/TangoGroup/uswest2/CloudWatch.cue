@@ -54,6 +54,7 @@ CloudWatch :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	AnomalyDetector :: {
 		Type: "AWS::CloudWatch::AnomalyDetector"
@@ -75,6 +76,7 @@ CloudWatch :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	Dashboard :: {
 		Type: "AWS::CloudWatch::Dashboard"
@@ -84,5 +86,6 @@ CloudWatch :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 }

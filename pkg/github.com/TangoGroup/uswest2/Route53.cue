@@ -34,6 +34,7 @@ Route53 :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	HostedZone :: {
 		Type: "AWS::Route53::HostedZone"
@@ -52,6 +53,7 @@ Route53 :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	RecordSet :: {
 		Type: "AWS::Route53::RecordSet"
@@ -82,6 +84,7 @@ Route53 :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	RecordSetGroup :: {
 		Type: "AWS::Route53::RecordSetGroup"
@@ -117,5 +120,6 @@ Route53 :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 }

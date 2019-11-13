@@ -57,6 +57,7 @@ ElasticLoadBalancingV2 :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	ListenerCertificate :: {
 		Type: "AWS::ElasticLoadBalancingV2::ListenerCertificate"
@@ -68,6 +69,7 @@ ElasticLoadBalancingV2 :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	ListenerRule :: {
 		Type: "AWS::ElasticLoadBalancingV2::ListenerRule"
@@ -134,6 +136,7 @@ ElasticLoadBalancingV2 :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	LoadBalancer :: {
 		Type: "AWS::ElasticLoadBalancingV2::LoadBalancer"
@@ -159,6 +162,7 @@ ElasticLoadBalancingV2 :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	TargetGroup :: {
 		Type: "AWS::ElasticLoadBalancingV2::TargetGroup"
@@ -193,5 +197,6 @@ ElasticLoadBalancingV2 :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 }

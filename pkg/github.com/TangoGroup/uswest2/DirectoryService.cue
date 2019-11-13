@@ -19,6 +19,7 @@ DirectoryService :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	SimpleAD :: {
 		Type: "AWS::DirectoryService::SimpleAD"
@@ -37,5 +38,6 @@ DirectoryService :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 }

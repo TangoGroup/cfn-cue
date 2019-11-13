@@ -122,6 +122,7 @@ CodeBuild :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	SourceCredential :: {
 		Type: "AWS::CodeBuild::SourceCredential"
@@ -133,5 +134,6 @@ CodeBuild :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 }

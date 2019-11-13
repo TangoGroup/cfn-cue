@@ -22,6 +22,7 @@ MediaConvert :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	Preset :: {
 		Type: "AWS::MediaConvert::Preset"
@@ -38,6 +39,7 @@ MediaConvert :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	Queue :: {
 		Type: "AWS::MediaConvert::Queue"
@@ -52,5 +54,6 @@ MediaConvert :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 }

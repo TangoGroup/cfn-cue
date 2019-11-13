@@ -27,6 +27,7 @@ IoTAnalytics :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	Dataset :: {
 		Type: "AWS::IoTAnalytics::Dataset"
@@ -96,6 +97,7 @@ IoTAnalytics :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	Datastore :: {
 		Type: "AWS::IoTAnalytics::Datastore"
@@ -121,6 +123,7 @@ IoTAnalytics :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	Pipeline :: {
 		Type: "AWS::IoTAnalytics::Pipeline"
@@ -192,5 +195,6 @@ IoTAnalytics :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 }

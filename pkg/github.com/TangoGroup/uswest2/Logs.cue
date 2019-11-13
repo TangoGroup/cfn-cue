@@ -16,6 +16,7 @@ Logs :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	LogGroup :: {
 		Type: "AWS::Logs::LogGroup"
@@ -25,6 +26,7 @@ Logs :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	LogStream :: {
 		Type: "AWS::Logs::LogStream"
@@ -34,6 +36,7 @@ Logs :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	MetricFilter :: {
 		Type: "AWS::Logs::MetricFilter"
@@ -49,6 +52,7 @@ Logs :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	SubscriptionFilter :: {
 		Type: "AWS::Logs::SubscriptionFilter"
@@ -60,5 +64,6 @@ Logs :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 }

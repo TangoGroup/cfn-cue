@@ -20,6 +20,7 @@ Kinesis :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	StreamConsumer :: {
 		Type: "AWS::Kinesis::StreamConsumer"
@@ -29,5 +30,6 @@ Kinesis :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 }

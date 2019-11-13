@@ -23,6 +23,7 @@ SSM :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	Document :: {
 		Type: "AWS::SSM::Document"
@@ -38,6 +39,7 @@ SSM :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	MaintenanceWindow :: {
 		Type: "AWS::SSM::MaintenanceWindow"
@@ -58,6 +60,7 @@ SSM :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	MaintenanceWindowTarget :: {
 		Type: "AWS::SSM::MaintenanceWindowTarget"
@@ -74,6 +77,7 @@ SSM :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	MaintenanceWindowTask :: {
 		Type: "AWS::SSM::MaintenanceWindowTask"
@@ -136,6 +140,7 @@ SSM :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	Parameter :: {
 		Type: "AWS::SSM::Parameter"
@@ -153,6 +158,7 @@ SSM :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	PatchBaseline :: {
 		Type: "AWS::SSM::PatchBaseline"
@@ -191,6 +197,7 @@ SSM :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	ResourceDataSync :: {
 		Type: "AWS::SSM::ResourceDataSync"
@@ -204,5 +211,6 @@ SSM :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 }

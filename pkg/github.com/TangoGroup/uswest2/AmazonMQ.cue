@@ -45,6 +45,7 @@ AmazonMQ :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	Configuration :: {
 		Type: "AWS::AmazonMQ::Configuration"
@@ -61,6 +62,7 @@ AmazonMQ :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	ConfigurationAssociation :: {
 		Type: "AWS::AmazonMQ::ConfigurationAssociation"
@@ -73,5 +75,6 @@ AmazonMQ :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 }

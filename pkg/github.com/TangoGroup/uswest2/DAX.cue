@@ -24,6 +24,7 @@ DAX :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	ParameterGroup :: {
 		Type: "AWS::DAX::ParameterGroup"
@@ -36,6 +37,7 @@ DAX :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	SubnetGroup :: {
 		Type: "AWS::DAX::SubnetGroup"
@@ -46,5 +48,6 @@ DAX :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 }

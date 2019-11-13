@@ -29,6 +29,7 @@ Backup :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	BackupSelection :: {
 		Type: "AWS::Backup::BackupSelection"
@@ -47,6 +48,7 @@ Backup :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	BackupVault :: {
 		Type: "AWS::Backup::BackupVault"
@@ -66,5 +68,6 @@ Backup :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 }

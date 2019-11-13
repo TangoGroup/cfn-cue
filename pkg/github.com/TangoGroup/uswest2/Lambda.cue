@@ -17,6 +17,7 @@ Lambda :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	EventSourceMapping :: {
 		Type: "AWS::Lambda::EventSourceMapping"
@@ -30,6 +31,7 @@ Lambda :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	Function :: {
 		Type: "AWS::Lambda::Function"
@@ -64,6 +66,7 @@ Lambda :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	LayerVersion :: {
 		Type: "AWS::Lambda::LayerVersion"
@@ -80,6 +83,7 @@ Lambda :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	LayerVersionPermission :: {
 		Type: "AWS::Lambda::LayerVersionPermission"
@@ -91,6 +95,7 @@ Lambda :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	Permission :: {
 		Type: "AWS::Lambda::Permission"
@@ -104,6 +109,7 @@ Lambda :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	Version :: {
 		Type: "AWS::Lambda::Version"
@@ -114,5 +120,6 @@ Lambda :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 }

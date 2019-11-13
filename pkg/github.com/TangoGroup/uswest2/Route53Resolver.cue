@@ -20,6 +20,7 @@ Route53Resolver :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	ResolverRule :: {
 		Type: "AWS::Route53Resolver::ResolverRule"
@@ -39,6 +40,7 @@ Route53Resolver :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	ResolverRuleAssociation :: {
 		Type: "AWS::Route53Resolver::ResolverRuleAssociation"
@@ -49,5 +51,6 @@ Route53Resolver :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 }

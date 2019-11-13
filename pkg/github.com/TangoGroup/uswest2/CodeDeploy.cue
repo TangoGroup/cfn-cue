@@ -11,6 +11,7 @@ CodeDeploy :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	DeploymentConfig :: {
 		Type: "AWS::CodeDeploy::DeploymentConfig"
@@ -23,6 +24,7 @@ CodeDeploy :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	DeploymentGroup :: {
 		Type: "AWS::CodeDeploy::DeploymentGroup"
@@ -105,5 +107,6 @@ CodeDeploy :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 }

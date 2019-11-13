@@ -15,6 +15,7 @@ IAM :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	Group :: {
 		Type: "AWS::IAM::Group"
@@ -31,6 +32,7 @@ IAM :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	InstanceProfile :: {
 		Type: "AWS::IAM::InstanceProfile"
@@ -41,6 +43,7 @@ IAM :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	ManagedPolicy :: {
 		Type: "AWS::IAM::ManagedPolicy"
@@ -57,6 +60,7 @@ IAM :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	Policy :: {
 		Type: "AWS::IAM::Policy"
@@ -71,6 +75,7 @@ IAM :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	Role :: {
 		Type: "AWS::IAM::Role"
@@ -97,6 +102,7 @@ IAM :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	ServiceLinkedRole :: {
 		Type: "AWS::IAM::ServiceLinkedRole"
@@ -107,6 +113,7 @@ IAM :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	User :: {
 		Type: "AWS::IAM::User"
@@ -129,6 +136,7 @@ IAM :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	UserToGroupAddition :: {
 		Type: "AWS::IAM::UserToGroupAddition"
@@ -138,5 +146,6 @@ IAM :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 }

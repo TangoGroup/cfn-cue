@@ -138,6 +138,7 @@ IoTEvents :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	Input :: {
 		Type: "AWS::IoTEvents::Input"
@@ -154,5 +155,6 @@ IoTEvents :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 }

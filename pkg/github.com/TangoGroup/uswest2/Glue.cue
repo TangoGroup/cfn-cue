@@ -33,6 +33,7 @@ Glue :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	Connection :: {
 		Type: "AWS::Glue::Connection"
@@ -55,6 +56,7 @@ Glue :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	Crawler :: {
 		Type: "AWS::Glue::Crawler"
@@ -96,6 +98,7 @@ Glue :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	DataCatalogEncryptionSettings :: {
 		Type: "AWS::Glue::DataCatalogEncryptionSettings"
@@ -114,6 +117,7 @@ Glue :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	Database :: {
 		Type: "AWS::Glue::Database"
@@ -130,6 +134,7 @@ Glue :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	DevEndpoint :: {
 		Type: "AWS::Glue::DevEndpoint"
@@ -155,6 +160,7 @@ Glue :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	Job :: {
 		Type: "AWS::Glue::Job"
@@ -188,6 +194,7 @@ Glue :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	MLTransform :: {
 		Type: "AWS::Glue::MLTransform"
@@ -218,6 +225,7 @@ Glue :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	Partition :: {
 		Type: "AWS::Glue::Partition"
@@ -269,6 +277,7 @@ Glue :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	SecurityConfiguration :: {
 		Type: "AWS::Glue::SecurityConfiguration"
@@ -291,6 +300,7 @@ Glue :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	Table :: {
 		Type: "AWS::Glue::Table"
@@ -352,6 +362,7 @@ Glue :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	Trigger :: {
 		Type: "AWS::Glue::Trigger"
@@ -388,6 +399,7 @@ Glue :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	Workflow :: {
 		Type: "AWS::Glue::Workflow"
@@ -403,5 +415,6 @@ Glue :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 }

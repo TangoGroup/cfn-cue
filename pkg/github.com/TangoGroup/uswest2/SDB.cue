@@ -8,5 +8,6 @@ SDB :: {
 		Properties: Description?: string | fn.Fn
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 }

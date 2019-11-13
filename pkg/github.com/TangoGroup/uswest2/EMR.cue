@@ -263,6 +263,7 @@ EMR :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	InstanceFleetConfig :: {
 		Type: "AWS::EMR::InstanceFleetConfig"
@@ -304,6 +305,7 @@ EMR :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	InstanceGroupConfig :: {
 		Type: "AWS::EMR::InstanceGroupConfig"
@@ -368,6 +370,7 @@ EMR :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	SecurityConfiguration :: {
 		Type: "AWS::EMR::SecurityConfiguration"
@@ -379,6 +382,7 @@ EMR :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	Step :: {
 		Type: "AWS::EMR::Step"
@@ -398,5 +402,6 @@ EMR :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 }

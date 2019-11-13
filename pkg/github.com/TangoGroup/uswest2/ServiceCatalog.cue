@@ -11,6 +11,7 @@ ServiceCatalog :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	CloudFormationProduct :: {
 		Type: "AWS::ServiceCatalog::CloudFormationProduct"
@@ -38,6 +39,7 @@ ServiceCatalog :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	CloudFormationProvisionedProduct :: {
 		Type: "AWS::ServiceCatalog::CloudFormationProvisionedProduct"
@@ -70,6 +72,7 @@ ServiceCatalog :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	LaunchNotificationConstraint :: {
 		Type: "AWS::ServiceCatalog::LaunchNotificationConstraint"
@@ -82,6 +85,7 @@ ServiceCatalog :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	LaunchRoleConstraint :: {
 		Type: "AWS::ServiceCatalog::LaunchRoleConstraint"
@@ -94,6 +98,7 @@ ServiceCatalog :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	LaunchTemplateConstraint :: {
 		Type: "AWS::ServiceCatalog::LaunchTemplateConstraint"
@@ -106,6 +111,7 @@ ServiceCatalog :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	Portfolio :: {
 		Type: "AWS::ServiceCatalog::Portfolio"
@@ -121,6 +127,7 @@ ServiceCatalog :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	PortfolioPrincipalAssociation :: {
 		Type: "AWS::ServiceCatalog::PortfolioPrincipalAssociation"
@@ -132,6 +139,7 @@ ServiceCatalog :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	PortfolioProductAssociation :: {
 		Type: "AWS::ServiceCatalog::PortfolioProductAssociation"
@@ -143,6 +151,7 @@ ServiceCatalog :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	PortfolioShare :: {
 		Type: "AWS::ServiceCatalog::PortfolioShare"
@@ -153,6 +162,7 @@ ServiceCatalog :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	ResourceUpdateConstraint :: {
 		Type: "AWS::ServiceCatalog::ResourceUpdateConstraint"
@@ -165,6 +175,7 @@ ServiceCatalog :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	StackSetConstraint :: {
 		Type: "AWS::ServiceCatalog::StackSetConstraint"
@@ -181,6 +192,7 @@ ServiceCatalog :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	TagOption :: {
 		Type: "AWS::ServiceCatalog::TagOption"
@@ -191,6 +203,7 @@ ServiceCatalog :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	TagOptionAssociation :: {
 		Type: "AWS::ServiceCatalog::TagOptionAssociation"
@@ -200,5 +213,6 @@ ServiceCatalog :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 }

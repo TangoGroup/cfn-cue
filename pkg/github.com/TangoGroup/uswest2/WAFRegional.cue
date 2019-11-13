@@ -20,6 +20,7 @@ WAFRegional :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	GeoMatchSet :: {
 		Type: "AWS::WAFRegional::GeoMatchSet"
@@ -32,6 +33,7 @@ WAFRegional :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	IPSet :: {
 		Type: "AWS::WAFRegional::IPSet"
@@ -44,6 +46,7 @@ WAFRegional :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	RateBasedRule :: {
 		Type: "AWS::WAFRegional::RateBasedRule"
@@ -60,6 +63,7 @@ WAFRegional :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	RegexPatternSet :: {
 		Type: "AWS::WAFRegional::RegexPatternSet"
@@ -69,6 +73,7 @@ WAFRegional :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	Rule :: {
 		Type: "AWS::WAFRegional::Rule"
@@ -83,6 +88,7 @@ WAFRegional :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	SizeConstraintSet :: {
 		Type: "AWS::WAFRegional::SizeConstraintSet"
@@ -100,6 +106,7 @@ WAFRegional :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	SqlInjectionMatchSet :: {
 		Type: "AWS::WAFRegional::SqlInjectionMatchSet"
@@ -115,6 +122,7 @@ WAFRegional :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	WebACL :: {
 		Type: "AWS::WAFRegional::WebACL"
@@ -130,6 +138,7 @@ WAFRegional :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	WebACLAssociation :: {
 		Type: "AWS::WAFRegional::WebACLAssociation"
@@ -139,6 +148,7 @@ WAFRegional :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	XssMatchSet :: {
 		Type: "AWS::WAFRegional::XssMatchSet"
@@ -154,5 +164,6 @@ WAFRegional :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 }

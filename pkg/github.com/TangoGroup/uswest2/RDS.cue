@@ -50,6 +50,7 @@ RDS :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain" | "Snapshot"
+		Metadata?: [string]: _
 	}
 	DBClusterParameterGroup :: {
 		Type: "AWS::RDS::DBClusterParameterGroup"
@@ -66,6 +67,7 @@ RDS :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	DBInstance :: {
 		Type: "AWS::RDS::DBInstance"
@@ -132,6 +134,7 @@ RDS :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain" | "Snapshot"
+		Metadata?: [string]: _
 	}
 	DBParameterGroup :: {
 		Type: "AWS::RDS::DBParameterGroup"
@@ -146,6 +149,7 @@ RDS :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	DBSecurityGroup :: {
 		Type: "AWS::RDS::DBSecurityGroup"
@@ -165,6 +169,7 @@ RDS :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	DBSecurityGroupIngress :: {
 		Type: "AWS::RDS::DBSecurityGroupIngress"
@@ -177,6 +182,7 @@ RDS :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	DBSubnetGroup :: {
 		Type: "AWS::RDS::DBSubnetGroup"
@@ -191,6 +197,7 @@ RDS :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	EventSubscription :: {
 		Type: "AWS::RDS::EventSubscription"
@@ -203,6 +210,7 @@ RDS :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	OptionGroup :: {
 		Type: "AWS::RDS::OptionGroup"
@@ -228,5 +236,6 @@ RDS :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 }

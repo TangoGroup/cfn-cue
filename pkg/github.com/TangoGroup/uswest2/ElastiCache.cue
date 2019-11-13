@@ -33,6 +33,7 @@ ElastiCache :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain" | "Snapshot"
+		Metadata?: [string]: _
 	}
 	ParameterGroup :: {
 		Type: "AWS::ElastiCache::ParameterGroup"
@@ -43,6 +44,7 @@ ElastiCache :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	ReplicationGroup :: {
 		Type: "AWS::ElastiCache::ReplicationGroup"
@@ -89,12 +91,14 @@ ElastiCache :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain" | "Snapshot"
+		Metadata?: [string]: _
 	}
 	SecurityGroup :: {
 		Type: "AWS::ElastiCache::SecurityGroup"
 		Properties: Description: string | fn.Fn
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	SecurityGroupIngress :: {
 		Type: "AWS::ElastiCache::SecurityGroupIngress"
@@ -105,6 +109,7 @@ ElastiCache :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	SubnetGroup :: {
 		Type: "AWS::ElastiCache::SubnetGroup"
@@ -115,5 +120,6 @@ ElastiCache :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 }

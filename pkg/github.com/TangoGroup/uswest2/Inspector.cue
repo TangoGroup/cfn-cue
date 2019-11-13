@@ -11,6 +11,7 @@ Inspector :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	AssessmentTemplate :: {
 		Type: "AWS::Inspector::AssessmentTemplate"
@@ -26,6 +27,7 @@ Inspector :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	ResourceGroup :: {
 		Type: "AWS::Inspector::ResourceGroup"
@@ -35,5 +37,6 @@ Inspector :: {
 		}]
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 }

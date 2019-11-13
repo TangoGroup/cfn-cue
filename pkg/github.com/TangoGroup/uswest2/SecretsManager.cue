@@ -13,6 +13,7 @@ SecretsManager :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	RotationSchedule :: {
 		Type: "AWS::SecretsManager::RotationSchedule"
@@ -23,6 +24,7 @@ SecretsManager :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	Secret :: {
 		Type: "AWS::SecretsManager::Secret"
@@ -50,6 +52,7 @@ SecretsManager :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	SecretTargetAttachment :: {
 		Type: "AWS::SecretsManager::SecretTargetAttachment"
@@ -60,5 +63,6 @@ SecretsManager :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 }

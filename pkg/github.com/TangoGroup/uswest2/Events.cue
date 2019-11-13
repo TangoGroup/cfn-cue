@@ -11,6 +11,7 @@ Events :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	EventBusPolicy :: {
 		Type: "AWS::Events::EventBusPolicy"
@@ -27,6 +28,7 @@ Events :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	Rule :: {
 		Type: "AWS::Events::Rule"
@@ -78,5 +80,6 @@ Events :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 }

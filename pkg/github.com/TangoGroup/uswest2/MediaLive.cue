@@ -95,6 +95,7 @@ MediaLive :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	Input :: {
 		Type: "AWS::MediaLive::Input"
@@ -124,6 +125,7 @@ MediaLive :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 	InputSecurityGroup :: {
 		Type: "AWS::MediaLive::InputSecurityGroup"
@@ -137,5 +139,6 @@ MediaLive :: {
 		}
 		DependsOn?:      string | [...string]
 		DeletionPolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
 	}
 }
