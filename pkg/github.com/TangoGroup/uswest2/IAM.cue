@@ -13,7 +13,8 @@ IAM :: {
 			Status?:  (string & ("Active" | "Inactive")) | fn.Fn
 			UserName: string | fn.Fn
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	Group :: {
 		Type: "AWS::IAM::Group"
@@ -28,7 +29,8 @@ IAM :: {
 				PolicyName: (string & (strings.MinRunes(1) & strings.MaxRunes(128)) & (=~#"^[a-zA-Z0-9+=,.@\-_]+$"#)) | fn.Fn
 			}]
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	InstanceProfile :: {
 		Type: "AWS::IAM::InstanceProfile"
@@ -37,7 +39,8 @@ IAM :: {
 			Path?:                (string & (=~#"^/(.+/)*$"#)) | fn.Fn
 			Roles: [...(string | fn.Fn)]
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	ManagedPolicy :: {
 		Type: "AWS::IAM::ManagedPolicy"
@@ -52,7 +55,8 @@ IAM :: {
 			Roles?: [...(string | fn.Fn)]
 			Users?: [...(string | fn.Fn)]
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	Policy :: {
 		Type: "AWS::IAM::Policy"
@@ -65,7 +69,8 @@ IAM :: {
 			Roles?: [...(string | fn.Fn)]
 			Users?: [...(string | fn.Fn)]
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	Role :: {
 		Type: "AWS::IAM::Role"
@@ -90,7 +95,8 @@ IAM :: {
 				Value: string | fn.Fn
 			}]
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	ServiceLinkedRole :: {
 		Type: "AWS::IAM::ServiceLinkedRole"
@@ -99,7 +105,8 @@ IAM :: {
 			CustomSuffix?:  string | fn.Fn
 			Description?:   string | fn.Fn
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	User :: {
 		Type: "AWS::IAM::User"
@@ -120,7 +127,8 @@ IAM :: {
 			}]
 			UserName?: string | fn.Fn
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	UserToGroupAddition :: {
 		Type: "AWS::IAM::UserToGroupAddition"
@@ -128,6 +136,7 @@ IAM :: {
 			GroupName: string | fn.Fn
 			Users: [...(string | fn.Fn)]
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 }

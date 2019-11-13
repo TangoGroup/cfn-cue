@@ -395,9 +395,9 @@ func main() {
 	for _, region := range regions {
 		shortRegion := strings.ReplaceAll(region, "-", "")
 
-		// if region != "us-west-2" {
-		// 	continue
-		// }
+		if region != "us-west-2" {
+			continue
+		}
 
 		cloudformationSpec := "https://github.com/aws-cloudformation/cfn-python-lint/raw/master/src/cfnlint/data/CloudSpecs/" + region + ".json"
 		fmt.Println(cloudformationSpec)
@@ -496,6 +496,7 @@ func main() {
 
 			for _, resourceName := range resourceNames {
 				resource := resources[resourceName]
+
 				splits := strings.Split(resourceName, "::")
 				resourceSubproperties := propertiesByResource[resourceName]
 
@@ -535,6 +536,71 @@ func main() {
 						},
 					},
 				}
+
+				switch resourceName {
+				case "AWS::AutoScaling::AutoScalingGroup", "AWS::EC2::Instance", "AWS::CloudFormation::WaitCondition":
+					resourceElts = append(resourceElts, &ast.Field{
+						Label:    ast.NewIdent("CreationPolicy"),
+						Optional: token.Elided.Pos(),
+						Value: &ast.StructLit{
+							Elts: []ast.Decl{
+								&ast.Field{
+									Label:    ast.NewIdent("AutoScalingCreationPolicy"),
+									Optional: token.Elided.Pos(),
+									Value: &ast.StructLit{
+										Elts: []ast.Decl{
+											&ast.Field{
+												Label:    ast.NewIdent("MinSuccessfulInstancesPercent"),
+												Optional: token.Elided.Pos(),
+												Value:    &ast.BasicLit{Value: "int"},
+											},
+										},
+									},
+								},
+								&ast.Field{
+									Label:    ast.NewIdent("ResourceSignal"),
+									Optional: token.Elided.Pos(),
+									Value: &ast.StructLit{
+										Elts: []ast.Decl{
+											&ast.Field{
+												Label:    ast.NewIdent("Count"),
+												Optional: token.Elided.Pos(),
+												Value:    &ast.BasicLit{Value: "int"},
+											},
+											&ast.Field{
+												Label:    ast.NewIdent("Timeout"),
+												Optional: token.Elided.Pos(),
+												Value:    &ast.BasicLit{Value: "string"},
+											},
+										},
+									},
+								},
+							},
+						},
+					})
+				}
+				deletionPolicyStrings := []string{"Delete", "Retain"}
+				switch resourceName {
+				case "AWS::EC2::Volume",
+					"AWS::ElastiCache::CacheCluster",
+					"AWS::ElastiCache::ReplicationGroup",
+					"AWS::Neptune::DBCluster",
+					"AWS::RDS::DBCluster",
+					"AWS::RDS::DBInstance",
+					"AWS::Redshift::Cluster":
+					deletionPolicyStrings = append(deletionPolicyStrings, "Snapshot")
+				}
+				var deletionPolicies ast.Expr
+				deletionPolicies = ast.NewString(deletionPolicyStrings[0])
+
+				for _, deletionPolicy := range deletionPolicyStrings[1:] {
+					deletionPolicies = &ast.BinaryExpr{X: deletionPolicies, Op: token.OR, Y: ast.NewString(deletionPolicy)}
+				}
+				resourceElts = append(resourceElts, &ast.Field{
+					Label:    ast.NewIdent("DeletionPolicy"),
+					Optional: token.Elided.Pos(),
+					Value:    deletionPolicies,
+				})
 
 				f := &ast.Field{
 					Label: ast.NewIdent(resourceStr),

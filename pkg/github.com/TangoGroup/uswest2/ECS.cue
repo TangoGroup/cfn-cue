@@ -12,7 +12,8 @@ ECS :: {
 				Value: string | fn.Fn
 			}]
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	Service :: {
 		Type: "AWS::ECS::Service"
@@ -62,7 +63,8 @@ ECS :: {
 			}]
 			TaskDefinition: string | fn.Fn
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	TaskDefinition :: {
 		Type: "AWS::ECS::TaskDefinition"
@@ -210,6 +212,7 @@ ECS :: {
 				Name?: string | fn.Fn
 			}]
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 }

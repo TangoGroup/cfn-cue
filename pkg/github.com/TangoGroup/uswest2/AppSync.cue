@@ -10,7 +10,8 @@ AppSync :: {
 			Description?: string | fn.Fn
 			Expires?:     float | fn.Fn
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	DataSource :: {
 		Type: "AWS::AppSync::DataSource"
@@ -57,7 +58,8 @@ AppSync :: {
 			ServiceRoleArn?: string | fn.Fn
 			Type:            (string & ("AMAZON_DYNAMODB" | "AMAZON_ELASTICSEARCH" | "AWS_LAMBDA" | "HTTP" | "NONE" | "RELATIONAL_DATABASE")) | fn.Fn
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	FunctionConfiguration :: {
 		Type: "AWS::AppSync::FunctionConfiguration"
@@ -72,7 +74,8 @@ AppSync :: {
 			ResponseMappingTemplate?:           string | fn.Fn
 			ResponseMappingTemplateS3Location?: string | fn.Fn
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	GraphQLApi :: {
 		Type: "AWS::AppSync::GraphQLApi"
@@ -115,7 +118,8 @@ AppSync :: {
 				UserPoolId?:       string | fn.Fn
 			}
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	GraphQLSchema :: {
 		Type: "AWS::AppSync::GraphQLSchema"
@@ -124,7 +128,8 @@ AppSync :: {
 			Definition?:           string | fn.Fn
 			DefinitionS3Location?: string | fn.Fn
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	Resolver :: {
 		Type: "AWS::AppSync::Resolver"
@@ -145,6 +150,7 @@ AppSync :: {
 			}
 			TypeName: string | fn.Fn
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 }

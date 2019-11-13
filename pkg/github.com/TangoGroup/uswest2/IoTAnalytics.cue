@@ -25,7 +25,8 @@ IoTAnalytics :: {
 				Value: string | fn.Fn
 			}]
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	Dataset :: {
 		Type: "AWS::IoTAnalytics::Dataset"
@@ -93,7 +94,8 @@ IoTAnalytics :: {
 				Unlimited?:   bool | fn.Fn
 			}
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	Datastore :: {
 		Type: "AWS::IoTAnalytics::Datastore"
@@ -117,7 +119,8 @@ IoTAnalytics :: {
 				Value: string | fn.Fn
 			}]
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	Pipeline :: {
 		Type: "AWS::IoTAnalytics::Pipeline"
@@ -187,6 +190,7 @@ IoTAnalytics :: {
 				Value: string | fn.Fn
 			}]
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 }

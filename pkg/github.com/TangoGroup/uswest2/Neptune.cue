@@ -25,7 +25,8 @@ Neptune :: {
 			}]
 			VpcSecurityGroupIds?: [...(string | fn.Fn)]
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain" | "Snapshot"
 	}
 	DBClusterParameterGroup :: {
 		Type: "AWS::Neptune::DBClusterParameterGroup"
@@ -41,7 +42,8 @@ Neptune :: {
 				Value: string | fn.Fn
 			}]
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	DBInstance :: {
 		Type: "AWS::Neptune::DBInstance"
@@ -61,7 +63,8 @@ Neptune :: {
 				Value: string | fn.Fn
 			}]
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	DBParameterGroup :: {
 		Type: "AWS::Neptune::DBParameterGroup"
@@ -77,7 +80,8 @@ Neptune :: {
 				Value: string | fn.Fn
 			}]
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	DBSubnetGroup :: {
 		Type: "AWS::Neptune::DBSubnetGroup"
@@ -90,6 +94,7 @@ Neptune :: {
 				Value: string | fn.Fn
 			}]
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 }

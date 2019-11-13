@@ -9,7 +9,8 @@ KMS :: {
 			AliasName:   string | fn.Fn
 			TargetKeyId: string | fn.Fn
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	Key :: {
 		Type: "AWS::KMS::Key"
@@ -27,6 +28,7 @@ KMS :: {
 				Value: string | fn.Fn
 			}]
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 }

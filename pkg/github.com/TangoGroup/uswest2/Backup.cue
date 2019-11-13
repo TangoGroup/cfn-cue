@@ -27,7 +27,8 @@ Backup :: {
 				[string]: _
 			} | fn.Fn
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	BackupSelection :: {
 		Type: "AWS::Backup::BackupSelection"
@@ -44,7 +45,8 @@ Backup :: {
 				SelectionName: string | fn.Fn
 			}
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	BackupVault :: {
 		Type: "AWS::Backup::BackupVault"
@@ -62,6 +64,7 @@ Backup :: {
 				SNSTopicArn: string | fn.Fn
 			}
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 }

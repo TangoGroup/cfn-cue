@@ -11,7 +11,8 @@ SecretsManager :: {
 			} | fn.Fn
 			SecretId: string | fn.Fn
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	RotationSchedule :: {
 		Type: "AWS::SecretsManager::RotationSchedule"
@@ -20,7 +21,8 @@ SecretsManager :: {
 			RotationRules?: AutomaticallyAfterDays?: int | fn.Fn
 			SecretId: string | fn.Fn
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	Secret :: {
 		Type: "AWS::SecretsManager::Secret"
@@ -46,7 +48,8 @@ SecretsManager :: {
 				Value: string | fn.Fn
 			}]
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	SecretTargetAttachment :: {
 		Type: "AWS::SecretsManager::SecretTargetAttachment"
@@ -55,6 +58,7 @@ SecretsManager :: {
 			TargetId:   string | fn.Fn
 			TargetType: (string & ("AWS::RDS::DBCluster" | "AWS::RDS::DBInstance")) | fn.Fn
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 }

@@ -27,7 +27,8 @@ DocDB :: {
 			}]
 			VpcSecurityGroupIds?: [...(string | fn.Fn)]
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	DBClusterParameterGroup :: {
 		Type: "AWS::DocDB::DBClusterParameterGroup"
@@ -43,7 +44,8 @@ DocDB :: {
 				Value: string | fn.Fn
 			}]
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	DBInstance :: {
 		Type: "AWS::DocDB::DBInstance"
@@ -59,7 +61,8 @@ DocDB :: {
 				Value: string | fn.Fn
 			}]
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	DBSubnetGroup :: {
 		Type: "AWS::DocDB::DBSubnetGroup"
@@ -72,6 +75,7 @@ DocDB :: {
 				Value: string | fn.Fn
 			}]
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 }

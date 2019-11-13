@@ -18,6 +18,7 @@ CertificateManager :: {
 			}]
 			ValidationMethod?: (string & ("DNS" | "EMAIL")) | fn.Fn
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 }

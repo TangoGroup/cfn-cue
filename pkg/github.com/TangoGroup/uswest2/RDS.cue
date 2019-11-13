@@ -48,7 +48,8 @@ RDS :: {
 			UseLatestRestorableTime?: bool | fn.Fn
 			VpcSecurityGroupIds?: [...(string | fn.Fn)]
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain" | "Snapshot"
 	}
 	DBClusterParameterGroup :: {
 		Type: "AWS::RDS::DBClusterParameterGroup"
@@ -63,7 +64,8 @@ RDS :: {
 				Value: string | fn.Fn
 			}]
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	DBInstance :: {
 		Type: "AWS::RDS::DBInstance"
@@ -128,7 +130,8 @@ RDS :: {
 			UseDefaultProcessorFeatures?: bool | fn.Fn
 			VPCSecurityGroups?: [...(string | fn.Fn)]
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain" | "Snapshot"
 	}
 	DBParameterGroup :: {
 		Type: "AWS::RDS::DBParameterGroup"
@@ -141,7 +144,8 @@ RDS :: {
 				Value: string | fn.Fn
 			}]
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	DBSecurityGroup :: {
 		Type: "AWS::RDS::DBSecurityGroup"
@@ -159,7 +163,8 @@ RDS :: {
 				Value: string | fn.Fn
 			}]
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	DBSecurityGroupIngress :: {
 		Type: "AWS::RDS::DBSecurityGroupIngress"
@@ -170,7 +175,8 @@ RDS :: {
 			EC2SecurityGroupName?:    string | fn.Fn
 			EC2SecurityGroupOwnerId?: string | fn.Fn
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	DBSubnetGroup :: {
 		Type: "AWS::RDS::DBSubnetGroup"
@@ -183,7 +189,8 @@ RDS :: {
 				Value: string | fn.Fn
 			}]
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	EventSubscription :: {
 		Type: "AWS::RDS::EventSubscription"
@@ -194,7 +201,8 @@ RDS :: {
 			SourceIds?: [...(string | fn.Fn)]
 			SourceType?: string | fn.Fn
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	OptionGroup :: {
 		Type: "AWS::RDS::OptionGroup"
@@ -218,6 +226,7 @@ RDS :: {
 				Value: string | fn.Fn
 			}]
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 }

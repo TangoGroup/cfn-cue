@@ -71,6 +71,14 @@ AutoScaling :: {
 			VPCZoneIdentifier?: [...(string | fn.Fn)]
 		}
 		DependsOn?: string | [...string]
+		CreationPolicy?: {
+			AutoScalingCreationPolicy?: MinSuccessfulInstancesPercent?: int
+			ResourceSignal?: {
+				Count?:   int
+				Timeout?: string
+			}
+		}
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	LaunchConfiguration :: {
 		Type: "AWS::AutoScaling::LaunchConfiguration"
@@ -106,7 +114,8 @@ AutoScaling :: {
 			SpotPrice?: string | fn.Fn
 			UserData?:  string | fn.Fn
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	LifecycleHook :: {
 		Type: "AWS::AutoScaling::LifecycleHook"
@@ -120,7 +129,8 @@ AutoScaling :: {
 			NotificationTargetARN?: string | fn.Fn
 			RoleARN?:               string | fn.Fn
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	ScalingPolicy :: {
 		Type: "AWS::AutoScaling::ScalingPolicy"
@@ -157,7 +167,8 @@ AutoScaling :: {
 				TargetValue: float | fn.Fn
 			}
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	ScheduledAction :: {
 		Type: "AWS::AutoScaling::ScheduledAction"
@@ -170,6 +181,7 @@ AutoScaling :: {
 			Recurrence?:          string | fn.Fn
 			StartTime?:           string | fn.Fn
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 }

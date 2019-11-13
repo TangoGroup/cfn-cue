@@ -9,7 +9,8 @@ Events :: {
 			EventSourceName?: string | fn.Fn
 			Name:             string | fn.Fn
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	EventBusPolicy :: {
 		Type: "AWS::Events::EventBusPolicy"
@@ -24,7 +25,8 @@ Events :: {
 			Principal:     string | fn.Fn
 			StatementId:   string | fn.Fn
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	Rule :: {
 		Type: "AWS::Events::Rule"
@@ -74,6 +76,7 @@ Events :: {
 				SqsParameters?: MessageGroupId: string | fn.Fn
 			}]
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 }

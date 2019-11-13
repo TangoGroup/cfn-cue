@@ -13,7 +13,8 @@ AppMesh :: {
 				Value: string | fn.Fn
 			}]
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	Route :: {
 		Type: "AWS::AppMesh::Route"
@@ -135,7 +136,8 @@ AppMesh :: {
 			}]
 			VirtualRouterName: string | fn.Fn
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	VirtualNode :: {
 		Type: "AWS::AppMesh::VirtualNode"
@@ -179,7 +181,8 @@ AppMesh :: {
 			}]
 			VirtualNodeName: string | fn.Fn
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	VirtualRouter :: {
 		Type: "AWS::AppMesh::VirtualRouter"
@@ -197,7 +200,8 @@ AppMesh :: {
 			}]
 			VirtualRouterName: string | fn.Fn
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	VirtualService :: {
 		Type: "AWS::AppMesh::VirtualService"
@@ -213,6 +217,7 @@ AppMesh :: {
 			}]
 			VirtualServiceName: string | fn.Fn
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 }

@@ -6,6 +6,7 @@ SDB :: {
 	Domain :: {
 		Type: "AWS::SDB::Domain"
 		Properties: Description?: string | fn.Fn
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 }

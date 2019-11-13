@@ -42,7 +42,8 @@ Redshift :: {
 			}]
 			VpcSecurityGroupIds?: [...(string | fn.Fn)]
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain" | "Snapshot"
 	}
 	ClusterParameterGroup :: {
 		Type: "AWS::Redshift::ClusterParameterGroup"
@@ -58,7 +59,8 @@ Redshift :: {
 				Value: string | fn.Fn
 			}]
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	ClusterSecurityGroup :: {
 		Type: "AWS::Redshift::ClusterSecurityGroup"
@@ -69,7 +71,8 @@ Redshift :: {
 				Value: string | fn.Fn
 			}]
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	ClusterSecurityGroupIngress :: {
 		Type: "AWS::Redshift::ClusterSecurityGroupIngress"
@@ -79,7 +82,8 @@ Redshift :: {
 			EC2SecurityGroupName?:    string | fn.Fn
 			EC2SecurityGroupOwnerId?: string | fn.Fn
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	ClusterSubnetGroup :: {
 		Type: "AWS::Redshift::ClusterSubnetGroup"
@@ -91,6 +95,7 @@ Redshift :: {
 				Value: string | fn.Fn
 			}]
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 }

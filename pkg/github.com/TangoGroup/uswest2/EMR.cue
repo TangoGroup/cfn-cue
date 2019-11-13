@@ -261,7 +261,8 @@ EMR :: {
 			}]
 			VisibleToAllUsers?: bool | fn.Fn
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	InstanceFleetConfig :: {
 		Type: "AWS::EMR::InstanceFleetConfig"
@@ -301,7 +302,8 @@ EMR :: {
 			TargetOnDemandCapacity?: int | fn.Fn
 			TargetSpotCapacity?:     int | fn.Fn
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	InstanceGroupConfig :: {
 		Type: "AWS::EMR::InstanceGroupConfig"
@@ -364,7 +366,8 @@ EMR :: {
 			Market?:       string | fn.Fn
 			Name?:         string | fn.Fn
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	SecurityConfiguration :: {
 		Type: "AWS::EMR::SecurityConfiguration"
@@ -374,7 +377,8 @@ EMR :: {
 				[string]: _
 			} | fn.Fn
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	Step :: {
 		Type: "AWS::EMR::Step"
@@ -392,6 +396,7 @@ EMR :: {
 			JobFlowId: string | fn.Fn
 			Name:      string | fn.Fn
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 }

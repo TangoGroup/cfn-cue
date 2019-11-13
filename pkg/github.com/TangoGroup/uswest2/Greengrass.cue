@@ -18,7 +18,8 @@ Greengrass :: {
 				[string]: _
 			} | fn.Fn
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	ConnectorDefinitionVersion :: {
 		Type: "AWS::Greengrass::ConnectorDefinitionVersion"
@@ -32,7 +33,8 @@ Greengrass :: {
 				} | fn.Fn
 			}]
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	CoreDefinition :: {
 		Type: "AWS::Greengrass::CoreDefinition"
@@ -48,7 +50,8 @@ Greengrass :: {
 				[string]: _
 			} | fn.Fn
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	CoreDefinitionVersion :: {
 		Type: "AWS::Greengrass::CoreDefinitionVersion"
@@ -61,7 +64,8 @@ Greengrass :: {
 				ThingArn:       string | fn.Fn
 			}]
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	DeviceDefinition :: {
 		Type: "AWS::Greengrass::DeviceDefinition"
@@ -77,7 +81,8 @@ Greengrass :: {
 				[string]: _
 			} | fn.Fn
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	DeviceDefinitionVersion :: {
 		Type: "AWS::Greengrass::DeviceDefinitionVersion"
@@ -90,7 +95,8 @@ Greengrass :: {
 				ThingArn:       string | fn.Fn
 			}]
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	FunctionDefinition :: {
 		Type: "AWS::Greengrass::FunctionDefinition"
@@ -138,7 +144,8 @@ Greengrass :: {
 				[string]: _
 			} | fn.Fn
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	FunctionDefinitionVersion :: {
 		Type: "AWS::Greengrass::FunctionDefinitionVersion"
@@ -181,7 +188,8 @@ Greengrass :: {
 				Id: string | fn.Fn
 			}]
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	Group :: {
 		Type: "AWS::Greengrass::Group"
@@ -201,7 +209,8 @@ Greengrass :: {
 				[string]: _
 			} | fn.Fn
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	GroupVersion :: {
 		Type: "AWS::Greengrass::GroupVersion"
@@ -215,7 +224,8 @@ Greengrass :: {
 			ResourceDefinitionVersionArn?:     string | fn.Fn
 			SubscriptionDefinitionVersionArn?: string | fn.Fn
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	LoggerDefinition :: {
 		Type: "AWS::Greengrass::LoggerDefinition"
@@ -232,7 +242,8 @@ Greengrass :: {
 				[string]: _
 			} | fn.Fn
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	LoggerDefinitionVersion :: {
 		Type: "AWS::Greengrass::LoggerDefinitionVersion"
@@ -246,7 +257,8 @@ Greengrass :: {
 				Type:      string | fn.Fn
 			}]
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	ResourceDefinition :: {
 		Type: "AWS::Greengrass::ResourceDefinition"
@@ -289,7 +301,8 @@ Greengrass :: {
 				[string]: _
 			} | fn.Fn
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	ResourceDefinitionVersion :: {
 		Type: "AWS::Greengrass::ResourceDefinitionVersion"
@@ -329,7 +342,8 @@ Greengrass :: {
 				}
 			}]
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	SubscriptionDefinition :: {
 		Type: "AWS::Greengrass::SubscriptionDefinition"
@@ -345,7 +359,8 @@ Greengrass :: {
 				[string]: _
 			} | fn.Fn
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	SubscriptionDefinitionVersion :: {
 		Type: "AWS::Greengrass::SubscriptionDefinitionVersion"
@@ -358,6 +373,7 @@ Greengrass :: {
 				Target:  string | fn.Fn
 			}]
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 }

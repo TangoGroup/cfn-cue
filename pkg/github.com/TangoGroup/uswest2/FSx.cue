@@ -39,6 +39,7 @@ FSx :: {
 				WeeklyMaintenanceStartTime?: string | fn.Fn
 			}
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 }

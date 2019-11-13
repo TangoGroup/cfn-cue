@@ -13,7 +13,8 @@ AppStream :: {
 				AccountPassword: string | fn.Fn
 			}
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	Fleet :: {
 		Type: "AWS::AppStream::Fleet"
@@ -43,7 +44,8 @@ AppStream :: {
 				SubnetIds?: [...(string | fn.Fn)]
 			}
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	ImageBuilder :: {
 		Type: "AWS::AppStream::ImageBuilder"
@@ -73,7 +75,8 @@ AppStream :: {
 				SubnetIds?: [...(string | fn.Fn)]
 			}
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	Stack :: {
 		Type: "AWS::AppStream::Stack"
@@ -108,7 +111,8 @@ AppStream :: {
 				Permission: string | fn.Fn
 			}]
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	StackFleetAssociation :: {
 		Type: "AWS::AppStream::StackFleetAssociation"
@@ -116,7 +120,8 @@ AppStream :: {
 			FleetName: string | fn.Fn
 			StackName: string | fn.Fn
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	StackUserAssociation :: {
 		Type: "AWS::AppStream::StackUserAssociation"
@@ -126,7 +131,8 @@ AppStream :: {
 			StackName:              string | fn.Fn
 			UserName:               string | fn.Fn
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	User :: {
 		Type: "AWS::AppStream::User"
@@ -137,6 +143,7 @@ AppStream :: {
 			MessageAction?:     string | fn.Fn
 			UserName:           string | fn.Fn
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 }

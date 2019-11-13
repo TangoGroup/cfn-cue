@@ -9,7 +9,8 @@ IoT :: {
 			CertificateSigningRequest: string | fn.Fn
 			Status:                    string | fn.Fn
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	Policy :: {
 		Type: "AWS::IoT::Policy"
@@ -19,7 +20,8 @@ IoT :: {
 			} | fn.Fn
 			PolicyName?: string | fn.Fn
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	PolicyPrincipalAttachment :: {
 		Type: "AWS::IoT::PolicyPrincipalAttachment"
@@ -27,7 +29,8 @@ IoT :: {
 			PolicyName: string | fn.Fn
 			Principal:  string | fn.Fn
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	Thing :: {
 		Type: "AWS::IoT::Thing"
@@ -35,7 +38,8 @@ IoT :: {
 			AttributePayload?: Attributes?: [string]: string | fn.Fn
 			ThingName?: string | fn.Fn
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	ThingPrincipalAttachment :: {
 		Type: "AWS::IoT::ThingPrincipalAttachment"
@@ -43,7 +47,8 @@ IoT :: {
 			Principal: string | fn.Fn
 			ThingName: string | fn.Fn
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	TopicRule :: {
 		Type: "AWS::IoT::TopicRule"
@@ -210,6 +215,7 @@ IoT :: {
 				Sql:          string | fn.Fn
 			}
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 }

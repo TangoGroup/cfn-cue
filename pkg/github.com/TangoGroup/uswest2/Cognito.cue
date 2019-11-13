@@ -32,7 +32,8 @@ Cognito :: {
 				[string]: _
 			} | fn.Fn
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	IdentityPoolRoleAttachment :: {
 		Type: "AWS::Cognito::IdentityPoolRoleAttachment"
@@ -45,7 +46,8 @@ Cognito :: {
 				[string]: _
 			} | fn.Fn
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	UserPool :: {
 		Type: "AWS::Cognito::UserPool"
@@ -130,7 +132,8 @@ Cognito :: {
 				SmsMessage?:         string | fn.Fn
 			}
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	UserPoolClient :: {
 		Type: "AWS::Cognito::UserPoolClient"
@@ -156,7 +159,8 @@ Cognito :: {
 			UserPoolId: string | fn.Fn
 			WriteAttributes?: [...(string | fn.Fn)]
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	UserPoolDomain :: {
 		Type: "AWS::Cognito::UserPoolDomain"
@@ -165,7 +169,8 @@ Cognito :: {
 			Domain:     string | fn.Fn
 			UserPoolId: string | fn.Fn
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	UserPoolGroup :: {
 		Type: "AWS::Cognito::UserPoolGroup"
@@ -176,7 +181,8 @@ Cognito :: {
 			RoleArn?:     string | fn.Fn
 			UserPoolId:   string | fn.Fn
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	UserPoolIdentityProvider :: {
 		Type: "AWS::Cognito::UserPoolIdentityProvider"
@@ -192,7 +198,8 @@ Cognito :: {
 			ProviderType: string | fn.Fn
 			UserPoolId:   string | fn.Fn
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	UserPoolResourceServer :: {
 		Type: "AWS::Cognito::UserPoolResourceServer"
@@ -205,7 +212,8 @@ Cognito :: {
 			}]
 			UserPoolId: string | fn.Fn
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	UserPoolRiskConfigurationAttachment :: {
 		Type: "AWS::Cognito::UserPoolRiskConfigurationAttachment"
@@ -257,7 +265,8 @@ Cognito :: {
 			}
 			UserPoolId: string | fn.Fn
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	UserPoolUICustomizationAttachment :: {
 		Type: "AWS::Cognito::UserPoolUICustomizationAttachment"
@@ -266,7 +275,8 @@ Cognito :: {
 			ClientId:   string | fn.Fn
 			UserPoolId: string | fn.Fn
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	UserPoolUser :: {
 		Type: "AWS::Cognito::UserPoolUser"
@@ -285,7 +295,8 @@ Cognito :: {
 				Value?: string | fn.Fn
 			}]
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	UserPoolUserToGroupAttachment :: {
 		Type: "AWS::Cognito::UserPoolUserToGroupAttachment"
@@ -294,6 +305,7 @@ Cognito :: {
 			UserPoolId: string | fn.Fn
 			Username:   string | fn.Fn
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 }

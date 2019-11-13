@@ -19,7 +19,8 @@ Transfer :: {
 				Value: string | fn.Fn
 			}]
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	User :: {
 		Type: "AWS::Transfer::User"
@@ -35,6 +36,7 @@ Transfer :: {
 			}]
 			UserName: string | fn.Fn
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 }

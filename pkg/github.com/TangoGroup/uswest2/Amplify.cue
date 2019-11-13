@@ -51,7 +51,8 @@ Amplify :: {
 				Value: string | fn.Fn
 			}]
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	Branch :: {
 		Type: "AWS::Amplify::Branch"
@@ -78,7 +79,8 @@ Amplify :: {
 				Value: string | fn.Fn
 			}]
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	Domain :: {
 		Type: "AWS::Amplify::Domain"
@@ -90,6 +92,7 @@ Amplify :: {
 				Prefix:     string | fn.Fn
 			}]
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 }

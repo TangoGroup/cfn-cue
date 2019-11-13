@@ -37,6 +37,7 @@ DLM :: {
 			}
 			State: (string & ("DISABLED" | "ENABLED")) | fn.Fn
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 }

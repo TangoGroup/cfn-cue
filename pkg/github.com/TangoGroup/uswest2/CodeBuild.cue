@@ -120,7 +120,8 @@ CodeBuild :: {
 				VpcId?: string | fn.Fn
 			}
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	SourceCredential :: {
 		Type: "AWS::CodeBuild::SourceCredential"
@@ -130,6 +131,7 @@ CodeBuild :: {
 			Token:      string | fn.Fn
 			Username?:  string | fn.Fn
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 }

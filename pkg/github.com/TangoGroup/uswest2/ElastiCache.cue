@@ -31,7 +31,8 @@ ElastiCache :: {
 			}]
 			VpcSecurityGroupIds?: [...(string | fn.Fn)]
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain" | "Snapshot"
 	}
 	ParameterGroup :: {
 		Type: "AWS::ElastiCache::ParameterGroup"
@@ -40,7 +41,8 @@ ElastiCache :: {
 			Description:               string | fn.Fn
 			Properties?: [string]: string | fn.Fn
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	ReplicationGroup :: {
 		Type: "AWS::ElastiCache::ReplicationGroup"
@@ -85,12 +87,14 @@ ElastiCache :: {
 			}]
 			TransitEncryptionEnabled?: bool | fn.Fn
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain" | "Snapshot"
 	}
 	SecurityGroup :: {
 		Type: "AWS::ElastiCache::SecurityGroup"
 		Properties: Description: string | fn.Fn
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	SecurityGroupIngress :: {
 		Type: "AWS::ElastiCache::SecurityGroupIngress"
@@ -99,7 +103,8 @@ ElastiCache :: {
 			EC2SecurityGroupName:     string | fn.Fn
 			EC2SecurityGroupOwnerId?: string | fn.Fn
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	SubnetGroup :: {
 		Type: "AWS::ElastiCache::SubnetGroup"
@@ -108,6 +113,7 @@ ElastiCache :: {
 			Description:           string | fn.Fn
 			SubnetIds: [...(string | fn.Fn)]
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 }

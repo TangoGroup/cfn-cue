@@ -18,7 +18,8 @@ Route53Resolver :: {
 				Value: string | fn.Fn
 			}]
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	ResolverRule :: {
 		Type: "AWS::Route53Resolver::ResolverRule"
@@ -36,7 +37,8 @@ Route53Resolver :: {
 				Port?: string | fn.Fn
 			}]
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	ResolverRuleAssociation :: {
 		Type: "AWS::Route53Resolver::ResolverRuleAssociation"
@@ -45,6 +47,7 @@ Route53Resolver :: {
 			ResolverRuleId: string | fn.Fn
 			VPCId:          string | fn.Fn
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 }

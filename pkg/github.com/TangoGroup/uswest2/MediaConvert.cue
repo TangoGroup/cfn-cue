@@ -20,7 +20,8 @@ MediaConvert :: {
 				[string]: _
 			} | fn.Fn
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	Preset :: {
 		Type: "AWS::MediaConvert::Preset"
@@ -35,7 +36,8 @@ MediaConvert :: {
 				[string]: _
 			} | fn.Fn
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	Queue :: {
 		Type: "AWS::MediaConvert::Queue"
@@ -48,6 +50,7 @@ MediaConvert :: {
 				[string]: _
 			} | fn.Fn
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 }

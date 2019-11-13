@@ -21,7 +21,8 @@ SSM :: {
 				Values: [...(string | fn.Fn)]
 			}]
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	Document :: {
 		Type: "AWS::SSM::Document"
@@ -35,7 +36,8 @@ SSM :: {
 				Value: string | fn.Fn
 			}]
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	MaintenanceWindow :: {
 		Type: "AWS::SSM::MaintenanceWindow"
@@ -54,7 +56,8 @@ SSM :: {
 				Value: string | fn.Fn
 			}]
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	MaintenanceWindowTarget :: {
 		Type: "AWS::SSM::MaintenanceWindowTarget"
@@ -69,7 +72,8 @@ SSM :: {
 			}]
 			WindowId: string | fn.Fn
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	MaintenanceWindowTask :: {
 		Type: "AWS::SSM::MaintenanceWindowTask"
@@ -130,7 +134,8 @@ SSM :: {
 			TaskType: string | fn.Fn
 			WindowId: string | fn.Fn
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	Parameter :: {
 		Type: "AWS::SSM::Parameter"
@@ -146,7 +151,8 @@ SSM :: {
 			Type:  string | fn.Fn
 			Value: string | fn.Fn
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	PatchBaseline :: {
 		Type: "AWS::SSM::PatchBaseline"
@@ -183,7 +189,8 @@ SSM :: {
 				Value: string | fn.Fn
 			}]
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	ResourceDataSync :: {
 		Type: "AWS::SSM::ResourceDataSync"
@@ -195,6 +202,7 @@ SSM :: {
 			SyncFormat:    string | fn.Fn
 			SyncName:      string | fn.Fn
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 }

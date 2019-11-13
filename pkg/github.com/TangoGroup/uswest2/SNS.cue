@@ -18,7 +18,8 @@ SNS :: {
 			Region?:             string | fn.Fn
 			TopicArn:            string | fn.Fn
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	Topic :: {
 		Type: "AWS::SNS::Topic"
@@ -35,7 +36,8 @@ SNS :: {
 			}]
 			TopicName?: string | fn.Fn
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	TopicPolicy :: {
 		Type: "AWS::SNS::TopicPolicy"
@@ -45,6 +47,7 @@ SNS :: {
 			} | fn.Fn
 			Topics: [...(string | fn.Fn)]
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 }

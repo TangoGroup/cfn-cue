@@ -9,7 +9,8 @@ CodeDeploy :: {
 			ApplicationName?: string | fn.Fn
 			ComputePlatform?: (string & ("ECS" | "Lambda" | "Server")) | fn.Fn
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	DeploymentConfig :: {
 		Type: "AWS::CodeDeploy::DeploymentConfig"
@@ -20,7 +21,8 @@ CodeDeploy :: {
 				Value: int | fn.Fn
 			}
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	DeploymentGroup :: {
 		Type: "AWS::CodeDeploy::DeploymentGroup"
@@ -101,6 +103,7 @@ CodeDeploy :: {
 				TriggerTargetArn?: string | fn.Fn
 			}]
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 }

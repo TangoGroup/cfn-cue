@@ -10,7 +10,8 @@ DMS :: {
 			CertificatePem?:        string | fn.Fn
 			CertificateWallet?:     string | fn.Fn
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	Endpoint :: {
 		Type: "AWS::DMS::Endpoint"
@@ -66,7 +67,8 @@ DMS :: {
 			}]
 			Username?: string | fn.Fn
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	EventSubscription :: {
 		Type: "AWS::DMS::EventSubscription"
@@ -82,7 +84,8 @@ DMS :: {
 				Value: string | fn.Fn
 			}]
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	ReplicationInstance :: {
 		Type: "AWS::DMS::ReplicationInstance"
@@ -105,7 +108,8 @@ DMS :: {
 			}]
 			VpcSecurityGroupIds?: [...(string | fn.Fn)]
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	ReplicationSubnetGroup :: {
 		Type: "AWS::DMS::ReplicationSubnetGroup"
@@ -118,7 +122,8 @@ DMS :: {
 				Value: string | fn.Fn
 			}]
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	ReplicationTask :: {
 		Type: "AWS::DMS::ReplicationTask"
@@ -138,6 +143,7 @@ DMS :: {
 			}]
 			TargetEndpointArn: string | fn.Fn
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 }

@@ -24,7 +24,8 @@ SQS :: {
 			}]
 			VisibilityTimeout?: (int & (>=0 & <=43200)) | fn.Fn
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	QueuePolicy :: {
 		Type: "AWS::SQS::QueuePolicy"
@@ -34,6 +35,7 @@ SQS :: {
 			} | fn.Fn
 			Queues: [...(string | fn.Fn)]
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 }

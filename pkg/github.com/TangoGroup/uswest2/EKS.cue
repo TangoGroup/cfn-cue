@@ -14,6 +14,7 @@ EKS :: {
 			RoleArn:  string | fn.Fn
 			Version?: string | fn.Fn
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 }

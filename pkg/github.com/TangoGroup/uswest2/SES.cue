@@ -6,7 +6,8 @@ SES :: {
 	ConfigurationSet :: {
 		Type: "AWS::SES::ConfigurationSet"
 		Properties: Name?: string | fn.Fn
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	ConfigurationSetEventDestination :: {
 		Type: "AWS::SES::ConfigurationSetEventDestination"
@@ -27,7 +28,8 @@ SES :: {
 				Name?: string | fn.Fn
 			}
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	ReceiptFilter :: {
 		Type: "AWS::SES::ReceiptFilter"
@@ -38,7 +40,8 @@ SES :: {
 			}
 			Name?: string | fn.Fn
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	ReceiptRule :: {
 		Type: "AWS::SES::ReceiptRule"
@@ -89,12 +92,14 @@ SES :: {
 			}
 			RuleSetName: string | fn.Fn
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	ReceiptRuleSet :: {
 		Type: "AWS::SES::ReceiptRuleSet"
 		Properties: RuleSetName?: string | fn.Fn
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	Template :: {
 		Type: "AWS::SES::Template"
@@ -104,6 +109,7 @@ SES :: {
 			TemplateName?: string | fn.Fn
 			TextPart?:     string | fn.Fn
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 }

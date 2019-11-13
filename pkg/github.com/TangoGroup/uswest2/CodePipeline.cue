@@ -37,7 +37,8 @@ CodePipeline :: {
 			}]
 			Version: string | fn.Fn
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	Pipeline :: {
 		Type: "AWS::CodePipeline::Pipeline"
@@ -101,7 +102,8 @@ CodePipeline :: {
 				Value: string | fn.Fn
 			}]
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	Webhook :: {
 		Type: "AWS::CodePipeline::Webhook"
@@ -121,6 +123,7 @@ CodePipeline :: {
 			TargetPipeline:          string | fn.Fn
 			TargetPipelineVersion:   int | fn.Fn
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 }

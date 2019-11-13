@@ -9,7 +9,8 @@ Inspector :: {
 			AssessmentTargetName?: string | fn.Fn
 			ResourceGroupArn?:     string | fn.Fn
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	AssessmentTemplate :: {
 		Type: "AWS::Inspector::AssessmentTemplate"
@@ -23,7 +24,8 @@ Inspector :: {
 				Value: string | fn.Fn
 			}]
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	ResourceGroup :: {
 		Type: "AWS::Inspector::ResourceGroup"
@@ -31,6 +33,7 @@ Inspector :: {
 			Key:   string | fn.Fn
 			Value: string | fn.Fn
 		}]
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 }

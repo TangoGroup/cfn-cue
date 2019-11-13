@@ -18,6 +18,7 @@ CodeStar :: {
 			RepositoryName:         string | fn.Fn
 			RepositoryOwner:        string | fn.Fn
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 }

@@ -15,7 +15,8 @@ Lambda :: {
 				FunctionWeight:  float | fn.Fn
 			}]
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	EventSourceMapping :: {
 		Type: "AWS::Lambda::EventSourceMapping"
@@ -27,7 +28,8 @@ Lambda :: {
 			MaximumBatchingWindowInSeconds?: int | fn.Fn
 			StartingPosition?:               string | fn.Fn
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	Function :: {
 		Type: "AWS::Lambda::Function"
@@ -60,7 +62,8 @@ Lambda :: {
 				SubnetIds: [...(string | fn.Fn)]
 			}
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	LayerVersion :: {
 		Type: "AWS::Lambda::LayerVersion"
@@ -75,7 +78,8 @@ Lambda :: {
 			LayerName?:   string | fn.Fn
 			LicenseInfo?: string | fn.Fn
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	LayerVersionPermission :: {
 		Type: "AWS::Lambda::LayerVersionPermission"
@@ -85,7 +89,8 @@ Lambda :: {
 			OrganizationId?: string | fn.Fn
 			Principal:       string | fn.Fn
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	Permission :: {
 		Type: "AWS::Lambda::Permission"
@@ -97,7 +102,8 @@ Lambda :: {
 			SourceAccount?:    string | fn.Fn
 			SourceArn?:        string | fn.Fn
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	Version :: {
 		Type: "AWS::Lambda::Version"
@@ -106,6 +112,7 @@ Lambda :: {
 			Description?: string | fn.Fn
 			FunctionName: string | fn.Fn
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 }

@@ -9,7 +9,8 @@ ServiceCatalog :: {
 			AcceptLanguage?: string | fn.Fn
 			PortfolioId:     string | fn.Fn
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	CloudFormationProduct :: {
 		Type: "AWS::ServiceCatalog::CloudFormationProduct"
@@ -35,7 +36,8 @@ ServiceCatalog :: {
 				Value: string | fn.Fn
 			}]
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	CloudFormationProvisionedProduct :: {
 		Type: "AWS::ServiceCatalog::CloudFormationProvisionedProduct"
@@ -66,7 +68,8 @@ ServiceCatalog :: {
 				Value: string | fn.Fn
 			}]
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	LaunchNotificationConstraint :: {
 		Type: "AWS::ServiceCatalog::LaunchNotificationConstraint"
@@ -77,7 +80,8 @@ ServiceCatalog :: {
 			PortfolioId: string | fn.Fn
 			ProductId:   string | fn.Fn
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	LaunchRoleConstraint :: {
 		Type: "AWS::ServiceCatalog::LaunchRoleConstraint"
@@ -88,7 +92,8 @@ ServiceCatalog :: {
 			ProductId:       string | fn.Fn
 			RoleArn:         string | fn.Fn
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	LaunchTemplateConstraint :: {
 		Type: "AWS::ServiceCatalog::LaunchTemplateConstraint"
@@ -99,7 +104,8 @@ ServiceCatalog :: {
 			ProductId:       string | fn.Fn
 			Rules:           string | fn.Fn
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	Portfolio :: {
 		Type: "AWS::ServiceCatalog::Portfolio"
@@ -113,7 +119,8 @@ ServiceCatalog :: {
 				Value: string | fn.Fn
 			}]
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	PortfolioPrincipalAssociation :: {
 		Type: "AWS::ServiceCatalog::PortfolioPrincipalAssociation"
@@ -123,7 +130,8 @@ ServiceCatalog :: {
 			PrincipalARN:    string | fn.Fn
 			PrincipalType:   string | fn.Fn
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	PortfolioProductAssociation :: {
 		Type: "AWS::ServiceCatalog::PortfolioProductAssociation"
@@ -133,7 +141,8 @@ ServiceCatalog :: {
 			ProductId:          string | fn.Fn
 			SourcePortfolioId?: string | fn.Fn
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	PortfolioShare :: {
 		Type: "AWS::ServiceCatalog::PortfolioShare"
@@ -142,7 +151,8 @@ ServiceCatalog :: {
 			AccountId:       string | fn.Fn
 			PortfolioId:     string | fn.Fn
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	ResourceUpdateConstraint :: {
 		Type: "AWS::ServiceCatalog::ResourceUpdateConstraint"
@@ -153,7 +163,8 @@ ServiceCatalog :: {
 			ProductId:                     string | fn.Fn
 			TagUpdateOnProvisionedProduct: string | fn.Fn
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	StackSetConstraint :: {
 		Type: "AWS::ServiceCatalog::StackSetConstraint"
@@ -168,7 +179,8 @@ ServiceCatalog :: {
 			RegionList: [...(string | fn.Fn)]
 			StackInstanceControl: string | fn.Fn
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	TagOption :: {
 		Type: "AWS::ServiceCatalog::TagOption"
@@ -177,7 +189,8 @@ ServiceCatalog :: {
 			Key:     string | fn.Fn
 			Value:   string | fn.Fn
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	TagOptionAssociation :: {
 		Type: "AWS::ServiceCatalog::TagOptionAssociation"
@@ -185,6 +198,7 @@ ServiceCatalog :: {
 			ResourceId:  string | fn.Fn
 			TagOptionId: string | fn.Fn
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 }

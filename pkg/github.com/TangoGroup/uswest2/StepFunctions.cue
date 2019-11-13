@@ -12,7 +12,8 @@ StepFunctions :: {
 				Value: string | fn.Fn
 			}]
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	StateMachine :: {
 		Type: "AWS::StepFunctions::StateMachine"
@@ -25,6 +26,7 @@ StepFunctions :: {
 				Value: string | fn.Fn
 			}]
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 }

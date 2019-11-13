@@ -44,7 +44,8 @@ KinesisAnalytics :: {
 				NamePrefix: string | fn.Fn
 			}]
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	ApplicationOutput :: {
 		Type: "AWS::KinesisAnalytics::ApplicationOutput"
@@ -67,7 +68,8 @@ KinesisAnalytics :: {
 				Name?: string | fn.Fn
 			}
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 	ApplicationReferenceDataSource :: {
 		Type: "AWS::KinesisAnalytics::ApplicationReferenceDataSource"
@@ -100,6 +102,7 @@ KinesisAnalytics :: {
 				TableName?: string | fn.Fn
 			}
 		}
-		DependsOn?: string | [...string]
+		DependsOn?:      string | [...string]
+		DeletionPolicy?: "Delete" | "Retain"
 	}
 }
