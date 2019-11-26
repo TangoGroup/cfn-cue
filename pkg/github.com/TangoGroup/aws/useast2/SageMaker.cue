@@ -23,6 +23,10 @@ SageMaker :: {
 		Properties: {
 			EndpointConfigName: string | fn.Fn
 			EndpointName?:      string | fn.Fn
+			ExcludeRetainedVariantProperties?: [...{
+				VariantPropertyType?: string | fn.Fn
+			}]
+			RetainAllVariantProperties?: bool | fn.Fn
 			Tags?: [...{
 				Key:   string | fn.Fn
 				Value: string | fn.Fn

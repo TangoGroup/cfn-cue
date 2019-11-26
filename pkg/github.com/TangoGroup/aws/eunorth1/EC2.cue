@@ -132,7 +132,7 @@ EC2 :: {
 			OnDemandOptions?: AllocationStrategy?: (string & ("lowest-price" | "prioritized")) | fn.Fn
 			ReplaceUnhealthyInstances?: bool | fn.Fn
 			SpotOptions?: {
-				AllocationStrategy?:           (string & ("diversified" | "lowest-price")) | fn.Fn
+				AllocationStrategy?:           (string & ("capacityOptimized" | "diversified" | "lowestPrice")) | fn.Fn
 				InstanceInterruptionBehavior?: (string & ("hibernate" | "stop" | "terminate")) | fn.Fn
 				InstancePoolsToUseCount?:      int | fn.Fn
 			}
@@ -165,6 +165,10 @@ EC2 :: {
 			Domain?:         (string & ("standard" | "vpc")) | fn.Fn
 			InstanceId?:     string | fn.Fn
 			PublicIpv4Pool?: string | fn.Fn
+			Tags?: [...{
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
+			}]
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -253,7 +257,8 @@ EC2 :: {
 				Type: string | fn.Fn
 			}]
 			ElasticInferenceAccelerators?: [...{
-				Type: (string & ("eia1.large" | "eia1.medium" | "eia1.xlarge")) | fn.Fn
+				Count?: int | fn.Fn
+				Type:   (string & ("eia1.large" | "eia1.medium" | "eia1.xlarge")) | fn.Fn
 			}]
 			HostId?:                            string | fn.Fn
 			IamInstanceProfile?:                (string & (=~#"[a-zA-Z0-9+=,.@\-_]+"#)) | fn.Fn
@@ -672,7 +677,7 @@ EC2 :: {
 	SpotFleet :: {
 		Type: "AWS::EC2::SpotFleet"
 		Properties: SpotFleetRequestConfigData: {
-			AllocationStrategy?:              (string & ("diversified" | "lowestPrice")) | fn.Fn
+			AllocationStrategy?:              (string & ("capacityOptimized" | "diversified" | "lowestPrice")) | fn.Fn
 			ExcessCapacityTerminationPolicy?: (string & ("default" | "noTermination")) | fn.Fn
 			IamFleetRole:                     (string & (=~#"arn:(aws[a-zA-Z-]*)?:iam::\d{12}:role/[a-zA-Z_0-9+=,.@\-_/]+"#)) | fn.Fn
 			InstanceInterruptionBehavior?:    (string & ("hibernate" | "stop" | "terminate")) | fn.Fn

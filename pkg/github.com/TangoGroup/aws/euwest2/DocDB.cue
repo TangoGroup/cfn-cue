@@ -12,10 +12,10 @@ DocDB :: {
 			DBClusterParameterGroupName?: string | fn.Fn
 			DBSubnetGroupName?:           string | fn.Fn
 			EnableCloudwatchLogsExports?: [...(string | fn.Fn)]
-			EngineVersion?:              (string & ("docdb")) | fn.Fn
+			EngineVersion?:              (string & ("3.6.0")) | fn.Fn
 			KmsKeyId?:                   string | fn.Fn
-			MasterUserPassword?:         string | fn.Fn
-			MasterUsername?:             string | fn.Fn
+			MasterUserPassword:          string | fn.Fn
+			MasterUsername:              string | fn.Fn
 			Port?:                       int | fn.Fn
 			PreferredBackupWindow?:      string | fn.Fn
 			PreferredMaintenanceWindow?: string | fn.Fn

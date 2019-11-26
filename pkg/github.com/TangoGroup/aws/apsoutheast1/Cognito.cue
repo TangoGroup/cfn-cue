@@ -123,6 +123,7 @@ Cognito :: {
 			ExplicitAuthFlows?: [...((string & ("ADMIN_NO_SRP_AUTH" | "CUSTOM_AUTH_FLOW_ONLY" | "USER_PASSWORD_AUTH")) | fn.Fn)]
 			GenerateSecret?: bool | fn.Fn
 			LogoutURLs?: [...(string | fn.Fn)]
+			PreventUserExistenceErrors?: string | fn.Fn
 			ReadAttributes?: [...(string | fn.Fn)]
 			RefreshTokenValidity?: (int & (>=0 & <=3650)) | fn.Fn
 			SupportedIdentityProviders?: [...(string | fn.Fn)]

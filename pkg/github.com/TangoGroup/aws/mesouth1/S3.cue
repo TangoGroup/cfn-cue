@@ -2,6 +2,7 @@ package mesouth1
 
 import (
 	"github.com/TangoGroup/aws/fn"
+	"strings"
 	"time"
 )
 
@@ -34,7 +35,7 @@ S3 :: {
 					SSEAlgorithm:    (string & ("AES256" | "aws:kms")) | fn.Fn
 				}
 			}]
-			BucketName?: string | fn.Fn
+			BucketName?: (string & (strings.MinRunes(3) & strings.MaxRunes(63)) & (=~#"^[a-z0-9][a-z0-9.-]*[a-z0-9]$"#)) | fn.Fn
 			CorsConfiguration?: CorsRules: [...{
 				AllowedHeaders?: [...(string | fn.Fn)]
 				AllowedMethods: [...(string | fn.Fn)]

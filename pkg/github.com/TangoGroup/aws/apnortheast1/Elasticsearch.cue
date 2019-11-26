@@ -10,6 +10,12 @@ Elasticsearch :: {
 				[string]: _
 			} | fn.Fn
 			AdvancedOptions?: [string]: string | fn.Fn
+			CognitoOptions?: {
+				Enabled?:        bool | fn.Fn
+				IdentityPoolId?: string | fn.Fn
+				RoleArn?:        string | fn.Fn
+				UserPoolId?:     string | fn.Fn
+			}
 			DomainName?: string | fn.Fn
 			EBSOptions?: {
 				EBSEnabled?: bool | fn.Fn

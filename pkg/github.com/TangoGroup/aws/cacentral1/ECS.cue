@@ -7,10 +7,26 @@ ECS :: {
 		Type: "AWS::ECS::Cluster"
 		Properties: {
 			ClusterName?: string | fn.Fn
+			ClusterSettings?: [...{
+				Name:  string | fn.Fn
+				Value: string | fn.Fn
+			}]
 			Tags?: [...{
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			}]
+		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+	}
+	PrimaryTaskSet :: {
+		Type: "AWS::ECS::PrimaryTaskSet"
+		Properties: {
+			Cluster:   string | fn.Fn
+			Service:   string | fn.Fn
+			TaskSetId: string | fn.Fn
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -25,6 +41,7 @@ ECS :: {
 				MaximumPercent?:        int | fn.Fn
 				MinimumHealthyPercent?: int | fn.Fn
 			}
+			DeploymentController?: Type?: string | fn.Fn
 			DesiredCount?:                  int | fn.Fn
 			EnableECSManagedTags?:          bool | fn.Fn
 			HealthCheckGracePeriodSeconds?: int | fn.Fn
@@ -63,7 +80,7 @@ ECS :: {
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			}]
-			TaskDefinition: string | fn.Fn
+			TaskDefinition?: string | fn.Fn
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -95,6 +112,10 @@ ECS :: {
 					Hostname:  string | fn.Fn
 					IpAddress: string | fn.Fn
 				}]
+				FirelensConfiguration?: {
+					Options?: [string]: string | fn.Fn
+					Type: string | fn.Fn
+				}
 				HealthCheck?: {
 					Command: [...(string | fn.Fn)]
 					Interval?:    int | fn.Fn
@@ -117,7 +138,9 @@ ECS :: {
 						Permissions?: [...(string | fn.Fn)]
 					}]
 					InitProcessEnabled?: bool | fn.Fn
+					MaxSwap?:            int | fn.Fn
 					SharedMemorySize?:   int | fn.Fn
+					Swappiness?:         int | fn.Fn
 					Tmpfs?: [...{
 						ContainerPath?: string | fn.Fn
 						MountOptions?: [...(string | fn.Fn)]
@@ -179,8 +202,9 @@ ECS :: {
 			ExecutionRoleArn?: (string & (=~#"arn:(aws[a-zA-Z-]*)?:iam::\d{12}:role/[a-zA-Z_0-9+=,.@\-_/]+"#)) | fn.Fn
 			Family?:           string | fn.Fn
 			InferenceAccelerators?: [...{
-				DeviceName?: string | fn.Fn
-				DeviceType?: string | fn.Fn
+				DeviceName?:   string | fn.Fn
+				DevicePolicy?: string | fn.Fn
+				DeviceType?:   string | fn.Fn
 			}]
 			IpcMode?:     string | fn.Fn
 			Memory?:      string | fn.Fn
@@ -215,6 +239,42 @@ ECS :: {
 				Host?: SourcePath?: string | fn.Fn
 				Name?: string | fn.Fn
 			}]
+		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+	}
+	TaskSet :: {
+		Type: "AWS::ECS::TaskSet"
+		Properties: {
+			Cluster:     string | fn.Fn
+			ExternalId?: string | fn.Fn
+			LaunchType?: string | fn.Fn
+			LoadBalancers?: [...{
+				ContainerName?:    string | fn.Fn
+				ContainerPort?:    int | fn.Fn
+				LoadBalancerName?: string | fn.Fn
+				TargetGroupArn?:   string | fn.Fn
+			}]
+			NetworkConfiguration?: AwsVpcConfiguration?: {
+				AssignPublicIp?: string | fn.Fn
+				SecurityGroups?: [...(string | fn.Fn)]
+				Subnets: [...(string | fn.Fn)]
+			}
+			PlatformVersion?: string | fn.Fn
+			Scale?: {
+				Unit?:  string | fn.Fn
+				Value?: float | fn.Fn
+			}
+			Service: string | fn.Fn
+			ServiceRegistries?: [...{
+				ContainerName?: string | fn.Fn
+				ContainerPort?: int | fn.Fn
+				Port?:          int | fn.Fn
+				RegistryArn?:   string | fn.Fn
+			}]
+			TaskDefinition: string | fn.Fn
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

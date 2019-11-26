@@ -19,6 +19,10 @@ DLM :: {
 						IntervalUnit: string | fn.Fn
 						Times?: [...(string | fn.Fn)]
 					}
+					FastRestoreRule?: {
+						AvailabilityZones?: [...(string | fn.Fn)]
+						Count: int | fn.Fn
+					}
 					Name?: string | fn.Fn
 					RetainRule?: Count: int | fn.Fn
 					TagsToAdd?: [...{

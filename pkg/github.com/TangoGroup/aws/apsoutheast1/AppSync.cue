@@ -3,15 +3,36 @@ package apsoutheast1
 import "github.com/TangoGroup/aws/fn"
 
 AppSync :: {
+	ApiCache :: {
+		Type: "AWS::AppSync::ApiCache"
+		Properties: {
+			ApiCachingBehavior:        string | fn.Fn
+			ApiId:                     string | fn.Fn
+			AtRestEncryptionEnabled?:  bool | fn.Fn
+			TransitEncryptionEnabled?: bool | fn.Fn
+			Ttl:                       float | fn.Fn
+			Type:                      string | fn.Fn
+		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+	}
 	DataSource :: {
 		Type: "AWS::AppSync::DataSource"
 		Properties: {
 			ApiId:        string | fn.Fn
 			Description?: string | fn.Fn
 			DynamoDBConfig?: {
-				AwsRegion:             string | fn.Fn
+				AwsRegion: string | fn.Fn
+				DeltaSyncConfig?: {
+					BaseTableTTL:       string | fn.Fn
+					DeltaSyncTableName: string | fn.Fn
+					DeltaSyncTableTTL:  string | fn.Fn
+				}
 				TableName:             string | fn.Fn
 				UseCallerCredentials?: bool | fn.Fn
+				Versioned?:            bool | fn.Fn
 			}
 			ElasticsearchConfig?: {
 				AwsRegion: string | fn.Fn
@@ -114,7 +135,11 @@ AppSync :: {
 	Resolver :: {
 		Type: "AWS::AppSync::Resolver"
 		Properties: {
-			ApiId:           string | fn.Fn
+			ApiId: string | fn.Fn
+			CachingConfig?: {
+				CachingKeys?: [...(string | fn.Fn)]
+				Ttl?: float | fn.Fn
+			}
 			DataSourceName?: string | fn.Fn
 			FieldName:       string | fn.Fn
 			Kind?:           (string & ("PIPELINE" | "UNIT")) | fn.Fn
@@ -123,7 +148,12 @@ AppSync :: {
 			RequestMappingTemplateS3Location?:  string | fn.Fn
 			ResponseMappingTemplate?:           string | fn.Fn
 			ResponseMappingTemplateS3Location?: string | fn.Fn
-			TypeName:                           string | fn.Fn
+			SyncConfig?: {
+				ConflictDetection: string | fn.Fn
+				ConflictHandler?:  string | fn.Fn
+				LambdaConflictHandlerConfig?: LambdaConflictHandlerArn?: string | fn.Fn
+			}
+			TypeName: string | fn.Fn
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

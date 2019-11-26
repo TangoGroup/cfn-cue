@@ -6,6 +6,7 @@ Cognito :: {
 	IdentityPool :: {
 		Type: "AWS::Cognito::IdentityPool"
 		Properties: {
+			AllowClassicFlow?:              bool | fn.Fn
 			AllowUnauthenticatedIdentities: bool | fn.Fn
 			CognitoEvents?:                 {
 				[string]: _
@@ -72,7 +73,9 @@ Cognito :: {
 				DeviceOnlyRememberedOnUserPrompt?: bool | fn.Fn
 			}
 			EmailConfiguration?: {
+				ConfigurationSet?:    string | fn.Fn
 				EmailSendingAccount?: string | fn.Fn
+				From?:                string | fn.Fn
 				ReplyToEmailAddress?: string | fn.Fn
 				SourceArn?:           string | fn.Fn
 			}
@@ -159,6 +162,7 @@ Cognito :: {
 			ExplicitAuthFlows?: [...((string & ("ADMIN_NO_SRP_AUTH" | "CUSTOM_AUTH_FLOW_ONLY" | "USER_PASSWORD_AUTH")) | fn.Fn)]
 			GenerateSecret?: bool | fn.Fn
 			LogoutURLs?: [...(string | fn.Fn)]
+			PreventUserExistenceErrors?: string | fn.Fn
 			ReadAttributes?: [...(string | fn.Fn)]
 			RefreshTokenValidity?: (int & (>=0 & <=3650)) | fn.Fn
 			SupportedIdentityProviders?: [...(string | fn.Fn)]
@@ -301,6 +305,9 @@ Cognito :: {
 	UserPoolUser :: {
 		Type: "AWS::Cognito::UserPoolUser"
 		Properties: {
+			ClientMetadata?: {
+				[string]: _
+			} | fn.Fn
 			DesiredDeliveryMediums?: [...((string & ("EMAIL" | "SMS")) | fn.Fn)]
 			ForceAliasCreation?: bool | fn.Fn
 			MessageAction?:      (string & ("RESEND" | "SUPPRESS")) | fn.Fn

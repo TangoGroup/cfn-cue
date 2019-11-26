@@ -305,7 +305,10 @@ ApiGateway :: {
 			}
 			CloneFrom?:   string | fn.Fn
 			Description?: string | fn.Fn
-			EndpointConfiguration?: Types?: [...(string | fn.Fn)]
+			EndpointConfiguration?: {
+				Types?: [...(string | fn.Fn)]
+				VpcEndpointIds?: [...(string | fn.Fn)]
+			}
 			FailOnWarnings?:         bool | fn.Fn
 			MinimumCompressionSize?: int | fn.Fn
 			Name?:                   string | fn.Fn

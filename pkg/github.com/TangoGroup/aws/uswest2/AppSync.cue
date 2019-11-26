@@ -3,6 +3,21 @@ package uswest2
 import "github.com/TangoGroup/aws/fn"
 
 AppSync :: {
+	ApiCache :: {
+		Type: "AWS::AppSync::ApiCache"
+		Properties: {
+			ApiCachingBehavior:        string | fn.Fn
+			ApiId:                     string | fn.Fn
+			AtRestEncryptionEnabled?:  bool | fn.Fn
+			TransitEncryptionEnabled?: bool | fn.Fn
+			Ttl:                       float | fn.Fn
+			Type:                      string | fn.Fn
+		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+	}
 	ApiKey :: {
 		Type: "AWS::AppSync::ApiKey"
 		Properties: {
@@ -144,7 +159,11 @@ AppSync :: {
 	Resolver :: {
 		Type: "AWS::AppSync::Resolver"
 		Properties: {
-			ApiId:           string | fn.Fn
+			ApiId: string | fn.Fn
+			CachingConfig?: {
+				CachingKeys?: [...(string | fn.Fn)]
+				Ttl?: float | fn.Fn
+			}
 			DataSourceName?: string | fn.Fn
 			FieldName:       string | fn.Fn
 			Kind?:           (string & ("PIPELINE" | "UNIT")) | fn.Fn
@@ -156,7 +175,7 @@ AppSync :: {
 			SyncConfig?: {
 				ConflictDetection: string | fn.Fn
 				ConflictHandler?:  string | fn.Fn
-				LambdaConfig?: LambdaConflictHandlerARN?: string | fn.Fn
+				LambdaConflictHandlerConfig?: LambdaConflictHandlerArn?: string | fn.Fn
 			}
 			TypeName: string | fn.Fn
 		}

@@ -91,4 +91,16 @@ CloudWatch :: {
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
 	}
+	InsightRule :: {
+		Type: "AWS::CloudWatch::InsightRule"
+		Properties: {
+			RuleBody:  string | fn.Fn
+			RuleName:  string | fn.Fn
+			RuleState: string | fn.Fn
+		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+	}
 }

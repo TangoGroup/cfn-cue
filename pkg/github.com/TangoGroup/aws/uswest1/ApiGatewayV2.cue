@@ -232,7 +232,7 @@ ApiGatewayV2 :: {
 				ThrottlingBurstLimit?:   int | fn.Fn
 				ThrottlingRateLimit?:    float | fn.Fn
 			}
-			DeploymentId:   string | fn.Fn
+			DeploymentId?:  string | fn.Fn
 			Description?:   string | fn.Fn
 			RouteSettings?: {
 				[string]: _

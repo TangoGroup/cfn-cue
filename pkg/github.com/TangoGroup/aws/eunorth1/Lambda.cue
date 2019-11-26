@@ -10,6 +10,7 @@ Lambda :: {
 			FunctionName:    string | fn.Fn
 			FunctionVersion: string | fn.Fn
 			Name:            string | fn.Fn
+			ProvisionedConcurrencyConfig?: ProvisionedConcurrentExecutions: int | fn.Fn
 			RoutingConfig?: AdditionalVersionWeights: [...{
 				FunctionVersion: string | fn.Fn
 				FunctionWeight:  float | fn.Fn
@@ -20,14 +21,36 @@ Lambda :: {
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
 	}
+	EventInvokeConfig :: {
+		Type: "AWS::Lambda::EventInvokeConfig"
+		Properties: {
+			DestinationConfig?: {
+				OnFailure?: Destination: string | fn.Fn
+				OnSuccess?: Destination: string | fn.Fn
+			}
+			FunctionName:              string | fn.Fn
+			MaximumEventAgeInSeconds?: int | fn.Fn
+			MaximumRetryAttempts?:     int | fn.Fn
+			Qualifier:                 string | fn.Fn
+		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+	}
 	EventSourceMapping :: {
 		Type: "AWS::Lambda::EventSourceMapping"
 		Properties: {
-			BatchSize?:                      (int & (>=1 & <=10000)) | fn.Fn
+			BatchSize?:                  (int & (>=1 & <=10000)) | fn.Fn
+			BisectBatchOnFunctionError?: bool | fn.Fn
+			DestinationConfig?: OnFailure: Destination: string | fn.Fn
 			Enabled?:                        bool | fn.Fn
 			EventSourceArn:                  string | fn.Fn
 			FunctionName:                    string | fn.Fn
 			MaximumBatchingWindowInSeconds?: int | fn.Fn
+			MaximumRecordAgeInSeconds?:      int | fn.Fn
+			MaximumRetryAttempts?:           int | fn.Fn
+			ParallelizationFactor?:          int | fn.Fn
 			StartingPosition?:               string | fn.Fn
 		}
 		DependsOn?:           string | [...string]
@@ -54,7 +77,7 @@ Lambda :: {
 			MemorySize?:                   (int & (>=128 & <=3008)) | fn.Fn
 			ReservedConcurrentExecutions?: int | fn.Fn
 			Role:                          (string & (=~#"arn:(aws[a-zA-Z-]*)?:iam::\d{12}:role/[a-zA-Z_0-9+=,.@\-_/]+"#)) | fn.Fn
-			Runtime:                       (string & ("dotnetcore1.0" | "dotnetcore2.0" | "dotnetcore2.1" | "go1.x" | "java8" | "nodejs" | "nodejs4.3-edge" | "nodejs4.3" | "nodejs6.10" | "nodejs8.10" | "nodejs10.x" | "provided" | "python2.7" | "python3.6" | "python3.7" | "ruby2.5")) | fn.Fn
+			Runtime:                       (string & ("dotnetcore1.0" | "dotnetcore2.0" | "dotnetcore2.1" | "go1.x" | "java8" | "java11" | "nodejs" | "nodejs4.3-edge" | "nodejs4.3" | "nodejs6.10" | "nodejs8.10" | "nodejs10.x" | "nodejs12.x" | "provided" | "python2.7" | "python3.6" | "python3.7" | "python3.8" | "ruby2.5")) | fn.Fn
 			Tags?: [...{
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
@@ -92,6 +115,7 @@ Lambda :: {
 			CodeSha256?:  string | fn.Fn
 			Description?: string | fn.Fn
 			FunctionName: string | fn.Fn
+			ProvisionedConcurrencyConfig?: ProvisionedConcurrentExecutions: int | fn.Fn
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

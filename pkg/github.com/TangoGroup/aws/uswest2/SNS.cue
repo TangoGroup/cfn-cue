@@ -15,8 +15,11 @@ SNS :: {
 			} | fn.Fn
 			Protocol:            (string & ("application" | "email-json" | "email" | "http" | "https" | "lambda" | "sms" | "sqs")) | fn.Fn
 			RawMessageDelivery?: bool | fn.Fn
-			Region?:             string | fn.Fn
-			TopicArn:            string | fn.Fn
+			RedrivePolicy?:      {
+				[string]: _
+			} | fn.Fn
+			Region?:  string | fn.Fn
+			TopicArn: string | fn.Fn
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

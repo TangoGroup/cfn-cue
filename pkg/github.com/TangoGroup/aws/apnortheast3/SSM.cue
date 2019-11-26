@@ -43,22 +43,4 @@ SSM :: {
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
 	}
-	MaintenanceWindowTarget :: {
-		Type: "AWS::SSM::MaintenanceWindowTarget"
-		Properties: {
-			Description?:      string | fn.Fn
-			Name?:             string | fn.Fn
-			OwnerInformation?: string | fn.Fn
-			ResourceType:      string | fn.Fn
-			Targets: [...{
-				Key: string | fn.Fn
-				Values?: [...(string | fn.Fn)]
-			}]
-			WindowId: string | fn.Fn
-		}
-		DependsOn?:           string | [...string]
-		DeletionPolicy?:      "Delete" | "Retain"
-		UpdateReplacePolicy?: "Delete" | "Retain"
-		Metadata?: [string]: _
-	}
 }

@@ -9,6 +9,9 @@ OpsWorksCM :: {
 			AssociatePublicIpAddress?: bool | fn.Fn
 			BackupId?:                 string | fn.Fn
 			BackupRetentionCount?:     int | fn.Fn
+			CustomCertificate?:        string | fn.Fn
+			CustomDomain?:             string | fn.Fn
+			CustomPrivateKey?:         string | fn.Fn
 			DisableAutomatedBackup?:   bool | fn.Fn
 			Engine?:                   string | fn.Fn
 			EngineAttributes?: [...{

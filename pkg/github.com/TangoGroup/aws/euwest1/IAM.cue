@@ -139,6 +139,10 @@ IAM :: {
 				} | fn.Fn
 				PolicyName: (string & (strings.MinRunes(1) & strings.MaxRunes(128)) & (=~#"^[a-zA-Z0-9+=,.@\-_]+$"#)) | fn.Fn
 			}]
+			Tags?: [...{
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
+			}]
 			UserName?: string | fn.Fn
 		}
 		DependsOn?:           string | [...string]

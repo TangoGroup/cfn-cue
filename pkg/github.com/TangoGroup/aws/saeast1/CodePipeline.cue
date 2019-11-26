@@ -85,7 +85,8 @@ CodePipeline :: {
 					InputArtifacts?: [...{
 						Name: string | fn.Fn
 					}]
-					Name: string | fn.Fn
+					Name:       string | fn.Fn
+					Namespace?: string | fn.Fn
 					OutputArtifacts?: [...{
 						Name: string | fn.Fn
 					}]

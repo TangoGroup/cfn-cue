@@ -7,6 +7,10 @@ ECS :: {
 		Type: "AWS::ECS::Cluster"
 		Properties: {
 			ClusterName?: string | fn.Fn
+			ClusterSettings?: [...{
+				Name:  string | fn.Fn
+				Value: string | fn.Fn
+			}]
 			Tags?: [...{
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
@@ -25,6 +29,7 @@ ECS :: {
 				MaximumPercent?:        int | fn.Fn
 				MinimumHealthyPercent?: int | fn.Fn
 			}
+			DeploymentController?: Type?: string | fn.Fn
 			DesiredCount?:                  int | fn.Fn
 			EnableECSManagedTags?:          bool | fn.Fn
 			HealthCheckGracePeriodSeconds?: int | fn.Fn
@@ -63,7 +68,7 @@ ECS :: {
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			}]
-			TaskDefinition: string | fn.Fn
+			TaskDefinition?: string | fn.Fn
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -95,6 +100,10 @@ ECS :: {
 					Hostname:  string | fn.Fn
 					IpAddress: string | fn.Fn
 				}]
+				FirelensConfiguration?: {
+					Options?: [string]: string | fn.Fn
+					Type: string | fn.Fn
+				}
 				HealthCheck?: {
 					Command: [...(string | fn.Fn)]
 					Interval?:    int | fn.Fn
@@ -117,7 +126,9 @@ ECS :: {
 						Permissions?: [...(string | fn.Fn)]
 					}]
 					InitProcessEnabled?: bool | fn.Fn
+					MaxSwap?:            int | fn.Fn
 					SharedMemorySize?:   int | fn.Fn
+					Swappiness?:         int | fn.Fn
 					Tmpfs?: [...{
 						ContainerPath?: string | fn.Fn
 						MountOptions?: [...(string | fn.Fn)]
@@ -179,8 +190,9 @@ ECS :: {
 			ExecutionRoleArn?: (string & (=~#"arn:(aws[a-zA-Z-]*)?:iam::\d{12}:role/[a-zA-Z_0-9+=,.@\-_/]+"#)) | fn.Fn
 			Family?:           string | fn.Fn
 			InferenceAccelerators?: [...{
-				DeviceName?: string | fn.Fn
-				DeviceType?: string | fn.Fn
+				DeviceName?:   string | fn.Fn
+				DevicePolicy?: string | fn.Fn
+				DeviceType?:   string | fn.Fn
 			}]
 			IpcMode?:     string | fn.Fn
 			Memory?:      string | fn.Fn

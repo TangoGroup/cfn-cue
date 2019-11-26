@@ -158,7 +158,7 @@ EC2 :: {
 			OnDemandOptions?: AllocationStrategy?: (string & ("lowest-price" | "prioritized")) | fn.Fn
 			ReplaceUnhealthyInstances?: bool | fn.Fn
 			SpotOptions?: {
-				AllocationStrategy?:           (string & ("diversified" | "lowest-price")) | fn.Fn
+				AllocationStrategy?:           (string & ("capacityOptimized" | "diversified" | "lowestPrice")) | fn.Fn
 				InstanceInterruptionBehavior?: (string & ("hibernate" | "stop" | "terminate")) | fn.Fn
 				InstancePoolsToUseCount?:      int | fn.Fn
 			}
@@ -191,6 +191,10 @@ EC2 :: {
 			Domain?:         (string & ("standard" | "vpc")) | fn.Fn
 			InstanceId?:     string | fn.Fn
 			PublicIpv4Pool?: string | fn.Fn
+			Tags?: [...{
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
+			}]
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -279,7 +283,8 @@ EC2 :: {
 				Type: string | fn.Fn
 			}]
 			ElasticInferenceAccelerators?: [...{
-				Type: (string & ("eia1.large" | "eia1.medium" | "eia1.xlarge")) | fn.Fn
+				Count?: int | fn.Fn
+				Type:   (string & ("eia1.large" | "eia1.medium" | "eia1.xlarge")) | fn.Fn
 			}]
 			HostId?:                            string | fn.Fn
 			IamInstanceProfile?:                (string & (=~#"[a-zA-Z0-9+=,.@\-_]+"#)) | fn.Fn
@@ -698,7 +703,7 @@ EC2 :: {
 	SpotFleet :: {
 		Type: "AWS::EC2::SpotFleet"
 		Properties: SpotFleetRequestConfigData: {
-			AllocationStrategy?:              (string & ("diversified" | "lowestPrice")) | fn.Fn
+			AllocationStrategy?:              (string & ("capacityOptimized" | "diversified" | "lowestPrice")) | fn.Fn
 			ExcessCapacityTerminationPolicy?: (string & ("default" | "noTermination")) | fn.Fn
 			IamFleetRole:                     (string & (=~#"arn:(aws[a-zA-Z-]*)?:iam::\d{12}:role/[a-zA-Z_0-9+=,.@\-_/]+"#)) | fn.Fn
 			InstanceInterruptionBehavior?:    (string & ("hibernate" | "stop" | "terminate")) | fn.Fn
@@ -843,6 +848,82 @@ EC2 :: {
 		Properties: {
 			RouteTableId: string | fn.Fn
 			SubnetId:     string | fn.Fn
+		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+	}
+	TrafficMirrorFilter :: {
+		Type: "AWS::EC2::TrafficMirrorFilter"
+		Properties: {
+			Description?: string | fn.Fn
+			NetworkServices?: [...(string | fn.Fn)]
+			Tags?: [...{
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
+			}]
+		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+	}
+	TrafficMirrorFilterRule :: {
+		Type: "AWS::EC2::TrafficMirrorFilterRule"
+		Properties: {
+			Description?:         string | fn.Fn
+			DestinationCidrBlock: string | fn.Fn
+			DestinationPortRange?: {
+				FromPort: int | fn.Fn
+				ToPort:   int | fn.Fn
+			}
+			Protocol?:       int | fn.Fn
+			RuleAction:      string | fn.Fn
+			RuleNumber:      int | fn.Fn
+			SourceCidrBlock: string | fn.Fn
+			SourcePortRange?: {
+				FromPort: int | fn.Fn
+				ToPort:   int | fn.Fn
+			}
+			TrafficDirection:      string | fn.Fn
+			TrafficMirrorFilterId: string | fn.Fn
+		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+	}
+	TrafficMirrorSession :: {
+		Type: "AWS::EC2::TrafficMirrorSession"
+		Properties: {
+			Description?:       string | fn.Fn
+			NetworkInterfaceId: string | fn.Fn
+			PacketLength?:      int | fn.Fn
+			SessionNumber:      int | fn.Fn
+			Tags?: [...{
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
+			}]
+			TrafficMirrorFilterId: string | fn.Fn
+			TrafficMirrorTargetId: string | fn.Fn
+			VirtualNetworkId?:     int | fn.Fn
+		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+	}
+	TrafficMirrorTarget :: {
+		Type: "AWS::EC2::TrafficMirrorTarget"
+		Properties: {
+			Description?:            string | fn.Fn
+			NetworkInterfaceId?:     string | fn.Fn
+			NetworkLoadBalancerArn?: string | fn.Fn
+			Tags?: [...{
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
+			}]
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

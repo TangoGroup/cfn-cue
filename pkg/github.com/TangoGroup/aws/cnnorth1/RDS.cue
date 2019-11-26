@@ -19,6 +19,7 @@ RDS :: {
 			DatabaseName?:                string | fn.Fn
 			DeletionProtection?:          bool | fn.Fn
 			EnableCloudwatchLogsExports?: [...(string | fn.Fn)]
+			EnableHttpEndpoint?:              bool | fn.Fn
 			EnableIAMDatabaseAuthentication?: bool | fn.Fn
 			Engine:                           string | fn.Fn
 			EngineMode?:                      string | fn.Fn
