@@ -2,8 +2,8 @@ package cnnorth1
 
 import (
 	"github.com/TangoGroup/aws/fn"
-	"time"
 	"strings"
+	"time"
 )
 
 S3 :: {

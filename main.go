@@ -633,7 +633,13 @@ func main() {
 				resourceTypes = append(resourceTypes, ast.NewSel(ast.NewIdent(serviceName), resourceStr))
 			}
 
+			builtInImports := []string{}
+
 			for importString := range importStrings {
+				builtInImports = append(builtInImports, importString)
+			}
+			sort.Strings(builtInImports)
+			for _, importString := range builtInImports {
 				imports.Specs = append(imports.Specs, &ast.ImportSpec{Path: ast.NewString(importString)})
 			}
 
