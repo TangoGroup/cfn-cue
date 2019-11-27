@@ -240,6 +240,13 @@ func createFieldFromProperty(name string, prop Property, resourceSubproperties m
 
 	if prop.IsList() {
 		value = ast.NewList(&ast.Ellipsis{Type: value})
+		if prop.IsListOfPrimitives() {
+			value = &ast.BinaryExpr{
+				X:  value,
+				Op: token.OR,
+				Y:  ast.NewSel(ast.NewIdent("fn"), "Fn"),
+			}
+		}
 	}
 
 	if prop.IsMap() {
