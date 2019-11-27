@@ -31,8 +31,8 @@ Cognito :: {
 				}
 				UnusedAccountValidityDays?: float | fn.Fn
 			}
-			AliasAttributes?: [...((string & ("email" | "phone_number" | "preferred_username")) | fn.Fn)]
-			AutoVerifiedAttributes?: [...((string & ("email" | "phone_number")) | fn.Fn)]
+			AliasAttributes?:        [...((string & ("email" | "phone_number" | "preferred_username")) | fn.Fn)] | fn.Fn
+			AutoVerifiedAttributes?: [...((string & ("email" | "phone_number")) | fn.Fn)] | fn.Fn
 			DeviceConfiguration?: {
 				ChallengeRequiredOnNewDevice?:     bool | fn.Fn
 				DeviceOnlyRememberedOnUserPrompt?: bool | fn.Fn
@@ -44,7 +44,7 @@ Cognito :: {
 			}
 			EmailVerificationMessage?: string | fn.Fn
 			EmailVerificationSubject?: string | fn.Fn
-			EnabledMfas?: [...(string | fn.Fn)]
+			EnabledMfas?:              [...(string | fn.Fn)] | fn.Fn
 			LambdaConfig?: {
 				CreateAuthChallenge?:         string | fn.Fn
 				CustomMessage?:               string | fn.Fn
@@ -90,7 +90,7 @@ Cognito :: {
 			UserPoolTags?: {
 				[string]: _
 			} | fn.Fn
-			UsernameAttributes?: [...((string & ("email" | "phone_number")) | fn.Fn)]
+			UsernameAttributes?: [...((string & ("email" | "phone_number")) | fn.Fn)] | fn.Fn
 			VerificationMessageTemplate?: {
 				DefaultEmailOption?: string | fn.Fn
 				EmailMessage?:       string | fn.Fn
@@ -108,27 +108,27 @@ Cognito :: {
 	UserPoolClient :: {
 		Type: "AWS::Cognito::UserPoolClient"
 		Properties: {
-			AllowedOAuthFlows?: [...(string | fn.Fn)]
+			AllowedOAuthFlows?:               [...(string | fn.Fn)] | fn.Fn
 			AllowedOAuthFlowsUserPoolClient?: bool | fn.Fn
-			AllowedOAuthScopes?: [...(string | fn.Fn)]
+			AllowedOAuthScopes?:              [...(string | fn.Fn)] | fn.Fn
 			AnalyticsConfiguration?: {
 				ApplicationId?:  string | fn.Fn
 				ExternalId?:     string | fn.Fn
 				RoleArn?:        string | fn.Fn
 				UserDataShared?: bool | fn.Fn
 			}
-			CallbackURLs?: [...(string | fn.Fn)]
-			ClientName?:         string | fn.Fn
-			DefaultRedirectURI?: string | fn.Fn
-			ExplicitAuthFlows?: [...((string & ("ADMIN_NO_SRP_AUTH" | "CUSTOM_AUTH_FLOW_ONLY" | "USER_PASSWORD_AUTH")) | fn.Fn)]
-			GenerateSecret?: bool | fn.Fn
-			LogoutURLs?: [...(string | fn.Fn)]
+			CallbackURLs?:               [...(string | fn.Fn)] | fn.Fn
+			ClientName?:                 string | fn.Fn
+			DefaultRedirectURI?:         string | fn.Fn
+			ExplicitAuthFlows?:          [...((string & ("ADMIN_NO_SRP_AUTH" | "CUSTOM_AUTH_FLOW_ONLY" | "USER_PASSWORD_AUTH")) | fn.Fn)] | fn.Fn
+			GenerateSecret?:             bool | fn.Fn
+			LogoutURLs?:                 [...(string | fn.Fn)] | fn.Fn
 			PreventUserExistenceErrors?: string | fn.Fn
-			ReadAttributes?: [...(string | fn.Fn)]
-			RefreshTokenValidity?: (int & (>=0 & <=3650)) | fn.Fn
-			SupportedIdentityProviders?: [...(string | fn.Fn)]
-			UserPoolId: string | fn.Fn
-			WriteAttributes?: [...(string | fn.Fn)]
+			ReadAttributes?:             [...(string | fn.Fn)] | fn.Fn
+			RefreshTokenValidity?:       (int & (>=0 & <=3650)) | fn.Fn
+			SupportedIdentityProviders?: [...(string | fn.Fn)] | fn.Fn
+			UserPoolId:                  string | fn.Fn
+			WriteAttributes?:            [...(string | fn.Fn)] | fn.Fn
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -153,7 +153,7 @@ Cognito :: {
 			AttributeMapping?: {
 				[string]: _
 			} | fn.Fn
-			IdpIdentifiers?: [...(string | fn.Fn)]
+			IdpIdentifiers?:  [...(string | fn.Fn)] | fn.Fn
 			ProviderDetails?: {
 				[string]: _
 			} | fn.Fn
@@ -224,11 +224,11 @@ Cognito :: {
 			ClientId: string | fn.Fn
 			CompromisedCredentialsRiskConfiguration?: {
 				Actions: EventAction: string | fn.Fn
-				EventFilter?: [...(string | fn.Fn)]
+				EventFilter?: [...(string | fn.Fn)] | fn.Fn
 			}
 			RiskExceptionConfiguration?: {
-				BlockedIPRangeList?: [...(string | fn.Fn)]
-				SkippedIPRangeList?: [...(string | fn.Fn)]
+				BlockedIPRangeList?: [...(string | fn.Fn)] | fn.Fn
+				SkippedIPRangeList?: [...(string | fn.Fn)] | fn.Fn
 			}
 			UserPoolId: string | fn.Fn
 		}

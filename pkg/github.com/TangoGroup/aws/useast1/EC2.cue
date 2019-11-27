@@ -60,8 +60,8 @@ EC2 :: {
 				CloudwatchLogStream?: string | fn.Fn
 				Enabled:              bool | fn.Fn
 			}
-			Description?: string | fn.Fn
-			DnsServers?: [...(string | fn.Fn)]
+			Description?:         string | fn.Fn
+			DnsServers?:          [...(string | fn.Fn)] | fn.Fn
 			ServerCertificateArn: string | fn.Fn
 			SplitTunnel?:         bool | fn.Fn
 			TagSpecifications?: [...{
@@ -121,11 +121,11 @@ EC2 :: {
 	DHCPOptions :: {
 		Type: "AWS::EC2::DHCPOptions"
 		Properties: {
-			DomainName?: string | fn.Fn
-			DomainNameServers?: [...(string | fn.Fn)]
-			NetbiosNameServers?: [...(string | fn.Fn)]
-			NetbiosNodeType?: (int & (1 | 2 | 4 | 8)) | fn.Fn
-			NtpServers?: [...(string | fn.Fn)]
+			DomainName?:         string | fn.Fn
+			DomainNameServers?:  [...(string | fn.Fn)] | fn.Fn
+			NetbiosNameServers?: [...(string | fn.Fn)] | fn.Fn
+			NetbiosNodeType?:    (int & (1 | 2 | 4 | 8)) | fn.Fn
+			NtpServers?:         [...(string | fn.Fn)] | fn.Fn
 			Tags?: [...{
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
@@ -311,8 +311,8 @@ EC2 :: {
 				DeleteOnTermination?:      bool | fn.Fn
 				Description?:              string | fn.Fn
 				DeviceIndex:               string | fn.Fn
-				GroupSet?: [...(string | fn.Fn)]
-				Ipv6AddressCount?: int | fn.Fn
+				GroupSet?:                 [...(string | fn.Fn)] | fn.Fn
+				Ipv6AddressCount?:         int | fn.Fn
 				Ipv6Addresses?: [...{
 					Ipv6Address: string | fn.Fn
 				}]
@@ -328,13 +328,13 @@ EC2 :: {
 			PlacementGroupName?: string | fn.Fn
 			PrivateIpAddress?:   string | fn.Fn
 			RamdiskId?:          string | fn.Fn
-			SecurityGroupIds?: [...(string | fn.Fn)]
-			SecurityGroups?: [...(string | fn.Fn)]
-			SourceDestCheck?: bool | fn.Fn
+			SecurityGroupIds?:   [...(string | fn.Fn)] | fn.Fn
+			SecurityGroups?:     [...(string | fn.Fn)] | fn.Fn
+			SourceDestCheck?:    bool | fn.Fn
 			SsmAssociations?: [...{
 				AssociationParameters?: [...{
-					Key: string | fn.Fn
-					Value: [...(string | fn.Fn)]
+					Key:   string | fn.Fn
+					Value: [...(string | fn.Fn)] | fn.Fn
 				}]
 				DocumentName: string | fn.Fn
 			}]
@@ -437,9 +437,9 @@ EC2 :: {
 					DeleteOnTermination?:      bool | fn.Fn
 					Description?:              string | fn.Fn
 					DeviceIndex?:              int | fn.Fn
-					Groups?: [...(string | fn.Fn)]
-					InterfaceType?:    string | fn.Fn
-					Ipv6AddressCount?: int | fn.Fn
+					Groups?:                   [...(string | fn.Fn)] | fn.Fn
+					InterfaceType?:            string | fn.Fn
+					Ipv6AddressCount?:         int | fn.Fn
 					Ipv6Addresses?: [...{
 						Ipv6Address?: string | fn.Fn
 					}]
@@ -459,9 +459,9 @@ EC2 :: {
 					HostId?:           string | fn.Fn
 					Tenancy?:          (string & ("dedicated" | "default" | "host")) | fn.Fn
 				}
-				RamDiskId?: string | fn.Fn
-				SecurityGroupIds?: [...(string | fn.Fn)]
-				SecurityGroups?: [...(string | fn.Fn)]
+				RamDiskId?:        string | fn.Fn
+				SecurityGroupIds?: [...(string | fn.Fn)] | fn.Fn
+				SecurityGroups?:   [...(string | fn.Fn)] | fn.Fn
 				TagSpecifications?: [...{
 					ResourceType: (string & ("instance" | "volume")) | fn.Fn
 					Tags: [...{
@@ -534,8 +534,8 @@ EC2 :: {
 	NetworkInterface :: {
 		Type: "AWS::EC2::NetworkInterface"
 		Properties: {
-			Description?: string | fn.Fn
-			GroupSet?: [...(string | fn.Fn)]
+			Description?:      string | fn.Fn
+			GroupSet?:         [...(string | fn.Fn)] | fn.Fn
 			InterfaceType?:    string | fn.Fn
 			Ipv6AddressCount?: int | fn.Fn
 			Ipv6Addresses?: Ipv6Address: string | fn.Fn
@@ -733,8 +733,8 @@ EC2 :: {
 					DeleteOnTermination?:      bool | fn.Fn
 					Description?:              string | fn.Fn
 					DeviceIndex?:              int | fn.Fn
-					Groups?: [...(string | fn.Fn)]
-					Ipv6AddressCount?: int | fn.Fn
+					Groups?:                   [...(string | fn.Fn)] | fn.Fn
+					Ipv6AddressCount?:         int | fn.Fn
 					Ipv6Addresses?: [...{
 						Ipv6Address: string | fn.Fn
 					}]
@@ -857,8 +857,8 @@ EC2 :: {
 	TrafficMirrorFilter :: {
 		Type: "AWS::EC2::TrafficMirrorFilter"
 		Properties: {
-			Description?: string | fn.Fn
-			NetworkServices?: [...(string | fn.Fn)]
+			Description?:     string | fn.Fn
+			NetworkServices?: [...(string | fn.Fn)] | fn.Fn
 			Tags?: [...{
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
@@ -953,7 +953,7 @@ EC2 :: {
 	TransitGatewayAttachment :: {
 		Type: "AWS::EC2::TransitGatewayAttachment"
 		Properties: {
-			SubnetIds: [...(string | fn.Fn)]
+			SubnetIds: [...(string | fn.Fn)] | fn.Fn
 			Tags?: [...{
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
@@ -1062,12 +1062,12 @@ EC2 :: {
 				[string]: _
 			} | fn.Fn
 			PrivateDnsEnabled?: bool | fn.Fn
-			RouteTableIds?: [...(string | fn.Fn)]
-			SecurityGroupIds?: [...(string | fn.Fn)]
-			ServiceName: string | fn.Fn
-			SubnetIds?: [...(string | fn.Fn)]
-			VpcEndpointType?: (string & ("Gateway" | "Interface")) | fn.Fn
-			VpcId:            string | fn.Fn
+			RouteTableIds?:     [...(string | fn.Fn)] | fn.Fn
+			SecurityGroupIds?:  [...(string | fn.Fn)] | fn.Fn
+			ServiceName:        string | fn.Fn
+			SubnetIds?:         [...(string | fn.Fn)] | fn.Fn
+			VpcEndpointType?:   (string & ("Gateway" | "Interface")) | fn.Fn
+			VpcId:              string | fn.Fn
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -1077,7 +1077,7 @@ EC2 :: {
 	VPCEndpointConnectionNotification :: {
 		Type: "AWS::EC2::VPCEndpointConnectionNotification"
 		Properties: {
-			ConnectionEvents: [...((string & ("Accept" | "Connect" | "Delete" | "Reject")) | fn.Fn)]
+			ConnectionEvents:          [...((string & ("Accept" | "Connect" | "Delete" | "Reject")) | fn.Fn)] | fn.Fn
 			ConnectionNotificationArn: string | fn.Fn
 			ServiceId?:                string | fn.Fn
 			VPCEndpointId?:            string | fn.Fn
@@ -1090,8 +1090,8 @@ EC2 :: {
 	VPCEndpointService :: {
 		Type: "AWS::EC2::VPCEndpointService"
 		Properties: {
-			AcceptanceRequired?: bool | fn.Fn
-			NetworkLoadBalancerArns: [...(string | fn.Fn)]
+			AcceptanceRequired?:     bool | fn.Fn
+			NetworkLoadBalancerArns: [...(string | fn.Fn)] | fn.Fn
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -1101,8 +1101,8 @@ EC2 :: {
 	VPCEndpointServicePermissions :: {
 		Type: "AWS::EC2::VPCEndpointServicePermissions"
 		Properties: {
-			AllowedPrincipals?: [...(string | fn.Fn)]
-			ServiceId: string | fn.Fn
+			AllowedPrincipals?: [...(string | fn.Fn)] | fn.Fn
+			ServiceId:          string | fn.Fn
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -1190,8 +1190,8 @@ EC2 :: {
 	VPNGatewayRoutePropagation :: {
 		Type: "AWS::EC2::VPNGatewayRoutePropagation"
 		Properties: {
-			RouteTableIds: [...(string | fn.Fn)]
-			VpnGatewayId: string | fn.Fn
+			RouteTableIds: [...(string | fn.Fn)] | fn.Fn
+			VpnGatewayId:  string | fn.Fn
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

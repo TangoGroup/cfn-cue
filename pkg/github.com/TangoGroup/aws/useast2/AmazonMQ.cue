@@ -30,18 +30,18 @@ AmazonMQ :: {
 				TimeZone:  string | fn.Fn
 			}
 			PubliclyAccessible: bool | fn.Fn
-			SecurityGroups?: [...(string | fn.Fn)]
-			StorageType?: string | fn.Fn
-			SubnetIds?: [...(string | fn.Fn)]
+			SecurityGroups?:    [...(string | fn.Fn)] | fn.Fn
+			StorageType?:       string | fn.Fn
+			SubnetIds?:         [...(string | fn.Fn)] | fn.Fn
 			Tags?: [...{
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			}]
 			Users: [...{
 				ConsoleAccess?: bool | fn.Fn
-				Groups?: [...(string | fn.Fn)]
-				Password: string | fn.Fn
-				Username: string | fn.Fn
+				Groups?:        [...(string | fn.Fn)] | fn.Fn
+				Password:       string | fn.Fn
+				Username:       string | fn.Fn
 			}]
 		}
 		DependsOn?:           string | [...string]

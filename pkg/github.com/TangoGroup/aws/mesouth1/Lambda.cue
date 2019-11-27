@@ -70,10 +70,10 @@ Lambda :: {
 			DeadLetterConfig?: TargetArn?: string | fn.Fn
 			Description?: string | fn.Fn
 			Environment?: Variables?: [string]: string | fn.Fn
-			FunctionName?: string | fn.Fn
-			Handler:       string | fn.Fn
-			KmsKeyArn?:    string | fn.Fn
-			Layers?: [...(string | fn.Fn)]
+			FunctionName?:                 string | fn.Fn
+			Handler:                       string | fn.Fn
+			KmsKeyArn?:                    string | fn.Fn
+			Layers?:                       [...(string | fn.Fn)] | fn.Fn
 			MemorySize?:                   (int & (>=128 & <=3008)) | fn.Fn
 			ReservedConcurrentExecutions?: int | fn.Fn
 			Role:                          (string & (=~#"arn:(aws[a-zA-Z-]*)?:iam::\d{12}:role/[a-zA-Z_0-9+=,.@\-_/]+"#)) | fn.Fn
@@ -85,8 +85,8 @@ Lambda :: {
 			Timeout?: (int & (>=1 & <=900)) | fn.Fn
 			TracingConfig?: Mode?: string | fn.Fn
 			VpcConfig?: {
-				SecurityGroupIds: [...(string | fn.Fn)]
-				SubnetIds: [...(string | fn.Fn)]
+				SecurityGroupIds: [...(string | fn.Fn)] | fn.Fn
+				SubnetIds:        [...(string | fn.Fn)] | fn.Fn
 			}
 		}
 		DependsOn?:           string | [...string]

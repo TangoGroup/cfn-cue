@@ -11,9 +11,9 @@ Glue :: {
 				ContainsHeader?:       string | fn.Fn
 				Delimiter?:            string | fn.Fn
 				DisableValueTrimming?: bool | fn.Fn
-				Header?: [...(string | fn.Fn)]
-				Name?:        string | fn.Fn
-				QuoteSymbol?: string | fn.Fn
+				Header?:               [...(string | fn.Fn)] | fn.Fn
+				Name?:                 string | fn.Fn
+				QuoteSymbol?:          string | fn.Fn
 			}
 			GrokClassifier?: {
 				Classification:  string | fn.Fn
@@ -39,7 +39,7 @@ Glue :: {
 	Crawler :: {
 		Type: "AWS::Glue::Crawler"
 		Properties: {
-			Classifiers?: [...(string | fn.Fn)]
+			Classifiers?:                  [...(string | fn.Fn)] | fn.Fn
 			Configuration?:                string | fn.Fn
 			CrawlerSecurityConfiguration?: string | fn.Fn
 			DatabaseName?:                 string | fn.Fn
@@ -58,19 +58,19 @@ Glue :: {
 			Targets: {
 				CatalogTargets?: [...{
 					DatabaseName?: string | fn.Fn
-					Tables?: [...(string | fn.Fn)]
+					Tables?:       [...(string | fn.Fn)] | fn.Fn
 				}]
 				DynamoDBTargets?: [...{
 					Path?: string | fn.Fn
 				}]
 				JdbcTargets?: [...{
 					ConnectionName?: string | fn.Fn
-					Exclusions?: [...(string | fn.Fn)]
-					Path?: string | fn.Fn
+					Exclusions?:     [...(string | fn.Fn)] | fn.Fn
+					Path?:           string | fn.Fn
 				}]
 				S3Targets?: [...{
-					Exclusions?: [...(string | fn.Fn)]
-					Path?: string | fn.Fn
+					Exclusions?: [...(string | fn.Fn)] | fn.Fn
+					Path?:       string | fn.Fn
 				}]
 			}
 		}
@@ -114,9 +114,9 @@ Glue :: {
 			PublicKey?:             string | fn.Fn
 			RoleArn:                string | fn.Fn
 			SecurityConfiguration?: string | fn.Fn
-			SecurityGroupIds?: [...(string | fn.Fn)]
-			SubnetId?: string | fn.Fn
-			Tags?:     {
+			SecurityGroupIds?:      [...(string | fn.Fn)] | fn.Fn
+			SubnetId?:              string | fn.Fn
+			Tags?:                  {
 				[string]: _
 			} | fn.Fn
 			WorkerType?: string | fn.Fn
@@ -135,7 +135,7 @@ Glue :: {
 				PythonVersion?:  string | fn.Fn
 				ScriptLocation?: string | fn.Fn
 			}
-			Connections?: Connections?: [...(string | fn.Fn)]
+			Connections?: Connections?: [...(string | fn.Fn)] | fn.Fn
 			DefaultArguments?: {
 				[string]: _
 			} | fn.Fn

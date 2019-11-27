@@ -28,8 +28,8 @@ Events :: {
 					LaunchType?: string | fn.Fn
 					NetworkConfiguration?: AwsVpcConfiguration?: {
 						AssignPublicIp?: string | fn.Fn
-						SecurityGroups?: [...(string | fn.Fn)]
-						Subnets: [...(string | fn.Fn)]
+						SecurityGroups?: [...(string | fn.Fn)] | fn.Fn
+						Subnets:         [...(string | fn.Fn)] | fn.Fn
 					}
 					PlatformVersion?:  string | fn.Fn
 					TaskCount?:        int | fn.Fn
@@ -45,8 +45,8 @@ Events :: {
 				KinesisParameters?: PartitionKeyPath: string | fn.Fn
 				RoleArn?: string | fn.Fn
 				RunCommandParameters?: RunCommandTargets: [...{
-					Key: string | fn.Fn
-					Values: [...(string | fn.Fn)]
+					Key:    string | fn.Fn
+					Values: [...(string | fn.Fn)] | fn.Fn
 				}]
 				SqsParameters?: MessageGroupId: string | fn.Fn
 			}]

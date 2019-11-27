@@ -10,18 +10,18 @@ DLM :: {
 			ExecutionRoleArn: string | fn.Fn
 			PolicyDetails?: {
 				Parameters?: ExcludeBootVolume?: bool | fn.Fn
-				PolicyType?: string | fn.Fn
-				ResourceTypes?: [...((string & ("INSTANCE" | "VOLUME")) | fn.Fn)]
+				PolicyType?:    string | fn.Fn
+				ResourceTypes?: [...((string & ("INSTANCE" | "VOLUME")) | fn.Fn)] | fn.Fn
 				Schedules?: [...{
 					CopyTags?: bool | fn.Fn
 					CreateRule?: {
 						Interval:     int | fn.Fn
 						IntervalUnit: string | fn.Fn
-						Times?: [...(string | fn.Fn)]
+						Times?:       [...(string | fn.Fn)] | fn.Fn
 					}
 					FastRestoreRule?: {
-						AvailabilityZones?: [...(string | fn.Fn)]
-						Count: int | fn.Fn
+						AvailabilityZones?: [...(string | fn.Fn)] | fn.Fn
+						Count:              int | fn.Fn
 					}
 					Name?: string | fn.Fn
 					RetainRule?: Count: int | fn.Fn

@@ -137,13 +137,13 @@ AppSync :: {
 		Properties: {
 			ApiId: string | fn.Fn
 			CachingConfig?: {
-				CachingKeys?: [...(string | fn.Fn)]
-				Ttl?: float | fn.Fn
+				CachingKeys?: [...(string | fn.Fn)] | fn.Fn
+				Ttl?:         float | fn.Fn
 			}
 			DataSourceName?: string | fn.Fn
 			FieldName:       string | fn.Fn
 			Kind?:           (string & ("PIPELINE" | "UNIT")) | fn.Fn
-			PipelineConfig?: Functions?: [...(string | fn.Fn)]
+			PipelineConfig?: Functions?: [...(string | fn.Fn)] | fn.Fn
 			RequestMappingTemplate?:            string | fn.Fn
 			RequestMappingTemplateS3Location?:  string | fn.Fn
 			ResponseMappingTemplate?:           string | fn.Fn

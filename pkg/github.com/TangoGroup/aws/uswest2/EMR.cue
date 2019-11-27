@@ -11,7 +11,7 @@ EMR :: {
 			} | fn.Fn
 			Applications?: [...{
 				AdditionalInfo?: [string]: string | fn.Fn
-				Args?: [...(string | fn.Fn)]
+				Args?:    [...(string | fn.Fn)] | fn.Fn
 				Name?:    string | fn.Fn
 				Version?: string | fn.Fn
 			}]
@@ -19,8 +19,8 @@ EMR :: {
 			BootstrapActions?: [...{
 				Name: string | fn.Fn
 				ScriptBootstrapAction: {
-					Args?: [...(string | fn.Fn)]
-					Path: string | fn.Fn
+					Args?: [...(string | fn.Fn)] | fn.Fn
+					Path:  string | fn.Fn
 				}
 			}]
 			Configurations?: [...{
@@ -33,8 +33,8 @@ EMR :: {
 			CustomAmiId?:       string | fn.Fn
 			EbsRootVolumeSize?: int | fn.Fn
 			Instances: {
-				AdditionalMasterSecurityGroups?: [...(string | fn.Fn)]
-				AdditionalSlaveSecurityGroups?: [...(string | fn.Fn)]
+				AdditionalMasterSecurityGroups?: [...(string | fn.Fn)] | fn.Fn
+				AdditionalSlaveSecurityGroups?:  [...(string | fn.Fn)] | fn.Fn
 				CoreInstanceFleet?: {
 					InstanceTypeConfigs?: [...{
 						BidPrice?:                            string | fn.Fn
@@ -126,9 +126,9 @@ EMR :: {
 					Market?:       string | fn.Fn
 					Name?:         string | fn.Fn
 				}
-				Ec2KeyName?:  string | fn.Fn
-				Ec2SubnetId?: string | fn.Fn
-				Ec2SubnetIds?: [...(string | fn.Fn)]
+				Ec2KeyName?:                    string | fn.Fn
+				Ec2SubnetId?:                   string | fn.Fn
+				Ec2SubnetIds?:                  [...(string | fn.Fn)] | fn.Fn
 				EmrManagedMasterSecurityGroup?: string | fn.Fn
 				EmrManagedSlaveSecurityGroup?:  string | fn.Fn
 				HadoopVersion?:                 string | fn.Fn
@@ -245,7 +245,7 @@ EMR :: {
 			Steps?: [...{
 				ActionOnFailure?: string | fn.Fn
 				HadoopJarStep: {
-					Args?: [...(string | fn.Fn)]
+					Args?:      [...(string | fn.Fn)] | fn.Fn
 					Jar:        string | fn.Fn
 					MainClass?: string | fn.Fn
 					StepProperties?: [...{
@@ -393,7 +393,7 @@ EMR :: {
 		Properties: {
 			ActionOnFailure: string | fn.Fn
 			HadoopJarStep: {
-				Args?: [...(string | fn.Fn)]
+				Args?:      [...(string | fn.Fn)] | fn.Fn
 				Jar:        string | fn.Fn
 				MainClass?: string | fn.Fn
 				StepProperties?: [...{

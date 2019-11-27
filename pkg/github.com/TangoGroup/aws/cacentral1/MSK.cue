@@ -8,12 +8,12 @@ MSK :: {
 		Properties: {
 			BrokerNodeGroupInfo: {
 				BrokerAZDistribution?: string | fn.Fn
-				ClientSubnets: [...(string | fn.Fn)]
-				InstanceType: string | fn.Fn
-				SecurityGroups?: [...(string | fn.Fn)]
+				ClientSubnets:         [...(string | fn.Fn)] | fn.Fn
+				InstanceType:          string | fn.Fn
+				SecurityGroups?:       [...(string | fn.Fn)] | fn.Fn
 				StorageInfo?: EBSStorageInfo?: VolumeSize?: int | fn.Fn
 			}
-			ClientAuthentication?: Tls?: CertificateAuthorityArnList?: [...(string | fn.Fn)]
+			ClientAuthentication?: Tls?: CertificateAuthorityArnList?: [...(string | fn.Fn)] | fn.Fn
 			ClusterName: string | fn.Fn
 			ConfigurationInfo?: {
 				Arn:      string | fn.Fn

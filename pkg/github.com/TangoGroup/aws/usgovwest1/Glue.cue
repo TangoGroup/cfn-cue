@@ -35,7 +35,7 @@ Glue :: {
 	Crawler :: {
 		Type: "AWS::Glue::Crawler"
 		Properties: {
-			Classifiers?: [...(string | fn.Fn)]
+			Classifiers?:                  [...(string | fn.Fn)] | fn.Fn
 			Configuration?:                string | fn.Fn
 			CrawlerSecurityConfiguration?: string | fn.Fn
 			DatabaseName?:                 string | fn.Fn
@@ -97,9 +97,9 @@ Glue :: {
 			PublicKey?:             string | fn.Fn
 			RoleArn:                string | fn.Fn
 			SecurityConfiguration?: string | fn.Fn
-			SecurityGroupIds?: [...(string | fn.Fn)]
-			SubnetId?: string | fn.Fn
-			Tags?:     {
+			SecurityGroupIds?:      [...(string | fn.Fn)] | fn.Fn
+			SubnetId?:              string | fn.Fn
+			Tags?:                  {
 				[string]: _
 			} | fn.Fn
 			WorkerType?: string | fn.Fn

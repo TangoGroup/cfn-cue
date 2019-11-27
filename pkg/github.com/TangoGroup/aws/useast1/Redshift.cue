@@ -11,17 +11,17 @@ Redshift :: {
 			AvailabilityZone?:                 string | fn.Fn
 			ClusterIdentifier?:                string | fn.Fn
 			ClusterParameterGroupName?:        string | fn.Fn
-			ClusterSecurityGroups?: [...(string | fn.Fn)]
-			ClusterSubnetGroupName?:         string | fn.Fn
-			ClusterType:                     (string & ("multi-node" | "single-node")) | fn.Fn
-			ClusterVersion?:                 (string & ("1.0")) | fn.Fn
-			DBName:                          string | fn.Fn
-			ElasticIp?:                      string | fn.Fn
-			Encrypted?:                      bool | fn.Fn
-			HsmClientCertificateIdentifier?: string | fn.Fn
-			HsmConfigurationIdentifier?:     string | fn.Fn
-			IamRoles?: [...(string | fn.Fn)]
-			KmsKeyId?: string | fn.Fn
+			ClusterSecurityGroups?:            [...(string | fn.Fn)] | fn.Fn
+			ClusterSubnetGroupName?:           string | fn.Fn
+			ClusterType:                       (string & ("multi-node" | "single-node")) | fn.Fn
+			ClusterVersion?:                   (string & ("1.0")) | fn.Fn
+			DBName:                            string | fn.Fn
+			ElasticIp?:                        string | fn.Fn
+			Encrypted?:                        bool | fn.Fn
+			HsmClientCertificateIdentifier?:   string | fn.Fn
+			HsmConfigurationIdentifier?:       string | fn.Fn
+			IamRoles?:                         [...(string | fn.Fn)] | fn.Fn
+			KmsKeyId?:                         string | fn.Fn
 			LoggingProperties?: {
 				BucketName:   string | fn.Fn
 				S3KeyPrefix?: string | fn.Fn
@@ -40,7 +40,7 @@ Redshift :: {
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			}]
-			VpcSecurityGroupIds?: [...(string | fn.Fn)]
+			VpcSecurityGroupIds?: [...(string | fn.Fn)] | fn.Fn
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain" | "Snapshot"
@@ -97,7 +97,7 @@ Redshift :: {
 		Type: "AWS::Redshift::ClusterSubnetGroup"
 		Properties: {
 			Description: string | fn.Fn
-			SubnetIds: [...(string | fn.Fn)]
+			SubnetIds:   [...(string | fn.Fn)] | fn.Fn
 			Tags?: [...{
 				Key:   string | fn.Fn
 				Value: string | fn.Fn

@@ -21,9 +21,9 @@ IAM :: {
 	Group :: {
 		Type: "AWS::IAM::Group"
 		Properties: {
-			GroupName?: string | fn.Fn
-			ManagedPolicyArns?: [...((string & (=~#"arn:(aws[a-zA-Z-]*)?:iam::(\d{12}|aws):policy/[a-zA-Z_0-9+=,.@\-_/]+"#)) | fn.Fn)]
-			Path?: (string & (=~#"^/(.+/)*$"#)) | fn.Fn
+			GroupName?:         string | fn.Fn
+			ManagedPolicyArns?: [...((string & (=~#"arn:(aws[a-zA-Z-]*)?:iam::(\d{12}|aws):policy/[a-zA-Z_0-9+=,.@\-_/]+"#)) | fn.Fn)] | fn.Fn
+			Path?:              (string & (=~#"^/(.+/)*$"#)) | fn.Fn
 			Policies?: [...{
 				PolicyDocument: {
 					[string]: _
@@ -41,7 +41,7 @@ IAM :: {
 		Properties: {
 			InstanceProfileName?: string | fn.Fn
 			Path?:                (string & (=~#"^/(.+/)*$"#)) | fn.Fn
-			Roles: [...(string | fn.Fn)]
+			Roles:                [...(string | fn.Fn)] | fn.Fn
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -51,15 +51,15 @@ IAM :: {
 	ManagedPolicy :: {
 		Type: "AWS::IAM::ManagedPolicy"
 		Properties: {
-			Description?: string | fn.Fn
-			Groups?: [...(string | fn.Fn)]
+			Description?:       string | fn.Fn
+			Groups?:            [...(string | fn.Fn)] | fn.Fn
 			ManagedPolicyName?: string | fn.Fn
 			Path?:              (string & (=~#"^/(.+/)*$"#)) | fn.Fn
 			PolicyDocument:     {
 				[string]: _
 			} | fn.Fn
-			Roles?: [...(string | fn.Fn)]
-			Users?: [...(string | fn.Fn)]
+			Roles?: [...(string | fn.Fn)] | fn.Fn
+			Users?: [...(string | fn.Fn)] | fn.Fn
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -69,13 +69,13 @@ IAM :: {
 	Policy :: {
 		Type: "AWS::IAM::Policy"
 		Properties: {
-			Groups?: [...(string | fn.Fn)]
+			Groups?:        [...(string | fn.Fn)] | fn.Fn
 			PolicyDocument: {
 				[string]: _
 			} | fn.Fn
 			PolicyName: (string & (strings.MinRunes(1) & strings.MaxRunes(128)) & (=~#"^[a-zA-Z0-9+=,.@\-_]+$"#)) | fn.Fn
-			Roles?: [...(string | fn.Fn)]
-			Users?: [...(string | fn.Fn)]
+			Roles?:     [...(string | fn.Fn)] | fn.Fn
+			Users?:     [...(string | fn.Fn)] | fn.Fn
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -88,8 +88,8 @@ IAM :: {
 			AssumeRolePolicyDocument: {
 				[string]: _
 			} | fn.Fn
-			Description?: string | fn.Fn
-			ManagedPolicyArns?: [...((string & (=~#"arn:(aws[a-zA-Z-]*)?:iam::(\d{12}|aws):policy/[a-zA-Z_0-9+=,.@\-_/]+"#)) | fn.Fn)]
+			Description?:         string | fn.Fn
+			ManagedPolicyArns?:   [...((string & (=~#"arn:(aws[a-zA-Z-]*)?:iam::(\d{12}|aws):policy/[a-zA-Z_0-9+=,.@\-_/]+"#)) | fn.Fn)] | fn.Fn
 			MaxSessionDuration?:  (int & (>=3600 & <=43200)) | fn.Fn
 			Path?:                (string & (=~#"^/(.+/)*$"#)) | fn.Fn
 			PermissionsBoundary?: string | fn.Fn
@@ -113,12 +113,12 @@ IAM :: {
 	User :: {
 		Type: "AWS::IAM::User"
 		Properties: {
-			Groups?: [...(string | fn.Fn)]
+			Groups?: [...(string | fn.Fn)] | fn.Fn
 			LoginProfile?: {
 				Password:               string | fn.Fn
 				PasswordResetRequired?: bool | fn.Fn
 			}
-			ManagedPolicyArns?: [...((string & (=~#"arn:(aws[a-zA-Z-]*)?:iam::(\d{12}|aws):policy/[a-zA-Z_0-9+=,.@\-_/]+"#)) | fn.Fn)]
+			ManagedPolicyArns?:   [...((string & (=~#"arn:(aws[a-zA-Z-]*)?:iam::(\d{12}|aws):policy/[a-zA-Z_0-9+=,.@\-_/]+"#)) | fn.Fn)] | fn.Fn
 			Path?:                (string & (=~#"^/(.+/)*$"#)) | fn.Fn
 			PermissionsBoundary?: string | fn.Fn
 			Policies?: [...{
@@ -142,7 +142,7 @@ IAM :: {
 		Type: "AWS::IAM::UserToGroupAddition"
 		Properties: {
 			GroupName: string | fn.Fn
-			Users: [...(string | fn.Fn)]
+			Users:     [...(string | fn.Fn)] | fn.Fn
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

@@ -9,11 +9,11 @@ MediaStore :: {
 			AccessLoggingEnabled?: bool | fn.Fn
 			ContainerName:         string | fn.Fn
 			CorsPolicy?: [...{
-				AllowedHeaders?: [...(string | fn.Fn)]
-				AllowedMethods?: [...(string | fn.Fn)]
-				AllowedOrigins?: [...(string | fn.Fn)]
-				ExposeHeaders?: [...(string | fn.Fn)]
-				MaxAgeSeconds?: int | fn.Fn
+				AllowedHeaders?: [...(string | fn.Fn)] | fn.Fn
+				AllowedMethods?: [...(string | fn.Fn)] | fn.Fn
+				AllowedOrigins?: [...(string | fn.Fn)] | fn.Fn
+				ExposeHeaders?:  [...(string | fn.Fn)] | fn.Fn
+				MaxAgeSeconds?:  int | fn.Fn
 			}]
 			LifecyclePolicy?: string | fn.Fn
 			Policy?:          string | fn.Fn

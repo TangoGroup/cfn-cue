@@ -18,8 +18,8 @@ DynamoDB :: {
 					KeyType:       (string & ("HASH" | "RANGE")) | fn.Fn
 				}]
 				Projection: {
-					NonKeyAttributes?: [...(string | fn.Fn)]
-					ProjectionType?: (string & ("ALL" | "INCLUDE" | "KEYS_ONLY")) | fn.Fn
+					NonKeyAttributes?: [...(string | fn.Fn)] | fn.Fn
+					ProjectionType?:   (string & ("ALL" | "INCLUDE" | "KEYS_ONLY")) | fn.Fn
 				}
 				ProvisionedThroughput?: {
 					ReadCapacityUnits:  int | fn.Fn
@@ -37,8 +37,8 @@ DynamoDB :: {
 					KeyType:       (string & ("HASH" | "RANGE")) | fn.Fn
 				}]
 				Projection: {
-					NonKeyAttributes?: [...(string | fn.Fn)]
-					ProjectionType?: (string & ("ALL" | "INCLUDE" | "KEYS_ONLY")) | fn.Fn
+					NonKeyAttributes?: [...(string | fn.Fn)] | fn.Fn
+					ProjectionType?:   (string & ("ALL" | "INCLUDE" | "KEYS_ONLY")) | fn.Fn
 				}
 			}]
 			PointInTimeRecoverySpecification?: PointInTimeRecoveryEnabled?: bool | fn.Fn

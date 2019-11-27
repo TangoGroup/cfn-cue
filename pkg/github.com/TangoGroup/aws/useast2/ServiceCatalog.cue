@@ -46,8 +46,8 @@ ServiceCatalog :: {
 	CloudFormationProvisionedProduct :: {
 		Type: "AWS::ServiceCatalog::CloudFormationProvisionedProduct"
 		Properties: {
-			AcceptLanguage?: string | fn.Fn
-			NotificationArns?: [...(string | fn.Fn)]
+			AcceptLanguage?:           string | fn.Fn
+			NotificationArns?:         [...(string | fn.Fn)] | fn.Fn
 			PathId?:                   string | fn.Fn
 			ProductId?:                string | fn.Fn
 			ProductName?:              string | fn.Fn
@@ -59,13 +59,13 @@ ServiceCatalog :: {
 				Value?: string | fn.Fn
 			}]
 			ProvisioningPreferences?: {
-				StackSetAccounts?: [...(string | fn.Fn)]
+				StackSetAccounts?:                   [...(string | fn.Fn)] | fn.Fn
 				StackSetFailureToleranceCount?:      int | fn.Fn
 				StackSetFailureTolerancePercentage?: int | fn.Fn
 				StackSetMaxConcurrencyCount?:        int | fn.Fn
 				StackSetMaxConcurrencyPercentage?:   int | fn.Fn
 				StackSetOperationType?:              string | fn.Fn
-				StackSetRegions?: [...(string | fn.Fn)]
+				StackSetRegions?:                    [...(string | fn.Fn)] | fn.Fn
 			}
 			Tags?: [...{
 				Key:   string | fn.Fn
@@ -80,11 +80,11 @@ ServiceCatalog :: {
 	LaunchNotificationConstraint :: {
 		Type: "AWS::ServiceCatalog::LaunchNotificationConstraint"
 		Properties: {
-			AcceptLanguage?: string | fn.Fn
-			Description?:    string | fn.Fn
-			NotificationArns: [...(string | fn.Fn)]
-			PortfolioId: string | fn.Fn
-			ProductId:   string | fn.Fn
+			AcceptLanguage?:  string | fn.Fn
+			Description?:     string | fn.Fn
+			NotificationArns: [...(string | fn.Fn)] | fn.Fn
+			PortfolioId:      string | fn.Fn
+			ProductId:        string | fn.Fn
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -191,14 +191,14 @@ ServiceCatalog :: {
 	StackSetConstraint :: {
 		Type: "AWS::ServiceCatalog::StackSetConstraint"
 		Properties: {
-			AcceptLanguage?: string | fn.Fn
-			AccountList: [...(string | fn.Fn)]
-			AdminRole:     string | fn.Fn
-			Description:   string | fn.Fn
-			ExecutionRole: string | fn.Fn
-			PortfolioId:   string | fn.Fn
-			ProductId:     string | fn.Fn
-			RegionList: [...(string | fn.Fn)]
+			AcceptLanguage?:      string | fn.Fn
+			AccountList:          [...(string | fn.Fn)] | fn.Fn
+			AdminRole:            string | fn.Fn
+			Description:          string | fn.Fn
+			ExecutionRole:        string | fn.Fn
+			PortfolioId:          string | fn.Fn
+			ProductId:            string | fn.Fn
+			RegionList:           [...(string | fn.Fn)] | fn.Fn
 			StackInstanceControl: string | fn.Fn
 		}
 		DependsOn?:           string | [...string]

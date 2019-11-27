@@ -36,7 +36,7 @@ PinpointEmail :: {
 					DeliveryStreamArn: string | fn.Fn
 					IamRoleArn:        string | fn.Fn
 				}
-				MatchingEventTypes: [...(string | fn.Fn)]
+				MatchingEventTypes: [...(string | fn.Fn)] | fn.Fn
 				PinpointDestination?: ApplicationArn?: string | fn.Fn
 				SnsDestination?: TopicArn:             string | fn.Fn
 			}

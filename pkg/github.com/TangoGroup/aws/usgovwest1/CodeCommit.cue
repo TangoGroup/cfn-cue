@@ -21,11 +21,11 @@ CodeCommit :: {
 				Value: string | fn.Fn
 			}]
 			Triggers?: [...{
-				Branches?: [...(string | fn.Fn)]
+				Branches?:      [...(string | fn.Fn)] | fn.Fn
 				CustomData?:    string | fn.Fn
 				DestinationArn: string | fn.Fn
-				Events: [...((string & ("all" | "createReference" | "deleteReference" | "updateReference")) | fn.Fn)]
-				Name: string | fn.Fn
+				Events:         [...((string & ("all" | "createReference" | "deleteReference" | "updateReference")) | fn.Fn)] | fn.Fn
+				Name:           string | fn.Fn
 			}]
 		}
 		DependsOn?:           string | [...string]

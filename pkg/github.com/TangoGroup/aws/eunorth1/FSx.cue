@@ -15,9 +15,9 @@ FSx :: {
 				ImportedFileChunkSize?:      int | fn.Fn
 				WeeklyMaintenanceStartTime?: string | fn.Fn
 			}
-			SecurityGroupIds?: [...(string | fn.Fn)]
-			StorageCapacity?: (int & (>=300 & <=65536)) | fn.Fn
-			SubnetIds: [...(string | fn.Fn)]
+			SecurityGroupIds?: [...(string | fn.Fn)] | fn.Fn
+			StorageCapacity?:  (int & (>=300 & <=65536)) | fn.Fn
+			SubnetIds:         [...(string | fn.Fn)] | fn.Fn
 			Tags?: [...{
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
@@ -28,7 +28,7 @@ FSx :: {
 				CopyTagsToBackups?:             bool | fn.Fn
 				DailyAutomaticBackupStartTime?: string | fn.Fn
 				SelfManagedActiveDirectoryConfiguration?: {
-					DnsIps?: [...(string | fn.Fn)]
+					DnsIps?:                              [...(string | fn.Fn)] | fn.Fn
 					DomainName?:                          string | fn.Fn
 					FileSystemAdministratorsGroup?:       string | fn.Fn
 					OrganizationalUnitDistinguishedName?: string | fn.Fn

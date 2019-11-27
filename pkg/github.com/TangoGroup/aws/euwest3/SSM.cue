@@ -14,11 +14,11 @@ SSM :: {
 				OutputS3BucketName?: string | fn.Fn
 				OutputS3KeyPrefix?:  string | fn.Fn
 			}
-			Parameters?: [string]: ParameterValues: [...(string | fn.Fn)]
+			Parameters?: [string]: ParameterValues: [...(string | fn.Fn)] | fn.Fn
 			ScheduleExpression?: string | fn.Fn
 			Targets?: [...{
-				Key: string | fn.Fn
-				Values: [...(string | fn.Fn)]
+				Key:    string | fn.Fn
+				Values: [...(string | fn.Fn)] | fn.Fn
 			}]
 		}
 		DependsOn?:           string | [...string]
@@ -73,8 +73,8 @@ SSM :: {
 			OwnerInformation?: string | fn.Fn
 			ResourceType:      string | fn.Fn
 			Targets: [...{
-				Key: string | fn.Fn
-				Values?: [...(string | fn.Fn)]
+				Key:     string | fn.Fn
+				Values?: [...(string | fn.Fn)] | fn.Fn
 			}]
 			WindowId: string | fn.Fn
 		}
@@ -98,8 +98,8 @@ SSM :: {
 			Priority:        int | fn.Fn
 			ServiceRoleArn?: string | fn.Fn
 			Targets: [...{
-				Key: string | fn.Fn
-				Values?: [...(string | fn.Fn)]
+				Key:     string | fn.Fn
+				Values?: [...(string | fn.Fn)] | fn.Fn
 			}]
 			TaskArn: string | fn.Fn
 			TaskInvocationParameters?: {
@@ -119,9 +119,9 @@ SSM :: {
 					DocumentHash?:     string | fn.Fn
 					DocumentHashType?: string | fn.Fn
 					NotificationConfig?: {
-						NotificationArn: string | fn.Fn
-						NotificationEvents?: [...(string | fn.Fn)]
-						NotificationType?: string | fn.Fn
+						NotificationArn:     string | fn.Fn
+						NotificationEvents?: [...(string | fn.Fn)] | fn.Fn
+						NotificationType?:   string | fn.Fn
 					}
 					OutputS3BucketName?: string | fn.Fn
 					OutputS3KeyPrefix?:  string | fn.Fn

@@ -19,11 +19,11 @@ ApiGatewayV2 :: {
 			}
 			CorsConfiguration?: {
 				AllowCredentials?: bool | fn.Fn
-				AllowHeaders?: [...(string | fn.Fn)]
-				AllowMethods?: [...(string | fn.Fn)]
-				AllowOrigins?: [...(string | fn.Fn)]
-				ExposeHeaders?: [...(string | fn.Fn)]
-				MaxAge?: int | fn.Fn
+				AllowHeaders?:     [...(string | fn.Fn)] | fn.Fn
+				AllowMethods?:     [...(string | fn.Fn)] | fn.Fn
+				AllowOrigins?:     [...(string | fn.Fn)] | fn.Fn
+				ExposeHeaders?:    [...(string | fn.Fn)] | fn.Fn
+				MaxAge?:           int | fn.Fn
 			}
 			CredentialsArn?:           string | fn.Fn
 			Description?:              string | fn.Fn
@@ -65,11 +65,11 @@ ApiGatewayV2 :: {
 			AuthorizerResultTtlInSeconds?: int | fn.Fn
 			AuthorizerType:                string | fn.Fn
 			AuthorizerUri?:                string | fn.Fn
-			IdentitySource: [...(string | fn.Fn)]
+			IdentitySource:                [...(string | fn.Fn)] | fn.Fn
 			IdentityValidationExpression?: string | fn.Fn
 			JwtConfiguration?: {
-				Audience?: [...(string | fn.Fn)]
-				Issuer?: string | fn.Fn
+				Audience?: [...(string | fn.Fn)] | fn.Fn
+				Issuer?:   string | fn.Fn
 			}
 			Name: string | fn.Fn
 		}
@@ -174,9 +174,9 @@ ApiGatewayV2 :: {
 	Route :: {
 		Type: "AWS::ApiGatewayV2::Route"
 		Properties: {
-			ApiId:           string | fn.Fn
-			ApiKeyRequired?: bool | fn.Fn
-			AuthorizationScopes?: [...(string | fn.Fn)]
+			ApiId:                     string | fn.Fn
+			ApiKeyRequired?:           bool | fn.Fn
+			AuthorizationScopes?:      [...(string | fn.Fn)] | fn.Fn
 			AuthorizationType?:        string | fn.Fn
 			AuthorizerId?:             string | fn.Fn
 			ModelSelectionExpression?: string | fn.Fn

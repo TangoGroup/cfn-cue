@@ -8,8 +8,8 @@ RAM :: {
 		Properties: {
 			AllowExternalPrincipals?: bool | fn.Fn
 			Name:                     string | fn.Fn
-			Principals?: [...(string | fn.Fn)]
-			ResourceArns?: [...(string | fn.Fn)]
+			Principals?:              [...(string | fn.Fn)] | fn.Fn
+			ResourceArns?:            [...(string | fn.Fn)] | fn.Fn
 			Tags?: [...{
 				Key:   string | fn.Fn
 				Value: string | fn.Fn

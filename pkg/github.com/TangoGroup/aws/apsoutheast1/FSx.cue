@@ -11,9 +11,9 @@ FSx :: {
 			KmsKeyId?:      string | fn.Fn
 			LustreConfiguration?: {
 			}
-			SecurityGroupIds?: [...(string | fn.Fn)]
-			StorageCapacity?: int | fn.Fn
-			SubnetIds: [...(string | fn.Fn)]
+			SecurityGroupIds?: [...(string | fn.Fn)] | fn.Fn
+			StorageCapacity?:  int | fn.Fn
+			SubnetIds:         [...(string | fn.Fn)] | fn.Fn
 			Tags?: [...{
 				Key:   string | fn.Fn
 				Value: string | fn.Fn

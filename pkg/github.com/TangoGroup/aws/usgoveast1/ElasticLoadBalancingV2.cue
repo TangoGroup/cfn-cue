@@ -119,19 +119,19 @@ ElasticLoadBalancingV2 :: {
 			}]
 			Conditions: [...{
 				Field?: string | fn.Fn
-				HostHeaderConfig?: Values?: [...(string | fn.Fn)]
+				HostHeaderConfig?: Values?: [...(string | fn.Fn)] | fn.Fn
 				HttpHeaderConfig?: {
 					HttpHeaderName?: string | fn.Fn
-					Values?: [...(string | fn.Fn)]
+					Values?:         [...(string | fn.Fn)] | fn.Fn
 				}
-				HttpRequestMethodConfig?: Values?: [...(string | fn.Fn)]
-				PathPatternConfig?: Values?: [...(string | fn.Fn)]
+				HttpRequestMethodConfig?: Values?: [...(string | fn.Fn)] | fn.Fn
+				PathPatternConfig?: Values?:       [...(string | fn.Fn)] | fn.Fn
 				QueryStringConfig?: Values?: [...{
 					Key?:   string | fn.Fn
 					Value?: string | fn.Fn
 				}]
-				SourceIpConfig?: Values?: [...(string | fn.Fn)]
-				Values?: [...(string | fn.Fn)]
+				SourceIpConfig?: Values?: [...(string | fn.Fn)] | fn.Fn
+				Values?: [...(string | fn.Fn)] | fn.Fn
 			}]
 			ListenerArn: string | fn.Fn
 			Priority:    int | fn.Fn
@@ -149,14 +149,14 @@ ElasticLoadBalancingV2 :: {
 				Key?:   string | fn.Fn
 				Value?: string | fn.Fn
 			}]
-			Name?:   string | fn.Fn
-			Scheme?: string | fn.Fn
-			SecurityGroups?: [...(string | fn.Fn)]
+			Name?:           string | fn.Fn
+			Scheme?:         string | fn.Fn
+			SecurityGroups?: [...(string | fn.Fn)] | fn.Fn
 			SubnetMappings?: [...{
 				AllocationId: string | fn.Fn
 				SubnetId:     string | fn.Fn
 			}]
-			Subnets?: [...(string | fn.Fn)]
+			Subnets?: [...(string | fn.Fn)] | fn.Fn
 			Tags?: [...{
 				Key:   string | fn.Fn
 				Value: string | fn.Fn

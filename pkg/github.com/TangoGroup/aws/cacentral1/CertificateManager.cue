@@ -11,7 +11,7 @@ CertificateManager :: {
 				DomainName:       string | fn.Fn
 				ValidationDomain: string | fn.Fn
 			}]
-			SubjectAlternativeNames?: [...(string | fn.Fn)]
+			SubjectAlternativeNames?: [...(string | fn.Fn)] | fn.Fn
 			Tags?: [...{
 				Key:   string | fn.Fn
 				Value: string | fn.Fn

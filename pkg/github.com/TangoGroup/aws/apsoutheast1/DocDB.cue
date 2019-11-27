@@ -6,26 +6,26 @@ DocDB :: {
 	DBCluster :: {
 		Type: "AWS::DocDB::DBCluster"
 		Properties: {
-			AvailabilityZones?: [...(string | fn.Fn)]
+			AvailabilityZones?:           [...(string | fn.Fn)] | fn.Fn
 			BackupRetentionPeriod?:       int | fn.Fn
 			DBClusterIdentifier?:         string | fn.Fn
 			DBClusterParameterGroupName?: string | fn.Fn
 			DBSubnetGroupName?:           string | fn.Fn
-			EnableCloudwatchLogsExports?: [...(string | fn.Fn)]
-			EngineVersion?:              string | fn.Fn
-			KmsKeyId?:                   string | fn.Fn
-			MasterUserPassword?:         string | fn.Fn
-			MasterUsername?:             string | fn.Fn
-			Port?:                       int | fn.Fn
-			PreferredBackupWindow?:      string | fn.Fn
-			PreferredMaintenanceWindow?: string | fn.Fn
-			SnapshotIdentifier?:         string | fn.Fn
-			StorageEncrypted?:           bool | fn.Fn
+			EnableCloudwatchLogsExports?: [...(string | fn.Fn)] | fn.Fn
+			EngineVersion?:               string | fn.Fn
+			KmsKeyId?:                    string | fn.Fn
+			MasterUserPassword?:          string | fn.Fn
+			MasterUsername?:              string | fn.Fn
+			Port?:                        int | fn.Fn
+			PreferredBackupWindow?:       string | fn.Fn
+			PreferredMaintenanceWindow?:  string | fn.Fn
+			SnapshotIdentifier?:          string | fn.Fn
+			StorageEncrypted?:            bool | fn.Fn
 			Tags?: [...{
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			}]
-			VpcSecurityGroupIds?: [...(string | fn.Fn)]
+			VpcSecurityGroupIds?: [...(string | fn.Fn)] | fn.Fn
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -75,7 +75,7 @@ DocDB :: {
 		Properties: {
 			DBSubnetGroupDescription: string | fn.Fn
 			DBSubnetGroupName?:       string | fn.Fn
-			SubnetIds: [...(string | fn.Fn)]
+			SubnetIds:                [...(string | fn.Fn)] | fn.Fn
 			Tags?: [...{
 				Key:   string | fn.Fn
 				Value: string | fn.Fn

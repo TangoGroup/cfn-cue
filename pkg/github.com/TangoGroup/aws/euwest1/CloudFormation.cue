@@ -31,7 +31,7 @@ CloudFormation :: {
 	Stack :: {
 		Type: "AWS::CloudFormation::Stack"
 		Properties: {
-			NotificationARNs?: [...(string | fn.Fn)]
+			NotificationARNs?: [...(string | fn.Fn)] | fn.Fn
 			Parameters?: [string]: string | fn.Fn
 			Tags?: [...{
 				Key:   string | fn.Fn

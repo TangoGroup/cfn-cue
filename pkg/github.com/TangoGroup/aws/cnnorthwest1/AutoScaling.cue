@@ -6,8 +6,8 @@ AutoScaling :: {
 	AutoScalingGroup :: {
 		Type: "AWS::AutoScaling::AutoScalingGroup"
 		Properties: {
-			AutoScalingGroupName?: string | fn.Fn
-			AvailabilityZones?: [...(string | fn.Fn)]
+			AutoScalingGroupName?:    string | fn.Fn
+			AvailabilityZones?:       [...(string | fn.Fn)] | fn.Fn
 			Cooldown?:                string | fn.Fn
 			DesiredCapacity?:         string | fn.Fn
 			HealthCheckGracePeriod?:  int | fn.Fn
@@ -28,11 +28,11 @@ AutoScaling :: {
 				NotificationTargetARN?: string | fn.Fn
 				RoleARN?:               string | fn.Fn
 			}]
-			LoadBalancerNames?: [...(string | fn.Fn)]
-			MaxSize: string | fn.Fn
+			LoadBalancerNames?: [...(string | fn.Fn)] | fn.Fn
+			MaxSize:            string | fn.Fn
 			MetricsCollection?: [...{
 				Granularity: string | fn.Fn
-				Metrics?: [...(string | fn.Fn)]
+				Metrics?:    [...(string | fn.Fn)] | fn.Fn
 			}]
 			MinSize: string | fn.Fn
 			MixedInstancesPolicy?: {
@@ -56,8 +56,8 @@ AutoScaling :: {
 				}
 			}
 			NotificationConfigurations?: [...{
-				NotificationTypes?: [...(string | fn.Fn)]
-				TopicARN: string | fn.Fn
+				NotificationTypes?: [...(string | fn.Fn)] | fn.Fn
+				TopicARN:           string | fn.Fn
 			}]
 			PlacementGroup?:       string | fn.Fn
 			ServiceLinkedRoleARN?: string | fn.Fn
@@ -66,9 +66,9 @@ AutoScaling :: {
 				PropagateAtLaunch: bool | fn.Fn
 				Value:             string | fn.Fn
 			}]
-			TargetGroupARNs?: [...(string | fn.Fn)]
-			TerminationPolicies?: [...(string | fn.Fn)]
-			VPCZoneIdentifier?: [...(string | fn.Fn)]
+			TargetGroupARNs?:     [...(string | fn.Fn)] | fn.Fn
+			TerminationPolicies?: [...(string | fn.Fn)] | fn.Fn
+			VPCZoneIdentifier?:   [...(string | fn.Fn)] | fn.Fn
 		}
 		DependsOn?: string | [...string]
 		CreationPolicy?: {
@@ -99,22 +99,22 @@ AutoScaling :: {
 				NoDevice?:    bool | fn.Fn
 				VirtualName?: string | fn.Fn
 			}]
-			ClassicLinkVPCId?: string | fn.Fn
-			ClassicLinkVPCSecurityGroups?: [...(string | fn.Fn)]
-			EbsOptimized?:            bool | fn.Fn
-			IamInstanceProfile?:      string | fn.Fn
-			ImageId:                  string | fn.Fn
-			InstanceId?:              string | fn.Fn
-			InstanceMonitoring?:      bool | fn.Fn
-			InstanceType:             string | fn.Fn
-			KernelId?:                string | fn.Fn
-			KeyName?:                 string | fn.Fn
-			LaunchConfigurationName?: string | fn.Fn
-			PlacementTenancy?:        (string & ("dedicated" | "default")) | fn.Fn
-			RamDiskId?:               string | fn.Fn
-			SecurityGroups?: [...(string | fn.Fn)]
-			SpotPrice?: string | fn.Fn
-			UserData?:  string | fn.Fn
+			ClassicLinkVPCId?:             string | fn.Fn
+			ClassicLinkVPCSecurityGroups?: [...(string | fn.Fn)] | fn.Fn
+			EbsOptimized?:                 bool | fn.Fn
+			IamInstanceProfile?:           string | fn.Fn
+			ImageId:                       string | fn.Fn
+			InstanceId?:                   string | fn.Fn
+			InstanceMonitoring?:           bool | fn.Fn
+			InstanceType:                  string | fn.Fn
+			KernelId?:                     string | fn.Fn
+			KeyName?:                      string | fn.Fn
+			LaunchConfigurationName?:      string | fn.Fn
+			PlacementTenancy?:             (string & ("dedicated" | "default")) | fn.Fn
+			RamDiskId?:                    string | fn.Fn
+			SecurityGroups?:               [...(string | fn.Fn)] | fn.Fn
+			SpotPrice?:                    string | fn.Fn
+			UserData?:                     string | fn.Fn
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

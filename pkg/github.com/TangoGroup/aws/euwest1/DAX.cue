@@ -6,7 +6,7 @@ DAX :: {
 	Cluster :: {
 		Type: "AWS::DAX::Cluster"
 		Properties: {
-			AvailabilityZones?: [...(string | fn.Fn)]
+			AvailabilityZones?:          [...(string | fn.Fn)] | fn.Fn
 			ClusterName?:                string | fn.Fn
 			Description?:                string | fn.Fn
 			IAMRoleARN:                  string | fn.Fn
@@ -16,9 +16,9 @@ DAX :: {
 			PreferredMaintenanceWindow?: string | fn.Fn
 			ReplicationFactor:           int | fn.Fn
 			SSESpecification?: SSEEnabled?: bool | fn.Fn
-			SecurityGroupIds?: [...(string | fn.Fn)]
-			SubnetGroupName?: string | fn.Fn
-			Tags?:            {
+			SecurityGroupIds?: [...(string | fn.Fn)] | fn.Fn
+			SubnetGroupName?:  string | fn.Fn
+			Tags?:             {
 				[string]: _
 			} | fn.Fn
 		}
@@ -46,7 +46,7 @@ DAX :: {
 		Properties: {
 			Description?:     string | fn.Fn
 			SubnetGroupName?: string | fn.Fn
-			SubnetIds: [...(string | fn.Fn)]
+			SubnetIds:        [...(string | fn.Fn)] | fn.Fn
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

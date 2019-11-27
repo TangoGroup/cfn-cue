@@ -20,7 +20,7 @@ Inspector :: {
 			AssessmentTargetArn:     string | fn.Fn
 			AssessmentTemplateName?: string | fn.Fn
 			DurationInSeconds:       (int & (>=180 & <=86400)) | fn.Fn
-			RulesPackageArns: [...(string | fn.Fn)]
+			RulesPackageArns:        [...(string | fn.Fn)] | fn.Fn
 			UserAttributesForFindings?: [...{
 				Key:   string | fn.Fn
 				Value: string | fn.Fn

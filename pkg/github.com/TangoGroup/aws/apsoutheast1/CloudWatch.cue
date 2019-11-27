@@ -9,8 +9,8 @@ CloudWatch :: {
 	Alarm :: {
 		Type: "AWS::CloudWatch::Alarm"
 		Properties: {
-			ActionsEnabled?: bool | fn.Fn
-			AlarmActions?: [...((string & (strings.MinRunes(1) & strings.MaxRunes(1024))) | fn.Fn)]
+			ActionsEnabled?:    bool | fn.Fn
+			AlarmActions?:      [...((string & (strings.MinRunes(1) & strings.MaxRunes(1024))) | fn.Fn)] | fn.Fn
 			AlarmDescription?:  string | fn.Fn
 			AlarmName?:         string | fn.Fn
 			ComparisonOperator: (string & ("GreaterThanOrEqualToThreshold" | "GreaterThanThreshold" | "LessThanThreshold" | "LessThanOrEqualToThreshold" | "LessThanLowerOrGreaterThanUpperThreshold" | "LessThanLowerThreshold" | "GreaterThanUpperThreshold")) | fn.Fn
@@ -22,8 +22,8 @@ CloudWatch :: {
 			EvaluateLowSampleCountPercentile?: string | fn.Fn
 			EvaluationPeriods:                 int | fn.Fn
 			ExtendedStatistic?:                string | fn.Fn
-			InsufficientDataActions?: [...(string | fn.Fn)]
-			MetricName?: string | fn.Fn
+			InsufficientDataActions?:          [...(string | fn.Fn)] | fn.Fn
+			MetricName?:                       string | fn.Fn
 			Metrics?: [...{
 				Expression?: string | fn.Fn
 				Id:          string | fn.Fn
@@ -43,8 +43,8 @@ CloudWatch :: {
 				}
 				ReturnData?: bool | fn.Fn
 			}]
-			Namespace?: string | fn.Fn
-			OKActions?: [...(string | fn.Fn)]
+			Namespace?:         string | fn.Fn
+			OKActions?:         [...(string | fn.Fn)] | fn.Fn
 			Period?:            int | fn.Fn
 			Statistic?:         (string & ("Average" | "Maximum" | "Minimum" | "SampleCount" | "Sum")) | fn.Fn
 			Threshold?:         float | fn.Fn

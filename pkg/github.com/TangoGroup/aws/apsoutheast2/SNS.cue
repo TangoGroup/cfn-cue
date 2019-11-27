@@ -52,7 +52,7 @@ SNS :: {
 			PolicyDocument: {
 				[string]: _
 			} | fn.Fn
-			Topics: [...(string | fn.Fn)]
+			Topics: [...(string | fn.Fn)] | fn.Fn
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

@@ -13,8 +13,8 @@ DirectoryService :: {
 			Password:     string | fn.Fn
 			ShortName?:   string | fn.Fn
 			VpcSettings: {
-				SubnetIds: [...(string | fn.Fn)]
-				VpcId: string | fn.Fn
+				SubnetIds: [...(string | fn.Fn)] | fn.Fn
+				VpcId:     string | fn.Fn
 			}
 		}
 		DependsOn?:           string | [...string]
@@ -33,8 +33,8 @@ DirectoryService :: {
 			ShortName?:   string | fn.Fn
 			Size:         (string & ("Large" | "Small")) | fn.Fn
 			VpcSettings: {
-				SubnetIds: [...(string | fn.Fn)]
-				VpcId: string | fn.Fn
+				SubnetIds: [...(string | fn.Fn)] | fn.Fn
+				VpcId:     string | fn.Fn
 			}
 		}
 		DependsOn?:           string | [...string]

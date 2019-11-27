@@ -41,9 +41,9 @@ CodeDeploy :: {
 			ApplicationName: string | fn.Fn
 			AutoRollbackConfiguration?: {
 				Enabled?: bool | fn.Fn
-				Events?: [...((string & ("DEPLOYMENT_FAILURE" | "DEPLOYMENT_STOP_ON_ALARM" | "DEPLOYMENT_STOP_ON_REQUEST")) | fn.Fn)]
+				Events?:  [...((string & ("DEPLOYMENT_FAILURE" | "DEPLOYMENT_STOP_ON_ALARM" | "DEPLOYMENT_STOP_ON_REQUEST")) | fn.Fn)] | fn.Fn
 			}
-			AutoScalingGroups?: [...(string | fn.Fn)]
+			AutoScalingGroups?: [...(string | fn.Fn)] | fn.Fn
 			Deployment?: {
 				Description?:                   string | fn.Fn
 				IgnoreApplicationStopFailures?: bool | fn.Fn
@@ -102,7 +102,7 @@ CodeDeploy :: {
 			}]
 			ServiceRoleArn: string | fn.Fn
 			TriggerConfigurations?: [...{
-				TriggerEvents?: [...((string & ("DeploymentFailure" | "DeploymentReady" | "DeploymentRollback" | "DeploymentStart" | "DeploymentStop" | "DeploymentSuccess" | "InstanceFailure" | "InstanceReady" | "InstanceStart" | "InstanceSuccess")) | fn.Fn)]
+				TriggerEvents?:    [...((string & ("DeploymentFailure" | "DeploymentReady" | "DeploymentRollback" | "DeploymentStart" | "DeploymentStop" | "DeploymentSuccess" | "InstanceFailure" | "InstanceReady" | "InstanceStart" | "InstanceSuccess")) | fn.Fn)] | fn.Fn
 				TriggerName?:      string | fn.Fn
 				TriggerTargetArn?: string | fn.Fn
 			}]

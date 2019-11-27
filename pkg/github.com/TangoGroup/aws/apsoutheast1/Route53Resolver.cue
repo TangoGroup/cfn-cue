@@ -11,8 +11,8 @@ Route53Resolver :: {
 				Ip?:      string | fn.Fn
 				SubnetId: string | fn.Fn
 			}]
-			Name?: string | fn.Fn
-			SecurityGroupIds: [...(string | fn.Fn)]
+			Name?:            string | fn.Fn
+			SecurityGroupIds: [...(string | fn.Fn)] | fn.Fn
 			Tags?: [...{
 				Key:   string | fn.Fn
 				Value: string | fn.Fn

@@ -48,8 +48,8 @@ Elasticsearch :: {
 				Value: string | fn.Fn
 			}]
 			VPCOptions?: {
-				SecurityGroupIds?: [...(string | fn.Fn)]
-				SubnetIds?: [...(string | fn.Fn)]
+				SecurityGroupIds?: [...(string | fn.Fn)] | fn.Fn
+				SubnetIds?:        [...(string | fn.Fn)] | fn.Fn
 			}
 		}
 		DependsOn?:           string | [...string]

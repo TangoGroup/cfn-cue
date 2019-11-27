@@ -11,8 +11,8 @@ CloudTrail :: {
 			EnableLogFileValidation?:   bool | fn.Fn
 			EventSelectors?: [...{
 				DataResources?: [...{
-					Type: (string & ("AWS::Lambda::Function" | "AWS::S3::Object")) | fn.Fn
-					Values?: [...(string | fn.Fn)]
+					Type:    (string & ("AWS::Lambda::Function" | "AWS::S3::Object")) | fn.Fn
+					Values?: [...(string | fn.Fn)] | fn.Fn
 				}]
 				IncludeManagementEvents?: bool | fn.Fn
 				ReadWriteType?:           (string & ("All" | "ReadOnly" | "WriteOnly")) | fn.Fn

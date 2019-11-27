@@ -50,12 +50,12 @@ GameLift :: {
 				Protocol: string | fn.Fn
 				ToPort:   int | fn.Fn
 			}]
-			EC2InstanceType:  string | fn.Fn
-			FleetType?:       string | fn.Fn
-			InstanceRoleARN?: string | fn.Fn
-			LogPaths?: [...(string | fn.Fn)]
-			MaxSize?: int | fn.Fn
-			MetricGroups?: [...(string | fn.Fn)]
+			EC2InstanceType:                 string | fn.Fn
+			FleetType?:                      string | fn.Fn
+			InstanceRoleARN?:                string | fn.Fn
+			LogPaths?:                       [...(string | fn.Fn)] | fn.Fn
+			MaxSize?:                        int | fn.Fn
+			MetricGroups?:                   [...(string | fn.Fn)] | fn.Fn
 			MinSize?:                        int | fn.Fn
 			Name:                            string | fn.Fn
 			NewGameSessionProtectionPolicy?: string | fn.Fn

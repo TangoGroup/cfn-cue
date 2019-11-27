@@ -43,7 +43,7 @@ Backup :: {
 					ConditionType:  string | fn.Fn
 					ConditionValue: string | fn.Fn
 				}]
-				Resources?: [...(string | fn.Fn)]
+				Resources?:    [...(string | fn.Fn)] | fn.Fn
 				SelectionName: string | fn.Fn
 			}
 		}
@@ -64,8 +64,8 @@ Backup :: {
 			} | fn.Fn
 			EncryptionKeyArn?: string | fn.Fn
 			Notifications?: {
-				BackupVaultEvents: [...(string | fn.Fn)]
-				SNSTopicArn: string | fn.Fn
+				BackupVaultEvents: [...(string | fn.Fn)] | fn.Fn
+				SNSTopicArn:       string | fn.Fn
 			}
 		}
 		DependsOn?:           string | [...string]

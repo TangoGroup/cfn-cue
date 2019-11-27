@@ -14,12 +14,12 @@ Cognito :: {
 			}]
 			CognitoStreams?: {
 			}
-			DeveloperProviderName?: string | fn.Fn
-			IdentityPoolName?:      string | fn.Fn
-			OpenIdConnectProviderARNs?: [...(string | fn.Fn)]
+			DeveloperProviderName?:     string | fn.Fn
+			IdentityPoolName?:          string | fn.Fn
+			OpenIdConnectProviderARNs?: [...(string | fn.Fn)] | fn.Fn
 			PushSync?: {
 			}
-			SamlProviderARNs?: [...(string | fn.Fn)]
+			SamlProviderARNs?:        [...(string | fn.Fn)] | fn.Fn
 			SupportedLoginProviders?: {
 				[string]: _
 			} | fn.Fn
@@ -50,15 +50,15 @@ Cognito :: {
 		Properties: {
 			AdminCreateUserConfig?: {
 			}
-			AliasAttributes?: [...(string | fn.Fn)]
-			AutoVerifiedAttributes?: [...(string | fn.Fn)]
+			AliasAttributes?:        [...(string | fn.Fn)] | fn.Fn
+			AutoVerifiedAttributes?: [...(string | fn.Fn)] | fn.Fn
 			DeviceConfiguration?: {
 			}
 			EmailConfiguration?: {
 			}
 			EmailVerificationMessage?: string | fn.Fn
 			EmailVerificationSubject?: string | fn.Fn
-			EnabledMfas?: [...(string | fn.Fn)]
+			EnabledMfas?:              [...(string | fn.Fn)] | fn.Fn
 			LambdaConfig?: {
 			}
 			MfaConfiguration?: string | fn.Fn
@@ -76,7 +76,7 @@ Cognito :: {
 			UserPoolTags?: {
 				[string]: _
 			} | fn.Fn
-			UsernameAttributes?: [...(string | fn.Fn)]
+			UsernameAttributes?: [...(string | fn.Fn)] | fn.Fn
 			VerificationMessageTemplate?: {
 			}
 		}
@@ -88,22 +88,22 @@ Cognito :: {
 	UserPoolClient :: {
 		Type: "AWS::Cognito::UserPoolClient"
 		Properties: {
-			AllowedOAuthFlows?: [...(string | fn.Fn)]
+			AllowedOAuthFlows?:               [...(string | fn.Fn)] | fn.Fn
 			AllowedOAuthFlowsUserPoolClient?: bool | fn.Fn
-			AllowedOAuthScopes?: [...(string | fn.Fn)]
+			AllowedOAuthScopes?:              [...(string | fn.Fn)] | fn.Fn
 			AnalyticsConfiguration?: {
 			}
-			CallbackURLs?: [...(string | fn.Fn)]
-			ClientName?:         string | fn.Fn
-			DefaultRedirectURI?: string | fn.Fn
-			ExplicitAuthFlows?: [...(string | fn.Fn)]
-			GenerateSecret?: bool | fn.Fn
-			LogoutURLs?: [...(string | fn.Fn)]
-			ReadAttributes?: [...(string | fn.Fn)]
-			RefreshTokenValidity?: int | fn.Fn
-			SupportedIdentityProviders?: [...(string | fn.Fn)]
-			UserPoolId: string | fn.Fn
-			WriteAttributes?: [...(string | fn.Fn)]
+			CallbackURLs?:               [...(string | fn.Fn)] | fn.Fn
+			ClientName?:                 string | fn.Fn
+			DefaultRedirectURI?:         string | fn.Fn
+			ExplicitAuthFlows?:          [...(string | fn.Fn)] | fn.Fn
+			GenerateSecret?:             bool | fn.Fn
+			LogoutURLs?:                 [...(string | fn.Fn)] | fn.Fn
+			ReadAttributes?:             [...(string | fn.Fn)] | fn.Fn
+			RefreshTokenValidity?:       int | fn.Fn
+			SupportedIdentityProviders?: [...(string | fn.Fn)] | fn.Fn
+			UserPoolId:                  string | fn.Fn
+			WriteAttributes?:            [...(string | fn.Fn)] | fn.Fn
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -143,7 +143,7 @@ Cognito :: {
 			AttributeMapping?: {
 				[string]: _
 			} | fn.Fn
-			IdpIdentifiers?: [...(string | fn.Fn)]
+			IdpIdentifiers?:  [...(string | fn.Fn)] | fn.Fn
 			ProviderDetails?: {
 				[string]: _
 			} | fn.Fn
@@ -202,9 +202,9 @@ Cognito :: {
 	UserPoolUser :: {
 		Type: "AWS::Cognito::UserPoolUser"
 		Properties: {
-			DesiredDeliveryMediums?: [...(string | fn.Fn)]
-			ForceAliasCreation?: bool | fn.Fn
-			MessageAction?:      string | fn.Fn
+			DesiredDeliveryMediums?: [...(string | fn.Fn)] | fn.Fn
+			ForceAliasCreation?:     bool | fn.Fn
+			MessageAction?:          string | fn.Fn
 			UserAttributes?: [...{
 			}]
 			UserPoolId: string | fn.Fn

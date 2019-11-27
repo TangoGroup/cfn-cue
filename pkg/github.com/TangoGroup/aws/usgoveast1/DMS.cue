@@ -53,10 +53,10 @@ DMS :: {
 	EventSubscription :: {
 		Type: "AWS::DMS::EventSubscription"
 		Properties: {
-			Enabled?: bool | fn.Fn
-			EventCategories?: [...(string | fn.Fn)]
-			SnsTopicArn: string | fn.Fn
-			SourceIds?: [...(string | fn.Fn)]
+			Enabled?:          bool | fn.Fn
+			EventCategories?:  [...(string | fn.Fn)] | fn.Fn
+			SnsTopicArn:       string | fn.Fn
+			SourceIds?:        [...(string | fn.Fn)] | fn.Fn
 			SourceType?:       string | fn.Fn
 			SubscriptionName?: string | fn.Fn
 			Tags?: [...{
@@ -88,7 +88,7 @@ DMS :: {
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			}]
-			VpcSecurityGroupIds?: [...(string | fn.Fn)]
+			VpcSecurityGroupIds?: [...(string | fn.Fn)] | fn.Fn
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -100,7 +100,7 @@ DMS :: {
 		Properties: {
 			ReplicationSubnetGroupDescription: string | fn.Fn
 			ReplicationSubnetGroupIdentifier?: string | fn.Fn
-			SubnetIds: [...(string | fn.Fn)]
+			SubnetIds:                         [...(string | fn.Fn)] | fn.Fn
 			Tags?: [...{
 				Key:   string | fn.Fn
 				Value: string | fn.Fn

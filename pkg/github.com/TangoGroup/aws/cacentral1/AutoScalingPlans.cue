@@ -9,8 +9,8 @@ AutoScalingPlans :: {
 			ApplicationSource: {
 				CloudFormationStackARN?: string | fn.Fn
 				TagFilters?: [...{
-					Key: string | fn.Fn
-					Values?: [...(string | fn.Fn)]
+					Key:     string | fn.Fn
+					Values?: [...(string | fn.Fn)] | fn.Fn
 				}]
 			}
 			ScalingInstructions: [...{

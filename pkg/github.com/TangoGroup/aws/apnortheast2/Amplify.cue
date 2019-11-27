@@ -8,7 +8,7 @@ Amplify :: {
 		Properties: {
 			AccessToken?: string | fn.Fn
 			AutoBranchCreationConfig?: {
-				AutoBranchCreationPatterns?: [...(string | fn.Fn)]
+				AutoBranchCreationPatterns?: [...(string | fn.Fn)] | fn.Fn
 				BasicAuthConfig?: {
 					EnableBasicAuth?: bool | fn.Fn
 					Password?:        string | fn.Fn

@@ -6,8 +6,8 @@ AppStream :: {
 	DirectoryConfig :: {
 		Type: "AWS::AppStream::DirectoryConfig"
 		Properties: {
-			DirectoryName: string | fn.Fn
-			OrganizationalUnitDistinguishedNames: [...(string | fn.Fn)]
+			DirectoryName:                        string | fn.Fn
+			OrganizationalUnitDistinguishedNames: [...(string | fn.Fn)] | fn.Fn
 			ServiceAccountCredentials: {
 				AccountName:     string | fn.Fn
 				AccountPassword: string | fn.Fn
@@ -42,8 +42,8 @@ AppStream :: {
 				Value: string | fn.Fn
 			}]
 			VpcConfig?: {
-				SecurityGroupIds?: [...(string | fn.Fn)]
-				SubnetIds?: [...(string | fn.Fn)]
+				SecurityGroupIds?: [...(string | fn.Fn)] | fn.Fn
+				SubnetIds?:        [...(string | fn.Fn)] | fn.Fn
 			}
 		}
 		DependsOn?:           string | [...string]
@@ -75,8 +75,8 @@ AppStream :: {
 				Value: string | fn.Fn
 			}]
 			VpcConfig?: {
-				SecurityGroupIds?: [...(string | fn.Fn)]
-				SubnetIds?: [...(string | fn.Fn)]
+				SecurityGroupIds?: [...(string | fn.Fn)] | fn.Fn
+				SubnetIds?:        [...(string | fn.Fn)] | fn.Fn
 			}
 		}
 		DependsOn?:           string | [...string]
@@ -95,17 +95,17 @@ AppStream :: {
 				Enabled:        bool | fn.Fn
 				SettingsGroup?: string | fn.Fn
 			}
-			AttributesToDelete?: [...(string | fn.Fn)]
+			AttributesToDelete?:      [...(string | fn.Fn)] | fn.Fn
 			DeleteStorageConnectors?: bool | fn.Fn
 			Description?:             string | fn.Fn
 			DisplayName?:             string | fn.Fn
-			EmbedHostDomains?: [...(string | fn.Fn)]
-			FeedbackURL?: string | fn.Fn
-			Name?:        string | fn.Fn
-			RedirectURL?: string | fn.Fn
+			EmbedHostDomains?:        [...(string | fn.Fn)] | fn.Fn
+			FeedbackURL?:             string | fn.Fn
+			Name?:                    string | fn.Fn
+			RedirectURL?:             string | fn.Fn
 			StorageConnectors?: [...{
-				ConnectorType: string | fn.Fn
-				Domains?: [...(string | fn.Fn)]
+				ConnectorType:       string | fn.Fn
+				Domains?:            [...(string | fn.Fn)] | fn.Fn
 				ResourceIdentifier?: string | fn.Fn
 			}]
 			Tags?: [...{

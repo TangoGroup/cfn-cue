@@ -44,9 +44,9 @@ ApiGateway :: {
 			IdentitySource?:               string | fn.Fn
 			IdentityValidationExpression?: string | fn.Fn
 			Name?:                         string | fn.Fn
-			ProviderARNs?: [...(string | fn.Fn)]
-			RestApiId: string | fn.Fn
-			Type:      (string & ("COGNITO_USER_POOLS" | "REQUEST" | "TOKEN")) | fn.Fn
+			ProviderARNs?:                 [...(string | fn.Fn)] | fn.Fn
+			RestApiId:                     string | fn.Fn
+			Type:                          (string & ("COGNITO_USER_POOLS" | "REQUEST" | "TOKEN")) | fn.Fn
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -174,7 +174,7 @@ ApiGateway :: {
 		Properties: {
 			CertificateArn?: string | fn.Fn
 			DomainName:      string | fn.Fn
-			EndpointConfiguration?: Types?: [...(string | fn.Fn)]
+			EndpointConfiguration?: Types?: [...(string | fn.Fn)] | fn.Fn
 			RegionalCertificateArn?: string | fn.Fn
 			SecurityPolicy?:         string | fn.Fn
 			Tags?: [...{
@@ -204,13 +204,13 @@ ApiGateway :: {
 	Method :: {
 		Type: "AWS::ApiGateway::Method"
 		Properties: {
-			ApiKeyRequired?: bool | fn.Fn
-			AuthorizationScopes?: [...(string | fn.Fn)]
-			AuthorizationType?: string | fn.Fn
-			AuthorizerId?:      string | fn.Fn
-			HttpMethod:         string | fn.Fn
+			ApiKeyRequired?:      bool | fn.Fn
+			AuthorizationScopes?: [...(string | fn.Fn)] | fn.Fn
+			AuthorizationType?:   string | fn.Fn
+			AuthorizerId?:        string | fn.Fn
+			HttpMethod:           string | fn.Fn
 			Integration?: {
-				CacheKeyParameters?: [...(string | fn.Fn)]
+				CacheKeyParameters?:    [...(string | fn.Fn)] | fn.Fn
 				CacheNamespace?:        string | fn.Fn
 				ConnectionId?:          string | fn.Fn
 				ConnectionType?:        string | fn.Fn
@@ -293,8 +293,8 @@ ApiGateway :: {
 		Type: "AWS::ApiGateway::RestApi"
 		Properties: {
 			ApiKeySourceType?: (string & ("AUTHORIZER" | "HEADER")) | fn.Fn
-			BinaryMediaTypes?: [...(string | fn.Fn)]
-			Body?: {
+			BinaryMediaTypes?: [...(string | fn.Fn)] | fn.Fn
+			Body?:             {
 				[string]: _
 			} | fn.Fn
 			BodyS3Location?: {
@@ -306,8 +306,8 @@ ApiGateway :: {
 			CloneFrom?:   string | fn.Fn
 			Description?: string | fn.Fn
 			EndpointConfiguration?: {
-				Types?: [...(string | fn.Fn)]
-				VpcEndpointIds?: [...(string | fn.Fn)]
+				Types?:          [...(string | fn.Fn)] | fn.Fn
+				VpcEndpointIds?: [...(string | fn.Fn)] | fn.Fn
 			}
 			FailOnWarnings?:         bool | fn.Fn
 			MinimumCompressionSize?: int | fn.Fn

@@ -21,8 +21,8 @@ AmazonMQ :: {
 			MaintenanceWindowStartTime?: {
 			}
 			PubliclyAccessible: bool | fn.Fn
-			SecurityGroups?: [...(string | fn.Fn)]
-			SubnetIds?: [...(string | fn.Fn)]
+			SecurityGroups?:    [...(string | fn.Fn)] | fn.Fn
+			SubnetIds?:         [...(string | fn.Fn)] | fn.Fn
 			Tags?: [...{
 			}]
 			Users: [...{

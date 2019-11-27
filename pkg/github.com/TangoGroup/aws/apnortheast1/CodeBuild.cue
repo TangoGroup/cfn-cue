@@ -20,8 +20,8 @@ CodeBuild :: {
 			BadgeEnabled?: bool | fn.Fn
 			Cache?: {
 				Location?: string | fn.Fn
-				Modes?: [...(string | fn.Fn)]
-				Type: (string & ("LOCAL" | "NO_CACHE" | "S3")) | fn.Fn
+				Modes?:    [...(string | fn.Fn)] | fn.Fn
+				Type:      (string & ("LOCAL" | "NO_CACHE" | "S3")) | fn.Fn
 			}
 			Description?:   string | fn.Fn
 			EncryptionKey?: string | fn.Fn
@@ -115,9 +115,9 @@ CodeBuild :: {
 				Webhook?: bool | fn.Fn
 			}
 			VpcConfig?: {
-				SecurityGroupIds?: [...(string | fn.Fn)]
-				Subnets?: [...(string | fn.Fn)]
-				VpcId?: string | fn.Fn
+				SecurityGroupIds?: [...(string | fn.Fn)] | fn.Fn
+				Subnets?:          [...(string | fn.Fn)] | fn.Fn
+				VpcId?:            string | fn.Fn
 			}
 		}
 		DependsOn?:           string | [...string]

@@ -236,7 +236,7 @@ Pinpoint :: {
 							} | fn.Fn
 							EventType?: {
 								DimensionType?: string | fn.Fn
-								Values?: [...(string | fn.Fn)]
+								Values?:        [...(string | fn.Fn)] | fn.Fn
 							}
 							Metrics?: {
 								[string]: _
@@ -365,7 +365,7 @@ Pinpoint :: {
 						} | fn.Fn
 						EventType?: {
 							DimensionType?: string | fn.Fn
-							Values?: [...(string | fn.Fn)]
+							Values?:        [...(string | fn.Fn)] | fn.Fn
 						}
 						Metrics?: {
 							[string]: _
@@ -462,33 +462,33 @@ Pinpoint :: {
 				Demographic?: {
 					AppVersion?: {
 						DimensionType?: string | fn.Fn
-						Values?: [...(string | fn.Fn)]
+						Values?:        [...(string | fn.Fn)] | fn.Fn
 					}
 					Channel?: {
 						DimensionType?: string | fn.Fn
-						Values?: [...(string | fn.Fn)]
+						Values?:        [...(string | fn.Fn)] | fn.Fn
 					}
 					DeviceType?: {
 						DimensionType?: string | fn.Fn
-						Values?: [...(string | fn.Fn)]
+						Values?:        [...(string | fn.Fn)] | fn.Fn
 					}
 					Make?: {
 						DimensionType?: string | fn.Fn
-						Values?: [...(string | fn.Fn)]
+						Values?:        [...(string | fn.Fn)] | fn.Fn
 					}
 					Model?: {
 						DimensionType?: string | fn.Fn
-						Values?: [...(string | fn.Fn)]
+						Values?:        [...(string | fn.Fn)] | fn.Fn
 					}
 					Platform?: {
 						DimensionType?: string | fn.Fn
-						Values?: [...(string | fn.Fn)]
+						Values?:        [...(string | fn.Fn)] | fn.Fn
 					}
 				}
 				Location?: {
 					Country?: {
 						DimensionType?: string | fn.Fn
-						Values?: [...(string | fn.Fn)]
+						Values?:        [...(string | fn.Fn)] | fn.Fn
 					}
 					GPSPoint?: {
 						Coordinates: {
@@ -519,33 +519,33 @@ Pinpoint :: {
 						Demographic?: {
 							AppVersion?: {
 								DimensionType?: string | fn.Fn
-								Values?: [...(string | fn.Fn)]
+								Values?:        [...(string | fn.Fn)] | fn.Fn
 							}
 							Channel?: {
 								DimensionType?: string | fn.Fn
-								Values?: [...(string | fn.Fn)]
+								Values?:        [...(string | fn.Fn)] | fn.Fn
 							}
 							DeviceType?: {
 								DimensionType?: string | fn.Fn
-								Values?: [...(string | fn.Fn)]
+								Values?:        [...(string | fn.Fn)] | fn.Fn
 							}
 							Make?: {
 								DimensionType?: string | fn.Fn
-								Values?: [...(string | fn.Fn)]
+								Values?:        [...(string | fn.Fn)] | fn.Fn
 							}
 							Model?: {
 								DimensionType?: string | fn.Fn
-								Values?: [...(string | fn.Fn)]
+								Values?:        [...(string | fn.Fn)] | fn.Fn
 							}
 							Platform?: {
 								DimensionType?: string | fn.Fn
-								Values?: [...(string | fn.Fn)]
+								Values?:        [...(string | fn.Fn)] | fn.Fn
 							}
 						}
 						Location?: {
 							Country?: {
 								DimensionType?: string | fn.Fn
-								Values?: [...(string | fn.Fn)]
+								Values?:        [...(string | fn.Fn)] | fn.Fn
 							}
 							GPSPoint?: {
 								Coordinates: {

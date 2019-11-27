@@ -6,12 +6,12 @@ WAFv2 :: {
 	IPSet :: {
 		Type: "AWS::WAFv2::IPSet"
 		Properties: {
-			Addresses?: IPAddresses?: [...(string | fn.Fn)]
+			Addresses?: IPAddresses?: [...(string | fn.Fn)] | fn.Fn
 			Description?:      string | fn.Fn
 			IPAddressVersion?: string | fn.Fn
 			IPSet?: {
 				ARN?: string | fn.Fn
-				Addresses?: IPAddresses?: [...(string | fn.Fn)]
+				Addresses?: IPAddresses?: [...(string | fn.Fn)] | fn.Fn
 				Description?:      string | fn.Fn
 				IPAddressVersion?: string | fn.Fn
 				Id?:               string | fn.Fn
@@ -159,7 +159,7 @@ WAFv2 :: {
 								[string]: _
 							}]
 						}
-						GeoMatchStatement?: CountryCodes?: CountryCodes?: [...(string | fn.Fn)]
+						GeoMatchStatement?: CountryCodes?: CountryCodes?: [...(string | fn.Fn)] | fn.Fn
 						IPSetReferenceStatement?: ARN?: string | fn.Fn
 						RegexPatternSetReferenceStatement?: {
 							ARN?: string | fn.Fn
@@ -263,7 +263,7 @@ WAFv2 :: {
 							[string]: _
 						}]
 					}
-					GeoMatchStatement?: CountryCodes?: CountryCodes?: [...(string | fn.Fn)]
+					GeoMatchStatement?: CountryCodes?: CountryCodes?: [...(string | fn.Fn)] | fn.Fn
 					IPSetReferenceStatement?: ARN?: string | fn.Fn
 					NotStatement?: Statement?: {
 						ByteMatchStatement?: {
@@ -288,7 +288,7 @@ WAFv2 :: {
 								[string]: _
 							}]
 						}
-						GeoMatchStatement?: CountryCodes?: CountryCodes?: [...(string | fn.Fn)]
+						GeoMatchStatement?: CountryCodes?: CountryCodes?: [...(string | fn.Fn)] | fn.Fn
 						IPSetReferenceStatement?: ARN?: string | fn.Fn
 						RegexPatternSetReferenceStatement?: {
 							ARN?: string | fn.Fn
@@ -393,7 +393,7 @@ WAFv2 :: {
 								[string]: _
 							}]
 						}
-						GeoMatchStatement?: CountryCodes?: CountryCodes?: [...(string | fn.Fn)]
+						GeoMatchStatement?: CountryCodes?: CountryCodes?: [...(string | fn.Fn)] | fn.Fn
 						IPSetReferenceStatement?: ARN?: string | fn.Fn
 						RegexPatternSetReferenceStatement?: {
 							ARN?: string | fn.Fn
@@ -501,7 +501,7 @@ WAFv2 :: {
 									[string]: _
 								}]
 							}
-							GeoMatchStatement?: CountryCodes?: CountryCodes?: [...(string | fn.Fn)]
+							GeoMatchStatement?: CountryCodes?: CountryCodes?: [...(string | fn.Fn)] | fn.Fn
 							IPSetReferenceStatement?: ARN?: string | fn.Fn
 							RegexPatternSetReferenceStatement?: {
 								ARN?: string | fn.Fn
@@ -686,7 +686,7 @@ WAFv2 :: {
 						[string]: _
 					}]
 				}
-				GeoMatchStatement?: CountryCodes?: CountryCodes?: [...(string | fn.Fn)]
+				GeoMatchStatement?: CountryCodes?: CountryCodes?: [...(string | fn.Fn)] | fn.Fn
 				IPSetReferenceStatement?: ARN?: string | fn.Fn
 				NotStatement?: Statement?: {
 					AndStatement?: Statements?: StatementThrees?: [...{
@@ -712,7 +712,7 @@ WAFv2 :: {
 								[string]: _
 							}]
 						}
-						GeoMatchStatement?: CountryCodes?: CountryCodes?: [...(string | fn.Fn)]
+						GeoMatchStatement?: CountryCodes?: CountryCodes?: [...(string | fn.Fn)] | fn.Fn
 						IPSetReferenceStatement?: ARN?: string | fn.Fn
 						RegexPatternSetReferenceStatement?: {
 							ARN?: string | fn.Fn
@@ -816,7 +816,7 @@ WAFv2 :: {
 							[string]: _
 						}]
 					}
-					GeoMatchStatement?: CountryCodes?: CountryCodes?: [...(string | fn.Fn)]
+					GeoMatchStatement?: CountryCodes?: CountryCodes?: [...(string | fn.Fn)] | fn.Fn
 					IPSetReferenceStatement?: ARN?: string | fn.Fn
 					NotStatement?: Statement?: {
 						ByteMatchStatement?: {
@@ -841,7 +841,7 @@ WAFv2 :: {
 								[string]: _
 							}]
 						}
-						GeoMatchStatement?: CountryCodes?: CountryCodes?: [...(string | fn.Fn)]
+						GeoMatchStatement?: CountryCodes?: CountryCodes?: [...(string | fn.Fn)] | fn.Fn
 						IPSetReferenceStatement?: ARN?: string | fn.Fn
 						RegexPatternSetReferenceStatement?: {
 							ARN?: string | fn.Fn
@@ -946,7 +946,7 @@ WAFv2 :: {
 								[string]: _
 							}]
 						}
-						GeoMatchStatement?: CountryCodes?: CountryCodes?: [...(string | fn.Fn)]
+						GeoMatchStatement?: CountryCodes?: CountryCodes?: [...(string | fn.Fn)] | fn.Fn
 						IPSetReferenceStatement?: ARN?: string | fn.Fn
 						RegexPatternSetReferenceStatement?: {
 							ARN?: string | fn.Fn
@@ -1054,7 +1054,7 @@ WAFv2 :: {
 									[string]: _
 								}]
 							}
-							GeoMatchStatement?: CountryCodes?: CountryCodes?: [...(string | fn.Fn)]
+							GeoMatchStatement?: CountryCodes?: CountryCodes?: [...(string | fn.Fn)] | fn.Fn
 							IPSetReferenceStatement?: ARN?: string | fn.Fn
 							RegexPatternSetReferenceStatement?: {
 								ARN?: string | fn.Fn
@@ -1241,7 +1241,7 @@ WAFv2 :: {
 								[string]: _
 							}]
 						}
-						GeoMatchStatement?: CountryCodes?: CountryCodes?: [...(string | fn.Fn)]
+						GeoMatchStatement?: CountryCodes?: CountryCodes?: [...(string | fn.Fn)] | fn.Fn
 						IPSetReferenceStatement?: ARN?: string | fn.Fn
 						RegexPatternSetReferenceStatement?: {
 							ARN?: string | fn.Fn
@@ -1345,7 +1345,7 @@ WAFv2 :: {
 							[string]: _
 						}]
 					}
-					GeoMatchStatement?: CountryCodes?: CountryCodes?: [...(string | fn.Fn)]
+					GeoMatchStatement?: CountryCodes?: CountryCodes?: [...(string | fn.Fn)] | fn.Fn
 					IPSetReferenceStatement?: ARN?: string | fn.Fn
 					NotStatement?: Statement?: {
 						ByteMatchStatement?: {
@@ -1370,7 +1370,7 @@ WAFv2 :: {
 								[string]: _
 							}]
 						}
-						GeoMatchStatement?: CountryCodes?: CountryCodes?: [...(string | fn.Fn)]
+						GeoMatchStatement?: CountryCodes?: CountryCodes?: [...(string | fn.Fn)] | fn.Fn
 						IPSetReferenceStatement?: ARN?: string | fn.Fn
 						RegexPatternSetReferenceStatement?: {
 							ARN?: string | fn.Fn
@@ -1475,7 +1475,7 @@ WAFv2 :: {
 								[string]: _
 							}]
 						}
-						GeoMatchStatement?: CountryCodes?: CountryCodes?: [...(string | fn.Fn)]
+						GeoMatchStatement?: CountryCodes?: CountryCodes?: [...(string | fn.Fn)] | fn.Fn
 						IPSetReferenceStatement?: ARN?: string | fn.Fn
 						RegexPatternSetReferenceStatement?: {
 							ARN?: string | fn.Fn
@@ -1583,7 +1583,7 @@ WAFv2 :: {
 									[string]: _
 								}]
 							}
-							GeoMatchStatement?: CountryCodes?: CountryCodes?: [...(string | fn.Fn)]
+							GeoMatchStatement?: CountryCodes?: CountryCodes?: [...(string | fn.Fn)] | fn.Fn
 							IPSetReferenceStatement?: ARN?: string | fn.Fn
 							RegexPatternSetReferenceStatement?: {
 								ARN?: string | fn.Fn
@@ -1773,7 +1773,7 @@ WAFv2 :: {
 									[string]: _
 								}]
 							}
-							GeoMatchStatement?: CountryCodes?: CountryCodes?: [...(string | fn.Fn)]
+							GeoMatchStatement?: CountryCodes?: CountryCodes?: [...(string | fn.Fn)] | fn.Fn
 							IPSetReferenceStatement?: ARN?: string | fn.Fn
 							RegexPatternSetReferenceStatement?: {
 								ARN?: string | fn.Fn
@@ -1877,7 +1877,7 @@ WAFv2 :: {
 								[string]: _
 							}]
 						}
-						GeoMatchStatement?: CountryCodes?: CountryCodes?: [...(string | fn.Fn)]
+						GeoMatchStatement?: CountryCodes?: CountryCodes?: [...(string | fn.Fn)] | fn.Fn
 						IPSetReferenceStatement?: ARN?: string | fn.Fn
 						NotStatement?: Statement?: {
 							ByteMatchStatement?: {
@@ -1902,7 +1902,7 @@ WAFv2 :: {
 									[string]: _
 								}]
 							}
-							GeoMatchStatement?: CountryCodes?: CountryCodes?: [...(string | fn.Fn)]
+							GeoMatchStatement?: CountryCodes?: CountryCodes?: [...(string | fn.Fn)] | fn.Fn
 							IPSetReferenceStatement?: ARN?: string | fn.Fn
 							RegexPatternSetReferenceStatement?: {
 								ARN?: string | fn.Fn
@@ -2007,7 +2007,7 @@ WAFv2 :: {
 									[string]: _
 								}]
 							}
-							GeoMatchStatement?: CountryCodes?: CountryCodes?: [...(string | fn.Fn)]
+							GeoMatchStatement?: CountryCodes?: CountryCodes?: [...(string | fn.Fn)] | fn.Fn
 							IPSetReferenceStatement?: ARN?: string | fn.Fn
 							RegexPatternSetReferenceStatement?: {
 								ARN?: string | fn.Fn
@@ -2115,7 +2115,7 @@ WAFv2 :: {
 										[string]: _
 									}]
 								}
-								GeoMatchStatement?: CountryCodes?: CountryCodes?: [...(string | fn.Fn)]
+								GeoMatchStatement?: CountryCodes?: CountryCodes?: [...(string | fn.Fn)] | fn.Fn
 								IPSetReferenceStatement?: ARN?: string | fn.Fn
 								RegexPatternSetReferenceStatement?: {
 									ARN?: string | fn.Fn

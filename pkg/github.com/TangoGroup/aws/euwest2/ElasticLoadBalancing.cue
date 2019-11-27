@@ -16,7 +16,7 @@ ElasticLoadBalancing :: {
 				CookieName: string | fn.Fn
 				PolicyName: string | fn.Fn
 			}]
-			AvailabilityZones?: [...(string | fn.Fn)]
+			AvailabilityZones?: [...(string | fn.Fn)] | fn.Fn
 			ConnectionDrainingPolicy?: {
 				Enabled:  bool | fn.Fn
 				Timeout?: int | fn.Fn
@@ -30,7 +30,7 @@ ElasticLoadBalancing :: {
 				Timeout:            string | fn.Fn
 				UnhealthyThreshold: string | fn.Fn
 			}
-			Instances?: [...(string | fn.Fn)]
+			Instances?: [...(string | fn.Fn)] | fn.Fn
 			LBCookieStickinessPolicy?: [...{
 				CookieExpirationPeriod?: string | fn.Fn
 				PolicyName?:             string | fn.Fn
@@ -39,7 +39,7 @@ ElasticLoadBalancing :: {
 				InstancePort:      (string & (>=1 & <=65535)) | fn.Fn
 				InstanceProtocol?: string | fn.Fn
 				LoadBalancerPort:  (string & (>=1 & <=65535)) | fn.Fn
-				PolicyNames?: [...(string | fn.Fn)]
+				PolicyNames?:      [...(string | fn.Fn)] | fn.Fn
 				Protocol:          string | fn.Fn
 				SSLCertificateId?: string | fn.Fn
 			}]
@@ -47,15 +47,15 @@ ElasticLoadBalancing :: {
 			Policies?: [...{
 				Attributes: [...({
 					[string]: _
-				} | fn.Fn)]
-				InstancePorts?: [...(string | fn.Fn)]
-				LoadBalancerPorts?: [...(string | fn.Fn)]
-				PolicyName: string | fn.Fn
-				PolicyType: string | fn.Fn
+				} | fn.Fn)] | fn.Fn
+				InstancePorts?:     [...(string | fn.Fn)] | fn.Fn
+				LoadBalancerPorts?: [...(string | fn.Fn)] | fn.Fn
+				PolicyName:         string | fn.Fn
+				PolicyType:         string | fn.Fn
 			}]
-			Scheme?: string | fn.Fn
-			SecurityGroups?: [...(string | fn.Fn)]
-			Subnets?: [...(string | fn.Fn)]
+			Scheme?:         string | fn.Fn
+			SecurityGroups?: [...(string | fn.Fn)] | fn.Fn
+			Subnets?:        [...(string | fn.Fn)] | fn.Fn
 			Tags?: [...{
 				Key:   string | fn.Fn
 				Value: string | fn.Fn

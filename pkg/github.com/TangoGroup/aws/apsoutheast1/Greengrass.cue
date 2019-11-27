@@ -315,8 +315,8 @@ Greengrass :: {
 						SageMakerJobArn: string | fn.Fn
 					}
 					SecretsManagerSecretResourceData?: {
-						ARN: string | fn.Fn
-						AdditionalStagingLabelsToDownload?: [...(string | fn.Fn)]
+						ARN:                                string | fn.Fn
+						AdditionalStagingLabelsToDownload?: [...(string | fn.Fn)] | fn.Fn
 					}
 				}
 			}]
@@ -362,8 +362,8 @@ Greengrass :: {
 						SageMakerJobArn: string | fn.Fn
 					}
 					SecretsManagerSecretResourceData?: {
-						ARN: string | fn.Fn
-						AdditionalStagingLabelsToDownload?: [...(string | fn.Fn)]
+						ARN:                                string | fn.Fn
+						AdditionalStagingLabelsToDownload?: [...(string | fn.Fn)] | fn.Fn
 					}
 				}
 			}]

@@ -180,14 +180,14 @@ IoTAnalytics :: {
 					Next?:      string | fn.Fn
 				}
 				RemoveAttributes?: {
-					Attributes?: [...(string | fn.Fn)]
-					Name?: string | fn.Fn
-					Next?: string | fn.Fn
+					Attributes?: [...(string | fn.Fn)] | fn.Fn
+					Name?:       string | fn.Fn
+					Next?:       string | fn.Fn
 				}
 				SelectAttributes?: {
-					Attributes?: [...(string | fn.Fn)]
-					Name?: string | fn.Fn
-					Next?: string | fn.Fn
+					Attributes?: [...(string | fn.Fn)] | fn.Fn
+					Name?:       string | fn.Fn
+					Next?:       string | fn.Fn
 				}
 			}]
 			PipelineName?: string | fn.Fn

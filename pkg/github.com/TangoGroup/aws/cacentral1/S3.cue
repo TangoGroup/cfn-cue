@@ -37,12 +37,12 @@ S3 :: {
 			}]
 			BucketName?: (string & (strings.MinRunes(3) & strings.MaxRunes(63)) & (=~#"^[a-z0-9][a-z0-9.-]*[a-z0-9]$"#)) | fn.Fn
 			CorsConfiguration?: CorsRules: [...{
-				AllowedHeaders?: [...(string | fn.Fn)]
-				AllowedMethods: [...(string | fn.Fn)]
-				AllowedOrigins: [...(string | fn.Fn)]
-				ExposedHeaders?: [...(string | fn.Fn)]
-				Id?:     string | fn.Fn
-				MaxAge?: int | fn.Fn
+				AllowedHeaders?: [...(string | fn.Fn)] | fn.Fn
+				AllowedMethods:  [...(string | fn.Fn)] | fn.Fn
+				AllowedOrigins:  [...(string | fn.Fn)] | fn.Fn
+				ExposedHeaders?: [...(string | fn.Fn)] | fn.Fn
+				Id?:             string | fn.Fn
+				MaxAge?:         int | fn.Fn
 			}]
 			InventoryConfigurations?: [...{
 				Destination: {
@@ -54,9 +54,9 @@ S3 :: {
 				Enabled:                bool | fn.Fn
 				Id:                     string | fn.Fn
 				IncludedObjectVersions: string | fn.Fn
-				OptionalFields?: [...(string | fn.Fn)]
-				Prefix?:           string | fn.Fn
-				ScheduleFrequency: string | fn.Fn
+				OptionalFields?:        [...(string | fn.Fn)] | fn.Fn
+				Prefix?:                string | fn.Fn
+				ScheduleFrequency:      string | fn.Fn
 			}]
 			LifecycleConfiguration?: Rules: [...{
 				AbortIncompleteMultipartUpload?: DaysAfterInitiation: int | fn.Fn

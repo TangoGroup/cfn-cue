@@ -17,8 +17,8 @@ LakeFormation :: {
 		Type: "AWS::LakeFormation::Permissions"
 		Properties: {
 			DataLakePrincipal: DataLakePrincipalIdentifier?: string | fn.Fn
-			Permissions?: [...(string | fn.Fn)]
-			PermissionsWithGrantOption?: [...(string | fn.Fn)]
+			Permissions?:                [...(string | fn.Fn)] | fn.Fn
+			PermissionsWithGrantOption?: [...(string | fn.Fn)] | fn.Fn
 			Resource: {
 				DatabaseResource?: Name?: string | fn.Fn
 				TableResource?: {

@@ -31,7 +31,7 @@ Transfer :: {
 			Policy?:        string | fn.Fn
 			Role:           string | fn.Fn
 			ServerId:       string | fn.Fn
-			SshPublicKeys?: [...(string | fn.Fn)]
+			SshPublicKeys?: [...(string | fn.Fn)] | fn.Fn
 			Tags?: [...{
 				Key:   string | fn.Fn
 				Value: string | fn.Fn

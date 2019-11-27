@@ -27,10 +27,10 @@ EFS :: {
 	MountTarget :: {
 		Type: "AWS::EFS::MountTarget"
 		Properties: {
-			FileSystemId: string | fn.Fn
-			IpAddress?:   string | fn.Fn
-			SecurityGroups: [...(string | fn.Fn)]
-			SubnetId: string | fn.Fn
+			FileSystemId:   string | fn.Fn
+			IpAddress?:     string | fn.Fn
+			SecurityGroups: [...(string | fn.Fn)] | fn.Fn
+			SubnetId:       string | fn.Fn
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

@@ -26,8 +26,8 @@ SES :: {
 					DeliveryStreamARN: string | fn.Fn
 					IAMRoleARN:        string | fn.Fn
 				}
-				MatchingEventTypes: [...(string | fn.Fn)]
-				Name?: string | fn.Fn
+				MatchingEventTypes: [...(string | fn.Fn)] | fn.Fn
+				Name?:              string | fn.Fn
 			}
 		}
 		DependsOn?:           string | [...string]
@@ -90,9 +90,9 @@ SES :: {
 						TopicArn?:       string | fn.Fn
 					}
 				}]
-				Enabled?: bool | fn.Fn
-				Name?:    string | fn.Fn
-				Recipients?: [...(string | fn.Fn)]
+				Enabled?:     bool | fn.Fn
+				Name?:        string | fn.Fn
+				Recipients?:  [...(string | fn.Fn)] | fn.Fn
 				ScanEnabled?: bool | fn.Fn
 				TlsPolicy?:   (string & ("Optional" | "Require")) | fn.Fn
 			}

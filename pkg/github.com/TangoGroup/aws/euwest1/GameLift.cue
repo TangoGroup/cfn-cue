@@ -50,12 +50,12 @@ GameLift :: {
 				Protocol: string | fn.Fn
 				ToPort:   int | fn.Fn
 			}]
-			EC2InstanceType:  string | fn.Fn
-			FleetType?:       string | fn.Fn
-			InstanceRoleARN?: string | fn.Fn
-			LogPaths?: [...(string | fn.Fn)]
-			MaxSize?: int | fn.Fn
-			MetricGroups?: [...(string | fn.Fn)]
+			EC2InstanceType:                 string | fn.Fn
+			FleetType?:                      string | fn.Fn
+			InstanceRoleARN?:                string | fn.Fn
+			LogPaths?:                       [...(string | fn.Fn)] | fn.Fn
+			MaxSize?:                        int | fn.Fn
+			MetricGroups?:                   [...(string | fn.Fn)] | fn.Fn
 			MinSize?:                        int | fn.Fn
 			Name:                            string | fn.Fn
 			NewGameSessionProtectionPolicy?: string | fn.Fn
@@ -114,8 +114,8 @@ GameLift :: {
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			}]
-			GameSessionData?: string | fn.Fn
-			GameSessionQueueArns: [...(string | fn.Fn)]
+			GameSessionData?:      string | fn.Fn
+			GameSessionQueueArns:  [...(string | fn.Fn)] | fn.Fn
 			Name:                  string | fn.Fn
 			NotificationTarget?:   string | fn.Fn
 			RequestTimeoutSeconds: int | fn.Fn

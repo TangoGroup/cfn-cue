@@ -6,8 +6,8 @@ AppStream :: {
 	DirectoryConfig :: {
 		Type: "AWS::AppStream::DirectoryConfig"
 		Properties: {
-			DirectoryName: string | fn.Fn
-			OrganizationalUnitDistinguishedNames: [...(string | fn.Fn)]
+			DirectoryName:                        string | fn.Fn
+			OrganizationalUnitDistinguishedNames: [...(string | fn.Fn)] | fn.Fn
 			ServiceAccountCredentials: {
 			}
 		}
@@ -80,14 +80,14 @@ AppStream :: {
 			}]
 			ApplicationSettings?: {
 			}
-			AttributesToDelete?: [...(string | fn.Fn)]
+			AttributesToDelete?:      [...(string | fn.Fn)] | fn.Fn
 			DeleteStorageConnectors?: bool | fn.Fn
 			Description?:             string | fn.Fn
 			DisplayName?:             string | fn.Fn
-			EmbedHostDomains?: [...(string | fn.Fn)]
-			FeedbackURL?: string | fn.Fn
-			Name?:        string | fn.Fn
-			RedirectURL?: string | fn.Fn
+			EmbedHostDomains?:        [...(string | fn.Fn)] | fn.Fn
+			FeedbackURL?:             string | fn.Fn
+			Name?:                    string | fn.Fn
+			RedirectURL?:             string | fn.Fn
 			StorageConnectors?: [...{
 			}]
 			Tags?: [...{

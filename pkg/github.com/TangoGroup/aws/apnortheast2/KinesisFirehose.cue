@@ -71,7 +71,7 @@ KinesisFirehose :: {
 				DataFormatConversionConfiguration?: {
 					Enabled: bool | fn.Fn
 					InputFormatConfiguration: Deserializer: {
-						HiveJsonSerDe?: TimestampFormats?: [...(string | fn.Fn)]
+						HiveJsonSerDe?: TimestampFormats?: [...(string | fn.Fn)] | fn.Fn
 						OpenXJsonSerDe?: {
 							CaseInsensitive?: bool | fn.Fn
 							ColumnToJsonKeyMappings?: [string]: string | fn.Fn
@@ -80,8 +80,8 @@ KinesisFirehose :: {
 					}
 					OutputFormatConfiguration: Serializer: {
 						OrcSerDe?: {
-							BlockSizeBytes?: int | fn.Fn
-							BloomFilterColumns?: [...(string | fn.Fn)]
+							BlockSizeBytes?:                      int | fn.Fn
+							BloomFilterColumns?:                  [...(string | fn.Fn)] | fn.Fn
 							BloomFilterFalsePositiveProbability?: float | fn.Fn
 							Compression?:                         string | fn.Fn
 							DictionaryKeyThreshold?:              float | fn.Fn

@@ -11,7 +11,7 @@ Route53 :: {
 					Name:   string | fn.Fn
 					Region: string | fn.Fn
 				}
-				ChildHealthChecks?: [...(string | fn.Fn)]
+				ChildHealthChecks?:            [...(string | fn.Fn)] | fn.Fn
 				EnableSNI?:                    bool | fn.Fn
 				FailureThreshold?:             int | fn.Fn
 				FullyQualifiedDomainName?:     string | fn.Fn
@@ -21,11 +21,11 @@ Route53 :: {
 				Inverted?:                     bool | fn.Fn
 				MeasureLatency?:               bool | fn.Fn
 				Port?:                         int | fn.Fn
-				Regions?: [...(string | fn.Fn)]
-				RequestInterval?: int | fn.Fn
-				ResourcePath?:    string | fn.Fn
-				SearchString?:    string | fn.Fn
-				Type:             (string & ("CALCULATED" | "CLOUDWATCH_METRIC" | "HTTP_STR_MATCH" | "HTTP" | "HTTPS_STR_MATCH" | "HTTPS" | "TCP")) | fn.Fn
+				Regions?:                      [...(string | fn.Fn)] | fn.Fn
+				RequestInterval?:              int | fn.Fn
+				ResourcePath?:                 string | fn.Fn
+				SearchString?:                 string | fn.Fn
+				Type:                          (string & ("CALCULATED" | "CLOUDWATCH_METRIC" | "HTTP_STR_MATCH" | "HTTP" | "HTTPS_STR_MATCH" | "HTTPS" | "TCP")) | fn.Fn
 			}
 			HealthCheckTags?: [...{
 				Key:   string | fn.Fn
@@ -78,11 +78,11 @@ Route53 :: {
 			MultiValueAnswer?: bool | fn.Fn
 			Name:              string | fn.Fn
 			Region?:           string | fn.Fn
-			ResourceRecords?: [...(string | fn.Fn)]
-			SetIdentifier?: string | fn.Fn
-			TTL?:           string | fn.Fn
-			Type:           (string & ("A" | "AAAA" | "CAA" | "CNAME" | "MX" | "NAPTR" | "NS" | "PTR" | "SOA" | "SPF" | "SRV" | "TXT")) | fn.Fn
-			Weight?:        int | fn.Fn
+			ResourceRecords?:  [...(string | fn.Fn)] | fn.Fn
+			SetIdentifier?:    string | fn.Fn
+			TTL?:              string | fn.Fn
+			Type:              (string & ("A" | "AAAA" | "CAA" | "CNAME" | "MX" | "NAPTR" | "NS" | "PTR" | "SOA" | "SPF" | "SRV" | "TXT")) | fn.Fn
+			Weight?:           int | fn.Fn
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -114,11 +114,11 @@ Route53 :: {
 				MultiValueAnswer?: bool | fn.Fn
 				Name:              string | fn.Fn
 				Region?:           string | fn.Fn
-				ResourceRecords?: [...(string | fn.Fn)]
-				SetIdentifier?: string | fn.Fn
-				TTL?:           string | fn.Fn
-				Type:           (string & ("A" | "AAAA" | "CAA" | "CNAME" | "MX" | "NAPTR" | "NS" | "PTR" | "SOA" | "SPF" | "SRV" | "TXT")) | fn.Fn
-				Weight?:        int | fn.Fn
+				ResourceRecords?:  [...(string | fn.Fn)] | fn.Fn
+				SetIdentifier?:    string | fn.Fn
+				TTL?:              string | fn.Fn
+				Type:              (string & ("A" | "AAAA" | "CAA" | "CNAME" | "MX" | "NAPTR" | "NS" | "PTR" | "SOA" | "SPF" | "SRV" | "TXT")) | fn.Fn
+				Weight?:           int | fn.Fn
 			}]
 		}
 		DependsOn?:           string | [...string]

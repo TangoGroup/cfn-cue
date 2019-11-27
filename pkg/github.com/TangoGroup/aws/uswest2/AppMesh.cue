@@ -48,14 +48,14 @@ AppMesh :: {
 						ServiceName?: string | fn.Fn
 					}
 					RetryPolicy?: {
-						GrpcRetryEvents?: [...(string | fn.Fn)]
-						HttpRetryEvents?: [...(string | fn.Fn)]
-						MaxRetries: int | fn.Fn
+						GrpcRetryEvents?: [...(string | fn.Fn)] | fn.Fn
+						HttpRetryEvents?: [...(string | fn.Fn)] | fn.Fn
+						MaxRetries:       int | fn.Fn
 						PerRetryTimeout: {
 							Unit:  string | fn.Fn
 							Value: int | fn.Fn
 						}
-						TcpRetryEvents?: [...(string | fn.Fn)]
+						TcpRetryEvents?: [...(string | fn.Fn)] | fn.Fn
 					}
 				}
 				Http2Route?: {
@@ -83,13 +83,13 @@ AppMesh :: {
 						Scheme?: string | fn.Fn
 					}
 					RetryPolicy?: {
-						HttpRetryEvents?: [...(string | fn.Fn)]
-						MaxRetries: int | fn.Fn
+						HttpRetryEvents?: [...(string | fn.Fn)] | fn.Fn
+						MaxRetries:       int | fn.Fn
 						PerRetryTimeout: {
 							Unit:  string | fn.Fn
 							Value: int | fn.Fn
 						}
-						TcpRetryEvents?: [...(string | fn.Fn)]
+						TcpRetryEvents?: [...(string | fn.Fn)] | fn.Fn
 					}
 				}
 				HttpRoute?: {
@@ -117,13 +117,13 @@ AppMesh :: {
 						Scheme?: string | fn.Fn
 					}
 					RetryPolicy?: {
-						HttpRetryEvents?: [...(string | fn.Fn)]
-						MaxRetries: int | fn.Fn
+						HttpRetryEvents?: [...(string | fn.Fn)] | fn.Fn
+						MaxRetries:       int | fn.Fn
 						PerRetryTimeout: {
 							Unit:  string | fn.Fn
 							Value: int | fn.Fn
 						}
-						TcpRetryEvents?: [...(string | fn.Fn)]
+						TcpRetryEvents?: [...(string | fn.Fn)] | fn.Fn
 					}
 				}
 				Priority?: int | fn.Fn

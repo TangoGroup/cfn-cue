@@ -8,8 +8,8 @@ EKS :: {
 		Properties: {
 			Name?: string | fn.Fn
 			ResourcesVpcConfig: {
-				SecurityGroupIds?: [...(string | fn.Fn)]
-				SubnetIds: [...(string | fn.Fn)]
+				SecurityGroupIds?: [...(string | fn.Fn)] | fn.Fn
+				SubnetIds:         [...(string | fn.Fn)] | fn.Fn
 			}
 			RoleArn:  string | fn.Fn
 			Version?: string | fn.Fn
@@ -26,24 +26,24 @@ EKS :: {
 			ClusterName:         string | fn.Fn
 			DiskSize?:           float | fn.Fn
 			ForceUpdateEnabled?: bool | fn.Fn
-			InstanceTypes?: [...(string | fn.Fn)]
-			Labels?: {
+			InstanceTypes?:      [...(string | fn.Fn)] | fn.Fn
+			Labels?:             {
 				[string]: _
 			} | fn.Fn
 			NodeRole:        string | fn.Fn
 			NodegroupName?:  string | fn.Fn
 			ReleaseVersion?: string | fn.Fn
 			RemoteAccess?: {
-				Ec2SshKey: string | fn.Fn
-				SourceSecurityGroups?: [...(string | fn.Fn)]
+				Ec2SshKey:             string | fn.Fn
+				SourceSecurityGroups?: [...(string | fn.Fn)] | fn.Fn
 			}
 			ScalingConfig?: {
 				DesiredSize?: float | fn.Fn
 				MaxSize?:     float | fn.Fn
 				MinSize?:     float | fn.Fn
 			}
-			Subnets: [...(string | fn.Fn)]
-			Tags?: {
+			Subnets: [...(string | fn.Fn)] | fn.Fn
+			Tags?:   {
 				[string]: _
 			} | fn.Fn
 			Version?: string | fn.Fn

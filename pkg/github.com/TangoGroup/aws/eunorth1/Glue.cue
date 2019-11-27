@@ -11,7 +11,7 @@ Glue :: {
 				Name?:           string | fn.Fn
 				ScriptLocation?: string | fn.Fn
 			}
-			Connections?: Connections?: [...(string | fn.Fn)]
+			Connections?: Connections?: [...(string | fn.Fn)] | fn.Fn
 			DefaultArguments?: {
 				[string]: _
 			} | fn.Fn

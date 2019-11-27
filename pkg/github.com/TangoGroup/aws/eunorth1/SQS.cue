@@ -35,7 +35,7 @@ SQS :: {
 			PolicyDocument: {
 				[string]: _
 			} | fn.Fn
-			Queues: [...(string | fn.Fn)]
+			Queues: [...(string | fn.Fn)] | fn.Fn
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

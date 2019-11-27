@@ -104,7 +104,7 @@ MediaLive :: {
 			Destinations?: [...{
 				StreamName?: string | fn.Fn
 			}]
-			InputSecurityGroups?: [...(string | fn.Fn)]
+			InputSecurityGroups?: [...(string | fn.Fn)] | fn.Fn
 			MediaConnectFlows?: [...{
 				FlowArn?: string | fn.Fn
 			}]
@@ -120,8 +120,8 @@ MediaLive :: {
 			} | fn.Fn
 			Type?: string | fn.Fn
 			Vpc?: {
-				SecurityGroupIds?: [...(string | fn.Fn)]
-				SubnetIds?: [...(string | fn.Fn)]
+				SecurityGroupIds?: [...(string | fn.Fn)] | fn.Fn
+				SubnetIds?:        [...(string | fn.Fn)] | fn.Fn
 			}
 		}
 		DependsOn?:           string | [...string]

@@ -72,8 +72,8 @@ WAFRegional :: {
 	RegexPatternSet :: {
 		Type: "AWS::WAFRegional::RegexPatternSet"
 		Properties: {
-			Name: string | fn.Fn
-			RegexPatternStrings: [...(string | fn.Fn)]
+			Name:                string | fn.Fn
+			RegexPatternStrings: [...(string | fn.Fn)] | fn.Fn
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

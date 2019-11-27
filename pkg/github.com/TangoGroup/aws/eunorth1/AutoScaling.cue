@@ -6,8 +6,8 @@ AutoScaling :: {
 	AutoScalingGroup :: {
 		Type: "AWS::AutoScaling::AutoScalingGroup"
 		Properties: {
-			AutoScalingGroupName?: string | fn.Fn
-			AvailabilityZones?: [...(string | fn.Fn)]
+			AutoScalingGroupName?:    string | fn.Fn
+			AvailabilityZones?:       [...(string | fn.Fn)] | fn.Fn
 			Cooldown?:                string | fn.Fn
 			DesiredCapacity?:         string | fn.Fn
 			HealthCheckGracePeriod?:  int | fn.Fn
@@ -28,11 +28,11 @@ AutoScaling :: {
 				NotificationTargetARN?: string | fn.Fn
 				RoleARN?:               string | fn.Fn
 			}]
-			LoadBalancerNames?: [...(string | fn.Fn)]
-			MaxSize: string | fn.Fn
+			LoadBalancerNames?: [...(string | fn.Fn)] | fn.Fn
+			MaxSize:            string | fn.Fn
 			MetricsCollection?: [...{
 				Granularity: string | fn.Fn
-				Metrics?: [...(string | fn.Fn)]
+				Metrics?:    [...(string | fn.Fn)] | fn.Fn
 			}]
 			MinSize: string | fn.Fn
 			MixedInstancesPolicy?: {
@@ -56,8 +56,8 @@ AutoScaling :: {
 				}
 			}
 			NotificationConfigurations?: [...{
-				NotificationTypes?: [...(string | fn.Fn)]
-				TopicARN: string | fn.Fn
+				NotificationTypes?: [...(string | fn.Fn)] | fn.Fn
+				TopicARN:           string | fn.Fn
 			}]
 			PlacementGroup?:       string | fn.Fn
 			ServiceLinkedRoleARN?: string | fn.Fn
@@ -66,9 +66,9 @@ AutoScaling :: {
 				PropagateAtLaunch: bool | fn.Fn
 				Value:             string | fn.Fn
 			}]
-			TargetGroupARNs?: [...(string | fn.Fn)]
-			TerminationPolicies?: [...(string | fn.Fn)]
-			VPCZoneIdentifier?: [...(string | fn.Fn)]
+			TargetGroupARNs?:     [...(string | fn.Fn)] | fn.Fn
+			TerminationPolicies?: [...(string | fn.Fn)] | fn.Fn
+			VPCZoneIdentifier?:   [...(string | fn.Fn)] | fn.Fn
 		}
 		DependsOn?: string | [...string]
 		CreationPolicy?: {
@@ -99,22 +99,22 @@ AutoScaling :: {
 				NoDevice?:    bool | fn.Fn
 				VirtualName?: string | fn.Fn
 			}]
-			ClassicLinkVPCId?: string | fn.Fn
-			ClassicLinkVPCSecurityGroups?: [...(string | fn.Fn)]
-			EbsOptimized?:            bool | fn.Fn
-			IamInstanceProfile?:      string | fn.Fn
-			ImageId:                  string | fn.Fn
-			InstanceId?:              string | fn.Fn
-			InstanceMonitoring?:      bool | fn.Fn
-			InstanceType:             (string & ("c5.12xlarge" | "c5.18xlarge" | "c5.24xlarge" | "c5.2xlarge" | "c5.4xlarge" | "c5.9xlarge" | "c5.large" | "c5.metal" | "c5.xlarge" | "c5d.12xlarge" | "c5d.18xlarge" | "c5d.24xlarge" | "c5d.2xlarge" | "c5d.4xlarge" | "c5d.9xlarge" | "c5d.large" | "c5d.metal" | "c5d.xlarge" | "d2.2xlarge" | "d2.4xlarge" | "d2.8xlarge" | "d2.xlarge" | "g4dn.12xlarge" | "g4dn.16xlarge" | "g4dn.2xlarge" | "g4dn.4xlarge" | "g4dn.8xlarge" | "g4dn.xlarge" | "i3.16xlarge" | "i3.2xlarge" | "i3.4xlarge" | "i3.8xlarge" | "i3.large" | "i3.metal" | "i3.xlarge" | "m5.12xlarge" | "m5.16xlarge" | "m5.24xlarge" | "m5.2xlarge" | "m5.4xlarge" | "m5.8xlarge" | "m5.large" | "m5.metal" | "m5.xlarge" | "m5d.12xlarge" | "m5d.16xlarge" | "m5d.24xlarge" | "m5d.2xlarge" | "m5d.4xlarge" | "m5d.8xlarge" | "m5d.large" | "m5d.metal" | "m5d.xlarge" | "r5.12xlarge" | "r5.16xlarge" | "r5.24xlarge" | "r5.2xlarge" | "r5.4xlarge" | "r5.8xlarge" | "r5.large" | "r5.metal" | "r5.xlarge" | "r5d.12xlarge" | "r5d.16xlarge" | "r5d.24xlarge" | "r5d.2xlarge" | "r5d.4xlarge" | "r5d.8xlarge" | "r5d.large" | "r5d.metal" | "r5d.xlarge" | "t3.2xlarge" | "t3.large" | "t3.medium" | "t3.micro" | "t3.nano" | "t3.small" | "t3.xlarge")) | fn.Fn
-			KernelId?:                string | fn.Fn
-			KeyName?:                 string | fn.Fn
-			LaunchConfigurationName?: string | fn.Fn
-			PlacementTenancy?:        (string & ("dedicated" | "default")) | fn.Fn
-			RamDiskId?:               string | fn.Fn
-			SecurityGroups?: [...(string | fn.Fn)]
-			SpotPrice?: string | fn.Fn
-			UserData?:  string | fn.Fn
+			ClassicLinkVPCId?:             string | fn.Fn
+			ClassicLinkVPCSecurityGroups?: [...(string | fn.Fn)] | fn.Fn
+			EbsOptimized?:                 bool | fn.Fn
+			IamInstanceProfile?:           string | fn.Fn
+			ImageId:                       string | fn.Fn
+			InstanceId?:                   string | fn.Fn
+			InstanceMonitoring?:           bool | fn.Fn
+			InstanceType:                  (string & ("c5.12xlarge" | "c5.18xlarge" | "c5.24xlarge" | "c5.2xlarge" | "c5.4xlarge" | "c5.9xlarge" | "c5.large" | "c5.metal" | "c5.xlarge" | "c5d.12xlarge" | "c5d.18xlarge" | "c5d.24xlarge" | "c5d.2xlarge" | "c5d.4xlarge" | "c5d.9xlarge" | "c5d.large" | "c5d.metal" | "c5d.xlarge" | "d2.2xlarge" | "d2.4xlarge" | "d2.8xlarge" | "d2.xlarge" | "g4dn.12xlarge" | "g4dn.16xlarge" | "g4dn.2xlarge" | "g4dn.4xlarge" | "g4dn.8xlarge" | "g4dn.xlarge" | "i3.16xlarge" | "i3.2xlarge" | "i3.4xlarge" | "i3.8xlarge" | "i3.large" | "i3.metal" | "i3.xlarge" | "m5.12xlarge" | "m5.16xlarge" | "m5.24xlarge" | "m5.2xlarge" | "m5.4xlarge" | "m5.8xlarge" | "m5.large" | "m5.metal" | "m5.xlarge" | "m5d.12xlarge" | "m5d.16xlarge" | "m5d.24xlarge" | "m5d.2xlarge" | "m5d.4xlarge" | "m5d.8xlarge" | "m5d.large" | "m5d.metal" | "m5d.xlarge" | "r5.12xlarge" | "r5.16xlarge" | "r5.24xlarge" | "r5.2xlarge" | "r5.4xlarge" | "r5.8xlarge" | "r5.large" | "r5.metal" | "r5.xlarge" | "r5d.12xlarge" | "r5d.16xlarge" | "r5d.24xlarge" | "r5d.2xlarge" | "r5d.4xlarge" | "r5d.8xlarge" | "r5d.large" | "r5d.metal" | "r5d.xlarge" | "t3.2xlarge" | "t3.large" | "t3.medium" | "t3.micro" | "t3.nano" | "t3.small" | "t3.xlarge")) | fn.Fn
+			KernelId?:                     string | fn.Fn
+			KeyName?:                      string | fn.Fn
+			LaunchConfigurationName?:      string | fn.Fn
+			PlacementTenancy?:             (string & ("dedicated" | "default")) | fn.Fn
+			RamDiskId?:                    string | fn.Fn
+			SecurityGroups?:               [...(string | fn.Fn)] | fn.Fn
+			SpotPrice?:                    string | fn.Fn
+			UserData?:                     string | fn.Fn
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

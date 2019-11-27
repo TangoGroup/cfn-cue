@@ -14,11 +14,11 @@ SSM :: {
 				OutputS3BucketName?: string | fn.Fn
 				OutputS3KeyPrefix?:  string | fn.Fn
 			}
-			Parameters?: [string]: ParameterValues: [...(string | fn.Fn)]
+			Parameters?: [string]: ParameterValues: [...(string | fn.Fn)] | fn.Fn
 			ScheduleExpression?: string | fn.Fn
 			Targets?: [...{
-				Key: string | fn.Fn
-				Values: [...(string | fn.Fn)]
+				Key:    string | fn.Fn
+				Values: [...(string | fn.Fn)] | fn.Fn
 			}]
 		}
 		DependsOn?:           string | [...string]
@@ -73,8 +73,8 @@ SSM :: {
 			OwnerInformation?: string | fn.Fn
 			ResourceType:      string | fn.Fn
 			Targets: [...{
-				Key: string | fn.Fn
-				Values?: [...(string | fn.Fn)]
+				Key:     string | fn.Fn
+				Values?: [...(string | fn.Fn)] | fn.Fn
 			}]
 			WindowId: string | fn.Fn
 		}
