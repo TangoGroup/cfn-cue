@@ -41,8 +41,8 @@ template: {
 			Type: "AWS::EC2::SecurityGroup"
 			Properties : {
 				GroupDescription : "Allow http to client host"
-				VpcId : "Fn::GetAtt" : "InstanceSecurityGroup.VpcId"
-				// VpcId : "Fn::GetAtt" : ["InstanceSecurityGroup", "VpcId"]
+				// VpcId : "Fn::GetAtt" : "InstanceSecurityGroup.VpcId"
+				VpcId : "Fn::GetAtt" : ["InstanceSecurityGroup", "VpcId"]
 				// VpcId : "Fn::GetAtt" : "InstanceSecurityGroup11.VpcId"
 				// VpcId : "Fn::GetAtt" : "S3Bucket1.VpcId"
 				// VpcId : "Fn::GetAtt" : ["S3Bucket1", "VpcId"]

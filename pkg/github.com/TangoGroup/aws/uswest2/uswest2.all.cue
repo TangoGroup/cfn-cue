@@ -15735,9 +15735,13 @@ Template :: {
 			ResourceName = GetAttRef[0]
 			Attribute = GetAttRef[1]
 			if (Resources[ResourceName] != _|_) {
-				if ResourceType[Resources[ResourceName].Type] == _|_ {
+				type = Resources[ResourceName].Type
+				if ResourceType[type] == _|_ {
 					ResourceTypeList = [ r for r, v in ResourceType ]
 					"Fn::GetAtt": ["is not a Resource of type \(strings.Join(ResourceTypeList, " or "))", ""]
+				}
+				if ResourceType[type] != _|_ && (Attribute & string) != _|_ && (ResourceType[type] != Attribute) {
+					"Fn::GetAtt": [string, "is not an attribute on \(type)"]
 				}
 			}
 		}
