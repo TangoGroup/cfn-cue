@@ -1,6 +1,6 @@
 package test
 
-import aws "github.com/TangoGroup/aws/uswest22"
+import aws "github.com/TangoGroup/aws/uswest2"
 
 template: aws.Template
 template: {
@@ -16,38 +16,38 @@ template: {
 	Resources: {
 		S3Bucket1: {
 			Type: "AWS::S3::Bucket"
-			Properties: AccessControl: "AuthenticatedRead" //Ref: "S3AccessControl"
+			Properties: AccessControl: Ref: "S3AccessControl" //"AuthenticatedRead"
 		}
-		// InstanceSecurityGroup: {
-		// 	Type: "AWS::EC2::SecurityGroup"
-		// 	Properties : {
-		// 		GroupDescription : "Allow http to client host"
-		// 		VpcId : Ref : "myVPC"
-		// 		SecurityGroupIngress : [{
-		// 			IpProtocol : "tcp"
-		// 			FromPort :   80
-		// 			ToPort :     80
-		// 			CidrIp :     "0.0.0.0/0"
-		// 		}]
-		// 		SecurityGroupEgress : [{
-		// 			IpProtocol : "tcp"
-		// 			FromPort :   80
-		// 			ToPort :     80
-		// 			CidrIp :     "0.0.0.0/0"
-		// 		}]
-		// 	}
-		// }
-		// InstanceSecurityGroup10: {
-		// 	Type: "AWS::EC2::SecurityGroup"
-		// 	Properties : {
-		// 		GroupDescription : "Allow http to client host"
-		// 		// VpcId : "Fn::GetAtt" : "InstanceSecurityGroup.VpcId"
-		// 		VpcId : "Fn::GetAtt" : ["InstanceSecurityGroup", "VpcId"]
-		// 		// VpcId : "Fn::GetAtt" : "InstanceSecurityGroup11.VpcId"
-		// 		// VpcId : "Fn::GetAtt" : "S3Bucket1.VpcId"
-		// 		// VpcId : "Fn::GetAtt" : ["S3Bucket1", "VpcId"]
-		// 	}
-		// }
+		InstanceSecurityGroup: {
+			Type: "AWS::EC2::SecurityGroup"
+			Properties : {
+				GroupDescription : "Allow http to client host"
+				VpcId : Ref : "myVPC"
+				SecurityGroupIngress : [{
+					IpProtocol : "tcp"
+					FromPort :   80
+					ToPort :     80
+					CidrIp :     "0.0.0.0/0"
+				}]
+				SecurityGroupEgress : [{
+					IpProtocol : "tcp"
+					FromPort :   80
+					ToPort :     80
+					CidrIp :     "0.0.0.0/0"
+				}]
+			}
+		}
+		InstanceSecurityGroup10: {
+			Type: "AWS::EC2::SecurityGroup"
+			Properties : {
+				GroupDescription : "Allow http to client host"
+				// VpcId : "Fn::GetAtt" : "InstanceSecurityGroup.VpcId"
+				VpcId : "Fn::GetAtt" : ["InstanceSecurityGroup", "VpcId"]
+				// VpcId : "Fn::GetAtt" : "InstanceSecurityGroup11.VpcId"
+				// VpcId : "Fn::GetAtt" : "S3Bucket1.VpcId"
+				// VpcId : "Fn::GetAtt" : ["S3Bucket1", "VpcId"]
+			}
+		}
 
 		// EC2Instance: {
 		// 	Type: "AWS::EC2::Instance"

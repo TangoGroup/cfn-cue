@@ -1,13 +1,13 @@
-package uswest2
+package uswest22
 
 import (
 	"time"
-	"github.com/TangoGroup/aws/regions"
 	"strings"
 	"list"
 )
 
 ResourceSpecificationVersion :: "9.1.0"
+Regions ::                      "us-east-1" | "us-east-2" | "us-west-1" | "us-west-2" | "ca-central-1" | "eu-central-1" | "eu-west-1" | "eu-west-2" | "eu-west-3" | "eu-north-1" | "ap-east-1" | "ap-northeast-1" | "ap-northeast-2" | "ap-northeast-3" | "ap-southeast-1" | "ap-southeast-2" | "ap-south-1" | "me-south-1" | "sa-east-1"
 Template :: {
 	ASK :: {
 		Skill :: {
@@ -4268,10 +4268,10 @@ Template :: {
 				PrivateIpAddress?:   string | fn.Fn
 				RamdiskId?:          string | fn.Fn
 				SecurityGroupIds?:   [...(string | fn.Fn)] | fn.Fn
-				SecurityGroups?:     [...(string | fn.Fn)] | (RefTypeCheck & {ResourceType :: ["AWS::EC2::SecurityGroup"], ParameterType :: ["AWS::EC2::SecurityGroup::Id"]}) | (GetAttTypeCheck & {ResourceType :: {
-					"AWS::EC2::SecurityGroup": "GroupId"
-					"AWS::EC2::VPC":           "DefaultSecurityGroup"
-				}}) | ImportValue
+				SecurityGroups?:     [...(string | fn.Fn)] |
+							// (Ref & {RefResourceType :: ["AWS::EC2::SecurityGroup"], RefParameterType :: ["AWS::EC2::SecurityGroup::Id"]}) |
+							//   (GetAtt & {GetAttResourceType :: {"AWS::EC2::SecurityGroup": "GroupId", "AWS::EC2::VPC": "DefaultSecurityGroup"}}) | ImportValue
+							fn.Fn
 				SourceDestCheck?: bool | fn.Fn
 				SsmAssociations?: [...{
 					AssociationParameters?: [...{
@@ -4596,14 +4596,15 @@ Template :: {
 					Key:   string | fn.Fn
 					Value: string | fn.Fn
 				}]
-				VpcId?: string | (RefTypeCheck & {ResourceType :: ["AWS::EC2::VPC"], ParameterType :: [
-					"AWS::EC2::VPC::Id",
-					"AWS::SSM::Parameter::Value<AWS::EC2::VPC::Id>",
-				]}) |
-					(GetAttTypeCheck & {ResourceType :: {
-						"AWS::EC2::SecurityGroup": "VpcId"
-						"AWS::EC2::Subnet":        "VpcId"
-					}}) | fn.ImportValue
+				VpcId?: string | fn.Fn
+				// (Ref & {RegResourceType :: ["AWS::EC2::VPC"], RefParameterType :: [
+				//  "AWS::EC2::VPC::Id",
+				//  "AWS::SSM::Parameter::Value<AWS::EC2::VPC::Id>",
+				// ]}) |
+				// (GetAtt & {GetAttResourceType :: {
+				//  "AWS::EC2::SecurityGroup": "VpcId"
+				//  "AWS::EC2::Subnet":        "VpcId"
+				// }}) | fn.ImportValue
 			}
 			DependsOn?:           string | [...string]
 			DeletionPolicy?:      "Delete" | "Retain"
@@ -15679,73 +15680,117 @@ Template :: {
 
 	// GetAZs: https://docs.aws.amazon.com/en_pv/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-getavailabilityzones.html
 	GetAZs :: {
-		"Fn::GetAZs": regions.Regions | "" // | (Ref & {"Ref": "AWS::Region"})
+		"Fn::GetAZs": Regions | "" | Ref
 	}
 
 	// GetAtt: https://docs.aws.amazon.com/en_pv/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-getatt.html
 	GetAtt :: {
 		// [Resource Name, Attribute Name]
 		GetAttRef="Fn::GetAtt": [string, string | Ref] | string
-		if (GetAttRef & string) != _|_ {
-			ResourceName = strings.Split(GetAttRef, ".")[0]
-			if (Resources[ResourceName] == _|_) {
-				"Fn::GetAtt": "`\(ResourceName)` is not a valid Resource name"
-			}
-		}
 
-		if (GetAttRef & [string, string | Ref]) != _|_ {
-			ResourceName = GetAttRef[0]
-			if (Resources[ResourceName] == _|_) {
-				"Fn::GetAtt": ["is not a valid Resource name", ""]
-			}
-		}
-	}
+		// GetAttResourceType :: [string]: string
 
-	GetAttTypeCheck :: GetAtt & {
-		GetAttRef="Fn::GetAtt": [string, string | Ref] | string
-		// ResourceType :: [...string]
-
+		// // Just a string!
 		// if (GetAttRef & string) != _|_ {
-		//  split = strings.Split(GetAttRef, ".")
+		//  split = strings.SplitN(GetAttRef, ".", 2)
 		//  ResourceName = split[0]
-		//  if (Resources[ResourceName] != _|_) {
-		//   if !list.Contains(ResourceType, Resources[ResourceName].Type) {
-		//    "Fn::GetAtt": "`\(ResourceName)` is not a Resource of type \(strings.Join(ResourceType, ", "))"
+		//  Attribute = split[1]
+		//  if (Resources[ResourceName] == _|_) {
+		//   "Fn::GetAtt": "`\(ResourceName)` is not a valid Resource name"
+		//  }
+		//  if len(ResourceType) > 0 && (Resources[ResourceName] != _|_) {
+		//   type = Resources[ResourceName].Type
+		//   if ResourceType[type] == _|_ {
+		//    ResourceTypeList = [ r for r, v in ResourceType ]
+		//    "Fn::GetAtt": "`\(ResourceName)` is not a Resource of type \(strings.Join(ResourceTypeList, ", "))"
+		//   }
+		//   if (ResourceType[type] != _|_) && (ResourceType[type] != Attribute) {
+		//    "Fn::GetAtt": "`\(Attribute)` is not an attribute on \(type)"
 		//   }
 		//  }
 		// }
 
-		ResourceType :: [string]: string
-		if (GetAttRef & string) != _|_ {
-			split = strings.SplitN(GetAttRef, ".", 2)
-			ResourceName = split[0]
-			Attribute = split[1]
-			if (Resources[ResourceName] != _|_) {
-				type = Resources[ResourceName].Type
-				if ResourceType[type] == _|_ {
-					ResourceTypeList = [ r for r, v in ResourceType ]
-					"Fn::GetAtt": "`\(ResourceName)` is not a Resource of type \(strings.Join(ResourceTypeList, ", "))"
-				}
-				if (ResourceType[type] != _|_) && (ResourceType[type] != Attribute) {
-					"Fn::GetAtt": "`\(Attribute)` is not an attribute on \(type)"
-				}
-			}
-		}
-		if (GetAttRef & [string, string | Ref]) != _|_ {
-			ResourceName = GetAttRef[0]
-			Attribute = GetAttRef[1]
-			if (Resources[ResourceName] != _|_) {
-				type = Resources[ResourceName].Type
-				if ResourceType[type] == _|_ {
-					ResourceTypeList = [ r for r, v in ResourceType ]
-					"Fn::GetAtt": ["is not a Resource of type \(strings.Join(ResourceTypeList, " or "))", ""]
-				}
-				if ResourceType[type] != _|_ && (Attribute & string) != _|_ && (ResourceType[type] != Attribute) {
-					"Fn::GetAtt": [string, "is not an attribute on \(type)"]
-				}
-			}
-		}
+		// if (GetAttRef & [string, string | Ref]) != _|_ {
+		//  ResourceName = GetAttRef[0]
+		//  Attribute = GetAttRef[1]
+		//  if (Resources[ResourceName] == _|_) {
+		//   "Fn::GetAtt": ["is not a valid Resource name", ""]
+		//  }
+		//  if len(ResourceType) > 0 && (Resources[ResourceName] != _|_) {
+		//   type = Resources[ResourceName].Type
+		//   if ResourceType[type] == _|_ {
+		//    ResourceTypeList = [ r for r, v in ResourceType ]
+		//    "Fn::GetAtt": ["is not a Resource of type \(strings.Join(ResourceTypeList, " or "))", ""]
+		//   }
+		//   if ResourceType[type] != _|_ && (Attribute & string) != _|_ && (ResourceType[type] != Attribute) {
+		//    "Fn::GetAtt": [string, "is not an attribute on \(type)"]
+		//   }
+		//  }
+		// }
 	}
+	// GetAtt :: {
+	//  // [Resource Name, Attribute Name]
+	//  GetAttRef="Fn::GetAtt": [string, string | Ref] | string
+	//  if (GetAttRef & string) != _|_ {
+	//   ResourceName = strings.Split(GetAttRef, ".")[0]
+	//   if (Resources[ResourceName] == _|_) {
+	//    "Fn::GetAtt": "`\(ResourceName)` is not a valid Resource name"
+	//   }
+	//  }
+
+	//  if (GetAttRef & [string, string | Ref]) != _|_ {
+	//   ResourceName = GetAttRef[0]
+	//   if (Resources[ResourceName] == _|_) {
+	//    "Fn::GetAtt": ["is not a valid Resource name", ""]
+	//   }
+	//  }
+	// }
+
+	// GetAttTypeCheck :: GetAtt & {
+	//  GetAttRef="Fn::GetAtt": [string, string | Ref] | string
+	//  // ResourceType :: [...string]
+
+	//  // if (GetAttRef & string) != _|_ {
+	//  //  split = strings.Split(GetAttRef, ".")
+	//  //  ResourceName = split[0]
+	//  //  if (Resources[ResourceName] != _|_) {
+	//  //   if !list.Contains(ResourceType, Resources[ResourceName].Type) {
+	//  //    "Fn::GetAtt": "`\(ResourceName)` is not a Resource of type \(strings.Join(ResourceType, ", "))"
+	//  //   }
+	//  //  }
+	//  // }
+
+	//  ResourceType :: [string]: string
+	//  if (GetAttRef & string) != _|_ {
+	//   split = strings.SplitN(GetAttRef, ".", 2)
+	//   ResourceName = split[0]
+	//   Attribute = split[1]
+	//   if (Resources[ResourceName] != _|_) {
+	//    type = Resources[ResourceName].Type
+	//    if ResourceType[type] == _|_ {
+	//     ResourceTypeList = [ r for r, v in ResourceType ]
+	//     "Fn::GetAtt": "`\(ResourceName)` is not a Resource of type \(strings.Join(ResourceTypeList, ", "))"
+	//    }
+	//    if (ResourceType[type] != _|_) && (ResourceType[type] != Attribute) {
+	//     "Fn::GetAtt": "`\(Attribute)` is not an attribute on \(type)"
+	//    }
+	//   }
+	//  }
+	//  if (GetAttRef & [string, string | Ref]) != _|_ {
+	//   ResourceName = GetAttRef[0]
+	//   Attribute = GetAttRef[1]
+	//   if (Resources[ResourceName] != _|_) {
+	//    type = Resources[ResourceName].Type
+	//    if ResourceType[type] == _|_ {
+	//     ResourceTypeList = [ r for r, v in ResourceType ]
+	//     "Fn::GetAtt": ["is not a Resource of type \(strings.Join(ResourceTypeList, " or "))", ""]
+	//    }
+	//    if ResourceType[type] != _|_ && (Attribute & string) != _|_ && (ResourceType[type] != Attribute) {
+	//     "Fn::GetAtt": [string, "is not an attribute on \(type)"]
+	//    }
+	//   }
+	//  }
+	// }
 
 	// ImportValue: https://docs.aws.amazon.com/en_pv/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-importvalue.html
 	// You can use the following functions in the Fn::ImportValue function. The value of these functions can't depend on a resource.
@@ -15791,28 +15836,42 @@ Template :: {
 	// Ref: https://docs.aws.amazon.com/en_pv/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-ref.html
 	Ref :: {
 		Ref: string
-		if (Resources[Ref] == _|_) && (Parameters[Ref] == _|_ ) {
-			Ref: "`\(Ref)` is not a valid Resource or Parameter name"
-		}
+		// if (Resources[Ref] == _|_) && (Parameters[Ref] == _|_ ) {
+		//  Ref: "`\(Ref)` is not a valid Resource or Parameter name"
+		// }
+		// RefResourceType :: [...string]
+		// RefParameterType :: [...string]
+		// if len(ResourceType) > 0 && Resources[Ref] != _|_ {
+		//  // if Resources[Ref].Type != ResourceType {
+		//  if !list.Contains(ResourceType, Resources[Ref].Type) {
+		//   Ref: "`\(Ref)` is not a Resource of type \(strings.Join(ResourceType, ", "))"
+		//  }
+		// }
+		// if len(ParameterType) > 0 && Parameters[Ref] != _|_ {
+		//  // if Parameters[Ref].Type != ParameterType {
+		//  if !list.Contains(ParameterType, Parameters[Ref].Type) {
+		//   Ref: "Parameter `\(Ref)` type \(Parameters[Ref].Type) != type \(strings.Join(ParameterType, ", "))"
+		//  }
+		// }
 	}
 
-	RefTypeCheck :: Ref & {
-		Ref: string
-		ResourceType :: [...string]
-		ParameterType :: [...string]
-		if Resources[Ref] != _|_ {
-			// if Resources[Ref].Type != ResourceType {
-			if !list.Contains(ResourceType, Resources[Ref].Type) {
-				Ref: "`\(Ref)` is not a Resource of type \(strings.Join(ResourceType, ", "))"
-			}
-		}
-		if Parameters[Ref] != _|_ {
-			// if Parameters[Ref].Type != ParameterType {
-			if !list.Contains(ParameterType, Parameters[Ref].Type) {
-				Ref: "Parameter `\(Ref)` type \(Parameters[Ref].Type) != type \(strings.Join(ParameterType, ", "))"
-			}
-		}
-	}
+	// RefTypeCheck :: Ref & {
+	//  Ref: string
+	//  ResourceType :: [...string]
+	//  ParameterType :: [...string]
+	//  if Resources[Ref] != _|_ {
+	//   // if Resources[Ref].Type != ResourceType {
+	//   if !list.Contains(ResourceType, Resources[Ref].Type) {
+	//    Ref: "`\(Ref)` is not a Resource of type \(strings.Join(ResourceType, ", "))"
+	//   }
+	//  }
+	//  if Parameters[Ref] != _|_ {
+	//   // if Parameters[Ref].Type != ParameterType {
+	//   if !list.Contains(ParameterType, Parameters[Ref].Type) {
+	//    Ref: "Parameter `\(Ref)` type \(Parameters[Ref].Type) != type \(strings.Join(ParameterType, ", "))"
+	//   }
+	//  }
+	// }
 
 	// Condition Functions
 	// You can use the following functions in all other condition functions, such as Fn::Equals and Fn::Or:

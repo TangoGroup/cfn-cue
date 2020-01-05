@@ -444,6 +444,7 @@ func main() {
 			if propertiesByResource[resourceName] == nil {
 				propertiesByResource[resourceName] = map[string]Resource{}
 			}
+			// Ensure that every Resource has Tag available
 			propertiesByResource[resourceName]["Tag"] = spec.Properties["Tag"]
 		}
 
