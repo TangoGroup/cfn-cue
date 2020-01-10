@@ -33,6 +33,7 @@ SSM :: {
 				[string]: _
 			} | fn.Fn
 			DocumentType?: string | fn.Fn
+			Name?:         string | fn.Fn
 			Tags?: [...{
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
@@ -92,11 +93,11 @@ SSM :: {
 				S3Bucket:  string | fn.Fn
 				S3Prefix?: string | fn.Fn
 			}
-			MaxConcurrency: string | fn.Fn
-			MaxErrors:      string | fn.Fn
-			Name?:          string | fn.Fn
-			Priority:       int | fn.Fn
-			ServiceRoleArn: string | fn.Fn
+			MaxConcurrency:  string | fn.Fn
+			MaxErrors:       string | fn.Fn
+			Name?:           string | fn.Fn
+			Priority:        int | fn.Fn
+			ServiceRoleArn?: string | fn.Fn
 			Targets: [...{
 				Key:     string | fn.Fn
 				Values?: [...(string | fn.Fn)] | fn.Fn
@@ -139,8 +140,8 @@ SSM :: {
 			TaskParameters?: {
 				[string]: _
 			} | fn.Fn
-			TaskType:  string | fn.Fn
-			WindowId?: string | fn.Fn
+			TaskType: string | fn.Fn
+			WindowId: string | fn.Fn
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

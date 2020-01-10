@@ -33,6 +33,7 @@ SSM :: {
 				[string]: _
 			} | fn.Fn
 			DocumentType?: string | fn.Fn
+			Name?:         string | fn.Fn
 			Tags?: [...{
 				Key:   string | fn.Fn
 				Value: string | fn.Fn

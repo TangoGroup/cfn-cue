@@ -22,6 +22,7 @@ AmazonMQ :: {
 			}
 			PubliclyAccessible: bool | fn.Fn
 			SecurityGroups?:    [...(string | fn.Fn)] | fn.Fn
+			StorageType?:       string | fn.Fn
 			SubnetIds?:         [...(string | fn.Fn)] | fn.Fn
 			Tags?: [...{
 			}]

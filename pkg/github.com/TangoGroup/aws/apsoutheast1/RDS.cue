@@ -108,6 +108,7 @@ RDS :: {
 			LicenseModel?:                       string | fn.Fn
 			MasterUserPassword?:                 string | fn.Fn
 			MasterUsername?:                     string | fn.Fn
+			MaxAllocatedStorage?:                int | fn.Fn
 			MonitoringInterval?:                 int | fn.Fn
 			MonitoringRoleArn?:                  string | fn.Fn
 			MultiAZ?:                            bool | fn.Fn

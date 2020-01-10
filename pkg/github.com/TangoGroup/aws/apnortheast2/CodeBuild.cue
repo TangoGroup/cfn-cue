@@ -125,6 +125,27 @@ CodeBuild :: {
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
 	}
+	ReportGroup :: {
+		Type: "AWS::CodeBuild::ReportGroup"
+		Properties: {
+			ExportConfig: {
+				ExportConfigType: string | fn.Fn
+				S3Destination?: {
+					Bucket:              string | fn.Fn
+					EncryptionDisabled?: bool | fn.Fn
+					EncryptionKey?:      string | fn.Fn
+					Packaging?:          string | fn.Fn
+					Path?:               string | fn.Fn
+				}
+			}
+			Name?: string | fn.Fn
+			Type:  string | fn.Fn
+		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+	}
 	SourceCredential :: {
 		Type: "AWS::CodeBuild::SourceCredential"
 		Properties: {

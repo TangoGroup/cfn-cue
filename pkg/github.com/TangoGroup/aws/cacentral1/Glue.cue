@@ -161,6 +161,39 @@ Glue :: {
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
 	}
+	MLTransform :: {
+		Type: "AWS::Glue::MLTransform"
+		Properties: {
+			Description?: string | fn.Fn
+			GlueVersion?: string | fn.Fn
+			InputRecordTables: GlueTables?: [...{
+				CatalogId?:      string | fn.Fn
+				ConnectionName?: string | fn.Fn
+				DatabaseName:    string | fn.Fn
+				TableName:       string | fn.Fn
+			}]
+			MaxCapacity?:     (float & (>=1 & <=100)) | fn.Fn
+			MaxRetries?:      int | fn.Fn
+			Name?:            string | fn.Fn
+			NumberOfWorkers?: int | fn.Fn
+			Role:             string | fn.Fn
+			Timeout?:         int | fn.Fn
+			TransformParameters: {
+				FindMatchesParameters?: {
+					AccuracyCostTradeoff?:    float | fn.Fn
+					EnforceProvidedLabels?:   bool | fn.Fn
+					PrecisionRecallTradeoff?: float | fn.Fn
+					PrimaryKeyColumnName:     string | fn.Fn
+				}
+				TransformType: string | fn.Fn
+			}
+			WorkerType?: string | fn.Fn
+		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+	}
 	SecurityConfiguration :: {
 		Type: "AWS::Glue::SecurityConfiguration"
 		Properties: {

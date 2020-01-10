@@ -29,7 +29,11 @@ MSK :: {
 			EnhancedMonitoring?: string | fn.Fn
 			KafkaVersion:        string | fn.Fn
 			NumberOfBrokerNodes: int | fn.Fn
-			Tags?:               {
+			OpenMonitoring?: Prometheus: {
+				JmxExporter?: EnabledInBroker:  bool | fn.Fn
+				NodeExporter?: EnabledInBroker: bool | fn.Fn
+			}
+			Tags?: {
 				[string]: _
 			} | fn.Fn
 		}

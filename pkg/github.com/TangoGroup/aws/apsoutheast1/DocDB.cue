@@ -14,8 +14,8 @@ DocDB :: {
 			EnableCloudwatchLogsExports?: [...(string | fn.Fn)] | fn.Fn
 			EngineVersion?:               string | fn.Fn
 			KmsKeyId?:                    string | fn.Fn
-			MasterUserPassword?:          string | fn.Fn
-			MasterUsername?:              string | fn.Fn
+			MasterUserPassword:           string | fn.Fn
+			MasterUsername:               string | fn.Fn
 			Port?:                        int | fn.Fn
 			PreferredBackupWindow?:       string | fn.Fn
 			PreferredMaintenanceWindow?:  string | fn.Fn

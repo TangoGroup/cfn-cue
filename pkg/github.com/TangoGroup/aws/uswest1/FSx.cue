@@ -27,6 +27,8 @@ FSx :: {
 				AutomaticBackupRetentionDays?:  int | fn.Fn
 				CopyTagsToBackups?:             bool | fn.Fn
 				DailyAutomaticBackupStartTime?: string | fn.Fn
+				DeploymentType?:                string | fn.Fn
+				PreferredSubnetId?:             string | fn.Fn
 				SelfManagedActiveDirectoryConfiguration?: {
 					DnsIps?:                              [...(string | fn.Fn)] | fn.Fn
 					DomainName?:                          string | fn.Fn

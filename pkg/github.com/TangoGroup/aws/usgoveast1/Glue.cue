@@ -148,6 +148,7 @@ Glue :: {
 		Type: "AWS::Glue::MLTransform"
 		Properties: {
 			Description?: string | fn.Fn
+			GlueVersion?: string | fn.Fn
 			InputRecordTables: {
 			}
 			MaxCapacity?:     float | fn.Fn

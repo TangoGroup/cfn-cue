@@ -7,14 +7,36 @@ ApiGatewayV2 :: {
 		Type: "AWS::ApiGatewayV2::Api"
 		Properties: {
 			ApiKeySelectionExpression?: string | fn.Fn
-			Description?:               string | fn.Fn
-			DisableSchemaValidation?:   bool | fn.Fn
-			Name:                       string | fn.Fn
-			ProtocolType:               string | fn.Fn
-			RouteSelectionExpression:   string | fn.Fn
-			Tags?:                      {
+			BasePath?:                  string | fn.Fn
+			Body?:                      {
 				[string]: _
 			} | fn.Fn
+			BodyS3Location?: {
+				Bucket?:  string | fn.Fn
+				Etag?:    string | fn.Fn
+				Key?:     string | fn.Fn
+				Version?: string | fn.Fn
+			}
+			CorsConfiguration?: {
+				AllowCredentials?: bool | fn.Fn
+				AllowHeaders?:     [...(string | fn.Fn)] | fn.Fn
+				AllowMethods?:     [...(string | fn.Fn)] | fn.Fn
+				AllowOrigins?:     [...(string | fn.Fn)] | fn.Fn
+				ExposeHeaders?:    [...(string | fn.Fn)] | fn.Fn
+				MaxAge?:           int | fn.Fn
+			}
+			CredentialsArn?:           string | fn.Fn
+			Description?:              string | fn.Fn
+			DisableSchemaValidation?:  bool | fn.Fn
+			FailOnWarnings?:           bool | fn.Fn
+			Name?:                     string | fn.Fn
+			ProtocolType?:             string | fn.Fn
+			RouteKey?:                 string | fn.Fn
+			RouteSelectionExpression?: string | fn.Fn
+			Tags?:                     {
+				[string]: _
+			} | fn.Fn
+			Target?:  string | fn.Fn
 			Version?: string | fn.Fn
 		}
 		DependsOn?:           string | [...string]
@@ -42,10 +64,14 @@ ApiGatewayV2 :: {
 			AuthorizerCredentialsArn?:     string | fn.Fn
 			AuthorizerResultTtlInSeconds?: int | fn.Fn
 			AuthorizerType:                string | fn.Fn
-			AuthorizerUri:                 string | fn.Fn
+			AuthorizerUri?:                string | fn.Fn
 			IdentitySource:                [...(string | fn.Fn)] | fn.Fn
 			IdentityValidationExpression?: string | fn.Fn
-			Name:                          string | fn.Fn
+			JwtConfiguration?: {
+				Audience?: [...(string | fn.Fn)] | fn.Fn
+				Issuer?:   string | fn.Fn
+			}
+			Name: string | fn.Fn
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -94,6 +120,7 @@ ApiGatewayV2 :: {
 			IntegrationType:          string | fn.Fn
 			IntegrationUri?:          string | fn.Fn
 			PassthroughBehavior?:     string | fn.Fn
+			PayloadFormatVersion?:    string | fn.Fn
 			RequestParameters?:       {
 				[string]: _
 			} | fn.Fn
@@ -196,6 +223,7 @@ ApiGatewayV2 :: {
 				Format?:         string | fn.Fn
 			}
 			ApiId:                string | fn.Fn
+			AutoDeploy?:          bool | fn.Fn
 			ClientCertificateId?: string | fn.Fn
 			DefaultRouteSettings?: {
 				DataTraceEnabled?:       bool | fn.Fn
@@ -204,7 +232,7 @@ ApiGatewayV2 :: {
 				ThrottlingBurstLimit?:   int | fn.Fn
 				ThrottlingRateLimit?:    float | fn.Fn
 			}
-			DeploymentId:   string | fn.Fn
+			DeploymentId?:  string | fn.Fn
 			Description?:   string | fn.Fn
 			RouteSettings?: {
 				[string]: _

@@ -7,6 +7,32 @@ import (
 )
 
 S3 :: {
+	AccessPoint :: {
+		Type: "AWS::S3::AccessPoint"
+		Properties: {
+			Bucket:         string | fn.Fn
+			CreationDate?:  string | fn.Fn
+			Name?:          string | fn.Fn
+			NetworkOrigin?: string | fn.Fn
+			Policy?:        {
+				[string]: _
+			} | fn.Fn
+			PolicyStatus?: {
+				[string]: _
+			} | fn.Fn
+			PublicAccessBlockConfiguration?: {
+				BlockPublicAcls?:       bool | fn.Fn
+				BlockPublicPolicy?:     bool | fn.Fn
+				IgnorePublicAcls?:      bool | fn.Fn
+				RestrictPublicBuckets?: bool | fn.Fn
+			}
+			VpcConfiguration?: VpcId?: string | fn.Fn
+		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+	}
 	Bucket :: {
 		Type: "AWS::S3::Bucket"
 		Properties: {

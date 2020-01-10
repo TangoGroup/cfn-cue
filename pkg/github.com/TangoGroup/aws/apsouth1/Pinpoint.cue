@@ -413,13 +413,15 @@ Pinpoint :: {
 	EmailTemplate :: {
 		Type: "AWS::Pinpoint::EmailTemplate"
 		Properties: {
-			HtmlPart?: string | fn.Fn
-			Subject:   string | fn.Fn
-			Tags?:     {
+			DefaultSubstitutions?: string | fn.Fn
+			HtmlPart?:             string | fn.Fn
+			Subject:               string | fn.Fn
+			Tags?:                 {
 				[string]: _
 			} | fn.Fn
-			TemplateName: string | fn.Fn
-			TextPart?:    string | fn.Fn
+			TemplateDescription?: string | fn.Fn
+			TemplateName:         string | fn.Fn
+			TextPart?:            string | fn.Fn
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -488,6 +490,7 @@ Pinpoint :: {
 				Title?:  string | fn.Fn
 				Url?:    string | fn.Fn
 			}
+			DefaultSubstitutions?: string | fn.Fn
 			GCM?: {
 				Action?:            string | fn.Fn
 				Body?:              string | fn.Fn
@@ -501,7 +504,8 @@ Pinpoint :: {
 			Tags?: {
 				[string]: _
 			} | fn.Fn
-			TemplateName: string | fn.Fn
+			TemplateDescription?: string | fn.Fn
+			TemplateName:         string | fn.Fn
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -657,11 +661,13 @@ Pinpoint :: {
 	SmsTemplate :: {
 		Type: "AWS::Pinpoint::SmsTemplate"
 		Properties: {
-			Body:  string | fn.Fn
-			Tags?: {
+			Body:                  string | fn.Fn
+			DefaultSubstitutions?: string | fn.Fn
+			Tags?:                 {
 				[string]: _
 			} | fn.Fn
-			TemplateName: string | fn.Fn
+			TemplateDescription?: string | fn.Fn
+			TemplateName:         string | fn.Fn
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

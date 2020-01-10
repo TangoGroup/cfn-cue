@@ -56,7 +56,7 @@ ServiceDiscovery :: {
 			DnsConfig?: {
 				DnsRecords: [...{
 					TTL:  float | fn.Fn
-					Type: (string & ("A" | "AAAA" | "SRV")) | fn.Fn
+					Type: (string & ("A" | "AAAA" | "SRV" | "CNAME")) | fn.Fn
 				}]
 				NamespaceId?:   string | fn.Fn
 				RoutingPolicy?: string | fn.Fn

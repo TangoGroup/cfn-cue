@@ -12,6 +12,10 @@ MediaLive :: {
 				MediaPackageSettings?: [...{
 					ChannelId?: string | fn.Fn
 				}]
+				MultiplexSettings?: {
+					MultiplexId?: string | fn.Fn
+					ProgramName?: string | fn.Fn
+				}
 				Settings?: [...{
 					PasswordParam?: string | fn.Fn
 					StreamName?:    string | fn.Fn

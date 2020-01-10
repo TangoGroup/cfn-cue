@@ -6,6 +6,7 @@ Cognito :: {
 	IdentityPool :: {
 		Type: "AWS::Cognito::IdentityPool"
 		Properties: {
+			AllowClassicFlow?:              bool | fn.Fn
 			AllowUnauthenticatedIdentities: bool | fn.Fn
 			CognitoEvents?:                 {
 				[string]: _
@@ -99,6 +100,7 @@ Cognito :: {
 			ExplicitAuthFlows?:          [...(string | fn.Fn)] | fn.Fn
 			GenerateSecret?:             bool | fn.Fn
 			LogoutURLs?:                 [...(string | fn.Fn)] | fn.Fn
+			PreventUserExistenceErrors?: string | fn.Fn
 			ReadAttributes?:             [...(string | fn.Fn)] | fn.Fn
 			RefreshTokenValidity?:       int | fn.Fn
 			SupportedIdentityProviders?: [...(string | fn.Fn)] | fn.Fn
@@ -202,6 +204,9 @@ Cognito :: {
 	UserPoolUser :: {
 		Type: "AWS::Cognito::UserPoolUser"
 		Properties: {
+			ClientMetadata?: {
+				[string]: _
+			} | fn.Fn
 			DesiredDeliveryMediums?: [...(string | fn.Fn)] | fn.Fn
 			ForceAliasCreation?:     bool | fn.Fn
 			MessageAction?:          string | fn.Fn
