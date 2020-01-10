@@ -214,32 +214,45 @@ template: {
 			SecurityGroups: [{
 				"Fn::GetAtt": ["InstanceSecurityGroup", "GroupId"]
 			}]
-			UserData: "Fn::Base64": "Fn::Join": ["", ["""
+			// UserData: "Fn::Base64": "Fn::Join": ["", ["""
+			// 					#!/bin/bash -x
+								
+			// 					""", """
+			// 					export LC_CTYPE=en_US.UTF-8
+								
+			// 					""", """
+			// 					export LC_ALL=en_US.UTF-8
+								
+			// 					""", """
+			// 					apt-get update
+								
+			// 					""", """
+			// 					apt-get install -y curl nfs-common
+								
+			// 					""", "EC2_REGION=", {
+			// 	Ref: "AWS::Region"
+			// }, "\n", "DIR_TGT=/mnt/efs/", "\n", "EFS_FILE_SYSTEM_ID=", {
+			// 	Ref: "EFSFileSystem"
+			// }, "\n", """
+			// 					mkdir -p $DIR_TGT
+								
+			// 					""", """
+			// 					DIR_SRC=$EFS_FILE_SYSTEM_ID.efs.$EC2_REGION.amazonaws.com
+								
+			// 					""", "mount -t nfs4 -o nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2 $DIR_SRC:/ $DIR_TGT"]]
+			UserData: "Fn::Base64": "Fn::Sub": """
 								#!/bin/bash -x
-								
-								""", """
 								export LC_CTYPE=en_US.UTF-8
-								
-								""", """
 								export LC_ALL=en_US.UTF-8
-								
-								""", """
 								apt-get update
-								
-								""", """
 								apt-get install -y curl nfs-common
-								
-								""", "EC2_REGION=", {
-				Ref: "AWS::Region"
-			}, "\n", "DIR_TGT=/mnt/efs/", "\n", "EFS_FILE_SYSTEM_ID=", {
-				Ref: "EFSFileSystem"
-			}, "\n", """
+								EC2_REGION="${AWS::Region}"
+								DIR_TGT=/mnt/efs/
+								EFS_FILE_SYSTEM_ID=${EFSFileSystem}
 								mkdir -p $DIR_TGT
-								
-								""", """
 								DIR_SRC=$EFS_FILE_SYSTEM_ID.efs.$EC2_REGION.amazonaws.com
-								
-								""", "mount -t nfs4 -o nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2 $DIR_SRC:/ $DIR_TGT"]]
+								mount -t nfs4 -o nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2 $DIR_SRC:/ $DIR_TGT
+								"""
 		}
 	}
 }
