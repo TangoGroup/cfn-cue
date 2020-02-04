@@ -374,6 +374,459 @@ func resourceNamesSlice(p map[string]Resource) (keys []string) {
 	return keys
 }
 
+func templateParameters() *ast.Field {
+	baseParameterTypes := []string{
+		"String",
+		"Number",
+		"List<Number>",
+		"CommaDelimitedList",
+	}
+
+	awsParameterTypesMap := map[string]bool{
+		"AWS::EC2::AvailabilityZone::Name":   true,
+		"AWS::EC2::Image::Id":                true,
+		"AWS::EC2::Instance::Id":             true,
+		"AWS::EC2::KeyPair::KeyName":         false,
+		"AWS::EC2::SecurityGroup::GroupName": true,
+		"AWS::EC2::SecurityGroup::Id":        true,
+		"AWS::EC2::Subnet::Id":               true,
+		"AWS::EC2::Volume::Id":               true,
+		"AWS::EC2::VPC::Id":                  true,
+		"AWS::Route53::HostedZone::Id":       true,
+	}
+
+	awsParameterTypes := []string{}
+	for param := range awsParameterTypesMap {
+		awsParameterTypes = append(awsParameterTypes, param)
+	}
+
+	awsListParameterTypes := []string{}
+	for param, listType := range awsParameterTypesMap {
+		if listType {
+			awsListParameterTypes = append(awsListParameterTypes, "List<"+param+">")
+		}
+	}
+	ssmParameterTypes := []string{
+		"AWS::SSM::Parameter::Name",
+		"AWS::SSM::Parameter::Value<String>",
+		"AWS::SSM::Parameter::Value<List<String>>",
+		"AWS::SSM::Parameter::Value<CommaDelimitedList>",
+	}
+	for _, param := range awsParameterTypes {
+		ssmParameterTypes = append(ssmParameterTypes, "AWS::SSM::Parameter::Value<"+param+">")
+		ssmParameterTypes = append(ssmParameterTypes, "AWS::SSM::Parameter::Value<List<"+param+">>")
+	}
+
+	parameterTypes := []string{}
+	parameterTypes = append(parameterTypes, baseParameterTypes...)
+	parameterTypes = append(parameterTypes, awsParameterTypes...)
+	parameterTypes = append(parameterTypes, awsListParameterTypes...)
+	parameterTypes = append(parameterTypes, ssmParameterTypes...)
+	sort.Strings(parameterTypes)
+
+	parameterTypesExpr := make([]ast.Expr, 0, len(parameterTypes))
+
+	for _, param := range parameterTypes {
+		parameterTypesExpr = append(parameterTypesExpr, ast.NewString(param))
+	}
+
+	var parameterDisjunction ast.Expr
+
+	parameterDisjunction = parameterTypesExpr[0]
+
+	for _, param := range parameterTypesExpr[1:] {
+		parameterDisjunction = &ast.BinaryExpr{X: parameterDisjunction, Op: token.OR, Y: param}
+	}
+
+	parameterProperties := [][]string{
+		{"AllowedPattern", "string"},
+		{"AllowedValues", "[...(string | number)]"},
+		{"ConstraintDescription", "string"},
+		{"Default", "string"},
+		{"Description", "string"},
+		{"MaxLength", "int"},
+		{"MaxValue", "int"},
+		{"MinLength", "int"},
+		{"MinValue", "int"},
+		{"NoEcho", "bool"},
+	}
+	parameterPropertiesFields := []ast.Decl{
+		&ast.Field{
+			Label: ast.NewIdent("Type"),
+			Value: parameterDisjunction,
+		},
+	}
+
+	for _, arr := range parameterProperties {
+		prop := arr[0]
+		propType := arr[1]
+		parameterPropertiesFields = append(parameterPropertiesFields, &ast.Field{
+			Label:    ast.NewIdent(prop),
+			Value:    &ast.BasicLit{Value: propType},
+			Optional: token.Elided.Pos(),
+		})
+	}
+
+	templateParameters := &ast.Field{
+		Label:    ast.NewIdent("Parameters"),
+		Optional: token.Elided.Pos(),
+		Value: &ast.StructLit{
+			Elts: []ast.Decl{
+				&ast.Field{
+					Label: ast.NewList(&ast.UnaryExpr{Op: token.MAT, X: ast.NewString("[a-zA-Z0-9]")}),
+					Value: &ast.StructLit{
+						Elts: parameterPropertiesFields,
+					},
+				},
+			},
+		},
+	}
+	return templateParameters
+}
+
+func propertiesByResource(spec *CloudFormationResourceSpecification) *map[string]map[string]Resource {
+	// Find weird/broken properties
+	// fmt.Println("weird/broken properties")
+	// weirdProps := []string{}
+	// for resourcePropertyName, property := range spec.Properties {
+	// 	if len(property.Properties) == 0 {
+	// 		weirdProps = append(weirdProps, resourcePropertyName)
+	// 	}
+	// }
+	// sort.Strings(weirdProps)
+	// for _, prop := range weirdProps {
+	// 	fmt.Println(prop)
+	// }
+	// panic(0)
+	propertiesByResource := map[string]map[string]Resource{}
+
+	for resourcePropertyName, property := range spec.Properties {
+		splits := strings.Split(resourcePropertyName, ".")
+		if len(splits) > 1 {
+			resourceName := splits[0]
+			if propertiesByResource[resourceName] == nil {
+				propertiesByResource[resourceName] = map[string]Resource{}
+			}
+			propertyName := splits[1]
+			propertiesByResource[resourceName][propertyName] = property
+		}
+	}
+
+	for resourceName := range spec.Resources {
+		if propertiesByResource[resourceName] == nil {
+			propertiesByResource[resourceName] = map[string]Resource{}
+		}
+		propertiesByResource[resourceName]["Tag"] = spec.Properties["Tag"]
+	}
+
+	return &propertiesByResource
+}
+
+func serviceNames(spec *CloudFormationResourceSpecification) []string {
+	servicesMap := map[string]bool{}
+
+	for resourceName := range spec.Resources {
+		splits := strings.Split(resourceName, "::")
+		servicesMap[splits[1]] = true
+	}
+
+	serviceNames := make([]string, 0, len(servicesMap))
+	for serviceName := range servicesMap {
+		serviceNames = append(serviceNames, serviceName)
+	}
+	sort.Strings(serviceNames)
+	return serviceNames
+}
+
+func resourcesByService(spec *CloudFormationResourceSpecification, serviceNames []string) *map[string]map[string]Resource {
+	resourcesByService := map[string]map[string]Resource{}
+	for _, service := range serviceNames {
+		resourcesByService[service] = map[string]Resource{}
+	}
+
+	for resourceName, resource := range spec.Resources {
+		splits := strings.Split(resourceName, "::")
+		service := splits[1]
+
+		resourcesByService[service][resourceName] = resource
+	}
+	return &resourcesByService
+}
+
+func writeServiceFile(serviceName string, resources map[string]Resource, shortRegion string) error {
+
+	return nil
+}
+
+// func templateResources() *ast.Field {
+// 	propertiesByResource := map[string]map[string]Resource{}
+
+// 	return nil
+// }
+
+func templateResourceSpecVersion(resourceSpecificationVersion string) *ast.Field {
+	return &ast.Field{
+		Label: ast.NewIdent("ResourceSpecificationVersion"),
+		Token: token.ISA,
+		Value: ast.NewString(resourceSpecificationVersion),
+	}
+}
+
+// https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/format-version-structure.html
+func templateVersion() *ast.Field {
+	return &ast.Field{
+		Label:    ast.NewIdent("AWSTemplateFormatVersion"),
+		Value:    ast.NewString("2010-09-09"),
+		Optional: token.Elided.Pos(),
+	}
+}
+
+// https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-description-structure.html
+func templateDescription() *ast.Field {
+	return &ast.Field{
+		Label:    ast.NewIdent("Description"),
+		Value:    &ast.BasicLit{Value: "string"},
+		Optional: token.Elided.Pos(),
+	}
+}
+
+// https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/metadata-section-structure.html
+func templateMetadata() *ast.Field {
+	return &ast.Field{
+		Label:    ast.NewIdent("Metadata"),
+		Optional: token.Elided.Pos(),
+		Value: &ast.StructLit{
+			Elts: []ast.Decl{
+				&ast.Field{
+					Label: ast.NewList(&ast.BasicLit{Value: "string"}),
+					Value: &ast.BasicLit{Value: "_"},
+				},
+			},
+		},
+	}
+}
+
+// https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/mappings-section-structure.html
+func templateMappings() *ast.Field {
+	return &ast.Field{
+		Label:    ast.NewIdent("Mappings"),
+		Optional: token.Elided.Pos(),
+		Value: &ast.StructLit{
+			Elts: []ast.Decl{
+				&ast.Field{
+					Label: ast.NewList(&ast.BasicLit{Value: "string"}),
+					Value: &ast.StructLit{
+						Elts: []ast.Decl{
+							&ast.Field{
+								Label: ast.NewList(&ast.BasicLit{Value: "string"}),
+								Value: &ast.StructLit{
+									Elts: []ast.Decl{
+										&ast.Field{
+											Label: ast.NewList(&ast.UnaryExpr{Op: token.MAT, X: ast.NewString("[a-zA-Z0-9]")}),
+											Value: &ast.BinaryExpr{
+												X:  &ast.BasicLit{Value: "string"},
+												Op: token.OR,
+												Y:  ast.NewList(&ast.Ellipsis{Type: &ast.BasicLit{Value: "string"}}),
+											},
+										},
+									},
+								},
+							},
+						},
+					},
+				},
+			},
+		},
+	}
+}
+
+// https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/conditions-section-structure.html
+func templateConditions() *ast.Field {
+	conditionsFunctions := []ast.Expr{
+		ast.NewSel(ast.NewIdent("fn"), "And"),
+		ast.NewSel(ast.NewIdent("fn"), "Equals"),
+		ast.NewSel(ast.NewIdent("fn"), "If"),
+		ast.NewSel(ast.NewIdent("fn"), "Not"),
+		ast.NewSel(ast.NewIdent("fn"), "Or"),
+	}
+	conditionsFunctionDisjunction := conditionsFunctions[0]
+	for _, function := range conditionsFunctions[1:] {
+		conditionsFunctionDisjunction = &ast.BinaryExpr{X: conditionsFunctionDisjunction, Op: token.OR, Y: function}
+	}
+	// https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/conditions-section-structure.html
+	return &ast.Field{
+		Label:    ast.NewIdent("Conditions"),
+		Optional: token.Elided.Pos(),
+		Value: &ast.StructLit{
+			Elts: []ast.Decl{
+				&ast.Field{
+					Label: ast.NewList(&ast.BasicLit{Value: "string"}),
+					Value: conditionsFunctionDisjunction,
+				},
+			},
+		},
+	}
+}
+
+func templateOutputs() *ast.Field {
+	return &ast.Field{
+		Label:    ast.NewIdent("Outputs"),
+		Optional: token.Elided.Pos(),
+		Value: &ast.StructLit{
+			Elts: []ast.Decl{
+				&ast.Field{
+					Label: ast.NewList(&ast.UnaryExpr{Op: token.MAT, X: ast.NewString("[a-zA-Z0-9]")}),
+					Value: &ast.StructLit{
+						Elts: []ast.Decl{
+							&ast.Field{
+								Label:    ast.NewIdent("Description"),
+								Value:    &ast.BasicLit{Value: "string"},
+								Optional: token.Elided.Pos(),
+							},
+							&ast.Field{Label: ast.NewIdent("Value"), Value: &ast.BasicLit{Value: "_"}},
+							&ast.Field{
+								Label:    ast.NewIdent("Export"),
+								Optional: token.Elided.Pos(),
+								Value: &ast.StructLit{
+									Elts: []ast.Decl{
+										&ast.Field{
+											Label: ast.NewIdent("Name"),
+											Value: &ast.BasicLit{Value: "_"},
+										},
+									},
+								},
+							},
+						},
+					},
+				},
+			},
+		},
+	}
+}
+
+func resourceDependsOn() *ast.Field {
+	return &ast.Field{
+		Label:    ast.NewIdent("DependsOn"),
+		Optional: token.Elided.Pos(),
+		Value: &ast.BinaryExpr{
+			X:  ast.NewIdent("string"),
+			Op: token.OR,
+			Y:  ast.NewList(&ast.Ellipsis{Type: ast.NewIdent("string")}),
+		},
+	}
+}
+
+func resourceCreationPolicy() *ast.Field {
+	return &ast.Field{
+		Label:    ast.NewIdent("CreationPolicy"),
+		Optional: token.Elided.Pos(),
+		Value: &ast.StructLit{
+			Elts: []ast.Decl{
+				&ast.Field{
+					Label:    ast.NewIdent("AutoScalingCreationPolicy"),
+					Optional: token.Elided.Pos(),
+					Value: &ast.StructLit{
+						Elts: []ast.Decl{
+							&ast.Field{
+								Label:    ast.NewIdent("MinSuccessfulInstancesPercent"),
+								Optional: token.Elided.Pos(),
+								Value:    &ast.BasicLit{Value: "int"},
+							},
+						},
+					},
+				},
+				&ast.Field{
+					Label:    ast.NewIdent("ResourceSignal"),
+					Optional: token.Elided.Pos(),
+					Value: &ast.StructLit{
+						Elts: []ast.Decl{
+							&ast.Field{
+								Label:    ast.NewIdent("Count"),
+								Optional: token.Elided.Pos(),
+								Value:    &ast.BasicLit{Value: "int"},
+							},
+							&ast.Field{
+								Label:    ast.NewIdent("Timeout"),
+								Optional: token.Elided.Pos(),
+								Value:    &ast.BasicLit{Value: "string"},
+							},
+						},
+					},
+				},
+			},
+		},
+	}
+}
+
+func resourcePolicies(resourceName string) []*ast.Field {
+	policies := make([]*ast.Field, 0, 3)
+	switch resourceName {
+	case "AWS::AutoScaling::AutoScalingGroup", "AWS::EC2::Instance", "AWS::CloudFormation::WaitCondition":
+		policies = append(policies, resourceCreationPolicy())
+	}
+	deletionPolicyStrings := []string{"Delete", "Retain"}
+	switch resourceName {
+	case "AWS::EC2::Volume",
+		"AWS::ElastiCache::CacheCluster",
+		"AWS::ElastiCache::ReplicationGroup",
+		"AWS::Neptune::DBCluster",
+		"AWS::RDS::DBCluster",
+		"AWS::RDS::DBInstance",
+		"AWS::Redshift::Cluster":
+		deletionPolicyStrings = append(deletionPolicyStrings, "Snapshot")
+	}
+	var deletionPolicies ast.Expr
+	deletionPolicies = ast.NewString(deletionPolicyStrings[0])
+
+	for _, deletionPolicy := range deletionPolicyStrings[1:] {
+		deletionPolicies = &ast.BinaryExpr{X: deletionPolicies, Op: token.OR, Y: ast.NewString(deletionPolicy)}
+	}
+	policies = append(policies, &ast.Field{
+		Label:    ast.NewIdent("DeletionPolicy"),
+		Optional: token.Elided.Pos(),
+		Value:    deletionPolicies,
+	})
+	policies = append(policies, &ast.Field{
+		Label:    ast.NewIdent("UpdateReplacePolicy"),
+		Optional: token.Elided.Pos(),
+		Value:    deletionPolicies,
+	})
+	return policies
+}
+
+func resourceMetadata() *ast.Field {
+	return &ast.Field{
+		Label:    ast.NewIdent("Metadata"),
+		Optional: token.Elided.Pos(),
+		Value: &ast.StructLit{
+			Elts: []ast.Decl{
+				&ast.Field{
+					Label: ast.NewList(&ast.BasicLit{Value: "string"}),
+					Value: &ast.BasicLit{Value: "_"},
+				},
+			},
+		},
+	}
+}
+
+func resourceType(resourceName string) *ast.Field {
+	resourceType := ast.Field{
+		Label: ast.NewIdent("Type"),
+		Value: ast.NewString(resourceName),
+	}
+	if resourceName == "AWS::CloudFormation::CustomResource" {
+		resourceType.Value = &ast.BinaryExpr{
+			X:  resourceType.Value,
+			Op: token.OR,
+			Y: &ast.UnaryExpr{
+				Op: token.MAT,
+				X:  &ast.BasicLit{Kind: token.STRING, Value: "#\"^Custom::[a-zA-Z0-9_@-]{1,60}$\"#"},
+			},
+		}
+	}
+	return &resourceType
+}
+
 func main() {
 	regions := []string{
 		"ap-east-1",
@@ -414,67 +867,14 @@ func main() {
 
 		spec, _ := processSpec("cfn", data)
 
-		propertiesByResource := map[string]map[string]Resource{}
+		// propertiesByResource := map[string]map[string]Resource{}
+		propertiesByResource := *propertiesByResource(spec)
 
-		// Find weird/broken properties
-		// fmt.Println("weird/broken properties")
-		// weirdProps := []string{}
-		// for resourcePropertyName, property := range spec.Properties {
-		// 	if len(property.Properties) == 0 {
-		// 		weirdProps = append(weirdProps, resourcePropertyName)
-		// 	}
-		// }
-		// sort.Strings(weirdProps)
-		// for _, prop := range weirdProps {
-		// 	fmt.Println(prop)
-		// }
-		// panic(0)
+		serviceNames := serviceNames(spec)
 
-		for resourcePropertyName, property := range spec.Properties {
-			splits := strings.Split(resourcePropertyName, ".")
-			if len(splits) > 1 {
-				resourceName := splits[0]
-				if propertiesByResource[resourceName] == nil {
-					propertiesByResource[resourceName] = map[string]Resource{}
-				}
-				propertyName := splits[1]
-				propertiesByResource[resourceName][propertyName] = property
-			}
-		}
+		resourcesByService := *resourcesByService(spec, serviceNames)
 
-		for resourceName := range spec.Resources {
-			if propertiesByResource[resourceName] == nil {
-				propertiesByResource[resourceName] = map[string]Resource{}
-			}
-			propertiesByResource[resourceName]["Tag"] = spec.Properties["Tag"]
-		}
-
-		servicesMap := map[string]bool{}
-
-		for resourceName := range spec.Resources {
-			splits := strings.Split(resourceName, "::")
-			servicesMap[splits[1]] = true
-		}
-
-		serviceNames := make([]string, 0, len(servicesMap))
-		for serviceName := range servicesMap {
-			serviceNames = append(serviceNames, serviceName)
-		}
-		sort.Strings(serviceNames)
-
-		resourcesByService := map[string]map[string]Resource{}
-		for service := range servicesMap {
-			resourcesByService[service] = map[string]Resource{}
-		}
-
-		for resourceName, resource := range spec.Resources {
-			splits := strings.Split(resourceName, "::")
-			service := splits[1]
-
-			resourcesByService[service][resourceName] = resource
-		}
-
-		importDeclarations := make([]*ast.ImportSpec, 0)
+		// importDeclarations := make([]*ast.ImportSpec, 0)
 
 		resourceTypes := make([]ast.Expr, 0)
 
@@ -518,116 +918,18 @@ func main() {
 					Label: ast.NewIdent("Properties"),
 					Value: &properties,
 				}
-				resourceType := ast.Field{
-					Label: ast.NewIdent("Type"),
-					Value: ast.NewString(resourceName),
-				}
-				if resourceName == "AWS::CloudFormation::CustomResource" {
-					resourceType.Value = &ast.BinaryExpr{
-						X:  resourceType.Value,
-						Op: token.OR,
-						Y: &ast.UnaryExpr{
-							Op: token.MAT,
-							X:  &ast.BasicLit{Kind: token.STRING, Value: "#\"^Custom::[a-zA-Z0-9_@-]{1,60}$\"#"},
-						},
-					}
-				}
+				resourceType := resourceType(resourceName)
 				resourceElts := []ast.Decl{
-					&resourceType,
+					resourceType,
 					propertiesStruct,
-					&ast.Field{
-						Label:    ast.NewIdent("DependsOn"),
-						Optional: token.Elided.Pos(),
-						Value: &ast.BinaryExpr{
-							X:  ast.NewIdent("string"),
-							Op: token.OR,
-							Y:  ast.NewList(&ast.Ellipsis{Type: ast.NewIdent("string")}),
-						},
-					},
+					resourceDependsOn(),
 				}
 
-				switch resourceName {
-				case "AWS::AutoScaling::AutoScalingGroup", "AWS::EC2::Instance", "AWS::CloudFormation::WaitCondition":
-					resourceElts = append(resourceElts, &ast.Field{
-						Label:    ast.NewIdent("CreationPolicy"),
-						Optional: token.Elided.Pos(),
-						Value: &ast.StructLit{
-							Elts: []ast.Decl{
-								&ast.Field{
-									Label:    ast.NewIdent("AutoScalingCreationPolicy"),
-									Optional: token.Elided.Pos(),
-									Value: &ast.StructLit{
-										Elts: []ast.Decl{
-											&ast.Field{
-												Label:    ast.NewIdent("MinSuccessfulInstancesPercent"),
-												Optional: token.Elided.Pos(),
-												Value:    &ast.BasicLit{Value: "int"},
-											},
-										},
-									},
-								},
-								&ast.Field{
-									Label:    ast.NewIdent("ResourceSignal"),
-									Optional: token.Elided.Pos(),
-									Value: &ast.StructLit{
-										Elts: []ast.Decl{
-											&ast.Field{
-												Label:    ast.NewIdent("Count"),
-												Optional: token.Elided.Pos(),
-												Value:    &ast.BasicLit{Value: "int"},
-											},
-											&ast.Field{
-												Label:    ast.NewIdent("Timeout"),
-												Optional: token.Elided.Pos(),
-												Value:    &ast.BasicLit{Value: "string"},
-											},
-										},
-									},
-								},
-							},
-						},
-					})
+				for _, policy := range resourcePolicies(resourceName) {
+					resourceElts = append(resourceElts, policy)
 				}
-				deletionPolicyStrings := []string{"Delete", "Retain"}
-				switch resourceName {
-				case "AWS::EC2::Volume",
-					"AWS::ElastiCache::CacheCluster",
-					"AWS::ElastiCache::ReplicationGroup",
-					"AWS::Neptune::DBCluster",
-					"AWS::RDS::DBCluster",
-					"AWS::RDS::DBInstance",
-					"AWS::Redshift::Cluster":
-					deletionPolicyStrings = append(deletionPolicyStrings, "Snapshot")
-				}
-				var deletionPolicies ast.Expr
-				deletionPolicies = ast.NewString(deletionPolicyStrings[0])
 
-				for _, deletionPolicy := range deletionPolicyStrings[1:] {
-					deletionPolicies = &ast.BinaryExpr{X: deletionPolicies, Op: token.OR, Y: ast.NewString(deletionPolicy)}
-				}
-				resourceElts = append(resourceElts, &ast.Field{
-					Label:    ast.NewIdent("DeletionPolicy"),
-					Optional: token.Elided.Pos(),
-					Value:    deletionPolicies,
-				})
-				resourceElts = append(resourceElts, &ast.Field{
-					Label:    ast.NewIdent("UpdateReplacePolicy"),
-					Optional: token.Elided.Pos(),
-					Value:    deletionPolicies,
-				})
-
-				resourceElts = append(resourceElts, &ast.Field{
-					Label:    ast.NewIdent("Metadata"),
-					Optional: token.Elided.Pos(),
-					Value: &ast.StructLit{
-						Elts: []ast.Decl{
-							&ast.Field{
-								Label: ast.NewList(&ast.BasicLit{Value: "string"}),
-								Value: &ast.BasicLit{Value: "_"},
-							},
-						},
-					},
-				})
+				resourceElts = append(resourceElts, resourceMetadata())
 
 				f := &ast.Field{
 					Label: ast.NewIdent(resourceStr),
@@ -667,9 +969,9 @@ func main() {
 
 			servicePackage := path.Join("github.com/TangoGroup/aws/", shortRegion)
 
-			importDeclarations = append(importDeclarations,
-				ast.NewImport(ast.NewIdent(strings.ToLower(serviceName)),
-					servicePackage))
+			// importDeclarations = append(importDeclarations,
+			// 	ast.NewImport(ast.NewIdent(strings.ToLower(serviceName)),
+			// 		servicePackage))
 
 			folder := path.Join("pkg", servicePackage)
 
@@ -725,11 +1027,7 @@ func main() {
 					},
 				},
 			},
-			&ast.Field{
-				Label: ast.NewIdent("ResourceSpecificationVersion"),
-				Token: token.ISA,
-				Value: ast.NewString(spec.ResourceSpecificationVersion),
-			},
+			templateResourceSpecVersion(spec.ResourceSpecificationVersion),
 		}
 
 		// declarations = append(declarations, &ast.Field{
@@ -738,195 +1036,6 @@ func main() {
 		// 	Value: expr,
 		// })
 
-		baseParameterTypes := []string{
-			"String",
-			"Number",
-			"List<Number>",
-			"CommaDelimitedList",
-		}
-
-		awsParameterTypesMap := map[string]bool{
-			"AWS::EC2::AvailabilityZone::Name":   true,
-			"AWS::EC2::Image::Id":                true,
-			"AWS::EC2::Instance::Id":             true,
-			"AWS::EC2::KeyPair::KeyName":         false,
-			"AWS::EC2::SecurityGroup::GroupName": true,
-			"AWS::EC2::SecurityGroup::Id":        true,
-			"AWS::EC2::Subnet::Id":               true,
-			"AWS::EC2::Volume::Id":               true,
-			"AWS::EC2::VPC::Id":                  true,
-			"AWS::Route53::HostedZone::Id":       true,
-		}
-
-		awsParameterTypes := []string{}
-		for param := range awsParameterTypesMap {
-			awsParameterTypes = append(awsParameterTypes, param)
-		}
-
-		awsListParameterTypes := []string{}
-		for param, listType := range awsParameterTypesMap {
-			if listType {
-				awsListParameterTypes = append(awsListParameterTypes, "List<"+param+">")
-			}
-		}
-		ssmParameterTypes := []string{
-			"AWS::SSM::Parameter::Name",
-			"AWS::SSM::Parameter::Value<String>",
-			"AWS::SSM::Parameter::Value<List<String>>",
-			"AWS::SSM::Parameter::Value<CommaDelimitedList>",
-		}
-		for _, param := range awsParameterTypes {
-			ssmParameterTypes = append(ssmParameterTypes, "AWS::SSM::Parameter::Value<"+param+">")
-			ssmParameterTypes = append(ssmParameterTypes, "AWS::SSM::Parameter::Value<List<"+param+">>")
-		}
-
-		parameterTypes := []string{}
-		parameterTypes = append(parameterTypes, baseParameterTypes...)
-		parameterTypes = append(parameterTypes, awsParameterTypes...)
-		parameterTypes = append(parameterTypes, awsListParameterTypes...)
-		parameterTypes = append(parameterTypes, ssmParameterTypes...)
-		sort.Strings(parameterTypes)
-
-		parameterTypesExpr := make([]ast.Expr, 0, len(parameterTypes))
-
-		for _, param := range parameterTypes {
-			parameterTypesExpr = append(parameterTypesExpr, ast.NewString(param))
-		}
-
-		var parameterDisjunction ast.Expr
-
-		parameterDisjunction = parameterTypesExpr[0]
-
-		for _, param := range parameterTypesExpr[1:] {
-			parameterDisjunction = &ast.BinaryExpr{X: parameterDisjunction, Op: token.OR, Y: param}
-		}
-
-		// https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/format-version-structure.html
-		templateVersion := &ast.Field{
-			Label:    ast.NewIdent("AWSTemplateFormatVersion"),
-			Value:    ast.NewString("2010-09-09"),
-			Optional: token.Elided.Pos(),
-		}
-
-		// https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-description-structure.html
-		templateDescription := &ast.Field{
-			Label:    ast.NewIdent("Description"),
-			Value:    &ast.BasicLit{Value: "string"},
-			Optional: token.Elided.Pos(),
-		}
-
-		// https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/metadata-section-structure.html
-		templateMetadata := &ast.Field{
-			Label:    ast.NewIdent("Metadata"),
-			Optional: token.Elided.Pos(),
-			Value: &ast.StructLit{
-				Elts: []ast.Decl{
-					&ast.Field{
-						Label: ast.NewList(&ast.BasicLit{Value: "string"}),
-						Value: &ast.BasicLit{Value: "_"},
-					},
-				},
-			},
-		}
-
-		// https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/mappings-section-structure.html
-		templateMappings := &ast.Field{
-			Label:    ast.NewIdent("Mappings"),
-			Optional: token.Elided.Pos(),
-			Value: &ast.StructLit{
-				Elts: []ast.Decl{
-					&ast.Field{
-						Label: ast.NewList(&ast.BasicLit{Value: "string"}),
-						Value: &ast.StructLit{
-							Elts: []ast.Decl{
-								&ast.Field{
-									Label: ast.NewList(&ast.BasicLit{Value: "string"}),
-									Value: &ast.StructLit{
-										Elts: []ast.Decl{
-											&ast.Field{
-												Label: ast.NewList(&ast.UnaryExpr{Op: token.MAT, X: ast.NewString("[a-zA-Z0-9]")}),
-												Value: &ast.BinaryExpr{
-													X:  &ast.BasicLit{Value: "string"},
-													Op: token.OR,
-													Y:  ast.NewList(&ast.Ellipsis{Type: &ast.BasicLit{Value: "string"}}),
-												},
-											},
-										},
-									},
-								},
-							},
-						},
-					},
-				},
-			},
-		}
-		conditionsFunctions := []ast.Expr{
-			ast.NewSel(ast.NewIdent("fn"), "And"),
-			ast.NewSel(ast.NewIdent("fn"), "Equals"),
-			ast.NewSel(ast.NewIdent("fn"), "If"),
-			ast.NewSel(ast.NewIdent("fn"), "Not"),
-			ast.NewSel(ast.NewIdent("fn"), "Or"),
-		}
-		conditionsFunctionDisjunction := conditionsFunctions[0]
-		for _, function := range conditionsFunctions[1:] {
-			conditionsFunctionDisjunction = &ast.BinaryExpr{X: conditionsFunctionDisjunction, Op: token.OR, Y: function}
-		}
-		// https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/conditions-section-structure.html
-		templateConditions := &ast.Field{
-			Label:    ast.NewIdent("Conditions"),
-			Optional: token.Elided.Pos(),
-			Value: &ast.StructLit{
-				Elts: []ast.Decl{
-					&ast.Field{
-						Label: ast.NewList(&ast.BasicLit{Value: "string"}),
-						Value: conditionsFunctionDisjunction,
-					},
-				},
-			},
-		}
-		parameterProperties := [][]string{
-			{"AllowedPattern", "string"},
-			{"AllowedValues", "[...(string | number)]"},
-			{"ConstraintDescription", "string"},
-			{"Default", "string"},
-			{"Description", "string"},
-			{"MaxLength", "int"},
-			{"MaxValue", "int"},
-			{"MinLength", "int"},
-			{"MinValue", "int"},
-			{"NoEcho", "bool"},
-		}
-		parameterPropertiesFields := []ast.Decl{
-			&ast.Field{
-				Label: ast.NewIdent("Type"),
-				Value: parameterDisjunction,
-			},
-		}
-
-		for _, arr := range parameterProperties {
-			prop := arr[0]
-			propType := arr[1]
-			parameterPropertiesFields = append(parameterPropertiesFields, &ast.Field{
-				Label:    ast.NewIdent(prop),
-				Value:    &ast.BasicLit{Value: propType},
-				Optional: token.Elided.Pos(),
-			})
-		}
-		// https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/parameters-section-structure.html
-		templateParameters := &ast.Field{
-			Label:    ast.NewIdent("Parameters"),
-			Optional: token.Elided.Pos(),
-			Value: &ast.StructLit{
-				Elts: []ast.Decl{
-					&ast.Field{
-						Label: ast.NewList(&ast.UnaryExpr{Op: token.MAT, X: ast.NewString("[a-zA-Z0-9]")}),
-						Value: &ast.StructLit{
-							Elts: parameterPropertiesFields,
-						},
-					},
-				},
-			},
-		}
 		deletionPolicyStrings := []string{"Delete", "Retain", "Snapshot"}
 		var deletionPolicies ast.Expr
 		deletionPolicies = ast.NewString(deletionPolicyStrings[0])
@@ -1067,54 +1176,21 @@ func main() {
 		// }
 
 		// https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/outputs-section-structure.html
-		templateOutputs := &ast.Field{
-			Label:    ast.NewIdent("Outputs"),
-			Optional: token.Elided.Pos(),
-			Value: &ast.StructLit{
-				Elts: []ast.Decl{
-					&ast.Field{
-						Label: ast.NewList(&ast.UnaryExpr{Op: token.MAT, X: ast.NewString("[a-zA-Z0-9]")}),
-						Value: &ast.StructLit{
-							Elts: []ast.Decl{
-								&ast.Field{
-									Label:    ast.NewIdent("Description"),
-									Value:    &ast.BasicLit{Value: "string"},
-									Optional: token.Elided.Pos(),
-								},
-								&ast.Field{Label: ast.NewIdent("Value"), Value: &ast.BasicLit{Value: "_"}},
-								&ast.Field{
-									Label:    ast.NewIdent("Export"),
-									Optional: token.Elided.Pos(),
-									Value: &ast.StructLit{
-										Elts: []ast.Decl{
-											&ast.Field{
-												Label: ast.NewIdent("Name"),
-												Value: &ast.BasicLit{Value: "_"},
-											},
-										},
-									},
-								},
-							},
-						},
-					},
-				},
-			},
-		}
 
 		declarations = append(declarations, &ast.Field{
 			Label: ast.NewIdent("Template"),
 			Token: token.ISA,
 			Value: &ast.StructLit{
 				Elts: []ast.Decl{
-					templateVersion,
-					templateDescription,
-					templateMetadata,
-					templateMappings,
-					templateConditions,
-					templateParameters,
+					templateVersion(),
+					templateDescription(),
+					templateMetadata(),
+					templateMappings(),
+					templateConditions(),
+					templateParameters(),
 					templateResources,
 					// resourcesForLoop,
-					templateOutputs,
+					templateOutputs(),
 				},
 			},
 		})
