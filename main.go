@@ -884,7 +884,7 @@ func main() {
 		}
 		parameterProperties := [][]string{
 			{"AllowedPattern", "string"},
-			{"AllowedValues", "string"},
+			{"AllowedValues", "[...(string | number)]"},
 			{"ConstraintDescription", "string"},
 			{"Default", "string"},
 			{"Description", "string"},
