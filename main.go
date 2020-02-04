@@ -186,18 +186,20 @@ func createFieldFromProperty(name string, prop Property, resourceSubproperties m
 		if convertTypeToCUE(prop.getPrimitiveTypeString()) == "time.Time" {
 			imports["time"] = true
 		}
-		for _, constraint := range constraints {
-			val := &ast.BinaryExpr{
-				X:  value,
-				Op: token.AND,
-				Y: &ast.ParenExpr{
-					X: constraint,
-				},
-			}
-			value = val
-		}
 
 		if len(constraints) > 0 {
+			value = constraints[0]
+			for _, constraint := range constraints[1:] {
+				val := &ast.BinaryExpr{
+					X:  value,
+					Op: token.AND,
+					Y: &ast.ParenExpr{
+						X: constraint,
+					},
+				}
+				value = val
+			}
+
 			val := &ast.ParenExpr{
 				X: value,
 			}
