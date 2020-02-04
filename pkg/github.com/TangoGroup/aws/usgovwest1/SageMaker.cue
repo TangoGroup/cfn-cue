@@ -22,7 +22,7 @@ SageMaker :: {
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			}]
-			VolumeSizeInGB?: (int & (>=5 & <=16384)) | fn.Fn
+			VolumeSizeInGB?: (>=5 & <=16384) | fn.Fn
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

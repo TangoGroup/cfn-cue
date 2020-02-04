@@ -83,4 +83,75 @@ GameLift :: {
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
 	}
+	GameSessionQueue :: {
+		Type: "AWS::GameLift::GameSessionQueue"
+		Properties: {
+			Destinations?: [...{
+				DestinationArn?: string | fn.Fn
+			}]
+			Name: string | fn.Fn
+			PlayerLatencyPolicies?: [...{
+				MaximumIndividualPlayerLatencyMilliseconds?: int | fn.Fn
+				PolicyDurationSeconds?:                      int | fn.Fn
+			}]
+			TimeoutInSeconds?: int | fn.Fn
+		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+	}
+	MatchmakingConfiguration :: {
+		Type: "AWS::GameLift::MatchmakingConfiguration"
+		Properties: {
+			AcceptanceRequired:        bool | fn.Fn
+			AcceptanceTimeoutSeconds?: int | fn.Fn
+			AdditionalPlayerCount?:    int | fn.Fn
+			BackfillMode?:             string | fn.Fn
+			CustomEventData?:          string | fn.Fn
+			Description?:              string | fn.Fn
+			GameProperties?: [...{
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
+			}]
+			GameSessionData?:      string | fn.Fn
+			GameSessionQueueArns:  [...(string | fn.Fn)] | fn.Fn
+			Name:                  string | fn.Fn
+			NotificationTarget?:   string | fn.Fn
+			RequestTimeoutSeconds: int | fn.Fn
+			RuleSetName:           string | fn.Fn
+		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+	}
+	MatchmakingRuleSet :: {
+		Type: "AWS::GameLift::MatchmakingRuleSet"
+		Properties: {
+			Name:        string | fn.Fn
+			RuleSetBody: string | fn.Fn
+		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+	}
+	Script :: {
+		Type: "AWS::GameLift::Script"
+		Properties: {
+			Name?: string | fn.Fn
+			StorageLocation: {
+				Bucket:         string | fn.Fn
+				Key:            string | fn.Fn
+				ObjectVersion?: string | fn.Fn
+				RoleArn:        string | fn.Fn
+			}
+			Version?: string | fn.Fn
+		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+	}
 }

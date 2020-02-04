@@ -73,7 +73,7 @@ AppSync :: {
 				RelationalDatabaseSourceType: string | fn.Fn
 			}
 			ServiceRoleArn?: string | fn.Fn
-			Type:            (string & ("AMAZON_DYNAMODB" | "AMAZON_ELASTICSEARCH" | "AWS_LAMBDA" | "HTTP" | "NONE" | "RELATIONAL_DATABASE")) | fn.Fn
+			Type:            ("AMAZON_DYNAMODB" | "AMAZON_ELASTICSEARCH" | "AWS_LAMBDA" | "HTTP" | "NONE" | "RELATIONAL_DATABASE") | fn.Fn
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -115,7 +115,7 @@ AppSync :: {
 					UserPoolId?:       string | fn.Fn
 				}
 			}]
-			AuthenticationType: (string & ("AMAZON_COGNITO_USER_POOLS" | "API_KEY" | "AWS_IAM" | "OPENID_CONNECT")) | fn.Fn
+			AuthenticationType: ("AMAZON_COGNITO_USER_POOLS" | "API_KEY" | "AWS_IAM" | "OPENID_CONNECT") | fn.Fn
 			LogConfig?: {
 				CloudWatchLogsRoleArn?: string | fn.Fn
 				ExcludeVerboseContent?: bool | fn.Fn
@@ -138,6 +138,7 @@ AppSync :: {
 				DefaultAction?:    string | fn.Fn
 				UserPoolId?:       string | fn.Fn
 			}
+			XrayEnabled?: bool | fn.Fn
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -166,7 +167,7 @@ AppSync :: {
 			}
 			DataSourceName?: string | fn.Fn
 			FieldName:       string | fn.Fn
-			Kind?:           (string & ("PIPELINE" | "UNIT")) | fn.Fn
+			Kind?:           ("PIPELINE" | "UNIT") | fn.Fn
 			PipelineConfig?: Functions?: [...(string | fn.Fn)] | fn.Fn
 			RequestMappingTemplate?:            string | fn.Fn
 			RequestMappingTemplateS3Location?:  string | fn.Fn

@@ -129,6 +129,7 @@ IoTEvents :: {
 			}
 			DetectorModelDescription?: string | fn.Fn
 			DetectorModelName?:        string | fn.Fn
+			EvaluationMethod?:         string | fn.Fn
 			Key?:                      string | fn.Fn
 			RoleArn?:                  string | fn.Fn
 			Tags?: [...{

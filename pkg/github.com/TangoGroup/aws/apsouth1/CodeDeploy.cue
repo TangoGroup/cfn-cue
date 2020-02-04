@@ -7,7 +7,7 @@ CodeDeploy :: {
 		Type: "AWS::CodeDeploy::Application"
 		Properties: {
 			ApplicationName?: string | fn.Fn
-			ComputePlatform?: (string & ("ECS" | "Lambda" | "Server")) | fn.Fn
+			ComputePlatform?: ("ECS" | "Lambda" | "Server") | fn.Fn
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -19,7 +19,7 @@ CodeDeploy :: {
 		Properties: {
 			DeploymentConfigName?: string | fn.Fn
 			MinimumHealthyHosts?: {
-				Type:  (string & ("FLEET_PERCENT" | "HOST_COUNT")) | fn.Fn
+				Type:  ("FLEET_PERCENT" | "HOST_COUNT") | fn.Fn
 				Value: int | fn.Fn
 			}
 		}
@@ -41,7 +41,7 @@ CodeDeploy :: {
 			ApplicationName: string | fn.Fn
 			AutoRollbackConfiguration?: {
 				Enabled?: bool | fn.Fn
-				Events?:  [...((string & ("DEPLOYMENT_FAILURE" | "DEPLOYMENT_STOP_ON_ALARM" | "DEPLOYMENT_STOP_ON_REQUEST")) | fn.Fn)] | fn.Fn
+				Events?:  [...(("DEPLOYMENT_FAILURE" | "DEPLOYMENT_STOP_ON_ALARM" | "DEPLOYMENT_STOP_ON_REQUEST") | fn.Fn)] | fn.Fn
 			}
 			AutoScalingGroups?: [...(string | fn.Fn)] | fn.Fn
 			Deployment?: {
@@ -65,8 +65,8 @@ CodeDeploy :: {
 			DeploymentConfigName?: string | fn.Fn
 			DeploymentGroupName?:  string | fn.Fn
 			DeploymentStyle?: {
-				DeploymentOption?: (string & ("WITH_TRAFFIC_CONTROL" | "WITHOUT_TRAFFIC_CONTROL")) | fn.Fn
-				DeploymentType?:   (string & ("BLUE_GREEN" | "IN_PLACE")) | fn.Fn
+				DeploymentOption?: ("WITH_TRAFFIC_CONTROL" | "WITHOUT_TRAFFIC_CONTROL") | fn.Fn
+				DeploymentType?:   ("BLUE_GREEN" | "IN_PLACE") | fn.Fn
 			}
 			Ec2TagFilters?: [...{
 				Key?:   string | fn.Fn
@@ -102,7 +102,7 @@ CodeDeploy :: {
 			}]
 			ServiceRoleArn: string | fn.Fn
 			TriggerConfigurations?: [...{
-				TriggerEvents?:    [...((string & ("DeploymentFailure" | "DeploymentReady" | "DeploymentRollback" | "DeploymentStart" | "DeploymentStop" | "DeploymentSuccess" | "InstanceFailure" | "InstanceReady" | "InstanceStart" | "InstanceSuccess")) | fn.Fn)] | fn.Fn
+				TriggerEvents?:    [...(("DeploymentFailure" | "DeploymentReady" | "DeploymentRollback" | "DeploymentStart" | "DeploymentStop" | "DeploymentSuccess" | "InstanceFailure" | "InstanceReady" | "InstanceStart" | "InstanceSuccess") | fn.Fn)] | fn.Fn
 				TriggerName?:      string | fn.Fn
 				TriggerTargetArn?: string | fn.Fn
 			}]

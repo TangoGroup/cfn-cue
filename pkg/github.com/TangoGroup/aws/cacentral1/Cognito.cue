@@ -22,6 +22,10 @@ Cognito :: {
 	UserPool :: {
 		Type: "AWS::Cognito::UserPool"
 		Properties: {
+			AccountRecoverySetting?: RecoveryMechanisms?: [...{
+				Name?:     string | fn.Fn
+				Priority?: int | fn.Fn
+			}]
 			AdminCreateUserConfig?: {
 				AllowAdminCreateUserOnly?: bool | fn.Fn
 				InviteMessageTemplate?: {
@@ -31,8 +35,8 @@ Cognito :: {
 				}
 				UnusedAccountValidityDays?: int | fn.Fn
 			}
-			AliasAttributes?:        [...((string & ("email" | "phone_number" | "preferred_username")) | fn.Fn)] | fn.Fn
-			AutoVerifiedAttributes?: [...((string & ("email" | "phone_number")) | fn.Fn)] | fn.Fn
+			AliasAttributes?:        [...(("email" | "phone_number" | "preferred_username") | fn.Fn)] | fn.Fn
+			AutoVerifiedAttributes?: [...(("email" | "phone_number") | fn.Fn)] | fn.Fn
 			DeviceConfiguration?: {
 				ChallengeRequiredOnNewDevice?:     bool | fn.Fn
 				DeviceOnlyRememberedOnUserPrompt?: bool | fn.Fn
@@ -59,7 +63,7 @@ Cognito :: {
 				UserMigration?:               string | fn.Fn
 				VerifyAuthChallengeResponse?: string | fn.Fn
 			}
-			MfaConfiguration?: (string & ("OFF" | "ON" | "OPTIONAL")) | fn.Fn
+			MfaConfiguration?: ("OFF" | "ON" | "OPTIONAL") | fn.Fn
 			Policies?: PasswordPolicy?: {
 				MinimumLength?:                 int | fn.Fn
 				RequireLowercase?:              bool | fn.Fn
@@ -69,7 +73,7 @@ Cognito :: {
 				TemporaryPasswordValidityDays?: int | fn.Fn
 			}
 			Schema?: [...{
-				AttributeDataType?:      (string & ("Boolean" | "DateTime" | "Number" | "String")) | fn.Fn
+				AttributeDataType?:      ("Boolean" | "DateTime" | "Number" | "String") | fn.Fn
 				DeveloperOnlyAttribute?: bool | fn.Fn
 				Mutable?:                bool | fn.Fn
 				Name?:                   string | fn.Fn
@@ -94,7 +98,7 @@ Cognito :: {
 			UserPoolTags?: {
 				[string]: _
 			} | fn.Fn
-			UsernameAttributes?: [...((string & ("email" | "phone_number")) | fn.Fn)] | fn.Fn
+			UsernameAttributes?: [...(("email" | "phone_number") | fn.Fn)] | fn.Fn
 			VerificationMessageTemplate?: {
 				DefaultEmailOption?: string | fn.Fn
 				EmailMessage?:       string | fn.Fn
@@ -124,12 +128,12 @@ Cognito :: {
 			CallbackURLs?:               [...(string | fn.Fn)] | fn.Fn
 			ClientName?:                 string | fn.Fn
 			DefaultRedirectURI?:         string | fn.Fn
-			ExplicitAuthFlows?:          [...((string & ("ADMIN_NO_SRP_AUTH" | "CUSTOM_AUTH_FLOW_ONLY" | "USER_PASSWORD_AUTH" | "ALLOW_ADMIN_USER_PASSWORD_AUTH" | "ALLOW_CUSTOM_AUTH" | "ALLOW_USER_PASSWORD_AUTH" | "ALLOW_USER_SRP_AUTH" | "ALLOW_REFRESH_TOKEN_AUTH")) | fn.Fn)] | fn.Fn
+			ExplicitAuthFlows?:          [...(("ADMIN_NO_SRP_AUTH" | "CUSTOM_AUTH_FLOW_ONLY" | "USER_PASSWORD_AUTH" | "ALLOW_ADMIN_USER_PASSWORD_AUTH" | "ALLOW_CUSTOM_AUTH" | "ALLOW_USER_PASSWORD_AUTH" | "ALLOW_USER_SRP_AUTH" | "ALLOW_REFRESH_TOKEN_AUTH") | fn.Fn)] | fn.Fn
 			GenerateSecret?:             bool | fn.Fn
 			LogoutURLs?:                 [...(string | fn.Fn)] | fn.Fn
 			PreventUserExistenceErrors?: string | fn.Fn
 			ReadAttributes?:             [...(string | fn.Fn)] | fn.Fn
-			RefreshTokenValidity?:       (int & (>=0 & <=3650)) | fn.Fn
+			RefreshTokenValidity?:       (>=0 & <=3650) | fn.Fn
 			SupportedIdentityProviders?: [...(string | fn.Fn)] | fn.Fn
 			UserPoolId:                  string | fn.Fn
 			WriteAttributes?:            [...(string | fn.Fn)] | fn.Fn

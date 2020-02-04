@@ -70,13 +70,13 @@ ElastiCache :: {
 				Slots?:                    string | fn.Fn
 			}]
 			NotificationTopicArn?:       string | fn.Fn
-			NumCacheClusters?:           (int & (>=1 & <=6)) | fn.Fn
+			NumCacheClusters?:           (>=1 & <=6) | fn.Fn
 			NumNodeGroups?:              int | fn.Fn
 			Port?:                       int | fn.Fn
 			PreferredCacheClusterAZs?:   [...(string | fn.Fn)] | fn.Fn
 			PreferredMaintenanceWindow?: string | fn.Fn
 			PrimaryClusterId?:           string | fn.Fn
-			ReplicasPerNodeGroup?:       (int & (>=0 & <=5)) | fn.Fn
+			ReplicasPerNodeGroup?:       (>=0 & <=5) | fn.Fn
 			ReplicationGroupDescription: string | fn.Fn
 			ReplicationGroupId?:         string | fn.Fn
 			SecurityGroupIds?:           [...(string | fn.Fn)] | fn.Fn

@@ -15,8 +15,7 @@ DAX :: {
 			ParameterGroupName?:         string | fn.Fn
 			PreferredMaintenanceWindow?: string | fn.Fn
 			ReplicationFactor:           int | fn.Fn
-			SSESpecification?: {
-			}
+			SSESpecification?: SSEEnabled?: bool | fn.Fn
 			SecurityGroupIds?: [...(string | fn.Fn)] | fn.Fn
 			SubnetGroupName?:  string | fn.Fn
 			Tags?:             {

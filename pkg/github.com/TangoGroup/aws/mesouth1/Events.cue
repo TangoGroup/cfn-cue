@@ -14,7 +14,7 @@ Events :: {
 			Name?:               string | fn.Fn
 			RoleArn?:            string | fn.Fn
 			ScheduleExpression?: string | fn.Fn
-			State?:              (string & ("DISABLED" | "ENABLED")) | fn.Fn
+			State?:              ("DISABLED" | "ENABLED") | fn.Fn
 			Targets?: [...{
 				Arn: string | fn.Fn
 				BatchParameters?: {

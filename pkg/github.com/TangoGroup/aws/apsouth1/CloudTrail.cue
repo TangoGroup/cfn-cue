@@ -11,11 +11,11 @@ CloudTrail :: {
 			EnableLogFileValidation?:   bool | fn.Fn
 			EventSelectors?: [...{
 				DataResources?: [...{
-					Type:    (string & ("AWS::Lambda::Function" | "AWS::S3::Object")) | fn.Fn
+					Type:    ("AWS::Lambda::Function" | "AWS::S3::Object") | fn.Fn
 					Values?: [...(string | fn.Fn)] | fn.Fn
 				}]
 				IncludeManagementEvents?: bool | fn.Fn
-				ReadWriteType?:           (string & ("All" | "ReadOnly" | "WriteOnly")) | fn.Fn
+				ReadWriteType?:           ("All" | "ReadOnly" | "WriteOnly") | fn.Fn
 			}]
 			IncludeGlobalServiceEvents?: bool | fn.Fn
 			IsLogging:                   bool | fn.Fn

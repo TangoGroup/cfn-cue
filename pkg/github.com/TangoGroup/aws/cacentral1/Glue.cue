@@ -48,8 +48,8 @@ Glue :: {
 			Role:                          string | fn.Fn
 			Schedule?: ScheduleExpression?: string | fn.Fn
 			SchemaChangePolicy?: {
-				DeleteBehavior?: (string & ("DELETE_FROM_DATABASE" | "DEPRECATE_IN_DATABASE" | "LOG")) | fn.Fn
-				UpdateBehavior?: (string & ("LOG" | "UPDATE_IN_DATABASE")) | fn.Fn
+				DeleteBehavior?: ("DELETE_FROM_DATABASE" | "DEPRECATE_IN_DATABASE" | "LOG") | fn.Fn
+				UpdateBehavior?: ("LOG" | "UPDATE_IN_DATABASE") | fn.Fn
 			}
 			TablePrefix?: string | fn.Fn
 			Tags?:        {
@@ -147,7 +147,7 @@ Glue :: {
 			MaxRetries?:  float | fn.Fn
 			Name?:        string | fn.Fn
 			NotificationProperty?: NotifyDelayAfter?: int | fn.Fn
-			NumberOfWorkers?:       (int & (>=0 & <=299)) | fn.Fn
+			NumberOfWorkers?:       (>=0 & <=299) | fn.Fn
 			Role:                   string | fn.Fn
 			SecurityConfiguration?: string | fn.Fn
 			Tags?:                  {
@@ -172,7 +172,7 @@ Glue :: {
 				DatabaseName:    string | fn.Fn
 				TableName:       string | fn.Fn
 			}]
-			MaxCapacity?:     (float & (>=1 & <=100)) | fn.Fn
+			MaxCapacity?:     (>=1 & <=100) | fn.Fn
 			MaxRetries?:      int | fn.Fn
 			Name?:            string | fn.Fn
 			NumberOfWorkers?: int | fn.Fn
@@ -238,17 +238,17 @@ Glue :: {
 					CrawlState?:      string | fn.Fn
 					CrawlerName?:     string | fn.Fn
 					JobName?:         string | fn.Fn
-					LogicalOperator?: (string & ("EQUALS")) | fn.Fn
-					State?:           (string & ("SUCCEEDED")) | fn.Fn
+					LogicalOperator?: ("EQUALS") | fn.Fn
+					State?:           ("SUCCEEDED") | fn.Fn
 				}]
-				Logical?: (string & ("AND")) | fn.Fn
+				Logical?: ("AND") | fn.Fn
 			}
 			Schedule?:        string | fn.Fn
 			StartOnCreation?: bool | fn.Fn
 			Tags?:            {
 				[string]: _
 			} | fn.Fn
-			Type:          (string & ("CONDITIONAL" | "ON_DEMAND" | "SCHEDULED")) | fn.Fn
+			Type:          ("CONDITIONAL" | "ON_DEMAND" | "SCHEDULED") | fn.Fn
 			WorkflowName?: string | fn.Fn
 		}
 		DependsOn?:           string | [...string]

@@ -56,7 +56,7 @@ ServiceDiscovery :: {
 			DnsConfig?: {
 				DnsRecords: [...{
 					TTL:  float | fn.Fn
-					Type: (string & ("A" | "AAAA" | "SRV" | "CNAME")) | fn.Fn
+					Type: ("A" | "AAAA" | "SRV" | "CNAME") | fn.Fn
 				}]
 				NamespaceId?:   string | fn.Fn
 				RoutingPolicy?: string | fn.Fn
@@ -64,7 +64,7 @@ ServiceDiscovery :: {
 			HealthCheckConfig?: {
 				FailureThreshold?: float | fn.Fn
 				ResourcePath?:     string | fn.Fn
-				Type:              (string & ("HTTP" | "HTTPS" | "TCP")) | fn.Fn
+				Type:              ("HTTP" | "HTTPS" | "TCP") | fn.Fn
 			}
 			HealthCheckCustomConfig?: FailureThreshold?: float | fn.Fn
 			Name?:        string | fn.Fn

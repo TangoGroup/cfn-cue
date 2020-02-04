@@ -11,7 +11,7 @@ AutoScaling :: {
 			Cooldown?:                string | fn.Fn
 			DesiredCapacity?:         string | fn.Fn
 			HealthCheckGracePeriod?:  int | fn.Fn
-			HealthCheckType?:         (string & ("EC2" | "ELB")) | fn.Fn
+			HealthCheckType?:         ("EC2" | "ELB") | fn.Fn
 			InstanceId?:              string | fn.Fn
 			LaunchConfigurationName?: string | fn.Fn
 			LaunchTemplate?: {
@@ -20,10 +20,10 @@ AutoScaling :: {
 				Version:             string | fn.Fn
 			}
 			LifecycleHookSpecificationList?: [...{
-				DefaultResult?:         (string & ("ABANDON" | "CONTINUE")) | fn.Fn
+				DefaultResult?:         ("ABANDON" | "CONTINUE") | fn.Fn
 				HeartbeatTimeout?:      int | fn.Fn
 				LifecycleHookName:      string | fn.Fn
-				LifecycleTransition:    (string & ("autoscaling:EC2_INSTANCE_LAUNCHING" | "autoscaling:EC2_INSTANCE_TERMINATING")) | fn.Fn
+				LifecycleTransition:    ("autoscaling:EC2_INSTANCE_LAUNCHING" | "autoscaling:EC2_INSTANCE_TERMINATING") | fn.Fn
 				NotificationMetadata?:  string | fn.Fn
 				NotificationTargetARN?: string | fn.Fn
 				RoleARN?:               string | fn.Fn
@@ -51,7 +51,8 @@ AutoScaling :: {
 						Version:             string | fn.Fn
 					}
 					Overrides?: [...{
-						InstanceType?: string | fn.Fn
+						InstanceType?:     string | fn.Fn
+						WeightedCapacity?: string | fn.Fn
 					}]
 				}
 			}
@@ -94,7 +95,7 @@ AutoScaling :: {
 					Iops?:                int | fn.Fn
 					SnapshotId?:          string | fn.Fn
 					VolumeSize?:          int | fn.Fn
-					VolumeType?:          (string & ("gp2" | "io1" | "sc1" | "st1" | "standard")) | fn.Fn
+					VolumeType?:          ("gp2" | "io1" | "sc1" | "st1" | "standard") | fn.Fn
 				}
 				NoDevice?:    bool | fn.Fn
 				VirtualName?: string | fn.Fn
@@ -110,7 +111,7 @@ AutoScaling :: {
 			KernelId?:                     string | fn.Fn
 			KeyName?:                      string | fn.Fn
 			LaunchConfigurationName?:      string | fn.Fn
-			PlacementTenancy?:             (string & ("dedicated" | "default")) | fn.Fn
+			PlacementTenancy?:             ("dedicated" | "default") | fn.Fn
 			RamDiskId?:                    string | fn.Fn
 			SecurityGroups?:               [...(string | fn.Fn)] | fn.Fn
 			SpotPrice?:                    string | fn.Fn
@@ -125,10 +126,10 @@ AutoScaling :: {
 		Type: "AWS::AutoScaling::LifecycleHook"
 		Properties: {
 			AutoScalingGroupName:   string | fn.Fn
-			DefaultResult?:         (string & ("ABANDON" | "CONTINUE")) | fn.Fn
+			DefaultResult?:         ("ABANDON" | "CONTINUE") | fn.Fn
 			HeartbeatTimeout?:      int | fn.Fn
 			LifecycleHookName?:     string | fn.Fn
-			LifecycleTransition:    (string & ("autoscaling:EC2_INSTANCE_LAUNCHING" | "autoscaling:EC2_INSTANCE_TERMINATING")) | fn.Fn
+			LifecycleTransition:    ("autoscaling:EC2_INSTANCE_LAUNCHING" | "autoscaling:EC2_INSTANCE_TERMINATING") | fn.Fn
 			NotificationMetadata?:  string | fn.Fn
 			NotificationTargetARN?: string | fn.Fn
 			RoleARN?:               string | fn.Fn
@@ -141,13 +142,13 @@ AutoScaling :: {
 	ScalingPolicy :: {
 		Type: "AWS::AutoScaling::ScalingPolicy"
 		Properties: {
-			AdjustmentType?:          (string & ("ChangeInCapacity" | "ExactCapacity" | "PercentChangeInCapacity")) | fn.Fn
+			AdjustmentType?:          ("ChangeInCapacity" | "ExactCapacity" | "PercentChangeInCapacity") | fn.Fn
 			AutoScalingGroupName:     string | fn.Fn
 			Cooldown?:                string | fn.Fn
 			EstimatedInstanceWarmup?: int | fn.Fn
-			MetricAggregationType?:   (string & ("Average" | "Maximum" | "Minimum")) | fn.Fn
+			MetricAggregationType?:   ("Average" | "Maximum" | "Minimum") | fn.Fn
 			MinAdjustmentMagnitude?:  int | fn.Fn
-			PolicyType?:              (string & ("SimpleScaling" | "StepScaling" | "TargetTrackingScaling")) | fn.Fn
+			PolicyType?:              ("SimpleScaling" | "StepScaling" | "TargetTrackingScaling") | fn.Fn
 			ScalingAdjustment?:       int | fn.Fn
 			StepAdjustments?: [...{
 				MetricIntervalLowerBound?: float | fn.Fn
@@ -162,12 +163,12 @@ AutoScaling :: {
 					}]
 					MetricName: string | fn.Fn
 					Namespace:  string | fn.Fn
-					Statistic:  (string & ("Average" | "Minimum" | "Maximum" | "SampleCount" | "Sum")) | fn.Fn
+					Statistic:  ("Average" | "Minimum" | "Maximum" | "SampleCount" | "Sum") | fn.Fn
 					Unit?:      string | fn.Fn
 				}
 				DisableScaleIn?: bool | fn.Fn
 				PredefinedMetricSpecification?: {
-					PredefinedMetricType: (string & ("ALBRequestCountPerTarget" | "ASGAverageCPUUtilization" | "ASGAverageNetworkIn" | "ASGAverageNetworkOut")) | fn.Fn
+					PredefinedMetricType: ("ALBRequestCountPerTarget" | "ASGAverageCPUUtilization" | "ASGAverageNetworkIn" | "ASGAverageNetworkOut") | fn.Fn
 					ResourceLabel?:       string | fn.Fn
 				}
 				TargetValue: float | fn.Fn

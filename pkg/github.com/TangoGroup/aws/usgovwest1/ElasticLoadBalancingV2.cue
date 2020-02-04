@@ -51,7 +51,7 @@ ElasticLoadBalancingV2 :: {
 				Type:            string | fn.Fn
 			}]
 			LoadBalancerArn: string | fn.Fn
-			Port:            (int & (>=1 & <=65535)) | fn.Fn
+			Port:            (>=1 & <=65535) | fn.Fn
 			Protocol:        string | fn.Fn
 			SslPolicy?:      string | fn.Fn
 		}
@@ -172,12 +172,12 @@ ElasticLoadBalancingV2 :: {
 		Type: "AWS::ElasticLoadBalancingV2::TargetGroup"
 		Properties: {
 			HealthCheckEnabled?:         bool | fn.Fn
-			HealthCheckIntervalSeconds?: (int & (>=5 & <=300)) | fn.Fn
+			HealthCheckIntervalSeconds?: (>=5 & <=300) | fn.Fn
 			HealthCheckPath?:            string | fn.Fn
 			HealthCheckPort?:            string | fn.Fn
 			HealthCheckProtocol?:        string | fn.Fn
-			HealthCheckTimeoutSeconds?:  (int & (>=2 & <=120)) | fn.Fn
-			HealthyThresholdCount?:      (int & (>=2 & <=10)) | fn.Fn
+			HealthCheckTimeoutSeconds?:  (>=2 & <=120) | fn.Fn
+			HealthyThresholdCount?:      (>=2 & <=10) | fn.Fn
 			Matcher?: HttpCode: string | fn.Fn
 			Name?:     string | fn.Fn
 			Port?:     int | fn.Fn
@@ -196,7 +196,7 @@ ElasticLoadBalancingV2 :: {
 				Id:                string | fn.Fn
 				Port?:             int | fn.Fn
 			}]
-			UnhealthyThresholdCount?: (int & (>=2 & <=10)) | fn.Fn
+			UnhealthyThresholdCount?: (>=2 & <=10) | fn.Fn
 			VpcId?:                   string | fn.Fn
 		}
 		DependsOn?:           string | [...string]

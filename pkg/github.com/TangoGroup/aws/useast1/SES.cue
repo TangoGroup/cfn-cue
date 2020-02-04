@@ -94,7 +94,7 @@ SES :: {
 				Name?:        string | fn.Fn
 				Recipients?:  [...(string | fn.Fn)] | fn.Fn
 				ScanEnabled?: bool | fn.Fn
-				TlsPolicy?:   (string & ("Optional" | "Require")) | fn.Fn
+				TlsPolicy?:   ("Optional" | "Require") | fn.Fn
 			}
 			RuleSetName: string | fn.Fn
 		}

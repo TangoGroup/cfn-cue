@@ -36,9 +36,9 @@ ElasticLoadBalancing :: {
 				PolicyName?:             string | fn.Fn
 			}]
 			Listeners: [...{
-				InstancePort:      (string & (>=1 & <=65535)) | fn.Fn
+				InstancePort:      (>=1 & <=65535) | fn.Fn
 				InstanceProtocol?: string | fn.Fn
-				LoadBalancerPort:  (string & (>=1 & <=65535)) | fn.Fn
+				LoadBalancerPort:  (>=1 & <=65535) | fn.Fn
 				PolicyNames?:      [...(string | fn.Fn)] | fn.Fn
 				Protocol:          string | fn.Fn
 				SSLCertificateId?: string | fn.Fn

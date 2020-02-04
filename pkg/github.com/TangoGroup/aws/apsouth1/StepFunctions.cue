@@ -8,6 +8,8 @@ StepFunctions :: {
 		Properties: {
 			Name: string | fn.Fn
 			Tags?: [...{
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
 			}]
 		}
 		DependsOn?:           string | [...string]
@@ -18,10 +20,20 @@ StepFunctions :: {
 	StateMachine :: {
 		Type: "AWS::StepFunctions::StateMachine"
 		Properties: {
-			DefinitionString:  string | fn.Fn
+			DefinitionString: string | fn.Fn
+			LoggingConfiguration?: {
+				Destinations?: [...{
+					CloudWatchLogsLogGroup?: LogGroupArn: string | fn.Fn
+				}]
+				IncludeExecutionData?: bool | fn.Fn
+				Level?:                string | fn.Fn
+			}
 			RoleArn:           string | fn.Fn
 			StateMachineName?: string | fn.Fn
+			StateMachineType?: string | fn.Fn
 			Tags?: [...{
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
 			}]
 		}
 		DependsOn?:           string | [...string]

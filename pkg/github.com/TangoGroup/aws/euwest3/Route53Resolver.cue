@@ -6,8 +6,10 @@ Route53Resolver :: {
 	ResolverEndpoint :: {
 		Type: "AWS::Route53Resolver::ResolverEndpoint"
 		Properties: {
-			Direction: string | fn.Fn
+			Direction: ("INBOUND" | "OUTBOUND") | fn.Fn
 			IpAddresses: [...{
+				Ip?:      string | fn.Fn
+				SubnetId: string | fn.Fn
 			}]
 			Name?:            string | fn.Fn
 			SecurityGroupIds: [...(string | fn.Fn)] | fn.Fn
@@ -27,12 +29,14 @@ Route53Resolver :: {
 			DomainName:          string | fn.Fn
 			Name?:               string | fn.Fn
 			ResolverEndpointId?: string | fn.Fn
-			RuleType:            string | fn.Fn
+			RuleType:            ("FORWARD" | "RECURSIVE" | "SYSTEM") | fn.Fn
 			Tags?: [...{
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			}]
 			TargetIps?: [...{
+				Ip:    string | fn.Fn
+				Port?: string | fn.Fn
 			}]
 		}
 		DependsOn?:           string | [...string]

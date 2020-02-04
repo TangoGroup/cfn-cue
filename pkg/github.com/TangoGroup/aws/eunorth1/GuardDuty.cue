@@ -21,9 +21,19 @@ GuardDuty :: {
 			Description: string | fn.Fn
 			DetectorId:  string | fn.Fn
 			FindingCriteria: {
+				Criterion?: {
+					[string]: _
+				} | fn.Fn
+				ItemType?: {
+					Eq?:  [...(string | fn.Fn)] | fn.Fn
+					Gte?: int | fn.Fn
+					Lt?:  int | fn.Fn
+					Lte?: int | fn.Fn
+					Neq?: [...(string | fn.Fn)] | fn.Fn
+				}
 			}
-			Name?: string | fn.Fn
-			Rank:  int | fn.Fn
+			Name: string | fn.Fn
+			Rank: int | fn.Fn
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

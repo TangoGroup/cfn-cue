@@ -28,8 +28,8 @@ DMS :: {
 				ServiceAccessRoleArn?:    string | fn.Fn
 			}
 			EndpointIdentifier?:        string | fn.Fn
-			EndpointType:               (string & ("source" | "target")) | fn.Fn
-			EngineName:                 (string & ("aurora-postgresql" | "aurora" | "azuredb" | "db2" | "dynamodb" | "mariadb" | "mongodb" | "mysql" | "oracle" | "postgres" | "redshift" | "s3" | "sqlserver" | "sybase")) | fn.Fn
+			EndpointType:               ("source" | "target") | fn.Fn
+			EngineName:                 ("aurora-postgresql" | "aurora" | "azuredb" | "db2" | "dynamodb" | "mariadb" | "mongodb" | "mysql" | "oracle" | "postgres" | "redshift" | "s3" | "sqlserver" | "sybase") | fn.Fn
 			ExtraConnectionAttributes?: string | fn.Fn
 			KinesisSettings?: {
 				MessageFormat?:        string | fn.Fn
@@ -62,7 +62,7 @@ DMS :: {
 				ServiceAccessRoleArn?:    string | fn.Fn
 			}
 			ServerName?: string | fn.Fn
-			SslMode?:    (string & ("none" | "require" | "verify-ca" | "verify-full")) | fn.Fn
+			SslMode?:    ("none" | "require" | "verify-ca" | "verify-full") | fn.Fn
 			Tags?: [...{
 				Key:   string | fn.Fn
 				Value: string | fn.Fn

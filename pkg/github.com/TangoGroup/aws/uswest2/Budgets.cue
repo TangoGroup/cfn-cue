@@ -12,7 +12,7 @@ Budgets :: {
 					Unit:   string | fn.Fn
 				}
 				BudgetName?:  string | fn.Fn
-				BudgetType:   (string & ("COST" | "RI_COVERAGE" | "RI_UTILIZATION" | "USAGE")) | fn.Fn
+				BudgetType:   ("COST" | "RI_COVERAGE" | "RI_UTILIZATION" | "USAGE") | fn.Fn
 				CostFilters?: {
 					[string]: _
 				} | fn.Fn
@@ -36,18 +36,18 @@ Budgets :: {
 					End?:   string | fn.Fn
 					Start?: string | fn.Fn
 				}
-				TimeUnit: (string & ("ANNUALLY" | "DAILY" | "MONTHLY" | "QUARTERLY")) | fn.Fn
+				TimeUnit: ("ANNUALLY" | "DAILY" | "MONTHLY" | "QUARTERLY") | fn.Fn
 			}
 			NotificationsWithSubscribers?: [...{
 				Notification: {
-					ComparisonOperator: (string & ("EQUAL_TO" | "GREATER_THAN" | "LESS_THAN")) | fn.Fn
-					NotificationType:   (string & ("ACTUAL" | "FORECASTED")) | fn.Fn
-					Threshold:          (float & (>=0.1 & <=1000000000)) | fn.Fn
-					ThresholdType?:     (string & ("ABSOLUTE_VALUE" | "PERCENTAGE")) | fn.Fn
+					ComparisonOperator: ("EQUAL_TO" | "GREATER_THAN" | "LESS_THAN") | fn.Fn
+					NotificationType:   ("ACTUAL" | "FORECASTED") | fn.Fn
+					Threshold:          (>=0.1 & <=1000000000) | fn.Fn
+					ThresholdType?:     ("ABSOLUTE_VALUE" | "PERCENTAGE") | fn.Fn
 				}
 				Subscribers: [...{
 					Address:          string | fn.Fn
-					SubscriptionType: (string & ("EMAIL" | "SNS")) | fn.Fn
+					SubscriptionType: ("EMAIL" | "SNS") | fn.Fn
 				}]
 			}]
 		}

@@ -17,10 +17,10 @@ Events :: {
 	EventBusPolicy :: {
 		Type: "AWS::Events::EventBusPolicy"
 		Properties: {
-			Action: (string & ("events:PutEvents")) | fn.Fn
+			Action: ("events:PutEvents") | fn.Fn
 			Condition?: {
-				Key?:   (string & ("aws:PrincipalOrgID")) | fn.Fn
-				Type?:  (string & ("StringEquals")) | fn.Fn
+				Key?:   ("aws:PrincipalOrgID") | fn.Fn
+				Type?:  ("StringEquals") | fn.Fn
 				Value?: string | fn.Fn
 			}
 			EventBusName?: string | fn.Fn
@@ -43,7 +43,7 @@ Events :: {
 			Name?:               string | fn.Fn
 			RoleArn?:            string | fn.Fn
 			ScheduleExpression?: string | fn.Fn
-			State?:              (string & ("DISABLED" | "ENABLED")) | fn.Fn
+			State?:              ("DISABLED" | "ENABLED") | fn.Fn
 			Targets?: [...{
 				Arn: string | fn.Fn
 				BatchParameters?: {

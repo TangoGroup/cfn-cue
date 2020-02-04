@@ -36,8 +36,8 @@ S3 :: {
 	Bucket :: {
 		Type: "AWS::S3::Bucket"
 		Properties: {
-			AccelerateConfiguration?: AccelerationStatus: (string & ("Enabled" | "Suspended")) | fn.Fn
-			AccessControl?: (string & ("AuthenticatedRead" | "AwsExecRead" | "BucketOwnerFullControl" | "BucketOwnerRead" | "LogDeliveryWrite" | "Private" | "PublicRead" | "PublicReadWrite")) | fn.Fn
+			AccelerateConfiguration?: AccelerationStatus: ("Enabled" | "Suspended") | fn.Fn
+			AccessControl?: ("AuthenticatedRead" | "AwsExecRead" | "BucketOwnerFullControl" | "BucketOwnerRead" | "LogDeliveryWrite" | "Private" | "PublicRead" | "PublicReadWrite") | fn.Fn
 			AnalyticsConfigurations?: [...{
 				Id:      string | fn.Fn
 				Prefix?: string | fn.Fn
@@ -58,10 +58,10 @@ S3 :: {
 			BucketEncryption?: ServerSideEncryptionConfiguration: [...{
 				ServerSideEncryptionByDefault?: {
 					KMSMasterKeyID?: string | fn.Fn
-					SSEAlgorithm:    (string & ("AES256" | "aws:kms")) | fn.Fn
+					SSEAlgorithm:    ("AES256" | "aws:kms") | fn.Fn
 				}
 			}]
-			BucketName?: (string & (strings.MinRunes(3) & strings.MaxRunes(63)) & (=~#"^[a-z0-9][a-z0-9.-]*[a-z0-9]$"#)) | fn.Fn
+			BucketName?: (strings.MinRunes(3) & strings.MaxRunes(63) & (=~#"^[a-z0-9][a-z0-9.-]*[a-z0-9]$"#)) | fn.Fn
 			CorsConfiguration?: CorsRules: [...{
 				AllowedHeaders?: [...(string | fn.Fn)] | fn.Fn
 				AllowedMethods:  [...(string | fn.Fn)] | fn.Fn
@@ -145,7 +145,7 @@ S3 :: {
 					Queue: string | fn.Fn
 				}]
 				TopicConfigurations?: [...{
-					Event: (string & ("s3:ObjectCreated:*" | "s3:ObjectCreated:CompleteMultipartUpload" | "s3:ObjectCreated:Copy" | "s3:ObjectCreated:Post" | "s3:ObjectCreated:Put" | "s3:ObjectRemoved:*" | "s3:ObjectRemoved:Delete" | "s3:ObjectRemoved:DeleteMarkerCreated" | "s3:ObjectRestore:Completed" | "s3:ObjectRestore:Post" | "s3:ReducedRedundancyLostObject")) | fn.Fn
+					Event: ("s3:ObjectCreated:*" | "s3:ObjectCreated:CompleteMultipartUpload" | "s3:ObjectCreated:Copy" | "s3:ObjectCreated:Post" | "s3:ObjectCreated:Put" | "s3:ObjectRemoved:*" | "s3:ObjectRemoved:Delete" | "s3:ObjectRemoved:DeleteMarkerCreated" | "s3:ObjectRestore:Completed" | "s3:ObjectRestore:Post" | "s3:ReducedRedundancyLostObject") | fn.Fn
 					Filter?: S3Key: Rules: [...{
 						Name:  string | fn.Fn
 						Value: string | fn.Fn
@@ -169,7 +169,7 @@ S3 :: {
 				RestrictPublicBuckets?: bool | fn.Fn
 			}
 			ReplicationConfiguration?: {
-				Role: (string & (=~#"arn:(aws[a-zA-Z-]*)?:iam::\d{12}:role/[a-zA-Z_0-9+=,.@\-_/]+"#)) | fn.Fn
+				Role: (=~#"arn:(aws[a-zA-Z-]*)?:iam::\d{12}:role/[a-zA-Z_0-9+=,.@\-_/]+"#) | fn.Fn
 				Rules: [...{
 					Destination: {
 						AccessControlTranslation?: Owner: string | fn.Fn
@@ -188,13 +188,13 @@ S3 :: {
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			}]
-			VersioningConfiguration?: Status: (string & ("Enabled" | "Suspended")) | fn.Fn
+			VersioningConfiguration?: Status: ("Enabled" | "Suspended") | fn.Fn
 			WebsiteConfiguration?: {
 				ErrorDocument?: string | fn.Fn
 				IndexDocument?: string | fn.Fn
 				RedirectAllRequestsTo?: {
 					HostName:  string | fn.Fn
-					Protocol?: (string & ("http" | "https")) | fn.Fn
+					Protocol?: ("http" | "https") | fn.Fn
 				}
 				RoutingRules?: [...{
 					RedirectRule: {

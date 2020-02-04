@@ -17,9 +17,9 @@ WorkSpaces :: {
 			UserVolumeEncryptionEnabled?: bool | fn.Fn
 			VolumeEncryptionKey?:         string | fn.Fn
 			WorkspaceProperties?: {
-				ComputeTypeName?:                     (string & ("GRAPHICS" | "PERFORMANCE" | "POWER" | "STANDARD" | "VALUE")) | fn.Fn
+				ComputeTypeName?:                     ("GRAPHICS" | "PERFORMANCE" | "POWER" | "STANDARD" | "VALUE") | fn.Fn
 				RootVolumeSizeGib?:                   int | fn.Fn
-				RunningMode?:                         (string & ("ALWAYS_ON" | "AUTO_STOP")) | fn.Fn
+				RunningMode?:                         ("ALWAYS_ON" | "AUTO_STOP") | fn.Fn
 				RunningModeAutoStopTimeoutInMinutes?: int | fn.Fn
 				UserVolumeSizeGib?:                   int | fn.Fn
 			}

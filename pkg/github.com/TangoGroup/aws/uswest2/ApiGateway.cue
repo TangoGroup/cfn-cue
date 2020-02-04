@@ -39,14 +39,14 @@ ApiGateway :: {
 		Properties: {
 			AuthType?:                     string | fn.Fn
 			AuthorizerCredentials?:        string | fn.Fn
-			AuthorizerResultTtlInSeconds?: (int & (>=0 & <=3600)) | fn.Fn
+			AuthorizerResultTtlInSeconds?: (>=0 & <=3600) | fn.Fn
 			AuthorizerUri?:                string | fn.Fn
 			IdentitySource?:               string | fn.Fn
 			IdentityValidationExpression?: string | fn.Fn
 			Name?:                         string | fn.Fn
 			ProviderARNs?:                 [...(string | fn.Fn)] | fn.Fn
 			RestApiId:                     string | fn.Fn
-			Type:                          (string & ("COGNITO_USER_POOLS" | "REQUEST" | "TOKEN")) | fn.Fn
+			Type:                          ("COGNITO_USER_POOLS" | "REQUEST" | "TOKEN") | fn.Fn
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -192,7 +192,7 @@ ApiGateway :: {
 		Properties: {
 			ResponseParameters?: [string]: string | fn.Fn
 			ResponseTemplates?: [string]:  string | fn.Fn
-			ResponseType: (string & ("ACCESS_DENIED" | "API_CONFIGURATION_ERROR" | "AUTHORIZER_FAILURE" | "AUTHORIZER_CONFIGURATION_ERROR" | "BAD_REQUEST_PARAMETERS" | "BAD_REQUEST_BODY" | "DEFAULT_4XX" | "DEFAULT_5XX" | "EXPIRED_TOKEN" | "INVALID_SIGNATURE" | "INTEGRATION_FAILURE" | "INTEGRATION_TIMEOUT" | "INVALID_API_KEY" | "MISSING_AUTHENTICATION_TOKEN" | "QUOTA_EXCEEDED" | "REQUEST_TOO_LARGE" | "RESOURCE_NOT_FOUND" | "THROTTLED" | "UNAUTHORIZED" | "UNSUPPORTED_MEDIA_TYPE")) | fn.Fn
+			ResponseType: ("ACCESS_DENIED" | "API_CONFIGURATION_ERROR" | "AUTHORIZER_FAILURE" | "AUTHORIZER_CONFIGURATION_ERROR" | "BAD_REQUEST_PARAMETERS" | "BAD_REQUEST_BODY" | "DEFAULT_4XX" | "DEFAULT_5XX" | "EXPIRED_TOKEN" | "INVALID_SIGNATURE" | "INTEGRATION_FAILURE" | "INTEGRATION_TIMEOUT" | "INVALID_API_KEY" | "MISSING_AUTHENTICATION_TOKEN" | "QUOTA_EXCEEDED" | "REQUEST_TOO_LARGE" | "RESOURCE_NOT_FOUND" | "THROTTLED" | "UNAUTHORIZED" | "UNSUPPORTED_MEDIA_TYPE") | fn.Fn
 			RestApiId:    string | fn.Fn
 			StatusCode?:  string | fn.Fn
 		}
@@ -292,7 +292,7 @@ ApiGateway :: {
 	RestApi :: {
 		Type: "AWS::ApiGateway::RestApi"
 		Properties: {
-			ApiKeySourceType?: (string & ("AUTHORIZER" | "HEADER")) | fn.Fn
+			ApiKeySourceType?: ("AUTHORIZER" | "HEADER") | fn.Fn
 			BinaryMediaTypes?: [...(string | fn.Fn)] | fn.Fn
 			Body?:             {
 				[string]: _
@@ -407,7 +407,7 @@ ApiGateway :: {
 		Type: "AWS::ApiGateway::UsagePlanKey"
 		Properties: {
 			KeyId:       string | fn.Fn
-			KeyType:     (string & ("API_KEY")) | fn.Fn
+			KeyType:     ("API_KEY") | fn.Fn
 			UsagePlanId: string | fn.Fn
 		}
 		DependsOn?:           string | [...string]

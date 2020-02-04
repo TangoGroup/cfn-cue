@@ -6,7 +6,12 @@ Transfer :: {
 	Server :: {
 		Type: "AWS::Transfer::Server"
 		Properties: {
-			EndpointDetails?: VpcEndpointId: string | fn.Fn
+			EndpointDetails?: {
+				AddressAllocationIds?: [...(string | fn.Fn)] | fn.Fn
+				SubnetIds?:            [...(string | fn.Fn)] | fn.Fn
+				VpcEndpointId?:        string | fn.Fn
+				VpcId?:                string | fn.Fn
+			}
 			EndpointType?: string | fn.Fn
 			IdentityProviderDetails?: {
 				InvocationRole: string | fn.Fn
@@ -28,10 +33,15 @@ Transfer :: {
 		Type: "AWS::Transfer::User"
 		Properties: {
 			HomeDirectory?: string | fn.Fn
-			Policy?:        string | fn.Fn
-			Role:           string | fn.Fn
-			ServerId:       string | fn.Fn
-			SshPublicKeys?: [...(string | fn.Fn)] | fn.Fn
+			HomeDirectoryMappings?: [...{
+				Entry:  string | fn.Fn
+				Target: string | fn.Fn
+			}]
+			HomeDirectoryType?: string | fn.Fn
+			Policy?:            string | fn.Fn
+			Role:               string | fn.Fn
+			ServerId:           string | fn.Fn
+			SshPublicKeys?:     [...(string | fn.Fn)] | fn.Fn
 			Tags?: [...{
 				Key:   string | fn.Fn
 				Value: string | fn.Fn

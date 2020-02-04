@@ -48,9 +48,9 @@ SSM :: {
 		Type: "AWS::SSM::MaintenanceWindow"
 		Properties: {
 			AllowUnassociatedTargets: bool | fn.Fn
-			Cutoff:                   (int & (>=0 & <=23)) | fn.Fn
+			Cutoff:                   (>=0 & <=23) | fn.Fn
 			Description?:             string | fn.Fn
-			Duration:                 (int & (>=1 & <=24)) | fn.Fn
+			Duration:                 (>=1 & <=24) | fn.Fn
 			EndDate?:                 string | fn.Fn
 			Name:                     string | fn.Fn
 			Schedule:                 string | fn.Fn
@@ -87,12 +87,29 @@ SSM :: {
 	ResourceDataSync :: {
 		Type: "AWS::SSM::ResourceDataSync"
 		Properties: {
-			BucketName:    string | fn.Fn
+			BucketName?:   string | fn.Fn
 			BucketPrefix?: string | fn.Fn
-			BucketRegion:  string | fn.Fn
+			BucketRegion?: string | fn.Fn
 			KMSKeyArn?:    string | fn.Fn
-			SyncFormat:    string | fn.Fn
-			SyncName:      string | fn.Fn
+			S3Destination?: {
+				BucketName:    string | fn.Fn
+				BucketPrefix?: string | fn.Fn
+				BucketRegion:  string | fn.Fn
+				KMSKeyArn?:    string | fn.Fn
+				SyncFormat:    string | fn.Fn
+			}
+			SyncFormat?: string | fn.Fn
+			SyncName:    string | fn.Fn
+			SyncSource?: {
+				AwsOrganizationsSource?: {
+					OrganizationSourceType: string | fn.Fn
+					OrganizationalUnits?:   [...(string | fn.Fn)] | fn.Fn
+				}
+				IncludeFutureRegions?: bool | fn.Fn
+				SourceRegions:         [...(string | fn.Fn)] | fn.Fn
+				SourceType:            string | fn.Fn
+			}
+			SyncType?: string | fn.Fn
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

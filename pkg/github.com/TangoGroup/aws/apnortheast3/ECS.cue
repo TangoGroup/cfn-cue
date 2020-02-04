@@ -33,7 +33,7 @@ ECS :: {
 			DesiredCount?:                  int | fn.Fn
 			EnableECSManagedTags?:          bool | fn.Fn
 			HealthCheckGracePeriodSeconds?: int | fn.Fn
-			LaunchType?:                    (string & ("EC2" | "FARGATE")) | fn.Fn
+			LaunchType?:                    ("EC2" | "FARGATE") | fn.Fn
 			LoadBalancers?: [...{
 				ContainerName?:    string | fn.Fn
 				ContainerPort:     int | fn.Fn
@@ -56,7 +56,7 @@ ECS :: {
 			PlatformVersion?:    string | fn.Fn
 			PropagateTags?:      string | fn.Fn
 			Role?:               string | fn.Fn
-			SchedulingStrategy?: (string & ("DAEMON" | "REPLICA")) | fn.Fn
+			SchedulingStrategy?: ("DAEMON" | "REPLICA") | fn.Fn
 			ServiceName?:        string | fn.Fn
 			ServiceRegistries?: [...{
 				ContainerName?: string | fn.Fn
@@ -187,7 +187,7 @@ ECS :: {
 				WorkingDirectory?: string | fn.Fn
 			}]
 			Cpu?:              string | fn.Fn
-			ExecutionRoleArn?: (string & (=~#"arn:(aws[a-zA-Z-]*)?:iam::\d{12}:role/[a-zA-Z_0-9+=,.@\-_/]+"#)) | fn.Fn
+			ExecutionRoleArn?: (=~#"arn:(aws[a-zA-Z-]*)?:iam::\d{12}:role/[a-zA-Z_0-9+=,.@\-_/]+"#) | fn.Fn
 			Family?:           string | fn.Fn
 			InferenceAccelerators?: [...{
 				DeviceName?:   string | fn.Fn
@@ -196,7 +196,7 @@ ECS :: {
 			}]
 			IpcMode?:     string | fn.Fn
 			Memory?:      string | fn.Fn
-			NetworkMode?: (string & ("awsvpc" | "bridge" | "host" | "none")) | fn.Fn
+			NetworkMode?: ("awsvpc" | "bridge" | "host" | "none") | fn.Fn
 			PidMode?:     string | fn.Fn
 			PlacementConstraints?: [...{
 				Expression?: string | fn.Fn
@@ -208,7 +208,7 @@ ECS :: {
 					Name?:  string | fn.Fn
 					Value?: string | fn.Fn
 				}]
-				Type?: (string & ("APPMESH")) | fn.Fn
+				Type?: ("APPMESH") | fn.Fn
 			}
 			RequiresCompatibilities?: [...(string | fn.Fn)] | fn.Fn
 			Tags?: [...{

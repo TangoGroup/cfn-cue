@@ -8,6 +8,9 @@ SageMaker :: {
 		Properties: {
 			CodeRepositoryName?: string | fn.Fn
 			GitConfig: {
+				Branch?:       string | fn.Fn
+				RepositoryUrl: string | fn.Fn
+				SecretArn?:    string | fn.Fn
 			}
 		}
 		DependsOn?:           string | [...string]
@@ -21,6 +24,7 @@ SageMaker :: {
 			EndpointConfigName: string | fn.Fn
 			EndpointName?:      string | fn.Fn
 			ExcludeRetainedVariantProperties?: [...{
+				VariantPropertyType?: string | fn.Fn
 			}]
 			RetainAllVariantProperties?: bool | fn.Fn
 			Tags?: [...{
@@ -39,6 +43,12 @@ SageMaker :: {
 			EndpointConfigName?: string | fn.Fn
 			KmsKeyId?:           string | fn.Fn
 			ProductionVariants: [...{
+				AcceleratorType?:     string | fn.Fn
+				InitialInstanceCount: int | fn.Fn
+				InitialVariantWeight: float | fn.Fn
+				InstanceType:         string | fn.Fn
+				ModelName:            string | fn.Fn
+				VariantName:          string | fn.Fn
 			}]
 			Tags?: [...{
 				Key:   string | fn.Fn
@@ -54,16 +64,32 @@ SageMaker :: {
 		Type: "AWS::SageMaker::Model"
 		Properties: {
 			Containers?: [...{
+				ContainerHostname?: string | fn.Fn
+				Environment?:       {
+					[string]: _
+				} | fn.Fn
+				Image:         string | fn.Fn
+				Mode?:         string | fn.Fn
+				ModelDataUrl?: string | fn.Fn
 			}]
 			ExecutionRoleArn: string | fn.Fn
 			ModelName?:       string | fn.Fn
 			PrimaryContainer?: {
+				ContainerHostname?: string | fn.Fn
+				Environment?:       {
+					[string]: _
+				} | fn.Fn
+				Image:         string | fn.Fn
+				Mode?:         string | fn.Fn
+				ModelDataUrl?: string | fn.Fn
 			}
 			Tags?: [...{
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			}]
 			VpcConfig?: {
+				SecurityGroupIds: [...(string | fn.Fn)] | fn.Fn
+				Subnets:          [...(string | fn.Fn)] | fn.Fn
 			}
 		}
 		DependsOn?:           string | [...string]
@@ -102,8 +128,10 @@ SageMaker :: {
 		Properties: {
 			NotebookInstanceLifecycleConfigName?: string | fn.Fn
 			OnCreate?: [...{
+				Content?: string | fn.Fn
 			}]
 			OnStart?: [...{
+				Content?: string | fn.Fn
 			}]
 		}
 		DependsOn?:           string | [...string]
@@ -116,9 +144,13 @@ SageMaker :: {
 		Properties: {
 			Description?: string | fn.Fn
 			MemberDefinitions?: [...{
+				CognitoMemberDefinition: {
+					CognitoClientId:  string | fn.Fn
+					CognitoUserGroup: string | fn.Fn
+					CognitoUserPool:  string | fn.Fn
+				}
 			}]
-			NotificationConfiguration?: {
-			}
+			NotificationConfiguration?: NotificationTopicArn: string | fn.Fn
 			Tags?: [...{
 				Key:   string | fn.Fn
 				Value: string | fn.Fn

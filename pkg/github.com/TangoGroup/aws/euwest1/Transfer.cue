@@ -28,10 +28,15 @@ Transfer :: {
 		Type: "AWS::Transfer::User"
 		Properties: {
 			HomeDirectory?: string | fn.Fn
-			Policy?:        string | fn.Fn
-			Role:           string | fn.Fn
-			ServerId:       string | fn.Fn
-			SshPublicKeys?: [...(string | fn.Fn)] | fn.Fn
+			HomeDirectoryMappings?: [...{
+				Entry:  string | fn.Fn
+				Target: string | fn.Fn
+			}]
+			HomeDirectoryType?: string | fn.Fn
+			Policy?:            string | fn.Fn
+			Role:               string | fn.Fn
+			ServerId:           string | fn.Fn
+			SshPublicKeys?:     [...(string | fn.Fn)] | fn.Fn
 			Tags?: [...{
 				Key:   string | fn.Fn
 				Value: string | fn.Fn

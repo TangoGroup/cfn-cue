@@ -20,25 +20,49 @@ DMS :: {
 		Properties: {
 			CertificateArn?: string | fn.Fn
 			DatabaseName?:   string | fn.Fn
-			DynamoDbSettings?: {
-			}
+			DynamoDbSettings?: ServiceAccessRoleArn?: string | fn.Fn
 			ElasticsearchSettings?: {
+				EndpointUri?:             string | fn.Fn
+				ErrorRetryDuration?:      int | fn.Fn
+				FullLoadErrorPercentage?: int | fn.Fn
+				ServiceAccessRoleArn?:    string | fn.Fn
 			}
 			EndpointIdentifier?:        string | fn.Fn
-			EndpointType:               string | fn.Fn
-			EngineName:                 string | fn.Fn
+			EndpointType:               ("source" | "target") | fn.Fn
+			EngineName:                 ("aurora-postgresql" | "aurora" | "azuredb" | "db2" | "dynamodb" | "mariadb" | "mongodb" | "mysql" | "oracle" | "postgres" | "redshift" | "s3" | "sqlserver" | "sybase") | fn.Fn
 			ExtraConnectionAttributes?: string | fn.Fn
 			KinesisSettings?: {
+				MessageFormat?:        string | fn.Fn
+				ServiceAccessRoleArn?: string | fn.Fn
+				StreamArn?:            string | fn.Fn
 			}
 			KmsKeyId?: string | fn.Fn
 			MongoDbSettings?: {
+				AuthMechanism?:     string | fn.Fn
+				AuthSource?:        string | fn.Fn
+				AuthType?:          string | fn.Fn
+				DatabaseName?:      string | fn.Fn
+				DocsToInvestigate?: string | fn.Fn
+				ExtractDocId?:      string | fn.Fn
+				NestingLevel?:      string | fn.Fn
+				Password?:          string | fn.Fn
+				Port?:              int | fn.Fn
+				ServerName?:        string | fn.Fn
+				Username?:          string | fn.Fn
 			}
 			Password?: string | fn.Fn
 			Port?:     int | fn.Fn
 			S3Settings?: {
+				BucketFolder?:            string | fn.Fn
+				BucketName?:              string | fn.Fn
+				CompressionType?:         string | fn.Fn
+				CsvDelimiter?:            string | fn.Fn
+				CsvRowDelimiter?:         string | fn.Fn
+				ExternalTableDefinition?: string | fn.Fn
+				ServiceAccessRoleArn?:    string | fn.Fn
 			}
 			ServerName?: string | fn.Fn
-			SslMode?:    string | fn.Fn
+			SslMode?:    ("none" | "require" | "verify-ca" | "verify-full") | fn.Fn
 			Tags?: [...{
 				Key:   string | fn.Fn
 				Value: string | fn.Fn

@@ -23,7 +23,7 @@ AppStream :: {
 		Properties: {
 			ComputeCapacity: DesiredInstances: int | fn.Fn
 			Description?:                string | fn.Fn
-			DisconnectTimeoutInSeconds?: (int & (>=60 & <=360000)) | fn.Fn
+			DisconnectTimeoutInSeconds?: (>=60 & <=360000) | fn.Fn
 			DisplayName?:                string | fn.Fn
 			DomainJoinInfo?: {
 				DirectoryName?:                       string | fn.Fn
@@ -31,12 +31,12 @@ AppStream :: {
 			}
 			EnableDefaultInternetAccess?:    bool | fn.Fn
 			FleetType?:                      string | fn.Fn
-			IdleDisconnectTimeoutInSeconds?: (int & (>=0 & <=3600)) | fn.Fn
+			IdleDisconnectTimeoutInSeconds?: (>=0 & <=3600) | fn.Fn
 			ImageArn?:                       string | fn.Fn
 			ImageName?:                      string | fn.Fn
 			InstanceType:                    string | fn.Fn
-			MaxUserDurationInSeconds?:       (int & (>=600 & <=360000)) | fn.Fn
-			Name?:                           string | fn.Fn
+			MaxUserDurationInSeconds?:       (>=600 & <=360000) | fn.Fn
+			Name:                            string | fn.Fn
 			Tags?: [...{
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
@@ -69,7 +69,7 @@ AppStream :: {
 			ImageArn?:                    string | fn.Fn
 			ImageName?:                   string | fn.Fn
 			InstanceType:                 string | fn.Fn
-			Name?:                        string | fn.Fn
+			Name:                         string | fn.Fn
 			Tags?: [...{
 				Key:   string | fn.Fn
 				Value: string | fn.Fn

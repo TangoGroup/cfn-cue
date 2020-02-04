@@ -50,7 +50,7 @@ CloudFormation :: {
 		Properties: {
 			Count?:   int | fn.Fn
 			Handle?:  string | fn.Fn
-			Timeout?: (string & (>=0 & <=43200)) | fn.Fn
+			Timeout?: (>=0 & <=43200) | fn.Fn
 		}
 		DependsOn?: string | [...string]
 		CreationPolicy?: {

@@ -6,7 +6,7 @@ CodePipeline :: {
 	CustomActionType :: {
 		Type: "AWS::CodePipeline::CustomActionType"
 		Properties: {
-			Category: (string & ("Approval" | "Build" | "Deploy" | "Invoke" | "Source" | "Test")) | fn.Fn
+			Category: ("Approval" | "Build" | "Deploy" | "Invoke" | "Source" | "Test") | fn.Fn
 			ConfigurationProperties?: [...{
 				Description?: string | fn.Fn
 				Key:          bool | fn.Fn
@@ -14,7 +14,7 @@ CodePipeline :: {
 				Queryable?:   bool | fn.Fn
 				Required:     bool | fn.Fn
 				Secret:       bool | fn.Fn
-				Type?:        (string & ("Boolean" | "Number" | "String")) | fn.Fn
+				Type?:        ("Boolean" | "Number" | "String") | fn.Fn
 			}]
 			InputArtifactDetails: {
 				MaximumCount: int | fn.Fn
@@ -51,7 +51,7 @@ CodePipeline :: {
 					Type: string | fn.Fn
 				}
 				Location: string | fn.Fn
-				Type:     (string & ("S3")) | fn.Fn
+				Type:     ("S3") | fn.Fn
 			}
 			ArtifactStores?: [...{
 				ArtifactStore: {
@@ -60,7 +60,7 @@ CodePipeline :: {
 						Type: string | fn.Fn
 					}
 					Location: string | fn.Fn
-					Type:     (string & ("S3")) | fn.Fn
+					Type:     ("S3") | fn.Fn
 				}
 				Region: string | fn.Fn
 			}]
@@ -74,8 +74,8 @@ CodePipeline :: {
 			Stages: [...{
 				Actions: [...{
 					ActionTypeId: {
-						Category: (string & ("Approval" | "Build" | "Deploy" | "Invoke" | "Source" | "Test")) | fn.Fn
-						Owner:    (string & ("AWS" | "Custom" | "ThirdParty")) | fn.Fn
+						Category: ("Approval" | "Build" | "Deploy" | "Invoke" | "Source" | "Test") | fn.Fn
+						Owner:    ("AWS" | "Custom" | "ThirdParty") | fn.Fn
 						Provider: string | fn.Fn
 						Version:  string | fn.Fn
 					}
@@ -96,7 +96,7 @@ CodePipeline :: {
 				}]
 				Blockers?: [...{
 					Name: string | fn.Fn
-					Type: (string & ("Schedule")) | fn.Fn
+					Type: ("Schedule") | fn.Fn
 				}]
 				Name: string | fn.Fn
 			}]
@@ -113,7 +113,7 @@ CodePipeline :: {
 	Webhook :: {
 		Type: "AWS::CodePipeline::Webhook"
 		Properties: {
-			Authentication: (string & ("GITHUB_HMAC" | "IP" | "UNAUTHENTICATED")) | fn.Fn
+			Authentication: ("GITHUB_HMAC" | "IP" | "UNAUTHENTICATED") | fn.Fn
 			AuthenticationConfiguration: {
 				AllowedIPRange?: string | fn.Fn
 				SecretToken?:    string | fn.Fn

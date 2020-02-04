@@ -16,7 +16,7 @@ FSx :: {
 				WeeklyMaintenanceStartTime?: string | fn.Fn
 			}
 			SecurityGroupIds?: [...(string | fn.Fn)] | fn.Fn
-			StorageCapacity?:  (int & (>=300 & <=65536)) | fn.Fn
+			StorageCapacity?:  (>=300 & <=65536) | fn.Fn
 			SubnetIds:         [...(string | fn.Fn)] | fn.Fn
 			Tags?: [...{
 				Key:   string | fn.Fn

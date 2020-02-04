@@ -18,9 +18,12 @@ StepFunctions :: {
 	StateMachine :: {
 		Type: "AWS::StepFunctions::StateMachine"
 		Properties: {
-			DefinitionString:  string | fn.Fn
+			DefinitionString: string | fn.Fn
+			LoggingConfiguration?: {
+			}
 			RoleArn:           string | fn.Fn
 			StateMachineName?: string | fn.Fn
+			StateMachineType?: string | fn.Fn
 			Tags?: [...{
 			}]
 		}

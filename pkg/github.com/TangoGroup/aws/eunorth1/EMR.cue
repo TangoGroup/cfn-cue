@@ -228,7 +228,7 @@ EMR :: {
 				ServiceAccessSecurityGroup?: string | fn.Fn
 				TerminationProtected?:       bool | fn.Fn
 			}
-			JobFlowRole: (string & (=~#"[a-zA-Z0-9+=,.@\-_]+"#)) | fn.Fn
+			JobFlowRole: (=~#"[a-zA-Z0-9+=,.@\-_]+"#) | fn.Fn
 			KerberosAttributes?: {
 				ADDomainJoinPassword?:             string | fn.Fn
 				ADDomainJoinUser?:                 string | fn.Fn

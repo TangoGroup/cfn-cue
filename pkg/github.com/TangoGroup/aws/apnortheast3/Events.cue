@@ -3,6 +3,35 @@ package apnortheast3
 import "github.com/TangoGroup/aws/fn"
 
 Events :: {
+	EventBus :: {
+		Type: "AWS::Events::EventBus"
+		Properties: {
+			EventSourceName?: string | fn.Fn
+			Name:             string | fn.Fn
+		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+	}
+	EventBusPolicy :: {
+		Type: "AWS::Events::EventBusPolicy"
+		Properties: {
+			Action: ("events:PutEvents") | fn.Fn
+			Condition?: {
+				Key?:   ("aws:PrincipalOrgID") | fn.Fn
+				Type?:  ("StringEquals") | fn.Fn
+				Value?: string | fn.Fn
+			}
+			EventBusName?: string | fn.Fn
+			Principal:     string | fn.Fn
+			StatementId:   string | fn.Fn
+		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+	}
 	Rule :: {
 		Type: "AWS::Events::Rule"
 		Properties: {
@@ -14,7 +43,7 @@ Events :: {
 			Name?:               string | fn.Fn
 			RoleArn?:            string | fn.Fn
 			ScheduleExpression?: string | fn.Fn
-			State?:              (string & ("DISABLED" | "ENABLED")) | fn.Fn
+			State?:              ("DISABLED" | "ENABLED") | fn.Fn
 			Targets?: [...{
 				Arn: string | fn.Fn
 				BatchParameters?: {

@@ -40,7 +40,7 @@ ApplicationAutoScaling :: {
 		Type: "AWS::ApplicationAutoScaling::ScalingPolicy"
 		Properties: {
 			PolicyName:         string | fn.Fn
-			PolicyType:         (string & ("StepScaling" | "TargetTrackingScaling")) | fn.Fn
+			PolicyType:         ("StepScaling" | "TargetTrackingScaling") | fn.Fn
 			ResourceId?:        string | fn.Fn
 			ScalableDimension?: string | fn.Fn
 			ScalingTargetId?:   string | fn.Fn
@@ -64,12 +64,12 @@ ApplicationAutoScaling :: {
 					}]
 					MetricName: string | fn.Fn
 					Namespace:  string | fn.Fn
-					Statistic:  (string & ("Average" | "Minimum" | "Maximum" | "SampleCount" | "Sum")) | fn.Fn
+					Statistic:  ("Average" | "Minimum" | "Maximum" | "SampleCount" | "Sum") | fn.Fn
 					Unit?:      string | fn.Fn
 				}
 				DisableScaleIn?: bool | fn.Fn
 				PredefinedMetricSpecification?: {
-					PredefinedMetricType: (string & ("ALBRequestCountPerTarget" | "DynamoDBReadCapacityUtilization" | "DynamoDBWriteCapacityUtilization" | "EC2SpotFleetRequestAverageCPUUtilization" | "EC2SpotFleetRequestAverageNetworkIn" | "EC2SpotFleetRequestAverageNetworkOut" | "ECSServiceAverageCPUUtilization" | "ECSServiceAverageMemoryUtilization" | "RDSReaderAverageCPUUtilization" | "RDSReaderAverageDatabaseConnections" | "SageMakerVariantInvocationsPerInstance")) | fn.Fn
+					PredefinedMetricType: ("ALBRequestCountPerTarget" | "DynamoDBReadCapacityUtilization" | "DynamoDBWriteCapacityUtilization" | "EC2SpotFleetRequestAverageCPUUtilization" | "EC2SpotFleetRequestAverageNetworkIn" | "EC2SpotFleetRequestAverageNetworkOut" | "ECSServiceAverageCPUUtilization" | "ECSServiceAverageMemoryUtilization" | "RDSReaderAverageCPUUtilization" | "RDSReaderAverageDatabaseConnections" | "SageMakerVariantInvocationsPerInstance" | "LambdaProvisionedConcurrencyUtilization") | fn.Fn
 					ResourceLabel?:       string | fn.Fn
 				}
 				ScaleInCooldown?:  int | fn.Fn

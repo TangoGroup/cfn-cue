@@ -69,7 +69,7 @@ OpsWorks :: {
 					Iops?:                int | fn.Fn
 					SnapshotId?:          string | fn.Fn
 					VolumeSize?:          int | fn.Fn
-					VolumeType?:          (string & ("gp2" | "io1" | "sc1" | "st1" | "standard")) | fn.Fn
+					VolumeType?:          ("gp2" | "io1" | "sc1" | "st1" | "standard") | fn.Fn
 				}
 				NoDevice?:    string | fn.Fn
 				VirtualName?: string | fn.Fn
@@ -163,7 +163,7 @@ OpsWorks :: {
 				NumberOfDisks?: int | fn.Fn
 				RaidLevel?:     int | fn.Fn
 				Size?:          int | fn.Fn
-				VolumeType?:    (string & ("gp2" | "io1" | "sc1" | "st1" | "standard")) | fn.Fn
+				VolumeType?:    ("gp2" | "io1" | "sc1" | "st1" | "standard") | fn.Fn
 			}]
 		}
 		DependsOn?:           string | [...string]

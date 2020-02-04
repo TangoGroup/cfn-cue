@@ -7,12 +7,28 @@ Glue :: {
 		Type: "AWS::Glue::Classifier"
 		Properties: {
 			CsvClassifier?: {
+				AllowSingleColumn?:    bool | fn.Fn
+				ContainsHeader?:       string | fn.Fn
+				Delimiter?:            string | fn.Fn
+				DisableValueTrimming?: bool | fn.Fn
+				Header?:               [...(string | fn.Fn)] | fn.Fn
+				Name?:                 string | fn.Fn
+				QuoteSymbol?:          string | fn.Fn
 			}
 			GrokClassifier?: {
+				Classification:  string | fn.Fn
+				CustomPatterns?: string | fn.Fn
+				GrokPattern:     string | fn.Fn
+				Name?:           string | fn.Fn
 			}
 			JsonClassifier?: {
+				JsonPath: string | fn.Fn
+				Name?:    string | fn.Fn
 			}
 			XMLClassifier?: {
+				Classification: string | fn.Fn
+				Name?:          string | fn.Fn
+				RowTag:         string | fn.Fn
 			}
 		}
 		DependsOn?:           string | [...string]
@@ -25,6 +41,18 @@ Glue :: {
 		Properties: {
 			CatalogId: string | fn.Fn
 			ConnectionInput: {
+				ConnectionProperties: {
+					[string]: _
+				} | fn.Fn
+				ConnectionType: ("JDBC" | "SFTP") | fn.Fn
+				Description?:   string | fn.Fn
+				MatchCriteria?: [...(string | fn.Fn)] | fn.Fn
+				Name?:          string | fn.Fn
+				PhysicalConnectionRequirements?: {
+					AvailabilityZone?:    string | fn.Fn
+					SecurityGroupIdList?: [...(string | fn.Fn)] | fn.Fn
+					SubnetId?:            string | fn.Fn
+				}
 			}
 		}
 		DependsOn?:           string | [...string]
@@ -42,15 +70,32 @@ Glue :: {
 			Description?:                  string | fn.Fn
 			Name?:                         string | fn.Fn
 			Role:                          string | fn.Fn
-			Schedule?: {
-			}
+			Schedule?: ScheduleExpression?: string | fn.Fn
 			SchemaChangePolicy?: {
+				DeleteBehavior?: ("DELETE_FROM_DATABASE" | "DEPRECATE_IN_DATABASE" | "LOG") | fn.Fn
+				UpdateBehavior?: ("LOG" | "UPDATE_IN_DATABASE") | fn.Fn
 			}
 			TablePrefix?: string | fn.Fn
 			Tags?:        {
 				[string]: _
 			} | fn.Fn
 			Targets: {
+				CatalogTargets?: [...{
+					DatabaseName?: string | fn.Fn
+					Tables?:       [...(string | fn.Fn)] | fn.Fn
+				}]
+				DynamoDBTargets?: [...{
+					Path?: string | fn.Fn
+				}]
+				JdbcTargets?: [...{
+					ConnectionName?: string | fn.Fn
+					Exclusions?:     [...(string | fn.Fn)] | fn.Fn
+					Path?:           string | fn.Fn
+				}]
+				S3Targets?: [...{
+					Exclusions?: [...(string | fn.Fn)] | fn.Fn
+					Path?:       string | fn.Fn
+				}]
 			}
 		}
 		DependsOn?:           string | [...string]
@@ -63,6 +108,14 @@ Glue :: {
 		Properties: {
 			CatalogId: string | fn.Fn
 			DataCatalogEncryptionSettings: {
+				ConnectionPasswordEncryption?: {
+					KmsKeyId?:                          string | fn.Fn
+					ReturnConnectionPasswordEncrypted?: bool | fn.Fn
+				}
+				EncryptionAtRest?: {
+					CatalogEncryptionMode?: string | fn.Fn
+					SseAwsKmsKeyId?:        string | fn.Fn
+				}
 			}
 		}
 		DependsOn?:           string | [...string]
@@ -75,6 +128,12 @@ Glue :: {
 		Properties: {
 			CatalogId: string | fn.Fn
 			DatabaseInput: {
+				Description?: string | fn.Fn
+				LocationUri?: string | fn.Fn
+				Name?:        string | fn.Fn
+				Parameters?:  {
+					[string]: _
+				} | fn.Fn
 			}
 		}
 		DependsOn?:           string | [...string]
@@ -114,22 +173,22 @@ Glue :: {
 		Properties: {
 			AllocatedCapacity?: float | fn.Fn
 			Command: {
+				Name?:           string | fn.Fn
+				PythonVersion?:  string | fn.Fn
+				ScriptLocation?: string | fn.Fn
 			}
-			Connections?: {
-			}
+			Connections?: Connections?: [...(string | fn.Fn)] | fn.Fn
 			DefaultArguments?: {
 				[string]: _
 			} | fn.Fn
 			Description?: string | fn.Fn
-			ExecutionProperty?: {
-			}
+			ExecutionProperty?: MaxConcurrentRuns?: float | fn.Fn
 			GlueVersion?: string | fn.Fn
 			LogUri?:      string | fn.Fn
 			MaxCapacity?: float | fn.Fn
 			MaxRetries?:  float | fn.Fn
 			Name?:        string | fn.Fn
-			NotificationProperty?: {
-			}
+			NotificationProperty?: NotifyDelayAfter?: int | fn.Fn
 			NumberOfWorkers?:       int | fn.Fn
 			Role:                   string | fn.Fn
 			SecurityConfiguration?: string | fn.Fn
@@ -149,8 +208,12 @@ Glue :: {
 		Properties: {
 			Description?: string | fn.Fn
 			GlueVersion?: string | fn.Fn
-			InputRecordTables: {
-			}
+			InputRecordTables: GlueTables?: [...{
+				CatalogId?:      string | fn.Fn
+				ConnectionName?: string | fn.Fn
+				DatabaseName:    string | fn.Fn
+				TableName:       string | fn.Fn
+			}]
 			MaxCapacity?:     float | fn.Fn
 			MaxRetries?:      int | fn.Fn
 			Name?:            string | fn.Fn
@@ -158,6 +221,13 @@ Glue :: {
 			Role:             string | fn.Fn
 			Timeout?:         int | fn.Fn
 			TransformParameters: {
+				FindMatchesParameters?: {
+					AccuracyCostTradeoff?:    float | fn.Fn
+					EnforceProvidedLabels?:   bool | fn.Fn
+					PrecisionRecallTradeoff?: float | fn.Fn
+					PrimaryKeyColumnName:     string | fn.Fn
+				}
+				TransformType: string | fn.Fn
 			}
 			WorkerType?: string | fn.Fn
 		}
@@ -172,6 +242,45 @@ Glue :: {
 			CatalogId:    string | fn.Fn
 			DatabaseName: string | fn.Fn
 			PartitionInput: {
+				Parameters?: {
+					[string]: _
+				} | fn.Fn
+				StorageDescriptor?: {
+					BucketColumns?: [...(string | fn.Fn)] | fn.Fn
+					Columns?: [...{
+						Comment?: string | fn.Fn
+						Name:     string | fn.Fn
+						Type?:    string | fn.Fn
+					}]
+					Compressed?:      bool | fn.Fn
+					InputFormat?:     string | fn.Fn
+					Location?:        string | fn.Fn
+					NumberOfBuckets?: int | fn.Fn
+					OutputFormat?:    string | fn.Fn
+					Parameters?:      {
+						[string]: _
+					} | fn.Fn
+					SerdeInfo?: {
+						Name?:       string | fn.Fn
+						Parameters?: {
+							[string]: _
+						} | fn.Fn
+						SerializationLibrary?: string | fn.Fn
+					}
+					SkewedInfo?: {
+						SkewedColumnNames?:             [...(string | fn.Fn)] | fn.Fn
+						SkewedColumnValueLocationMaps?: {
+							[string]: _
+						} | fn.Fn
+						SkewedColumnValues?: [...(string | fn.Fn)] | fn.Fn
+					}
+					SortColumns?: [...{
+						Column:     string | fn.Fn
+						SortOrder?: int | fn.Fn
+					}]
+					StoredAsSubDirectories?: bool | fn.Fn
+				}
+				Values: [...(string | fn.Fn)] | fn.Fn
 			}
 			TableName: string | fn.Fn
 		}
@@ -184,6 +293,18 @@ Glue :: {
 		Type: "AWS::Glue::SecurityConfiguration"
 		Properties: {
 			EncryptionConfiguration: {
+				CloudWatchEncryption?: {
+					CloudWatchEncryptionMode?: string | fn.Fn
+					KmsKeyArn?:                string | fn.Fn
+				}
+				JobBookmarksEncryption?: {
+					JobBookmarksEncryptionMode?: string | fn.Fn
+					KmsKeyArn?:                  string | fn.Fn
+				}
+				S3Encryptions?: [...{
+					KmsKeyArn?:        string | fn.Fn
+					S3EncryptionMode?: string | fn.Fn
+				}]
 			}
 			Name: string | fn.Fn
 		}
@@ -198,6 +319,56 @@ Glue :: {
 			CatalogId:    string | fn.Fn
 			DatabaseName: string | fn.Fn
 			TableInput: {
+				Description?: string | fn.Fn
+				Name?:        string | fn.Fn
+				Owner?:       string | fn.Fn
+				Parameters?:  {
+					[string]: _
+				} | fn.Fn
+				PartitionKeys?: [...{
+					Comment?: string | fn.Fn
+					Name:     string | fn.Fn
+					Type?:    string | fn.Fn
+				}]
+				Retention?: int | fn.Fn
+				StorageDescriptor?: {
+					BucketColumns?: [...(string | fn.Fn)] | fn.Fn
+					Columns?: [...{
+						Comment?: string | fn.Fn
+						Name:     string | fn.Fn
+						Type?:    string | fn.Fn
+					}]
+					Compressed?:      bool | fn.Fn
+					InputFormat?:     string | fn.Fn
+					Location?:        string | fn.Fn
+					NumberOfBuckets?: int | fn.Fn
+					OutputFormat?:    string | fn.Fn
+					Parameters?:      {
+						[string]: _
+					} | fn.Fn
+					SerdeInfo?: {
+						Name?:       string | fn.Fn
+						Parameters?: {
+							[string]: _
+						} | fn.Fn
+						SerializationLibrary?: string | fn.Fn
+					}
+					SkewedInfo?: {
+						SkewedColumnNames?:             [...(string | fn.Fn)] | fn.Fn
+						SkewedColumnValueLocationMaps?: {
+							[string]: _
+						} | fn.Fn
+						SkewedColumnValues?: [...(string | fn.Fn)] | fn.Fn
+					}
+					SortColumns?: [...{
+						Column:    string | fn.Fn
+						SortOrder: int | fn.Fn
+					}]
+					StoredAsSubDirectories?: bool | fn.Fn
+				}
+				TableType?:        ("EXTERNAL_TABLE" | "VIRTUAL_VIEW") | fn.Fn
+				ViewExpandedText?: string | fn.Fn
+				ViewOriginalText?: string | fn.Fn
 			}
 		}
 		DependsOn?:           string | [...string]
@@ -209,10 +380,26 @@ Glue :: {
 		Type: "AWS::Glue::Trigger"
 		Properties: {
 			Actions: [...{
+				Arguments?: {
+					[string]: _
+				} | fn.Fn
+				CrawlerName?: string | fn.Fn
+				JobName?:     string | fn.Fn
+				NotificationProperty?: NotifyDelayAfter?: int | fn.Fn
+				SecurityConfiguration?: string | fn.Fn
+				Timeout?:               int | fn.Fn
 			}]
 			Description?: string | fn.Fn
 			Name?:        string | fn.Fn
 			Predicate?: {
+				Conditions?: [...{
+					CrawlState?:      string | fn.Fn
+					CrawlerName?:     string | fn.Fn
+					JobName?:         string | fn.Fn
+					LogicalOperator?: ("EQUALS") | fn.Fn
+					State?:           ("SUCCEEDED") | fn.Fn
+				}]
+				Logical?: ("AND") | fn.Fn
 			}
 			Schedule?:        string | fn.Fn
 			StartOnCreation?: bool | fn.Fn

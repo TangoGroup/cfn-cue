@@ -22,8 +22,8 @@ GuardDuty :: {
 			DetectorId:  string | fn.Fn
 			FindingCriteria: {
 			}
-			Name?: string | fn.Fn
-			Rank:  int | fn.Fn
+			Name: string | fn.Fn
+			Rank: int | fn.Fn
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

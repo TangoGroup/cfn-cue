@@ -3,6 +3,17 @@ package apnortheast1
 import "github.com/TangoGroup/aws/fn"
 
 ServiceDiscovery :: {
+	HttpNamespace :: {
+		Type: "AWS::ServiceDiscovery::HttpNamespace"
+		Properties: {
+			Description?: string | fn.Fn
+			Name:         string | fn.Fn
+		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+	}
 	Instance :: {
 		Type: "AWS::ServiceDiscovery::Instance"
 		Properties: {
@@ -45,7 +56,7 @@ ServiceDiscovery :: {
 			DnsConfig?: {
 				DnsRecords: [...{
 					TTL:  float | fn.Fn
-					Type: (string & ("A" | "AAAA" | "SRV" | "CNAME")) | fn.Fn
+					Type: ("A" | "AAAA" | "SRV" | "CNAME") | fn.Fn
 				}]
 				NamespaceId?:   string | fn.Fn
 				RoutingPolicy?: string | fn.Fn
@@ -53,7 +64,7 @@ ServiceDiscovery :: {
 			HealthCheckConfig?: {
 				FailureThreshold?: float | fn.Fn
 				ResourcePath?:     string | fn.Fn
-				Type:              (string & ("HTTP" | "HTTPS" | "TCP")) | fn.Fn
+				Type:              ("HTTP" | "HTTPS" | "TCP") | fn.Fn
 			}
 			HealthCheckCustomConfig?: FailureThreshold?: float | fn.Fn
 			Name?:        string | fn.Fn

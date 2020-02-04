@@ -12,7 +12,7 @@ RDS :: {
 			}]
 			AvailabilityZones?:               [...(string | fn.Fn)] | fn.Fn
 			BacktrackWindow?:                 int | fn.Fn
-			BackupRetentionPeriod?:           (int & (>=1 & <=35)) | fn.Fn
+			BackupRetentionPeriod?:           (>=1 & <=35) | fn.Fn
 			DBClusterIdentifier?:             string | fn.Fn
 			DBClusterParameterGroupName?:     string | fn.Fn
 			DBSubnetGroupName?:               string | fn.Fn
@@ -83,7 +83,8 @@ RDS :: {
 			}]
 			AutoMinorVersionUpgrade?:            bool | fn.Fn
 			AvailabilityZone?:                   string | fn.Fn
-			BackupRetentionPeriod?:              (int & (>=0 & <=35)) | fn.Fn
+			BackupRetentionPeriod?:              (>=0 & <=35) | fn.Fn
+			CACertificateIdentifier?:            string | fn.Fn
 			CharacterSetName?:                   string | fn.Fn
 			CopyTagsToSnapshot?:                 bool | fn.Fn
 			DBClusterIdentifier?:                string | fn.Fn
@@ -122,7 +123,7 @@ RDS :: {
 				Name?:  string | fn.Fn
 				Value?: string | fn.Fn
 			}]
-			PromotionTier?:              (int & (>=0 & <=15)) | fn.Fn
+			PromotionTier?:              (>=0 & <=15) | fn.Fn
 			PubliclyAccessible?:         bool | fn.Fn
 			SourceDBInstanceIdentifier?: string | fn.Fn
 			SourceRegion?:               string | fn.Fn

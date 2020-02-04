@@ -13,8 +13,8 @@ Redshift :: {
 			ClusterParameterGroupName?:        string | fn.Fn
 			ClusterSecurityGroups?:            [...(string | fn.Fn)] | fn.Fn
 			ClusterSubnetGroupName?:           string | fn.Fn
-			ClusterType:                       (string & ("multi-node" | "single-node")) | fn.Fn
-			ClusterVersion?:                   (string & ("1.0")) | fn.Fn
+			ClusterType:                       ("multi-node" | "single-node") | fn.Fn
+			ClusterVersion?:                   ("1.0") | fn.Fn
 			DBName:                            string | fn.Fn
 			ElasticIp?:                        string | fn.Fn
 			Encrypted?:                        bool | fn.Fn
@@ -29,7 +29,7 @@ Redshift :: {
 			MasterUserPassword:          string | fn.Fn
 			MasterUsername:              string | fn.Fn
 			NodeType:                    string | fn.Fn
-			NumberOfNodes?:              (int & (>=1 & <=100)) | fn.Fn
+			NumberOfNodes?:              (>=1 & <=100) | fn.Fn
 			OwnerAccount?:               string | fn.Fn
 			Port?:                       int | fn.Fn
 			PreferredMaintenanceWindow?: string | fn.Fn

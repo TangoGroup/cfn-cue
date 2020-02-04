@@ -27,6 +27,7 @@ SageMaker :: {
 					[string]: _
 				} | fn.Fn
 				Image:         string | fn.Fn
+				Mode?:         string | fn.Fn
 				ModelDataUrl?: string | fn.Fn
 			}]
 			ExecutionRoleArn: string | fn.Fn
@@ -37,6 +38,7 @@ SageMaker :: {
 					[string]: _
 				} | fn.Fn
 				Image:         string | fn.Fn
+				Mode?:         string | fn.Fn
 				ModelDataUrl?: string | fn.Fn
 			}
 			Tags?: [...{
@@ -72,7 +74,7 @@ SageMaker :: {
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			}]
-			VolumeSizeInGB?: (int & (>=5 & <=16384)) | fn.Fn
+			VolumeSizeInGB?: (>=5 & <=16384) | fn.Fn
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

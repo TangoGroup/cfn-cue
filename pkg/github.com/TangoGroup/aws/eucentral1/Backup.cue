@@ -37,7 +37,7 @@ Backup :: {
 		Properties: {
 			BackupPlanId: string | fn.Fn
 			BackupSelection: {
-				IamRoleArn: (string & (=~#"arn:(aws[a-zA-Z-]*)?:iam::\d{12}:role/[a-zA-Z_0-9+=,.@\-_/]+"#)) | fn.Fn
+				IamRoleArn: (=~#"arn:(aws[a-zA-Z-]*)?:iam::\d{12}:role/[a-zA-Z_0-9+=,.@\-_/]+"#) | fn.Fn
 				ListOfTags?: [...{
 					ConditionKey:   string | fn.Fn
 					ConditionType:  string | fn.Fn

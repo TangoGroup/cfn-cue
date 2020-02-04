@@ -6,7 +6,7 @@ Cloud9 :: {
 	EnvironmentEC2 :: {
 		Type: "AWS::Cloud9::EnvironmentEC2"
 		Properties: {
-			AutomaticStopTimeMinutes?: (int & (>=0 & <=20160)) | fn.Fn
+			AutomaticStopTimeMinutes?: (>=0 & <=20160) | fn.Fn
 			Description?:              string | fn.Fn
 			InstanceType:              string | fn.Fn
 			Name?:                     string | fn.Fn

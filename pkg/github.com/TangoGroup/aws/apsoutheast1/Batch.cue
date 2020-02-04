@@ -24,14 +24,14 @@ Batch :: {
 				MinvCpus:          int | fn.Fn
 				PlacementGroup?:   string | fn.Fn
 				SecurityGroupIds?: [...(string | fn.Fn)] | fn.Fn
-				SpotIamFleetRole?: (string & (=~#"arn:(aws[a-zA-Z-]*)?:iam::\d{12}:role/[a-zA-Z_0-9+=,.@\-_/]+"#)) | fn.Fn
+				SpotIamFleetRole?: (=~#"arn:(aws[a-zA-Z-]*)?:iam::\d{12}:role/[a-zA-Z_0-9+=,.@\-_/]+"#) | fn.Fn
 				Subnets:           [...(string | fn.Fn)] | fn.Fn
 				Tags?:             {
 					[string]: _
 				} | fn.Fn
 				Type: string | fn.Fn
 			}
-			ServiceRole: (string & (=~#"arn:(aws[a-zA-Z-]*)?:iam::\d{12}:role/[a-zA-Z_0-9+=,.@\-_/]+"#)) | fn.Fn
+			ServiceRole: (=~#"arn:(aws[a-zA-Z-]*)?:iam::\d{12}:role/[a-zA-Z_0-9+=,.@\-_/]+"#) | fn.Fn
 			State?:      string | fn.Fn
 			Type:        string | fn.Fn
 		}

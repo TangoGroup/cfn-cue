@@ -7,14 +7,14 @@ SQS :: {
 		Type: "AWS::SQS::Queue"
 		Properties: {
 			ContentBasedDeduplication?:     bool | fn.Fn
-			DelaySeconds?:                  (int & (>=0 & <=900)) | fn.Fn
+			DelaySeconds?:                  (>=0 & <=900) | fn.Fn
 			FifoQueue?:                     bool | fn.Fn
-			KmsDataKeyReusePeriodSeconds?:  (int & (>=60 & <=86400)) | fn.Fn
+			KmsDataKeyReusePeriodSeconds?:  (>=60 & <=86400) | fn.Fn
 			KmsMasterKeyId?:                string | fn.Fn
-			MaximumMessageSize?:            (int & (>=1024 & <=262144)) | fn.Fn
-			MessageRetentionPeriod?:        (int & (>=60 & <=1209600)) | fn.Fn
+			MaximumMessageSize?:            (>=1024 & <=262144) | fn.Fn
+			MessageRetentionPeriod?:        (>=60 & <=1209600) | fn.Fn
 			QueueName?:                     string | fn.Fn
-			ReceiveMessageWaitTimeSeconds?: (int & (>=0 & <=20)) | fn.Fn
+			ReceiveMessageWaitTimeSeconds?: (>=0 & <=20) | fn.Fn
 			RedrivePolicy?:                 {
 				[string]: _
 			} | fn.Fn
@@ -22,7 +22,7 @@ SQS :: {
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			}]
-			VisibilityTimeout?: (int & (>=0 & <=43200)) | fn.Fn
+			VisibilityTimeout?: (>=0 & <=43200) | fn.Fn
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

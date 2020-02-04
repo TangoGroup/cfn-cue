@@ -49,6 +49,8 @@ Cognito :: {
 	UserPool :: {
 		Type: "AWS::Cognito::UserPool"
 		Properties: {
+			AccountRecoverySetting?: {
+			}
 			AdminCreateUserConfig?: {
 			}
 			AliasAttributes?:        [...(string | fn.Fn)] | fn.Fn

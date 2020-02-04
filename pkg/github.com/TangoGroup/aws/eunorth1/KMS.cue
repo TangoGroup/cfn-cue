@@ -24,7 +24,7 @@ KMS :: {
 				[string]: _
 			} | fn.Fn
 			KeyUsage?:            string | fn.Fn
-			PendingWindowInDays?: (int & (>=7 & <=30)) | fn.Fn
+			PendingWindowInDays?: (>=7 & <=30) | fn.Fn
 			Tags?: [...{
 				Key:   string | fn.Fn
 				Value: string | fn.Fn

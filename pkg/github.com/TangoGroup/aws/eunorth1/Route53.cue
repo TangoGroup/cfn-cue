@@ -17,7 +17,7 @@ Route53 :: {
 				FullyQualifiedDomainName?:     string | fn.Fn
 				HealthThreshold?:              int | fn.Fn
 				IPAddress?:                    string | fn.Fn
-				InsufficientDataHealthStatus?: (string & ("Healthy" | "LastKnownStatus" | "Unhealthy")) | fn.Fn
+				InsufficientDataHealthStatus?: ("Healthy" | "LastKnownStatus" | "Unhealthy") | fn.Fn
 				Inverted?:                     bool | fn.Fn
 				MeasureLatency?:               bool | fn.Fn
 				Port?:                         int | fn.Fn
@@ -25,7 +25,7 @@ Route53 :: {
 				RequestInterval?:              int | fn.Fn
 				ResourcePath?:                 string | fn.Fn
 				SearchString?:                 string | fn.Fn
-				Type:                          (string & ("CALCULATED" | "CLOUDWATCH_METRIC" | "HTTP_STR_MATCH" | "HTTP" | "HTTPS_STR_MATCH" | "HTTPS" | "TCP")) | fn.Fn
+				Type:                          ("CALCULATED" | "CLOUDWATCH_METRIC" | "HTTP_STR_MATCH" | "HTTP" | "HTTPS_STR_MATCH" | "HTTPS" | "TCP") | fn.Fn
 			}
 			HealthCheckTags?: [...{
 				Key:   string | fn.Fn
@@ -66,9 +66,9 @@ Route53 :: {
 				HostedZoneId:          string | fn.Fn
 			}
 			Comment?:  string | fn.Fn
-			Failover?: (string & ("PRIMARY" | "SECONDARY")) | fn.Fn
+			Failover?: ("PRIMARY" | "SECONDARY") | fn.Fn
 			GeoLocation?: {
-				ContinentCode?:   (string & ("AF" | "AN" | "AS" | "EU" | "NA" | "OC" | "SA")) | fn.Fn
+				ContinentCode?:   ("AF" | "AN" | "AS" | "EU" | "NA" | "OC" | "SA") | fn.Fn
 				CountryCode?:     string | fn.Fn
 				SubdivisionCode?: string | fn.Fn
 			}
@@ -81,7 +81,7 @@ Route53 :: {
 			ResourceRecords?:  [...(string | fn.Fn)] | fn.Fn
 			SetIdentifier?:    string | fn.Fn
 			TTL?:              string | fn.Fn
-			Type:              (string & ("A" | "AAAA" | "CAA" | "CNAME" | "MX" | "NAPTR" | "NS" | "PTR" | "SOA" | "SPF" | "SRV" | "TXT")) | fn.Fn
+			Type:              ("A" | "AAAA" | "CAA" | "CNAME" | "MX" | "NAPTR" | "NS" | "PTR" | "SOA" | "SPF" | "SRV" | "TXT") | fn.Fn
 			Weight?:           int | fn.Fn
 		}
 		DependsOn?:           string | [...string]
@@ -102,9 +102,9 @@ Route53 :: {
 					HostedZoneId:          string | fn.Fn
 				}
 				Comment?:  string | fn.Fn
-				Failover?: (string & ("PRIMARY" | "SECONDARY")) | fn.Fn
+				Failover?: ("PRIMARY" | "SECONDARY") | fn.Fn
 				GeoLocation?: {
-					ContinentCode?:   (string & ("AF" | "AN" | "AS" | "EU" | "NA" | "OC" | "SA")) | fn.Fn
+					ContinentCode?:   ("AF" | "AN" | "AS" | "EU" | "NA" | "OC" | "SA") | fn.Fn
 					CountryCode?:     string | fn.Fn
 					SubdivisionCode?: string | fn.Fn
 				}
@@ -117,7 +117,7 @@ Route53 :: {
 				ResourceRecords?:  [...(string | fn.Fn)] | fn.Fn
 				SetIdentifier?:    string | fn.Fn
 				TTL?:              string | fn.Fn
-				Type:              (string & ("A" | "AAAA" | "CAA" | "CNAME" | "MX" | "NAPTR" | "NS" | "PTR" | "SOA" | "SPF" | "SRV" | "TXT")) | fn.Fn
+				Type:              ("A" | "AAAA" | "CAA" | "CNAME" | "MX" | "NAPTR" | "NS" | "PTR" | "SOA" | "SPF" | "SRV" | "TXT") | fn.Fn
 				Weight?:           int | fn.Fn
 			}]
 		}

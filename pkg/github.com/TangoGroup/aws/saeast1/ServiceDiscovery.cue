@@ -56,11 +56,19 @@ ServiceDiscovery :: {
 		Properties: {
 			Description?: string | fn.Fn
 			DnsConfig?: {
+				DnsRecords: [...{
+					TTL:  float | fn.Fn
+					Type: ("A" | "AAAA" | "SRV" | "CNAME") | fn.Fn
+				}]
+				NamespaceId?:   string | fn.Fn
+				RoutingPolicy?: string | fn.Fn
 			}
 			HealthCheckConfig?: {
+				FailureThreshold?: float | fn.Fn
+				ResourcePath?:     string | fn.Fn
+				Type:              ("HTTP" | "HTTPS" | "TCP") | fn.Fn
 			}
-			HealthCheckCustomConfig?: {
-			}
+			HealthCheckCustomConfig?: FailureThreshold?: float | fn.Fn
 			Name?:        string | fn.Fn
 			NamespaceId?: string | fn.Fn
 		}

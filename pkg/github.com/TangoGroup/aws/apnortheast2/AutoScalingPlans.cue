@@ -31,14 +31,14 @@ AutoScalingPlans :: {
 					PredefinedLoadMetricType: string | fn.Fn
 					ResourceLabel?:           string | fn.Fn
 				}
-				PredictiveScalingMaxCapacityBehavior?: (string & ("SetForecastCapacityToMaxCapacity" | "SetMaxCapacityToForecastCapacity" | "SetMaxCapacityAboveForecastCapacity")) | fn.Fn
+				PredictiveScalingMaxCapacityBehavior?: ("SetForecastCapacityToMaxCapacity" | "SetMaxCapacityToForecastCapacity" | "SetMaxCapacityAboveForecastCapacity") | fn.Fn
 				PredictiveScalingMaxCapacityBuffer?:   int | fn.Fn
-				PredictiveScalingMode?:                (string & ("ForecastAndScale" | "ForecastOnly")) | fn.Fn
+				PredictiveScalingMode?:                ("ForecastAndScale" | "ForecastOnly") | fn.Fn
 				ResourceId:                            string | fn.Fn
-				ScalableDimension:                     (string & ("autoscaling:autoScalingGroup:DesiredCapacity" | "ecs:service:DesiredCount" | "ec2:spot-fleet-request:TargetCapacity" | "dynamodb:table:ReadCapacityUnits" | "dynamodb:table:WriteCapacityUnits" | "dynamodb:index:ReadCapacityUnits" | "dynamodb:index:WriteCapacityUnits" | "rds:cluster:ReadReplicaCount")) | fn.Fn
+				ScalableDimension:                     ("autoscaling:autoScalingGroup:DesiredCapacity" | "ecs:service:DesiredCount" | "ec2:spot-fleet-request:TargetCapacity" | "dynamodb:table:ReadCapacityUnits" | "dynamodb:table:WriteCapacityUnits" | "dynamodb:index:ReadCapacityUnits" | "dynamodb:index:WriteCapacityUnits" | "rds:cluster:ReadReplicaCount") | fn.Fn
 				ScalingPolicyUpdateBehavior?:          string | fn.Fn
 				ScheduledActionBufferTime?:            int | fn.Fn
-				ServiceNamespace:                      (string & ("autoscaling" | "dynamodb" | "ecs" | "ec2" | "rds")) | fn.Fn
+				ServiceNamespace:                      ("autoscaling" | "dynamodb" | "ecs" | "ec2" | "rds") | fn.Fn
 				TargetTrackingConfigurations: [...{
 					CustomizedScalingMetricSpecification?: {
 						Dimensions?: [...{
@@ -47,13 +47,13 @@ AutoScalingPlans :: {
 						}]
 						MetricName: string | fn.Fn
 						Namespace:  string | fn.Fn
-						Statistic:  (string & ("Average" | "Minimum" | "Maximum" | "SampleCount" | "Sum")) | fn.Fn
+						Statistic:  ("Average" | "Minimum" | "Maximum" | "SampleCount" | "Sum") | fn.Fn
 						Unit?:      string | fn.Fn
 					}
 					DisableScaleIn?:          bool | fn.Fn
 					EstimatedInstanceWarmup?: int | fn.Fn
 					PredefinedScalingMetricSpecification?: {
-						PredefinedScalingMetricType: (string & ("ALBRequestCountPerTarget" | "ASGAverageCPUUtilization" | "ASGAverageNetworkIn" | "ASGAverageNetworkOut")) | fn.Fn
+						PredefinedScalingMetricType: ("ALBRequestCountPerTarget" | "ASGAverageCPUUtilization" | "ASGAverageNetworkIn" | "ASGAverageNetworkOut") | fn.Fn
 						ResourceLabel?:              string | fn.Fn
 					}
 					ScaleInCooldown?:  int | fn.Fn

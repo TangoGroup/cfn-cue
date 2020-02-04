@@ -20,8 +20,15 @@ LakeFormation :: {
 			Permissions?:                [...(string | fn.Fn)] | fn.Fn
 			PermissionsWithGrantOption?: [...(string | fn.Fn)] | fn.Fn
 			Resource: {
-				DatabaseResource?: Name?: string | fn.Fn
+				DataLocationResource?: S3Resource?: string | fn.Fn
+				DatabaseResource?: Name?:           string | fn.Fn
 				TableResource?: {
+					DatabaseName?: string | fn.Fn
+					Name?:         string | fn.Fn
+				}
+				TableWithColumnsResource?: {
+					ColumnNames?: [...(string | fn.Fn)] | fn.Fn
+					ColumnWildcard?: ExcludedColumnNames?: [...(string | fn.Fn)] | fn.Fn
 					DatabaseName?: string | fn.Fn
 					Name?:         string | fn.Fn
 				}

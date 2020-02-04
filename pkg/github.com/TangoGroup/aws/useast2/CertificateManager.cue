@@ -16,7 +16,7 @@ CertificateManager :: {
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			}]
-			ValidationMethod?: (string & ("DNS" | "EMAIL")) | fn.Fn
+			ValidationMethod?: ("DNS" | "EMAIL") | fn.Fn
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

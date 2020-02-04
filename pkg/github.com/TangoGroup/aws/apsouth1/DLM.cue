@@ -11,7 +11,7 @@ DLM :: {
 			PolicyDetails?: {
 				Parameters?: ExcludeBootVolume?: bool | fn.Fn
 				PolicyType?:   string | fn.Fn
-				ResourceTypes: [...((string & ("INSTANCE" | "VOLUME")) | fn.Fn)] | fn.Fn
+				ResourceTypes: [...(("INSTANCE" | "VOLUME") | fn.Fn)] | fn.Fn
 				Schedules: [...{
 					CopyTags?: bool | fn.Fn
 					CreateRule?: {
@@ -55,7 +55,7 @@ DLM :: {
 					Value: string | fn.Fn
 				}]
 			}
-			State: (string & ("DISABLED" | "ENABLED")) | fn.Fn
+			State: ("DISABLED" | "ENABLED") | fn.Fn
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

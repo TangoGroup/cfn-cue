@@ -62,7 +62,7 @@ SecretsManager :: {
 		Properties: {
 			SecretId:   string | fn.Fn
 			TargetId:   string | fn.Fn
-			TargetType: (string & ("AWS::RDS::DBCluster" | "AWS::RDS::DBInstance")) | fn.Fn
+			TargetType: ("AWS::RDS::DBCluster" | "AWS::RDS::DBInstance") | fn.Fn
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

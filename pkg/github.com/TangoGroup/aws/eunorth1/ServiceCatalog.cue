@@ -3,6 +3,17 @@ package eunorth1
 import "github.com/TangoGroup/aws/fn"
 
 ServiceCatalog :: {
+	AcceptedPortfolioShare :: {
+		Type: "AWS::ServiceCatalog::AcceptedPortfolioShare"
+		Properties: {
+			AcceptLanguage?: string | fn.Fn
+			PortfolioId:     string | fn.Fn
+		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+	}
 	CloudFormationProduct :: {
 		Type: "AWS::ServiceCatalog::CloudFormationProduct"
 		Properties: {
@@ -138,6 +149,31 @@ ServiceCatalog :: {
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
 	}
+	PortfolioProductAssociation :: {
+		Type: "AWS::ServiceCatalog::PortfolioProductAssociation"
+		Properties: {
+			AcceptLanguage?:    string | fn.Fn
+			PortfolioId:        string | fn.Fn
+			ProductId:          string | fn.Fn
+			SourcePortfolioId?: string | fn.Fn
+		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+	}
+	PortfolioShare :: {
+		Type: "AWS::ServiceCatalog::PortfolioShare"
+		Properties: {
+			AcceptLanguage?: string | fn.Fn
+			AccountId:       string | fn.Fn
+			PortfolioId:     string | fn.Fn
+		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+	}
 	ResourceUpdateConstraint :: {
 		Type: "AWS::ServiceCatalog::ResourceUpdateConstraint"
 		Properties: {
@@ -146,6 +182,24 @@ ServiceCatalog :: {
 			PortfolioId:                   string | fn.Fn
 			ProductId:                     string | fn.Fn
 			TagUpdateOnProvisionedProduct: string | fn.Fn
+		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+	}
+	StackSetConstraint :: {
+		Type: "AWS::ServiceCatalog::StackSetConstraint"
+		Properties: {
+			AcceptLanguage?:      string | fn.Fn
+			AccountList:          [...(string | fn.Fn)] | fn.Fn
+			AdminRole:            string | fn.Fn
+			Description:          string | fn.Fn
+			ExecutionRole:        string | fn.Fn
+			PortfolioId:          string | fn.Fn
+			ProductId:            string | fn.Fn
+			RegionList:           [...(string | fn.Fn)] | fn.Fn
+			StackInstanceControl: string | fn.Fn
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

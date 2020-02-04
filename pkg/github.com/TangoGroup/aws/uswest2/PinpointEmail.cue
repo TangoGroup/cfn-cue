@@ -47,6 +47,20 @@ PinpointEmail :: {
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
 	}
+	DedicatedIpPool :: {
+		Type: "AWS::PinpointEmail::DedicatedIpPool"
+		Properties: {
+			PoolName?: string | fn.Fn
+			Tags?: [...{
+				Key?:   string | fn.Fn
+				Value?: string | fn.Fn
+			}]
+		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+	}
 	Identity :: {
 		Type: "AWS::PinpointEmail::Identity"
 		Properties: {

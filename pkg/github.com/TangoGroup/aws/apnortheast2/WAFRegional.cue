@@ -88,7 +88,7 @@ WAFRegional :: {
 			Predicates?: [...{
 				DataId:  string | fn.Fn
 				Negated: bool | fn.Fn
-				Type:    (string & ("ByteMatch" | "GeoMatch" | "IPMatch" | "RegexMatch" | "SizeConstraint" | "SqlInjectionMatch" | "XssMatch")) | fn.Fn
+				Type:    ("ByteMatch" | "GeoMatch" | "IPMatch" | "RegexMatch" | "SizeConstraint" | "SqlInjectionMatch" | "XssMatch") | fn.Fn
 			}]
 		}
 		DependsOn?:           string | [...string]

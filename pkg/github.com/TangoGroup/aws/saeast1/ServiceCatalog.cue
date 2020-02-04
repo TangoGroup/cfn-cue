@@ -174,6 +174,20 @@ ServiceCatalog :: {
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
 	}
+	ResourceUpdateConstraint :: {
+		Type: "AWS::ServiceCatalog::ResourceUpdateConstraint"
+		Properties: {
+			AcceptLanguage?:               string | fn.Fn
+			Description?:                  string | fn.Fn
+			PortfolioId:                   string | fn.Fn
+			ProductId:                     string | fn.Fn
+			TagUpdateOnProvisionedProduct: string | fn.Fn
+		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+	}
 	StackSetConstraint :: {
 		Type: "AWS::ServiceCatalog::StackSetConstraint"
 		Properties: {

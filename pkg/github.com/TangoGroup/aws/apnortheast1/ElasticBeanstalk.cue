@@ -9,7 +9,7 @@ ElasticBeanstalk :: {
 			ApplicationName?: string | fn.Fn
 			Description?:     string | fn.Fn
 			ResourceLifecycleConfig?: {
-				ServiceRole?: (string & (=~#"arn:(aws[a-zA-Z-]*)?:iam::\d{12}:role/[a-zA-Z_0-9+=,.@\-_/]+"#)) | fn.Fn
+				ServiceRole?: (=~#"arn:(aws[a-zA-Z-]*)?:iam::\d{12}:role/[a-zA-Z_0-9+=,.@\-_/]+"#) | fn.Fn
 				VersionLifecycleConfig?: {
 					MaxAgeRule?: {
 						DeleteSourceFromS3?: bool | fn.Fn
