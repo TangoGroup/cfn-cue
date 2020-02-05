@@ -121,14 +121,16 @@ template: aws.Template
 template: {
 	Description: "This is a template"
 	// Resources: S3Bucket1: aws.S3.Bucket
-	// Resources: S3Bucket1: {
-	// 	Properties: AccessControl: Ref: "S3AccessControl"
-	// }
+	Resources: S3Bucket1: {
+		Type: "AWS::S3::Bucket"
+		Properties: AccessControl: Ref: "S3AccessControl"
+	}
 	// Resources: S3Bucket2: aws.S3.Bucket
-	// Resources: S3Bucket2: {
-	// 	Properties: AccessControl: "Fn::Sub":                                                                           "S3AccessControl${Stuff}"
-	// 	Properties: BucketEncryption: ServerSideEncryptionConfiguration: [{ServerSideEncryptionByDefault: SSEAlgorithm: "AES256"}]
-	// }
+	Resources: S3Bucket2: {
+		Type: "AWS::S3::Bucket"
+		Properties: AccessControl: "Fn::Sub":                                                                           "S3AccessControl${Stuff}"
+		Properties: BucketEncryption: ServerSideEncryptionConfiguration: [{ServerSideEncryptionByDefault: SSEAlgorithm: "AES256"}]
+	}
 
 	// Resources: EmrCluster: aws.EMR.Cluster
 	// Resources: EmrCluster: {
@@ -200,8 +202,9 @@ template: {
 	// 		}]
 	// 	}
 	// }
-	Resources: LaunchConfig: aws.AutoScaling.LaunchConfiguration
+	// Resources: LaunchConfig: aws.AutoScaling.LaunchConfiguration
 	Resources: LaunchConfig: {
+		Type: "AWS::AutoScaling::LaunchConfiguration"
 		Properties: {
 			IamInstanceProfile: Ref: "InstanceProfile"
 			// ImageId: "Fn::FindInMap": ["EC2RegionMap", {

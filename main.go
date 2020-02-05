@@ -857,9 +857,9 @@ func main() {
 	for _, region := range regions {
 		shortRegion := strings.ReplaceAll(region, "-", "")
 
-		// if region != "us-west-2" {
-		// 	continue
-		// }
+		if region != "us-west-2" {
+			continue
+		}
 
 		cloudformationSpec := "https://github.com/aws-cloudformation/cfn-python-lint/raw/master/src/cfnlint/data/CloudSpecs/" + region + ".json"
 		fmt.Println(cloudformationSpec)
@@ -877,6 +877,7 @@ func main() {
 		// importDeclarations := make([]*ast.ImportSpec, 0)
 
 		resourceTypes := make([]ast.Expr, 0)
+		resourceTypesFields := []ast.Decl{}
 
 		for _, serviceName := range serviceNames {
 			resources := resourcesByService[serviceName]
@@ -942,6 +943,11 @@ func main() {
 				serviceResources = append(serviceResources, f)
 
 				resourceTypes = append(resourceTypes, ast.NewSel(ast.NewIdent(serviceName), resourceStr))
+				resourceTypesFields = append(resourceTypesFields, &ast.Field{
+					Label: ast.NewIdent(resourceName),
+					// Token: token.ISA,
+					Value: ast.NewSel(ast.NewIdent(serviceName), resourceStr),
+				})
 			}
 
 			builtInImports := []string{}
@@ -1004,17 +1010,17 @@ func main() {
 			resourceTypesExpr = &ast.BinaryExpr{X: resourceTypesExpr, Op: token.OR, Y: resource}
 		}
 
-		// expr := ast.NewList(resourceTypes...)
+		expr := ast.NewList(resourceTypes...)
 
-		// resourceNames := resourceNamesSlice(spec.Resources)
-		// sort.Strings(resourceNames)
-		// var resourceTypeStrings ast.Expr
+		resourceNames := resourceNamesSlice(spec.Resources)
+		sort.Strings(resourceNames)
+		var resourceTypeStrings ast.Expr
 
-		// resourceTypeStrings = ast.NewString(resourceNames[0])
+		resourceTypeStrings = ast.NewString(resourceNames[0])
 
-		// for _, resourceName := range resourceNames[1:] {
-		// 	resourceTypeStrings = &ast.BinaryExpr{X: resourceTypeStrings, Op: token.OR, Y: ast.NewString(resourceName)}
-		// }
+		for _, resourceName := range resourceNames[1:] {
+			resourceTypeStrings = &ast.BinaryExpr{X: resourceTypeStrings, Op: token.OR, Y: ast.NewString(resourceName)}
+		}
 
 		declarations := []ast.Decl{
 			&ast.Package{
@@ -1030,11 +1036,19 @@ func main() {
 			templateResourceSpecVersion(spec.ResourceSpecificationVersion),
 		}
 
-		// declarations = append(declarations, &ast.Field{
-		// 	Label: ast.NewIdent("ResourceTypes"),
-		// 	Token: token.ISA,
-		// 	Value: expr,
-		// })
+		declarations = append(declarations, &ast.Field{
+			Label: ast.NewIdent("ResourceTypes"),
+			Token: token.ISA,
+			Value: expr,
+		})
+
+		declarations = append(declarations, &ast.Field{
+			Label: ast.NewIdent("ResourceTypesMap"),
+			// Token: token.ISA,
+			Value: &ast.StructLit{
+				Elts: resourceTypesFields,
+			},
+		})
 
 		deletionPolicyStrings := []string{"Delete", "Retain", "Snapshot"}
 		var deletionPolicies ast.Expr
@@ -1044,136 +1058,136 @@ func main() {
 			deletionPolicies = &ast.BinaryExpr{X: deletionPolicies, Op: token.OR, Y: ast.NewString(deletionPolicy)}
 		}
 		// https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/resources-section-structure.html
-		templateResources := &ast.Field{
-			Label: ast.NewIdent("Resources"),
-			Value: &ast.StructLit{
-				Elts: []ast.Decl{
-					&ast.Field{
-						Label: ast.NewList(&ast.UnaryExpr{Op: token.MAT, X: ast.NewString("[a-zA-Z0-9]")}),
-						Value: resourceTypesExpr,
-					},
-				},
-			},
-		}
 		// templateResources := &ast.Field{
 		// 	Label: ast.NewIdent("Resources"),
 		// 	Value: &ast.StructLit{
 		// 		Elts: []ast.Decl{
 		// 			&ast.Field{
 		// 				Label: ast.NewList(&ast.UnaryExpr{Op: token.MAT, X: ast.NewString("[a-zA-Z0-9]")}),
-		// 				Value: &ast.StructLit{
-		// 					Elts: []ast.Decl{
-		// 						&ast.Field{
-		// 							Label: ast.NewIdent("Type"),
-		// 							Value: resourceTypeStrings,
-		// 						},
-		// 						&ast.Field{
-		// 							Label: ast.NewIdent("Properties"),
-		// 							Value: &ast.StructLit{
-		// 								Elts: []ast.Decl{
-		// 									&ast.Field{
-		// 										Label: ast.NewList(&ast.BasicLit{Value: "string"}),
-		// 										Value: &ast.BasicLit{Value: "_"},
-		// 									},
-		// 								},
-		// 							},
-		// 						},
-		// 						&ast.Field{
-		// 							Label:    ast.NewIdent("DependsOn"),
-		// 							Optional: token.Elided.Pos(),
-		// 							Value: &ast.BinaryExpr{
-		// 								X:  ast.NewIdent("string"),
-		// 								Op: token.OR,
-		// 								Y:  ast.NewList(&ast.Ellipsis{Type: ast.NewIdent("string")}),
-		// 							},
-		// 						},
-		// 						&ast.Field{
-		// 							Label:    ast.NewIdent("DeletionPolicy"),
-		// 							Optional: token.Elided.Pos(),
-		// 							Value:    deletionPolicies,
-		// 						},
-		// 						&ast.Field{
-		// 							Label:    ast.NewIdent("UpdateReplacePolicy"),
-		// 							Optional: token.Elided.Pos(),
-		// 							Value:    deletionPolicies,
-		// 						},
-		// 						&ast.Field{
-		// 							Label:    ast.NewIdent("Metadata"),
-		// 							Optional: token.Elided.Pos(),
-		// 							Value: &ast.StructLit{
-		// 								Elts: []ast.Decl{
-		// 									&ast.Field{
-		// 										Label: ast.NewList(&ast.BasicLit{Value: "string"}),
-		// 										Value: &ast.BasicLit{Value: "_"},
-		// 									},
-		// 								},
-		// 							},
-		// 						},
-		// 					},
-		// 				},
+		// 				Value: resourceTypesExpr,
 		// 			},
 		// 		},
 		// 	},
 		// }
-		// resourcesForLoop := &ast.Comprehension{
-		// 	Clauses: []ast.Clause{
-		// 		&ast.ForClause{
-		// 			Key:    ast.NewIdent("resourceName"),
-		// 			Value:  ast.NewIdent("resource"),
-		// 			Source: ast.NewIdent("Resources"),
-		// 		},
-		// 	},
-		// 	Value: &ast.StructLit{
-		// 		Elts: []ast.Decl{
-		// 			&ast.Comprehension{
-		// 				Clauses: []ast.Clause{
-		// 					&ast.ForClause{
-		// 						// Key: ast.NewIdent("resourceName"),
-		// 						Value:  ast.NewIdent("cfnResource"),
-		// 						Source: ast.NewIdent("ResourceTypes"),
-		// 					},
-		// 				},
-		// 				Value: &ast.StructLit{
-		// 					Elts: []ast.Decl{
-		// 						&ast.Comprehension{
-		// 							Clauses: []ast.Clause{
-		// 								&ast.IfClause{
-		// 									Condition: &ast.BinaryExpr{
-		// 										X:  ast.NewSel(ast.NewIdent("resource"), "Type"),
-		// 										Op: token.EQL,
-		// 										Y:  ast.NewSel(ast.NewIdent("cfnResource"), "Type"),
-		// 									},
-		// 								},
-		// 							},
-		// 							Value: &ast.StructLit{
-		// 								Elts: []ast.Decl{
-		// 									&ast.Field{
-		// 										Label: ast.NewIdent("Resources"),
-		// 										Value: &ast.StructLit{
-		// 											Elts: []ast.Decl{
-		// 												&ast.Field{
-		// 													Label: &ast.Interpolation{
-		// 														Elts: []ast.Expr{
-		// 															&ast.BasicLit{
-		// 																Kind:  token.STRING,
-		// 																Value: `"\(resourceName)"`,
-		// 															},
-		// 														},
-		// 													},
-		// 													Value: ast.NewIdent("cfnResource"),
-		// 												},
-		// 											},
-		// 										},
-		// 									},
-		// 								},
-		// 							},
-		// 						},
-		// 					},
-		// 				},
-		// 			},
-		// 		},
-		// 	},
-		// }
+		templateResources := &ast.Field{
+			Label: ast.NewIdent("Resources"),
+			Value: &ast.StructLit{
+				Elts: []ast.Decl{
+					&ast.Field{
+						Label: ast.NewList(&ast.UnaryExpr{Op: token.MAT, X: ast.NewString("[a-zA-Z0-9]")}),
+						Value: &ast.StructLit{
+							Elts: []ast.Decl{
+								&ast.Field{
+									Label: ast.NewIdent("Type"),
+									Value: resourceTypeStrings,
+								},
+								&ast.Field{
+									Label: ast.NewIdent("Properties"),
+									Value: &ast.StructLit{
+										Elts: []ast.Decl{
+											&ast.Field{
+												Label: ast.NewList(&ast.BasicLit{Value: "string"}),
+												Value: &ast.BasicLit{Value: "_"},
+											},
+										},
+									},
+								},
+								&ast.Field{
+									Label:    ast.NewIdent("DependsOn"),
+									Optional: token.Elided.Pos(),
+									Value: &ast.BinaryExpr{
+										X:  ast.NewIdent("string"),
+										Op: token.OR,
+										Y:  ast.NewList(&ast.Ellipsis{Type: ast.NewIdent("string")}),
+									},
+								},
+								&ast.Field{
+									Label:    ast.NewIdent("DeletionPolicy"),
+									Optional: token.Elided.Pos(),
+									Value:    deletionPolicies,
+								},
+								&ast.Field{
+									Label:    ast.NewIdent("UpdateReplacePolicy"),
+									Optional: token.Elided.Pos(),
+									Value:    deletionPolicies,
+								},
+								&ast.Field{
+									Label:    ast.NewIdent("Metadata"),
+									Optional: token.Elided.Pos(),
+									Value: &ast.StructLit{
+										Elts: []ast.Decl{
+											&ast.Field{
+												Label: ast.NewList(&ast.BasicLit{Value: "string"}),
+												Value: &ast.BasicLit{Value: "_"},
+											},
+										},
+									},
+								},
+							},
+						},
+					},
+				},
+			},
+		}
+		resourcesForLoop := &ast.Comprehension{
+			Clauses: []ast.Clause{
+				&ast.ForClause{
+					Key:    ast.NewIdent("resourceName"),
+					Value:  ast.NewIdent("resource"),
+					Source: ast.NewIdent("Resources"),
+				},
+			},
+			Value: &ast.StructLit{
+				Elts: []ast.Decl{
+					&ast.Comprehension{
+						Clauses: []ast.Clause{
+							&ast.ForClause{
+								// Key: ast.NewIdent("resourceName"),
+								Value:  ast.NewIdent("cfnResource"),
+								Source: ast.NewIdent("ResourceTypes"),
+							},
+						},
+						Value: &ast.StructLit{
+							Elts: []ast.Decl{
+								&ast.Comprehension{
+									Clauses: []ast.Clause{
+										&ast.IfClause{
+											Condition: &ast.BinaryExpr{
+												X:  ast.NewSel(ast.NewIdent("resource"), "Type"),
+												Op: token.EQL,
+												Y:  ast.NewSel(ast.NewIdent("cfnResource"), "Type"),
+											},
+										},
+									},
+									Value: &ast.StructLit{
+										Elts: []ast.Decl{
+											&ast.Field{
+												Label: ast.NewIdent("Resources"),
+												Value: &ast.StructLit{
+													Elts: []ast.Decl{
+														&ast.Field{
+															Label: &ast.Interpolation{
+																Elts: []ast.Expr{
+																	&ast.BasicLit{
+																		Kind:  token.STRING,
+																		Value: `"\(resourceName)"`,
+																	},
+																},
+															},
+															Value: ast.NewIdent("cfnResource"),
+														},
+													},
+												},
+											},
+										},
+									},
+								},
+							},
+						},
+					},
+				},
+			},
+		}
 
 		// https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/outputs-section-structure.html
 
@@ -1189,7 +1203,7 @@ func main() {
 					templateConditions(),
 					templateParameters(),
 					templateResources,
-					// resourcesForLoop,
+					resourcesForLoop,
 					templateOutputs(),
 				},
 			},

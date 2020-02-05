@@ -12,6 +12,14 @@ fn :: {
 		// [Resource Name, Attribute Name]
 		"Fn::GetAtt": [string, string | Ref] | string
 	}
+	Sub :: {
+		// SubFn ::   Base64 | FindInMap | GetAtt | GetAZs | If | ImportValue | Join | Select | Ref
+		// "Fn::Sub": string | [string, {
+		//  [string]: string | Base64 | FindInMap | GetAtt | GetAZs | If | ImportValue | Join | Select | Sub | Ref
+		// }]
+		"Fn::Sub": string | [string, close({[string]: string | Sub | Ref})]
+		// "Fn::Sub": string | [string, {[string | SubFn]: string | SubFn}]
+	}
 
 	Fn :: Ref | GetAtt
 }

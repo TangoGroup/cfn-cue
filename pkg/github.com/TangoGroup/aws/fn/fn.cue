@@ -18,74 +18,74 @@ import "github.com/TangoGroup/aws/regions"
 // Base64: https://docs.aws.amazon.com/en_pv/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-base64.html
 // You can use any function that returns a string inside the Fn::Base64 function.
 Base64 :: {
-	"Fn::Base64": string | Base64 | FindInMap | GetAtt | ImportValue | Join | Select | Sub | Ref | If
+	"Fn::Base64": close(string | Base64 | FindInMap | GetAtt | ImportValue | Join | Select | Sub | Ref | If)
 }
 
 // Cidr: https://docs.aws.amazon.com/en_pv/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-cidr.html
 Cidr :: {
 	// CidrFn :: Select | Ref
-	"Fn::Cidr": [string | Select | Ref, GetAtt, Sub, Select, (>=1 & <=256) | Select | Ref, (>=0 & <=128) | Select | Ref]
+	"Fn::Cidr": close([string | Select | Ref, GetAtt, Sub, Select, (>=1 & <=256) | Select | Ref, (>=0 & <=128) | Select | Ref])
 }
 
 // FindInMap: https://docs.aws.amazon.com/en_pv/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-findinmap.html
 FindInMap :: {
 	// FindInMapFn :: FindInMap | Ref
-	"Fn::FindInMap": [string | FindInMap | Ref, string | FindInMap | Ref, string | FindInMap | Ref]
+	"Fn::FindInMap": close([string | FindInMap | Ref, string | FindInMap | Ref, string | FindInMap | Ref])
 }
 
 // GetAZs: https://docs.aws.amazon.com/en_pv/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-getavailabilityzones.html
 GetAZs :: {
-	"Fn::GetAZs": regions.Regions | "" | (Ref & {"Ref": "AWS::Region"})
+	"Fn::GetAZs": close(regions.Regions | "" | (Ref & {"Ref": "AWS::Region"}))
 }
 
 // GetAtt: https://docs.aws.amazon.com/en_pv/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-getatt.html
 GetAtt :: {
 	// [Resource Name, Attribute Name]
-	"Fn::GetAtt": [string, string | Ref] | string
+	"Fn::GetAtt": close([string, string | Ref] | string)
 }
 
 // ImportValue: https://docs.aws.amazon.com/en_pv/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-importvalue.html
 // You can use the following functions in the Fn::ImportValue function. The value of these functions can't depend on a resource.
 
 ImportValue :: {
-	"Fn::ImportValue": string | Base64 | FindInMap | If | Join | Select | Split | Sub | Ref
+	"Fn::ImportValue": close(string | Base64 | FindInMap | If | Join | Select | Split | Sub | Ref)
 }
 
 // Join: https://docs.aws.amazon.com/en_pv/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-join.html
 Join :: {
 	// JoinFn :: Base64 | FindInMap | GetAtt | GetAZs | If | ImportValue | Join | Split | Select | Sub | Ref
-	"Fn::Join": [string, [...(bool | string | bytes | int | float | Base64 | FindInMap | GetAtt | GetAZs | If | ImportValue | Join | Split | Select | Sub | Ref)]]
+	"Fn::Join": close([string, [...(bool | string | bytes | int | float | Base64 | FindInMap | GetAtt | GetAZs | If | ImportValue | Join | Split | Select | Sub | Ref)]])
 }
 
 // Select: https://docs.aws.amazon.com/en_pv/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-select.html
 Select :: {
 	// SelectFn :: FindInMap | GetAtt | GetAZs | If | Split | Ref
-	"Fn::Select": [>=0 | Ref | FindInMap, [...(bool | string | bytes | int | float | FindInMap | GetAtt | GetAZs | If | Split | Cidr | Ref)] | FindInMap | GetAtt | GetAZs | If | Split | Ref]
+	"Fn::Select": close([>=0 | Ref | FindInMap, [...(bool | string | bytes | int | float | FindInMap | GetAtt | GetAZs | If | Split | Cidr | Ref)] | FindInMap | GetAtt | GetAZs | If | Split | Ref])
 }
 
 // Split: https://docs.aws.amazon.com/en_pv/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-split.html
 Split :: {
 	// SplitFn :: Base64 | FindInMap | GetAtt | GetAZs | If | ImportValue | Join | Select | Sub | Ref
-	"Fn::Split": [string, string | Base64 | FindInMap | GetAtt | GetAZs | If | ImportValue | Join | Select | Sub | Ref]
+	"Fn::Split": close([string, string | Base64 | FindInMap | GetAtt | GetAZs | If | ImportValue | Join | Select | Sub | Ref])
 }
 
 // Sub: https://docs.aws.amazon.com/en_pv/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-sub.html
 Sub :: {
 	// SubFn ::   Base64 | FindInMap | GetAtt | GetAZs | If | ImportValue | Join | Select | Ref
-	"Fn::Sub": string | [string, {
-		[string]: string | Base64 | FindInMap | GetAtt | GetAZs | If | ImportValue | Join | Select | Sub | Ref
-	}]
-	// "Fn::Sub": string | [string, {[string]: string | Sub | Ref}]
+	// "Fn::Sub": string | [string, {
+	// 	[string]: string | Base64 | FindInMap | GetAtt | GetAZs | If | ImportValue | Join | Select | Sub | Ref
+	// }]
+	"Fn::Sub": string | [string, close({[string]: string | Sub | Ref})]
 	// "Fn::Sub": string | [string, {[string | SubFn]: string | SubFn}]
 }
 
 // Transform: https://docs.aws.amazon.com/en_pv/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-transform.html
-Transform :: {
-	"Fn::Transform": {
-		Name: string
-		Parameters: {}
-	}
-}
+// Transform :: {
+// 	"Fn::Transform": close({
+// 		Name: string
+// 		Parameters: {}
+// 	})
+// }
 
 // Ref: https://docs.aws.amazon.com/en_pv/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-ref.html
 Ref :: {
@@ -100,13 +100,13 @@ Ref :: {
 
 // https://docs.aws.amazon.com/en_pv/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-conditions.html#intrinsic-function-reference-conditions-and
 And :: {
-	"Fn::And": [...({Condition: string} | LogicFn)]
+	"Fn::And": close([...({Condition: string} | LogicFn)])
 	// "Fn::And": list.MinItems(2) & list.MaxItems(10)
 }
 
 // https://docs.aws.amazon.com/en_pv/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-conditions.html#intrinsic-function-reference-conditions-equals
 Equals :: {
-	"Fn::Equals": 2 * [string | Ref | FindInMap | ConditionFn]
+	"Fn::Equals": close(2 * [string | Ref | FindInMap | ConditionFn])
 }
 
 // You can use the following functions in the Fn::If condition:
@@ -122,25 +122,26 @@ Equals :: {
 
 // https://docs.aws.amazon.com/en_pv/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-conditions.html#intrinsic-function-reference-conditions-if
 If :: {
-	"Fn::If": [string, _ | Base64 | FindInMap | GetAtt | GetAZs | If | Join | Select | Sub | Ref, _ | Base64 | FindInMap | GetAtt | GetAZs | If | Join | Select | Sub | Ref]
+	"Fn::If": close([string, _ | Base64 | FindInMap | GetAtt | GetAZs | If | Join | Select | Sub | Ref, _ | Base64 | FindInMap | GetAtt | GetAZs | If | Join | Select | Sub | Ref])
 }
 
 // https://docs.aws.amazon.com/en_pv/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-conditions.html#intrinsic-function-reference-conditions-not
 Not :: {
-	"Fn::Not": [{Condition: string} | LogicFn]
+	"Fn::Not": close([{Condition: string} | LogicFn])
 }
 
 // https://docs.aws.amazon.com/en_pv/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-conditions.html#intrinsic-function-reference-conditions-or
 // Returns true if any one of the specified conditions evaluate to true, or returns false if all of the conditions evaluates to false. Fn::Or acts as an OR operator. The minimum number of conditions that you can include is 2, and the maximum is 10.
 
 Or :: {
-	"Fn::Or": [...({Condition: string} | LogicFn)]
+	"Fn::Or": close([...({Condition: string} | LogicFn)])
 }
 
 LogicFn :: And | Equals | Not | Or
 
 ConditionFn :: LogicFn | If
 
-Fn :: Base64 | Cidr | FindInMap | GetAZs | GetAtt | ImportValue | Join | Select | Split | Sub | Transform | Ref | And | Equals | If | Not | Or
-// Fn : Sub | Ref
+// Fn :: close(Base64 | Cidr | FindInMap | GetAZs | GetAtt | ImportValue | Join | Select | Split | Sub | Transform | Ref | And | Equals | If | Not | Or)
+Fn :: Base64 | Cidr | FindInMap | GetAZs | GetAtt | ImportValue | Join | Select | Split | Sub | Ref | And | Equals | If | Not | Or
+// Fn :: Sub | Ref
 // Fn : Sub
