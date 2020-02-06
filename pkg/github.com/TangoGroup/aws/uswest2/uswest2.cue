@@ -525,9 +525,6 @@ Template :: {
 		UpdateReplacePolicy?: "Delete" | "Retain" | "Snapshot"
 		Metadata?: [string]: _
 	}
-	for resourceName, resource in Resources {
-		Resources: "\(resourceName)": ResourceTypesMap[resource.Type]
-	}
 	Outputs?: [=~"[a-zA-Z0-9]"]: {
 		Description?: string
 		Value:        _

@@ -1129,65 +1129,65 @@ func main() {
 				},
 			},
 		}
-		resourcesForLoop := &ast.Comprehension{
-			Clauses: []ast.Clause{
-				&ast.ForClause{
-					Key:    ast.NewIdent("resourceName"),
-					Value:  ast.NewIdent("resource"),
-					Source: ast.NewIdent("Resources"),
-				},
-			},
-			Value: &ast.StructLit{
-				Elts: []ast.Decl{
-					&ast.Comprehension{
-						Clauses: []ast.Clause{
-							&ast.ForClause{
-								// Key: ast.NewIdent("resourceName"),
-								Value:  ast.NewIdent("cfnResource"),
-								Source: ast.NewIdent("ResourceTypes"),
-							},
-						},
-						Value: &ast.StructLit{
-							Elts: []ast.Decl{
-								&ast.Comprehension{
-									Clauses: []ast.Clause{
-										&ast.IfClause{
-											Condition: &ast.BinaryExpr{
-												X:  ast.NewSel(ast.NewIdent("resource"), "Type"),
-												Op: token.EQL,
-												Y:  ast.NewSel(ast.NewIdent("cfnResource"), "Type"),
-											},
-										},
-									},
-									Value: &ast.StructLit{
-										Elts: []ast.Decl{
-											&ast.Field{
-												Label: ast.NewIdent("Resources"),
-												Value: &ast.StructLit{
-													Elts: []ast.Decl{
-														&ast.Field{
-															Label: &ast.Interpolation{
-																Elts: []ast.Expr{
-																	&ast.BasicLit{
-																		Kind:  token.STRING,
-																		Value: `"\(resourceName)"`,
-																	},
-																},
-															},
-															Value: ast.NewIdent("cfnResource"),
-														},
-													},
-												},
-											},
-										},
-									},
-								},
-							},
-						},
-					},
-				},
-			},
-		}
+		// resourcesForLoop := &ast.Comprehension{
+		// 	Clauses: []ast.Clause{
+		// 		&ast.ForClause{
+		// 			Key:    ast.NewIdent("resourceName"),
+		// 			Value:  ast.NewIdent("resource"),
+		// 			Source: ast.NewIdent("Resources"),
+		// 		},
+		// 	},
+		// 	Value: &ast.StructLit{
+		// 		Elts: []ast.Decl{
+		// 			&ast.Comprehension{
+		// 				Clauses: []ast.Clause{
+		// 					&ast.ForClause{
+		// 						// Key: ast.NewIdent("resourceName"),
+		// 						Value:  ast.NewIdent("cfnResource"),
+		// 						Source: ast.NewIdent("ResourceTypes"),
+		// 					},
+		// 				},
+		// 				Value: &ast.StructLit{
+		// 					Elts: []ast.Decl{
+		// 						&ast.Comprehension{
+		// 							Clauses: []ast.Clause{
+		// 								&ast.IfClause{
+		// 									Condition: &ast.BinaryExpr{
+		// 										X:  ast.NewSel(ast.NewIdent("resource"), "Type"),
+		// 										Op: token.EQL,
+		// 										Y:  ast.NewSel(ast.NewIdent("cfnResource"), "Type"),
+		// 									},
+		// 								},
+		// 							},
+		// 							Value: &ast.StructLit{
+		// 								Elts: []ast.Decl{
+		// 									&ast.Field{
+		// 										Label: ast.NewIdent("Resources"),
+		// 										Value: &ast.StructLit{
+		// 											Elts: []ast.Decl{
+		// 												&ast.Field{
+		// 													Label: &ast.Interpolation{
+		// 														Elts: []ast.Expr{
+		// 															&ast.BasicLit{
+		// 																Kind:  token.STRING,
+		// 																Value: `"\(resourceName)"`,
+		// 															},
+		// 														},
+		// 													},
+		// 													Value: ast.NewIdent("cfnResource"),
+		// 												},
+		// 											},
+		// 										},
+		// 									},
+		// 								},
+		// 							},
+		// 						},
+		// 					},
+		// 				},
+		// 			},
+		// 		},
+		// 	},
+		// }
 
 		// https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/outputs-section-structure.html
 
@@ -1203,7 +1203,7 @@ func main() {
 					templateConditions(),
 					templateParameters(),
 					templateResources,
-					resourcesForLoop,
+					// resourcesForLoop,
 					templateOutputs(),
 				},
 			},
