@@ -440,15 +440,15 @@ func templateParameters() *ast.Field {
 
 	parameterProperties := [][]string{
 		{"AllowedPattern", "string"},
-		{"AllowedValues", "[...(string | number)]"},
+		{"AllowedValues", "[...(string | number | bool)]"},
 		{"ConstraintDescription", "string"},
-		{"Default", "string"},
+		{"Default", "string | number | bool"},
 		{"Description", "string"},
-		{"MaxLength", "int"},
-		{"MaxValue", "int"},
-		{"MinLength", "int"},
-		{"MinValue", "int"},
-		{"NoEcho", "bool"},
+		{"MaxLength", `int | =~"^[0-9]+$"`},
+		{"MaxValue", `int | =~"^[0-9]+$"`},
+		{"MinLength", `int | =~"^[0-9]+$"`},
+		{"MinValue", `int | =~"^[0-9]+$"`},
+		{"NoEcho", `bool | =~"^(true|false)$"`},
 	}
 	parameterPropertiesFields := []ast.Decl{
 		&ast.Field{
@@ -624,9 +624,9 @@ func templateMappings() *ast.Field {
 										&ast.Field{
 											Label: ast.NewList(&ast.UnaryExpr{Op: token.MAT, X: ast.NewString("[a-zA-Z0-9]")}),
 											Value: &ast.BinaryExpr{
-												X:  &ast.BasicLit{Value: "string"},
+												X:  &ast.BasicLit{Value: "string | int | bool"},
 												Op: token.OR,
-												Y:  ast.NewList(&ast.Ellipsis{Type: &ast.BasicLit{Value: "string"}}),
+												Y:  ast.NewList(&ast.Ellipsis{Type: &ast.BasicLit{Value: "(string | int | bool)"}}),
 											},
 										},
 									},
@@ -668,6 +668,7 @@ func templateConditions() *ast.Field {
 	}
 }
 
+// https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/outputs-section-structure.html
 func templateOutputs() *ast.Field {
 	return &ast.Field{
 		Label:    ast.NewIdent("Outputs"),
@@ -684,6 +685,11 @@ func templateOutputs() *ast.Field {
 								Optional: token.Elided.Pos(),
 							},
 							&ast.Field{Label: ast.NewIdent("Value"), Value: &ast.BasicLit{Value: "_"}},
+							&ast.Field{
+								Label:    ast.NewIdent("Condition"),
+								Optional: token.Elided.Pos(),
+								Value:    ast.NewIdent("string"),
+							},
 							&ast.Field{
 								Label:    ast.NewIdent("Export"),
 								Optional: token.Elided.Pos(),
@@ -1064,6 +1070,11 @@ func main() {
 						Value: &ast.StructLit{
 							Elts: []ast.Decl{
 								&ast.Field{
+									Label:    ast.NewIdent("Description"),
+									Optional: token.Elided.Pos(),
+									Value:    ast.NewIdent("string"),
+								},
+								&ast.Field{
 									Label: ast.NewIdent("Type"),
 									Value: ast.NewCall(ast.NewIdent("or"), &ast.ListComprehension{
 										Clauses: []ast.Clause{
@@ -1106,6 +1117,16 @@ func main() {
 									Value:    deletionPolicies,
 								},
 								&ast.Field{
+									Label:    ast.NewIdent("CreationPolicy"),
+									Optional: token.Elided.Pos(),
+									Value:    ast.NewIdent("_"),
+								},
+								&ast.Field{
+									Label:    ast.NewIdent("UpdatePolicy"),
+									Optional: token.Elided.Pos(),
+									Value:    ast.NewIdent("_"),
+								},
+								&ast.Field{
 									Label:    ast.NewIdent("Metadata"),
 									Optional: token.Elided.Pos(),
 									Value: &ast.StructLit{
@@ -1116,6 +1137,11 @@ func main() {
 											},
 										},
 									},
+								},
+								&ast.Field{
+									Label:    ast.NewIdent("Condition"),
+									Optional: token.Elided.Pos(),
+									Value:    ast.NewIdent("string"),
 								},
 							},
 						},
@@ -1182,67 +1208,40 @@ func main() {
 		// 		},
 		// 	},
 		// }
-		// resourcesForLoop := &ast.Comprehension{
-		// 	Clauses: []ast.Clause{
-		// 		&ast.ForClause{
-		// 			Key:    ast.NewIdent("resource"),
-		// 			Value:  ast.NewIdent("resource"),
-		// 			Source: ast.NewIdent("ResourceTypes"),
-		// 		},
-		// 	},
-		// 	Value: &ast.StructLit{
-		// 		Elts: []ast.Decl{
-		// 			&ast.Comprehension{
-		// 				Clauses: []ast.Clause{
-		// 					&ast.ForClause{
-		// 						// Key: ast.NewIdent("resourceName"),
-		// 						Value:  ast.NewIdent("cfnResource"),
-		// 						Source: ast.NewIdent("ResourceTypes"),
-		// 					},
-		// 				},
-		// 				Value: &ast.StructLit{
-		// 					Elts: []ast.Decl{
-		// 						&ast.Comprehension{
-		// 							Clauses: []ast.Clause{
-		// 								&ast.IfClause{
-		// 									Condition: &ast.BinaryExpr{
-		// 										X:  ast.NewSel(ast.NewIdent("resource"), "Type"),
-		// 										Op: token.EQL,
-		// 										Y:  ast.NewSel(ast.NewIdent("cfnResource"), "Type"),
-		// 									},
-		// 								},
-		// 							},
-		// 							Value: &ast.StructLit{
-		// 								Elts: []ast.Decl{
-		// 									&ast.Field{
-		// 										Label: ast.NewIdent("Resources"),
-		// 										Value: &ast.StructLit{
-		// 											Elts: []ast.Decl{
-		// 												&ast.Field{
-		// 													Label: &ast.Interpolation{
-		// 														Elts: []ast.Expr{
-		// 															&ast.BasicLit{
-		// 																Kind:  token.STRING,
-		// 																Value: `"\(resourceName)"`,
-		// 															},
-		// 														},
-		// 													},
-		// 													Value: ast.NewIdent("cfnResource"),
-		// 												},
-		// 											},
-		// 										},
-		// 									},
-		// 								},
-		// 							},
-		// 						},
-		// 					},
-		// 				},
-		// 			},
-		// 		},
-		// 	},
-		// }
-
-		// https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/outputs-section-structure.html
+		resourcesForLoop := &ast.Comprehension{
+			Clauses: []ast.Clause{
+				&ast.ForClause{
+					Key:    ast.NewIdent("resourceName"),
+					Value:  ast.NewIdent("resource"),
+					Source: ast.NewIdent("Resources"),
+				},
+			},
+			Value: &ast.StructLit{
+				Elts: []ast.Decl{
+					&ast.Field{
+						Label: ast.NewIdent("Resources"),
+						Value: &ast.StructLit{
+							Elts: []ast.Decl{
+								&ast.Field{
+									Label: &ast.Interpolation{
+										Elts: []ast.Expr{
+											&ast.BasicLit{
+												Kind:  token.STRING,
+												Value: `"\(resourceName)"`,
+											},
+										},
+									},
+									Value: &ast.IndexExpr{
+										X:     ast.NewIdent("ResourceTypesMap"),
+										Index: ast.NewSel(ast.NewIdent("resource"), "Type"),
+									},
+								},
+							},
+						},
+					},
+				},
+			},
+		}
 
 		declarations = append(declarations, &ast.Field{
 			Label: ast.NewIdent("Template"),
@@ -1257,7 +1256,7 @@ func main() {
 					templateParameters(),
 					// templateResources1,
 					templateResources2,
-					// resourcesForLoop,
+					resourcesForLoop,
 					templateOutputs(),
 				},
 			},
@@ -1271,18 +1270,18 @@ func main() {
 		// 	},
 		// })
 
-		resourcesMapForLoop := &ast.Comprehension{
-			Clauses: []ast.Clause{
-				&ast.ForClause{
-					Value:  ast.NewIdent("resource"),
-					Source: ast.NewIdent("ResourceTypes"),
-				},
-			},
+		resourcesMap := &ast.Field{
+			Label: ast.NewIdent("ResourceTypesMap"),
+			Token: token.ISA,
 			Value: &ast.StructLit{
 				Elts: []ast.Decl{
-					&ast.Field{
-						Label: ast.NewIdent("ResourceTypesMap"),
-						Token: token.ISA,
+					&ast.Comprehension{
+						Clauses: []ast.Clause{
+							&ast.ForClause{
+								Value:  ast.NewIdent("resource"),
+								Source: ast.NewIdent("ResourceTypes"),
+							},
+						},
 						Value: &ast.StructLit{
 							Elts: []ast.Decl{
 								&ast.Field{
@@ -1303,7 +1302,40 @@ func main() {
 			},
 		}
 
-		declarations = append(declarations, resourcesMapForLoop)
+		// resourcesMapForLoop := &ast.Comprehension{
+		// 	Clauses: []ast.Clause{
+		// 		&ast.ForClause{
+		// 			Value:  ast.NewIdent("resource"),
+		// 			Source: ast.NewIdent("ResourceTypes"),
+		// 		},
+		// 	},
+		// 	Value: &ast.StructLit{
+		// 		Elts: []ast.Decl{
+		// 			&ast.Field{
+		// 				Label: ast.NewIdent("ResourceTypesMap"),
+		// 				Token: token.ISA,
+		// 				Value: &ast.StructLit{
+		// 					Elts: []ast.Decl{
+		// 						&ast.Field{
+		// 							Label: &ast.Interpolation{
+		// 								Elts: []ast.Expr{
+		// 									&ast.BasicLit{
+		// 										Kind:  token.STRING,
+		// 										Value: `"\(resource.Type)"`,
+		// 									},
+		// 								},
+		// 							},
+		// 							Value: ast.NewIdent("resource"),
+		// 						},
+		// 					},
+		// 				},
+		// 			},
+		// 		},
+		// 	},
+		// }
+
+		declarations = append(declarations, resourcesMap)
+		// declarations = append(declarations, resourcesMapForLoop)
 
 		declarations = append(declarations, &ast.Field{
 			Label: ast.NewIdent("ResourceTypes"),

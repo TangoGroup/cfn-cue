@@ -7,37 +7,45 @@ Template :: {
 	AWSTemplateFormatVersion?: "2010-09-09"
 	Description?:              string
 	Metadata?: [string]: _
-	Mappings?: [string]: [string]: [=~"[a-zA-Z0-9]"]: string | [...string]
+	Mappings?: [string]: [string]: [=~"[a-zA-Z0-9]"]: string | int | bool | [...(string | int | bool)]
 	Conditions?: [string]: fn.And | fn.Equals | fn.If | fn.Not | fn.Or
 	Parameters?: [=~"[a-zA-Z0-9]"]: {
 		Type:                   "AWS::EC2::AvailabilityZone::Name" | "AWS::EC2::Image::Id" | "AWS::EC2::Instance::Id" | "AWS::EC2::KeyPair::KeyName" | "AWS::EC2::SecurityGroup::GroupName" | "AWS::EC2::SecurityGroup::Id" | "AWS::EC2::Subnet::Id" | "AWS::EC2::VPC::Id" | "AWS::EC2::Volume::Id" | "AWS::Route53::HostedZone::Id" | "AWS::SSM::Parameter::Name" | "AWS::SSM::Parameter::Value<AWS::EC2::AvailabilityZone::Name>" | "AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>" | "AWS::SSM::Parameter::Value<AWS::EC2::Instance::Id>" | "AWS::SSM::Parameter::Value<AWS::EC2::KeyPair::KeyName>" | "AWS::SSM::Parameter::Value<AWS::EC2::SecurityGroup::GroupName>" | "AWS::SSM::Parameter::Value<AWS::EC2::SecurityGroup::Id>" | "AWS::SSM::Parameter::Value<AWS::EC2::Subnet::Id>" | "AWS::SSM::Parameter::Value<AWS::EC2::VPC::Id>" | "AWS::SSM::Parameter::Value<AWS::EC2::Volume::Id>" | "AWS::SSM::Parameter::Value<AWS::Route53::HostedZone::Id>" | "AWS::SSM::Parameter::Value<CommaDelimitedList>" | "AWS::SSM::Parameter::Value<List<AWS::EC2::AvailabilityZone::Name>>" | "AWS::SSM::Parameter::Value<List<AWS::EC2::Image::Id>>" | "AWS::SSM::Parameter::Value<List<AWS::EC2::Instance::Id>>" | "AWS::SSM::Parameter::Value<List<AWS::EC2::KeyPair::KeyName>>" | "AWS::SSM::Parameter::Value<List<AWS::EC2::SecurityGroup::GroupName>>" | "AWS::SSM::Parameter::Value<List<AWS::EC2::SecurityGroup::Id>>" | "AWS::SSM::Parameter::Value<List<AWS::EC2::Subnet::Id>>" | "AWS::SSM::Parameter::Value<List<AWS::EC2::VPC::Id>>" | "AWS::SSM::Parameter::Value<List<AWS::EC2::Volume::Id>>" | "AWS::SSM::Parameter::Value<List<AWS::Route53::HostedZone::Id>>" | "AWS::SSM::Parameter::Value<List<String>>" | "AWS::SSM::Parameter::Value<String>" | "CommaDelimitedList" | "List<AWS::EC2::AvailabilityZone::Name>" | "List<AWS::EC2::Image::Id>" | "List<AWS::EC2::Instance::Id>" | "List<AWS::EC2::SecurityGroup::GroupName>" | "List<AWS::EC2::SecurityGroup::Id>" | "List<AWS::EC2::Subnet::Id>" | "List<AWS::EC2::VPC::Id>" | "List<AWS::EC2::Volume::Id>" | "List<AWS::Route53::HostedZone::Id>" | "List<Number>" | "Number" | "String"
 		AllowedPattern?:        string
-		AllowedValues?:         [...(string | number)]
+		AllowedValues?:         [...(string | number | bool)]
 		ConstraintDescription?: string
-		Default?:               string
+		Default?:               string | number | bool
 		Description?:           string
-		MaxLength?:             int
-		MaxValue?:              int
-		MinLength?:             int
-		MinValue?:              int
-		NoEcho?:                bool
+		MaxLength?:             int | =~"^[0-9]+$"
+		MaxValue?:              int | =~"^[0-9]+$"
+		MinLength?:             int | =~"^[0-9]+$"
+		MinValue?:              int | =~"^[0-9]+$"
+		NoEcho?:                bool | =~"^(true|false)$"
 	}
 	Resources: [=~"[a-zA-Z0-9]"]: {
-		Type: or([ resource.Type for resource in ResourceTypes ])
+		Description?: string
+		Type:         or([ resource.Type for resource in ResourceTypes ])
 		Properties: [string]: _
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain" | "Snapshot"
 		UpdateReplacePolicy?: "Delete" | "Retain" | "Snapshot"
+		CreationPolicy?:      _
+		UpdatePolicy?:        _
 		Metadata?: [string]: _
+		Condition?: string
+	}
+	for resourceName, resource in Resources {
+		Resources: "\(resourceName)": ResourceTypesMap[resource.Type]
 	}
 	Outputs?: [=~"[a-zA-Z0-9]"]: {
 		Description?: string
 		Value:        _
+		Condition?:   string
 		Export?: Name: _
 	}
 }
-for resource in ResourceTypes {
-	ResourceTypesMap :: {
+ResourceTypesMap :: {
+	for resource in ResourceTypes {
 		"\(resource.Type)": resource
 	}
 }
