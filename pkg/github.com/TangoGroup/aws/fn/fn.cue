@@ -72,10 +72,10 @@ Split :: {
 // Sub: https://docs.aws.amazon.com/en_pv/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-sub.html
 Sub :: {
 	// SubFn ::   Base64 | FindInMap | GetAtt | GetAZs | If | ImportValue | Join | Select | Ref
-	// "Fn::Sub": string | [string, {
-	// 	[string]: string | Base64 | FindInMap | GetAtt | GetAZs | If | ImportValue | Join | Select | Sub | Ref
-	// }]
-	"Fn::Sub": string | [string, close({[string]: string | Sub | Ref})]
+	"Fn::Sub": string | [string, {
+		[string]: string | Base64 | FindInMap | GetAtt | GetAZs | If | ImportValue | Join | Select | Sub | Ref
+	}]
+	// "Fn::Sub": string | [string, {[string]: string | Sub | Ref}]
 	// "Fn::Sub": string | [string, {[string | SubFn]: string | SubFn}]
 }
 
