@@ -1027,6 +1027,10 @@ func main() {
 		for _, resourceName := range resourceNames[1:] {
 			resourceTypeStrings = &ast.BinaryExpr{X: resourceTypeStrings, Op: token.OR, Y: ast.NewString(resourceName)}
 		}
+		resourceTypeStrings = &ast.BinaryExpr{X: resourceTypeStrings, Op: token.OR, Y: &ast.UnaryExpr{
+			Op: token.MAT,
+			X:  &ast.BasicLit{Kind: token.STRING, Value: "#\"^Custom::[a-zA-Z0-9_@-]{1,60}$\"#"},
+		}}
 
 		declarations := []ast.Decl{
 			&ast.Package{
@@ -1074,17 +1078,21 @@ func main() {
 									Optional: token.Elided.Pos(),
 									Value:    ast.NewIdent("string"),
 								},
+								// &ast.Field{
+								// 	Label: ast.NewIdent("Type"),
+								// 	Value: ast.NewCall(ast.NewIdent("or"), &ast.ListComprehension{
+								// 		Clauses: []ast.Clause{
+								// 			&ast.ForClause{
+								// 				Value:  ast.NewIdent("resource"),
+								// 				Source: ast.NewIdent("ResourceTypes"),
+								// 			},
+								// 		},
+								// 		Expr: ast.NewSel(ast.NewIdent("resource"), "Type"),
+								// 	}),
+								// },
 								&ast.Field{
 									Label: ast.NewIdent("Type"),
-									Value: ast.NewCall(ast.NewIdent("or"), &ast.ListComprehension{
-										Clauses: []ast.Clause{
-											&ast.ForClause{
-												Value:  ast.NewIdent("resource"),
-												Source: ast.NewIdent("ResourceTypes"),
-											},
-										},
-										Expr: ast.NewSel(ast.NewIdent("resource"), "Type"),
-									}),
+									Value: resourceTypeStrings,
 								},
 								&ast.Field{
 									Label: ast.NewIdent("Properties"),
@@ -1297,6 +1305,14 @@ func main() {
 								},
 							},
 						},
+					},
+					&ast.Field{
+						Label: ast.NewIdent("AWS::CloudFormation::CustomResource"),
+						Value: ast.NewSel(ast.NewIdent("CloudFormation"), "CustomResource"),
+					},
+					&ast.Field{
+						Label: ast.NewList(&ast.UnaryExpr{Op: token.MAT, X: &ast.BasicLit{Kind: token.STRING, Value: "#\"^Custom::[a-zA-Z0-9_@-]{1,60}$\"#"}}),
+						Value: ast.NewSel(ast.NewIdent("CloudFormation"), "CustomResource"),
 					},
 				},
 			},

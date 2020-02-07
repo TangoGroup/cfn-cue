@@ -2,12 +2,16 @@ import "list"
 
 import "strings"
 
+import "regexp"
+
 string_arr: [...string]
 string_arr: list.MaxItems(20)
 string_arr: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22"]
 // string_arr: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18"]
 // string_arr: ["1", "2", "3", "4", "5"]
 // string_arr_len: len(string_arr)
+
+string_arr2: string_arr + [1, 2, 3]
 
 my_string: strings.MinRunes(15) & strings.MaxRunes(27)
 my_string: string
@@ -25,3 +29,10 @@ PolicyName: ss & {
 }
 
 // PolicyName: "cat@"
+
+Type: "Custom::AMISearch"
+// Type: =~"^Custom::[a-zA-Z0-9_@-]{1,60}$"
+TypeMatch: regexp.Match(Type, "^Custom::[a-zA-Z0-9_@-]{1,60}$")
+if (Type =~ "^Custom::[a-zA-Z0-9_@-]{1,60}$") {
+	TypeMatch2: true
+}

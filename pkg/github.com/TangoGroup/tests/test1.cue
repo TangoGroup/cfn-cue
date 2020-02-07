@@ -4,12 +4,21 @@ package fn
 
 import aws "github.com/TangoGroup/aws/uswest2"
 
+// Types:: [ resource.Type for resource in aws.ResourceTypes ] + [=~ "^Custom::[a-zA-Z0-9_@-]{1,60}$"]
+
 template: aws.Template
 template: {
 	Description: "This is a template"
-	for resourceName, resource in Resources {
-		Resources: "\(resourceName)": aws.ResourceTypesMap[resource.Type]
-	}
+	// for resourceName, resource in Resources {
+	// 	// Resources: "\(resourceName)": aws.ResourceTypesMap[resource.Type] // | aws.CloudFormation.CustomResource
+	// 	if (resource.Type =~ "^Custom::[a-zA-Z0-9_@-]{1,60}$") {
+	// 		Resources: "\(resourceName)": aws.CloudFormation.CustomResource
+	// 	}
+	// 	if (resource.Type !~ "^Custom::[a-zA-Z0-9_@-]{1,60}$") {
+	// 		Resources: "\(resourceName)": aws.ResourceTypesMap[resource.Type]
+	// 	}
+	// }
+	for resourceName, resource in Resources {if (resource.Type =~ "^Custom::[a-zA-Z0-9_@-]{1,60}$") { Resources: "\(resourceName)": aws.CloudFormation.CustomResource}, if (resource.Type !~ "^Custom::[a-zA-Z0-9_@-]{1,60}$") {Resources: "\(resourceName)": aws.ResourceTypesMap[resource.Type]}}
 	// Resources: S3Bucket1: aws.S3.Bucket
 	Resources: S3Bucket1: {
 		Type: "AWS::S3::Bucket"
@@ -20,6 +29,19 @@ template: {
 		Type: "AWS::S3::Bucket"
 		Properties: AccessControl: "Fn::Sub":                                                                           "S3AccessControl${Stuff}"
 		Properties: BucketEncryption: ServerSideEncryptionConfiguration: [{ServerSideEncryptionByDefault: SSEAlgorithm: "AES256"}]
+	}
+
+	// Resources: AMISearchCustomResource: aws.CloudFormation.CustomResource
+	Resources: AMISearchCustomResource: {
+		// Type: "AWS::CloudFormation::CustomResource"
+		Type: "Custom::AMISearch"
+		Properties: {
+			ServiceToken: "Fn::ImportValue": "AMISearchARN"
+			owners:  "self amazon"
+			filters: "[{\"Name\":\"root-device-type\",\"Values\":[\"ebs\"]},{\"Name\":\"name\",\"Values\":[\"amzn-ami-hvm-????.??.?.*gp2\"]}]"
+			region: "Fn::Sub": "${AWS::Region}"
+			"executable-users": ""
+		}
 	}
 
 	Resources: EmrCluster: aws.EMR.Cluster
