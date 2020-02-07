@@ -8,7 +8,7 @@ Budgets :: {
 		Properties: {
 			Budget: {
 				BudgetLimit?: {
-					Amount: float | fn.Fn
+					Amount: number | fn.Fn
 					Unit:   string | fn.Fn
 				}
 				BudgetName?:  string | fn.Fn
@@ -55,5 +55,6 @@ Budgets :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 }

@@ -25,14 +25,15 @@ OpsWorksCM :: {
 			KeyPair?:                    string | fn.Fn
 			PreferredBackupWindow?:      string | fn.Fn
 			PreferredMaintenanceWindow?: string | fn.Fn
-			SecurityGroupIds?:           [...(string | fn.Fn)] | fn.Fn
+			SecurityGroupIds?:           [...(string | fn.Fn)] | (string | fn.Fn)
 			ServerName?:                 string | fn.Fn
 			ServiceRoleArn:              string | fn.Fn
-			SubnetIds?:                  [...(string | fn.Fn)] | fn.Fn
+			SubnetIds?:                  [...(string | fn.Fn)] | (string | fn.Fn)
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 }

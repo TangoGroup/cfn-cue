@@ -33,6 +33,7 @@ ManagedBlockchain :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	Node :: {
 		Type: "AWS::ManagedBlockchain::Node"
@@ -48,5 +49,6 @@ ManagedBlockchain :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 }

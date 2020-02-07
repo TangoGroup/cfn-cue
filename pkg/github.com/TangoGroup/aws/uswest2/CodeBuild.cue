@@ -20,7 +20,7 @@ CodeBuild :: {
 			BadgeEnabled?: bool | fn.Fn
 			Cache?: {
 				Location?: string | fn.Fn
-				Modes?:    [...(string | fn.Fn)] | fn.Fn
+				Modes?:    [...(string | fn.Fn)] | (string | fn.Fn)
 				Type:      ("LOCAL" | "NO_CACHE" | "S3") | fn.Fn
 			}
 			Description?:   string | fn.Fn
@@ -115,8 +115,8 @@ CodeBuild :: {
 				Webhook?: bool | fn.Fn
 			}
 			VpcConfig?: {
-				SecurityGroupIds?: [...(string | fn.Fn)] | fn.Fn
-				Subnets?:          [...(string | fn.Fn)] | fn.Fn
+				SecurityGroupIds?: [...(string | fn.Fn)] | (string | fn.Fn)
+				Subnets?:          [...(string | fn.Fn)] | (string | fn.Fn)
 				VpcId?:            string | fn.Fn
 			}
 		}
@@ -124,6 +124,7 @@ CodeBuild :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	ReportGroup :: {
 		Type: "AWS::CodeBuild::ReportGroup"
@@ -145,6 +146,7 @@ CodeBuild :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	SourceCredential :: {
 		Type: "AWS::CodeBuild::SourceCredential"
@@ -158,5 +160,6 @@ CodeBuild :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 }

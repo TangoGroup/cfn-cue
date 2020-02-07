@@ -26,7 +26,7 @@ func mapFromCFNTypeToCue(cfnType string) (lit ast.Expr) {
 	case "Integer", "Long":
 		lit = &ast.BasicLit{Value: "int"}
 	case "Double":
-		lit = &ast.BasicLit{Value: "float"}
+		lit = &ast.BasicLit{Value: "number"}
 	case "Boolean":
 		lit = &ast.BasicLit{Value: "bool"}
 	case "Json":
@@ -58,7 +58,7 @@ func convertTypeToCUE(name string) string {
 	case "Integer":
 		return "int"
 	case "Double":
-		return "float"
+		return "number"
 	case "Boolean":
 		return "bool"
 	case "Timestamp":
@@ -140,6 +140,7 @@ func mergeMaps(a, b map[string]bool) map[string]bool {
 func createFieldFromProperty(name string, prop Property, resourceSubproperties map[string]Resource, valueTypes map[string]ValueType, parentName string, parentResource Resource) (node *ast.Field, imports map[string]bool) {
 	// Need to capture Map Types, and put the PrimitiveItemType or ItemType properly into a struct
 	var value ast.Expr
+	var value2 ast.Expr
 	custom := false
 
 	if parentName == "AWS::AppSync::GraphQLApi" && name == "AdditionalAuthenticationProviders" {
@@ -187,6 +188,8 @@ func createFieldFromProperty(name string, prop Property, resourceSubproperties m
 			imports["time"] = true
 		}
 
+		// value2 = prop.getCUEPrimitiveType()
+
 		if len(constraints) > 0 {
 			value = constraints[0]
 			for _, constraint := range constraints[1:] {
@@ -204,6 +207,8 @@ func createFieldFromProperty(name string, prop Property, resourceSubproperties m
 				X: value,
 			}
 			value = val
+			// value2 = val
+			// value2 = nil
 		}
 
 		value = &ast.BinaryExpr{
@@ -241,12 +246,23 @@ func createFieldFromProperty(name string, prop Property, resourceSubproperties m
 	}
 
 	if prop.IsList() {
+		value2 = value
 		value = ast.NewList(&ast.Ellipsis{Type: value})
 		if prop.IsListOfPrimitives() {
+			// var s ast.Expr
+			// if value2 != nil {
+			// 	s = &ast.BinaryExpr{
+			// 		X:  value2,
+			// 		Op: token.OR,
+			// 		Y:  ast.NewSel(ast.NewIdent("fn"), "Fn"),
+			// 	}
+			// } else {
+			// 	s = ast.NewSel(ast.NewIdent("fn"), "Fn")
+			// }
 			value = &ast.BinaryExpr{
 				X:  value,
 				Op: token.OR,
-				Y:  ast.NewSel(ast.NewIdent("fn"), "Fn"),
+				Y:  value2,
 			}
 		}
 	}
@@ -797,6 +813,25 @@ func resourcePolicies(resourceName string) []*ast.Field {
 		Optional: token.Elided.Pos(),
 		Value:    deletionPolicies,
 	})
+	switch resourceName {
+	case "AWS::AutoScaling::AutoScalingGroup",
+		"AWS::ElastiCache::ReplicationGroup",
+		"AWS::Elasticsearch::Domain",
+		"AWS::Lambda::Alias":
+		policies = append(policies, &ast.Field{
+			Label:    ast.NewIdent("UpdatePolicy"),
+			Optional: token.Elided.Pos(),
+			Value: &ast.StructLit{
+				Elts: []ast.Decl{
+					&ast.Field{
+						Label: ast.NewList(&ast.BasicLit{Value: "string"}),
+						Value: &ast.BasicLit{Value: "_"},
+					},
+				},
+			},
+		})
+		deletionPolicyStrings = append(deletionPolicyStrings, "Snapshot")
+	}
 	return policies
 }
 
@@ -937,6 +972,11 @@ func main() {
 				}
 
 				resourceElts = append(resourceElts, resourceMetadata())
+				resourceElts = append(resourceElts, &ast.Field{
+					Label:    ast.NewIdent("Condition"),
+					Optional: token.Elided.Pos(),
+					Value:    ast.NewIdent("string"),
+				})
 
 				f := &ast.Field{
 					Label: ast.NewIdent(resourceStr),
