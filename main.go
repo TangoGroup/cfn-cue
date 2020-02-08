@@ -818,6 +818,8 @@ func resourcePolicies(resourceName string) []*ast.Field {
 		"AWS::ElastiCache::ReplicationGroup",
 		"AWS::Elasticsearch::Domain",
 		"AWS::Lambda::Alias":
+		// https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-attribute-updatepolicy.html
+		// TODO: Flesh out UpdatePolicy
 		policies = append(policies, &ast.Field{
 			Label:    ast.NewIdent("UpdatePolicy"),
 			Optional: token.Elided.Pos(),
