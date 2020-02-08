@@ -15,6 +15,7 @@ ApiGatewayV2 :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	DomainName :: {
 		Type: "AWS::ApiGatewayV2::DomainName"
@@ -33,5 +34,6 @@ ApiGatewayV2 :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 }

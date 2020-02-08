@@ -12,7 +12,7 @@ CloudTrail :: {
 			EventSelectors?: [...{
 				DataResources?: [...{
 					Type:    ("AWS::Lambda::Function" | "AWS::S3::Object") | fn.Fn
-					Values?: [...(string | fn.Fn)] | fn.Fn
+					Values?: [...(string | fn.Fn)] | (string | fn.Fn)
 				}]
 				IncludeManagementEvents?: bool | fn.Fn
 				ReadWriteType?:           ("All" | "ReadOnly" | "WriteOnly") | fn.Fn
@@ -34,5 +34,6 @@ CloudTrail :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 }

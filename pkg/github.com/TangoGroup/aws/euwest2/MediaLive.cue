@@ -97,6 +97,7 @@ MediaLive :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	Input :: {
 		Type: "AWS::MediaLive::Input"
@@ -104,7 +105,7 @@ MediaLive :: {
 			Destinations?: [...{
 				StreamName?: string | fn.Fn
 			}]
-			InputSecurityGroups?: [...(string | fn.Fn)] | fn.Fn
+			InputSecurityGroups?: [...(string | fn.Fn)] | (string | fn.Fn)
 			MediaConnectFlows?: [...{
 				FlowArn?: string | fn.Fn
 			}]
@@ -120,14 +121,15 @@ MediaLive :: {
 			} | fn.Fn
 			Type?: string | fn.Fn
 			Vpc?: {
-				SecurityGroupIds?: [...(string | fn.Fn)] | fn.Fn
-				SubnetIds?:        [...(string | fn.Fn)] | fn.Fn
+				SecurityGroupIds?: [...(string | fn.Fn)] | (string | fn.Fn)
+				SubnetIds?:        [...(string | fn.Fn)] | (string | fn.Fn)
 			}
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	InputSecurityGroup :: {
 		Type: "AWS::MediaLive::InputSecurityGroup"
@@ -143,5 +145,6 @@ MediaLive :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 }

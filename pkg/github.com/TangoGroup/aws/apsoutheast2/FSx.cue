@@ -15,9 +15,9 @@ FSx :: {
 				ImportedFileChunkSize?:      int | fn.Fn
 				WeeklyMaintenanceStartTime?: string | fn.Fn
 			}
-			SecurityGroupIds?: [...(string | fn.Fn)] | fn.Fn
+			SecurityGroupIds?: [...(string | fn.Fn)] | (string | fn.Fn)
 			StorageCapacity?:  (>=300 & <=65536) | fn.Fn
-			SubnetIds:         [...(string | fn.Fn)] | fn.Fn
+			SubnetIds:         [...(string | fn.Fn)] | (string | fn.Fn)
 			Tags?: [...{
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
@@ -30,7 +30,7 @@ FSx :: {
 				DeploymentType?:                string | fn.Fn
 				PreferredSubnetId?:             string | fn.Fn
 				SelfManagedActiveDirectoryConfiguration?: {
-					DnsIps?:                              [...(string | fn.Fn)] | fn.Fn
+					DnsIps?:                              [...(string | fn.Fn)] | (string | fn.Fn)
 					DomainName?:                          string | fn.Fn
 					FileSystemAdministratorsGroup?:       string | fn.Fn
 					OrganizationalUnitDistinguishedName?: string | fn.Fn
@@ -45,5 +45,6 @@ FSx :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 }

@@ -13,6 +13,7 @@ GuardDuty :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	Filter :: {
 		Type: "AWS::GuardDuty::Filter"
@@ -25,11 +26,11 @@ GuardDuty :: {
 					[string]: _
 				} | fn.Fn
 				ItemType?: {
-					Eq?:  [...(string | fn.Fn)] | fn.Fn
+					Eq?:  [...(string | fn.Fn)] | (string | fn.Fn)
 					Gte?: int | fn.Fn
 					Lt?:  int | fn.Fn
 					Lte?: int | fn.Fn
-					Neq?: [...(string | fn.Fn)] | fn.Fn
+					Neq?: [...(string | fn.Fn)] | (string | fn.Fn)
 				}
 			}
 			Name: string | fn.Fn
@@ -39,6 +40,7 @@ GuardDuty :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	IPSet :: {
 		Type: "AWS::GuardDuty::IPSet"
@@ -53,6 +55,7 @@ GuardDuty :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	Master :: {
 		Type: "AWS::GuardDuty::Master"
@@ -65,6 +68,7 @@ GuardDuty :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	Member :: {
 		Type: "AWS::GuardDuty::Member"
@@ -80,6 +84,7 @@ GuardDuty :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	ThreatIntelSet :: {
 		Type: "AWS::GuardDuty::ThreatIntelSet"
@@ -94,5 +99,6 @@ GuardDuty :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 }

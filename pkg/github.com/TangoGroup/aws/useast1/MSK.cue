@@ -8,12 +8,12 @@ MSK :: {
 		Properties: {
 			BrokerNodeGroupInfo: {
 				BrokerAZDistribution?: string | fn.Fn
-				ClientSubnets:         [...(string | fn.Fn)] | fn.Fn
+				ClientSubnets:         [...(string | fn.Fn)] | (string | fn.Fn)
 				InstanceType:          string | fn.Fn
-				SecurityGroups?:       [...(string | fn.Fn)] | fn.Fn
+				SecurityGroups?:       [...(string | fn.Fn)] | (string | fn.Fn)
 				StorageInfo?: EBSStorageInfo?: VolumeSize?: int | fn.Fn
 			}
-			ClientAuthentication?: Tls?: CertificateAuthorityArnList?: [...(string | fn.Fn)] | fn.Fn
+			ClientAuthentication?: Tls?: CertificateAuthorityArnList?: [...(string | fn.Fn)] | (string | fn.Fn)
 			ClusterName: string | fn.Fn
 			ConfigurationInfo?: {
 				Arn:      string | fn.Fn
@@ -41,5 +41,6 @@ MSK :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 }

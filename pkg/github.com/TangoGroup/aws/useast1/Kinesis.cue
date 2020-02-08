@@ -22,6 +22,7 @@ Kinesis :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	StreamConsumer :: {
 		Type: "AWS::Kinesis::StreamConsumer"
@@ -33,5 +34,6 @@ Kinesis :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 }

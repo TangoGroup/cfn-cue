@@ -22,6 +22,7 @@ Greengrass :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	ConnectorDefinitionVersion :: {
 		Type: "AWS::Greengrass::ConnectorDefinitionVersion"
@@ -39,6 +40,7 @@ Greengrass :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	CoreDefinition :: {
 		Type: "AWS::Greengrass::CoreDefinition"
@@ -58,6 +60,7 @@ Greengrass :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	CoreDefinitionVersion :: {
 		Type: "AWS::Greengrass::CoreDefinitionVersion"
@@ -74,6 +77,7 @@ Greengrass :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	DeviceDefinition :: {
 		Type: "AWS::Greengrass::DeviceDefinition"
@@ -93,6 +97,7 @@ Greengrass :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	DeviceDefinitionVersion :: {
 		Type: "AWS::Greengrass::DeviceDefinitionVersion"
@@ -109,6 +114,7 @@ Greengrass :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	FunctionDefinition :: {
 		Type: "AWS::Greengrass::FunctionDefinition"
@@ -160,6 +166,7 @@ Greengrass :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	FunctionDefinitionVersion :: {
 		Type: "AWS::Greengrass::FunctionDefinitionVersion"
@@ -206,6 +213,7 @@ Greengrass :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	Group :: {
 		Type: "AWS::Greengrass::Group"
@@ -229,6 +237,7 @@ Greengrass :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	GroupVersion :: {
 		Type: "AWS::Greengrass::GroupVersion"
@@ -246,6 +255,7 @@ Greengrass :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	LoggerDefinition :: {
 		Type: "AWS::Greengrass::LoggerDefinition"
@@ -266,6 +276,7 @@ Greengrass :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	LoggerDefinitionVersion :: {
 		Type: "AWS::Greengrass::LoggerDefinitionVersion"
@@ -283,6 +294,7 @@ Greengrass :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	ResourceDefinition :: {
 		Type: "AWS::Greengrass::ResourceDefinition"
@@ -316,7 +328,7 @@ Greengrass :: {
 					}
 					SecretsManagerSecretResourceData?: {
 						ARN:                                string | fn.Fn
-						AdditionalStagingLabelsToDownload?: [...(string | fn.Fn)] | fn.Fn
+						AdditionalStagingLabelsToDownload?: [...(string | fn.Fn)] | (string | fn.Fn)
 					}
 				}
 			}]
@@ -329,6 +341,7 @@ Greengrass :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	ResourceDefinitionVersion :: {
 		Type: "AWS::Greengrass::ResourceDefinitionVersion"
@@ -363,7 +376,7 @@ Greengrass :: {
 					}
 					SecretsManagerSecretResourceData?: {
 						ARN:                                string | fn.Fn
-						AdditionalStagingLabelsToDownload?: [...(string | fn.Fn)] | fn.Fn
+						AdditionalStagingLabelsToDownload?: [...(string | fn.Fn)] | (string | fn.Fn)
 					}
 				}
 			}]
@@ -372,6 +385,7 @@ Greengrass :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	SubscriptionDefinition :: {
 		Type: "AWS::Greengrass::SubscriptionDefinition"
@@ -391,6 +405,7 @@ Greengrass :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	SubscriptionDefinitionVersion :: {
 		Type: "AWS::Greengrass::SubscriptionDefinitionVersion"
@@ -407,5 +422,6 @@ Greengrass :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 }

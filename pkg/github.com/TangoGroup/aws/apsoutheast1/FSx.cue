@@ -11,9 +11,9 @@ FSx :: {
 			KmsKeyId?:      string | fn.Fn
 			LustreConfiguration?: {
 			}
-			SecurityGroupIds?: [...(string | fn.Fn)] | fn.Fn
+			SecurityGroupIds?: [...(string | fn.Fn)] | (string | fn.Fn)
 			StorageCapacity?:  int | fn.Fn
-			SubnetIds:         [...(string | fn.Fn)] | fn.Fn
+			SubnetIds:         [...(string | fn.Fn)] | (string | fn.Fn)
 			Tags?: [...{
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
@@ -25,5 +25,6 @@ FSx :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 }

@@ -29,6 +29,7 @@ IoTAnalytics :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	Dataset :: {
 		Type: "AWS::IoTAnalytics::Dataset"
@@ -44,7 +45,7 @@ IoTAnalytics :: {
 					}
 					Variables?: [...{
 						DatasetContentVersionValue?: DatasetName?: string | fn.Fn
-						DoubleValue?: float | fn.Fn
+						DoubleValue?: number | fn.Fn
 						OutputFileUriValue?: FileName?: string | fn.Fn
 						StringValue?: string | fn.Fn
 						VariableName: string | fn.Fn
@@ -100,6 +101,7 @@ IoTAnalytics :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	Datastore :: {
 		Type: "AWS::IoTAnalytics::Datastore"
@@ -127,6 +129,7 @@ IoTAnalytics :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	Pipeline :: {
 		Type: "AWS::IoTAnalytics::Pipeline"
@@ -180,12 +183,12 @@ IoTAnalytics :: {
 					Next?:      string | fn.Fn
 				}
 				RemoveAttributes?: {
-					Attributes?: [...(string | fn.Fn)] | fn.Fn
+					Attributes?: [...(string | fn.Fn)] | (string | fn.Fn)
 					Name?:       string | fn.Fn
 					Next?:       string | fn.Fn
 				}
 				SelectAttributes?: {
-					Attributes?: [...(string | fn.Fn)] | fn.Fn
+					Attributes?: [...(string | fn.Fn)] | (string | fn.Fn)
 					Name?:       string | fn.Fn
 					Next?:       string | fn.Fn
 				}
@@ -200,5 +203,6 @@ IoTAnalytics :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 }

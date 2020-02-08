@@ -21,7 +21,7 @@ OpsWorks :: {
 				Type?:         string | fn.Fn
 			}]
 			Description?: string | fn.Fn
-			Domains?:     [...(string | fn.Fn)] | fn.Fn
+			Domains?:     [...(string | fn.Fn)] | (string | fn.Fn)
 			EnableSsl?:   bool | fn.Fn
 			Environment?: [...{
 				Key:     string | fn.Fn
@@ -42,6 +42,7 @@ OpsWorks :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	ElasticLoadBalancerAttachment :: {
 		Type: "AWS::OpsWorks::ElasticLoadBalancerAttachment"
@@ -53,6 +54,7 @@ OpsWorks :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	Instance :: {
 		Type: "AWS::OpsWorks::Instance"
@@ -75,11 +77,11 @@ OpsWorks :: {
 				VirtualName?: string | fn.Fn
 			}]
 			EbsOptimized?:         bool | fn.Fn
-			ElasticIps?:           [...(string | fn.Fn)] | fn.Fn
+			ElasticIps?:           [...(string | fn.Fn)] | (string | fn.Fn)
 			Hostname?:             string | fn.Fn
 			InstallUpdatesOnBoot?: bool | fn.Fn
 			InstanceType:          string | fn.Fn
-			LayerIds:              [...(string | fn.Fn)] | fn.Fn
+			LayerIds:              [...(string | fn.Fn)] | (string | fn.Fn)
 			Os?:                   string | fn.Fn
 			RootDeviceType?:       string | fn.Fn
 			SshKeyName?:           string | fn.Fn
@@ -96,12 +98,13 @@ OpsWorks :: {
 				Wednesday?: [string]: string | fn.Fn
 			}
 			VirtualizationType?: string | fn.Fn
-			Volumes?:            [...(string | fn.Fn)] | fn.Fn
+			Volumes?:            [...(string | fn.Fn)] | (string | fn.Fn)
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	Layer :: {
 		Type: "AWS::OpsWorks::Layer"
@@ -114,13 +117,13 @@ OpsWorks :: {
 				[string]: _
 			} | fn.Fn
 			CustomRecipes?: {
-				Configure?: [...(string | fn.Fn)] | fn.Fn
-				Deploy?:    [...(string | fn.Fn)] | fn.Fn
-				Setup?:     [...(string | fn.Fn)] | fn.Fn
-				Shutdown?:  [...(string | fn.Fn)] | fn.Fn
-				Undeploy?:  [...(string | fn.Fn)] | fn.Fn
+				Configure?: [...(string | fn.Fn)] | (string | fn.Fn)
+				Deploy?:    [...(string | fn.Fn)] | (string | fn.Fn)
+				Setup?:     [...(string | fn.Fn)] | (string | fn.Fn)
+				Shutdown?:  [...(string | fn.Fn)] | (string | fn.Fn)
+				Undeploy?:  [...(string | fn.Fn)] | (string | fn.Fn)
 			}
-			CustomSecurityGroupIds?: [...(string | fn.Fn)] | fn.Fn
+			CustomSecurityGroupIds?: [...(string | fn.Fn)] | (string | fn.Fn)
 			EnableAutoHealing:       bool | fn.Fn
 			InstallUpdatesOnBoot?:   bool | fn.Fn
 			LifecycleEventConfiguration?: ShutdownEventConfiguration?: {
@@ -129,25 +132,25 @@ OpsWorks :: {
 			}
 			LoadBasedAutoScaling?: {
 				DownScaling?: {
-					CpuThreshold?:       float | fn.Fn
+					CpuThreshold?:       number | fn.Fn
 					IgnoreMetricsTime?:  int | fn.Fn
 					InstanceCount?:      int | fn.Fn
-					LoadThreshold?:      float | fn.Fn
-					MemoryThreshold?:    float | fn.Fn
+					LoadThreshold?:      number | fn.Fn
+					MemoryThreshold?:    number | fn.Fn
 					ThresholdsWaitTime?: int | fn.Fn
 				}
 				Enable?: bool | fn.Fn
 				UpScaling?: {
-					CpuThreshold?:       float | fn.Fn
+					CpuThreshold?:       number | fn.Fn
 					IgnoreMetricsTime?:  int | fn.Fn
 					InstanceCount?:      int | fn.Fn
-					LoadThreshold?:      float | fn.Fn
-					MemoryThreshold?:    float | fn.Fn
+					LoadThreshold?:      number | fn.Fn
+					MemoryThreshold?:    number | fn.Fn
 					ThresholdsWaitTime?: int | fn.Fn
 				}
 			}
 			Name:      string | fn.Fn
-			Packages?: [...(string | fn.Fn)] | fn.Fn
+			Packages?: [...(string | fn.Fn)] | (string | fn.Fn)
 			Shortname: string | fn.Fn
 			StackId:   string | fn.Fn
 			Tags?: [...{
@@ -170,6 +173,7 @@ OpsWorks :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	Stack :: {
 		Type: "AWS::OpsWorks::Stack"
@@ -180,7 +184,7 @@ OpsWorks :: {
 				BerkshelfVersion?: string | fn.Fn
 				ManageBerkshelf?:  bool | fn.Fn
 			}
-			CloneAppIds?:      [...(string | fn.Fn)] | fn.Fn
+			CloneAppIds?:      [...(string | fn.Fn)] | (string | fn.Fn)
 			ClonePermissions?: bool | fn.Fn
 			ConfigurationManager?: {
 				Name?:    string | fn.Fn
@@ -229,6 +233,7 @@ OpsWorks :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	UserProfile :: {
 		Type: "AWS::OpsWorks::UserProfile"
@@ -242,6 +247,7 @@ OpsWorks :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	Volume :: {
 		Type: "AWS::OpsWorks::Volume"
@@ -255,5 +261,6 @@ OpsWorks :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 }

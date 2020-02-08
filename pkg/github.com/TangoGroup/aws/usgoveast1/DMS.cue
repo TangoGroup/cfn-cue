@@ -14,6 +14,7 @@ DMS :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	Endpoint :: {
 		Type: "AWS::DMS::Endpoint"
@@ -49,14 +50,15 @@ DMS :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	EventSubscription :: {
 		Type: "AWS::DMS::EventSubscription"
 		Properties: {
 			Enabled?:          bool | fn.Fn
-			EventCategories?:  [...(string | fn.Fn)] | fn.Fn
+			EventCategories?:  [...(string | fn.Fn)] | (string | fn.Fn)
 			SnsTopicArn:       string | fn.Fn
-			SourceIds?:        [...(string | fn.Fn)] | fn.Fn
+			SourceIds?:        [...(string | fn.Fn)] | (string | fn.Fn)
 			SourceType?:       string | fn.Fn
 			SubscriptionName?: string | fn.Fn
 			Tags?: [...{
@@ -68,6 +70,7 @@ DMS :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	ReplicationInstance :: {
 		Type: "AWS::DMS::ReplicationInstance"
@@ -88,19 +91,20 @@ DMS :: {
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			}]
-			VpcSecurityGroupIds?: [...(string | fn.Fn)] | fn.Fn
+			VpcSecurityGroupIds?: [...(string | fn.Fn)] | (string | fn.Fn)
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	ReplicationSubnetGroup :: {
 		Type: "AWS::DMS::ReplicationSubnetGroup"
 		Properties: {
 			ReplicationSubnetGroupDescription: string | fn.Fn
 			ReplicationSubnetGroupIdentifier?: string | fn.Fn
-			SubnetIds:                         [...(string | fn.Fn)] | fn.Fn
+			SubnetIds:                         [...(string | fn.Fn)] | (string | fn.Fn)
 			Tags?: [...{
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
@@ -110,12 +114,13 @@ DMS :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	ReplicationTask :: {
 		Type: "AWS::DMS::ReplicationTask"
 		Properties: {
 			CdcStartPosition?:          string | fn.Fn
-			CdcStartTime?:              float | fn.Fn
+			CdcStartTime?:              number | fn.Fn
 			CdcStopPosition?:           string | fn.Fn
 			MigrationType:              string | fn.Fn
 			ReplicationInstanceArn:     string | fn.Fn
@@ -133,5 +138,6 @@ DMS :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 }

@@ -30,16 +30,16 @@ AmazonMQ :: {
 				TimeZone:  string | fn.Fn
 			}
 			PubliclyAccessible: bool | fn.Fn
-			SecurityGroups?:    [...(string | fn.Fn)] | fn.Fn
+			SecurityGroups?:    [...(string | fn.Fn)] | (string | fn.Fn)
 			StorageType?:       string | fn.Fn
-			SubnetIds?:         [...(string | fn.Fn)] | fn.Fn
+			SubnetIds?:         [...(string | fn.Fn)] | (string | fn.Fn)
 			Tags?: [...{
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			}]
 			Users: [...{
 				ConsoleAccess?: bool | fn.Fn
-				Groups?:        [...(string | fn.Fn)] | fn.Fn
+				Groups?:        [...(string | fn.Fn)] | (string | fn.Fn)
 				Password:       string | fn.Fn
 				Username:       string | fn.Fn
 			}]
@@ -48,6 +48,7 @@ AmazonMQ :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	Configuration :: {
 		Type: "AWS::AmazonMQ::Configuration"
@@ -66,6 +67,7 @@ AmazonMQ :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	ConfigurationAssociation :: {
 		Type: "AWS::AmazonMQ::ConfigurationAssociation"
@@ -80,5 +82,6 @@ AmazonMQ :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 }

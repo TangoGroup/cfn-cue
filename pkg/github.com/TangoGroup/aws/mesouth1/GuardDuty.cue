@@ -13,6 +13,7 @@ GuardDuty :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	Filter :: {
 		Type: "AWS::GuardDuty::Filter"
@@ -29,6 +30,7 @@ GuardDuty :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	IPSet :: {
 		Type: "AWS::GuardDuty::IPSet"
@@ -43,6 +45,7 @@ GuardDuty :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	Master :: {
 		Type: "AWS::GuardDuty::Master"
@@ -55,6 +58,7 @@ GuardDuty :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	Member :: {
 		Type: "AWS::GuardDuty::Member"
@@ -70,6 +74,7 @@ GuardDuty :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	ThreatIntelSet :: {
 		Type: "AWS::GuardDuty::ThreatIntelSet"
@@ -84,5 +89,6 @@ GuardDuty :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 }

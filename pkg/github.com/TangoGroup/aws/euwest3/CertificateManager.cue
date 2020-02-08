@@ -11,7 +11,7 @@ CertificateManager :: {
 				DomainName:       string | fn.Fn
 				ValidationDomain: string | fn.Fn
 			}]
-			SubjectAlternativeNames?: [...(string | fn.Fn)] | fn.Fn
+			SubjectAlternativeNames?: [...(string | fn.Fn)] | (string | fn.Fn)
 			Tags?: [...{
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
@@ -22,5 +22,6 @@ CertificateManager :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 }

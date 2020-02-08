@@ -11,13 +11,13 @@ DLM :: {
 			PolicyDetails?: {
 				Parameters?: ExcludeBootVolume?: bool | fn.Fn
 				PolicyType?:   string | fn.Fn
-				ResourceTypes: [...(("INSTANCE" | "VOLUME") | fn.Fn)] | fn.Fn
+				ResourceTypes: [...(("INSTANCE" | "VOLUME") | fn.Fn)] | (("INSTANCE" | "VOLUME") | fn.Fn)
 				Schedules: [...{
 					CopyTags?: bool | fn.Fn
 					CreateRule?: {
 						Interval:     int | fn.Fn
 						IntervalUnit: string | fn.Fn
-						Times?:       [...(string | fn.Fn)] | fn.Fn
+						Times?:       [...(string | fn.Fn)] | (string | fn.Fn)
 					}
 					CrossRegionCopyRules?: [...{
 						CmkArn?:    string | fn.Fn
@@ -30,7 +30,7 @@ DLM :: {
 						TargetRegion?: string | fn.Fn
 					}]
 					FastRestoreRule?: {
-						AvailabilityZones?: [...(string | fn.Fn)] | fn.Fn
+						AvailabilityZones?: [...(string | fn.Fn)] | (string | fn.Fn)
 						Count?:             int | fn.Fn
 						Interval?:          int | fn.Fn
 						IntervalUnit?:      string | fn.Fn
@@ -61,5 +61,6 @@ DLM :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 }

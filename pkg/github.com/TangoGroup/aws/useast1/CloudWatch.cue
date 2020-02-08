@@ -10,7 +10,7 @@ CloudWatch :: {
 		Type: "AWS::CloudWatch::Alarm"
 		Properties: {
 			ActionsEnabled?:    bool | fn.Fn
-			AlarmActions?:      [...((strings.MinRunes(1) & strings.MaxRunes(1024)) | fn.Fn)] | fn.Fn
+			AlarmActions?:      [...((strings.MinRunes(1) & strings.MaxRunes(1024)) | fn.Fn)] | ((strings.MinRunes(1) & strings.MaxRunes(1024)) | fn.Fn)
 			AlarmDescription?:  string | fn.Fn
 			AlarmName?:         string | fn.Fn
 			ComparisonOperator: ("GreaterThanOrEqualToThreshold" | "GreaterThanThreshold" | "LessThanThreshold" | "LessThanOrEqualToThreshold" | "LessThanLowerOrGreaterThanUpperThreshold" | "LessThanLowerThreshold" | "GreaterThanUpperThreshold") | fn.Fn
@@ -22,7 +22,7 @@ CloudWatch :: {
 			EvaluateLowSampleCountPercentile?: string | fn.Fn
 			EvaluationPeriods:                 int | fn.Fn
 			ExtendedStatistic?:                string | fn.Fn
-			InsufficientDataActions?:          [...(string | fn.Fn)] | fn.Fn
+			InsufficientDataActions?:          [...(string | fn.Fn)] | (string | fn.Fn)
 			MetricName?:                       string | fn.Fn
 			Metrics?: [...{
 				Expression?: string | fn.Fn
@@ -44,10 +44,10 @@ CloudWatch :: {
 				ReturnData?: bool | fn.Fn
 			}]
 			Namespace?:         string | fn.Fn
-			OKActions?:         [...(string | fn.Fn)] | fn.Fn
+			OKActions?:         [...(string | fn.Fn)] | (string | fn.Fn)
 			Period?:            int | fn.Fn
 			Statistic?:         ("Average" | "Maximum" | "Minimum" | "SampleCount" | "Sum") | fn.Fn
-			Threshold?:         float | fn.Fn
+			Threshold?:         number | fn.Fn
 			ThresholdMetricId?: string | fn.Fn
 			TreatMissingData?:  ("breaching" | "ignore" | "missing" | "notBreaching") | fn.Fn
 			Unit?:              ("Bits" | "Bits/Second" | "Bytes" | "Bytes/Second" | "Count" | "Count/Second" | "Gigabits" | "Gigabits/Second" | "Gigabytes" | "Gigabytes/Second" | "Kilobits" | "Kilobits/Second" | "Kilobytes" | "Kilobytes/Second" | "Megabits" | "Megabits/Second" | "Megabytes" | "Megabytes/Second" | "Microseconds" | "Milliseconds" | "None" | "Percent" | "Seconds" | "Terabits" | "Terabits/Second" | "Terabytes" | "Terabytes/Second") | fn.Fn
@@ -56,6 +56,7 @@ CloudWatch :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	AnomalyDetector :: {
 		Type: "AWS::CloudWatch::AnomalyDetector"
@@ -79,6 +80,7 @@ CloudWatch :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	Dashboard :: {
 		Type: "AWS::CloudWatch::Dashboard"
@@ -90,6 +92,7 @@ CloudWatch :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	InsightRule :: {
 		Type: "AWS::CloudWatch::InsightRule"
@@ -102,5 +105,6 @@ CloudWatch :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 }

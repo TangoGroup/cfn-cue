@@ -14,17 +14,18 @@ SSM :: {
 				OutputS3BucketName?: string | fn.Fn
 				OutputS3KeyPrefix?:  string | fn.Fn
 			}
-			Parameters?: [string]: ParameterValues: [...(string | fn.Fn)] | fn.Fn
+			Parameters?: [string]: ParameterValues: [...(string | fn.Fn)] | (string | fn.Fn)
 			ScheduleExpression?: string | fn.Fn
 			Targets?: [...{
 				Key:    string | fn.Fn
-				Values: [...(string | fn.Fn)] | fn.Fn
+				Values: [...(string | fn.Fn)] | (string | fn.Fn)
 			}]
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	Document :: {
 		Type: "AWS::SSM::Document"
@@ -43,6 +44,7 @@ SSM :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	MaintenanceWindow :: {
 		Type: "AWS::SSM::MaintenanceWindow"
@@ -65,6 +67,7 @@ SSM :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	MaintenanceWindowTarget :: {
 		Type: "AWS::SSM::MaintenanceWindowTarget"
@@ -75,7 +78,7 @@ SSM :: {
 			ResourceType:      string | fn.Fn
 			Targets: [...{
 				Key:     string | fn.Fn
-				Values?: [...(string | fn.Fn)] | fn.Fn
+				Values?: [...(string | fn.Fn)] | (string | fn.Fn)
 			}]
 			WindowId: string | fn.Fn
 		}
@@ -83,6 +86,7 @@ SSM :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	MaintenanceWindowTask :: {
 		Type: "AWS::SSM::MaintenanceWindowTask"
@@ -100,7 +104,7 @@ SSM :: {
 			ServiceRoleArn?: string | fn.Fn
 			Targets: [...{
 				Key:     string | fn.Fn
-				Values?: [...(string | fn.Fn)] | fn.Fn
+				Values?: [...(string | fn.Fn)] | (string | fn.Fn)
 			}]
 			TaskArn: string | fn.Fn
 			TaskInvocationParameters?: {
@@ -121,7 +125,7 @@ SSM :: {
 					DocumentHashType?: string | fn.Fn
 					NotificationConfig?: {
 						NotificationArn:     string | fn.Fn
-						NotificationEvents?: [...(string | fn.Fn)] | fn.Fn
+						NotificationEvents?: [...(string | fn.Fn)] | (string | fn.Fn)
 						NotificationType?:   string | fn.Fn
 					}
 					OutputS3BucketName?: string | fn.Fn
@@ -147,6 +151,7 @@ SSM :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	Parameter :: {
 		Type: "AWS::SSM::Parameter"
@@ -166,6 +171,7 @@ SSM :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	PatchBaseline :: {
 		Type: "AWS::SSM::PatchBaseline"
@@ -176,26 +182,26 @@ SSM :: {
 				EnableNonSecurity?: bool | fn.Fn
 				PatchFilterGroup?: PatchFilters?: [...{
 					Key?:    string | fn.Fn
-					Values?: [...(string | fn.Fn)] | fn.Fn
+					Values?: [...(string | fn.Fn)] | (string | fn.Fn)
 				}]
 			}]
-			ApprovedPatches?:                  [...(string | fn.Fn)] | fn.Fn
+			ApprovedPatches?:                  [...(string | fn.Fn)] | (string | fn.Fn)
 			ApprovedPatchesComplianceLevel?:   string | fn.Fn
 			ApprovedPatchesEnableNonSecurity?: bool | fn.Fn
 			Description?:                      string | fn.Fn
 			GlobalFilters?: PatchFilters?: [...{
 				Key?:    string | fn.Fn
-				Values?: [...(string | fn.Fn)] | fn.Fn
+				Values?: [...(string | fn.Fn)] | (string | fn.Fn)
 			}]
 			Name:                   string | fn.Fn
 			OperatingSystem?:       string | fn.Fn
-			PatchGroups?:           [...(string | fn.Fn)] | fn.Fn
-			RejectedPatches?:       [...(string | fn.Fn)] | fn.Fn
+			PatchGroups?:           [...(string | fn.Fn)] | (string | fn.Fn)
+			RejectedPatches?:       [...(string | fn.Fn)] | (string | fn.Fn)
 			RejectedPatchesAction?: string | fn.Fn
 			Sources?: [...{
 				Configuration?: string | fn.Fn
 				Name?:          string | fn.Fn
-				Products?:      [...(string | fn.Fn)] | fn.Fn
+				Products?:      [...(string | fn.Fn)] | (string | fn.Fn)
 			}]
 			Tags?: [...{
 				Key:   string | fn.Fn
@@ -206,6 +212,7 @@ SSM :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	ResourceDataSync :: {
 		Type: "AWS::SSM::ResourceDataSync"
@@ -226,10 +233,10 @@ SSM :: {
 			SyncSource?: {
 				AwsOrganizationsSource?: {
 					OrganizationSourceType: string | fn.Fn
-					OrganizationalUnits?:   [...(string | fn.Fn)] | fn.Fn
+					OrganizationalUnits?:   [...(string | fn.Fn)] | (string | fn.Fn)
 				}
 				IncludeFutureRegions?: bool | fn.Fn
-				SourceRegions:         [...(string | fn.Fn)] | fn.Fn
+				SourceRegions:         [...(string | fn.Fn)] | (string | fn.Fn)
 				SourceType:            string | fn.Fn
 			}
 			SyncType?: string | fn.Fn
@@ -238,5 +245,6 @@ SSM :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 }

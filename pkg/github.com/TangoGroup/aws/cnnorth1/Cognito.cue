@@ -17,10 +17,10 @@ Cognito :: {
 			}
 			DeveloperProviderName?:     string | fn.Fn
 			IdentityPoolName?:          string | fn.Fn
-			OpenIdConnectProviderARNs?: [...(string | fn.Fn)] | fn.Fn
+			OpenIdConnectProviderARNs?: [...(string | fn.Fn)] | (string | fn.Fn)
 			PushSync?: {
 			}
-			SamlProviderARNs?:        [...(string | fn.Fn)] | fn.Fn
+			SamlProviderARNs?:        [...(string | fn.Fn)] | (string | fn.Fn)
 			SupportedLoginProviders?: {
 				[string]: _
 			} | fn.Fn
@@ -29,6 +29,7 @@ Cognito :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	IdentityPoolRoleAttachment :: {
 		Type: "AWS::Cognito::IdentityPoolRoleAttachment"
@@ -45,6 +46,7 @@ Cognito :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	UserPool :: {
 		Type: "AWS::Cognito::UserPool"
@@ -53,15 +55,15 @@ Cognito :: {
 			}
 			AdminCreateUserConfig?: {
 			}
-			AliasAttributes?:        [...(string | fn.Fn)] | fn.Fn
-			AutoVerifiedAttributes?: [...(string | fn.Fn)] | fn.Fn
+			AliasAttributes?:        [...(string | fn.Fn)] | (string | fn.Fn)
+			AutoVerifiedAttributes?: [...(string | fn.Fn)] | (string | fn.Fn)
 			DeviceConfiguration?: {
 			}
 			EmailConfiguration?: {
 			}
 			EmailVerificationMessage?: string | fn.Fn
 			EmailVerificationSubject?: string | fn.Fn
-			EnabledMfas?:              [...(string | fn.Fn)] | fn.Fn
+			EnabledMfas?:              [...(string | fn.Fn)] | (string | fn.Fn)
 			LambdaConfig?: {
 			}
 			MfaConfiguration?: string | fn.Fn
@@ -79,7 +81,7 @@ Cognito :: {
 			UserPoolTags?: {
 				[string]: _
 			} | fn.Fn
-			UsernameAttributes?: [...(string | fn.Fn)] | fn.Fn
+			UsernameAttributes?: [...(string | fn.Fn)] | (string | fn.Fn)
 			VerificationMessageTemplate?: {
 			}
 		}
@@ -87,32 +89,34 @@ Cognito :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	UserPoolClient :: {
 		Type: "AWS::Cognito::UserPoolClient"
 		Properties: {
-			AllowedOAuthFlows?:               [...(string | fn.Fn)] | fn.Fn
+			AllowedOAuthFlows?:               [...(string | fn.Fn)] | (string | fn.Fn)
 			AllowedOAuthFlowsUserPoolClient?: bool | fn.Fn
-			AllowedOAuthScopes?:              [...(string | fn.Fn)] | fn.Fn
+			AllowedOAuthScopes?:              [...(string | fn.Fn)] | (string | fn.Fn)
 			AnalyticsConfiguration?: {
 			}
-			CallbackURLs?:               [...(string | fn.Fn)] | fn.Fn
+			CallbackURLs?:               [...(string | fn.Fn)] | (string | fn.Fn)
 			ClientName?:                 string | fn.Fn
 			DefaultRedirectURI?:         string | fn.Fn
-			ExplicitAuthFlows?:          [...(string | fn.Fn)] | fn.Fn
+			ExplicitAuthFlows?:          [...(string | fn.Fn)] | (string | fn.Fn)
 			GenerateSecret?:             bool | fn.Fn
-			LogoutURLs?:                 [...(string | fn.Fn)] | fn.Fn
+			LogoutURLs?:                 [...(string | fn.Fn)] | (string | fn.Fn)
 			PreventUserExistenceErrors?: string | fn.Fn
-			ReadAttributes?:             [...(string | fn.Fn)] | fn.Fn
+			ReadAttributes?:             [...(string | fn.Fn)] | (string | fn.Fn)
 			RefreshTokenValidity?:       int | fn.Fn
-			SupportedIdentityProviders?: [...(string | fn.Fn)] | fn.Fn
+			SupportedIdentityProviders?: [...(string | fn.Fn)] | (string | fn.Fn)
 			UserPoolId:                  string | fn.Fn
-			WriteAttributes?:            [...(string | fn.Fn)] | fn.Fn
+			WriteAttributes?:            [...(string | fn.Fn)] | (string | fn.Fn)
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	UserPoolDomain :: {
 		Type: "AWS::Cognito::UserPoolDomain"
@@ -126,13 +130,14 @@ Cognito :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	UserPoolGroup :: {
 		Type: "AWS::Cognito::UserPoolGroup"
 		Properties: {
 			Description?: string | fn.Fn
 			GroupName?:   string | fn.Fn
-			Precedence?:  float | fn.Fn
+			Precedence?:  number | fn.Fn
 			RoleArn?:     string | fn.Fn
 			UserPoolId:   string | fn.Fn
 		}
@@ -140,6 +145,7 @@ Cognito :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	UserPoolIdentityProvider :: {
 		Type: "AWS::Cognito::UserPoolIdentityProvider"
@@ -147,7 +153,7 @@ Cognito :: {
 			AttributeMapping?: {
 				[string]: _
 			} | fn.Fn
-			IdpIdentifiers?:  [...(string | fn.Fn)] | fn.Fn
+			IdpIdentifiers?:  [...(string | fn.Fn)] | (string | fn.Fn)
 			ProviderDetails?: {
 				[string]: _
 			} | fn.Fn
@@ -159,6 +165,7 @@ Cognito :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	UserPoolResourceServer :: {
 		Type: "AWS::Cognito::UserPoolResourceServer"
@@ -173,6 +180,7 @@ Cognito :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	UserPoolRiskConfigurationAttachment :: {
 		Type: "AWS::Cognito::UserPoolRiskConfigurationAttachment"
@@ -190,6 +198,7 @@ Cognito :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	UserPoolUICustomizationAttachment :: {
 		Type: "AWS::Cognito::UserPoolUICustomizationAttachment"
@@ -202,6 +211,7 @@ Cognito :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	UserPoolUser :: {
 		Type: "AWS::Cognito::UserPoolUser"
@@ -209,7 +219,7 @@ Cognito :: {
 			ClientMetadata?: {
 				[string]: _
 			} | fn.Fn
-			DesiredDeliveryMediums?: [...(string | fn.Fn)] | fn.Fn
+			DesiredDeliveryMediums?: [...(string | fn.Fn)] | (string | fn.Fn)
 			ForceAliasCreation?:     bool | fn.Fn
 			MessageAction?:          string | fn.Fn
 			UserAttributes?: [...{
@@ -223,6 +233,7 @@ Cognito :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	UserPoolUserToGroupAttachment :: {
 		Type: "AWS::Cognito::UserPoolUserToGroupAttachment"
@@ -235,5 +246,6 @@ Cognito :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 }

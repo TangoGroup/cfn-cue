@@ -10,6 +10,7 @@ SES :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	ConfigurationSetEventDestination :: {
 		Type: "AWS::SES::ConfigurationSetEventDestination"
@@ -26,7 +27,7 @@ SES :: {
 					DeliveryStreamARN: string | fn.Fn
 					IAMRoleARN:        string | fn.Fn
 				}
-				MatchingEventTypes: [...(string | fn.Fn)] | fn.Fn
+				MatchingEventTypes: [...(string | fn.Fn)] | (string | fn.Fn)
 				Name?:              string | fn.Fn
 			}
 		}
@@ -34,6 +35,7 @@ SES :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	ReceiptFilter :: {
 		Type: "AWS::SES::ReceiptFilter"
@@ -48,6 +50,7 @@ SES :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	ReceiptRule :: {
 		Type: "AWS::SES::ReceiptRule"
@@ -92,7 +95,7 @@ SES :: {
 				}]
 				Enabled?:     bool | fn.Fn
 				Name?:        string | fn.Fn
-				Recipients?:  [...(string | fn.Fn)] | fn.Fn
+				Recipients?:  [...(string | fn.Fn)] | (string | fn.Fn)
 				ScanEnabled?: bool | fn.Fn
 				TlsPolicy?:   ("Optional" | "Require") | fn.Fn
 			}
@@ -102,6 +105,7 @@ SES :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	ReceiptRuleSet :: {
 		Type: "AWS::SES::ReceiptRuleSet"
@@ -110,6 +114,7 @@ SES :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	Template :: {
 		Type: "AWS::SES::Template"
@@ -123,5 +128,6 @@ SES :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 }

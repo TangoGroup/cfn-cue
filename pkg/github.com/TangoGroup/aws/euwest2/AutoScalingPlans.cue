@@ -10,7 +10,7 @@ AutoScalingPlans :: {
 				CloudFormationStackARN?: string | fn.Fn
 				TagFilters?: [...{
 					Key:     string | fn.Fn
-					Values?: [...(string | fn.Fn)] | fn.Fn
+					Values?: [...(string | fn.Fn)] | (string | fn.Fn)
 				}]
 			}
 			ScalingInstructions: [...{
@@ -58,7 +58,7 @@ AutoScalingPlans :: {
 					}
 					ScaleInCooldown?:  int | fn.Fn
 					ScaleOutCooldown?: int | fn.Fn
-					TargetValue:       float | fn.Fn
+					TargetValue:       number | fn.Fn
 				}]
 			}]
 		}
@@ -66,5 +66,6 @@ AutoScalingPlans :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 }

@@ -14,17 +14,18 @@ SSM :: {
 				OutputS3BucketName?: string | fn.Fn
 				OutputS3KeyPrefix?:  string | fn.Fn
 			}
-			Parameters?: [string]: ParameterValues: [...(string | fn.Fn)] | fn.Fn
+			Parameters?: [string]: ParameterValues: [...(string | fn.Fn)] | (string | fn.Fn)
 			ScheduleExpression?: string | fn.Fn
 			Targets?: [...{
 				Key:    string | fn.Fn
-				Values: [...(string | fn.Fn)] | fn.Fn
+				Values: [...(string | fn.Fn)] | (string | fn.Fn)
 			}]
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	Document :: {
 		Type: "AWS::SSM::Document"
@@ -43,6 +44,7 @@ SSM :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	MaintenanceWindowTarget :: {
 		Type: "AWS::SSM::MaintenanceWindowTarget"
@@ -53,7 +55,7 @@ SSM :: {
 			ResourceType:      string | fn.Fn
 			Targets: [...{
 				Key:     string | fn.Fn
-				Values?: [...(string | fn.Fn)] | fn.Fn
+				Values?: [...(string | fn.Fn)] | (string | fn.Fn)
 			}]
 			WindowId: string | fn.Fn
 		}
@@ -61,5 +63,6 @@ SSM :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 }

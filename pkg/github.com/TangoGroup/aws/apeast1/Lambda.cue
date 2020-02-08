@@ -13,13 +13,15 @@ Lambda :: {
 			ProvisionedConcurrencyConfig?: ProvisionedConcurrentExecutions: int | fn.Fn
 			RoutingConfig?: AdditionalVersionWeights: [...{
 				FunctionVersion: string | fn.Fn
-				FunctionWeight:  float | fn.Fn
+				FunctionWeight:  number | fn.Fn
 			}]
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
-		Metadata?: [string]: _
+		UpdatePolicy?: [string]: _
+		Metadata?: [string]:     _
+		Condition?: string
 	}
 	EventInvokeConfig :: {
 		Type: "AWS::Lambda::EventInvokeConfig"
@@ -37,6 +39,7 @@ Lambda :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	EventSourceMapping :: {
 		Type: "AWS::Lambda::EventSourceMapping"
@@ -57,6 +60,7 @@ Lambda :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	Function :: {
 		Type: "AWS::Lambda::Function"
@@ -73,7 +77,7 @@ Lambda :: {
 			FunctionName?:                 string | fn.Fn
 			Handler:                       string | fn.Fn
 			KmsKeyArn?:                    string | fn.Fn
-			Layers?:                       [...(string | fn.Fn)] | fn.Fn
+			Layers?:                       [...(string | fn.Fn)] | (string | fn.Fn)
 			MemorySize?:                   (>=128 & <=3008) | fn.Fn
 			ReservedConcurrentExecutions?: int | fn.Fn
 			Role:                          (=~#"arn:(aws[a-zA-Z-]*)?:iam::\d{12}:role/[a-zA-Z_0-9+=,.@\-_/]+"#) | fn.Fn
@@ -85,14 +89,15 @@ Lambda :: {
 			Timeout?: (>=1 & <=900) | fn.Fn
 			TracingConfig?: Mode?: string | fn.Fn
 			VpcConfig?: {
-				SecurityGroupIds: [...(string | fn.Fn)] | fn.Fn
-				SubnetIds:        [...(string | fn.Fn)] | fn.Fn
+				SecurityGroupIds: [...(string | fn.Fn)] | (string | fn.Fn)
+				SubnetIds:        [...(string | fn.Fn)] | (string | fn.Fn)
 			}
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	Permission :: {
 		Type: "AWS::Lambda::Permission"
@@ -108,6 +113,7 @@ Lambda :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	Version :: {
 		Type: "AWS::Lambda::Version"
@@ -121,5 +127,6 @@ Lambda :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 }

@@ -10,12 +10,13 @@ AppSync :: {
 			ApiId:                     string | fn.Fn
 			AtRestEncryptionEnabled?:  bool | fn.Fn
 			TransitEncryptionEnabled?: bool | fn.Fn
-			Ttl:                       float | fn.Fn
+			Ttl:                       number | fn.Fn
 			Type:                      string | fn.Fn
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 }

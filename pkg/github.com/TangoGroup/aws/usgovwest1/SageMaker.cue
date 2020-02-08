@@ -6,8 +6,8 @@ SageMaker :: {
 	NotebookInstance :: {
 		Type: "AWS::SageMaker::NotebookInstance"
 		Properties: {
-			AcceleratorTypes?:           [...(string | fn.Fn)] | fn.Fn
-			AdditionalCodeRepositories?: [...(string | fn.Fn)] | fn.Fn
+			AcceleratorTypes?:           [...(string | fn.Fn)] | (string | fn.Fn)
+			AdditionalCodeRepositories?: [...(string | fn.Fn)] | (string | fn.Fn)
 			DefaultCodeRepository?:      string | fn.Fn
 			DirectInternetAccess?:       string | fn.Fn
 			InstanceType:                string | fn.Fn
@@ -16,7 +16,7 @@ SageMaker :: {
 			NotebookInstanceName?:       string | fn.Fn
 			RoleArn:                     string | fn.Fn
 			RootAccess?:                 string | fn.Fn
-			SecurityGroupIds?:           [...(string | fn.Fn)] | fn.Fn
+			SecurityGroupIds?:           [...(string | fn.Fn)] | (string | fn.Fn)
 			SubnetId?:                   string | fn.Fn
 			Tags?: [...{
 				Key:   string | fn.Fn
@@ -28,5 +28,6 @@ SageMaker :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 }

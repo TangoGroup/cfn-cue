@@ -11,7 +11,7 @@ EMR :: {
 			} | fn.Fn
 			Applications?: [...{
 				AdditionalInfo?: [string]: string | fn.Fn
-				Args?:    [...(string | fn.Fn)] | fn.Fn
+				Args?:    [...(string | fn.Fn)] | (string | fn.Fn)
 				Name?:    string | fn.Fn
 				Version?: string | fn.Fn
 			}]
@@ -19,7 +19,7 @@ EMR :: {
 			BootstrapActions?: [...{
 				Name: string | fn.Fn
 				ScriptBootstrapAction: {
-					Args?: [...(string | fn.Fn)] | fn.Fn
+					Args?: [...(string | fn.Fn)] | (string | fn.Fn)
 					Path:  string | fn.Fn
 				}
 			}]
@@ -33,12 +33,12 @@ EMR :: {
 			CustomAmiId?:       string | fn.Fn
 			EbsRootVolumeSize?: int | fn.Fn
 			Instances: {
-				AdditionalMasterSecurityGroups?: [...(string | fn.Fn)] | fn.Fn
-				AdditionalSlaveSecurityGroups?:  [...(string | fn.Fn)] | fn.Fn
+				AdditionalMasterSecurityGroups?: [...(string | fn.Fn)] | (string | fn.Fn)
+				AdditionalSlaveSecurityGroups?:  [...(string | fn.Fn)] | (string | fn.Fn)
 				CoreInstanceFleet?: {
 					InstanceTypeConfigs?: [...{
 						BidPrice?:                            string | fn.Fn
-						BidPriceAsPercentageOfOnDemandPrice?: float | fn.Fn
+						BidPriceAsPercentageOfOnDemandPrice?: number | fn.Fn
 						Configurations?: [...{
 							Classification?: string | fn.Fn
 							ConfigurationProperties?: [string]: string | fn.Fn
@@ -97,7 +97,7 @@ EMR :: {
 								Namespace?:         string | fn.Fn
 								Period:             int | fn.Fn
 								Statistic?:         string | fn.Fn
-								Threshold:          float | fn.Fn
+								Threshold:          number | fn.Fn
 								Unit?:              string | fn.Fn
 							}
 						}]
@@ -128,7 +128,7 @@ EMR :: {
 				}
 				Ec2KeyName?:                    string | fn.Fn
 				Ec2SubnetId?:                   string | fn.Fn
-				Ec2SubnetIds?:                  [...(string | fn.Fn)] | fn.Fn
+				Ec2SubnetIds?:                  [...(string | fn.Fn)] | (string | fn.Fn)
 				EmrManagedMasterSecurityGroup?: string | fn.Fn
 				EmrManagedSlaveSecurityGroup?:  string | fn.Fn
 				HadoopVersion?:                 string | fn.Fn
@@ -136,7 +136,7 @@ EMR :: {
 				MasterInstanceFleet?: {
 					InstanceTypeConfigs?: [...{
 						BidPrice?:                            string | fn.Fn
-						BidPriceAsPercentageOfOnDemandPrice?: float | fn.Fn
+						BidPriceAsPercentageOfOnDemandPrice?: number | fn.Fn
 						Configurations?: [...{
 							Classification?: string | fn.Fn
 							ConfigurationProperties?: [string]: string | fn.Fn
@@ -195,7 +195,7 @@ EMR :: {
 								Namespace?:         string | fn.Fn
 								Period:             int | fn.Fn
 								Statistic?:         string | fn.Fn
-								Threshold:          float | fn.Fn
+								Threshold:          number | fn.Fn
 								Unit?:              string | fn.Fn
 							}
 						}]
@@ -245,7 +245,7 @@ EMR :: {
 			Steps?: [...{
 				ActionOnFailure?: string | fn.Fn
 				HadoopJarStep: {
-					Args?:      [...(string | fn.Fn)] | fn.Fn
+					Args?:      [...(string | fn.Fn)] | (string | fn.Fn)
 					Jar:        string | fn.Fn
 					MainClass?: string | fn.Fn
 					StepProperties?: [...{
@@ -265,6 +265,7 @@ EMR :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	InstanceFleetConfig :: {
 		Type: "AWS::EMR::InstanceFleetConfig"
@@ -273,7 +274,7 @@ EMR :: {
 			InstanceFleetType: string | fn.Fn
 			InstanceTypeConfigs?: [...{
 				BidPrice?:                            string | fn.Fn
-				BidPriceAsPercentageOfOnDemandPrice?: float | fn.Fn
+				BidPriceAsPercentageOfOnDemandPrice?: number | fn.Fn
 				Configurations?: [...{
 					Classification?: string | fn.Fn
 					ConfigurationProperties?: [string]: string | fn.Fn
@@ -308,6 +309,7 @@ EMR :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	InstanceGroupConfig :: {
 		Type: "AWS::EMR::InstanceGroupConfig"
@@ -339,7 +341,7 @@ EMR :: {
 						Namespace?:         string | fn.Fn
 						Period:             int | fn.Fn
 						Statistic?:         string | fn.Fn
-						Threshold:          float | fn.Fn
+						Threshold:          number | fn.Fn
 						Unit?:              string | fn.Fn
 					}
 				}]
@@ -374,6 +376,7 @@ EMR :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	SecurityConfiguration :: {
 		Type: "AWS::EMR::SecurityConfiguration"
@@ -387,13 +390,14 @@ EMR :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	Step :: {
 		Type: "AWS::EMR::Step"
 		Properties: {
 			ActionOnFailure: string | fn.Fn
 			HadoopJarStep: {
-				Args?:      [...(string | fn.Fn)] | fn.Fn
+				Args?:      [...(string | fn.Fn)] | (string | fn.Fn)
 				Jar:        string | fn.Fn
 				MainClass?: string | fn.Fn
 				StepProperties?: [...{
@@ -408,5 +412,6 @@ EMR :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 }

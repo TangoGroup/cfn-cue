@@ -7,7 +7,7 @@ CodeStarNotifications :: {
 		Type: "AWS::CodeStarNotifications::NotificationRule"
 		Properties: {
 			DetailType:   string | fn.Fn
-			EventTypeIds: [...(string | fn.Fn)] | fn.Fn
+			EventTypeIds: [...(string | fn.Fn)] | (string | fn.Fn)
 			Name:         string | fn.Fn
 			Resource:     string | fn.Fn
 			Status?:      string | fn.Fn
@@ -23,5 +23,6 @@ CodeStarNotifications :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 }

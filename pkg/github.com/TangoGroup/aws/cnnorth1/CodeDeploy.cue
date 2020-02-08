@@ -13,6 +13,7 @@ CodeDeploy :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	DeploymentConfig :: {
 		Type: "AWS::CodeDeploy::DeploymentConfig"
@@ -27,6 +28,7 @@ CodeDeploy :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	DeploymentGroup :: {
 		Type: "AWS::CodeDeploy::DeploymentGroup"
@@ -41,9 +43,9 @@ CodeDeploy :: {
 			ApplicationName: string | fn.Fn
 			AutoRollbackConfiguration?: {
 				Enabled?: bool | fn.Fn
-				Events?:  [...(("DEPLOYMENT_FAILURE" | "DEPLOYMENT_STOP_ON_ALARM" | "DEPLOYMENT_STOP_ON_REQUEST") | fn.Fn)] | fn.Fn
+				Events?:  [...(("DEPLOYMENT_FAILURE" | "DEPLOYMENT_STOP_ON_ALARM" | "DEPLOYMENT_STOP_ON_REQUEST") | fn.Fn)] | (("DEPLOYMENT_FAILURE" | "DEPLOYMENT_STOP_ON_ALARM" | "DEPLOYMENT_STOP_ON_REQUEST") | fn.Fn)
 			}
-			AutoScalingGroups?: [...(string | fn.Fn)] | fn.Fn
+			AutoScalingGroups?: [...(string | fn.Fn)] | (string | fn.Fn)
 			Deployment?: {
 				Description?:                   string | fn.Fn
 				IgnoreApplicationStopFailures?: bool | fn.Fn
@@ -102,7 +104,7 @@ CodeDeploy :: {
 			}]
 			ServiceRoleArn: string | fn.Fn
 			TriggerConfigurations?: [...{
-				TriggerEvents?:    [...(("DeploymentFailure" | "DeploymentReady" | "DeploymentRollback" | "DeploymentStart" | "DeploymentStop" | "DeploymentSuccess" | "InstanceFailure" | "InstanceReady" | "InstanceStart" | "InstanceSuccess") | fn.Fn)] | fn.Fn
+				TriggerEvents?:    [...(("DeploymentFailure" | "DeploymentReady" | "DeploymentRollback" | "DeploymentStart" | "DeploymentStop" | "DeploymentSuccess" | "InstanceFailure" | "InstanceReady" | "InstanceStart" | "InstanceSuccess") | fn.Fn)] | (("DeploymentFailure" | "DeploymentReady" | "DeploymentRollback" | "DeploymentStart" | "DeploymentStop" | "DeploymentSuccess" | "InstanceFailure" | "InstanceReady" | "InstanceStart" | "InstanceSuccess") | fn.Fn)
 				TriggerName?:      string | fn.Fn
 				TriggerTargetArn?: string | fn.Fn
 			}]
@@ -111,5 +113,6 @@ CodeDeploy :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 }

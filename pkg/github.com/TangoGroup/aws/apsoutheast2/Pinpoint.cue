@@ -15,6 +15,7 @@ Pinpoint :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	APNSChannel :: {
 		Type: "AWS::Pinpoint::APNSChannel"
@@ -33,6 +34,7 @@ Pinpoint :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	APNSSandboxChannel :: {
 		Type: "AWS::Pinpoint::APNSSandboxChannel"
@@ -51,6 +53,7 @@ Pinpoint :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	APNSVoipChannel :: {
 		Type: "AWS::Pinpoint::APNSVoipChannel"
@@ -69,6 +72,7 @@ Pinpoint :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	APNSVoipSandboxChannel :: {
 		Type: "AWS::Pinpoint::APNSVoipSandboxChannel"
@@ -87,6 +91,7 @@ Pinpoint :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	App :: {
 		Type: "AWS::Pinpoint::App"
@@ -100,6 +105,7 @@ Pinpoint :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	ApplicationSettings :: {
 		Type: "AWS::Pinpoint::ApplicationSettings"
@@ -126,6 +132,7 @@ Pinpoint :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	BaiduChannel :: {
 		Type: "AWS::Pinpoint::BaiduChannel"
@@ -139,6 +146,7 @@ Pinpoint :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	Campaign :: {
 		Type: "AWS::Pinpoint::Campaign"
@@ -236,7 +244,7 @@ Pinpoint :: {
 							} | fn.Fn
 							EventType?: {
 								DimensionType?: string | fn.Fn
-								Values?:        [...(string | fn.Fn)] | fn.Fn
+								Values?:        [...(string | fn.Fn)] | (string | fn.Fn)
 							}
 							Metrics?: {
 								[string]: _
@@ -365,7 +373,7 @@ Pinpoint :: {
 						} | fn.Fn
 						EventType?: {
 							DimensionType?: string | fn.Fn
-							Values?:        [...(string | fn.Fn)] | fn.Fn
+							Values?:        [...(string | fn.Fn)] | (string | fn.Fn)
 						}
 						Metrics?: {
 							[string]: _
@@ -394,6 +402,7 @@ Pinpoint :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	EmailChannel :: {
 		Type: "AWS::Pinpoint::EmailChannel"
@@ -409,6 +418,7 @@ Pinpoint :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	EventStream :: {
 		Type: "AWS::Pinpoint::EventStream"
@@ -421,6 +431,7 @@ Pinpoint :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	GCMChannel :: {
 		Type: "AWS::Pinpoint::GCMChannel"
@@ -433,6 +444,7 @@ Pinpoint :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	SMSChannel :: {
 		Type: "AWS::Pinpoint::SMSChannel"
@@ -446,6 +458,7 @@ Pinpoint :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	Segment :: {
 		Type: "AWS::Pinpoint::Segment"
@@ -462,40 +475,40 @@ Pinpoint :: {
 				Demographic?: {
 					AppVersion?: {
 						DimensionType?: string | fn.Fn
-						Values?:        [...(string | fn.Fn)] | fn.Fn
+						Values?:        [...(string | fn.Fn)] | (string | fn.Fn)
 					}
 					Channel?: {
 						DimensionType?: string | fn.Fn
-						Values?:        [...(string | fn.Fn)] | fn.Fn
+						Values?:        [...(string | fn.Fn)] | (string | fn.Fn)
 					}
 					DeviceType?: {
 						DimensionType?: string | fn.Fn
-						Values?:        [...(string | fn.Fn)] | fn.Fn
+						Values?:        [...(string | fn.Fn)] | (string | fn.Fn)
 					}
 					Make?: {
 						DimensionType?: string | fn.Fn
-						Values?:        [...(string | fn.Fn)] | fn.Fn
+						Values?:        [...(string | fn.Fn)] | (string | fn.Fn)
 					}
 					Model?: {
 						DimensionType?: string | fn.Fn
-						Values?:        [...(string | fn.Fn)] | fn.Fn
+						Values?:        [...(string | fn.Fn)] | (string | fn.Fn)
 					}
 					Platform?: {
 						DimensionType?: string | fn.Fn
-						Values?:        [...(string | fn.Fn)] | fn.Fn
+						Values?:        [...(string | fn.Fn)] | (string | fn.Fn)
 					}
 				}
 				Location?: {
 					Country?: {
 						DimensionType?: string | fn.Fn
-						Values?:        [...(string | fn.Fn)] | fn.Fn
+						Values?:        [...(string | fn.Fn)] | (string | fn.Fn)
 					}
 					GPSPoint?: {
 						Coordinates: {
-							Latitude:  float | fn.Fn
-							Longitude: float | fn.Fn
+							Latitude:  number | fn.Fn
+							Longitude: number | fn.Fn
 						}
-						RangeInKilometers: float | fn.Fn
+						RangeInKilometers: number | fn.Fn
 					}
 				}
 				Metrics?: {
@@ -519,40 +532,40 @@ Pinpoint :: {
 						Demographic?: {
 							AppVersion?: {
 								DimensionType?: string | fn.Fn
-								Values?:        [...(string | fn.Fn)] | fn.Fn
+								Values?:        [...(string | fn.Fn)] | (string | fn.Fn)
 							}
 							Channel?: {
 								DimensionType?: string | fn.Fn
-								Values?:        [...(string | fn.Fn)] | fn.Fn
+								Values?:        [...(string | fn.Fn)] | (string | fn.Fn)
 							}
 							DeviceType?: {
 								DimensionType?: string | fn.Fn
-								Values?:        [...(string | fn.Fn)] | fn.Fn
+								Values?:        [...(string | fn.Fn)] | (string | fn.Fn)
 							}
 							Make?: {
 								DimensionType?: string | fn.Fn
-								Values?:        [...(string | fn.Fn)] | fn.Fn
+								Values?:        [...(string | fn.Fn)] | (string | fn.Fn)
 							}
 							Model?: {
 								DimensionType?: string | fn.Fn
-								Values?:        [...(string | fn.Fn)] | fn.Fn
+								Values?:        [...(string | fn.Fn)] | (string | fn.Fn)
 							}
 							Platform?: {
 								DimensionType?: string | fn.Fn
-								Values?:        [...(string | fn.Fn)] | fn.Fn
+								Values?:        [...(string | fn.Fn)] | (string | fn.Fn)
 							}
 						}
 						Location?: {
 							Country?: {
 								DimensionType?: string | fn.Fn
-								Values?:        [...(string | fn.Fn)] | fn.Fn
+								Values?:        [...(string | fn.Fn)] | (string | fn.Fn)
 							}
 							GPSPoint?: {
 								Coordinates: {
-									Latitude:  float | fn.Fn
-									Longitude: float | fn.Fn
+									Latitude:  number | fn.Fn
+									Longitude: number | fn.Fn
 								}
-								RangeInKilometers: float | fn.Fn
+								RangeInKilometers: number | fn.Fn
 							}
 						}
 						Metrics?: {
@@ -579,6 +592,7 @@ Pinpoint :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	VoiceChannel :: {
 		Type: "AWS::Pinpoint::VoiceChannel"
@@ -590,5 +604,6 @@ Pinpoint :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 }

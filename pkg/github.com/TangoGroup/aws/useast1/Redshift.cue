@@ -11,7 +11,7 @@ Redshift :: {
 			AvailabilityZone?:                 string | fn.Fn
 			ClusterIdentifier?:                string | fn.Fn
 			ClusterParameterGroupName?:        string | fn.Fn
-			ClusterSecurityGroups?:            [...(string | fn.Fn)] | fn.Fn
+			ClusterSecurityGroups?:            [...(string | fn.Fn)] | (string | fn.Fn)
 			ClusterSubnetGroupName?:           string | fn.Fn
 			ClusterType:                       ("multi-node" | "single-node") | fn.Fn
 			ClusterVersion?:                   ("1.0") | fn.Fn
@@ -20,7 +20,7 @@ Redshift :: {
 			Encrypted?:                        bool | fn.Fn
 			HsmClientCertificateIdentifier?:   string | fn.Fn
 			HsmConfigurationIdentifier?:       string | fn.Fn
-			IamRoles?:                         [...(string | fn.Fn)] | fn.Fn
+			IamRoles?:                         [...(string | fn.Fn)] | (string | fn.Fn)
 			KmsKeyId?:                         string | fn.Fn
 			LoggingProperties?: {
 				BucketName:   string | fn.Fn
@@ -40,12 +40,13 @@ Redshift :: {
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			}]
-			VpcSecurityGroupIds?: [...(string | fn.Fn)] | fn.Fn
+			VpcSecurityGroupIds?: [...(string | fn.Fn)] | (string | fn.Fn)
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain" | "Snapshot"
 		UpdateReplacePolicy?: "Delete" | "Retain" | "Snapshot"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	ClusterParameterGroup :: {
 		Type: "AWS::Redshift::ClusterParameterGroup"
@@ -65,6 +66,7 @@ Redshift :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	ClusterSecurityGroup :: {
 		Type: "AWS::Redshift::ClusterSecurityGroup"
@@ -79,6 +81,7 @@ Redshift :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	ClusterSecurityGroupIngress :: {
 		Type: "AWS::Redshift::ClusterSecurityGroupIngress"
@@ -92,12 +95,13 @@ Redshift :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	ClusterSubnetGroup :: {
 		Type: "AWS::Redshift::ClusterSubnetGroup"
 		Properties: {
 			Description: string | fn.Fn
-			SubnetIds:   [...(string | fn.Fn)] | fn.Fn
+			SubnetIds:   [...(string | fn.Fn)] | (string | fn.Fn)
 			Tags?: [...{
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
@@ -107,5 +111,6 @@ Redshift :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 }

@@ -28,6 +28,7 @@ SQS :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	QueuePolicy :: {
 		Type: "AWS::SQS::QueuePolicy"
@@ -35,11 +36,12 @@ SQS :: {
 			PolicyDocument: {
 				[string]: _
 			} | fn.Fn
-			Queues: [...(string | fn.Fn)] | fn.Fn
+			Queues: [...(string | fn.Fn)] | (string | fn.Fn)
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 }

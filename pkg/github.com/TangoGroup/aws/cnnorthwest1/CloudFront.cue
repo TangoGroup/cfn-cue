@@ -11,6 +11,7 @@ CloudFront :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	Distribution :: {
 		Type: "AWS::CloudFront::Distribution"
@@ -26,6 +27,7 @@ CloudFront :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	StreamingDistribution :: {
 		Type: "AWS::CloudFront::StreamingDistribution"
@@ -41,5 +43,6 @@ CloudFront :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 }

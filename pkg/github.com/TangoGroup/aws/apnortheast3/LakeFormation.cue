@@ -12,13 +12,14 @@ LakeFormation :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	Permissions :: {
 		Type: "AWS::LakeFormation::Permissions"
 		Properties: {
 			DataLakePrincipal: DataLakePrincipalIdentifier?: string | fn.Fn
-			Permissions?:                [...(string | fn.Fn)] | fn.Fn
-			PermissionsWithGrantOption?: [...(string | fn.Fn)] | fn.Fn
+			Permissions?:                [...(string | fn.Fn)] | (string | fn.Fn)
+			PermissionsWithGrantOption?: [...(string | fn.Fn)] | (string | fn.Fn)
 			Resource: {
 				DatabaseResource?: Name?: string | fn.Fn
 				TableResource?: {
@@ -31,6 +32,7 @@ LakeFormation :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	Resource :: {
 		Type: "AWS::LakeFormation::Resource"
@@ -43,5 +45,6 @@ LakeFormation :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 }

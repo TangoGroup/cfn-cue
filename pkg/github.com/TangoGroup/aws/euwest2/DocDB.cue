@@ -6,12 +6,12 @@ DocDB :: {
 	DBCluster :: {
 		Type: "AWS::DocDB::DBCluster"
 		Properties: {
-			AvailabilityZones?:           [...(string | fn.Fn)] | fn.Fn
+			AvailabilityZones?:           [...(string | fn.Fn)] | (string | fn.Fn)
 			BackupRetentionPeriod?:       (>=1 & <=35) | fn.Fn
 			DBClusterIdentifier?:         string | fn.Fn
 			DBClusterParameterGroupName?: string | fn.Fn
 			DBSubnetGroupName?:           string | fn.Fn
-			EnableCloudwatchLogsExports?: [...(string | fn.Fn)] | fn.Fn
+			EnableCloudwatchLogsExports?: [...(string | fn.Fn)] | (string | fn.Fn)
 			EngineVersion?:               ("3.6.0") | fn.Fn
 			KmsKeyId?:                    string | fn.Fn
 			MasterUserPassword:           string | fn.Fn
@@ -25,12 +25,13 @@ DocDB :: {
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			}]
-			VpcSecurityGroupIds?: [...(string | fn.Fn)] | fn.Fn
+			VpcSecurityGroupIds?: [...(string | fn.Fn)] | (string | fn.Fn)
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	DBClusterParameterGroup :: {
 		Type: "AWS::DocDB::DBClusterParameterGroup"
@@ -50,6 +51,7 @@ DocDB :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	DBInstance :: {
 		Type: "AWS::DocDB::DBInstance"
@@ -69,13 +71,14 @@ DocDB :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	DBSubnetGroup :: {
 		Type: "AWS::DocDB::DBSubnetGroup"
 		Properties: {
 			DBSubnetGroupDescription: string | fn.Fn
 			DBSubnetGroupName?:       string | fn.Fn
-			SubnetIds:                [...(string | fn.Fn)] | fn.Fn
+			SubnetIds:                [...(string | fn.Fn)] | (string | fn.Fn)
 			Tags?: [...{
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
@@ -85,5 +88,6 @@ DocDB :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 }

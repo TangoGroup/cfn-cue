@@ -13,6 +13,7 @@ IoT1Click :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	Placement :: {
 		Type: "AWS::IoT1Click::Placement"
@@ -30,6 +31,7 @@ IoT1Click :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	Project :: {
 		Type: "AWS::IoT1Click::Project"
@@ -49,5 +51,6 @@ IoT1Click :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 }

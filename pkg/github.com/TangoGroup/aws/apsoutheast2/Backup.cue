@@ -31,6 +31,7 @@ Backup :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	BackupSelection :: {
 		Type: "AWS::Backup::BackupSelection"
@@ -43,7 +44,7 @@ Backup :: {
 					ConditionType:  string | fn.Fn
 					ConditionValue: string | fn.Fn
 				}]
-				Resources?:    [...(string | fn.Fn)] | fn.Fn
+				Resources?:    [...(string | fn.Fn)] | (string | fn.Fn)
 				SelectionName: string | fn.Fn
 			}
 		}
@@ -51,6 +52,7 @@ Backup :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	BackupVault :: {
 		Type: "AWS::Backup::BackupVault"
@@ -64,7 +66,7 @@ Backup :: {
 			} | fn.Fn
 			EncryptionKeyArn?: string | fn.Fn
 			Notifications?: {
-				BackupVaultEvents: [...(string | fn.Fn)] | fn.Fn
+				BackupVaultEvents: [...(string | fn.Fn)] | (string | fn.Fn)
 				SNSTopicArn:       string | fn.Fn
 			}
 		}
@@ -72,5 +74,6 @@ Backup :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 }

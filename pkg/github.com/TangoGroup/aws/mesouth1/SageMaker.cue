@@ -14,6 +14,7 @@ SageMaker :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	Endpoint :: {
 		Type: "AWS::SageMaker::Endpoint"
@@ -32,6 +33,7 @@ SageMaker :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	EndpointConfig :: {
 		Type: "AWS::SageMaker::EndpointConfig"
@@ -49,6 +51,7 @@ SageMaker :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	Model :: {
 		Type: "AWS::SageMaker::Model"
@@ -70,12 +73,13 @@ SageMaker :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	NotebookInstance :: {
 		Type: "AWS::SageMaker::NotebookInstance"
 		Properties: {
-			AcceleratorTypes?:           [...(string | fn.Fn)] | fn.Fn
-			AdditionalCodeRepositories?: [...(string | fn.Fn)] | fn.Fn
+			AcceleratorTypes?:           [...(string | fn.Fn)] | (string | fn.Fn)
+			AdditionalCodeRepositories?: [...(string | fn.Fn)] | (string | fn.Fn)
 			DefaultCodeRepository?:      string | fn.Fn
 			DirectInternetAccess?:       string | fn.Fn
 			InstanceType:                string | fn.Fn
@@ -84,7 +88,7 @@ SageMaker :: {
 			NotebookInstanceName?:       string | fn.Fn
 			RoleArn:                     string | fn.Fn
 			RootAccess?:                 string | fn.Fn
-			SecurityGroupIds?:           [...(string | fn.Fn)] | fn.Fn
+			SecurityGroupIds?:           [...(string | fn.Fn)] | (string | fn.Fn)
 			SubnetId?:                   string | fn.Fn
 			Tags?: [...{
 				Key:   string | fn.Fn
@@ -96,6 +100,7 @@ SageMaker :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	NotebookInstanceLifecycleConfig :: {
 		Type: "AWS::SageMaker::NotebookInstanceLifecycleConfig"
@@ -110,6 +115,7 @@ SageMaker :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	Workteam :: {
 		Type: "AWS::SageMaker::Workteam"
@@ -129,5 +135,6 @@ SageMaker :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 }

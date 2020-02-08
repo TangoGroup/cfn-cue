@@ -13,6 +13,7 @@ Inspector :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	AssessmentTemplate :: {
 		Type: "AWS::Inspector::AssessmentTemplate"
@@ -20,7 +21,7 @@ Inspector :: {
 			AssessmentTargetArn:     string | fn.Fn
 			AssessmentTemplateName?: string | fn.Fn
 			DurationInSeconds:       (>=180 & <=86400) | fn.Fn
-			RulesPackageArns:        [...(string | fn.Fn)] | fn.Fn
+			RulesPackageArns:        [...(string | fn.Fn)] | (string | fn.Fn)
 			UserAttributesForFindings?: [...{
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
@@ -30,6 +31,7 @@ Inspector :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	ResourceGroup :: {
 		Type: "AWS::Inspector::ResourceGroup"
@@ -41,5 +43,6 @@ Inspector :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 }

@@ -32,6 +32,7 @@ S3 :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	Bucket :: {
 		Type: "AWS::S3::Bucket"
@@ -63,10 +64,10 @@ S3 :: {
 			}]
 			BucketName?: (strings.MinRunes(3) & strings.MaxRunes(63) & (=~#"^[a-z0-9][a-z0-9.-]*[a-z0-9]$"#)) | fn.Fn
 			CorsConfiguration?: CorsRules: [...{
-				AllowedHeaders?: [...(string | fn.Fn)] | fn.Fn
-				AllowedMethods:  [...(string | fn.Fn)] | fn.Fn
-				AllowedOrigins:  [...(string | fn.Fn)] | fn.Fn
-				ExposedHeaders?: [...(string | fn.Fn)] | fn.Fn
+				AllowedHeaders?: [...(string | fn.Fn)] | (string | fn.Fn)
+				AllowedMethods:  [...(string | fn.Fn)] | (string | fn.Fn)
+				AllowedOrigins:  [...(string | fn.Fn)] | (string | fn.Fn)
+				ExposedHeaders?: [...(string | fn.Fn)] | (string | fn.Fn)
 				Id?:             string | fn.Fn
 				MaxAge?:         int | fn.Fn
 			}]
@@ -80,7 +81,7 @@ S3 :: {
 				Enabled:                bool | fn.Fn
 				Id:                     string | fn.Fn
 				IncludedObjectVersions: string | fn.Fn
-				OptionalFields?:        [...(string | fn.Fn)] | fn.Fn
+				OptionalFields?:        [...(string | fn.Fn)] | (string | fn.Fn)
 				Prefix?:                string | fn.Fn
 				ScheduleFrequency:      string | fn.Fn
 			}]
@@ -215,6 +216,7 @@ S3 :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	BucketPolicy :: {
 		Type: "AWS::S3::BucketPolicy"
@@ -228,5 +230,6 @@ S3 :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 }

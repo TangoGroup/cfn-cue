@@ -11,7 +11,7 @@ Route53 :: {
 					Name:   string | fn.Fn
 					Region: string | fn.Fn
 				}
-				ChildHealthChecks?:            [...(string | fn.Fn)] | fn.Fn
+				ChildHealthChecks?:            [...(string | fn.Fn)] | (string | fn.Fn)
 				EnableSNI?:                    bool | fn.Fn
 				FailureThreshold?:             int | fn.Fn
 				FullyQualifiedDomainName?:     string | fn.Fn
@@ -21,7 +21,7 @@ Route53 :: {
 				Inverted?:                     bool | fn.Fn
 				MeasureLatency?:               bool | fn.Fn
 				Port?:                         int | fn.Fn
-				Regions?:                      [...(string | fn.Fn)] | fn.Fn
+				Regions?:                      [...(string | fn.Fn)] | (string | fn.Fn)
 				RequestInterval?:              int | fn.Fn
 				ResourcePath?:                 string | fn.Fn
 				SearchString?:                 string | fn.Fn
@@ -36,6 +36,7 @@ Route53 :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	HostedZone :: {
 		Type: "AWS::Route53::HostedZone"
@@ -56,6 +57,7 @@ Route53 :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	RecordSet :: {
 		Type: "AWS::Route53::RecordSet"
@@ -78,7 +80,7 @@ Route53 :: {
 			MultiValueAnswer?: bool | fn.Fn
 			Name:              string | fn.Fn
 			Region?:           string | fn.Fn
-			ResourceRecords?:  [...(string | fn.Fn)] | fn.Fn
+			ResourceRecords?:  [...(string | fn.Fn)] | (string | fn.Fn)
 			SetIdentifier?:    string | fn.Fn
 			TTL?:              string | fn.Fn
 			Type:              ("A" | "AAAA" | "CAA" | "CNAME" | "MX" | "NAPTR" | "NS" | "PTR" | "SOA" | "SPF" | "SRV" | "TXT") | fn.Fn
@@ -88,6 +90,7 @@ Route53 :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	RecordSetGroup :: {
 		Type: "AWS::Route53::RecordSetGroup"
@@ -114,7 +117,7 @@ Route53 :: {
 				MultiValueAnswer?: bool | fn.Fn
 				Name:              string | fn.Fn
 				Region?:           string | fn.Fn
-				ResourceRecords?:  [...(string | fn.Fn)] | fn.Fn
+				ResourceRecords?:  [...(string | fn.Fn)] | (string | fn.Fn)
 				SetIdentifier?:    string | fn.Fn
 				TTL?:              string | fn.Fn
 				Type:              ("A" | "AAAA" | "CAA" | "CNAME" | "MX" | "NAPTR" | "NS" | "PTR" | "SOA" | "SPF" | "SRV" | "TXT") | fn.Fn
@@ -125,5 +128,6 @@ Route53 :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 }

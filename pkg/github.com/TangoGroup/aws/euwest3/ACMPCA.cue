@@ -18,6 +18,7 @@ ACMPCA :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	CertificateAuthority :: {
 		Type: "AWS::ACMPCA::CertificateAuthority"
@@ -40,6 +41,7 @@ ACMPCA :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	CertificateAuthorityActivation :: {
 		Type: "AWS::ACMPCA::CertificateAuthorityActivation"
@@ -53,5 +55,6 @@ ACMPCA :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 }

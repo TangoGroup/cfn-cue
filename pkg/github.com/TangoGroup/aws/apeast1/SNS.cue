@@ -25,6 +25,7 @@ SNS :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	Topic :: {
 		Type: "AWS::SNS::Topic"
@@ -45,6 +46,7 @@ SNS :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	TopicPolicy :: {
 		Type: "AWS::SNS::TopicPolicy"
@@ -52,11 +54,12 @@ SNS :: {
 			PolicyDocument: {
 				[string]: _
 			} | fn.Fn
-			Topics: [...(string | fn.Fn)] | fn.Fn
+			Topics: [...(string | fn.Fn)] | (string | fn.Fn)
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 }

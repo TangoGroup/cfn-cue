@@ -6,7 +6,7 @@ DAX :: {
 	Cluster :: {
 		Type: "AWS::DAX::Cluster"
 		Properties: {
-			AvailabilityZones?:          [...(string | fn.Fn)] | fn.Fn
+			AvailabilityZones?:          [...(string | fn.Fn)] | (string | fn.Fn)
 			ClusterName?:                string | fn.Fn
 			Description?:                string | fn.Fn
 			IAMRoleARN:                  string | fn.Fn
@@ -17,7 +17,7 @@ DAX :: {
 			ReplicationFactor:           int | fn.Fn
 			SSESpecification?: {
 			}
-			SecurityGroupIds?: [...(string | fn.Fn)] | fn.Fn
+			SecurityGroupIds?: [...(string | fn.Fn)] | (string | fn.Fn)
 			SubnetGroupName?:  string | fn.Fn
 			Tags?:             {
 				[string]: _
@@ -27,6 +27,7 @@ DAX :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	ParameterGroup :: {
 		Type: "AWS::DAX::ParameterGroup"
@@ -41,17 +42,19 @@ DAX :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	SubnetGroup :: {
 		Type: "AWS::DAX::SubnetGroup"
 		Properties: {
 			Description?:     string | fn.Fn
 			SubnetGroupName?: string | fn.Fn
-			SubnetIds:        [...(string | fn.Fn)] | fn.Fn
+			SubnetIds:        [...(string | fn.Fn)] | (string | fn.Fn)
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 }

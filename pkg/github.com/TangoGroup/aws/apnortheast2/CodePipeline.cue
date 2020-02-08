@@ -41,6 +41,7 @@ CodePipeline :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	Pipeline :: {
 		Type: "AWS::CodePipeline::Pipeline"
@@ -109,6 +110,7 @@ CodePipeline :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	Webhook :: {
 		Type: "AWS::CodePipeline::Webhook"
@@ -132,5 +134,6 @@ CodePipeline :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 }

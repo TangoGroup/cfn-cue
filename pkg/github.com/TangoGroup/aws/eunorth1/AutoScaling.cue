@@ -7,7 +7,7 @@ AutoScaling :: {
 		Type: "AWS::AutoScaling::AutoScalingGroup"
 		Properties: {
 			AutoScalingGroupName?:    string | fn.Fn
-			AvailabilityZones?:       [...(string | fn.Fn)] | fn.Fn
+			AvailabilityZones?:       [...(string | fn.Fn)] | (string | fn.Fn)
 			Cooldown?:                string | fn.Fn
 			DesiredCapacity?:         string | fn.Fn
 			HealthCheckGracePeriod?:  int | fn.Fn
@@ -28,11 +28,11 @@ AutoScaling :: {
 				NotificationTargetARN?: string | fn.Fn
 				RoleARN?:               string | fn.Fn
 			}]
-			LoadBalancerNames?: [...(string | fn.Fn)] | fn.Fn
+			LoadBalancerNames?: [...(string | fn.Fn)] | (string | fn.Fn)
 			MaxSize:            string | fn.Fn
 			MetricsCollection?: [...{
 				Granularity: string | fn.Fn
-				Metrics?:    [...(string | fn.Fn)] | fn.Fn
+				Metrics?:    [...(string | fn.Fn)] | (string | fn.Fn)
 			}]
 			MinSize: string | fn.Fn
 			MixedInstancesPolicy?: {
@@ -57,7 +57,7 @@ AutoScaling :: {
 				}
 			}
 			NotificationConfigurations?: [...{
-				NotificationTypes?: [...(string | fn.Fn)] | fn.Fn
+				NotificationTypes?: [...(string | fn.Fn)] | (string | fn.Fn)
 				TopicARN:           string | fn.Fn
 			}]
 			PlacementGroup?:       string | fn.Fn
@@ -67,9 +67,9 @@ AutoScaling :: {
 				PropagateAtLaunch: bool | fn.Fn
 				Value:             string | fn.Fn
 			}]
-			TargetGroupARNs?:     [...(string | fn.Fn)] | fn.Fn
-			TerminationPolicies?: [...(string | fn.Fn)] | fn.Fn
-			VPCZoneIdentifier?:   [...(string | fn.Fn)] | fn.Fn
+			TargetGroupARNs?:     [...(string | fn.Fn)] | (string | fn.Fn)
+			TerminationPolicies?: [...(string | fn.Fn)] | (string | fn.Fn)
+			VPCZoneIdentifier?:   [...(string | fn.Fn)] | (string | fn.Fn)
 		}
 		DependsOn?: string | [...string]
 		CreationPolicy?: {
@@ -81,7 +81,9 @@ AutoScaling :: {
 		}
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
-		Metadata?: [string]: _
+		UpdatePolicy?: [string]: _
+		Metadata?: [string]:     _
+		Condition?: string
 	}
 	LaunchConfiguration :: {
 		Type: "AWS::AutoScaling::LaunchConfiguration"
@@ -101,7 +103,7 @@ AutoScaling :: {
 				VirtualName?: string | fn.Fn
 			}]
 			ClassicLinkVPCId?:             string | fn.Fn
-			ClassicLinkVPCSecurityGroups?: [...(string | fn.Fn)] | fn.Fn
+			ClassicLinkVPCSecurityGroups?: [...(string | fn.Fn)] | (string | fn.Fn)
 			EbsOptimized?:                 bool | fn.Fn
 			IamInstanceProfile?:           string | fn.Fn
 			ImageId:                       string | fn.Fn
@@ -113,7 +115,7 @@ AutoScaling :: {
 			LaunchConfigurationName?:      string | fn.Fn
 			PlacementTenancy?:             ("dedicated" | "default") | fn.Fn
 			RamDiskId?:                    string | fn.Fn
-			SecurityGroups?:               [...(string | fn.Fn)] | fn.Fn
+			SecurityGroups?:               [...(string | fn.Fn)] | (string | fn.Fn)
 			SpotPrice?:                    string | fn.Fn
 			UserData?:                     string | fn.Fn
 		}
@@ -121,6 +123,7 @@ AutoScaling :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	LifecycleHook :: {
 		Type: "AWS::AutoScaling::LifecycleHook"
@@ -138,6 +141,7 @@ AutoScaling :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	ScalingPolicy :: {
 		Type: "AWS::AutoScaling::ScalingPolicy"
@@ -151,8 +155,8 @@ AutoScaling :: {
 			PolicyType?:              ("SimpleScaling" | "StepScaling" | "TargetTrackingScaling") | fn.Fn
 			ScalingAdjustment?:       int | fn.Fn
 			StepAdjustments?: [...{
-				MetricIntervalLowerBound?: float | fn.Fn
-				MetricIntervalUpperBound?: float | fn.Fn
+				MetricIntervalLowerBound?: number | fn.Fn
+				MetricIntervalUpperBound?: number | fn.Fn
 				ScalingAdjustment:         int | fn.Fn
 			}]
 			TargetTrackingConfiguration?: {
@@ -171,13 +175,14 @@ AutoScaling :: {
 					PredefinedMetricType: ("ALBRequestCountPerTarget" | "ASGAverageCPUUtilization" | "ASGAverageNetworkIn" | "ASGAverageNetworkOut") | fn.Fn
 					ResourceLabel?:       string | fn.Fn
 				}
-				TargetValue: float | fn.Fn
+				TargetValue: number | fn.Fn
 			}
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	ScheduledAction :: {
 		Type: "AWS::AutoScaling::ScheduledAction"
@@ -194,5 +199,6 @@ AutoScaling :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 }

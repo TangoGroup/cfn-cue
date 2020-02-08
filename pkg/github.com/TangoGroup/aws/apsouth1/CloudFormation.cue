@@ -13,6 +13,7 @@ CloudFormation :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	Macro :: {
 		Type: "AWS::CloudFormation::Macro"
@@ -27,11 +28,12 @@ CloudFormation :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	Stack :: {
 		Type: "AWS::CloudFormation::Stack"
 		Properties: {
-			NotificationARNs?: [...(string | fn.Fn)] | fn.Fn
+			NotificationARNs?: [...(string | fn.Fn)] | (string | fn.Fn)
 			Parameters?: [string]: string | fn.Fn
 			Tags?: [...{
 				Key:   string | fn.Fn
@@ -44,6 +46,7 @@ CloudFormation :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	WaitCondition :: {
 		Type: "AWS::CloudFormation::WaitCondition"
@@ -63,6 +66,7 @@ CloudFormation :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	WaitConditionHandle :: {
 		Type: "AWS::CloudFormation::WaitConditionHandle"
@@ -72,5 +76,6 @@ CloudFormation :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 }

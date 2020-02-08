@@ -17,6 +17,7 @@ AppMesh :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	Route :: {
 		Type: "AWS::AppMesh::Route"
@@ -48,14 +49,14 @@ AppMesh :: {
 						ServiceName?: string | fn.Fn
 					}
 					RetryPolicy?: {
-						GrpcRetryEvents?: [...(string | fn.Fn)] | fn.Fn
-						HttpRetryEvents?: [...(string | fn.Fn)] | fn.Fn
+						GrpcRetryEvents?: [...(string | fn.Fn)] | (string | fn.Fn)
+						HttpRetryEvents?: [...(string | fn.Fn)] | (string | fn.Fn)
 						MaxRetries:       int | fn.Fn
 						PerRetryTimeout: {
 							Unit:  string | fn.Fn
 							Value: int | fn.Fn
 						}
-						TcpRetryEvents?: [...(string | fn.Fn)] | fn.Fn
+						TcpRetryEvents?: [...(string | fn.Fn)] | (string | fn.Fn)
 					}
 				}
 				Http2Route?: {
@@ -83,13 +84,13 @@ AppMesh :: {
 						Scheme?: string | fn.Fn
 					}
 					RetryPolicy?: {
-						HttpRetryEvents?: [...(string | fn.Fn)] | fn.Fn
+						HttpRetryEvents?: [...(string | fn.Fn)] | (string | fn.Fn)
 						MaxRetries:       int | fn.Fn
 						PerRetryTimeout: {
 							Unit:  string | fn.Fn
 							Value: int | fn.Fn
 						}
-						TcpRetryEvents?: [...(string | fn.Fn)] | fn.Fn
+						TcpRetryEvents?: [...(string | fn.Fn)] | (string | fn.Fn)
 					}
 				}
 				HttpRoute?: {
@@ -117,13 +118,13 @@ AppMesh :: {
 						Scheme?: string | fn.Fn
 					}
 					RetryPolicy?: {
-						HttpRetryEvents?: [...(string | fn.Fn)] | fn.Fn
+						HttpRetryEvents?: [...(string | fn.Fn)] | (string | fn.Fn)
 						MaxRetries:       int | fn.Fn
 						PerRetryTimeout: {
 							Unit:  string | fn.Fn
 							Value: int | fn.Fn
 						}
-						TcpRetryEvents?: [...(string | fn.Fn)] | fn.Fn
+						TcpRetryEvents?: [...(string | fn.Fn)] | (string | fn.Fn)
 					}
 				}
 				Priority?: int | fn.Fn
@@ -142,6 +143,7 @@ AppMesh :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	VirtualNode :: {
 		Type: "AWS::AppMesh::VirtualNode"
@@ -189,6 +191,7 @@ AppMesh :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	VirtualRouter :: {
 		Type: "AWS::AppMesh::VirtualRouter"
@@ -210,6 +213,7 @@ AppMesh :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	VirtualService :: {
 		Type: "AWS::AppMesh::VirtualService"
@@ -229,5 +233,6 @@ AppMesh :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 }

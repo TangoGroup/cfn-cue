@@ -18,6 +18,7 @@ GameLift :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	Build :: {
 		Type: "AWS::GameLift::Build"
@@ -36,6 +37,7 @@ GameLift :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	Fleet :: {
 		Type: "AWS::GameLift::Fleet"
@@ -53,9 +55,9 @@ GameLift :: {
 			EC2InstanceType:                 string | fn.Fn
 			FleetType?:                      string | fn.Fn
 			InstanceRoleARN?:                string | fn.Fn
-			LogPaths?:                       [...(string | fn.Fn)] | fn.Fn
+			LogPaths?:                       [...(string | fn.Fn)] | (string | fn.Fn)
 			MaxSize?:                        int | fn.Fn
-			MetricGroups?:                   [...(string | fn.Fn)] | fn.Fn
+			MetricGroups?:                   [...(string | fn.Fn)] | (string | fn.Fn)
 			MinSize?:                        int | fn.Fn
 			Name:                            string | fn.Fn
 			NewGameSessionProtectionPolicy?: string | fn.Fn
@@ -82,6 +84,7 @@ GameLift :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	GameSessionQueue :: {
 		Type: "AWS::GameLift::GameSessionQueue"
@@ -100,6 +103,7 @@ GameLift :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	MatchmakingConfiguration :: {
 		Type: "AWS::GameLift::MatchmakingConfiguration"
@@ -115,7 +119,7 @@ GameLift :: {
 				Value: string | fn.Fn
 			}]
 			GameSessionData?:      string | fn.Fn
-			GameSessionQueueArns:  [...(string | fn.Fn)] | fn.Fn
+			GameSessionQueueArns:  [...(string | fn.Fn)] | (string | fn.Fn)
 			Name:                  string | fn.Fn
 			NotificationTarget?:   string | fn.Fn
 			RequestTimeoutSeconds: int | fn.Fn
@@ -125,6 +129,7 @@ GameLift :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	MatchmakingRuleSet :: {
 		Type: "AWS::GameLift::MatchmakingRuleSet"
@@ -136,6 +141,7 @@ GameLift :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	Script :: {
 		Type: "AWS::GameLift::Script"
@@ -153,5 +159,6 @@ GameLift :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 }

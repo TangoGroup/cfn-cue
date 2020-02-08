@@ -21,6 +21,7 @@ ApiGatewayV2 :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	ApiMapping :: {
 		Type: "AWS::ApiGatewayV2::ApiMapping"
@@ -34,6 +35,7 @@ ApiGatewayV2 :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	Authorizer :: {
 		Type: "AWS::ApiGatewayV2::Authorizer"
@@ -43,7 +45,7 @@ ApiGatewayV2 :: {
 			AuthorizerResultTtlInSeconds?: int | fn.Fn
 			AuthorizerType:                string | fn.Fn
 			AuthorizerUri:                 string | fn.Fn
-			IdentitySource:                [...(string | fn.Fn)] | fn.Fn
+			IdentitySource:                [...(string | fn.Fn)] | (string | fn.Fn)
 			IdentityValidationExpression?: string | fn.Fn
 			Name:                          string | fn.Fn
 		}
@@ -51,6 +53,7 @@ ApiGatewayV2 :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	Deployment :: {
 		Type: "AWS::ApiGatewayV2::Deployment"
@@ -63,6 +66,7 @@ ApiGatewayV2 :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	DomainName :: {
 		Type: "AWS::ApiGatewayV2::DomainName"
@@ -81,6 +85,7 @@ ApiGatewayV2 :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	Integration :: {
 		Type: "AWS::ApiGatewayV2::Integration"
@@ -107,6 +112,7 @@ ApiGatewayV2 :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	IntegrationResponse :: {
 		Type: "AWS::ApiGatewayV2::IntegrationResponse"
@@ -127,6 +133,7 @@ ApiGatewayV2 :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	Model :: {
 		Type: "AWS::ApiGatewayV2::Model"
@@ -143,13 +150,14 @@ ApiGatewayV2 :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	Route :: {
 		Type: "AWS::ApiGatewayV2::Route"
 		Properties: {
 			ApiId:                     string | fn.Fn
 			ApiKeyRequired?:           bool | fn.Fn
-			AuthorizationScopes?:      [...(string | fn.Fn)] | fn.Fn
+			AuthorizationScopes?:      [...(string | fn.Fn)] | (string | fn.Fn)
 			AuthorizationType?:        string | fn.Fn
 			AuthorizerId?:             string | fn.Fn
 			ModelSelectionExpression?: string | fn.Fn
@@ -168,6 +176,7 @@ ApiGatewayV2 :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	RouteResponse :: {
 		Type: "AWS::ApiGatewayV2::RouteResponse"
@@ -187,6 +196,7 @@ ApiGatewayV2 :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	Stage :: {
 		Type: "AWS::ApiGatewayV2::Stage"
@@ -202,7 +212,7 @@ ApiGatewayV2 :: {
 				DetailedMetricsEnabled?: bool | fn.Fn
 				LoggingLevel?:           string | fn.Fn
 				ThrottlingBurstLimit?:   int | fn.Fn
-				ThrottlingRateLimit?:    float | fn.Fn
+				ThrottlingRateLimit?:    number | fn.Fn
 			}
 			DeploymentId:   string | fn.Fn
 			Description?:   string | fn.Fn
@@ -221,5 +231,6 @@ ApiGatewayV2 :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 }

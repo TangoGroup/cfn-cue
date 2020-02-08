@@ -10,25 +10,27 @@ AppSync :: {
 			ApiId:                     string | fn.Fn
 			AtRestEncryptionEnabled?:  bool | fn.Fn
 			TransitEncryptionEnabled?: bool | fn.Fn
-			Ttl:                       float | fn.Fn
+			Ttl:                       number | fn.Fn
 			Type:                      string | fn.Fn
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	ApiKey :: {
 		Type: "AWS::AppSync::ApiKey"
 		Properties: {
 			ApiId:        string | fn.Fn
 			Description?: string | fn.Fn
-			Expires?:     float | fn.Fn
+			Expires?:     number | fn.Fn
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	DataSource :: {
 		Type: "AWS::AppSync::DataSource"
@@ -79,6 +81,7 @@ AppSync :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	FunctionConfiguration :: {
 		Type: "AWS::AppSync::FunctionConfiguration"
@@ -97,6 +100,7 @@ AppSync :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	GraphQLApi :: {
 		Type: "AWS::AppSync::GraphQLApi"
@@ -104,9 +108,9 @@ AppSync :: {
 			AdditionalAuthenticationProviders?: [...{
 				AuthenticationType: string | fn.Fn
 				OpenIDConnectConfig?: {
-					AuthTTL?:  float | fn.Fn
+					AuthTTL?:  number | fn.Fn
 					ClientId?: string | fn.Fn
-					IatTTL?:   float | fn.Fn
+					IatTTL?:   number | fn.Fn
 					Issuer?:   string | fn.Fn
 				}
 				UserPoolConfig?: {
@@ -123,9 +127,9 @@ AppSync :: {
 			}
 			Name: string | fn.Fn
 			OpenIDConnectConfig?: {
-				AuthTTL?:  float | fn.Fn
+				AuthTTL?:  number | fn.Fn
 				ClientId?: string | fn.Fn
-				IatTTL?:   float | fn.Fn
+				IatTTL?:   number | fn.Fn
 				Issuer?:   string | fn.Fn
 			}
 			Tags?: [...{
@@ -143,6 +147,7 @@ AppSync :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	GraphQLSchema :: {
 		Type: "AWS::AppSync::GraphQLSchema"
@@ -155,19 +160,20 @@ AppSync :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	Resolver :: {
 		Type: "AWS::AppSync::Resolver"
 		Properties: {
 			ApiId: string | fn.Fn
 			CachingConfig?: {
-				CachingKeys?: [...(string | fn.Fn)] | fn.Fn
-				Ttl?:         float | fn.Fn
+				CachingKeys?: [...(string | fn.Fn)] | (string | fn.Fn)
+				Ttl?:         number | fn.Fn
 			}
 			DataSourceName?: string | fn.Fn
 			FieldName:       string | fn.Fn
 			Kind?:           ("PIPELINE" | "UNIT") | fn.Fn
-			PipelineConfig?: Functions?: [...(string | fn.Fn)] | fn.Fn
+			PipelineConfig?: Functions?: [...(string | fn.Fn)] | (string | fn.Fn)
 			RequestMappingTemplate?:            string | fn.Fn
 			RequestMappingTemplateS3Location?:  string | fn.Fn
 			ResponseMappingTemplate?:           string | fn.Fn
@@ -183,5 +189,6 @@ AppSync :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 }

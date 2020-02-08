@@ -10,7 +10,7 @@ RDS :: {
 				FeatureName?: string | fn.Fn
 				RoleArn:      string | fn.Fn
 			}]
-			AvailabilityZones?:               [...(string | fn.Fn)] | fn.Fn
+			AvailabilityZones?:               [...(string | fn.Fn)] | (string | fn.Fn)
 			BacktrackWindow?:                 int | fn.Fn
 			BackupRetentionPeriod?:           (>=1 & <=35) | fn.Fn
 			DBClusterIdentifier?:             string | fn.Fn
@@ -18,7 +18,7 @@ RDS :: {
 			DBSubnetGroupName?:               string | fn.Fn
 			DatabaseName?:                    string | fn.Fn
 			DeletionProtection?:              bool | fn.Fn
-			EnableCloudwatchLogsExports?:     [...(string | fn.Fn)] | fn.Fn
+			EnableCloudwatchLogsExports?:     [...(string | fn.Fn)] | (string | fn.Fn)
 			EnableHttpEndpoint?:              bool | fn.Fn
 			EnableIAMDatabaseAuthentication?: bool | fn.Fn
 			Engine:                           string | fn.Fn
@@ -47,12 +47,13 @@ RDS :: {
 				Value: string | fn.Fn
 			}]
 			UseLatestRestorableTime?: bool | fn.Fn
-			VpcSecurityGroupIds?:     [...(string | fn.Fn)] | fn.Fn
+			VpcSecurityGroupIds?:     [...(string | fn.Fn)] | (string | fn.Fn)
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain" | "Snapshot"
 		UpdateReplacePolicy?: "Delete" | "Retain" | "Snapshot"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	DBClusterParameterGroup :: {
 		Type: "AWS::RDS::DBClusterParameterGroup"
@@ -71,6 +72,7 @@ RDS :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	DBInstance :: {
 		Type: "AWS::RDS::DBInstance"
@@ -92,14 +94,14 @@ RDS :: {
 			DBInstanceIdentifier?:               string | fn.Fn
 			DBName?:                             string | fn.Fn
 			DBParameterGroupName?:               string | fn.Fn
-			DBSecurityGroups?:                   [...(string | fn.Fn)] | fn.Fn
+			DBSecurityGroups?:                   [...(string | fn.Fn)] | (string | fn.Fn)
 			DBSnapshotIdentifier?:               string | fn.Fn
 			DBSubnetGroupName?:                  string | fn.Fn
 			DeleteAutomatedBackups?:             bool | fn.Fn
 			DeletionProtection?:                 bool | fn.Fn
 			Domain?:                             string | fn.Fn
 			DomainIAMRoleName?:                  string | fn.Fn
-			EnableCloudwatchLogsExports?:        [...(string | fn.Fn)] | fn.Fn
+			EnableCloudwatchLogsExports?:        [...(string | fn.Fn)] | (string | fn.Fn)
 			EnableIAMDatabaseAuthentication?:    bool | fn.Fn
 			EnablePerformanceInsights?:          bool | fn.Fn
 			Engine?:                             string | fn.Fn
@@ -135,12 +137,13 @@ RDS :: {
 			}]
 			Timezone?:                    string | fn.Fn
 			UseDefaultProcessorFeatures?: bool | fn.Fn
-			VPCSecurityGroups?:           [...(string | fn.Fn)] | fn.Fn
+			VPCSecurityGroups?:           [...(string | fn.Fn)] | (string | fn.Fn)
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain" | "Snapshot"
 		UpdateReplacePolicy?: "Delete" | "Retain" | "Snapshot"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	DBParameterGroup :: {
 		Type: "AWS::RDS::DBParameterGroup"
@@ -157,6 +160,7 @@ RDS :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	DBSecurityGroup :: {
 		Type: "AWS::RDS::DBSecurityGroup"
@@ -178,6 +182,7 @@ RDS :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	DBSecurityGroupIngress :: {
 		Type: "AWS::RDS::DBSecurityGroupIngress"
@@ -192,13 +197,14 @@ RDS :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	DBSubnetGroup :: {
 		Type: "AWS::RDS::DBSubnetGroup"
 		Properties: {
 			DBSubnetGroupDescription: string | fn.Fn
 			DBSubnetGroupName?:       string | fn.Fn
-			SubnetIds:                [...(string | fn.Fn)] | fn.Fn
+			SubnetIds:                [...(string | fn.Fn)] | (string | fn.Fn)
 			Tags?: [...{
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
@@ -208,20 +214,22 @@ RDS :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	EventSubscription :: {
 		Type: "AWS::RDS::EventSubscription"
 		Properties: {
 			Enabled?:         bool | fn.Fn
-			EventCategories?: [...(string | fn.Fn)] | fn.Fn
+			EventCategories?: [...(string | fn.Fn)] | (string | fn.Fn)
 			SnsTopicArn:      string | fn.Fn
-			SourceIds?:       [...(string | fn.Fn)] | fn.Fn
+			SourceIds?:       [...(string | fn.Fn)] | (string | fn.Fn)
 			SourceType?:      string | fn.Fn
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	OptionGroup :: {
 		Type: "AWS::RDS::OptionGroup"
@@ -229,7 +237,7 @@ RDS :: {
 			EngineName:         string | fn.Fn
 			MajorEngineVersion: string | fn.Fn
 			OptionConfigurations: [...{
-				DBSecurityGroupMemberships?: [...(string | fn.Fn)] | fn.Fn
+				DBSecurityGroupMemberships?: [...(string | fn.Fn)] | (string | fn.Fn)
 				OptionName:                  string | fn.Fn
 				OptionSettings?: [...{
 					Name?:  string | fn.Fn
@@ -237,7 +245,7 @@ RDS :: {
 				}]
 				OptionVersion?:               string | fn.Fn
 				Port?:                        int | fn.Fn
-				VpcSecurityGroupMemberships?: [...(string | fn.Fn)] | fn.Fn
+				VpcSecurityGroupMemberships?: [...(string | fn.Fn)] | (string | fn.Fn)
 			}]
 			OptionGroupDescription: string | fn.Fn
 			Tags?: [...{
@@ -249,5 +257,6 @@ RDS :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 }

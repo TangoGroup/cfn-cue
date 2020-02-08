@@ -10,7 +10,7 @@ Route53Resolver :: {
 			IpAddresses: [...{
 			}]
 			Name?:            string | fn.Fn
-			SecurityGroupIds: [...(string | fn.Fn)] | fn.Fn
+			SecurityGroupIds: [...(string | fn.Fn)] | (string | fn.Fn)
 			Tags?: [...{
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
@@ -20,6 +20,7 @@ Route53Resolver :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	ResolverRule :: {
 		Type: "AWS::Route53Resolver::ResolverRule"
@@ -39,6 +40,7 @@ Route53Resolver :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	ResolverRuleAssociation :: {
 		Type: "AWS::Route53Resolver::ResolverRuleAssociation"
@@ -51,5 +53,6 @@ Route53Resolver :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 }

@@ -8,8 +8,8 @@ RAM :: {
 		Properties: {
 			AllowExternalPrincipals?: bool | fn.Fn
 			Name:                     string | fn.Fn
-			Principals?:              [...(string | fn.Fn)] | fn.Fn
-			ResourceArns?:            [...(string | fn.Fn)] | fn.Fn
+			Principals?:              [...(string | fn.Fn)] | (string | fn.Fn)
+			ResourceArns?:            [...(string | fn.Fn)] | (string | fn.Fn)
 			Tags?: [...{
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
@@ -19,5 +19,6 @@ RAM :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 }

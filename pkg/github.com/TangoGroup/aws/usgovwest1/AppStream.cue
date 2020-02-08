@@ -7,7 +7,7 @@ AppStream :: {
 		Type: "AWS::AppStream::DirectoryConfig"
 		Properties: {
 			DirectoryName:                        string | fn.Fn
-			OrganizationalUnitDistinguishedNames: [...(string | fn.Fn)] | fn.Fn
+			OrganizationalUnitDistinguishedNames: [...(string | fn.Fn)] | (string | fn.Fn)
 			ServiceAccountCredentials: {
 				AccountName:     string | fn.Fn
 				AccountPassword: string | fn.Fn
@@ -17,6 +17,7 @@ AppStream :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	Fleet :: {
 		Type: "AWS::AppStream::Fleet"
@@ -42,14 +43,15 @@ AppStream :: {
 				Value: string | fn.Fn
 			}]
 			VpcConfig?: {
-				SecurityGroupIds?: [...(string | fn.Fn)] | fn.Fn
-				SubnetIds?:        [...(string | fn.Fn)] | fn.Fn
+				SecurityGroupIds?: [...(string | fn.Fn)] | (string | fn.Fn)
+				SubnetIds?:        [...(string | fn.Fn)] | (string | fn.Fn)
 			}
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	ImageBuilder :: {
 		Type: "AWS::AppStream::ImageBuilder"
@@ -75,14 +77,15 @@ AppStream :: {
 				Value: string | fn.Fn
 			}]
 			VpcConfig?: {
-				SecurityGroupIds?: [...(string | fn.Fn)] | fn.Fn
-				SubnetIds?:        [...(string | fn.Fn)] | fn.Fn
+				SecurityGroupIds?: [...(string | fn.Fn)] | (string | fn.Fn)
+				SubnetIds?:        [...(string | fn.Fn)] | (string | fn.Fn)
 			}
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	Stack :: {
 		Type: "AWS::AppStream::Stack"
@@ -95,17 +98,17 @@ AppStream :: {
 				Enabled:        bool | fn.Fn
 				SettingsGroup?: string | fn.Fn
 			}
-			AttributesToDelete?:      [...(string | fn.Fn)] | fn.Fn
+			AttributesToDelete?:      [...(string | fn.Fn)] | (string | fn.Fn)
 			DeleteStorageConnectors?: bool | fn.Fn
 			Description?:             string | fn.Fn
 			DisplayName?:             string | fn.Fn
-			EmbedHostDomains?:        [...(string | fn.Fn)] | fn.Fn
+			EmbedHostDomains?:        [...(string | fn.Fn)] | (string | fn.Fn)
 			FeedbackURL?:             string | fn.Fn
 			Name?:                    string | fn.Fn
 			RedirectURL?:             string | fn.Fn
 			StorageConnectors?: [...{
 				ConnectorType:       string | fn.Fn
-				Domains?:            [...(string | fn.Fn)] | fn.Fn
+				Domains?:            [...(string | fn.Fn)] | (string | fn.Fn)
 				ResourceIdentifier?: string | fn.Fn
 			}]
 			Tags?: [...{
@@ -121,6 +124,7 @@ AppStream :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	StackFleetAssociation :: {
 		Type: "AWS::AppStream::StackFleetAssociation"
@@ -132,5 +136,6 @@ AppStream :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 }

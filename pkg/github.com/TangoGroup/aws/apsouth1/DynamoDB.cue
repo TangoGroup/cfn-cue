@@ -18,7 +18,7 @@ DynamoDB :: {
 					KeyType:       ("HASH" | "RANGE") | fn.Fn
 				}]
 				Projection: {
-					NonKeyAttributes?: [...(string | fn.Fn)] | fn.Fn
+					NonKeyAttributes?: [...(string | fn.Fn)] | (string | fn.Fn)
 					ProjectionType?:   ("ALL" | "INCLUDE" | "KEYS_ONLY") | fn.Fn
 				}
 				ProvisionedThroughput?: {
@@ -37,7 +37,7 @@ DynamoDB :: {
 					KeyType:       ("HASH" | "RANGE") | fn.Fn
 				}]
 				Projection: {
-					NonKeyAttributes?: [...(string | fn.Fn)] | fn.Fn
+					NonKeyAttributes?: [...(string | fn.Fn)] | (string | fn.Fn)
 					ProjectionType?:   ("ALL" | "INCLUDE" | "KEYS_ONLY") | fn.Fn
 				}
 			}]
@@ -66,5 +66,6 @@ DynamoDB :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 }

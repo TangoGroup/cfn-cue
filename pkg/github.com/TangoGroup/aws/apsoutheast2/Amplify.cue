@@ -8,7 +8,7 @@ Amplify :: {
 		Properties: {
 			AccessToken?: string | fn.Fn
 			AutoBranchCreationConfig?: {
-				AutoBranchCreationPatterns?: [...(string | fn.Fn)] | fn.Fn
+				AutoBranchCreationPatterns?: [...(string | fn.Fn)] | (string | fn.Fn)
 				BasicAuthConfig?: {
 					EnableBasicAuth?: bool | fn.Fn
 					Password?:        string | fn.Fn
@@ -55,6 +55,7 @@ Amplify :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	Branch :: {
 		Type: "AWS::Amplify::Branch"
@@ -85,6 +86,7 @@ Amplify :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	Domain :: {
 		Type: "AWS::Amplify::Domain"
@@ -100,5 +102,6 @@ Amplify :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 }

@@ -13,6 +13,7 @@ ServiceDiscovery :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	Instance :: {
 		Type: "AWS::ServiceDiscovery::Instance"
@@ -27,6 +28,7 @@ ServiceDiscovery :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	PrivateDnsNamespace :: {
 		Type: "AWS::ServiceDiscovery::PrivateDnsNamespace"
@@ -39,6 +41,7 @@ ServiceDiscovery :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	PublicDnsNamespace :: {
 		Type: "AWS::ServiceDiscovery::PublicDnsNamespace"
@@ -50,6 +53,7 @@ ServiceDiscovery :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	Service :: {
 		Type: "AWS::ServiceDiscovery::Service"
@@ -57,18 +61,18 @@ ServiceDiscovery :: {
 			Description?: string | fn.Fn
 			DnsConfig?: {
 				DnsRecords: [...{
-					TTL:  float | fn.Fn
+					TTL:  number | fn.Fn
 					Type: ("A" | "AAAA" | "SRV" | "CNAME") | fn.Fn
 				}]
 				NamespaceId?:   string | fn.Fn
 				RoutingPolicy?: string | fn.Fn
 			}
 			HealthCheckConfig?: {
-				FailureThreshold?: float | fn.Fn
+				FailureThreshold?: number | fn.Fn
 				ResourcePath?:     string | fn.Fn
 				Type:              ("HTTP" | "HTTPS" | "TCP") | fn.Fn
 			}
-			HealthCheckCustomConfig?: FailureThreshold?: float | fn.Fn
+			HealthCheckCustomConfig?: FailureThreshold?: number | fn.Fn
 			Name?:        string | fn.Fn
 			NamespaceId?: string | fn.Fn
 		}
@@ -76,5 +80,6 @@ ServiceDiscovery :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 }

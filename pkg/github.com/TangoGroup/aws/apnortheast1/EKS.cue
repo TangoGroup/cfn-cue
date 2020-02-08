@@ -8,8 +8,8 @@ EKS :: {
 		Properties: {
 			Name?: string | fn.Fn
 			ResourcesVpcConfig: {
-				SecurityGroupIds?: [...(string | fn.Fn)] | fn.Fn
-				SubnetIds:         [...(string | fn.Fn)] | fn.Fn
+				SecurityGroupIds?: [...(string | fn.Fn)] | (string | fn.Fn)
+				SubnetIds:         [...(string | fn.Fn)] | (string | fn.Fn)
 			}
 			RoleArn:  string | fn.Fn
 			Version?: string | fn.Fn
@@ -18,15 +18,16 @@ EKS :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	Nodegroup :: {
 		Type: "AWS::EKS::Nodegroup"
 		Properties: {
 			AmiType?:            string | fn.Fn
 			ClusterName:         string | fn.Fn
-			DiskSize?:           float | fn.Fn
+			DiskSize?:           number | fn.Fn
 			ForceUpdateEnabled?: bool | fn.Fn
-			InstanceTypes?:      [...(string | fn.Fn)] | fn.Fn
+			InstanceTypes?:      [...(string | fn.Fn)] | (string | fn.Fn)
 			Labels?:             {
 				[string]: _
 			} | fn.Fn
@@ -35,14 +36,14 @@ EKS :: {
 			ReleaseVersion?: string | fn.Fn
 			RemoteAccess?: {
 				Ec2SshKey:             string | fn.Fn
-				SourceSecurityGroups?: [...(string | fn.Fn)] | fn.Fn
+				SourceSecurityGroups?: [...(string | fn.Fn)] | (string | fn.Fn)
 			}
 			ScalingConfig?: {
-				DesiredSize?: float | fn.Fn
-				MaxSize?:     float | fn.Fn
-				MinSize?:     float | fn.Fn
+				DesiredSize?: number | fn.Fn
+				MaxSize?:     number | fn.Fn
+				MinSize?:     number | fn.Fn
 			}
-			Subnets: [...(string | fn.Fn)] | fn.Fn
+			Subnets: [...(string | fn.Fn)] | (string | fn.Fn)
 			Tags?:   {
 				[string]: _
 			} | fn.Fn
@@ -52,5 +53,6 @@ EKS :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 }

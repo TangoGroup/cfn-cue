@@ -14,7 +14,7 @@ Batch :: {
 				Ec2KeyPair?:         string | fn.Fn
 				ImageId?:            string | fn.Fn
 				InstanceRole:        string | fn.Fn
-				InstanceTypes:       [...(string | fn.Fn)] | fn.Fn
+				InstanceTypes:       [...(string | fn.Fn)] | (string | fn.Fn)
 				LaunchTemplate?: {
 					LaunchTemplateId?:   string | fn.Fn
 					LaunchTemplateName?: string | fn.Fn
@@ -23,9 +23,9 @@ Batch :: {
 				MaxvCpus:          int | fn.Fn
 				MinvCpus:          int | fn.Fn
 				PlacementGroup?:   string | fn.Fn
-				SecurityGroupIds?: [...(string | fn.Fn)] | fn.Fn
+				SecurityGroupIds?: [...(string | fn.Fn)] | (string | fn.Fn)
 				SpotIamFleetRole?: (=~#"arn:(aws[a-zA-Z-]*)?:iam::\d{12}:role/[a-zA-Z_0-9+=,.@\-_/]+"#) | fn.Fn
-				Subnets:           [...(string | fn.Fn)] | fn.Fn
+				Subnets:           [...(string | fn.Fn)] | (string | fn.Fn)
 				Tags?:             {
 					[string]: _
 				} | fn.Fn
@@ -39,12 +39,13 @@ Batch :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	JobDefinition :: {
 		Type: "AWS::Batch::JobDefinition"
 		Properties: {
 			ContainerProperties?: {
-				Command?: [...(string | fn.Fn)] | fn.Fn
+				Command?: [...(string | fn.Fn)] | (string | fn.Fn)
 				Environment?: [...{
 					Name?:  string | fn.Fn
 					Value?: string | fn.Fn
@@ -55,7 +56,7 @@ Batch :: {
 				LinuxParameters?: Devices?: [...{
 					ContainerPath?: string | fn.Fn
 					HostPath?:      string | fn.Fn
-					Permissions?:   [...(string | fn.Fn)] | fn.Fn
+					Permissions?:   [...(string | fn.Fn)] | (string | fn.Fn)
 				}]
 				Memory: int | fn.Fn
 				MountPoints?: [...{
@@ -86,7 +87,7 @@ Batch :: {
 				MainNode: int | fn.Fn
 				NodeRangeProperties: [...{
 					Container?: {
-						Command?: [...(string | fn.Fn)] | fn.Fn
+						Command?: [...(string | fn.Fn)] | (string | fn.Fn)
 						Environment?: [...{
 							Name?:  string | fn.Fn
 							Value?: string | fn.Fn
@@ -97,7 +98,7 @@ Batch :: {
 						LinuxParameters?: Devices?: [...{
 							ContainerPath?: string | fn.Fn
 							HostPath?:      string | fn.Fn
-							Permissions?:   [...(string | fn.Fn)] | fn.Fn
+							Permissions?:   [...(string | fn.Fn)] | (string | fn.Fn)
 						}]
 						Memory: int | fn.Fn
 						MountPoints?: [...{
@@ -138,5 +139,6 @@ Batch :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 }

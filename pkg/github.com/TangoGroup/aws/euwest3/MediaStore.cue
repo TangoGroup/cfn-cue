@@ -9,10 +9,10 @@ MediaStore :: {
 			AccessLoggingEnabled?: bool | fn.Fn
 			ContainerName:         string | fn.Fn
 			CorsPolicy?: [...{
-				AllowedHeaders?: [...(string | fn.Fn)] | fn.Fn
-				AllowedMethods?: [...(string | fn.Fn)] | fn.Fn
-				AllowedOrigins?: [...(string | fn.Fn)] | fn.Fn
-				ExposeHeaders?:  [...(string | fn.Fn)] | fn.Fn
+				AllowedHeaders?: [...(string | fn.Fn)] | (string | fn.Fn)
+				AllowedMethods?: [...(string | fn.Fn)] | (string | fn.Fn)
+				AllowedOrigins?: [...(string | fn.Fn)] | (string | fn.Fn)
+				ExposeHeaders?:  [...(string | fn.Fn)] | (string | fn.Fn)
 				MaxAgeSeconds?:  int | fn.Fn
 			}]
 			LifecyclePolicy?: string | fn.Fn
@@ -22,5 +22,6 @@ MediaStore :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 }

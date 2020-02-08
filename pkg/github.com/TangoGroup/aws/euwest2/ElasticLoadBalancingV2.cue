@@ -59,6 +59,7 @@ ElasticLoadBalancingV2 :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	ListenerCertificate :: {
 		Type: "AWS::ElasticLoadBalancingV2::ListenerCertificate"
@@ -72,6 +73,7 @@ ElasticLoadBalancingV2 :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	ListenerRule :: {
 		Type: "AWS::ElasticLoadBalancingV2::ListenerRule"
@@ -119,19 +121,19 @@ ElasticLoadBalancingV2 :: {
 			}]
 			Conditions: [...{
 				Field?: string | fn.Fn
-				HostHeaderConfig?: Values?: [...(string | fn.Fn)] | fn.Fn
+				HostHeaderConfig?: Values?: [...(string | fn.Fn)] | (string | fn.Fn)
 				HttpHeaderConfig?: {
 					HttpHeaderName?: string | fn.Fn
-					Values?:         [...(string | fn.Fn)] | fn.Fn
+					Values?:         [...(string | fn.Fn)] | (string | fn.Fn)
 				}
-				HttpRequestMethodConfig?: Values?: [...(string | fn.Fn)] | fn.Fn
-				PathPatternConfig?: Values?:       [...(string | fn.Fn)] | fn.Fn
+				HttpRequestMethodConfig?: Values?: [...(string | fn.Fn)] | (string | fn.Fn)
+				PathPatternConfig?: Values?:       [...(string | fn.Fn)] | (string | fn.Fn)
 				QueryStringConfig?: Values?: [...{
 					Key?:   string | fn.Fn
 					Value?: string | fn.Fn
 				}]
-				SourceIpConfig?: Values?: [...(string | fn.Fn)] | fn.Fn
-				Values?: [...(string | fn.Fn)] | fn.Fn
+				SourceIpConfig?: Values?: [...(string | fn.Fn)] | (string | fn.Fn)
+				Values?: [...(string | fn.Fn)] | (string | fn.Fn)
 			}]
 			ListenerArn: string | fn.Fn
 			Priority:    int | fn.Fn
@@ -140,6 +142,7 @@ ElasticLoadBalancingV2 :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	LoadBalancer :: {
 		Type: "AWS::ElasticLoadBalancingV2::LoadBalancer"
@@ -151,12 +154,12 @@ ElasticLoadBalancingV2 :: {
 			}]
 			Name?:           string | fn.Fn
 			Scheme?:         string | fn.Fn
-			SecurityGroups?: [...(string | fn.Fn)] | fn.Fn
+			SecurityGroups?: [...(string | fn.Fn)] | (string | fn.Fn)
 			SubnetMappings?: [...{
 				AllocationId: string | fn.Fn
 				SubnetId:     string | fn.Fn
 			}]
-			Subnets?: [...(string | fn.Fn)] | fn.Fn
+			Subnets?: [...(string | fn.Fn)] | (string | fn.Fn)
 			Tags?: [...{
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
@@ -167,6 +170,7 @@ ElasticLoadBalancingV2 :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	TargetGroup :: {
 		Type: "AWS::ElasticLoadBalancingV2::TargetGroup"
@@ -203,5 +207,6 @@ ElasticLoadBalancingV2 :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 }

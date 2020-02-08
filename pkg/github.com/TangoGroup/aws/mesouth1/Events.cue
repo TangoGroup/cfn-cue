@@ -28,8 +28,8 @@ Events :: {
 					LaunchType?: string | fn.Fn
 					NetworkConfiguration?: AwsVpcConfiguration?: {
 						AssignPublicIp?: string | fn.Fn
-						SecurityGroups?: [...(string | fn.Fn)] | fn.Fn
-						Subnets:         [...(string | fn.Fn)] | fn.Fn
+						SecurityGroups?: [...(string | fn.Fn)] | (string | fn.Fn)
+						Subnets:         [...(string | fn.Fn)] | (string | fn.Fn)
 					}
 					PlatformVersion?:  string | fn.Fn
 					TaskCount?:        int | fn.Fn
@@ -46,7 +46,7 @@ Events :: {
 				RoleArn?: string | fn.Fn
 				RunCommandParameters?: RunCommandTargets: [...{
 					Key:    string | fn.Fn
-					Values: [...(string | fn.Fn)] | fn.Fn
+					Values: [...(string | fn.Fn)] | (string | fn.Fn)
 				}]
 				SqsParameters?: MessageGroupId: string | fn.Fn
 			}]
@@ -55,5 +55,6 @@ Events :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 }

@@ -9,10 +9,10 @@ AccessAnalyzer :: {
 			AnalyzerName?: string | fn.Fn
 			ArchiveRules?: [...{
 				Filter: [...{
-					Contains?: [...(string | fn.Fn)] | fn.Fn
-					Eq?:       [...(string | fn.Fn)] | fn.Fn
+					Contains?: [...(string | fn.Fn)] | (string | fn.Fn)
+					Eq?:       [...(string | fn.Fn)] | (string | fn.Fn)
 					Exists?:   bool | fn.Fn
-					Neq?:      [...(string | fn.Fn)] | fn.Fn
+					Neq?:      [...(string | fn.Fn)] | (string | fn.Fn)
 					Property:  string | fn.Fn
 				}]
 				RuleName: string | fn.Fn
@@ -27,5 +27,6 @@ AccessAnalyzer :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 }

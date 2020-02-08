@@ -48,13 +48,15 @@ Elasticsearch :: {
 				Value: string | fn.Fn
 			}]
 			VPCOptions?: {
-				SecurityGroupIds?: [...(string | fn.Fn)] | fn.Fn
-				SubnetIds?:        [...(string | fn.Fn)] | fn.Fn
+				SecurityGroupIds?: [...(string | fn.Fn)] | (string | fn.Fn)
+				SubnetIds?:        [...(string | fn.Fn)] | (string | fn.Fn)
 			}
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
-		Metadata?: [string]: _
+		UpdatePolicy?: [string]: _
+		Metadata?: [string]:     _
+		Condition?: string
 	}
 }

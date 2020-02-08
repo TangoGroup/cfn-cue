@@ -15,6 +15,7 @@ RoboMaker :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	Robot :: {
 		Type: "AWS::RoboMaker::Robot"
@@ -31,6 +32,7 @@ RoboMaker :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	RobotApplication :: {
 		Type: "AWS::RoboMaker::RobotApplication"
@@ -54,6 +56,7 @@ RoboMaker :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	RobotApplicationVersion :: {
 		Type: "AWS::RoboMaker::RobotApplicationVersion"
@@ -65,6 +68,7 @@ RoboMaker :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	SimulationApplication :: {
 		Type: "AWS::RoboMaker::SimulationApplication"
@@ -96,6 +100,7 @@ RoboMaker :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	SimulationApplicationVersion :: {
 		Type: "AWS::RoboMaker::SimulationApplicationVersion"
@@ -107,5 +112,6 @@ RoboMaker :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 }

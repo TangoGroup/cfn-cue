@@ -13,6 +13,7 @@ IoT :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	Policy :: {
 		Type: "AWS::IoT::Policy"
@@ -26,6 +27,7 @@ IoT :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	PolicyPrincipalAttachment :: {
 		Type: "AWS::IoT::PolicyPrincipalAttachment"
@@ -37,6 +39,7 @@ IoT :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	Thing :: {
 		Type: "AWS::IoT::Thing"
@@ -48,6 +51,7 @@ IoT :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	ThingPrincipalAttachment :: {
 		Type: "AWS::IoT::ThingPrincipalAttachment"
@@ -59,6 +63,7 @@ IoT :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	TopicRule :: {
 		Type: "AWS::IoT::TopicRule"
@@ -229,5 +234,6 @@ IoT :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 }

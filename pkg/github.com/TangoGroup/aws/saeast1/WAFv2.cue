@@ -6,7 +6,7 @@ WAFv2 :: {
 	IPSet :: {
 		Type: "AWS::WAFv2::IPSet"
 		Properties: {
-			Addresses?:       [...(string | fn.Fn)] | fn.Fn
+			Addresses?:       [...(string | fn.Fn)] | (string | fn.Fn)
 			Description?:     string | fn.Fn
 			IPAddressVersion: string | fn.Fn
 			Name?:            string | fn.Fn
@@ -20,6 +20,7 @@ WAFv2 :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	RegexPatternSet :: {
 		Type: "AWS::WAFv2::RegexPatternSet"
@@ -39,6 +40,7 @@ WAFv2 :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	RuleGroup :: {
 		Type: "AWS::WAFv2::RuleGroup"
@@ -82,7 +84,7 @@ WAFv2 :: {
 									[string]: _
 								}]
 							}
-							GeoMatchStatement?: CountryCodes?: CountryCodes?: [...(string | fn.Fn)] | fn.Fn
+							GeoMatchStatement?: CountryCodes?: CountryCodes?: [...(string | fn.Fn)] | (string | fn.Fn)
 							IPSetReferenceStatement?: Arn?: string | fn.Fn
 							RegexPatternSetReferenceStatement?: {
 								Arn?: string | fn.Fn
@@ -186,7 +188,7 @@ WAFv2 :: {
 								[string]: _
 							}]
 						}
-						GeoMatchStatement?: CountryCodes?: CountryCodes?: [...(string | fn.Fn)] | fn.Fn
+						GeoMatchStatement?: CountryCodes?: CountryCodes?: [...(string | fn.Fn)] | (string | fn.Fn)
 						IPSetReferenceStatement?: Arn?: string | fn.Fn
 						NotStatement?: Statement?: {
 							ByteMatchStatement?: {
@@ -211,7 +213,7 @@ WAFv2 :: {
 									[string]: _
 								}]
 							}
-							GeoMatchStatement?: CountryCodes?: CountryCodes?: [...(string | fn.Fn)] | fn.Fn
+							GeoMatchStatement?: CountryCodes?: CountryCodes?: [...(string | fn.Fn)] | (string | fn.Fn)
 							IPSetReferenceStatement?: Arn?: string | fn.Fn
 							RegexPatternSetReferenceStatement?: {
 								Arn?: string | fn.Fn
@@ -316,7 +318,7 @@ WAFv2 :: {
 									[string]: _
 								}]
 							}
-							GeoMatchStatement?: CountryCodes?: CountryCodes?: [...(string | fn.Fn)] | fn.Fn
+							GeoMatchStatement?: CountryCodes?: CountryCodes?: [...(string | fn.Fn)] | (string | fn.Fn)
 							IPSetReferenceStatement?: Arn?: string | fn.Fn
 							RegexPatternSetReferenceStatement?: {
 								Arn?: string | fn.Fn
@@ -424,7 +426,7 @@ WAFv2 :: {
 										[string]: _
 									}]
 								}
-								GeoMatchStatement?: CountryCodes?: CountryCodes?: [...(string | fn.Fn)] | fn.Fn
+								GeoMatchStatement?: CountryCodes?: CountryCodes?: [...(string | fn.Fn)] | (string | fn.Fn)
 								IPSetReferenceStatement?: Arn?: string | fn.Fn
 								RegexPatternSetReferenceStatement?: {
 									Arn?: string | fn.Fn
@@ -609,7 +611,7 @@ WAFv2 :: {
 							[string]: _
 						}]
 					}
-					GeoMatchStatement?: CountryCodes?: CountryCodes?: [...(string | fn.Fn)] | fn.Fn
+					GeoMatchStatement?: CountryCodes?: CountryCodes?: [...(string | fn.Fn)] | (string | fn.Fn)
 					IPSetReferenceStatement?: Arn?: string | fn.Fn
 					NotStatement?: Statement?: {
 						AndStatement?: Statements?: StatementThrees?: [...{
@@ -635,7 +637,7 @@ WAFv2 :: {
 									[string]: _
 								}]
 							}
-							GeoMatchStatement?: CountryCodes?: CountryCodes?: [...(string | fn.Fn)] | fn.Fn
+							GeoMatchStatement?: CountryCodes?: CountryCodes?: [...(string | fn.Fn)] | (string | fn.Fn)
 							IPSetReferenceStatement?: Arn?: string | fn.Fn
 							RegexPatternSetReferenceStatement?: {
 								Arn?: string | fn.Fn
@@ -739,7 +741,7 @@ WAFv2 :: {
 								[string]: _
 							}]
 						}
-						GeoMatchStatement?: CountryCodes?: CountryCodes?: [...(string | fn.Fn)] | fn.Fn
+						GeoMatchStatement?: CountryCodes?: CountryCodes?: [...(string | fn.Fn)] | (string | fn.Fn)
 						IPSetReferenceStatement?: Arn?: string | fn.Fn
 						NotStatement?: Statement?: {
 							ByteMatchStatement?: {
@@ -764,7 +766,7 @@ WAFv2 :: {
 									[string]: _
 								}]
 							}
-							GeoMatchStatement?: CountryCodes?: CountryCodes?: [...(string | fn.Fn)] | fn.Fn
+							GeoMatchStatement?: CountryCodes?: CountryCodes?: [...(string | fn.Fn)] | (string | fn.Fn)
 							IPSetReferenceStatement?: Arn?: string | fn.Fn
 							RegexPatternSetReferenceStatement?: {
 								Arn?: string | fn.Fn
@@ -869,7 +871,7 @@ WAFv2 :: {
 									[string]: _
 								}]
 							}
-							GeoMatchStatement?: CountryCodes?: CountryCodes?: [...(string | fn.Fn)] | fn.Fn
+							GeoMatchStatement?: CountryCodes?: CountryCodes?: [...(string | fn.Fn)] | (string | fn.Fn)
 							IPSetReferenceStatement?: Arn?: string | fn.Fn
 							RegexPatternSetReferenceStatement?: {
 								Arn?: string | fn.Fn
@@ -977,7 +979,7 @@ WAFv2 :: {
 										[string]: _
 									}]
 								}
-								GeoMatchStatement?: CountryCodes?: CountryCodes?: [...(string | fn.Fn)] | fn.Fn
+								GeoMatchStatement?: CountryCodes?: CountryCodes?: [...(string | fn.Fn)] | (string | fn.Fn)
 								IPSetReferenceStatement?: Arn?: string | fn.Fn
 								RegexPatternSetReferenceStatement?: {
 									Arn?: string | fn.Fn
@@ -1164,7 +1166,7 @@ WAFv2 :: {
 									[string]: _
 								}]
 							}
-							GeoMatchStatement?: CountryCodes?: CountryCodes?: [...(string | fn.Fn)] | fn.Fn
+							GeoMatchStatement?: CountryCodes?: CountryCodes?: [...(string | fn.Fn)] | (string | fn.Fn)
 							IPSetReferenceStatement?: Arn?: string | fn.Fn
 							RegexPatternSetReferenceStatement?: {
 								Arn?: string | fn.Fn
@@ -1268,7 +1270,7 @@ WAFv2 :: {
 								[string]: _
 							}]
 						}
-						GeoMatchStatement?: CountryCodes?: CountryCodes?: [...(string | fn.Fn)] | fn.Fn
+						GeoMatchStatement?: CountryCodes?: CountryCodes?: [...(string | fn.Fn)] | (string | fn.Fn)
 						IPSetReferenceStatement?: Arn?: string | fn.Fn
 						NotStatement?: Statement?: {
 							ByteMatchStatement?: {
@@ -1293,7 +1295,7 @@ WAFv2 :: {
 									[string]: _
 								}]
 							}
-							GeoMatchStatement?: CountryCodes?: CountryCodes?: [...(string | fn.Fn)] | fn.Fn
+							GeoMatchStatement?: CountryCodes?: CountryCodes?: [...(string | fn.Fn)] | (string | fn.Fn)
 							IPSetReferenceStatement?: Arn?: string | fn.Fn
 							RegexPatternSetReferenceStatement?: {
 								Arn?: string | fn.Fn
@@ -1398,7 +1400,7 @@ WAFv2 :: {
 									[string]: _
 								}]
 							}
-							GeoMatchStatement?: CountryCodes?: CountryCodes?: [...(string | fn.Fn)] | fn.Fn
+							GeoMatchStatement?: CountryCodes?: CountryCodes?: [...(string | fn.Fn)] | (string | fn.Fn)
 							IPSetReferenceStatement?: Arn?: string | fn.Fn
 							RegexPatternSetReferenceStatement?: {
 								Arn?: string | fn.Fn
@@ -1506,7 +1508,7 @@ WAFv2 :: {
 										[string]: _
 									}]
 								}
-								GeoMatchStatement?: CountryCodes?: CountryCodes?: [...(string | fn.Fn)] | fn.Fn
+								GeoMatchStatement?: CountryCodes?: CountryCodes?: [...(string | fn.Fn)] | (string | fn.Fn)
 								IPSetReferenceStatement?: Arn?: string | fn.Fn
 								RegexPatternSetReferenceStatement?: {
 									Arn?: string | fn.Fn
@@ -1696,7 +1698,7 @@ WAFv2 :: {
 										[string]: _
 									}]
 								}
-								GeoMatchStatement?: CountryCodes?: CountryCodes?: [...(string | fn.Fn)] | fn.Fn
+								GeoMatchStatement?: CountryCodes?: CountryCodes?: [...(string | fn.Fn)] | (string | fn.Fn)
 								IPSetReferenceStatement?: Arn?: string | fn.Fn
 								RegexPatternSetReferenceStatement?: {
 									Arn?: string | fn.Fn
@@ -1800,7 +1802,7 @@ WAFv2 :: {
 									[string]: _
 								}]
 							}
-							GeoMatchStatement?: CountryCodes?: CountryCodes?: [...(string | fn.Fn)] | fn.Fn
+							GeoMatchStatement?: CountryCodes?: CountryCodes?: [...(string | fn.Fn)] | (string | fn.Fn)
 							IPSetReferenceStatement?: Arn?: string | fn.Fn
 							NotStatement?: Statement?: {
 								ByteMatchStatement?: {
@@ -1825,7 +1827,7 @@ WAFv2 :: {
 										[string]: _
 									}]
 								}
-								GeoMatchStatement?: CountryCodes?: CountryCodes?: [...(string | fn.Fn)] | fn.Fn
+								GeoMatchStatement?: CountryCodes?: CountryCodes?: [...(string | fn.Fn)] | (string | fn.Fn)
 								IPSetReferenceStatement?: Arn?: string | fn.Fn
 								RegexPatternSetReferenceStatement?: {
 									Arn?: string | fn.Fn
@@ -1930,7 +1932,7 @@ WAFv2 :: {
 										[string]: _
 									}]
 								}
-								GeoMatchStatement?: CountryCodes?: CountryCodes?: [...(string | fn.Fn)] | fn.Fn
+								GeoMatchStatement?: CountryCodes?: CountryCodes?: [...(string | fn.Fn)] | (string | fn.Fn)
 								IPSetReferenceStatement?: Arn?: string | fn.Fn
 								RegexPatternSetReferenceStatement?: {
 									Arn?: string | fn.Fn
@@ -2038,7 +2040,7 @@ WAFv2 :: {
 											[string]: _
 										}]
 									}
-									GeoMatchStatement?: CountryCodes?: CountryCodes?: [...(string | fn.Fn)] | fn.Fn
+									GeoMatchStatement?: CountryCodes?: CountryCodes?: [...(string | fn.Fn)] | (string | fn.Fn)
 									IPSetReferenceStatement?: Arn?: string | fn.Fn
 									RegexPatternSetReferenceStatement?: {
 										Arn?: string | fn.Fn
@@ -2303,6 +2305,7 @@ WAFv2 :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	WebACL :: {
 		Type: "AWS::WAFv2::WebACL"
@@ -2357,7 +2360,7 @@ WAFv2 :: {
 									[string]: _
 								}]
 							}
-							GeoMatchStatement?: CountryCodes?: CountryCodes?: [...(string | fn.Fn)] | fn.Fn
+							GeoMatchStatement?: CountryCodes?: CountryCodes?: [...(string | fn.Fn)] | (string | fn.Fn)
 							IPSetReferenceStatement?: Arn?: string | fn.Fn
 							ManagedRuleGroupStatement?: {
 								ExcludedRules?: [...{
@@ -2474,7 +2477,7 @@ WAFv2 :: {
 								[string]: _
 							}]
 						}
-						GeoMatchStatement?: CountryCodes?: CountryCodes?: [...(string | fn.Fn)] | fn.Fn
+						GeoMatchStatement?: CountryCodes?: CountryCodes?: [...(string | fn.Fn)] | (string | fn.Fn)
 						IPSetReferenceStatement?: Arn?: string | fn.Fn
 						ManagedRuleGroupStatement?: {
 							ExcludedRules?: [...{
@@ -2506,7 +2509,7 @@ WAFv2 :: {
 									[string]: _
 								}]
 							}
-							GeoMatchStatement?: CountryCodes?: CountryCodes?: [...(string | fn.Fn)] | fn.Fn
+							GeoMatchStatement?: CountryCodes?: CountryCodes?: [...(string | fn.Fn)] | (string | fn.Fn)
 							IPSetReferenceStatement?: Arn?: string | fn.Fn
 							ManagedRuleGroupStatement?: {
 								ExcludedRules?: [...{
@@ -2624,7 +2627,7 @@ WAFv2 :: {
 									[string]: _
 								}]
 							}
-							GeoMatchStatement?: CountryCodes?: CountryCodes?: [...(string | fn.Fn)] | fn.Fn
+							GeoMatchStatement?: CountryCodes?: CountryCodes?: [...(string | fn.Fn)] | (string | fn.Fn)
 							IPSetReferenceStatement?: Arn?: string | fn.Fn
 							ManagedRuleGroupStatement?: {
 								ExcludedRules?: [...{
@@ -2745,7 +2748,7 @@ WAFv2 :: {
 										[string]: _
 									}]
 								}
-								GeoMatchStatement?: CountryCodes?: CountryCodes?: [...(string | fn.Fn)] | fn.Fn
+								GeoMatchStatement?: CountryCodes?: CountryCodes?: [...(string | fn.Fn)] | (string | fn.Fn)
 								IPSetReferenceStatement?: Arn?: string | fn.Fn
 								ManagedRuleGroupStatement?: {
 									ExcludedRules?: [...{
@@ -2949,7 +2952,7 @@ WAFv2 :: {
 							[string]: _
 						}]
 					}
-					GeoMatchStatement?: CountryCodes?: CountryCodes?: [...(string | fn.Fn)] | fn.Fn
+					GeoMatchStatement?: CountryCodes?: CountryCodes?: [...(string | fn.Fn)] | (string | fn.Fn)
 					IPSetReferenceStatement?: Arn?: string | fn.Fn
 					ManagedRuleGroupStatement?: {
 						ExcludedRules?: [...{
@@ -2982,7 +2985,7 @@ WAFv2 :: {
 									[string]: _
 								}]
 							}
-							GeoMatchStatement?: CountryCodes?: CountryCodes?: [...(string | fn.Fn)] | fn.Fn
+							GeoMatchStatement?: CountryCodes?: CountryCodes?: [...(string | fn.Fn)] | (string | fn.Fn)
 							IPSetReferenceStatement?: Arn?: string | fn.Fn
 							ManagedRuleGroupStatement?: {
 								ExcludedRules?: [...{
@@ -3099,7 +3102,7 @@ WAFv2 :: {
 								[string]: _
 							}]
 						}
-						GeoMatchStatement?: CountryCodes?: CountryCodes?: [...(string | fn.Fn)] | fn.Fn
+						GeoMatchStatement?: CountryCodes?: CountryCodes?: [...(string | fn.Fn)] | (string | fn.Fn)
 						IPSetReferenceStatement?: Arn?: string | fn.Fn
 						ManagedRuleGroupStatement?: {
 							ExcludedRules?: [...{
@@ -3131,7 +3134,7 @@ WAFv2 :: {
 									[string]: _
 								}]
 							}
-							GeoMatchStatement?: CountryCodes?: CountryCodes?: [...(string | fn.Fn)] | fn.Fn
+							GeoMatchStatement?: CountryCodes?: CountryCodes?: [...(string | fn.Fn)] | (string | fn.Fn)
 							IPSetReferenceStatement?: Arn?: string | fn.Fn
 							ManagedRuleGroupStatement?: {
 								ExcludedRules?: [...{
@@ -3249,7 +3252,7 @@ WAFv2 :: {
 									[string]: _
 								}]
 							}
-							GeoMatchStatement?: CountryCodes?: CountryCodes?: [...(string | fn.Fn)] | fn.Fn
+							GeoMatchStatement?: CountryCodes?: CountryCodes?: [...(string | fn.Fn)] | (string | fn.Fn)
 							IPSetReferenceStatement?: Arn?: string | fn.Fn
 							ManagedRuleGroupStatement?: {
 								ExcludedRules?: [...{
@@ -3370,7 +3373,7 @@ WAFv2 :: {
 										[string]: _
 									}]
 								}
-								GeoMatchStatement?: CountryCodes?: CountryCodes?: [...(string | fn.Fn)] | fn.Fn
+								GeoMatchStatement?: CountryCodes?: CountryCodes?: [...(string | fn.Fn)] | (string | fn.Fn)
 								IPSetReferenceStatement?: Arn?: string | fn.Fn
 								ManagedRuleGroupStatement?: {
 									ExcludedRules?: [...{
@@ -3576,7 +3579,7 @@ WAFv2 :: {
 									[string]: _
 								}]
 							}
-							GeoMatchStatement?: CountryCodes?: CountryCodes?: [...(string | fn.Fn)] | fn.Fn
+							GeoMatchStatement?: CountryCodes?: CountryCodes?: [...(string | fn.Fn)] | (string | fn.Fn)
 							IPSetReferenceStatement?: Arn?: string | fn.Fn
 							ManagedRuleGroupStatement?: {
 								ExcludedRules?: [...{
@@ -3693,7 +3696,7 @@ WAFv2 :: {
 								[string]: _
 							}]
 						}
-						GeoMatchStatement?: CountryCodes?: CountryCodes?: [...(string | fn.Fn)] | fn.Fn
+						GeoMatchStatement?: CountryCodes?: CountryCodes?: [...(string | fn.Fn)] | (string | fn.Fn)
 						IPSetReferenceStatement?: Arn?: string | fn.Fn
 						ManagedRuleGroupStatement?: {
 							ExcludedRules?: [...{
@@ -3725,7 +3728,7 @@ WAFv2 :: {
 									[string]: _
 								}]
 							}
-							GeoMatchStatement?: CountryCodes?: CountryCodes?: [...(string | fn.Fn)] | fn.Fn
+							GeoMatchStatement?: CountryCodes?: CountryCodes?: [...(string | fn.Fn)] | (string | fn.Fn)
 							IPSetReferenceStatement?: Arn?: string | fn.Fn
 							ManagedRuleGroupStatement?: {
 								ExcludedRules?: [...{
@@ -3843,7 +3846,7 @@ WAFv2 :: {
 									[string]: _
 								}]
 							}
-							GeoMatchStatement?: CountryCodes?: CountryCodes?: [...(string | fn.Fn)] | fn.Fn
+							GeoMatchStatement?: CountryCodes?: CountryCodes?: [...(string | fn.Fn)] | (string | fn.Fn)
 							IPSetReferenceStatement?: Arn?: string | fn.Fn
 							ManagedRuleGroupStatement?: {
 								ExcludedRules?: [...{
@@ -3964,7 +3967,7 @@ WAFv2 :: {
 										[string]: _
 									}]
 								}
-								GeoMatchStatement?: CountryCodes?: CountryCodes?: [...(string | fn.Fn)] | fn.Fn
+								GeoMatchStatement?: CountryCodes?: CountryCodes?: [...(string | fn.Fn)] | (string | fn.Fn)
 								IPSetReferenceStatement?: Arn?: string | fn.Fn
 								ManagedRuleGroupStatement?: {
 									ExcludedRules?: [...{
@@ -4173,7 +4176,7 @@ WAFv2 :: {
 										[string]: _
 									}]
 								}
-								GeoMatchStatement?: CountryCodes?: CountryCodes?: [...(string | fn.Fn)] | fn.Fn
+								GeoMatchStatement?: CountryCodes?: CountryCodes?: [...(string | fn.Fn)] | (string | fn.Fn)
 								IPSetReferenceStatement?: Arn?: string | fn.Fn
 								ManagedRuleGroupStatement?: {
 									ExcludedRules?: [...{
@@ -4290,7 +4293,7 @@ WAFv2 :: {
 									[string]: _
 								}]
 							}
-							GeoMatchStatement?: CountryCodes?: CountryCodes?: [...(string | fn.Fn)] | fn.Fn
+							GeoMatchStatement?: CountryCodes?: CountryCodes?: [...(string | fn.Fn)] | (string | fn.Fn)
 							IPSetReferenceStatement?: Arn?: string | fn.Fn
 							ManagedRuleGroupStatement?: {
 								ExcludedRules?: [...{
@@ -4322,7 +4325,7 @@ WAFv2 :: {
 										[string]: _
 									}]
 								}
-								GeoMatchStatement?: CountryCodes?: CountryCodes?: [...(string | fn.Fn)] | fn.Fn
+								GeoMatchStatement?: CountryCodes?: CountryCodes?: [...(string | fn.Fn)] | (string | fn.Fn)
 								IPSetReferenceStatement?: Arn?: string | fn.Fn
 								ManagedRuleGroupStatement?: {
 									ExcludedRules?: [...{
@@ -4440,7 +4443,7 @@ WAFv2 :: {
 										[string]: _
 									}]
 								}
-								GeoMatchStatement?: CountryCodes?: CountryCodes?: [...(string | fn.Fn)] | fn.Fn
+								GeoMatchStatement?: CountryCodes?: CountryCodes?: [...(string | fn.Fn)] | (string | fn.Fn)
 								IPSetReferenceStatement?: Arn?: string | fn.Fn
 								ManagedRuleGroupStatement?: {
 									ExcludedRules?: [...{
@@ -4561,7 +4564,7 @@ WAFv2 :: {
 											[string]: _
 										}]
 									}
-									GeoMatchStatement?: CountryCodes?: CountryCodes?: [...(string | fn.Fn)] | fn.Fn
+									GeoMatchStatement?: CountryCodes?: CountryCodes?: [...(string | fn.Fn)] | (string | fn.Fn)
 									IPSetReferenceStatement?: Arn?: string | fn.Fn
 									ManagedRuleGroupStatement?: {
 										ExcludedRules?: [...{
@@ -4851,5 +4854,6 @@ WAFv2 :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 }

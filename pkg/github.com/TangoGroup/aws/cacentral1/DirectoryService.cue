@@ -13,7 +13,7 @@ DirectoryService :: {
 			Password:     string | fn.Fn
 			ShortName?:   string | fn.Fn
 			VpcSettings: {
-				SubnetIds: [...(string | fn.Fn)] | fn.Fn
+				SubnetIds: [...(string | fn.Fn)] | (string | fn.Fn)
 				VpcId:     string | fn.Fn
 			}
 		}
@@ -21,6 +21,7 @@ DirectoryService :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	SimpleAD :: {
 		Type: "AWS::DirectoryService::SimpleAD"
@@ -33,7 +34,7 @@ DirectoryService :: {
 			ShortName?:   string | fn.Fn
 			Size:         ("Large" | "Small") | fn.Fn
 			VpcSettings: {
-				SubnetIds: [...(string | fn.Fn)] | fn.Fn
+				SubnetIds: [...(string | fn.Fn)] | (string | fn.Fn)
 				VpcId:     string | fn.Fn
 			}
 		}
@@ -41,5 +42,6 @@ DirectoryService :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 }

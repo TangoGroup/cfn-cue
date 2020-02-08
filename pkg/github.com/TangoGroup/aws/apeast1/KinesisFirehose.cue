@@ -71,7 +71,7 @@ KinesisFirehose :: {
 				DataFormatConversionConfiguration?: {
 					Enabled: bool | fn.Fn
 					InputFormatConfiguration: Deserializer: {
-						HiveJsonSerDe?: TimestampFormats?: [...(string | fn.Fn)] | fn.Fn
+						HiveJsonSerDe?: TimestampFormats?: [...(string | fn.Fn)] | (string | fn.Fn)
 						OpenXJsonSerDe?: {
 							CaseInsensitive?: bool | fn.Fn
 							ColumnToJsonKeyMappings?: [string]: string | fn.Fn
@@ -81,13 +81,13 @@ KinesisFirehose :: {
 					OutputFormatConfiguration: Serializer: {
 						OrcSerDe?: {
 							BlockSizeBytes?:                      int | fn.Fn
-							BloomFilterColumns?:                  [...(string | fn.Fn)] | fn.Fn
-							BloomFilterFalsePositiveProbability?: float | fn.Fn
+							BloomFilterColumns?:                  [...(string | fn.Fn)] | (string | fn.Fn)
+							BloomFilterFalsePositiveProbability?: number | fn.Fn
 							Compression?:                         string | fn.Fn
-							DictionaryKeyThreshold?:              float | fn.Fn
+							DictionaryKeyThreshold?:              number | fn.Fn
 							EnablePadding?:                       bool | fn.Fn
 							FormatVersion?:                       string | fn.Fn
-							PaddingTolerance?:                    float | fn.Fn
+							PaddingTolerance?:                    number | fn.Fn
 							RowIndexStride?:                      int | fn.Fn
 							StripeSizeBytes?:                     int | fn.Fn
 						}
@@ -266,5 +266,6 @@ KinesisFirehose :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 }

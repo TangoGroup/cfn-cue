@@ -28,6 +28,7 @@ ElasticBeanstalk :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	ApplicationVersion :: {
 		Type: "AWS::ElasticBeanstalk::ApplicationVersion"
@@ -43,6 +44,7 @@ ElasticBeanstalk :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	ConfigurationTemplate :: {
 		Type: "AWS::ElasticBeanstalk::ConfigurationTemplate"
@@ -67,6 +69,7 @@ ElasticBeanstalk :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	Environment :: {
 		Type: "AWS::ElasticBeanstalk::Environment"
@@ -99,5 +102,6 @@ ElasticBeanstalk :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 }

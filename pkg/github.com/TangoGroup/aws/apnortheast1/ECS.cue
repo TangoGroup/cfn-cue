@@ -20,6 +20,7 @@ ECS :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	PrimaryTaskSet :: {
 		Type: "AWS::ECS::PrimaryTaskSet"
@@ -32,6 +33,7 @@ ECS :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	Service :: {
 		Type: "AWS::ECS::Service"
@@ -54,8 +56,8 @@ ECS :: {
 			}]
 			NetworkConfiguration?: AwsvpcConfiguration?: {
 				AssignPublicIp?: string | fn.Fn
-				SecurityGroups?: [...(string | fn.Fn)] | fn.Fn
-				Subnets:         [...(string | fn.Fn)] | fn.Fn
+				SecurityGroups?: [...(string | fn.Fn)] | (string | fn.Fn)
+				Subnets:         [...(string | fn.Fn)] | (string | fn.Fn)
 			}
 			PlacementConstraints?: [...{
 				Expression?: string | fn.Fn
@@ -86,23 +88,24 @@ ECS :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	TaskDefinition :: {
 		Type: "AWS::ECS::TaskDefinition"
 		Properties: {
 			ContainerDefinitions?: [...{
-				Command?: [...(string | fn.Fn)] | fn.Fn
+				Command?: [...(string | fn.Fn)] | (string | fn.Fn)
 				Cpu?:     int | fn.Fn
 				DependsOn?: [...{
 					Condition:     string | fn.Fn
 					ContainerName: string | fn.Fn
 				}]
 				DisableNetworking?: bool | fn.Fn
-				DnsSearchDomains?:  [...(string | fn.Fn)] | fn.Fn
-				DnsServers?:        [...(string | fn.Fn)] | fn.Fn
+				DnsSearchDomains?:  [...(string | fn.Fn)] | (string | fn.Fn)
+				DnsServers?:        [...(string | fn.Fn)] | (string | fn.Fn)
 				DockerLabels?: [string]: string | fn.Fn
-				DockerSecurityOptions?: [...(string | fn.Fn)] | fn.Fn
-				EntryPoint?:            [...(string | fn.Fn)] | fn.Fn
+				DockerSecurityOptions?: [...(string | fn.Fn)] | (string | fn.Fn)
+				EntryPoint?:            [...(string | fn.Fn)] | (string | fn.Fn)
 				Environment?: [...{
 					Name?:  string | fn.Fn
 					Value?: string | fn.Fn
@@ -117,7 +120,7 @@ ECS :: {
 					Type: string | fn.Fn
 				}
 				HealthCheck?: {
-					Command:      [...(string | fn.Fn)] | fn.Fn
+					Command:      [...(string | fn.Fn)] | (string | fn.Fn)
 					Interval?:    int | fn.Fn
 					Retries?:     int | fn.Fn
 					StartPeriod?: int | fn.Fn
@@ -126,16 +129,16 @@ ECS :: {
 				Hostname?:    string | fn.Fn
 				Image?:       string | fn.Fn
 				Interactive?: bool | fn.Fn
-				Links?:       [...(string | fn.Fn)] | fn.Fn
+				Links?:       [...(string | fn.Fn)] | (string | fn.Fn)
 				LinuxParameters?: {
 					Capabilities?: {
-						Add?:  [...(string | fn.Fn)] | fn.Fn
-						Drop?: [...(string | fn.Fn)] | fn.Fn
+						Add?:  [...(string | fn.Fn)] | (string | fn.Fn)
+						Drop?: [...(string | fn.Fn)] | (string | fn.Fn)
 					}
 					Devices?: [...{
 						ContainerPath?: string | fn.Fn
 						HostPath:       string | fn.Fn
-						Permissions?:   [...(string | fn.Fn)] | fn.Fn
+						Permissions?:   [...(string | fn.Fn)] | (string | fn.Fn)
 					}]
 					InitProcessEnabled?: bool | fn.Fn
 					MaxSwap?:            int | fn.Fn
@@ -143,7 +146,7 @@ ECS :: {
 					Swappiness?:         int | fn.Fn
 					Tmpfs?: [...{
 						ContainerPath?: string | fn.Fn
-						MountOptions?:  [...(string | fn.Fn)] | fn.Fn
+						MountOptions?:  [...(string | fn.Fn)] | (string | fn.Fn)
 						Size:           int | fn.Fn
 					}]
 				}
@@ -222,7 +225,7 @@ ECS :: {
 				}]
 				Type?: ("APPMESH") | fn.Fn
 			}
-			RequiresCompatibilities?: [...(string | fn.Fn)] | fn.Fn
+			RequiresCompatibilities?: [...(string | fn.Fn)] | (string | fn.Fn)
 			Tags?: [...{
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
@@ -244,6 +247,7 @@ ECS :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	TaskSet :: {
 		Type: "AWS::ECS::TaskSet"
@@ -259,13 +263,13 @@ ECS :: {
 			}]
 			NetworkConfiguration?: AwsVpcConfiguration?: {
 				AssignPublicIp?: string | fn.Fn
-				SecurityGroups?: [...(string | fn.Fn)] | fn.Fn
-				Subnets:         [...(string | fn.Fn)] | fn.Fn
+				SecurityGroups?: [...(string | fn.Fn)] | (string | fn.Fn)
+				Subnets:         [...(string | fn.Fn)] | (string | fn.Fn)
 			}
 			PlatformVersion?: string | fn.Fn
 			Scale?: {
 				Unit?:  string | fn.Fn
-				Value?: float | fn.Fn
+				Value?: number | fn.Fn
 			}
 			Service: string | fn.Fn
 			ServiceRegistries?: [...{
@@ -280,5 +284,6 @@ ECS :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 }

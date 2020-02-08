@@ -17,6 +17,7 @@ Batch :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	JobDefinition :: {
 		Type: "AWS::Batch::JobDefinition"
@@ -39,6 +40,7 @@ Batch :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	JobQueue :: {
 		Type: "AWS::Batch::JobQueue"
@@ -53,5 +55,6 @@ Batch :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 }

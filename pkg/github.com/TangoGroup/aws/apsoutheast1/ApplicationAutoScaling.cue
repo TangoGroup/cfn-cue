@@ -35,6 +35,7 @@ ApplicationAutoScaling :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	ScalingPolicy :: {
 		Type: "AWS::ApplicationAutoScaling::ScalingPolicy"
@@ -51,8 +52,8 @@ ApplicationAutoScaling :: {
 				MetricAggregationType?:  string | fn.Fn
 				MinAdjustmentMagnitude?: int | fn.Fn
 				StepAdjustments?: [...{
-					MetricIntervalLowerBound?: float | fn.Fn
-					MetricIntervalUpperBound?: float | fn.Fn
+					MetricIntervalLowerBound?: number | fn.Fn
+					MetricIntervalUpperBound?: number | fn.Fn
 					ScalingAdjustment:         int | fn.Fn
 				}]
 			}
@@ -74,12 +75,13 @@ ApplicationAutoScaling :: {
 				}
 				ScaleInCooldown?:  int | fn.Fn
 				ScaleOutCooldown?: int | fn.Fn
-				TargetValue:       float | fn.Fn
+				TargetValue:       number | fn.Fn
 			}
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 }

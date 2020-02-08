@@ -14,6 +14,7 @@ WAFRegional :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	GeoMatchSet :: {
 		Type: "AWS::WAFRegional::GeoMatchSet"
@@ -26,6 +27,7 @@ WAFRegional :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	IPSet :: {
 		Type: "AWS::WAFRegional::IPSet"
@@ -38,6 +40,7 @@ WAFRegional :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	RateBasedRule :: {
 		Type: "AWS::WAFRegional::RateBasedRule"
@@ -53,17 +56,19 @@ WAFRegional :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	RegexPatternSet :: {
 		Type: "AWS::WAFRegional::RegexPatternSet"
 		Properties: {
 			Name:                string | fn.Fn
-			RegexPatternStrings: [...(string | fn.Fn)] | fn.Fn
+			RegexPatternStrings: [...(string | fn.Fn)] | (string | fn.Fn)
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	Rule :: {
 		Type: "AWS::WAFRegional::Rule"
@@ -77,6 +82,7 @@ WAFRegional :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	SizeConstraintSet :: {
 		Type: "AWS::WAFRegional::SizeConstraintSet"
@@ -89,6 +95,7 @@ WAFRegional :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	SqlInjectionMatchSet :: {
 		Type: "AWS::WAFRegional::SqlInjectionMatchSet"
@@ -101,6 +108,7 @@ WAFRegional :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	WebACL :: {
 		Type: "AWS::WAFRegional::WebACL"
@@ -116,6 +124,7 @@ WAFRegional :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	WebACLAssociation :: {
 		Type: "AWS::WAFRegional::WebACLAssociation"
@@ -127,6 +136,7 @@ WAFRegional :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	XssMatchSet :: {
 		Type: "AWS::WAFRegional::XssMatchSet"
@@ -139,5 +149,6 @@ WAFRegional :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 }

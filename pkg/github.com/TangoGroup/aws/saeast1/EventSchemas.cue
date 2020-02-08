@@ -17,6 +17,7 @@ EventSchemas :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	Registry :: {
 		Type: "AWS::EventSchemas::Registry"
@@ -32,6 +33,7 @@ EventSchemas :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	Schema :: {
 		Type: "AWS::EventSchemas::Schema"
@@ -50,5 +52,6 @@ EventSchemas :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 }

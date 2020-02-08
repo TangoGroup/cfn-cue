@@ -6,12 +6,12 @@ Neptune :: {
 	DBCluster :: {
 		Type: "AWS::Neptune::DBCluster"
 		Properties: {
-			AvailabilityZones?:           [...(string | fn.Fn)] | fn.Fn
+			AvailabilityZones?:           [...(string | fn.Fn)] | (string | fn.Fn)
 			BackupRetentionPeriod?:       int | fn.Fn
 			DBClusterIdentifier?:         string | fn.Fn
 			DBClusterParameterGroupName?: string | fn.Fn
 			DBSubnetGroupName?:           string | fn.Fn
-			EnableCloudwatchLogsExports?: [...(string | fn.Fn)] | fn.Fn
+			EnableCloudwatchLogsExports?: [...(string | fn.Fn)] | (string | fn.Fn)
 			IamAuthEnabled?:              bool | fn.Fn
 			KmsKeyId?:                    string | fn.Fn
 			Port?:                        int | fn.Fn
@@ -23,12 +23,13 @@ Neptune :: {
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			}]
-			VpcSecurityGroupIds?: [...(string | fn.Fn)] | fn.Fn
+			VpcSecurityGroupIds?: [...(string | fn.Fn)] | (string | fn.Fn)
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain" | "Snapshot"
 		UpdateReplacePolicy?: "Delete" | "Retain" | "Snapshot"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	DBClusterParameterGroup :: {
 		Type: "AWS::Neptune::DBClusterParameterGroup"
@@ -48,6 +49,7 @@ Neptune :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	DBInstance :: {
 		Type: "AWS::Neptune::DBInstance"
@@ -71,6 +73,7 @@ Neptune :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	DBParameterGroup :: {
 		Type: "AWS::Neptune::DBParameterGroup"
@@ -90,13 +93,14 @@ Neptune :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 	DBSubnetGroup :: {
 		Type: "AWS::Neptune::DBSubnetGroup"
 		Properties: {
 			DBSubnetGroupDescription: string | fn.Fn
 			DBSubnetGroupName?:       string | fn.Fn
-			SubnetIds:                [...(string | fn.Fn)] | fn.Fn
+			SubnetIds:                [...(string | fn.Fn)] | (string | fn.Fn)
 			Tags?: [...{
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
@@ -106,5 +110,6 @@ Neptune :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 }

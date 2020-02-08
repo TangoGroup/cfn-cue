@@ -21,10 +21,10 @@ CodeCommit :: {
 				Value: string | fn.Fn
 			}]
 			Triggers?: [...{
-				Branches?:      [...(string | fn.Fn)] | fn.Fn
+				Branches?:      [...(string | fn.Fn)] | (string | fn.Fn)
 				CustomData?:    string | fn.Fn
 				DestinationArn: string | fn.Fn
-				Events:         [...(("all" | "createReference" | "deleteReference" | "updateReference") | fn.Fn)] | fn.Fn
+				Events:         [...(("all" | "createReference" | "deleteReference" | "updateReference") | fn.Fn)] | (("all" | "createReference" | "deleteReference" | "updateReference") | fn.Fn)
 				Name:           string | fn.Fn
 			}]
 		}
@@ -32,5 +32,6 @@ CodeCommit :: {
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
 		Metadata?: [string]: _
+		Condition?: string
 	}
 }
