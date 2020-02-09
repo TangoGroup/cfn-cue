@@ -11,28 +11,44 @@ MSK :: {
 				ClientSubnets:         [...(string | fn.Fn)] | (string | fn.Fn)
 				InstanceType:          string | fn.Fn
 				SecurityGroups?:       [...(string | fn.Fn)] | (string | fn.Fn)
-				StorageInfo?: EBSStorageInfo?: VolumeSize?: int | fn.Fn
-			}
-			ClientAuthentication?: Tls?: CertificateAuthorityArnList?: [...(string | fn.Fn)] | (string | fn.Fn)
-			ClusterName: string | fn.Fn
+				StorageInfo?:          {
+					EBSStorageInfo?: {
+						VolumeSize?: int | fn.Fn
+					} | fn.If
+				} | fn.If
+			} | fn.If
+			ClientAuthentication?: {
+				Tls?: {
+					CertificateAuthorityArnList?: [...(string | fn.Fn)] | (string | fn.Fn)
+				} | fn.If
+			} | fn.If
+			ClusterName:        string | fn.Fn
 			ConfigurationInfo?: {
 				Arn:      string | fn.Fn
 				Revision: int | fn.Fn
-			}
+			} | fn.If
 			EncryptionInfo?: {
-				EncryptionAtRest?: DataVolumeKMSKeyId: string | fn.Fn
+				EncryptionAtRest?: {
+					DataVolumeKMSKeyId: string | fn.Fn
+				} | fn.If
 				EncryptionInTransit?: {
 					ClientBroker?: string | fn.Fn
 					InCluster?:    bool | fn.Fn
-				}
-			}
+				} | fn.If
+			} | fn.If
 			EnhancedMonitoring?: string | fn.Fn
 			KafkaVersion:        string | fn.Fn
 			NumberOfBrokerNodes: int | fn.Fn
-			OpenMonitoring?: Prometheus: {
-				JmxExporter?: EnabledInBroker:  bool | fn.Fn
-				NodeExporter?: EnabledInBroker: bool | fn.Fn
-			}
+			OpenMonitoring?:     {
+				Prometheus: {
+					JmxExporter?: {
+						EnabledInBroker: bool | fn.Fn
+					} | fn.If
+					NodeExporter?: {
+						EnabledInBroker: bool | fn.Fn
+					} | fn.If
+				} | fn.If
+			} | fn.If
 			Tags?: {
 				[string]: _
 			} | fn.Fn

@@ -8,10 +8,12 @@ ElasticLoadBalancingV2 :: {
 		Properties: {
 			Certificates?: [...{
 				CertificateArn?: string | fn.Fn
-			}]
+			}] | fn.If
 			DefaultActions: [...{
 				AuthenticateCognitoConfig?: {
-					AuthenticationRequestExtraParams?: [string]: string | fn.Fn
+					AuthenticationRequestExtraParams?: {
+						[string]: string | fn.Fn
+					} | fn.If
 					OnUnauthenticatedRequest?: string | fn.Fn
 					Scope?:                    string | fn.Fn
 					SessionCookieName?:        string | fn.Fn
@@ -19,9 +21,11 @@ ElasticLoadBalancingV2 :: {
 					UserPoolArn:               string | fn.Fn
 					UserPoolClientId:          string | fn.Fn
 					UserPoolDomain:            string | fn.Fn
-				}
+				} | fn.If
 				AuthenticateOidcConfig?: {
-					AuthenticationRequestExtraParams?: [string]: string | fn.Fn
+					AuthenticationRequestExtraParams?: {
+						[string]: string | fn.Fn
+					} | fn.If
 					AuthorizationEndpoint:     string | fn.Fn
 					ClientId:                  string | fn.Fn
 					ClientSecret:              string | fn.Fn
@@ -32,13 +36,13 @@ ElasticLoadBalancingV2 :: {
 					SessionTimeout?:           int | fn.Fn
 					TokenEndpoint:             string | fn.Fn
 					UserInfoEndpoint:          string | fn.Fn
-				}
+				} | fn.If
 				FixedResponseConfig?: {
 					ContentType?: string | fn.Fn
 					MessageBody?: string | fn.Fn
 					StatusCode:   string | fn.Fn
-				}
-				Order?: int | fn.Fn
+				} | fn.If
+				Order?:          int | fn.Fn
 				RedirectConfig?: {
 					Host?:      string | fn.Fn
 					Path?:      string | fn.Fn
@@ -46,10 +50,10 @@ ElasticLoadBalancingV2 :: {
 					Protocol?:  string | fn.Fn
 					Query?:     string | fn.Fn
 					StatusCode: string | fn.Fn
-				}
+				} | fn.If
 				TargetGroupArn?: string | fn.Fn
 				Type:            string | fn.Fn
-			}]
+			}] | fn.If
 			LoadBalancerArn: string | fn.Fn
 			Port:            (>=1 & <=65535) | fn.Fn
 			Protocol:        string | fn.Fn
@@ -66,7 +70,7 @@ ElasticLoadBalancingV2 :: {
 		Properties: {
 			Certificates: [...{
 				CertificateArn?: string | fn.Fn
-			}]
+			}] | fn.If
 			ListenerArn: string | fn.Fn
 		}
 		DependsOn?:           string | [...string]
@@ -80,7 +84,9 @@ ElasticLoadBalancingV2 :: {
 		Properties: {
 			Actions: [...{
 				AuthenticateCognitoConfig?: {
-					AuthenticationRequestExtraParams?: [string]: string | fn.Fn
+					AuthenticationRequestExtraParams?: {
+						[string]: string | fn.Fn
+					} | fn.If
 					OnUnauthenticatedRequest?: string | fn.Fn
 					Scope?:                    string | fn.Fn
 					SessionCookieName?:        string | fn.Fn
@@ -88,9 +94,11 @@ ElasticLoadBalancingV2 :: {
 					UserPoolArn:               string | fn.Fn
 					UserPoolClientId:          string | fn.Fn
 					UserPoolDomain:            string | fn.Fn
-				}
+				} | fn.If
 				AuthenticateOidcConfig?: {
-					AuthenticationRequestExtraParams?: [string]: string | fn.Fn
+					AuthenticationRequestExtraParams?: {
+						[string]: string | fn.Fn
+					} | fn.If
 					AuthorizationEndpoint:     string | fn.Fn
 					ClientId:                  string | fn.Fn
 					ClientSecret:              string | fn.Fn
@@ -101,13 +109,13 @@ ElasticLoadBalancingV2 :: {
 					SessionTimeout?:           int | fn.Fn
 					TokenEndpoint:             string | fn.Fn
 					UserInfoEndpoint:          string | fn.Fn
-				}
+				} | fn.If
 				FixedResponseConfig?: {
 					ContentType?: string | fn.Fn
 					MessageBody?: string | fn.Fn
 					StatusCode:   string | fn.Fn
-				}
-				Order?: int | fn.Fn
+				} | fn.If
+				Order?:          int | fn.Fn
 				RedirectConfig?: {
 					Host?:      string | fn.Fn
 					Path?:      string | fn.Fn
@@ -115,26 +123,36 @@ ElasticLoadBalancingV2 :: {
 					Protocol?:  string | fn.Fn
 					Query?:     string | fn.Fn
 					StatusCode: string | fn.Fn
-				}
+				} | fn.If
 				TargetGroupArn?: string | fn.Fn
 				Type:            string | fn.Fn
-			}]
+			}] | fn.If
 			Conditions: [...{
-				Field?: string | fn.Fn
-				HostHeaderConfig?: Values?: [...(string | fn.Fn)] | (string | fn.Fn)
+				Field?:            string | fn.Fn
+				HostHeaderConfig?: {
+					Values?: [...(string | fn.Fn)] | (string | fn.Fn)
+				} | fn.If
 				HttpHeaderConfig?: {
 					HttpHeaderName?: string | fn.Fn
 					Values?:         [...(string | fn.Fn)] | (string | fn.Fn)
-				}
-				HttpRequestMethodConfig?: Values?: [...(string | fn.Fn)] | (string | fn.Fn)
-				PathPatternConfig?: Values?:       [...(string | fn.Fn)] | (string | fn.Fn)
-				QueryStringConfig?: Values?: [...{
-					Key?:   string | fn.Fn
-					Value?: string | fn.Fn
-				}]
-				SourceIpConfig?: Values?: [...(string | fn.Fn)] | (string | fn.Fn)
+				} | fn.If
+				HttpRequestMethodConfig?: {
+					Values?: [...(string | fn.Fn)] | (string | fn.Fn)
+				} | fn.If
+				PathPatternConfig?: {
+					Values?: [...(string | fn.Fn)] | (string | fn.Fn)
+				} | fn.If
+				QueryStringConfig?: {
+					Values?: [...{
+						Key?:   string | fn.Fn
+						Value?: string | fn.Fn
+					}] | fn.If
+				} | fn.If
+				SourceIpConfig?: {
+					Values?: [...(string | fn.Fn)] | (string | fn.Fn)
+				} | fn.If
 				Values?: [...(string | fn.Fn)] | (string | fn.Fn)
-			}]
+			}] | fn.If
 			ListenerArn: string | fn.Fn
 			Priority:    int | fn.Fn
 		}
@@ -147,23 +165,23 @@ ElasticLoadBalancingV2 :: {
 	LoadBalancer :: {
 		Type: "AWS::ElasticLoadBalancingV2::LoadBalancer"
 		Properties: {
-			IpAddressType?: string | fn.Fn
+			IpAddressType?:          string | fn.Fn
 			LoadBalancerAttributes?: [...{
 				Key?:   string | fn.Fn
 				Value?: string | fn.Fn
-			}]
+			}] | fn.If
 			Name?:           string | fn.Fn
 			Scheme?:         string | fn.Fn
 			SecurityGroups?: [...(string | fn.Fn)] | (string | fn.Fn)
 			SubnetMappings?: [...{
 				AllocationId: string | fn.Fn
 				SubnetId:     string | fn.Fn
-			}]
+			}] | fn.If
 			Subnets?: [...(string | fn.Fn)] | (string | fn.Fn)
-			Tags?: [...{
+			Tags?:    [...{
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}]
+			}] | fn.If
 			Type?: string | fn.Fn
 		}
 		DependsOn?:           string | [...string]
@@ -182,24 +200,26 @@ ElasticLoadBalancingV2 :: {
 			HealthCheckProtocol?:        string | fn.Fn
 			HealthCheckTimeoutSeconds?:  (>=2 & <=120) | fn.Fn
 			HealthyThresholdCount?:      (>=2 & <=10) | fn.Fn
-			Matcher?: HttpCode: string | fn.Fn
+			Matcher?:                    {
+				HttpCode: string | fn.Fn
+			} | fn.If
 			Name?:     string | fn.Fn
 			Port?:     int | fn.Fn
 			Protocol?: string | fn.Fn
-			Tags?: [...{
+			Tags?:     [...{
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}]
+			}] | fn.If
 			TargetGroupAttributes?: [...{
 				Key?:   string | fn.Fn
 				Value?: string | fn.Fn
-			}]
+			}] | fn.If
 			TargetType?: string | fn.Fn
-			Targets?: [...{
+			Targets?:    [...{
 				AvailabilityZone?: string | fn.Fn
 				Id:                string | fn.Fn
 				Port?:             int | fn.Fn
-			}]
+			}] | fn.If
 			UnhealthyThresholdCount?: (>=2 & <=10) | fn.Fn
 			VpcId?:                   string | fn.Fn
 		}

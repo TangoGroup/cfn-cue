@@ -278,6 +278,15 @@ func createFieldFromProperty(name string, prop Property, resourceSubproperties m
 		}
 	}
 
+	if prop.IsMap() || (prop.IsList() && !prop.IsListOfPrimitives()) || prop.IsCustomType() {
+
+		value = &ast.BinaryExpr{
+			X:  value,
+			Op: token.OR,
+			Y:  ast.NewSel(ast.NewIdent("fn"), "If"),
+		}
+	}
+
 	var optional token.Pos
 	switch prop.Required {
 	case true:
@@ -900,9 +909,9 @@ func main() {
 	for _, region := range regions {
 		shortRegion := strings.ReplaceAll(region, "-", "")
 
-		// if region != "us-west-2" {
-		// 	continue
-		// }
+		if region != "us-west-2" {
+			continue
+		}
 
 		cloudformationSpec := "https://github.com/aws-cloudformation/cfn-python-lint/raw/master/src/cfnlint/data/CloudSpecs/" + region + ".json"
 		fmt.Println(cloudformationSpec)

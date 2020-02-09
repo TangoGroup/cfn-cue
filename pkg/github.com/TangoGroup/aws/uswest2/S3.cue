@@ -25,8 +25,10 @@ S3 :: {
 				BlockPublicPolicy?:     bool | fn.Fn
 				IgnorePublicAcls?:      bool | fn.Fn
 				RestrictPublicBuckets?: bool | fn.Fn
-			}
-			VpcConfiguration?: VpcId?: string | fn.Fn
+			} | fn.If
+			VpcConfiguration?: {
+				VpcId?: string | fn.Fn
+			} | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -37,166 +39,202 @@ S3 :: {
 	Bucket :: {
 		Type: "AWS::S3::Bucket"
 		Properties: {
-			AccelerateConfiguration?: AccelerationStatus: ("Enabled" | "Suspended") | fn.Fn
-			AccessControl?: ("AuthenticatedRead" | "AwsExecRead" | "BucketOwnerFullControl" | "BucketOwnerRead" | "LogDeliveryWrite" | "Private" | "PublicRead" | "PublicReadWrite") | fn.Fn
+			AccelerateConfiguration?: {
+				AccelerationStatus: ("Enabled" | "Suspended") | fn.Fn
+			} | fn.If
+			AccessControl?:           ("AuthenticatedRead" | "AwsExecRead" | "BucketOwnerFullControl" | "BucketOwnerRead" | "LogDeliveryWrite" | "Private" | "PublicRead" | "PublicReadWrite") | fn.Fn
 			AnalyticsConfigurations?: [...{
-				Id:      string | fn.Fn
-				Prefix?: string | fn.Fn
-				StorageClassAnalysis: DataExport?: {
-					Destination: {
-						BucketAccountId?: string | fn.Fn
-						BucketArn:        string | fn.Fn
-						Format:           string | fn.Fn
-						Prefix?:          string | fn.Fn
-					}
-					OutputSchemaVersion: string | fn.Fn
-				}
+				Id:                   string | fn.Fn
+				Prefix?:              string | fn.Fn
+				StorageClassAnalysis: {
+					DataExport?: {
+						Destination: {
+							BucketAccountId?: string | fn.Fn
+							BucketArn:        string | fn.Fn
+							Format:           string | fn.Fn
+							Prefix?:          string | fn.Fn
+						} | fn.If
+						OutputSchemaVersion: string | fn.Fn
+					} | fn.If
+				} | fn.If
 				TagFilters?: [...{
 					Key:   string | fn.Fn
 					Value: string | fn.Fn
-				}]
-			}]
-			BucketEncryption?: ServerSideEncryptionConfiguration: [...{
-				ServerSideEncryptionByDefault?: {
-					KMSMasterKeyID?: string | fn.Fn
-					SSEAlgorithm:    ("AES256" | "aws:kms") | fn.Fn
-				}
-			}]
-			BucketName?: (strings.MinRunes(3) & strings.MaxRunes(63) & (=~#"^[a-z0-9][a-z0-9.-]*[a-z0-9]$"#)) | fn.Fn
-			CorsConfiguration?: CorsRules: [...{
-				AllowedHeaders?: [...(string | fn.Fn)] | (string | fn.Fn)
-				AllowedMethods:  [...(string | fn.Fn)] | (string | fn.Fn)
-				AllowedOrigins:  [...(string | fn.Fn)] | (string | fn.Fn)
-				ExposedHeaders?: [...(string | fn.Fn)] | (string | fn.Fn)
-				Id?:             string | fn.Fn
-				MaxAge?:         int | fn.Fn
-			}]
+				}] | fn.If
+			}] | fn.If
+			BucketEncryption?: {
+				ServerSideEncryptionConfiguration: [...{
+					ServerSideEncryptionByDefault?: {
+						KMSMasterKeyID?: string | fn.Fn
+						SSEAlgorithm:    ("AES256" | "aws:kms") | fn.Fn
+					} | fn.If
+				}] | fn.If
+			} | fn.If
+			BucketName?:        (strings.MinRunes(3) & strings.MaxRunes(63) & (=~#"^[a-z0-9][a-z0-9.-]*[a-z0-9]$"#)) | fn.Fn
+			CorsConfiguration?: {
+				CorsRules: [...{
+					AllowedHeaders?: [...(string | fn.Fn)] | (string | fn.Fn)
+					AllowedMethods:  [...(string | fn.Fn)] | (string | fn.Fn)
+					AllowedOrigins:  [...(string | fn.Fn)] | (string | fn.Fn)
+					ExposedHeaders?: [...(string | fn.Fn)] | (string | fn.Fn)
+					Id?:             string | fn.Fn
+					MaxAge?:         int | fn.Fn
+				}] | fn.If
+			} | fn.If
 			InventoryConfigurations?: [...{
 				Destination: {
 					BucketAccountId?: string | fn.Fn
 					BucketArn:        string | fn.Fn
 					Format:           string | fn.Fn
 					Prefix?:          string | fn.Fn
-				}
+				} | fn.If
 				Enabled:                bool | fn.Fn
 				Id:                     string | fn.Fn
 				IncludedObjectVersions: string | fn.Fn
 				OptionalFields?:        [...(string | fn.Fn)] | (string | fn.Fn)
 				Prefix?:                string | fn.Fn
 				ScheduleFrequency:      string | fn.Fn
-			}]
-			LifecycleConfiguration?: Rules: [...{
-				AbortIncompleteMultipartUpload?: DaysAfterInitiation: int | fn.Fn
-				ExpirationDate?:                    time.Time | fn.Fn
-				ExpirationInDays?:                  int | fn.Fn
-				Id?:                                string | fn.Fn
-				NoncurrentVersionExpirationInDays?: int | fn.Fn
-				NoncurrentVersionTransition?: {
-					StorageClass:     string | fn.Fn
-					TransitionInDays: int | fn.Fn
-				}
-				NoncurrentVersionTransitions?: [...{
-					StorageClass:     string | fn.Fn
-					TransitionInDays: int | fn.Fn
-				}]
-				Prefix?: string | fn.Fn
-				Status:  string | fn.Fn
-				TagFilters?: [...{
-					Key:   string | fn.Fn
-					Value: string | fn.Fn
-				}]
-				Transition?: {
-					StorageClass:      string | fn.Fn
-					TransitionDate?:   time.Time | fn.Fn
-					TransitionInDays?: int | fn.Fn
-				}
-				Transitions?: [...{
-					StorageClass:      string | fn.Fn
-					TransitionDate?:   time.Time | fn.Fn
-					TransitionInDays?: int | fn.Fn
-				}]
-			}]
+			}] | fn.If
+			LifecycleConfiguration?: {
+				Rules: [...{
+					AbortIncompleteMultipartUpload?: {
+						DaysAfterInitiation: int | fn.Fn
+					} | fn.If
+					ExpirationDate?:                    time.Time | fn.Fn
+					ExpirationInDays?:                  int | fn.Fn
+					Id?:                                string | fn.Fn
+					NoncurrentVersionExpirationInDays?: int | fn.Fn
+					NoncurrentVersionTransition?:       {
+						StorageClass:     string | fn.Fn
+						TransitionInDays: int | fn.Fn
+					} | fn.If
+					NoncurrentVersionTransitions?: [...{
+						StorageClass:     string | fn.Fn
+						TransitionInDays: int | fn.Fn
+					}] | fn.If
+					Prefix?:     string | fn.Fn
+					Status:      string | fn.Fn
+					TagFilters?: [...{
+						Key:   string | fn.Fn
+						Value: string | fn.Fn
+					}] | fn.If
+					Transition?: {
+						StorageClass:      string | fn.Fn
+						TransitionDate?:   time.Time | fn.Fn
+						TransitionInDays?: int | fn.Fn
+					} | fn.If
+					Transitions?: [...{
+						StorageClass:      string | fn.Fn
+						TransitionDate?:   time.Time | fn.Fn
+						TransitionInDays?: int | fn.Fn
+					}] | fn.If
+				}] | fn.If
+			} | fn.If
 			LoggingConfiguration?: {
 				DestinationBucketName?: string | fn.Fn
 				LogFilePrefix?:         string | fn.Fn
-			}
+			} | fn.If
 			MetricsConfigurations?: [...{
-				Id:      string | fn.Fn
-				Prefix?: string | fn.Fn
+				Id:          string | fn.Fn
+				Prefix?:     string | fn.Fn
 				TagFilters?: [...{
 					Key:   string | fn.Fn
 					Value: string | fn.Fn
-				}]
-			}]
+				}] | fn.If
+			}] | fn.If
 			NotificationConfiguration?: {
 				LambdaConfigurations?: [...{
-					Event: string | fn.Fn
-					Filter?: S3Key: Rules: [...{
-						Name:  string | fn.Fn
-						Value: string | fn.Fn
-					}]
+					Event:   string | fn.Fn
+					Filter?: {
+						S3Key: {
+							Rules: [...{
+								Name:  string | fn.Fn
+								Value: string | fn.Fn
+							}] | fn.If
+						} | fn.If
+					} | fn.If
 					Function: string | fn.Fn
-				}]
+				}] | fn.If
 				QueueConfigurations?: [...{
-					Event: string | fn.Fn
-					Filter?: S3Key: Rules: [...{
-						Name:  string | fn.Fn
-						Value: string | fn.Fn
-					}]
+					Event:   string | fn.Fn
+					Filter?: {
+						S3Key: {
+							Rules: [...{
+								Name:  string | fn.Fn
+								Value: string | fn.Fn
+							}] | fn.If
+						} | fn.If
+					} | fn.If
 					Queue: string | fn.Fn
-				}]
+				}] | fn.If
 				TopicConfigurations?: [...{
-					Event: ("s3:ObjectCreated:*" | "s3:ObjectCreated:CompleteMultipartUpload" | "s3:ObjectCreated:Copy" | "s3:ObjectCreated:Post" | "s3:ObjectCreated:Put" | "s3:ObjectRemoved:*" | "s3:ObjectRemoved:Delete" | "s3:ObjectRemoved:DeleteMarkerCreated" | "s3:ObjectRestore:Completed" | "s3:ObjectRestore:Post" | "s3:ReducedRedundancyLostObject") | fn.Fn
-					Filter?: S3Key: Rules: [...{
-						Name:  string | fn.Fn
-						Value: string | fn.Fn
-					}]
+					Event:   ("s3:ObjectCreated:*" | "s3:ObjectCreated:CompleteMultipartUpload" | "s3:ObjectCreated:Copy" | "s3:ObjectCreated:Post" | "s3:ObjectCreated:Put" | "s3:ObjectRemoved:*" | "s3:ObjectRemoved:Delete" | "s3:ObjectRemoved:DeleteMarkerCreated" | "s3:ObjectRestore:Completed" | "s3:ObjectRestore:Post" | "s3:ReducedRedundancyLostObject") | fn.Fn
+					Filter?: {
+						S3Key: {
+							Rules: [...{
+								Name:  string | fn.Fn
+								Value: string | fn.Fn
+							}] | fn.If
+						} | fn.If
+					} | fn.If
 					Topic: string | fn.Fn
-				}]
-			}
+				}] | fn.If
+			} | fn.If
 			ObjectLockConfiguration?: {
 				ObjectLockEnabled?: string | fn.Fn
-				Rule?: DefaultRetention?: {
-					Days?:  int | fn.Fn
-					Mode?:  string | fn.Fn
-					Years?: int | fn.Fn
-				}
-			}
-			ObjectLockEnabled?: bool | fn.Fn
+				Rule?:              {
+					DefaultRetention?: {
+						Days?:  int | fn.Fn
+						Mode?:  string | fn.Fn
+						Years?: int | fn.Fn
+					} | fn.If
+				} | fn.If
+			} | fn.If
+			ObjectLockEnabled?:              bool | fn.Fn
 			PublicAccessBlockConfiguration?: {
 				BlockPublicAcls?:       bool | fn.Fn
 				BlockPublicPolicy?:     bool | fn.Fn
 				IgnorePublicAcls?:      bool | fn.Fn
 				RestrictPublicBuckets?: bool | fn.Fn
-			}
+			} | fn.If
 			ReplicationConfiguration?: {
-				Role: (=~#"arn:(aws[a-zA-Z-]*)?:iam::\d{12}:role/[a-zA-Z_0-9+=,.@\-_/]+"#) | fn.Fn
+				Role:  (=~#"arn:(aws[a-zA-Z-]*)?:iam::\d{12}:role/[a-zA-Z_0-9+=,.@\-_/]+"#) | fn.Fn
 				Rules: [...{
 					Destination: {
-						AccessControlTranslation?: Owner: string | fn.Fn
-						Account?: string | fn.Fn
-						Bucket:   string | fn.Fn
-						EncryptionConfiguration?: ReplicaKmsKeyID: string | fn.Fn
+						AccessControlTranslation?: {
+							Owner: string | fn.Fn
+						} | fn.If
+						Account?:                 string | fn.Fn
+						Bucket:                   string | fn.Fn
+						EncryptionConfiguration?: {
+							ReplicaKmsKeyID: string | fn.Fn
+						} | fn.If
 						StorageClass?: string | fn.Fn
-					}
-					Id?:    string | fn.Fn
-					Prefix: string | fn.Fn
-					SourceSelectionCriteria?: SseKmsEncryptedObjects: Status: string | fn.Fn
+					} | fn.If
+					Id?:                      string | fn.Fn
+					Prefix:                   string | fn.Fn
+					SourceSelectionCriteria?: {
+						SseKmsEncryptedObjects: {
+							Status: string | fn.Fn
+						} | fn.If
+					} | fn.If
 					Status: string | fn.Fn
-				}]
-			}
+				}] | fn.If
+			} | fn.If
 			Tags?: [...{
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}]
-			VersioningConfiguration?: Status: ("Enabled" | "Suspended") | fn.Fn
+			}] | fn.If
+			VersioningConfiguration?: {
+				Status: ("Enabled" | "Suspended") | fn.Fn
+			} | fn.If
 			WebsiteConfiguration?: {
-				ErrorDocument?: string | fn.Fn
-				IndexDocument?: string | fn.Fn
+				ErrorDocument?:         string | fn.Fn
+				IndexDocument?:         string | fn.Fn
 				RedirectAllRequestsTo?: {
 					HostName:  string | fn.Fn
 					Protocol?: ("http" | "https") | fn.Fn
-				}
+				} | fn.If
 				RoutingRules?: [...{
 					RedirectRule: {
 						HostName?:             string | fn.Fn
@@ -204,13 +242,13 @@ S3 :: {
 						Protocol?:             string | fn.Fn
 						ReplaceKeyPrefixWith?: string | fn.Fn
 						ReplaceKeyWith?:       string | fn.Fn
-					}
+					} | fn.If
 					RoutingRuleCondition?: {
 						HttpErrorCodeReturnedEquals?: string | fn.Fn
 						KeyPrefixEquals?:             string | fn.Fn
-					}
-				}]
-			}
+					} | fn.If
+				}] | fn.If
+			} | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

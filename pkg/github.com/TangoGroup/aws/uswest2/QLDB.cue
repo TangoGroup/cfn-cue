@@ -9,10 +9,10 @@ QLDB :: {
 			DeletionProtection?: bool | fn.Fn
 			Name?:               string | fn.Fn
 			PermissionsMode:     string | fn.Fn
-			Tags?: [...{
+			Tags?:               [...{
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}]
+			}] | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

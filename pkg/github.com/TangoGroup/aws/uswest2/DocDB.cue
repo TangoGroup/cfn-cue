@@ -21,10 +21,10 @@ DocDB :: {
 			PreferredMaintenanceWindow?:  string | fn.Fn
 			SnapshotIdentifier?:          string | fn.Fn
 			StorageEncrypted?:            bool | fn.Fn
-			Tags?: [...{
+			Tags?:                        [...{
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}]
+			}] | fn.If
 			VpcSecurityGroupIds?: [...(string | fn.Fn)] | (string | fn.Fn)
 		}
 		DependsOn?:           string | [...string]
@@ -45,7 +45,7 @@ DocDB :: {
 			Tags?: [...{
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}]
+			}] | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -62,10 +62,10 @@ DocDB :: {
 			DBInstanceClass:             ("db.r4.16xlarge" | "db.r4.2xlarge" | "db.r4.4xlarge" | "db.r4.8xlarge" | "db.r4.large" | "db.r4.xlarge" | "db.r5.12xlarge" | "db.r5.24xlarge" | "db.r5.2xlarge" | "db.r5.4xlarge" | "db.r5.large" | "db.r5.xlarge") | fn.Fn
 			DBInstanceIdentifier?:       string | fn.Fn
 			PreferredMaintenanceWindow?: string | fn.Fn
-			Tags?: [...{
+			Tags?:                       [...{
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}]
+			}] | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -79,10 +79,10 @@ DocDB :: {
 			DBSubnetGroupDescription: string | fn.Fn
 			DBSubnetGroupName?:       string | fn.Fn
 			SubnetIds:                [...(string | fn.Fn)] | (string | fn.Fn)
-			Tags?: [...{
+			Tags?:                    [...{
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}]
+			}] | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

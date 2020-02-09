@@ -12,10 +12,10 @@ DirectoryService :: {
 			Name:         string | fn.Fn
 			Password:     string | fn.Fn
 			ShortName?:   string | fn.Fn
-			VpcSettings: {
+			VpcSettings:  {
 				SubnetIds: [...(string | fn.Fn)] | (string | fn.Fn)
 				VpcId:     string | fn.Fn
-			}
+			} | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -33,10 +33,10 @@ DirectoryService :: {
 			Password:     string | fn.Fn
 			ShortName?:   string | fn.Fn
 			Size:         ("Large" | "Small") | fn.Fn
-			VpcSettings: {
+			VpcSettings:  {
 				SubnetIds: [...(string | fn.Fn)] | (string | fn.Fn)
 				VpcId:     string | fn.Fn
-			}
+			} | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

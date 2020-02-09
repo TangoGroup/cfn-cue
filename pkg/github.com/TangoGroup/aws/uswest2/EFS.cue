@@ -6,15 +6,15 @@ EFS :: {
 	FileSystem :: {
 		Type: "AWS::EFS::FileSystem"
 		Properties: {
-			Encrypted?: bool | fn.Fn
+			Encrypted?:      bool | fn.Fn
 			FileSystemTags?: [...{
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}]
-			KmsKeyId?: string | fn.Fn
+			}] | fn.If
+			KmsKeyId?:          string | fn.Fn
 			LifecyclePolicies?: [...{
 				TransitionToIA: ("AFTER_14_DAYS" | "AFTER_30_DAYS" | "AFTER_60_DAYS" | "AFTER_90_DAYS") | fn.Fn
-			}]
+			}] | fn.If
 			PerformanceMode?:              ("generalPurpose" | "maxIO") | fn.Fn
 			ProvisionedThroughputInMibps?: number | fn.Fn
 			ThroughputMode?:               ("bursting" | "provisioned") | fn.Fn
