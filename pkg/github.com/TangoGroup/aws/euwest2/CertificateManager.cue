@@ -6,16 +6,16 @@ CertificateManager :: {
 	Certificate :: {
 		Type: "AWS::CertificateManager::Certificate"
 		Properties: {
-			DomainName: string | fn.Fn
+			DomainName:               string | fn.Fn
 			DomainValidationOptions?: [...{
 				DomainName:       string | fn.Fn
 				ValidationDomain: string | fn.Fn
-			}]
+			}] | fn.If
 			SubjectAlternativeNames?: [...(string | fn.Fn)] | (string | fn.Fn)
-			Tags?: [...{
+			Tags?:                    [...{
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}]
+			}] | fn.If
 			ValidationMethod?: ("DNS" | "EMAIL") | fn.Fn
 		}
 		DependsOn?:           string | [...string]

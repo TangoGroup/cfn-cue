@@ -19,31 +19,31 @@ DMS :: {
 	Endpoint :: {
 		Type: "AWS::DMS::Endpoint"
 		Properties: {
-			CertificateArn?: string | fn.Fn
-			DatabaseName?:   string | fn.Fn
+			CertificateArn?:   string | fn.Fn
+			DatabaseName?:     string | fn.Fn
 			DynamoDbSettings?: {
-			}
+			} | fn.If
 			ElasticsearchSettings?: {
-			}
+			} | fn.If
 			EndpointIdentifier?:        string | fn.Fn
 			EndpointType:               string | fn.Fn
 			EngineName:                 string | fn.Fn
 			ExtraConnectionAttributes?: string | fn.Fn
-			KinesisSettings?: {
-			}
-			KmsKeyId?: string | fn.Fn
+			KinesisSettings?:           {
+			} | fn.If
+			KmsKeyId?:        string | fn.Fn
 			MongoDbSettings?: {
-			}
-			Password?: string | fn.Fn
-			Port?:     int | fn.Fn
+			} | fn.If
+			Password?:   string | fn.Fn
+			Port?:       int | fn.Fn
 			S3Settings?: {
-			}
+			} | fn.If
 			ServerName?: string | fn.Fn
 			SslMode?:    string | fn.Fn
-			Tags?: [...{
+			Tags?:       [...{
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}]
+			}] | fn.If
 			Username?: string | fn.Fn
 		}
 		DependsOn?:           string | [...string]
@@ -61,10 +61,10 @@ DMS :: {
 			SourceIds?:        [...(string | fn.Fn)] | (string | fn.Fn)
 			SourceType?:       string | fn.Fn
 			SubscriptionName?: string | fn.Fn
-			Tags?: [...{
+			Tags?:             [...{
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}]
+			}] | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -87,10 +87,10 @@ DMS :: {
 			ReplicationInstanceClass:          string | fn.Fn
 			ReplicationInstanceIdentifier?:    string | fn.Fn
 			ReplicationSubnetGroupIdentifier?: string | fn.Fn
-			Tags?: [...{
+			Tags?:                             [...{
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}]
+			}] | fn.If
 			VpcSecurityGroupIds?: [...(string | fn.Fn)] | (string | fn.Fn)
 		}
 		DependsOn?:           string | [...string]
@@ -105,10 +105,10 @@ DMS :: {
 			ReplicationSubnetGroupDescription: string | fn.Fn
 			ReplicationSubnetGroupIdentifier?: string | fn.Fn
 			SubnetIds:                         [...(string | fn.Fn)] | (string | fn.Fn)
-			Tags?: [...{
+			Tags?:                             [...{
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}]
+			}] | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -128,10 +128,10 @@ DMS :: {
 			ReplicationTaskSettings?:   string | fn.Fn
 			SourceEndpointArn:          string | fn.Fn
 			TableMappings:              string | fn.Fn
-			Tags?: [...{
+			Tags?:                      [...{
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}]
+			}] | fn.If
 			TargetEndpointArn: string | fn.Fn
 		}
 		DependsOn?:           string | [...string]

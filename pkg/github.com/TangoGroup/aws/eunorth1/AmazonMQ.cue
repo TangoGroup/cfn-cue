@@ -8,41 +8,26 @@ AmazonMQ :: {
 		Properties: {
 			AutoMinorVersionUpgrade: bool | fn.Fn
 			BrokerName:              string | fn.Fn
-			Configuration?: {
-				Id:       string | fn.Fn
-				Revision: int | fn.Fn
-			}
-			DeploymentMode: string | fn.Fn
+			Configuration?:          {
+			} | fn.If
+			DeploymentMode:     string | fn.Fn
 			EncryptionOptions?: {
-				KmsKeyId?:      string | fn.Fn
-				UseAwsOwnedKey: bool | fn.Fn
-			}
+			} | fn.If
 			EngineType:       string | fn.Fn
 			EngineVersion:    string | fn.Fn
 			HostInstanceType: string | fn.Fn
-			Logs?: {
-				Audit?:   bool | fn.Fn
-				General?: bool | fn.Fn
-			}
+			Logs?:            {
+			} | fn.If
 			MaintenanceWindowStartTime?: {
-				DayOfWeek: string | fn.Fn
-				TimeOfDay: string | fn.Fn
-				TimeZone:  string | fn.Fn
-			}
+			} | fn.If
 			PubliclyAccessible: bool | fn.Fn
 			SecurityGroups?:    [...(string | fn.Fn)] | (string | fn.Fn)
 			StorageType?:       string | fn.Fn
 			SubnetIds?:         [...(string | fn.Fn)] | (string | fn.Fn)
-			Tags?: [...{
-				Key:   string | fn.Fn
-				Value: string | fn.Fn
-			}]
+			Tags?:              [...{
+			}] | fn.If
 			Users: [...{
-				ConsoleAccess?: bool | fn.Fn
-				Groups?:        [...(string | fn.Fn)] | (string | fn.Fn)
-				Password:       string | fn.Fn
-				Username:       string | fn.Fn
-			}]
+			}] | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -58,10 +43,8 @@ AmazonMQ :: {
 			EngineType:    string | fn.Fn
 			EngineVersion: string | fn.Fn
 			Name:          string | fn.Fn
-			Tags?: [...{
-				Key:   string | fn.Fn
-				Value: string | fn.Fn
-			}]
+			Tags?:         [...{
+			}] | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -72,11 +55,9 @@ AmazonMQ :: {
 	ConfigurationAssociation :: {
 		Type: "AWS::AmazonMQ::ConfigurationAssociation"
 		Properties: {
-			Broker: string | fn.Fn
+			Broker:        string | fn.Fn
 			Configuration: {
-				Id:       string | fn.Fn
-				Revision: int | fn.Fn
-			}
+			} | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

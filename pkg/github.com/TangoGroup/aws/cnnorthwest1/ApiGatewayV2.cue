@@ -20,12 +20,12 @@ ApiGatewayV2 :: {
 	DomainName :: {
 		Type: "AWS::ApiGatewayV2::DomainName"
 		Properties: {
-			DomainName: string | fn.Fn
+			DomainName:                string | fn.Fn
 			DomainNameConfigurations?: [...{
 				CertificateArn?:  string | fn.Fn
 				CertificateName?: string | fn.Fn
 				EndpointType?:    string | fn.Fn
-			}]
+			}] | fn.If
 			Tags?: {
 				[string]: _
 			} | fn.Fn

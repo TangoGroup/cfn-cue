@@ -115,18 +115,18 @@ Pinpoint :: {
 				LambdaFunctionName?: string | fn.Fn
 				Mode?:               string | fn.Fn
 				WebUrl?:             string | fn.Fn
-			}
+			} | fn.If
 			CloudWatchMetricsEnabled?: bool | fn.Fn
-			Limits?: {
+			Limits?:                   {
 				Daily?:             int | fn.Fn
 				MaximumDuration?:   int | fn.Fn
 				MessagesPerSecond?: int | fn.Fn
 				Total?:             int | fn.Fn
-			}
+			} | fn.If
 			QuietTime?: {
 				End:   string | fn.Fn
 				Start: string | fn.Fn
-			}
+			} | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -166,7 +166,7 @@ Pinpoint :: {
 						TimeToLive?:        int | fn.Fn
 						Title?:             string | fn.Fn
 						Url?:               string | fn.Fn
-					}
+					} | fn.If
 					APNSMessage?: {
 						Action?:            string | fn.Fn
 						Body?:              string | fn.Fn
@@ -180,7 +180,7 @@ Pinpoint :: {
 						TimeToLive?:        int | fn.Fn
 						Title?:             string | fn.Fn
 						Url?:               string | fn.Fn
-					}
+					} | fn.If
 					BaiduMessage?: {
 						Action?:            string | fn.Fn
 						Body?:              string | fn.Fn
@@ -194,7 +194,7 @@ Pinpoint :: {
 						TimeToLive?:        int | fn.Fn
 						Title?:             string | fn.Fn
 						Url?:               string | fn.Fn
-					}
+					} | fn.If
 					DefaultMessage?: {
 						Action?:            string | fn.Fn
 						Body?:              string | fn.Fn
@@ -208,13 +208,13 @@ Pinpoint :: {
 						TimeToLive?:        int | fn.Fn
 						Title?:             string | fn.Fn
 						Url?:               string | fn.Fn
-					}
+					} | fn.If
 					EmailMessage?: {
 						Body?:        string | fn.Fn
 						FromAddress?: string | fn.Fn
 						HtmlBody?:    string | fn.Fn
 						Title?:       string | fn.Fn
-					}
+					} | fn.If
 					GCMMessage?: {
 						Action?:            string | fn.Fn
 						Body?:              string | fn.Fn
@@ -228,15 +228,15 @@ Pinpoint :: {
 						TimeToLive?:        int | fn.Fn
 						Title?:             string | fn.Fn
 						Url?:               string | fn.Fn
-					}
+					} | fn.If
 					SMSMessage?: {
 						Body?:        string | fn.Fn
 						MessageType?: string | fn.Fn
 						SenderId?:    string | fn.Fn
-					}
-				}
+					} | fn.If
+				} | fn.If
 				Schedule?: {
-					EndTime?: string | fn.Fn
+					EndTime?:     string | fn.Fn
 					EventFilter?: {
 						Dimensions?: {
 							Attributes?: {
@@ -245,41 +245,41 @@ Pinpoint :: {
 							EventType?: {
 								DimensionType?: string | fn.Fn
 								Values?:        [...(string | fn.Fn)] | (string | fn.Fn)
-							}
+							} | fn.If
 							Metrics?: {
 								[string]: _
 							} | fn.Fn
-						}
+						} | fn.If
 						FilterType?: string | fn.Fn
-					}
+					} | fn.If
 					Frequency?:   string | fn.Fn
 					IsLocalTime?: bool | fn.Fn
-					QuietTime?: {
+					QuietTime?:   {
 						End:   string | fn.Fn
 						Start: string | fn.Fn
-					}
+					} | fn.If
 					StartTime?: string | fn.Fn
 					TimeZone?:  string | fn.Fn
-				}
+				} | fn.If
 				SizePercent?:          int | fn.Fn
 				TreatmentDescription?: string | fn.Fn
 				TreatmentName?:        string | fn.Fn
-			}]
+			}] | fn.If
 			ApplicationId: string | fn.Fn
 			CampaignHook?: {
 				LambdaFunctionName?: string | fn.Fn
 				Mode?:               string | fn.Fn
 				WebUrl?:             string | fn.Fn
-			}
+			} | fn.If
 			Description?:    string | fn.Fn
 			HoldoutPercent?: int | fn.Fn
 			IsPaused?:       bool | fn.Fn
-			Limits?: {
+			Limits?:         {
 				Daily?:             int | fn.Fn
 				MaximumDuration?:   int | fn.Fn
 				MessagesPerSecond?: int | fn.Fn
 				Total?:             int | fn.Fn
-			}
+			} | fn.If
 			MessageConfiguration: {
 				ADMMessage?: {
 					Action?:            string | fn.Fn
@@ -294,7 +294,7 @@ Pinpoint :: {
 					TimeToLive?:        int | fn.Fn
 					Title?:             string | fn.Fn
 					Url?:               string | fn.Fn
-				}
+				} | fn.If
 				APNSMessage?: {
 					Action?:            string | fn.Fn
 					Body?:              string | fn.Fn
@@ -308,7 +308,7 @@ Pinpoint :: {
 					TimeToLive?:        int | fn.Fn
 					Title?:             string | fn.Fn
 					Url?:               string | fn.Fn
-				}
+				} | fn.If
 				BaiduMessage?: {
 					Action?:            string | fn.Fn
 					Body?:              string | fn.Fn
@@ -322,7 +322,7 @@ Pinpoint :: {
 					TimeToLive?:        int | fn.Fn
 					Title?:             string | fn.Fn
 					Url?:               string | fn.Fn
-				}
+				} | fn.If
 				DefaultMessage?: {
 					Action?:            string | fn.Fn
 					Body?:              string | fn.Fn
@@ -336,13 +336,13 @@ Pinpoint :: {
 					TimeToLive?:        int | fn.Fn
 					Title?:             string | fn.Fn
 					Url?:               string | fn.Fn
-				}
+				} | fn.If
 				EmailMessage?: {
 					Body?:        string | fn.Fn
 					FromAddress?: string | fn.Fn
 					HtmlBody?:    string | fn.Fn
 					Title?:       string | fn.Fn
-				}
+				} | fn.If
 				GCMMessage?: {
 					Action?:            string | fn.Fn
 					Body?:              string | fn.Fn
@@ -356,16 +356,16 @@ Pinpoint :: {
 					TimeToLive?:        int | fn.Fn
 					Title?:             string | fn.Fn
 					Url?:               string | fn.Fn
-				}
+				} | fn.If
 				SMSMessage?: {
 					Body?:        string | fn.Fn
 					MessageType?: string | fn.Fn
 					SenderId?:    string | fn.Fn
-				}
-			}
-			Name: string | fn.Fn
+				} | fn.If
+			} | fn.If
+			Name:     string | fn.Fn
 			Schedule: {
-				EndTime?: string | fn.Fn
+				EndTime?:     string | fn.Fn
 				EventFilter?: {
 					Dimensions?: {
 						Attributes?: {
@@ -374,22 +374,22 @@ Pinpoint :: {
 						EventType?: {
 							DimensionType?: string | fn.Fn
 							Values?:        [...(string | fn.Fn)] | (string | fn.Fn)
-						}
+						} | fn.If
 						Metrics?: {
 							[string]: _
 						} | fn.Fn
-					}
+					} | fn.If
 					FilterType?: string | fn.Fn
-				}
+				} | fn.If
 				Frequency?:   string | fn.Fn
 				IsLocalTime?: bool | fn.Fn
-				QuietTime?: {
+				QuietTime?:   {
 					End:   string | fn.Fn
 					Start: string | fn.Fn
-				}
+				} | fn.If
 				StartTime?: string | fn.Fn
 				TimeZone?:  string | fn.Fn
-			}
+			} | fn.If
 			SegmentId:       string | fn.Fn
 			SegmentVersion?: int | fn.Fn
 			Tags?:           {
@@ -464,126 +464,130 @@ Pinpoint :: {
 		Type: "AWS::Pinpoint::Segment"
 		Properties: {
 			ApplicationId: string | fn.Fn
-			Dimensions?: {
+			Dimensions?:   {
 				Attributes?: {
 					[string]: _
 				} | fn.Fn
-				Behavior?: Recency?: {
-					Duration:    string | fn.Fn
-					RecencyType: string | fn.Fn
-				}
+				Behavior?: {
+					Recency?: {
+						Duration:    string | fn.Fn
+						RecencyType: string | fn.Fn
+					} | fn.If
+				} | fn.If
 				Demographic?: {
 					AppVersion?: {
 						DimensionType?: string | fn.Fn
 						Values?:        [...(string | fn.Fn)] | (string | fn.Fn)
-					}
+					} | fn.If
 					Channel?: {
 						DimensionType?: string | fn.Fn
 						Values?:        [...(string | fn.Fn)] | (string | fn.Fn)
-					}
+					} | fn.If
 					DeviceType?: {
 						DimensionType?: string | fn.Fn
 						Values?:        [...(string | fn.Fn)] | (string | fn.Fn)
-					}
+					} | fn.If
 					Make?: {
 						DimensionType?: string | fn.Fn
 						Values?:        [...(string | fn.Fn)] | (string | fn.Fn)
-					}
+					} | fn.If
 					Model?: {
 						DimensionType?: string | fn.Fn
 						Values?:        [...(string | fn.Fn)] | (string | fn.Fn)
-					}
+					} | fn.If
 					Platform?: {
 						DimensionType?: string | fn.Fn
 						Values?:        [...(string | fn.Fn)] | (string | fn.Fn)
-					}
-				}
+					} | fn.If
+				} | fn.If
 				Location?: {
 					Country?: {
 						DimensionType?: string | fn.Fn
 						Values?:        [...(string | fn.Fn)] | (string | fn.Fn)
-					}
+					} | fn.If
 					GPSPoint?: {
 						Coordinates: {
 							Latitude:  number | fn.Fn
 							Longitude: number | fn.Fn
-						}
+						} | fn.If
 						RangeInKilometers: number | fn.Fn
-					}
-				}
+					} | fn.If
+				} | fn.If
 				Metrics?: {
 					[string]: _
 				} | fn.Fn
 				UserAttributes?: {
 					[string]: _
 				} | fn.Fn
-			}
-			Name: string | fn.Fn
+			} | fn.If
+			Name:           string | fn.Fn
 			SegmentGroups?: {
 				Groups?: [...{
 					Dimensions?: [...{
 						Attributes?: {
 							[string]: _
 						} | fn.Fn
-						Behavior?: Recency?: {
-							Duration:    string | fn.Fn
-							RecencyType: string | fn.Fn
-						}
+						Behavior?: {
+							Recency?: {
+								Duration:    string | fn.Fn
+								RecencyType: string | fn.Fn
+							} | fn.If
+						} | fn.If
 						Demographic?: {
 							AppVersion?: {
 								DimensionType?: string | fn.Fn
 								Values?:        [...(string | fn.Fn)] | (string | fn.Fn)
-							}
+							} | fn.If
 							Channel?: {
 								DimensionType?: string | fn.Fn
 								Values?:        [...(string | fn.Fn)] | (string | fn.Fn)
-							}
+							} | fn.If
 							DeviceType?: {
 								DimensionType?: string | fn.Fn
 								Values?:        [...(string | fn.Fn)] | (string | fn.Fn)
-							}
+							} | fn.If
 							Make?: {
 								DimensionType?: string | fn.Fn
 								Values?:        [...(string | fn.Fn)] | (string | fn.Fn)
-							}
+							} | fn.If
 							Model?: {
 								DimensionType?: string | fn.Fn
 								Values?:        [...(string | fn.Fn)] | (string | fn.Fn)
-							}
+							} | fn.If
 							Platform?: {
 								DimensionType?: string | fn.Fn
 								Values?:        [...(string | fn.Fn)] | (string | fn.Fn)
-							}
-						}
+							} | fn.If
+						} | fn.If
 						Location?: {
 							Country?: {
 								DimensionType?: string | fn.Fn
 								Values?:        [...(string | fn.Fn)] | (string | fn.Fn)
-							}
+							} | fn.If
 							GPSPoint?: {
 								Coordinates: {
 									Latitude:  number | fn.Fn
 									Longitude: number | fn.Fn
-								}
+								} | fn.If
 								RangeInKilometers: number | fn.Fn
-							}
-						}
+							} | fn.If
+						} | fn.If
 						Metrics?: {
 							[string]: _
 						} | fn.Fn
 						UserAttributes?: {
 							[string]: _
 						} | fn.Fn
-					}]
+					}] | fn.If
 					SourceSegments?: [...{
 						Id:       string | fn.Fn
 						Version?: int | fn.Fn
-					}]
+					}] | fn.If
 					SourceType?: string | fn.Fn
 					Type?:       string | fn.Fn
-				}]
+				}] | fn.If
 				Include?: string | fn.Fn
-			}
+			} | fn.If
 			Tags?: {
 				[string]: _
 			} | fn.Fn

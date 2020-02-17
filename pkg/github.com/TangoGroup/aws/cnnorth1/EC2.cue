@@ -11,10 +11,10 @@ EC2 :: {
 		Properties: {
 			BgpAsn:    int | fn.Fn
 			IpAddress: string | fn.Fn
-			Tags?: [...{
+			Tags?:     [...{
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}]
+			}] | fn.If
 			Type: ("ipsec.1") | fn.Fn
 		}
 		DependsOn?:           string | [...string]
@@ -31,10 +31,10 @@ EC2 :: {
 			NetbiosNameServers?: [...(string | fn.Fn)] | (string | fn.Fn)
 			NetbiosNodeType?:    (1 | 2 | 4 | 8) | fn.Fn
 			NtpServers?:         [...(string | fn.Fn)] | (string | fn.Fn)
-			Tags?: [...{
+			Tags?:               [...{
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}]
+			}] | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -46,12 +46,12 @@ EC2 :: {
 		Type: "AWS::EC2::EC2Fleet"
 		Properties: {
 			ExcessCapacityTerminationPolicy?: ("no-termination" | "termination") | fn.Fn
-			LaunchTemplateConfigs: [...{
+			LaunchTemplateConfigs:            [...{
 				LaunchTemplateSpecification?: {
 					LaunchTemplateId?:   string | fn.Fn
 					LaunchTemplateName?: string | fn.Fn
 					Version?:            string | fn.Fn
-				}
+				} | fn.If
 				Overrides?: [...{
 					AvailabilityZone?: string | fn.Fn
 					InstanceType?:     string | fn.Fn
@@ -59,28 +59,30 @@ EC2 :: {
 					Priority?:         number | fn.Fn
 					SubnetId?:         string | fn.Fn
 					WeightedCapacity?: number | fn.Fn
-				}]
-			}]
-			OnDemandOptions?: AllocationStrategy?: ("lowest-price" | "prioritized") | fn.Fn
+				}] | fn.If
+			}] | fn.If
+			OnDemandOptions?: {
+				AllocationStrategy?: ("lowest-price" | "prioritized") | fn.Fn
+			} | fn.If
 			ReplaceUnhealthyInstances?: bool | fn.Fn
-			SpotOptions?: {
+			SpotOptions?:               {
 				AllocationStrategy?:           ("capacityOptimized" | "diversified" | "lowestPrice") | fn.Fn
 				InstanceInterruptionBehavior?: ("hibernate" | "stop" | "terminate") | fn.Fn
 				InstancePoolsToUseCount?:      int | fn.Fn
-			}
+			} | fn.If
 			TagSpecifications?: [...{
 				ResourceType?: string | fn.Fn
-				Tags?: [...{
+				Tags?:         [...{
 					Key?:   string | fn.Fn
 					Value?: string | fn.Fn
-				}]
-			}]
+				}] | fn.If
+			}] | fn.If
 			TargetCapacitySpecification: {
 				DefaultTargetCapacityType?: ("on-demand" | "spot") | fn.Fn
 				OnDemandTargetCapacity?:    int | fn.Fn
 				SpotTargetCapacity?:        int | fn.Fn
 				TotalTargetCapacity:        int | fn.Fn
-			}
+			} | fn.If
 			TerminateInstancesWithExpiration?: bool | fn.Fn
 			Type?:                             ("instant" | "maintain" | "request") | fn.Fn
 			ValidFrom?:                        string | fn.Fn
@@ -98,10 +100,10 @@ EC2 :: {
 			Domain?:         ("standard" | "vpc") | fn.Fn
 			InstanceId?:     string | fn.Fn
 			PublicIpv4Pool?: string | fn.Fn
-			Tags?: [...{
+			Tags?:           [...{
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}]
+			}] | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -167,12 +169,12 @@ EC2 :: {
 	Instance :: {
 		Type: "AWS::EC2::Instance"
 		Properties: {
-			AdditionalInfo?:   string | fn.Fn
-			Affinity?:         ("default" | "host") | fn.Fn
-			AvailabilityZone?: string | fn.Fn
+			AdditionalInfo?:      string | fn.Fn
+			Affinity?:            ("default" | "host") | fn.Fn
+			AvailabilityZone?:    string | fn.Fn
 			BlockDeviceMappings?: [...{
 				DeviceName: string | fn.Fn
-				Ebs?: {
+				Ebs?:       {
 					DeleteOnTermination?: bool | fn.Fn
 					Encrypted?:           bool | fn.Fn
 					Iops?:                (>=100 & <=20000) | fn.Fn
@@ -180,25 +182,29 @@ EC2 :: {
 					SnapshotId?:          string | fn.Fn
 					VolumeSize?:          int | fn.Fn
 					VolumeType?:          ("gp2" | "io1" | "sc1" | "st1" | "standard") | fn.Fn
-				}
+				} | fn.If
 				NoDevice?:    string | fn.Fn
 				VirtualName?: string | fn.Fn
-			}]
+			}] | fn.If
 			CpuOptions?: {
 				CoreCount?:      int | fn.Fn
 				ThreadsPerCore?: int | fn.Fn
-			}
-			CreditSpecification?: CPUCredits?: ("standard" | "unlimited") | fn.Fn
-			DisableApiTermination?: bool | fn.Fn
-			EbsOptimized?:          bool | fn.Fn
+			} | fn.If
+			CreditSpecification?: {
+				CPUCredits?: ("standard" | "unlimited") | fn.Fn
+			} | fn.If
+			DisableApiTermination?:    bool | fn.Fn
+			EbsOptimized?:             bool | fn.Fn
 			ElasticGpuSpecifications?: [...{
 				Type: string | fn.Fn
-			}]
+			}] | fn.If
 			ElasticInferenceAccelerators?: [...{
 				Count?: int | fn.Fn
 				Type:   ("eia1.large" | "eia1.medium" | "eia1.xlarge") | fn.Fn
-			}]
-			HibernationOptions?: Configured?: bool | fn.Fn
+			}] | fn.If
+			HibernationOptions?: {
+				Configured?: bool | fn.Fn
+			} | fn.If
 			HostId?:                            string | fn.Fn
 			HostResourceGroupArn?:              string | fn.Fn
 			IamInstanceProfile?:                (=~#"[a-zA-Z0-9+=,.@\-_]+"#) | fn.Fn
@@ -206,20 +212,20 @@ EC2 :: {
 			InstanceInitiatedShutdownBehavior?: string | fn.Fn
 			InstanceType?:                      string | fn.Fn
 			Ipv6AddressCount?:                  int | fn.Fn
-			Ipv6Addresses?: [...{
+			Ipv6Addresses?:                     [...{
 				Ipv6Address: string | fn.Fn
-			}]
-			KernelId?: string | fn.Fn
-			KeyName?:  string | fn.Fn
+			}] | fn.If
+			KernelId?:       string | fn.Fn
+			KeyName?:        string | fn.Fn
 			LaunchTemplate?: {
 				LaunchTemplateId?:   string | fn.Fn
 				LaunchTemplateName?: string | fn.Fn
 				Version:             string | fn.Fn
-			}
+			} | fn.If
 			LicenseSpecifications?: [...{
 				LicenseConfigurationArn: string | fn.Fn
-			}]
-			Monitoring?: bool | fn.Fn
+			}] | fn.If
+			Monitoring?:        bool | fn.Fn
 			NetworkInterfaces?: [...{
 				AssociatePublicIpAddress?: bool | fn.Fn
 				DeleteOnTermination?:      bool | fn.Fn
@@ -227,42 +233,42 @@ EC2 :: {
 				DeviceIndex:               string | fn.Fn
 				GroupSet?:                 [...(string | fn.Fn)] | (string | fn.Fn)
 				Ipv6AddressCount?:         int | fn.Fn
-				Ipv6Addresses?: [...{
+				Ipv6Addresses?:            [...{
 					Ipv6Address: string | fn.Fn
-				}]
+				}] | fn.If
 				NetworkInterfaceId?: string | fn.Fn
 				PrivateIpAddress?:   string | fn.Fn
 				PrivateIpAddresses?: [...{
 					Primary:          bool | fn.Fn
 					PrivateIpAddress: string | fn.Fn
-				}]
+				}] | fn.If
 				SecondaryPrivateIpAddressCount?: int | fn.Fn
 				SubnetId?:                       string | fn.Fn
-			}]
+			}] | fn.If
 			PlacementGroupName?: string | fn.Fn
 			PrivateIpAddress?:   string | fn.Fn
 			RamdiskId?:          string | fn.Fn
 			SecurityGroupIds?:   [...(string | fn.Fn)] | (string | fn.Fn)
 			SecurityGroups?:     [...(string | fn.Fn)] | (string | fn.Fn)
 			SourceDestCheck?:    bool | fn.Fn
-			SsmAssociations?: [...{
+			SsmAssociations?:    [...{
 				AssociationParameters?: [...{
 					Key:   string | fn.Fn
 					Value: [...(string | fn.Fn)] | (string | fn.Fn)
-				}]
+				}] | fn.If
 				DocumentName: string | fn.Fn
-			}]
+			}] | fn.If
 			SubnetId?: string | fn.Fn
-			Tags?: [...{
+			Tags?:     [...{
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}]
+			}] | fn.If
 			Tenancy?:  ("dedicated" | "default" | "host") | fn.Fn
 			UserData?: string | fn.Fn
-			Volumes?: [...{
+			Volumes?:  [...{
 				Device:   string | fn.Fn
 				VolumeId: string | fn.Fn
-			}]
+			}] | fn.If
 		}
 		DependsOn?: string | [...string]
 		CreationPolicy?: {
@@ -282,7 +288,7 @@ EC2 :: {
 		Properties: Tags?: [...{
 			Key:   string | fn.Fn
 			Value: string | fn.Fn
-		}]
+		}] | fn.If
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -295,7 +301,7 @@ EC2 :: {
 			LaunchTemplateData?: {
 				BlockDeviceMappings?: [...{
 					DeviceName?: string | fn.Fn
-					Ebs?: {
+					Ebs?:        {
 						DeleteOnTermination?: bool | fn.Fn
 						Encrypted?:           bool | fn.Fn
 						Iops?:                int | fn.Fn
@@ -303,51 +309,65 @@ EC2 :: {
 						SnapshotId?:          string | fn.Fn
 						VolumeSize?:          int | fn.Fn
 						VolumeType?:          ("gp2" | "io1" | "sc1" | "st1" | "standard") | fn.Fn
-					}
+					} | fn.If
 					NoDevice?:    string | fn.Fn
 					VirtualName?: string | fn.Fn
-				}]
+				}] | fn.If
 				CapacityReservationSpecification?: {
 					CapacityReservationPreference?: string | fn.Fn
-					CapacityReservationTarget?: CapacityReservationId?: string | fn.Fn
-				}
+					CapacityReservationTarget?:     {
+						CapacityReservationId?: string | fn.Fn
+					} | fn.If
+				} | fn.If
 				CpuOptions?: {
 					CoreCount?:      int | fn.Fn
 					ThreadsPerCore?: int | fn.Fn
-				}
-				CreditSpecification?: CpuCredits?: ("standard" | "unlimited") | fn.Fn
-				DisableApiTermination?: bool | fn.Fn
-				EbsOptimized?:          bool | fn.Fn
+				} | fn.If
+				CreditSpecification?: {
+					CpuCredits?: ("standard" | "unlimited") | fn.Fn
+				} | fn.If
+				DisableApiTermination?:    bool | fn.Fn
+				EbsOptimized?:             bool | fn.Fn
 				ElasticGpuSpecifications?: [...{
 					Type?: string | fn.Fn
-				}]
+				}] | fn.If
 				ElasticInferenceAccelerators?: [...{
-					Type?: string | fn.Fn
-				}]
-				HibernationOptions?: Configured?: bool | fn.Fn
+					Count?: int | fn.Fn
+					Type?:  string | fn.Fn
+				}] | fn.If
+				HibernationOptions?: {
+					Configured?: bool | fn.Fn
+				} | fn.If
 				IamInstanceProfile?: {
 					Arn?:  string | fn.Fn
 					Name?: (=~#"[a-zA-Z0-9+=,.@\-_]+"#) | fn.Fn
-				}
+				} | fn.If
 				ImageId?:                           string | fn.Fn
 				InstanceInitiatedShutdownBehavior?: ("stop" | "terminate") | fn.Fn
-				InstanceMarketOptions?: {
-					MarketType?: ("spot") | fn.Fn
+				InstanceMarketOptions?:             {
+					MarketType?:  ("spot") | fn.Fn
 					SpotOptions?: {
 						BlockDurationMinutes?:         int | fn.Fn
 						InstanceInterruptionBehavior?: ("hibernate" | "stop" | "terminate") | fn.Fn
 						MaxPrice?:                     string | fn.Fn
 						SpotInstanceType?:             ("one-time" | "persistent") | fn.Fn
 						ValidUntil?:                   string | fn.Fn
-					}
-				}
-				InstanceType?: string | fn.Fn
-				KernelId?:     string | fn.Fn
-				KeyName?:      string | fn.Fn
+					} | fn.If
+				} | fn.If
+				InstanceType?:          string | fn.Fn
+				KernelId?:              string | fn.Fn
+				KeyName?:               string | fn.Fn
 				LicenseSpecifications?: [...{
 					LicenseConfigurationArn?: string | fn.Fn
-				}]
-				Monitoring?: Enabled?: bool | fn.Fn
+				}] | fn.If
+				MetadataOptions?: {
+					HttpEndpoint?:            string | fn.Fn
+					HttpPutResponseHopLimit?: int | fn.Fn
+					HttpTokens?:              string | fn.Fn
+				} | fn.If
+				Monitoring?: {
+					Enabled?: bool | fn.Fn
+				} | fn.If
 				NetworkInterfaces?: [...{
 					AssociatePublicIpAddress?: bool | fn.Fn
 					DeleteOnTermination?:      bool | fn.Fn
@@ -356,37 +376,40 @@ EC2 :: {
 					Groups?:                   [...(string | fn.Fn)] | (string | fn.Fn)
 					InterfaceType?:            string | fn.Fn
 					Ipv6AddressCount?:         int | fn.Fn
-					Ipv6Addresses?: [...{
+					Ipv6Addresses?:            [...{
 						Ipv6Address?: string | fn.Fn
-					}]
+					}] | fn.If
 					NetworkInterfaceId?: string | fn.Fn
 					PrivateIpAddress?:   string | fn.Fn
 					PrivateIpAddresses?: [...{
 						Primary?:          bool | fn.Fn
 						PrivateIpAddress?: string | fn.Fn
-					}]
+					}] | fn.If
 					SecondaryPrivateIpAddressCount?: int | fn.Fn
 					SubnetId?:                       string | fn.Fn
-				}]
+				}] | fn.If
 				Placement?: {
-					Affinity?:         string | fn.Fn
-					AvailabilityZone?: string | fn.Fn
-					GroupName?:        string | fn.Fn
-					HostId?:           string | fn.Fn
-					Tenancy?:          ("dedicated" | "default" | "host") | fn.Fn
-				}
-				RamDiskId?:        string | fn.Fn
-				SecurityGroupIds?: [...(string | fn.Fn)] | (string | fn.Fn)
-				SecurityGroups?:   [...(string | fn.Fn)] | (string | fn.Fn)
+					Affinity?:             string | fn.Fn
+					AvailabilityZone?:     string | fn.Fn
+					GroupName?:            string | fn.Fn
+					HostId?:               string | fn.Fn
+					HostResourceGroupArn?: string | fn.Fn
+					PartitionNumber?:      int | fn.Fn
+					SpreadDomain?:         string | fn.Fn
+					Tenancy?:              ("dedicated" | "default" | "host") | fn.Fn
+				} | fn.If
+				RamDiskId?:         string | fn.Fn
+				SecurityGroupIds?:  [...(string | fn.Fn)] | (string | fn.Fn)
+				SecurityGroups?:    [...(string | fn.Fn)] | (string | fn.Fn)
 				TagSpecifications?: [...{
 					ResourceType: ("instance" | "volume") | fn.Fn
-					Tags: [...{
+					Tags:         [...{
 						Key:   string | fn.Fn
 						Value: string | fn.Fn
-					}]
-				}]
+					}] | fn.If
+				}] | fn.If
 				UserData?: string | fn.Fn
-			}
+			} | fn.If
 			LaunchTemplateName?: (strings.MinRunes(3) & strings.MaxRunes(128) & (=~#"^[a-zA-Z0-9().\-/_]+$"#)) | fn.Fn
 		}
 		DependsOn?:           string | [...string]
@@ -400,10 +423,10 @@ EC2 :: {
 		Properties: {
 			AllocationId: string | fn.Fn
 			SubnetId:     string | fn.Fn
-			Tags?: [...{
+			Tags?:        [...{
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}]
+			}] | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -417,7 +440,7 @@ EC2 :: {
 			Tags?: [...{
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}]
+			}] | fn.If
 			VpcId: string | fn.Fn
 		}
 		DependsOn?:           string | [...string]
@@ -431,16 +454,16 @@ EC2 :: {
 		Properties: {
 			CidrBlock?: (=~#"^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(/([0-9]|[1-2][0-9]|3[0-2]))$"#) | fn.Fn
 			Egress?:    bool | fn.Fn
-			Icmp?: {
+			Icmp?:      {
 				Code?: int | fn.Fn
 				Type?: int | fn.Fn
-			}
+			} | fn.If
 			Ipv6CidrBlock?: string | fn.Fn
 			NetworkAclId:   string | fn.Fn
-			PortRange?: {
+			PortRange?:     {
 				From?: int | fn.Fn
 				To?:   int | fn.Fn
-			}
+			} | fn.If
 			Protocol:   int | fn.Fn
 			RuleAction: ("allow" | "deny") | fn.Fn
 			RuleNumber: (>=1 & <=32766) | fn.Fn
@@ -458,19 +481,21 @@ EC2 :: {
 			GroupSet?:         [...(string | fn.Fn)] | (string | fn.Fn)
 			InterfaceType?:    string | fn.Fn
 			Ipv6AddressCount?: int | fn.Fn
-			Ipv6Addresses?: Ipv6Address: string | fn.Fn
-			PrivateIpAddress?: string | fn.Fn
+			Ipv6Addresses?:    {
+				Ipv6Address: string | fn.Fn
+			} | fn.If
+			PrivateIpAddress?:   string | fn.Fn
 			PrivateIpAddresses?: [...{
 				Primary:          bool | fn.Fn
 				PrivateIpAddress: string | fn.Fn
-			}]
+			}] | fn.If
 			SecondaryPrivateIpAddressCount?: int | fn.Fn
 			SourceDestCheck?:                bool | fn.Fn
 			SubnetId:                        string | fn.Fn
-			Tags?: [...{
+			Tags?:                           [...{
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}]
+			}] | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -540,7 +565,7 @@ EC2 :: {
 			Tags?: [...{
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}]
+			}] | fn.If
 			VpcId: string | fn.Fn
 		}
 		DependsOn?:           string | [...string]
@@ -552,8 +577,8 @@ EC2 :: {
 	SecurityGroup :: {
 		Type: "AWS::EC2::SecurityGroup"
 		Properties: {
-			GroupDescription: (strings.MinRunes(0) & strings.MaxRunes(255) & (=~#"^([a-z,A-Z,0-9,. _\-:/()#,@[\]+=&;\{\}!$*])*$"#)) | fn.Fn
-			GroupName?:       string | fn.Fn
+			GroupDescription:     (strings.MinRunes(0) & strings.MaxRunes(255) & (=~#"^([a-z,A-Z,0-9,. _\-:/()#,@[\]+=&;\{\}!$*])*$"#)) | fn.Fn
+			GroupName?:           string | fn.Fn
 			SecurityGroupEgress?: [...{
 				CidrIp?:                     (=~#"^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(/([0-9]|[1-2][0-9]|3[0-2]))$"#) | fn.Fn
 				CidrIpv6?:                   string | fn.Fn
@@ -563,7 +588,7 @@ EC2 :: {
 				FromPort?:                   int | fn.Fn
 				IpProtocol:                  string | fn.Fn
 				ToPort?:                     int | fn.Fn
-			}]
+			}] | fn.If
 			SecurityGroupIngress?: [...{
 				CidrIp?:                     (=~#"^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(/([0-9]|[1-2][0-9]|3[0-2]))$"#) | fn.Fn
 				CidrIpv6?:                   string | fn.Fn
@@ -575,11 +600,11 @@ EC2 :: {
 				SourceSecurityGroupName?:    string | fn.Fn
 				SourceSecurityGroupOwnerId?: string | fn.Fn
 				ToPort?:                     int | fn.Fn
-			}]
+			}] | fn.If
 			Tags?: [...{
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}]
+			}] | fn.If
 			VpcId?: string | fn.Fn
 		}
 		DependsOn?:           string | [...string]
@@ -636,27 +661,31 @@ EC2 :: {
 			ExcessCapacityTerminationPolicy?: ("default" | "noTermination") | fn.Fn
 			IamFleetRole:                     (=~#"arn:(aws[a-zA-Z-]*)?:iam::\d{12}:role/[a-zA-Z_0-9+=,.@\-_/]+"#) | fn.Fn
 			InstanceInterruptionBehavior?:    ("hibernate" | "stop" | "terminate") | fn.Fn
-			LaunchSpecifications?: [...{
+			LaunchSpecifications?:            [...{
 				BlockDeviceMappings?: [...{
 					DeviceName: string | fn.Fn
-					Ebs?: {
+					Ebs?:       {
 						DeleteOnTermination?: bool | fn.Fn
 						Encrypted?:           bool | fn.Fn
 						Iops?:                int | fn.Fn
 						SnapshotId?:          string | fn.Fn
 						VolumeSize?:          int | fn.Fn
 						VolumeType?:          ("gp2" | "io1" | "sc1" | "st1" | "standard") | fn.Fn
-					}
+					} | fn.If
 					NoDevice?:    string | fn.Fn
 					VirtualName?: string | fn.Fn
-				}]
-				EbsOptimized?: bool | fn.Fn
-				IamInstanceProfile?: Arn?: string | fn.Fn
+				}] | fn.If
+				EbsOptimized?:       bool | fn.Fn
+				IamInstanceProfile?: {
+					Arn?: string | fn.Fn
+				} | fn.If
 				ImageId:      string | fn.Fn
 				InstanceType: string | fn.Fn
 				KernelId?:    string | fn.Fn
 				KeyName?:     string | fn.Fn
-				Monitoring?: Enabled?: bool | fn.Fn
+				Monitoring?:  {
+					Enabled?: bool | fn.Fn
+				} | fn.If
 				NetworkInterfaces?: [...{
 					AssociatePublicIpAddress?: bool | fn.Fn
 					DeleteOnTermination?:      bool | fn.Fn
@@ -664,60 +693,64 @@ EC2 :: {
 					DeviceIndex?:              int | fn.Fn
 					Groups?:                   [...(string | fn.Fn)] | (string | fn.Fn)
 					Ipv6AddressCount?:         int | fn.Fn
-					Ipv6Addresses?: [...{
+					Ipv6Addresses?:            [...{
 						Ipv6Address: string | fn.Fn
-					}]
+					}] | fn.If
 					NetworkInterfaceId?: string | fn.Fn
 					PrivateIpAddresses?: [...{
 						Primary?:         bool | fn.Fn
 						PrivateIpAddress: string | fn.Fn
-					}]
+					}] | fn.If
 					SecondaryPrivateIpAddressCount?: int | fn.Fn
 					SubnetId?:                       string | fn.Fn
-				}]
+				}] | fn.If
 				Placement?: {
 					AvailabilityZone?: string | fn.Fn
 					GroupName?:        string | fn.Fn
 					Tenancy?:          string | fn.Fn
-				}
-				RamdiskId?: string | fn.Fn
+				} | fn.If
+				RamdiskId?:      string | fn.Fn
 				SecurityGroups?: [...{
 					GroupId: string | fn.Fn
-				}]
-				SpotPrice?: string | fn.Fn
-				SubnetId?:  string | fn.Fn
+				}] | fn.If
+				SpotPrice?:         string | fn.Fn
+				SubnetId?:          string | fn.Fn
 				TagSpecifications?: [...{
 					ResourceType?: string | fn.Fn
-					Tags?: [...{
+					Tags?:         [...{
 						Key:   string | fn.Fn
 						Value: string | fn.Fn
-					}]
-				}]
+					}] | fn.If
+				}] | fn.If
 				UserData?:         string | fn.Fn
 				WeightedCapacity?: number | fn.Fn
-			}]
+			}] | fn.If
 			LaunchTemplateConfigs?: [...{
 				LaunchTemplateSpecification?: {
 					LaunchTemplateId?:   string | fn.Fn
 					LaunchTemplateName?: string | fn.Fn
 					Version:             string | fn.Fn
-				}
+				} | fn.If
 				Overrides?: [...{
 					AvailabilityZone?: string | fn.Fn
 					InstanceType?:     string | fn.Fn
 					SpotPrice?:        string | fn.Fn
 					SubnetId?:         string | fn.Fn
 					WeightedCapacity?: number | fn.Fn
-				}]
-			}]
+				}] | fn.If
+			}] | fn.If
 			LoadBalancersConfig?: {
-				ClassicLoadBalancersConfig?: ClassicLoadBalancers: [...{
-					Name: string | fn.Fn
-				}]
-				TargetGroupsConfig?: TargetGroups: [...{
-					Arn: string | fn.Fn
-				}]
-			}
+				ClassicLoadBalancersConfig?: {
+					ClassicLoadBalancers: [...{
+						Name: string | fn.Fn
+					}] | fn.If
+				} | fn.If
+				TargetGroupsConfig?: {
+					TargetGroups: [...{
+						Arn: string | fn.Fn
+					}] | fn.If
+				} | fn.If
+			} | fn.If
 			ReplaceUnhealthyInstances?:        bool | fn.Fn
 			SpotPrice?:                        string | fn.Fn
 			TargetCapacity:                    int | fn.Fn
@@ -725,7 +758,7 @@ EC2 :: {
 			Type?:                             ("instant" | "maintain" | "request") | fn.Fn
 			ValidFrom?:                        string | fn.Fn
 			ValidUntil?:                       string | fn.Fn
-		}
+		} | fn.If
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -740,10 +773,10 @@ EC2 :: {
 			CidrBlock:                    string | fn.Fn
 			Ipv6CidrBlock?:               string | fn.Fn
 			MapPublicIpOnLaunch?:         bool | fn.Fn
-			Tags?: [...{
+			Tags?:                        [...{
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}]
+			}] | fn.If
 			VpcId: string | fn.Fn
 		}
 		DependsOn?:           string | [...string]
@@ -795,10 +828,10 @@ EC2 :: {
 			EnableDnsHostnames?: bool | fn.Fn
 			EnableDnsSupport?:   bool | fn.Fn
 			InstanceTenancy?:    ("dedicated" | "default") | fn.Fn
-			Tags?: [...{
+			Tags?:               [...{
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}]
+			}] | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -909,10 +942,10 @@ EC2 :: {
 			PeerRegion?:  string | fn.Fn
 			PeerRoleArn?: string | fn.Fn
 			PeerVpcId:    string | fn.Fn
-			Tags?: [...{
+			Tags?:        [...{
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}]
+			}] | fn.If
 			VpcId: string | fn.Fn
 		}
 		DependsOn?:           string | [...string]
@@ -926,17 +959,17 @@ EC2 :: {
 		Properties: {
 			CustomerGatewayId: string | fn.Fn
 			StaticRoutesOnly?: bool | fn.Fn
-			Tags?: [...{
+			Tags?:             [...{
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}]
-			TransitGatewayId?: string | fn.Fn
-			Type:              ("ipsec.1") | fn.Fn
-			VpnGatewayId?:     string | fn.Fn
+			}] | fn.If
+			TransitGatewayId?:               string | fn.Fn
+			Type:                            ("ipsec.1") | fn.Fn
+			VpnGatewayId?:                   string | fn.Fn
 			VpnTunnelOptionsSpecifications?: [...{
 				PreSharedKey?:     string | fn.Fn
 				TunnelInsideCidr?: string | fn.Fn
-			}]
+			}] | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -960,10 +993,10 @@ EC2 :: {
 		Type: "AWS::EC2::VPNGateway"
 		Properties: {
 			AmazonSideAsn?: int | fn.Fn
-			Tags?: [...{
+			Tags?:          [...{
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}]
+			}] | fn.If
 			Type: ("ipsec.1") | fn.Fn
 		}
 		DependsOn?:           string | [...string]
@@ -994,10 +1027,10 @@ EC2 :: {
 			KmsKeyId?:        string | fn.Fn
 			Size?:            int | fn.Fn
 			SnapshotId?:      string | fn.Fn
-			Tags?: [...{
+			Tags?:            [...{
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}]
+			}] | fn.If
 			VolumeType?: ("gp2" | "io1" | "sc1" | "st1" | "standard") | fn.Fn
 		}
 		DependsOn?:           string | [...string]

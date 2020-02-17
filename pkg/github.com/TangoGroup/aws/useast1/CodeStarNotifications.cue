@@ -17,7 +17,7 @@ CodeStarNotifications :: {
 			Targets: [...{
 				TargetAddress?: string | fn.Fn
 				TargetType?:    string | fn.Fn
-			}]
+			}] | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

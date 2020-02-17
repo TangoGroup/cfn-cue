@@ -11,7 +11,9 @@ Neptune :: {
 			DBClusterIdentifier?:         string | fn.Fn
 			DBClusterParameterGroupName?: string | fn.Fn
 			DBSubnetGroupName?:           string | fn.Fn
+			DeletionProtection?:          bool | fn.Fn
 			EnableCloudwatchLogsExports?: [...(string | fn.Fn)] | (string | fn.Fn)
+			EngineVersion?:               string | fn.Fn
 			IamAuthEnabled?:              bool | fn.Fn
 			KmsKeyId?:                    string | fn.Fn
 			Port?:                        int | fn.Fn
@@ -19,10 +21,10 @@ Neptune :: {
 			PreferredMaintenanceWindow?:  string | fn.Fn
 			SnapshotIdentifier?:          string | fn.Fn
 			StorageEncrypted?:            bool | fn.Fn
-			Tags?: [...{
+			Tags?:                        [...{
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}]
+			}] | fn.If
 			VpcSecurityGroupIds?: [...(string | fn.Fn)] | (string | fn.Fn)
 		}
 		DependsOn?:           string | [...string]

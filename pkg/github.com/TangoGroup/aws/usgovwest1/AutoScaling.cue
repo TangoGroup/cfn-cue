@@ -14,11 +14,11 @@ AutoScaling :: {
 			HealthCheckType?:         ("EC2" | "ELB") | fn.Fn
 			InstanceId?:              string | fn.Fn
 			LaunchConfigurationName?: string | fn.Fn
-			LaunchTemplate?: {
+			LaunchTemplate?:          {
 				LaunchTemplateId?:   string | fn.Fn
 				LaunchTemplateName?: string | fn.Fn
 				Version:             string | fn.Fn
-			}
+			} | fn.If
 			LifecycleHookSpecificationList?: [...{
 				DefaultResult?:         ("ABANDON" | "CONTINUE") | fn.Fn
 				HeartbeatTimeout?:      int | fn.Fn
@@ -27,14 +27,14 @@ AutoScaling :: {
 				NotificationMetadata?:  string | fn.Fn
 				NotificationTargetARN?: string | fn.Fn
 				RoleARN?:               string | fn.Fn
-			}]
+			}] | fn.If
 			LoadBalancerNames?: [...(string | fn.Fn)] | (string | fn.Fn)
 			MaxSize:            string | fn.Fn
 			MetricsCollection?: [...{
 				Granularity: string | fn.Fn
 				Metrics?:    [...(string | fn.Fn)] | (string | fn.Fn)
-			}]
-			MinSize: string | fn.Fn
+			}] | fn.If
+			MinSize:               string | fn.Fn
 			MixedInstancesPolicy?: {
 				InstancesDistribution?: {
 					OnDemandAllocationStrategy?:          string | fn.Fn
@@ -43,30 +43,30 @@ AutoScaling :: {
 					SpotAllocationStrategy?:              string | fn.Fn
 					SpotInstancePools?:                   int | fn.Fn
 					SpotMaxPrice?:                        string | fn.Fn
-				}
+				} | fn.If
 				LaunchTemplate: {
 					LaunchTemplateSpecification: {
 						LaunchTemplateId?:   string | fn.Fn
 						LaunchTemplateName?: string | fn.Fn
 						Version:             string | fn.Fn
-					}
+					} | fn.If
 					Overrides?: [...{
 						InstanceType?:     string | fn.Fn
 						WeightedCapacity?: string | fn.Fn
-					}]
-				}
-			}
+					}] | fn.If
+				} | fn.If
+			} | fn.If
 			NotificationConfigurations?: [...{
 				NotificationTypes?: [...(string | fn.Fn)] | (string | fn.Fn)
 				TopicARN:           string | fn.Fn
-			}]
+			}] | fn.If
 			PlacementGroup?:       string | fn.Fn
 			ServiceLinkedRoleARN?: string | fn.Fn
-			Tags?: [...{
+			Tags?:                 [...{
 				Key:               string | fn.Fn
 				PropagateAtLaunch: bool | fn.Fn
 				Value:             string | fn.Fn
-			}]
+			}] | fn.If
 			TargetGroupARNs?:     [...(string | fn.Fn)] | (string | fn.Fn)
 			TerminationPolicies?: [...(string | fn.Fn)] | (string | fn.Fn)
 			VPCZoneIdentifier?:   [...(string | fn.Fn)] | (string | fn.Fn)
@@ -89,19 +89,19 @@ AutoScaling :: {
 		Type: "AWS::AutoScaling::LaunchConfiguration"
 		Properties: {
 			AssociatePublicIpAddress?: bool | fn.Fn
-			BlockDeviceMappings?: [...{
+			BlockDeviceMappings?:      [...{
 				DeviceName: string | fn.Fn
-				Ebs?: {
+				Ebs?:       {
 					DeleteOnTermination?: bool | fn.Fn
 					Encrypted?:           bool | fn.Fn
 					Iops?:                int | fn.Fn
 					SnapshotId?:          string | fn.Fn
 					VolumeSize?:          int | fn.Fn
 					VolumeType?:          ("gp2" | "io1" | "sc1" | "st1" | "standard") | fn.Fn
-				}
+				} | fn.If
 				NoDevice?:    bool | fn.Fn
 				VirtualName?: string | fn.Fn
-			}]
+			}] | fn.If
 			ClassicLinkVPCId?:             string | fn.Fn
 			ClassicLinkVPCSecurityGroups?: [...(string | fn.Fn)] | (string | fn.Fn)
 			EbsOptimized?:                 bool | fn.Fn
@@ -154,29 +154,29 @@ AutoScaling :: {
 			MinAdjustmentMagnitude?:  int | fn.Fn
 			PolicyType?:              ("SimpleScaling" | "StepScaling" | "TargetTrackingScaling") | fn.Fn
 			ScalingAdjustment?:       int | fn.Fn
-			StepAdjustments?: [...{
+			StepAdjustments?:         [...{
 				MetricIntervalLowerBound?: number | fn.Fn
 				MetricIntervalUpperBound?: number | fn.Fn
 				ScalingAdjustment:         int | fn.Fn
-			}]
+			}] | fn.If
 			TargetTrackingConfiguration?: {
 				CustomizedMetricSpecification?: {
 					Dimensions?: [...{
 						Name:  string | fn.Fn
 						Value: string | fn.Fn
-					}]
+					}] | fn.If
 					MetricName: string | fn.Fn
 					Namespace:  string | fn.Fn
 					Statistic:  ("Average" | "Minimum" | "Maximum" | "SampleCount" | "Sum") | fn.Fn
 					Unit?:      string | fn.Fn
-				}
-				DisableScaleIn?: bool | fn.Fn
+				} | fn.If
+				DisableScaleIn?:                bool | fn.Fn
 				PredefinedMetricSpecification?: {
 					PredefinedMetricType: ("ALBRequestCountPerTarget" | "ASGAverageCPUUtilization" | "ASGAverageNetworkIn" | "ASGAverageNetworkOut") | fn.Fn
 					ResourceLabel?:       string | fn.Fn
-				}
+				} | fn.If
 				TargetValue: number | fn.Fn
-			}
+			} | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

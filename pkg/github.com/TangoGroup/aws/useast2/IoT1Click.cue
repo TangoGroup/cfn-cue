@@ -36,7 +36,7 @@ IoT1Click :: {
 	Project :: {
 		Type: "AWS::IoT1Click::Project"
 		Properties: {
-			Description?: string | fn.Fn
+			Description?:      string | fn.Fn
 			PlacementTemplate: {
 				DefaultAttributes?: {
 					[string]: _
@@ -44,7 +44,7 @@ IoT1Click :: {
 				DeviceTemplates?: {
 					[string]: _
 				} | fn.Fn
-			}
+			} | fn.If
 			ProjectName?: string | fn.Fn
 		}
 		DependsOn?:           string | [...string]

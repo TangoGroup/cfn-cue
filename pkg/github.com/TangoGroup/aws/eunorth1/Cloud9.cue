@@ -11,15 +11,13 @@ Cloud9 :: {
 			InstanceType:              string | fn.Fn
 			Name?:                     string | fn.Fn
 			OwnerArn?:                 string | fn.Fn
-			Repositories?: [...{
-				PathComponent: string | fn.Fn
-				RepositoryUrl: string | fn.Fn
-			}]
+			Repositories?:             [...{
+			}] | fn.If
 			SubnetId?: string | fn.Fn
-			Tags?: [...{
+			Tags?:     [...{
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}]
+			}] | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

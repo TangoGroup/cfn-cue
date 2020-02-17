@@ -8,41 +8,41 @@ AmazonMQ :: {
 		Properties: {
 			AutoMinorVersionUpgrade: bool | fn.Fn
 			BrokerName:              string | fn.Fn
-			Configuration?: {
+			Configuration?:          {
 				Id:       string | fn.Fn
 				Revision: int | fn.Fn
-			}
-			DeploymentMode: ("ACTIVE_STANDBY_MULTI_AZ" | "SINGLE_INSTANCE") | fn.Fn
+			} | fn.If
+			DeploymentMode:     ("ACTIVE_STANDBY_MULTI_AZ" | "SINGLE_INSTANCE") | fn.Fn
 			EncryptionOptions?: {
 				KmsKeyId?:      string | fn.Fn
 				UseAwsOwnedKey: bool | fn.Fn
-			}
+			} | fn.If
 			EngineType:       ("ACTIVEMQ") | fn.Fn
 			EngineVersion:    ("5.15.0" | "5.15.6" | "5.15.8" | "5.15.9") | fn.Fn
 			HostInstanceType: ("mq.m5.2xlarge" | "mq.m5.4xlarge" | "mq.m5.large" | "mq.m5.xlarge" | "mq.t2.micro") | fn.Fn
-			Logs?: {
+			Logs?:            {
 				Audit?:   bool | fn.Fn
 				General?: bool | fn.Fn
-			}
+			} | fn.If
 			MaintenanceWindowStartTime?: {
 				DayOfWeek: string | fn.Fn
 				TimeOfDay: string | fn.Fn
 				TimeZone:  string | fn.Fn
-			}
+			} | fn.If
 			PubliclyAccessible: bool | fn.Fn
 			SecurityGroups?:    [...(string | fn.Fn)] | (string | fn.Fn)
 			StorageType?:       string | fn.Fn
 			SubnetIds?:         [...(string | fn.Fn)] | (string | fn.Fn)
-			Tags?: [...{
+			Tags?:              [...{
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}]
+			}] | fn.If
 			Users: [...{
 				ConsoleAccess?: bool | fn.Fn
 				Groups?:        [...(string | fn.Fn)] | (string | fn.Fn)
 				Password:       string | fn.Fn
 				Username:       string | fn.Fn
-			}]
+			}] | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -58,10 +58,10 @@ AmazonMQ :: {
 			EngineType:    ("ACTIVEMQ") | fn.Fn
 			EngineVersion: ("5.15.0" | "5.15.6" | "5.15.8" | "5.15.9") | fn.Fn
 			Name:          string | fn.Fn
-			Tags?: [...{
+			Tags?:         [...{
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}]
+			}] | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -72,11 +72,11 @@ AmazonMQ :: {
 	ConfigurationAssociation :: {
 		Type: "AWS::AmazonMQ::ConfigurationAssociation"
 		Properties: {
-			Broker: string | fn.Fn
+			Broker:        string | fn.Fn
 			Configuration: {
 				Id:       string | fn.Fn
 				Revision: int | fn.Fn
-			}
+			} | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

@@ -7,10 +7,10 @@ IoTThingsGraph :: {
 		Type: "AWS::IoTThingsGraph::FlowTemplate"
 		Properties: {
 			CompatibleNamespaceVersion?: number | fn.Fn
-			Definition: {
+			Definition:                  {
 				Language: string | fn.Fn
 				Text:     string | fn.Fn
-			}
+			} | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

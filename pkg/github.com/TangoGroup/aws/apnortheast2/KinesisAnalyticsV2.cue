@@ -13,64 +13,82 @@ KinesisAnalyticsV2 :: {
 							BucketARN?:     string | fn.Fn
 							FileKey?:       string | fn.Fn
 							ObjectVersion?: string | fn.Fn
-						}
+						} | fn.If
 						TextContent?:    string | fn.Fn
 						ZipFileContent?: string | fn.Fn
-					}
+					} | fn.If
 					CodeContentType: string | fn.Fn
-				}
-				ApplicationSnapshotConfiguration?: SnapshotsEnabled: bool | fn.Fn
-				EnvironmentProperties?: PropertyGroups?: [...{
-					PropertyGroupId?: string | fn.Fn
-					PropertyMap?:     {
-						[string]: _
-					} | fn.Fn
-				}]
+				} | fn.If
+				ApplicationSnapshotConfiguration?: {
+					SnapshotsEnabled: bool | fn.Fn
+				} | fn.If
+				EnvironmentProperties?: {
+					PropertyGroups?: [...{
+						PropertyGroupId?: string | fn.Fn
+						PropertyMap?:     {
+							[string]: _
+						} | fn.Fn
+					}] | fn.If
+				} | fn.If
 				FlinkApplicationConfiguration?: {
 					CheckpointConfiguration?: {
 						CheckpointInterval?:         int | fn.Fn
 						CheckpointingEnabled?:       bool | fn.Fn
 						ConfigurationType:           string | fn.Fn
 						MinPauseBetweenCheckpoints?: int | fn.Fn
-					}
+					} | fn.If
 					MonitoringConfiguration?: {
 						ConfigurationType: string | fn.Fn
 						LogLevel?:         string | fn.Fn
 						MetricsLevel?:     string | fn.Fn
-					}
+					} | fn.If
 					ParallelismConfiguration?: {
 						AutoScalingEnabled?: bool | fn.Fn
 						ConfigurationType:   string | fn.Fn
 						Parallelism?:        int | fn.Fn
 						ParallelismPerKPU?:  int | fn.Fn
-					}
-				}
-				SqlApplicationConfiguration?: Inputs?: [...{
-					InputParallelism?: Count?: int | fn.Fn
-					InputProcessingConfiguration?: InputLambdaProcessor?: ResourceARN: string | fn.Fn
-					InputSchema: {
-						RecordColumns: [...{
-							Mapping?: string | fn.Fn
-							Name:     string | fn.Fn
-							SqlType:  string | fn.Fn
-						}]
-						RecordEncoding?: string | fn.Fn
-						RecordFormat: {
-							MappingParameters?: {
-								CSVMappingParameters?: {
-									RecordColumnDelimiter: string | fn.Fn
-									RecordRowDelimiter:    string | fn.Fn
-								}
-								JSONMappingParameters?: RecordRowPath: string | fn.Fn
-							}
-							RecordFormatType: string | fn.Fn
-						}
-					}
-					KinesisFirehoseInput?: ResourceARN: string | fn.Fn
-					KinesisStreamsInput?: ResourceARN:  string | fn.Fn
-					NamePrefix: string | fn.Fn
-				}]
-			}
+					} | fn.If
+				} | fn.If
+				SqlApplicationConfiguration?: {
+					Inputs?: [...{
+						InputParallelism?: {
+							Count?: int | fn.Fn
+						} | fn.If
+						InputProcessingConfiguration?: {
+							InputLambdaProcessor?: {
+								ResourceARN: string | fn.Fn
+							} | fn.If
+						} | fn.If
+						InputSchema: {
+							RecordColumns: [...{
+								Mapping?: string | fn.Fn
+								Name:     string | fn.Fn
+								SqlType:  string | fn.Fn
+							}] | fn.If
+							RecordEncoding?: string | fn.Fn
+							RecordFormat:    {
+								MappingParameters?: {
+									CSVMappingParameters?: {
+										RecordColumnDelimiter: string | fn.Fn
+										RecordRowDelimiter:    string | fn.Fn
+									} | fn.If
+									JSONMappingParameters?: {
+										RecordRowPath: string | fn.Fn
+									} | fn.If
+								} | fn.If
+								RecordFormatType: string | fn.Fn
+							} | fn.If
+						} | fn.If
+						KinesisFirehoseInput?: {
+							ResourceARN: string | fn.Fn
+						} | fn.If
+						KinesisStreamsInput?: {
+							ResourceARN: string | fn.Fn
+						} | fn.If
+						NamePrefix: string | fn.Fn
+					}] | fn.If
+				} | fn.If
+			} | fn.If
 			ApplicationDescription?: string | fn.Fn
 			ApplicationName?:        string | fn.Fn
 			RuntimeEnvironment:      string | fn.Fn
@@ -85,8 +103,10 @@ KinesisAnalyticsV2 :: {
 	ApplicationCloudWatchLoggingOption :: {
 		Type: "AWS::KinesisAnalyticsV2::ApplicationCloudWatchLoggingOption"
 		Properties: {
-			ApplicationName: string | fn.Fn
-			CloudWatchLoggingOption: LogStreamARN: string | fn.Fn
+			ApplicationName:         string | fn.Fn
+			CloudWatchLoggingOption: {
+				LogStreamARN: string | fn.Fn
+			} | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -98,13 +118,21 @@ KinesisAnalyticsV2 :: {
 		Type: "AWS::KinesisAnalyticsV2::ApplicationOutput"
 		Properties: {
 			ApplicationName: string | fn.Fn
-			Output: {
-				DestinationSchema: RecordFormatType?: string | fn.Fn
-				KinesisFirehoseOutput?: ResourceARN:  string | fn.Fn
-				KinesisStreamsOutput?: ResourceARN:   string | fn.Fn
-				LambdaOutput?: ResourceARN:           string | fn.Fn
+			Output:          {
+				DestinationSchema: {
+					RecordFormatType?: string | fn.Fn
+				} | fn.If
+				KinesisFirehoseOutput?: {
+					ResourceARN: string | fn.Fn
+				} | fn.If
+				KinesisStreamsOutput?: {
+					ResourceARN: string | fn.Fn
+				} | fn.If
+				LambdaOutput?: {
+					ResourceARN: string | fn.Fn
+				} | fn.If
 				Name?: string | fn.Fn
-			}
+			} | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -115,32 +143,34 @@ KinesisAnalyticsV2 :: {
 	ApplicationReferenceDataSource :: {
 		Type: "AWS::KinesisAnalyticsV2::ApplicationReferenceDataSource"
 		Properties: {
-			ApplicationName: string | fn.Fn
+			ApplicationName:     string | fn.Fn
 			ReferenceDataSource: {
 				ReferenceSchema: {
 					RecordColumns: [...{
 						Mapping?: string | fn.Fn
 						Name:     string | fn.Fn
 						SqlType:  string | fn.Fn
-					}]
+					}] | fn.If
 					RecordEncoding?: string | fn.Fn
-					RecordFormat: {
+					RecordFormat:    {
 						MappingParameters?: {
 							CSVMappingParameters?: {
 								RecordColumnDelimiter: string | fn.Fn
 								RecordRowDelimiter:    string | fn.Fn
-							}
-							JSONMappingParameters?: RecordRowPath: string | fn.Fn
-						}
+							} | fn.If
+							JSONMappingParameters?: {
+								RecordRowPath: string | fn.Fn
+							} | fn.If
+						} | fn.If
 						RecordFormatType: string | fn.Fn
-					}
-				}
+					} | fn.If
+				} | fn.If
 				S3ReferenceDataSource?: {
 					BucketARN: string | fn.Fn
 					FileKey:   string | fn.Fn
-				}
+				} | fn.If
 				TableName?: string | fn.Fn
-			}
+			} | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

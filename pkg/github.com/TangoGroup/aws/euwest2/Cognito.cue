@@ -15,19 +15,19 @@ Cognito :: {
 				ClientId?:             string | fn.Fn
 				ProviderName?:         string | fn.Fn
 				ServerSideTokenCheck?: bool | fn.Fn
-			}]
+			}] | fn.If
 			CognitoStreams?: {
 				RoleArn?:         string | fn.Fn
 				StreamName?:      string | fn.Fn
 				StreamingStatus?: ("DISABLED" | "ENABLED") | fn.Fn
-			}
+			} | fn.If
 			DeveloperProviderName?:     string | fn.Fn
 			IdentityPoolName?:          string | fn.Fn
 			OpenIdConnectProviderARNs?: [...(string | fn.Fn)] | (string | fn.Fn)
-			PushSync?: {
+			PushSync?:                  {
 				ApplicationArns?: [...(string | fn.Fn)] | (string | fn.Fn)
 				RoleArn?:         string | fn.Fn
-			}
+			} | fn.If
 			SamlProviderARNs?:        [...(string | fn.Fn)] | (string | fn.Fn)
 			SupportedLoginProviders?: {
 				[string]: _
@@ -59,36 +59,38 @@ Cognito :: {
 	UserPool :: {
 		Type: "AWS::Cognito::UserPool"
 		Properties: {
-			AccountRecoverySetting?: RecoveryMechanisms?: [...{
-				Name?:     string | fn.Fn
-				Priority?: int | fn.Fn
-			}]
+			AccountRecoverySetting?: {
+				RecoveryMechanisms?: [...{
+					Name?:     string | fn.Fn
+					Priority?: int | fn.Fn
+				}] | fn.If
+			} | fn.If
 			AdminCreateUserConfig?: {
 				AllowAdminCreateUserOnly?: bool | fn.Fn
-				InviteMessageTemplate?: {
+				InviteMessageTemplate?:    {
 					EmailMessage?: string | fn.Fn
 					EmailSubject?: string | fn.Fn
 					SMSMessage?:   string | fn.Fn
-				}
+				} | fn.If
 				UnusedAccountValidityDays?: int | fn.Fn
-			}
+			} | fn.If
 			AliasAttributes?:        [...(("email" | "phone_number" | "preferred_username") | fn.Fn)] | (("email" | "phone_number" | "preferred_username") | fn.Fn)
 			AutoVerifiedAttributes?: [...(("email" | "phone_number") | fn.Fn)] | (("email" | "phone_number") | fn.Fn)
-			DeviceConfiguration?: {
+			DeviceConfiguration?:    {
 				ChallengeRequiredOnNewDevice?:     bool | fn.Fn
 				DeviceOnlyRememberedOnUserPrompt?: bool | fn.Fn
-			}
+			} | fn.If
 			EmailConfiguration?: {
 				ConfigurationSet?:    string | fn.Fn
 				EmailSendingAccount?: string | fn.Fn
 				From?:                string | fn.Fn
 				ReplyToEmailAddress?: string | fn.Fn
 				SourceArn?:           string | fn.Fn
-			}
+			} | fn.If
 			EmailVerificationMessage?: string | fn.Fn
 			EmailVerificationSubject?: string | fn.Fn
 			EnabledMfas?:              [...(string | fn.Fn)] | (string | fn.Fn)
-			LambdaConfig?: {
+			LambdaConfig?:             {
 				CreateAuthChallenge?:         string | fn.Fn
 				CustomMessage?:               string | fn.Fn
 				DefineAuthChallenge?:         string | fn.Fn
@@ -99,43 +101,47 @@ Cognito :: {
 				PreTokenGeneration?:          string | fn.Fn
 				UserMigration?:               string | fn.Fn
 				VerifyAuthChallengeResponse?: string | fn.Fn
-			}
+			} | fn.If
 			MfaConfiguration?: ("OFF" | "ON" | "OPTIONAL") | fn.Fn
-			Policies?: PasswordPolicy?: {
-				MinimumLength?:                 int | fn.Fn
-				RequireLowercase?:              bool | fn.Fn
-				RequireNumbers?:                bool | fn.Fn
-				RequireSymbols?:                bool | fn.Fn
-				RequireUppercase?:              bool | fn.Fn
-				TemporaryPasswordValidityDays?: int | fn.Fn
-			}
+			Policies?:         {
+				PasswordPolicy?: {
+					MinimumLength?:                 int | fn.Fn
+					RequireLowercase?:              bool | fn.Fn
+					RequireNumbers?:                bool | fn.Fn
+					RequireSymbols?:                bool | fn.Fn
+					RequireUppercase?:              bool | fn.Fn
+					TemporaryPasswordValidityDays?: int | fn.Fn
+				} | fn.If
+			} | fn.If
 			Schema?: [...{
-				AttributeDataType?:      ("Boolean" | "DateTime" | "Number" | "String") | fn.Fn
-				DeveloperOnlyAttribute?: bool | fn.Fn
-				Mutable?:                bool | fn.Fn
-				Name?:                   string | fn.Fn
+				AttributeDataType?:          ("Boolean" | "DateTime" | "Number" | "String") | fn.Fn
+				DeveloperOnlyAttribute?:     bool | fn.Fn
+				Mutable?:                    bool | fn.Fn
+				Name?:                       string | fn.Fn
 				NumberAttributeConstraints?: {
 					MaxValue?: string | fn.Fn
 					MinValue?: string | fn.Fn
-				}
-				Required?: bool | fn.Fn
+				} | fn.If
+				Required?:                   bool | fn.Fn
 				StringAttributeConstraints?: {
 					MaxLength?: string | fn.Fn
 					MinLength?: string | fn.Fn
-				}
-			}]
+				} | fn.If
+			}] | fn.If
 			SmsAuthenticationMessage?: string | fn.Fn
-			SmsConfiguration?: {
+			SmsConfiguration?:         {
 				ExternalId:    string | fn.Fn
 				SnsCallerArn?: string | fn.Fn
-			}
+			} | fn.If
 			SmsVerificationMessage?: string | fn.Fn
-			UserPoolAddOns?: AdvancedSecurityMode?: string | fn.Fn
+			UserPoolAddOns?:         {
+				AdvancedSecurityMode?: string | fn.Fn
+			} | fn.If
 			UserPoolName?: string | fn.Fn
 			UserPoolTags?: {
 				[string]: _
 			} | fn.Fn
-			UsernameAttributes?: [...(("email" | "phone_number") | fn.Fn)] | (("email" | "phone_number") | fn.Fn)
+			UsernameAttributes?:          [...(("email" | "phone_number") | fn.Fn)] | (("email" | "phone_number") | fn.Fn)
 			VerificationMessageTemplate?: {
 				DefaultEmailOption?: string | fn.Fn
 				EmailMessage?:       string | fn.Fn
@@ -143,7 +149,7 @@ Cognito :: {
 				EmailSubject?:       string | fn.Fn
 				EmailSubjectByLink?: string | fn.Fn
 				SmsMessage?:         string | fn.Fn
-			}
+			} | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -157,12 +163,12 @@ Cognito :: {
 			AllowedOAuthFlows?:               [...(string | fn.Fn)] | (string | fn.Fn)
 			AllowedOAuthFlowsUserPoolClient?: bool | fn.Fn
 			AllowedOAuthScopes?:              [...(string | fn.Fn)] | (string | fn.Fn)
-			AnalyticsConfiguration?: {
+			AnalyticsConfiguration?:          {
 				ApplicationId?:  string | fn.Fn
 				ExternalId?:     string | fn.Fn
 				RoleArn?:        string | fn.Fn
 				UserDataShared?: bool | fn.Fn
-			}
+			} | fn.If
 			CallbackURLs?:               [...(string | fn.Fn)] | (string | fn.Fn)
 			ClientName?:                 string | fn.Fn
 			DefaultRedirectURI?:         string | fn.Fn
@@ -185,7 +191,9 @@ Cognito :: {
 	UserPoolDomain :: {
 		Type: "AWS::Cognito::UserPoolDomain"
 		Properties: {
-			CustomDomainConfig?: CertificateArn?: string | fn.Fn
+			CustomDomainConfig?: {
+				CertificateArn?: string | fn.Fn
+			} | fn.If
 			Domain:     string | fn.Fn
 			UserPoolId: string | fn.Fn
 		}
@@ -235,10 +243,10 @@ Cognito :: {
 		Properties: {
 			Identifier: string | fn.Fn
 			Name:       string | fn.Fn
-			Scopes?: [...{
+			Scopes?:    [...{
 				ScopeDescription: string | fn.Fn
 				ScopeName:        string | fn.Fn
-			}]
+			}] | fn.If
 			UserPoolId: string | fn.Fn
 		}
 		DependsOn?:           string | [...string]
@@ -255,46 +263,48 @@ Cognito :: {
 					HighAction?: {
 						EventAction: string | fn.Fn
 						Notify:      bool | fn.Fn
-					}
+					} | fn.If
 					LowAction?: {
 						EventAction: string | fn.Fn
 						Notify:      bool | fn.Fn
-					}
+					} | fn.If
 					MediumAction?: {
 						EventAction: string | fn.Fn
 						Notify:      bool | fn.Fn
-					}
-				}
+					} | fn.If
+				} | fn.If
 				NotifyConfiguration?: {
 					BlockEmail?: {
 						HtmlBody?: string | fn.Fn
 						Subject:   string | fn.Fn
 						TextBody?: string | fn.Fn
-					}
-					From?: string | fn.Fn
+					} | fn.If
+					From?:     string | fn.Fn
 					MfaEmail?: {
 						HtmlBody?: string | fn.Fn
 						Subject:   string | fn.Fn
 						TextBody?: string | fn.Fn
-					}
+					} | fn.If
 					NoActionEmail?: {
 						HtmlBody?: string | fn.Fn
 						Subject:   string | fn.Fn
 						TextBody?: string | fn.Fn
-					}
+					} | fn.If
 					ReplyTo?:  string | fn.Fn
 					SourceArn: string | fn.Fn
-				}
-			}
-			ClientId: string | fn.Fn
+				} | fn.If
+			} | fn.If
+			ClientId:                                 string | fn.Fn
 			CompromisedCredentialsRiskConfiguration?: {
-				Actions: EventAction: string | fn.Fn
+				Actions: {
+					EventAction: string | fn.Fn
+				} | fn.If
 				EventFilter?: [...(string | fn.Fn)] | (string | fn.Fn)
-			}
+			} | fn.If
 			RiskExceptionConfiguration?: {
 				BlockedIPRangeList?: [...(string | fn.Fn)] | (string | fn.Fn)
 				SkippedIPRangeList?: [...(string | fn.Fn)] | (string | fn.Fn)
-			}
+			} | fn.If
 			UserPoolId: string | fn.Fn
 		}
 		DependsOn?:           string | [...string]
@@ -325,16 +335,16 @@ Cognito :: {
 			DesiredDeliveryMediums?: [...(("EMAIL" | "SMS") | fn.Fn)] | (("EMAIL" | "SMS") | fn.Fn)
 			ForceAliasCreation?:     bool | fn.Fn
 			MessageAction?:          ("RESEND" | "SUPPRESS") | fn.Fn
-			UserAttributes?: [...{
+			UserAttributes?:         [...{
 				Name?:  string | fn.Fn
 				Value?: string | fn.Fn
-			}]
-			UserPoolId: string | fn.Fn
-			Username?:  string | fn.Fn
+			}] | fn.If
+			UserPoolId:      string | fn.Fn
+			Username?:       string | fn.Fn
 			ValidationData?: [...{
 				Name?:  string | fn.Fn
 				Value?: string | fn.Fn
-			}]
+			}] | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

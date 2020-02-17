@@ -18,9 +18,9 @@ GuardDuty :: {
 	Filter :: {
 		Type: "AWS::GuardDuty::Filter"
 		Properties: {
-			Action:      ("ARCHIVE" | "NOOP") | fn.Fn
-			Description: string | fn.Fn
-			DetectorId:  string | fn.Fn
+			Action:          ("ARCHIVE" | "NOOP") | fn.Fn
+			Description:     string | fn.Fn
+			DetectorId:      string | fn.Fn
 			FindingCriteria: {
 				Criterion?: {
 					[string]: _
@@ -31,8 +31,8 @@ GuardDuty :: {
 					Lt?:  int | fn.Fn
 					Lte?: int | fn.Fn
 					Neq?: [...(string | fn.Fn)] | (string | fn.Fn)
-				}
-			}
+				} | fn.If
+			} | fn.If
 			Name: string | fn.Fn
 			Rank: int | fn.Fn
 		}

@@ -14,13 +14,13 @@ AccessAnalyzer :: {
 					Exists?:   bool | fn.Fn
 					Neq?:      [...(string | fn.Fn)] | (string | fn.Fn)
 					Property:  string | fn.Fn
-				}]
+				}] | fn.If
 				RuleName: string | fn.Fn
-			}]
+			}] | fn.If
 			Tags?: [...{
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}]
+			}] | fn.If
 			Type: string | fn.Fn
 		}
 		DependsOn?:           string | [...string]

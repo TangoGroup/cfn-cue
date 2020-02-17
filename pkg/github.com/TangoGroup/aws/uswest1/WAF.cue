@@ -10,12 +10,12 @@ WAF :: {
 				FieldToMatch: {
 					Data?: string | fn.Fn
 					Type:  string | fn.Fn
-				}
+				} | fn.If
 				PositionalConstraint: string | fn.Fn
 				TargetString?:        string | fn.Fn
 				TargetStringBase64?:  string | fn.Fn
 				TextTransformation:   string | fn.Fn
-			}]
+			}] | fn.If
 			Name: string | fn.Fn
 		}
 		DependsOn?:           string | [...string]
@@ -30,7 +30,7 @@ WAF :: {
 			IPSetDescriptors?: [...{
 				Type:  string | fn.Fn
 				Value: string | fn.Fn
-			}]
+			}] | fn.If
 			Name: string | fn.Fn
 		}
 		DependsOn?:           string | [...string]
@@ -42,13 +42,13 @@ WAF :: {
 	Rule :: {
 		Type: "AWS::WAF::Rule"
 		Properties: {
-			MetricName: string | fn.Fn
-			Name:       string | fn.Fn
+			MetricName:  string | fn.Fn
+			Name:        string | fn.Fn
 			Predicates?: [...{
 				DataId:  string | fn.Fn
 				Negated: bool | fn.Fn
 				Type:    ("ByteMatch" | "GeoMatch" | "IPMatch" | "RegexMatch" | "SizeConstraint" | "SqlInjectionMatch" | "XssMatch") | fn.Fn
-			}]
+			}] | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -59,16 +59,16 @@ WAF :: {
 	SizeConstraintSet :: {
 		Type: "AWS::WAF::SizeConstraintSet"
 		Properties: {
-			Name: string | fn.Fn
+			Name:            string | fn.Fn
 			SizeConstraints: [...{
 				ComparisonOperator: string | fn.Fn
-				FieldToMatch: {
+				FieldToMatch:       {
 					Data?: string | fn.Fn
 					Type:  string | fn.Fn
-				}
+				} | fn.If
 				Size:               int | fn.Fn
 				TextTransformation: string | fn.Fn
-			}]
+			}] | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -79,14 +79,14 @@ WAF :: {
 	SqlInjectionMatchSet :: {
 		Type: "AWS::WAF::SqlInjectionMatchSet"
 		Properties: {
-			Name: string | fn.Fn
+			Name:                     string | fn.Fn
 			SqlInjectionMatchTuples?: [...{
 				FieldToMatch: {
 					Data?: string | fn.Fn
 					Type:  string | fn.Fn
-				}
+				} | fn.If
 				TextTransformation: string | fn.Fn
-			}]
+			}] | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -97,14 +97,18 @@ WAF :: {
 	WebACL :: {
 		Type: "AWS::WAF::WebACL"
 		Properties: {
-			DefaultAction: Type: string | fn.Fn
+			DefaultAction: {
+				Type: string | fn.Fn
+			} | fn.If
 			MetricName: string | fn.Fn
 			Name:       string | fn.Fn
-			Rules?: [...{
-				Action?: Type: string | fn.Fn
+			Rules?:     [...{
+				Action?: {
+					Type: string | fn.Fn
+				} | fn.If
 				Priority: int | fn.Fn
 				RuleId:   string | fn.Fn
-			}]
+			}] | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -115,14 +119,14 @@ WAF :: {
 	XssMatchSet :: {
 		Type: "AWS::WAF::XssMatchSet"
 		Properties: {
-			Name: string | fn.Fn
+			Name:           string | fn.Fn
 			XssMatchTuples: [...{
 				FieldToMatch: {
 					Data?: string | fn.Fn
 					Type:  string | fn.Fn
-				}
+				} | fn.If
 				TextTransformation: string | fn.Fn
-			}]
+			}] | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

@@ -21,7 +21,7 @@ SQS :: {
 			Tags?: [...{
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}]
+			}] | fn.If
 			VisibilityTimeout?: (>=0 & <=43200) | fn.Fn
 		}
 		DependsOn?:           string | [...string]

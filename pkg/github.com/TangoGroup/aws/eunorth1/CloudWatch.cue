@@ -15,16 +15,16 @@ CloudWatch :: {
 			AlarmName?:         string | fn.Fn
 			ComparisonOperator: ("GreaterThanOrEqualToThreshold" | "GreaterThanThreshold" | "LessThanThreshold" | "LessThanOrEqualToThreshold" | "LessThanLowerOrGreaterThanUpperThreshold" | "LessThanLowerThreshold" | "GreaterThanUpperThreshold") | fn.Fn
 			DatapointsToAlarm?: int | fn.Fn
-			Dimensions?: [...{
+			Dimensions?:        [...{
 				Name:  string | fn.Fn
 				Value: string | fn.Fn
-			}]
+			}] | fn.If
 			EvaluateLowSampleCountPercentile?: string | fn.Fn
 			EvaluationPeriods:                 int | fn.Fn
 			ExtendedStatistic?:                string | fn.Fn
 			InsufficientDataActions?:          [...(string | fn.Fn)] | (string | fn.Fn)
 			MetricName?:                       string | fn.Fn
-			Metrics?: [...{
+			Metrics?:                          [...{
 				Expression?: string | fn.Fn
 				Id:          string | fn.Fn
 				Label?:      string | fn.Fn
@@ -33,16 +33,16 @@ CloudWatch :: {
 						Dimensions?: [...{
 							Name:  string | fn.Fn
 							Value: string | fn.Fn
-						}]
+						}] | fn.If
 						MetricName?: string | fn.Fn
 						Namespace?:  string | fn.Fn
-					}
+					} | fn.If
 					Period: int | fn.Fn
 					Stat:   string | fn.Fn
 					Unit?:  string | fn.Fn
-				}
+				} | fn.If
 				ReturnData?: bool | fn.Fn
-			}]
+			}] | fn.If
 			Namespace?:         string | fn.Fn
 			OKActions?:         [...(string | fn.Fn)] | (string | fn.Fn)
 			Period?:            int | fn.Fn
@@ -65,13 +65,13 @@ CloudWatch :: {
 				ExcludedTimeRanges?: [...{
 					EndTime:   string | fn.Fn
 					StartTime: string | fn.Fn
-				}]
+				}] | fn.If
 				MetricTimeZone?: string | fn.Fn
-			}
+			} | fn.If
 			Dimensions?: [...{
 				Name:  string | fn.Fn
 				Value: string | fn.Fn
-			}]
+			}] | fn.If
 			MetricName: string | fn.Fn
 			Namespace:  string | fn.Fn
 			Stat:       string | fn.Fn

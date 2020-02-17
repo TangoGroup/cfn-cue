@@ -7,7 +7,7 @@ LakeFormation :: {
 		Type: "AWS::LakeFormation::DataLakeSettings"
 		Properties: Admins?: [...{
 			DataLakePrincipalIdentifier?: string | fn.Fn
-		}]
+		}] | fn.If
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -17,16 +17,20 @@ LakeFormation :: {
 	Permissions :: {
 		Type: "AWS::LakeFormation::Permissions"
 		Properties: {
-			DataLakePrincipal: DataLakePrincipalIdentifier?: string | fn.Fn
+			DataLakePrincipal: {
+				DataLakePrincipalIdentifier?: string | fn.Fn
+			} | fn.If
 			Permissions?:                [...(string | fn.Fn)] | (string | fn.Fn)
 			PermissionsWithGrantOption?: [...(string | fn.Fn)] | (string | fn.Fn)
-			Resource: {
-				DatabaseResource?: Name?: string | fn.Fn
+			Resource:                    {
+				DatabaseResource?: {
+					Name?: string | fn.Fn
+				} | fn.If
 				TableResource?: {
 					DatabaseName?: string | fn.Fn
 					Name?:         string | fn.Fn
-				}
-			}
+				} | fn.If
+			} | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

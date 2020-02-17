@@ -9,7 +9,7 @@ RDS :: {
 			AssociatedRoles?: [...{
 				FeatureName?: string | fn.Fn
 				RoleArn:      string | fn.Fn
-			}]
+			}] | fn.If
 			AvailabilityZones?:               [...(string | fn.Fn)] | (string | fn.Fn)
 			BacktrackWindow?:                 int | fn.Fn
 			BackupRetentionPeriod?:           (>=1 & <=35) | fn.Fn
@@ -32,20 +32,20 @@ RDS :: {
 			PreferredMaintenanceWindow?:      string | fn.Fn
 			ReplicationSourceIdentifier?:     string | fn.Fn
 			RestoreType?:                     string | fn.Fn
-			ScalingConfiguration?: {
+			ScalingConfiguration?:            {
 				AutoPause?:             bool | fn.Fn
 				MaxCapacity?:           int | fn.Fn
 				MinCapacity?:           int | fn.Fn
 				SecondsUntilAutoPause?: int | fn.Fn
-			}
+			} | fn.If
 			SnapshotIdentifier?:        string | fn.Fn
 			SourceDBClusterIdentifier?: string | fn.Fn
 			SourceRegion?:              string | fn.Fn
 			StorageEncrypted?:          bool | fn.Fn
-			Tags?: [...{
+			Tags?:                      [...{
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}]
+			}] | fn.If
 			UseLatestRestorableTime?: bool | fn.Fn
 			VpcSecurityGroupIds?:     [...(string | fn.Fn)] | (string | fn.Fn)
 		}
@@ -66,7 +66,7 @@ RDS :: {
 			Tags?: [...{
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}]
+			}] | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -79,10 +79,10 @@ RDS :: {
 		Properties: {
 			AllocatedStorage?:         string | fn.Fn
 			AllowMajorVersionUpgrade?: bool | fn.Fn
-			AssociatedRoles?: [...{
+			AssociatedRoles?:          [...{
 				FeatureName: string | fn.Fn
 				RoleArn:     string | fn.Fn
-			}]
+			}] | fn.If
 			AutoMinorVersionUpgrade?:            bool | fn.Fn
 			AvailabilityZone?:                   string | fn.Fn
 			BackupRetentionPeriod?:              (>=0 & <=35) | fn.Fn
@@ -121,20 +121,20 @@ RDS :: {
 			Port?:                               string | fn.Fn
 			PreferredBackupWindow?:              string | fn.Fn
 			PreferredMaintenanceWindow?:         string | fn.Fn
-			ProcessorFeatures?: [...{
+			ProcessorFeatures?:                  [...{
 				Name?:  string | fn.Fn
 				Value?: string | fn.Fn
-			}]
+			}] | fn.If
 			PromotionTier?:              (>=0 & <=15) | fn.Fn
 			PubliclyAccessible?:         bool | fn.Fn
 			SourceDBInstanceIdentifier?: string | fn.Fn
 			SourceRegion?:               string | fn.Fn
 			StorageEncrypted?:           bool | fn.Fn
 			StorageType?:                string | fn.Fn
-			Tags?: [...{
+			Tags?:                       [...{
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}]
+			}] | fn.If
 			Timezone?:                    string | fn.Fn
 			UseDefaultProcessorFeatures?: bool | fn.Fn
 			VPCSecurityGroups?:           [...(string | fn.Fn)] | (string | fn.Fn)
@@ -150,11 +150,13 @@ RDS :: {
 		Properties: {
 			Description: string | fn.Fn
 			Family:      string | fn.Fn
-			Parameters?: [string]: string | fn.Fn
+			Parameters?: {
+				[string]: string | fn.Fn
+			} | fn.If
 			Tags?: [...{
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}]
+			}] | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -170,13 +172,13 @@ RDS :: {
 				EC2SecurityGroupId?:      string | fn.Fn
 				EC2SecurityGroupName?:    string | fn.Fn
 				EC2SecurityGroupOwnerId?: string | fn.Fn
-			}]
+			}] | fn.If
 			EC2VpcId?:        string | fn.Fn
 			GroupDescription: string | fn.Fn
-			Tags?: [...{
+			Tags?:            [...{
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}]
+			}] | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -205,10 +207,10 @@ RDS :: {
 			DBSubnetGroupDescription: string | fn.Fn
 			DBSubnetGroupName?:       string | fn.Fn
 			SubnetIds:                [...(string | fn.Fn)] | (string | fn.Fn)
-			Tags?: [...{
+			Tags?:                    [...{
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}]
+			}] | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -234,24 +236,24 @@ RDS :: {
 	OptionGroup :: {
 		Type: "AWS::RDS::OptionGroup"
 		Properties: {
-			EngineName:         string | fn.Fn
-			MajorEngineVersion: string | fn.Fn
+			EngineName:           string | fn.Fn
+			MajorEngineVersion:   string | fn.Fn
 			OptionConfigurations: [...{
 				DBSecurityGroupMemberships?: [...(string | fn.Fn)] | (string | fn.Fn)
 				OptionName:                  string | fn.Fn
-				OptionSettings?: [...{
+				OptionSettings?:             [...{
 					Name?:  string | fn.Fn
 					Value?: string | fn.Fn
-				}]
+				}] | fn.If
 				OptionVersion?:               string | fn.Fn
 				Port?:                        int | fn.Fn
 				VpcSecurityGroupMemberships?: [...(string | fn.Fn)] | (string | fn.Fn)
-			}]
+			}] | fn.If
 			OptionGroupDescription: string | fn.Fn
-			Tags?: [...{
+			Tags?:                  [...{
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}]
+			}] | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

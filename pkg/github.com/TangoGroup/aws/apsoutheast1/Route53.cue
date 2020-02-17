@@ -10,7 +10,7 @@ Route53 :: {
 				AlarmIdentifier?: {
 					Name:   string | fn.Fn
 					Region: string | fn.Fn
-				}
+				} | fn.If
 				ChildHealthChecks?:            [...(string | fn.Fn)] | (string | fn.Fn)
 				EnableSNI?:                    bool | fn.Fn
 				FailureThreshold?:             int | fn.Fn
@@ -26,11 +26,11 @@ Route53 :: {
 				ResourcePath?:                 string | fn.Fn
 				SearchString?:                 string | fn.Fn
 				Type:                          ("CALCULATED" | "CLOUDWATCH_METRIC" | "HTTP_STR_MATCH" | "HTTP" | "HTTPS_STR_MATCH" | "HTTPS" | "TCP") | fn.Fn
-			}
+			} | fn.If
 			HealthCheckTags?: [...{
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}]
+			}] | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -41,17 +41,21 @@ Route53 :: {
 	HostedZone :: {
 		Type: "AWS::Route53::HostedZone"
 		Properties: {
-			HostedZoneConfig?: Comment?: string | fn.Fn
+			HostedZoneConfig?: {
+				Comment?: string | fn.Fn
+			} | fn.If
 			HostedZoneTags?: [...{
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}]
-			Name: string | fn.Fn
-			QueryLoggingConfig?: CloudWatchLogsLogGroupArn: string | fn.Fn
+			}] | fn.If
+			Name:                string | fn.Fn
+			QueryLoggingConfig?: {
+				CloudWatchLogsLogGroupArn: string | fn.Fn
+			} | fn.If
 			VPCs?: [...{
 				VPCId:     string | fn.Fn
 				VPCRegion: string | fn.Fn
-			}]
+			}] | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -66,14 +70,14 @@ Route53 :: {
 				DNSName:               string | fn.Fn
 				EvaluateTargetHealth?: bool | fn.Fn
 				HostedZoneId:          string | fn.Fn
-			}
-			Comment?:  string | fn.Fn
-			Failover?: ("PRIMARY" | "SECONDARY") | fn.Fn
+			} | fn.If
+			Comment?:     string | fn.Fn
+			Failover?:    ("PRIMARY" | "SECONDARY") | fn.Fn
 			GeoLocation?: {
 				ContinentCode?:   ("AF" | "AN" | "AS" | "EU" | "NA" | "OC" | "SA") | fn.Fn
 				CountryCode?:     string | fn.Fn
 				SubdivisionCode?: string | fn.Fn
-			}
+			} | fn.If
 			HealthCheckId?:    string | fn.Fn
 			HostedZoneId?:     string | fn.Fn
 			HostedZoneName?:   string | fn.Fn
@@ -98,19 +102,19 @@ Route53 :: {
 			Comment?:        string | fn.Fn
 			HostedZoneId?:   string | fn.Fn
 			HostedZoneName?: string | fn.Fn
-			RecordSets?: [...{
+			RecordSets?:     [...{
 				AliasTarget?: {
 					DNSName:               string | fn.Fn
 					EvaluateTargetHealth?: bool | fn.Fn
 					HostedZoneId:          string | fn.Fn
-				}
-				Comment?:  string | fn.Fn
-				Failover?: ("PRIMARY" | "SECONDARY") | fn.Fn
+				} | fn.If
+				Comment?:     string | fn.Fn
+				Failover?:    ("PRIMARY" | "SECONDARY") | fn.Fn
 				GeoLocation?: {
 					ContinentCode?:   ("AF" | "AN" | "AS" | "EU" | "NA" | "OC" | "SA") | fn.Fn
 					CountryCode?:     string | fn.Fn
 					SubdivisionCode?: string | fn.Fn
-				}
+				} | fn.If
 				HealthCheckId?:    string | fn.Fn
 				HostedZoneId?:     string | fn.Fn
 				HostedZoneName?:   string | fn.Fn
@@ -122,7 +126,7 @@ Route53 :: {
 				TTL?:              string | fn.Fn
 				Type:              ("A" | "AAAA" | "CAA" | "CNAME" | "MX" | "NAPTR" | "NS" | "PTR" | "SOA" | "SPF" | "SRV" | "TXT") | fn.Fn
 				Weight?:           int | fn.Fn
-			}]
+			}] | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

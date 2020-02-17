@@ -44,7 +44,11 @@ IoT :: {
 	Thing :: {
 		Type: "AWS::IoT::Thing"
 		Properties: {
-			AttributePayload?: Attributes?: [string]: string | fn.Fn
+			AttributePayload?: {
+				Attributes?: {
+					[string]: string | fn.Fn
+				} | fn.If
+			} | fn.If
 			ThingName?: string | fn.Fn
 		}
 		DependsOn?:           string | [...string]
@@ -68,7 +72,7 @@ IoT :: {
 	TopicRule :: {
 		Type: "AWS::IoT::TopicRule"
 		Properties: {
-			RuleName?: string | fn.Fn
+			RuleName?:        string | fn.Fn
 			TopicRulePayload: {
 				Actions: [...{
 					CloudwatchAlarm?: {
@@ -76,7 +80,7 @@ IoT :: {
 						RoleArn:     string | fn.Fn
 						StateReason: string | fn.Fn
 						StateValue:  string | fn.Fn
-					}
+					} | fn.If
 					CloudwatchMetric?: {
 						MetricName:       string | fn.Fn
 						MetricNamespace:  string | fn.Fn
@@ -84,7 +88,7 @@ IoT :: {
 						MetricUnit:       string | fn.Fn
 						MetricValue:      string | fn.Fn
 						RoleArn:          string | fn.Fn
-					}
+					} | fn.If
 					DynamoDB?: {
 						HashKeyField:   string | fn.Fn
 						HashKeyType?:   string | fn.Fn
@@ -95,67 +99,71 @@ IoT :: {
 						RangeKeyValue?: string | fn.Fn
 						RoleArn:        string | fn.Fn
 						TableName:      string | fn.Fn
-					}
+					} | fn.If
 					DynamoDBv2?: {
-						PutItem?: TableName: string | fn.Fn
+						PutItem?: {
+							TableName: string | fn.Fn
+						} | fn.If
 						RoleArn?: string | fn.Fn
-					}
+					} | fn.If
 					Elasticsearch?: {
 						Endpoint: string | fn.Fn
 						Id:       string | fn.Fn
 						Index:    string | fn.Fn
 						RoleArn:  string | fn.Fn
 						Type:     string | fn.Fn
-					}
+					} | fn.If
 					Firehose?: {
 						DeliveryStreamName: string | fn.Fn
 						RoleArn:            string | fn.Fn
 						Separator?:         string | fn.Fn
-					}
+					} | fn.If
 					IotAnalytics?: {
 						ChannelName: string | fn.Fn
 						RoleArn:     string | fn.Fn
-					}
+					} | fn.If
 					Kinesis?: {
 						PartitionKey?: string | fn.Fn
 						RoleArn:       string | fn.Fn
 						StreamName:    string | fn.Fn
-					}
-					Lambda?: FunctionArn?: string | fn.Fn
+					} | fn.If
+					Lambda?: {
+						FunctionArn?: string | fn.Fn
+					} | fn.If
 					Republish?: {
 						RoleArn: string | fn.Fn
 						Topic:   string | fn.Fn
-					}
+					} | fn.If
 					S3?: {
 						BucketName: string | fn.Fn
 						Key:        string | fn.Fn
 						RoleArn:    string | fn.Fn
-					}
+					} | fn.If
 					Sns?: {
 						MessageFormat?: string | fn.Fn
 						RoleArn:        string | fn.Fn
 						TargetArn:      string | fn.Fn
-					}
+					} | fn.If
 					Sqs?: {
 						QueueUrl:   string | fn.Fn
 						RoleArn:    string | fn.Fn
 						UseBase64?: bool | fn.Fn
-					}
+					} | fn.If
 					StepFunctions?: {
 						ExecutionNamePrefix?: string | fn.Fn
 						RoleArn:              string | fn.Fn
 						StateMachineName:     string | fn.Fn
-					}
-				}]
+					} | fn.If
+				}] | fn.If
 				AwsIotSqlVersion?: string | fn.Fn
 				Description?:      string | fn.Fn
-				ErrorAction?: {
+				ErrorAction?:      {
 					CloudwatchAlarm?: {
 						AlarmName:   string | fn.Fn
 						RoleArn:     string | fn.Fn
 						StateReason: string | fn.Fn
 						StateValue:  string | fn.Fn
-					}
+					} | fn.If
 					CloudwatchMetric?: {
 						MetricName:       string | fn.Fn
 						MetricNamespace:  string | fn.Fn
@@ -163,7 +171,7 @@ IoT :: {
 						MetricUnit:       string | fn.Fn
 						MetricValue:      string | fn.Fn
 						RoleArn:          string | fn.Fn
-					}
+					} | fn.If
 					DynamoDB?: {
 						HashKeyField:   string | fn.Fn
 						HashKeyType?:   string | fn.Fn
@@ -174,61 +182,65 @@ IoT :: {
 						RangeKeyValue?: string | fn.Fn
 						RoleArn:        string | fn.Fn
 						TableName:      string | fn.Fn
-					}
+					} | fn.If
 					DynamoDBv2?: {
-						PutItem?: TableName: string | fn.Fn
+						PutItem?: {
+							TableName: string | fn.Fn
+						} | fn.If
 						RoleArn?: string | fn.Fn
-					}
+					} | fn.If
 					Elasticsearch?: {
 						Endpoint: string | fn.Fn
 						Id:       string | fn.Fn
 						Index:    string | fn.Fn
 						RoleArn:  string | fn.Fn
 						Type:     string | fn.Fn
-					}
+					} | fn.If
 					Firehose?: {
 						DeliveryStreamName: string | fn.Fn
 						RoleArn:            string | fn.Fn
 						Separator?:         string | fn.Fn
-					}
+					} | fn.If
 					IotAnalytics?: {
 						ChannelName: string | fn.Fn
 						RoleArn:     string | fn.Fn
-					}
+					} | fn.If
 					Kinesis?: {
 						PartitionKey?: string | fn.Fn
 						RoleArn:       string | fn.Fn
 						StreamName:    string | fn.Fn
-					}
-					Lambda?: FunctionArn?: string | fn.Fn
+					} | fn.If
+					Lambda?: {
+						FunctionArn?: string | fn.Fn
+					} | fn.If
 					Republish?: {
 						RoleArn: string | fn.Fn
 						Topic:   string | fn.Fn
-					}
+					} | fn.If
 					S3?: {
 						BucketName: string | fn.Fn
 						Key:        string | fn.Fn
 						RoleArn:    string | fn.Fn
-					}
+					} | fn.If
 					Sns?: {
 						MessageFormat?: string | fn.Fn
 						RoleArn:        string | fn.Fn
 						TargetArn:      string | fn.Fn
-					}
+					} | fn.If
 					Sqs?: {
 						QueueUrl:   string | fn.Fn
 						RoleArn:    string | fn.Fn
 						UseBase64?: bool | fn.Fn
-					}
+					} | fn.If
 					StepFunctions?: {
 						ExecutionNamePrefix?: string | fn.Fn
 						RoleArn:              string | fn.Fn
 						StateMachineName:     string | fn.Fn
-					}
-				}
+					} | fn.If
+				} | fn.If
 				RuleDisabled: bool | fn.Fn
 				Sql:          string | fn.Fn
-			}
+			} | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

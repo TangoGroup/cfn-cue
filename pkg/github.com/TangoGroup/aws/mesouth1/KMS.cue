@@ -26,10 +26,10 @@ KMS :: {
 			} | fn.Fn
 			KeyUsage?:            string | fn.Fn
 			PendingWindowInDays?: (>=7 & <=30) | fn.Fn
-			Tags?: [...{
+			Tags?:                [...{
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}]
+			}] | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

@@ -10,16 +10,20 @@ SSM :: {
 			DocumentVersion?: string | fn.Fn
 			InstanceId?:      string | fn.Fn
 			Name:             string | fn.Fn
-			OutputLocation?: S3Location?: {
-				OutputS3BucketName?: string | fn.Fn
-				OutputS3KeyPrefix?:  string | fn.Fn
-			}
-			Parameters?: [string]: ParameterValues: [...(string | fn.Fn)] | (string | fn.Fn)
+			OutputLocation?:  {
+				S3Location?: {
+					OutputS3BucketName?: string | fn.Fn
+					OutputS3KeyPrefix?:  string | fn.Fn
+				} | fn.If
+			} | fn.If
+			Parameters?: {
+				[string]: ParameterValues: [...(string | fn.Fn)] | (string | fn.Fn)
+			} | fn.If
 			ScheduleExpression?: string | fn.Fn
-			Targets?: [...{
+			Targets?:            [...{
 				Key:    string | fn.Fn
 				Values: [...(string | fn.Fn)] | (string | fn.Fn)
-			}]
+			}] | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -35,10 +39,10 @@ SSM :: {
 			} | fn.Fn
 			DocumentType?: string | fn.Fn
 			Name?:         string | fn.Fn
-			Tags?: [...{
+			Tags?:         [...{
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}]
+			}] | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -58,10 +62,10 @@ SSM :: {
 			Schedule:                 string | fn.Fn
 			ScheduleTimezone?:        string | fn.Fn
 			StartDate?:               string | fn.Fn
-			Tags?: [...{
+			Tags?:                    [...{
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}]
+			}] | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -76,10 +80,10 @@ SSM :: {
 			Name?:             string | fn.Fn
 			OwnerInformation?: string | fn.Fn
 			ResourceType:      string | fn.Fn
-			Targets: [...{
+			Targets:           [...{
 				Key:     string | fn.Fn
 				Values?: [...(string | fn.Fn)] | (string | fn.Fn)
-			}]
+			}] | fn.If
 			WindowId: string | fn.Fn
 		}
 		DependsOn?:           string | [...string]
@@ -96,38 +100,38 @@ SSM :: {
 				Region:    string | fn.Fn
 				S3Bucket:  string | fn.Fn
 				S3Prefix?: string | fn.Fn
-			}
+			} | fn.If
 			MaxConcurrency:  string | fn.Fn
 			MaxErrors:       string | fn.Fn
 			Name?:           string | fn.Fn
 			Priority:        int | fn.Fn
 			ServiceRoleArn?: string | fn.Fn
-			Targets: [...{
+			Targets:         [...{
 				Key:     string | fn.Fn
 				Values?: [...(string | fn.Fn)] | (string | fn.Fn)
-			}]
-			TaskArn: string | fn.Fn
+			}] | fn.If
+			TaskArn:                   string | fn.Fn
 			TaskInvocationParameters?: {
 				MaintenanceWindowAutomationParameters?: {
 					DocumentVersion?: string | fn.Fn
 					Parameters?:      {
 						[string]: _
 					} | fn.Fn
-				}
+				} | fn.If
 				MaintenanceWindowLambdaParameters?: {
 					ClientContext?: string | fn.Fn
 					Payload?:       string | fn.Fn
 					Qualifier?:     string | fn.Fn
-				}
+				} | fn.If
 				MaintenanceWindowRunCommandParameters?: {
-					Comment?:          string | fn.Fn
-					DocumentHash?:     string | fn.Fn
-					DocumentHashType?: string | fn.Fn
+					Comment?:            string | fn.Fn
+					DocumentHash?:       string | fn.Fn
+					DocumentHashType?:   string | fn.Fn
 					NotificationConfig?: {
 						NotificationArn:     string | fn.Fn
 						NotificationEvents?: [...(string | fn.Fn)] | (string | fn.Fn)
 						NotificationType?:   string | fn.Fn
-					}
+					} | fn.If
 					OutputS3BucketName?: string | fn.Fn
 					OutputS3KeyPrefix?:  string | fn.Fn
 					Parameters?:         {
@@ -135,12 +139,12 @@ SSM :: {
 					} | fn.Fn
 					ServiceRoleArn?: string | fn.Fn
 					TimeoutSeconds?: int | fn.Fn
-				}
+				} | fn.If
 				MaintenanceWindowStepFunctionsParameters?: {
 					Input?: string | fn.Fn
 					Name?:  string | fn.Fn
-				}
-			}
+				} | fn.If
+			} | fn.If
 			TaskParameters?: {
 				[string]: _
 			} | fn.Fn
@@ -156,28 +160,28 @@ SSM :: {
 	ResourceDataSync :: {
 		Type: "AWS::SSM::ResourceDataSync"
 		Properties: {
-			BucketName?:   string | fn.Fn
-			BucketPrefix?: string | fn.Fn
-			BucketRegion?: string | fn.Fn
-			KMSKeyArn?:    string | fn.Fn
+			BucketName?:    string | fn.Fn
+			BucketPrefix?:  string | fn.Fn
+			BucketRegion?:  string | fn.Fn
+			KMSKeyArn?:     string | fn.Fn
 			S3Destination?: {
 				BucketName:    string | fn.Fn
 				BucketPrefix?: string | fn.Fn
 				BucketRegion:  string | fn.Fn
 				KMSKeyArn?:    string | fn.Fn
 				SyncFormat:    string | fn.Fn
-			}
+			} | fn.If
 			SyncFormat?: string | fn.Fn
 			SyncName:    string | fn.Fn
 			SyncSource?: {
 				AwsOrganizationsSource?: {
 					OrganizationSourceType: string | fn.Fn
 					OrganizationalUnits?:   [...(string | fn.Fn)] | (string | fn.Fn)
-				}
+				} | fn.If
 				IncludeFutureRegions?: bool | fn.Fn
 				SourceRegions:         [...(string | fn.Fn)] | (string | fn.Fn)
 				SourceType:            string | fn.Fn
-			}
+			} | fn.If
 			SyncType?: string | fn.Fn
 		}
 		DependsOn?:           string | [...string]

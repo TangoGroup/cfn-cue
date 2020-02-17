@@ -18,21 +18,11 @@ GuardDuty :: {
 	Filter :: {
 		Type: "AWS::GuardDuty::Filter"
 		Properties: {
-			Action:      string | fn.Fn
-			Description: string | fn.Fn
-			DetectorId:  string | fn.Fn
+			Action:          string | fn.Fn
+			Description:     string | fn.Fn
+			DetectorId:      string | fn.Fn
 			FindingCriteria: {
-				Criterion?: {
-					[string]: _
-				} | fn.Fn
-				ItemType?: {
-					Eq?:  [...(string | fn.Fn)] | (string | fn.Fn)
-					Gte?: int | fn.Fn
-					Lt?:  int | fn.Fn
-					Lte?: int | fn.Fn
-					Neq?: [...(string | fn.Fn)] | (string | fn.Fn)
-				}
-			}
+			} | fn.If
 			Name: string | fn.Fn
 			Rank: int | fn.Fn
 		}

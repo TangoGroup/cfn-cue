@@ -16,7 +16,7 @@ ApiGatewayV2 :: {
 				Etag?:    string | fn.Fn
 				Key?:     string | fn.Fn
 				Version?: string | fn.Fn
-			}
+			} | fn.If
 			CorsConfiguration?: {
 				AllowCredentials?: bool | fn.Fn
 				AllowHeaders?:     [...(string | fn.Fn)] | (string | fn.Fn)
@@ -24,7 +24,7 @@ ApiGatewayV2 :: {
 				AllowOrigins?:     [...(string | fn.Fn)] | (string | fn.Fn)
 				ExposeHeaders?:    [...(string | fn.Fn)] | (string | fn.Fn)
 				MaxAge?:           int | fn.Fn
-			}
+			} | fn.If
 			CredentialsArn?:           string | fn.Fn
 			Description?:              string | fn.Fn
 			DisableSchemaValidation?:  bool | fn.Fn
@@ -69,10 +69,10 @@ ApiGatewayV2 :: {
 			AuthorizerUri?:                string | fn.Fn
 			IdentitySource:                [...(string | fn.Fn)] | (string | fn.Fn)
 			IdentityValidationExpression?: string | fn.Fn
-			JwtConfiguration?: {
+			JwtConfiguration?:             {
 				Audience?: [...(string | fn.Fn)] | (string | fn.Fn)
 				Issuer?:   string | fn.Fn
-			}
+			} | fn.If
 			Name: string | fn.Fn
 		}
 		DependsOn?:           string | [...string]
@@ -97,12 +97,12 @@ ApiGatewayV2 :: {
 	DomainName :: {
 		Type: "AWS::ApiGatewayV2::DomainName"
 		Properties: {
-			DomainName: string | fn.Fn
+			DomainName:                string | fn.Fn
 			DomainNameConfigurations?: [...{
 				CertificateArn?:  string | fn.Fn
 				CertificateName?: string | fn.Fn
 				EndpointType?:    string | fn.Fn
-			}]
+			}] | fn.If
 			Tags?: {
 				[string]: _
 			} | fn.Fn
@@ -231,17 +231,17 @@ ApiGatewayV2 :: {
 			AccessLogSettings?: {
 				DestinationArn?: string | fn.Fn
 				Format?:         string | fn.Fn
-			}
-			ApiId:                string | fn.Fn
-			AutoDeploy?:          bool | fn.Fn
-			ClientCertificateId?: string | fn.Fn
+			} | fn.If
+			ApiId:                 string | fn.Fn
+			AutoDeploy?:           bool | fn.Fn
+			ClientCertificateId?:  string | fn.Fn
 			DefaultRouteSettings?: {
 				DataTraceEnabled?:       bool | fn.Fn
 				DetailedMetricsEnabled?: bool | fn.Fn
 				LoggingLevel?:           string | fn.Fn
 				ThrottlingBurstLimit?:   int | fn.Fn
 				ThrottlingRateLimit?:    number | fn.Fn
-			}
+			} | fn.If
 			DeploymentId?:  string | fn.Fn
 			Description?:   string | fn.Fn
 			RouteSettings?: {

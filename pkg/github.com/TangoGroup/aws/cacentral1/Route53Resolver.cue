@@ -6,15 +6,15 @@ Route53Resolver :: {
 	ResolverEndpoint :: {
 		Type: "AWS::Route53Resolver::ResolverEndpoint"
 		Properties: {
-			Direction: string | fn.Fn
+			Direction:   string | fn.Fn
 			IpAddresses: [...{
-			}]
+			}] | fn.If
 			Name?:            string | fn.Fn
 			SecurityGroupIds: [...(string | fn.Fn)] | (string | fn.Fn)
-			Tags?: [...{
+			Tags?:            [...{
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}]
+			}] | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -29,12 +29,12 @@ Route53Resolver :: {
 			Name?:               string | fn.Fn
 			ResolverEndpointId?: string | fn.Fn
 			RuleType:            string | fn.Fn
-			Tags?: [...{
+			Tags?:               [...{
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}]
+			}] | fn.If
 			TargetIps?: [...{
-			}]
+			}] | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

@@ -47,14 +47,14 @@ Logs :: {
 	MetricFilter :: {
 		Type: "AWS::Logs::MetricFilter"
 		Properties: {
-			FilterPattern: string | fn.Fn
-			LogGroupName:  string | fn.Fn
+			FilterPattern:         string | fn.Fn
+			LogGroupName:          string | fn.Fn
 			MetricTransformations: [...{
 				DefaultValue?:   number | fn.Fn
 				MetricName:      string | fn.Fn
 				MetricNamespace: string | fn.Fn
 				MetricValue:     string | fn.Fn
-			}]
+			}] | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

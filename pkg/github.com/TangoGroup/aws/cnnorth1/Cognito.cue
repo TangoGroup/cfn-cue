@@ -12,14 +12,14 @@ Cognito :: {
 				[string]: _
 			} | fn.Fn
 			CognitoIdentityProviders?: [...{
-			}]
+			}] | fn.If
 			CognitoStreams?: {
-			}
+			} | fn.If
 			DeveloperProviderName?:     string | fn.Fn
 			IdentityPoolName?:          string | fn.Fn
 			OpenIdConnectProviderARNs?: [...(string | fn.Fn)] | (string | fn.Fn)
-			PushSync?: {
-			}
+			PushSync?:                  {
+			} | fn.If
 			SamlProviderARNs?:        [...(string | fn.Fn)] | (string | fn.Fn)
 			SupportedLoginProviders?: {
 				[string]: _
@@ -52,38 +52,38 @@ Cognito :: {
 		Type: "AWS::Cognito::UserPool"
 		Properties: {
 			AccountRecoverySetting?: {
-			}
+			} | fn.If
 			AdminCreateUserConfig?: {
-			}
+			} | fn.If
 			AliasAttributes?:        [...(string | fn.Fn)] | (string | fn.Fn)
 			AutoVerifiedAttributes?: [...(string | fn.Fn)] | (string | fn.Fn)
-			DeviceConfiguration?: {
-			}
+			DeviceConfiguration?:    {
+			} | fn.If
 			EmailConfiguration?: {
-			}
+			} | fn.If
 			EmailVerificationMessage?: string | fn.Fn
 			EmailVerificationSubject?: string | fn.Fn
 			EnabledMfas?:              [...(string | fn.Fn)] | (string | fn.Fn)
-			LambdaConfig?: {
-			}
+			LambdaConfig?:             {
+			} | fn.If
 			MfaConfiguration?: string | fn.Fn
-			Policies?: {
-			}
+			Policies?:         {
+			} | fn.If
 			Schema?: [...{
-			}]
+			}] | fn.If
 			SmsAuthenticationMessage?: string | fn.Fn
-			SmsConfiguration?: {
-			}
+			SmsConfiguration?:         {
+			} | fn.If
 			SmsVerificationMessage?: string | fn.Fn
-			UserPoolAddOns?: {
-			}
+			UserPoolAddOns?:         {
+			} | fn.If
 			UserPoolName?: string | fn.Fn
 			UserPoolTags?: {
 				[string]: _
 			} | fn.Fn
-			UsernameAttributes?: [...(string | fn.Fn)] | (string | fn.Fn)
+			UsernameAttributes?:          [...(string | fn.Fn)] | (string | fn.Fn)
 			VerificationMessageTemplate?: {
-			}
+			} | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -97,8 +97,8 @@ Cognito :: {
 			AllowedOAuthFlows?:               [...(string | fn.Fn)] | (string | fn.Fn)
 			AllowedOAuthFlowsUserPoolClient?: bool | fn.Fn
 			AllowedOAuthScopes?:              [...(string | fn.Fn)] | (string | fn.Fn)
-			AnalyticsConfiguration?: {
-			}
+			AnalyticsConfiguration?:          {
+			} | fn.If
 			CallbackURLs?:               [...(string | fn.Fn)] | (string | fn.Fn)
 			ClientName?:                 string | fn.Fn
 			DefaultRedirectURI?:         string | fn.Fn
@@ -122,7 +122,7 @@ Cognito :: {
 		Type: "AWS::Cognito::UserPoolDomain"
 		Properties: {
 			CustomDomainConfig?: {
-			}
+			} | fn.If
 			Domain:     string | fn.Fn
 			UserPoolId: string | fn.Fn
 		}
@@ -172,8 +172,8 @@ Cognito :: {
 		Properties: {
 			Identifier: string | fn.Fn
 			Name:       string | fn.Fn
-			Scopes?: [...{
-			}]
+			Scopes?:    [...{
+			}] | fn.If
 			UserPoolId: string | fn.Fn
 		}
 		DependsOn?:           string | [...string]
@@ -186,12 +186,12 @@ Cognito :: {
 		Type: "AWS::Cognito::UserPoolRiskConfigurationAttachment"
 		Properties: {
 			AccountTakeoverRiskConfiguration?: {
-			}
-			ClientId: string | fn.Fn
+			} | fn.If
+			ClientId:                                 string | fn.Fn
 			CompromisedCredentialsRiskConfiguration?: {
-			}
+			} | fn.If
 			RiskExceptionConfiguration?: {
-			}
+			} | fn.If
 			UserPoolId: string | fn.Fn
 		}
 		DependsOn?:           string | [...string]
@@ -222,12 +222,12 @@ Cognito :: {
 			DesiredDeliveryMediums?: [...(string | fn.Fn)] | (string | fn.Fn)
 			ForceAliasCreation?:     bool | fn.Fn
 			MessageAction?:          string | fn.Fn
-			UserAttributes?: [...{
-			}]
-			UserPoolId: string | fn.Fn
-			Username?:  string | fn.Fn
+			UserAttributes?:         [...{
+			}] | fn.If
+			UserPoolId:      string | fn.Fn
+			Username?:       string | fn.Fn
 			ValidationData?: [...{
-			}]
+			}] | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

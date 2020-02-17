@@ -18,11 +18,11 @@ ServiceCatalog :: {
 	CloudFormationProduct :: {
 		Type: "AWS::ServiceCatalog::CloudFormationProduct"
 		Properties: {
-			AcceptLanguage?: string | fn.Fn
-			Description?:    string | fn.Fn
-			Distributor?:    string | fn.Fn
-			Name:            string | fn.Fn
-			Owner:           string | fn.Fn
+			AcceptLanguage?:                string | fn.Fn
+			Description?:                   string | fn.Fn
+			Distributor?:                   string | fn.Fn
+			Name:                           string | fn.Fn
+			Owner:                          string | fn.Fn
 			ProvisioningArtifactParameters: [...{
 				Description?:               string | fn.Fn
 				DisableTemplateValidation?: bool | fn.Fn
@@ -30,14 +30,14 @@ ServiceCatalog :: {
 					[string]: _
 				} | fn.Fn
 				Name?: string | fn.Fn
-			}]
+			}] | fn.If
 			SupportDescription?: string | fn.Fn
 			SupportEmail?:       string | fn.Fn
 			SupportUrl?:         string | fn.Fn
-			Tags?: [...{
+			Tags?:               [...{
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}]
+			}] | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -56,10 +56,10 @@ ServiceCatalog :: {
 			ProvisionedProductName?:   string | fn.Fn
 			ProvisioningArtifactId?:   string | fn.Fn
 			ProvisioningArtifactName?: string | fn.Fn
-			ProvisioningParameters?: [...{
+			ProvisioningParameters?:   [...{
 				Key?:   string | fn.Fn
 				Value?: string | fn.Fn
-			}]
+			}] | fn.If
 			ProvisioningPreferences?: {
 				StackSetAccounts?:                   [...(string | fn.Fn)] | (string | fn.Fn)
 				StackSetFailureToleranceCount?:      int | fn.Fn
@@ -68,11 +68,11 @@ ServiceCatalog :: {
 				StackSetMaxConcurrencyPercentage?:   int | fn.Fn
 				StackSetOperationType?:              string | fn.Fn
 				StackSetRegions?:                    [...(string | fn.Fn)] | (string | fn.Fn)
-			}
+			} | fn.If
 			Tags?: [...{
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}]
+			}] | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -132,10 +132,10 @@ ServiceCatalog :: {
 			Description?:    string | fn.Fn
 			DisplayName:     string | fn.Fn
 			ProviderName:    string | fn.Fn
-			Tags?: [...{
+			Tags?:           [...{
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}]
+			}] | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

@@ -9,7 +9,7 @@ ECR :: {
 			LifecyclePolicy?: {
 				LifecyclePolicyText?: string | fn.Fn
 				RegistryId?:          string | fn.Fn
-			}
+			} | fn.If
 			RepositoryName?:       string | fn.Fn
 			RepositoryPolicyText?: {
 				[string]: _
@@ -17,7 +17,7 @@ ECR :: {
 			Tags?: [...{
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}]
+			}] | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

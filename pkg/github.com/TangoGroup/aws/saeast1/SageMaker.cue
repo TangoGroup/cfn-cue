@@ -7,11 +7,8 @@ SageMaker :: {
 		Type: "AWS::SageMaker::CodeRepository"
 		Properties: {
 			CodeRepositoryName?: string | fn.Fn
-			GitConfig: {
-				Branch?:       string | fn.Fn
-				RepositoryUrl: string | fn.Fn
-				SecretArn?:    string | fn.Fn
-			}
+			GitConfig:           {
+			} | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -22,16 +19,15 @@ SageMaker :: {
 	Endpoint :: {
 		Type: "AWS::SageMaker::Endpoint"
 		Properties: {
-			EndpointConfigName: string | fn.Fn
-			EndpointName?:      string | fn.Fn
+			EndpointConfigName:                string | fn.Fn
+			EndpointName?:                     string | fn.Fn
 			ExcludeRetainedVariantProperties?: [...{
-				VariantPropertyType?: string | fn.Fn
-			}]
+			}] | fn.If
 			RetainAllVariantProperties?: bool | fn.Fn
-			Tags?: [...{
+			Tags?:                       [...{
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}]
+			}] | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -44,18 +40,12 @@ SageMaker :: {
 		Properties: {
 			EndpointConfigName?: string | fn.Fn
 			KmsKeyId?:           string | fn.Fn
-			ProductionVariants: [...{
-				AcceleratorType?:     string | fn.Fn
-				InitialInstanceCount: int | fn.Fn
-				InitialVariantWeight: number | fn.Fn
-				InstanceType:         string | fn.Fn
-				ModelName:            string | fn.Fn
-				VariantName:          string | fn.Fn
-			}]
+			ProductionVariants:  [...{
+			}] | fn.If
 			Tags?: [...{
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}]
+			}] | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -67,33 +57,17 @@ SageMaker :: {
 		Type: "AWS::SageMaker::Model"
 		Properties: {
 			Containers?: [...{
-				ContainerHostname?: string | fn.Fn
-				Environment?:       {
-					[string]: _
-				} | fn.Fn
-				Image:         string | fn.Fn
-				Mode?:         string | fn.Fn
-				ModelDataUrl?: string | fn.Fn
-			}]
-			ExecutionRoleArn: string | fn.Fn
-			ModelName?:       string | fn.Fn
+			}] | fn.If
+			ExecutionRoleArn:  string | fn.Fn
+			ModelName?:        string | fn.Fn
 			PrimaryContainer?: {
-				ContainerHostname?: string | fn.Fn
-				Environment?:       {
-					[string]: _
-				} | fn.Fn
-				Image:         string | fn.Fn
-				Mode?:         string | fn.Fn
-				ModelDataUrl?: string | fn.Fn
-			}
+			} | fn.If
 			Tags?: [...{
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}]
+			}] | fn.If
 			VpcConfig?: {
-				SecurityGroupIds: [...(string | fn.Fn)] | (string | fn.Fn)
-				Subnets:          [...(string | fn.Fn)] | (string | fn.Fn)
-			}
+			} | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -116,10 +90,10 @@ SageMaker :: {
 			RootAccess?:                 string | fn.Fn
 			SecurityGroupIds?:           [...(string | fn.Fn)] | (string | fn.Fn)
 			SubnetId?:                   string | fn.Fn
-			Tags?: [...{
+			Tags?:                       [...{
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}]
+			}] | fn.If
 			VolumeSizeInGB?: int | fn.Fn
 		}
 		DependsOn?:           string | [...string]
@@ -132,12 +106,10 @@ SageMaker :: {
 		Type: "AWS::SageMaker::NotebookInstanceLifecycleConfig"
 		Properties: {
 			NotebookInstanceLifecycleConfigName?: string | fn.Fn
-			OnCreate?: [...{
-				Content?: string | fn.Fn
-			}]
+			OnCreate?:                            [...{
+			}] | fn.If
 			OnStart?: [...{
-				Content?: string | fn.Fn
-			}]
+			}] | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -148,19 +120,15 @@ SageMaker :: {
 	Workteam :: {
 		Type: "AWS::SageMaker::Workteam"
 		Properties: {
-			Description?: string | fn.Fn
+			Description?:       string | fn.Fn
 			MemberDefinitions?: [...{
-				CognitoMemberDefinition: {
-					CognitoClientId:  string | fn.Fn
-					CognitoUserGroup: string | fn.Fn
-					CognitoUserPool:  string | fn.Fn
-				}
-			}]
-			NotificationConfiguration?: NotificationTopicArn: string | fn.Fn
+			}] | fn.If
+			NotificationConfiguration?: {
+			} | fn.If
 			Tags?: [...{
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}]
+			}] | fn.If
 			WorkteamName?: string | fn.Fn
 		}
 		DependsOn?:           string | [...string]

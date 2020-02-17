@@ -7,7 +7,7 @@ KinesisAnalyticsV2 :: {
 		Type: "AWS::KinesisAnalyticsV2::Application"
 		Properties: {
 			ApplicationConfiguration?: {
-			}
+			} | fn.If
 			ApplicationDescription?: string | fn.Fn
 			ApplicationName?:        string | fn.Fn
 			RuntimeEnvironment:      string | fn.Fn
@@ -22,9 +22,9 @@ KinesisAnalyticsV2 :: {
 	ApplicationCloudWatchLoggingOption :: {
 		Type: "AWS::KinesisAnalyticsV2::ApplicationCloudWatchLoggingOption"
 		Properties: {
-			ApplicationName: string | fn.Fn
+			ApplicationName:         string | fn.Fn
 			CloudWatchLoggingOption: {
-			}
+			} | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -36,8 +36,8 @@ KinesisAnalyticsV2 :: {
 		Type: "AWS::KinesisAnalyticsV2::ApplicationOutput"
 		Properties: {
 			ApplicationName: string | fn.Fn
-			Output: {
-			}
+			Output:          {
+			} | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -48,9 +48,9 @@ KinesisAnalyticsV2 :: {
 	ApplicationReferenceDataSource :: {
 		Type: "AWS::KinesisAnalyticsV2::ApplicationReferenceDataSource"
 		Properties: {
-			ApplicationName: string | fn.Fn
+			ApplicationName:     string | fn.Fn
 			ReferenceDataSource: {
-			}
+			} | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

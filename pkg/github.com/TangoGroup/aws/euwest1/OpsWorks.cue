@@ -13,13 +13,15 @@ OpsWorks :: {
 				Type?:     string | fn.Fn
 				Url?:      string | fn.Fn
 				Username?: string | fn.Fn
-			}
-			Attributes?: [string]: string | fn.Fn
+			} | fn.If
+			Attributes?: {
+				[string]: string | fn.Fn
+			} | fn.If
 			DataSources?: [...{
 				Arn?:          string | fn.Fn
 				DatabaseName?: string | fn.Fn
 				Type?:         string | fn.Fn
-			}]
+			}] | fn.If
 			Description?: string | fn.Fn
 			Domains?:     [...(string | fn.Fn)] | (string | fn.Fn)
 			EnableSsl?:   bool | fn.Fn
@@ -27,14 +29,14 @@ OpsWorks :: {
 				Key:     string | fn.Fn
 				Secure?: bool | fn.Fn
 				Value:   string | fn.Fn
-			}]
-			Name:       string | fn.Fn
-			Shortname?: string | fn.Fn
+			}] | fn.If
+			Name:              string | fn.Fn
+			Shortname?:        string | fn.Fn
 			SslConfiguration?: {
 				Certificate?: string | fn.Fn
 				Chain?:       string | fn.Fn
 				PrivateKey?:  string | fn.Fn
-			}
+			} | fn.If
 			StackId: string | fn.Fn
 			Type:    string | fn.Fn
 		}
@@ -59,23 +61,23 @@ OpsWorks :: {
 	Instance :: {
 		Type: "AWS::OpsWorks::Instance"
 		Properties: {
-			AgentVersion?:     string | fn.Fn
-			AmiId?:            string | fn.Fn
-			Architecture?:     string | fn.Fn
-			AutoScalingType?:  string | fn.Fn
-			AvailabilityZone?: string | fn.Fn
+			AgentVersion?:        string | fn.Fn
+			AmiId?:               string | fn.Fn
+			Architecture?:        string | fn.Fn
+			AutoScalingType?:     string | fn.Fn
+			AvailabilityZone?:    string | fn.Fn
 			BlockDeviceMappings?: [...{
 				DeviceName?: string | fn.Fn
-				Ebs?: {
+				Ebs?:        {
 					DeleteOnTermination?: bool | fn.Fn
 					Iops?:                int | fn.Fn
 					SnapshotId?:          string | fn.Fn
 					VolumeSize?:          int | fn.Fn
 					VolumeType?:          ("gp2" | "io1" | "sc1" | "st1" | "standard") | fn.Fn
-				}
+				} | fn.If
 				NoDevice?:    string | fn.Fn
 				VirtualName?: string | fn.Fn
-			}]
+			}] | fn.If
 			EbsOptimized?:         bool | fn.Fn
 			ElasticIps?:           [...(string | fn.Fn)] | (string | fn.Fn)
 			Hostname?:             string | fn.Fn
@@ -89,14 +91,28 @@ OpsWorks :: {
 			SubnetId?:             string | fn.Fn
 			Tenancy?:              string | fn.Fn
 			TimeBasedAutoScaling?: {
-				Friday?: [string]:    string | fn.Fn
-				Monday?: [string]:    string | fn.Fn
-				Saturday?: [string]:  string | fn.Fn
-				Sunday?: [string]:    string | fn.Fn
-				Thursday?: [string]:  string | fn.Fn
-				Tuesday?: [string]:   string | fn.Fn
-				Wednesday?: [string]: string | fn.Fn
-			}
+				Friday?: {
+					[string]: string | fn.Fn
+				} | fn.If
+				Monday?: {
+					[string]: string | fn.Fn
+				} | fn.If
+				Saturday?: {
+					[string]: string | fn.Fn
+				} | fn.If
+				Sunday?: {
+					[string]: string | fn.Fn
+				} | fn.If
+				Thursday?: {
+					[string]: string | fn.Fn
+				} | fn.If
+				Tuesday?: {
+					[string]: string | fn.Fn
+				} | fn.If
+				Wednesday?: {
+					[string]: string | fn.Fn
+				} | fn.If
+			} | fn.If
 			VirtualizationType?: string | fn.Fn
 			Volumes?:            [...(string | fn.Fn)] | (string | fn.Fn)
 		}
@@ -109,7 +125,9 @@ OpsWorks :: {
 	Layer :: {
 		Type: "AWS::OpsWorks::Layer"
 		Properties: {
-			Attributes?: [string]: string | fn.Fn
+			Attributes?: {
+				[string]: string | fn.Fn
+			} | fn.If
 			AutoAssignElasticIps:      bool | fn.Fn
 			AutoAssignPublicIps:       bool | fn.Fn
 			CustomInstanceProfileArn?: string | fn.Fn
@@ -122,14 +140,16 @@ OpsWorks :: {
 				Setup?:     [...(string | fn.Fn)] | (string | fn.Fn)
 				Shutdown?:  [...(string | fn.Fn)] | (string | fn.Fn)
 				Undeploy?:  [...(string | fn.Fn)] | (string | fn.Fn)
-			}
-			CustomSecurityGroupIds?: [...(string | fn.Fn)] | (string | fn.Fn)
-			EnableAutoHealing:       bool | fn.Fn
-			InstallUpdatesOnBoot?:   bool | fn.Fn
-			LifecycleEventConfiguration?: ShutdownEventConfiguration?: {
-				DelayUntilElbConnectionsDrained?: bool | fn.Fn
-				ExecutionTimeout?:                int | fn.Fn
-			}
+			} | fn.If
+			CustomSecurityGroupIds?:      [...(string | fn.Fn)] | (string | fn.Fn)
+			EnableAutoHealing:            bool | fn.Fn
+			InstallUpdatesOnBoot?:        bool | fn.Fn
+			LifecycleEventConfiguration?: {
+				ShutdownEventConfiguration?: {
+					DelayUntilElbConnectionsDrained?: bool | fn.Fn
+					ExecutionTimeout?:                int | fn.Fn
+				} | fn.If
+			} | fn.If
 			LoadBasedAutoScaling?: {
 				DownScaling?: {
 					CpuThreshold?:       number | fn.Fn
@@ -138,8 +158,8 @@ OpsWorks :: {
 					LoadThreshold?:      number | fn.Fn
 					MemoryThreshold?:    number | fn.Fn
 					ThresholdsWaitTime?: int | fn.Fn
-				}
-				Enable?: bool | fn.Fn
+				} | fn.If
+				Enable?:    bool | fn.Fn
 				UpScaling?: {
 					CpuThreshold?:       number | fn.Fn
 					IgnoreMetricsTime?:  int | fn.Fn
@@ -147,19 +167,19 @@ OpsWorks :: {
 					LoadThreshold?:      number | fn.Fn
 					MemoryThreshold?:    number | fn.Fn
 					ThresholdsWaitTime?: int | fn.Fn
-				}
-			}
+				} | fn.If
+			} | fn.If
 			Name:      string | fn.Fn
 			Packages?: [...(string | fn.Fn)] | (string | fn.Fn)
 			Shortname: string | fn.Fn
 			StackId:   string | fn.Fn
-			Tags?: [...{
+			Tags?:     [...{
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}]
+			}] | fn.If
 			Type:                      string | fn.Fn
 			UseEbsOptimizedInstances?: bool | fn.Fn
-			VolumeConfigurations?: [...{
+			VolumeConfigurations?:     [...{
 				Encrypted?:     bool | fn.Fn
 				Iops?:          int | fn.Fn
 				MountPoint?:    string | fn.Fn
@@ -167,7 +187,7 @@ OpsWorks :: {
 				RaidLevel?:     int | fn.Fn
 				Size?:          int | fn.Fn
 				VolumeType?:    ("gp2" | "io1" | "sc1" | "st1" | "standard") | fn.Fn
-			}]
+			}] | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -179,17 +199,19 @@ OpsWorks :: {
 		Type: "AWS::OpsWorks::Stack"
 		Properties: {
 			AgentVersion?: string | fn.Fn
-			Attributes?: [string]: string | fn.Fn
+			Attributes?:   {
+				[string]: string | fn.Fn
+			} | fn.If
 			ChefConfiguration?: {
 				BerkshelfVersion?: string | fn.Fn
 				ManageBerkshelf?:  bool | fn.Fn
-			}
-			CloneAppIds?:      [...(string | fn.Fn)] | (string | fn.Fn)
-			ClonePermissions?: bool | fn.Fn
+			} | fn.If
+			CloneAppIds?:          [...(string | fn.Fn)] | (string | fn.Fn)
+			ClonePermissions?:     bool | fn.Fn
 			ConfigurationManager?: {
 				Name?:    string | fn.Fn
 				Version?: string | fn.Fn
-			}
+			} | fn.If
 			CustomCookbooksSource?: {
 				Password?: string | fn.Fn
 				Revision?: string | fn.Fn
@@ -197,7 +219,7 @@ OpsWorks :: {
 				Type?:     string | fn.Fn
 				Url?:      string | fn.Fn
 				Username?: string | fn.Fn
-			}
+			} | fn.If
 			CustomJson?: {
 				[string]: _
 			} | fn.Fn
@@ -208,23 +230,23 @@ OpsWorks :: {
 			DefaultSshKeyName?:        string | fn.Fn
 			DefaultSubnetId?:          string | fn.Fn
 			EcsClusterArn?:            string | fn.Fn
-			ElasticIps?: [...{
+			ElasticIps?:               [...{
 				Ip:    string | fn.Fn
 				Name?: string | fn.Fn
-			}]
-			HostnameTheme?: string | fn.Fn
-			Name:           string | fn.Fn
+			}] | fn.If
+			HostnameTheme?:  string | fn.Fn
+			Name:            string | fn.Fn
 			RdsDbInstances?: [...{
 				DbPassword:       string | fn.Fn
 				DbUser:           string | fn.Fn
 				RdsDbInstanceArn: string | fn.Fn
-			}]
+			}] | fn.If
 			ServiceRoleArn: string | fn.Fn
 			SourceStackId?: string | fn.Fn
-			Tags?: [...{
+			Tags?:          [...{
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}]
+			}] | fn.If
 			UseCustomCookbooks?:        bool | fn.Fn
 			UseOpsworksSecurityGroups?: bool | fn.Fn
 			VpcId?:                     string | fn.Fn

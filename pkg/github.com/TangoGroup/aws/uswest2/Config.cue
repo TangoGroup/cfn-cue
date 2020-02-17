@@ -84,6 +84,25 @@ Config :: {
 		Metadata?: [string]: _
 		Condition?: string
 	}
+	ConformancePack :: {
+		Type: "AWS::Config::ConformancePack"
+		Properties: {
+			ConformancePackInputParameters?: [...{
+				ParameterName:  string | fn.Fn
+				ParameterValue: string | fn.Fn
+			}] | fn.If
+			ConformancePackName:  string | fn.Fn
+			DeliveryS3Bucket:     string | fn.Fn
+			DeliveryS3KeyPrefix?: string | fn.Fn
+			TemplateBody?:        string | fn.Fn
+			TemplateS3Uri?:       string | fn.Fn
+		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+		Condition?: string
+	}
 	DeliveryChannel :: {
 		Type: "AWS::Config::DeliveryChannel"
 		Properties: {
@@ -127,6 +146,26 @@ Config :: {
 				TagKeyScope?:               string | fn.Fn
 				TagValueScope?:             string | fn.Fn
 			} | fn.If
+		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+		Condition?: string
+	}
+	OrganizationConformancePack :: {
+		Type: "AWS::Config::OrganizationConformancePack"
+		Properties: {
+			ConformancePackInputParameters?: [...{
+				ParameterName:  string | fn.Fn
+				ParameterValue: string | fn.Fn
+			}] | fn.If
+			DeliveryS3Bucket:                string | fn.Fn
+			DeliveryS3KeyPrefix?:            string | fn.Fn
+			ExcludedAccounts?:               [...(string | fn.Fn)] | (string | fn.Fn)
+			OrganizationConformancePackName: string | fn.Fn
+			TemplateBody?:                   string | fn.Fn
+			TemplateS3Uri?:                  string | fn.Fn
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

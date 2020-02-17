@@ -42,6 +42,16 @@ ElasticLoadBalancingV2 :: {
 					MessageBody?: string | fn.Fn
 					StatusCode:   string | fn.Fn
 				} | fn.If
+				ForwardConfig?: {
+					TargetGroupStickinessConfig?: {
+						DurationSeconds?: int | fn.Fn
+						Enabled?:         bool | fn.Fn
+					} | fn.If
+					TargetGroups?: [...{
+						TargetGroupArn?: string | fn.Fn
+						Weight?:         int | fn.Fn
+					}] | fn.If
+				} | fn.If
 				Order?:          int | fn.Fn
 				RedirectConfig?: {
 					Host?:      string | fn.Fn
@@ -114,6 +124,16 @@ ElasticLoadBalancingV2 :: {
 					ContentType?: string | fn.Fn
 					MessageBody?: string | fn.Fn
 					StatusCode:   string | fn.Fn
+				} | fn.If
+				ForwardConfig?: {
+					TargetGroupStickinessConfig?: {
+						DurationSeconds?: int | fn.Fn
+						Enabled?:         bool | fn.Fn
+					} | fn.If
+					TargetGroups?: [...{
+						TargetGroupArn?: string | fn.Fn
+						Weight?:         int | fn.Fn
+					}] | fn.If
 				} | fn.If
 				Order?:          int | fn.Fn
 				RedirectConfig?: {

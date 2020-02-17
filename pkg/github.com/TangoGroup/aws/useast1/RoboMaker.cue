@@ -42,12 +42,12 @@ RoboMaker :: {
 			RobotSoftwareSuite: {
 				Name:    string | fn.Fn
 				Version: string | fn.Fn
-			}
+			} | fn.If
 			Sources: [...{
 				Architecture: string | fn.Fn
 				S3Bucket:     string | fn.Fn
 				S3Key:        string | fn.Fn
-			}]
+			}] | fn.If
 			Tags?: {
 				[string]: _
 			} | fn.Fn
@@ -75,23 +75,23 @@ RoboMaker :: {
 		Properties: {
 			CurrentRevisionId?: string | fn.Fn
 			Name?:              string | fn.Fn
-			RenderingEngine: {
+			RenderingEngine:    {
 				Name:    string | fn.Fn
 				Version: string | fn.Fn
-			}
+			} | fn.If
 			RobotSoftwareSuite: {
 				Name:    string | fn.Fn
 				Version: string | fn.Fn
-			}
+			} | fn.If
 			SimulationSoftwareSuite: {
 				Name:    string | fn.Fn
 				Version: string | fn.Fn
-			}
+			} | fn.If
 			Sources: [...{
 				Architecture: string | fn.Fn
 				S3Bucket:     string | fn.Fn
 				S3Key:        string | fn.Fn
-			}]
+			}] | fn.If
 			Tags?: {
 				[string]: _
 			} | fn.Fn

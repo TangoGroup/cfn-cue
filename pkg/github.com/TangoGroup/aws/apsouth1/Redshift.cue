@@ -22,10 +22,10 @@ Redshift :: {
 			HsmConfigurationIdentifier?:       string | fn.Fn
 			IamRoles?:                         [...(string | fn.Fn)] | (string | fn.Fn)
 			KmsKeyId?:                         string | fn.Fn
-			LoggingProperties?: {
+			LoggingProperties?:                {
 				BucketName:   string | fn.Fn
 				S3KeyPrefix?: string | fn.Fn
-			}
+			} | fn.If
 			MasterUserPassword:          string | fn.Fn
 			MasterUsername:              string | fn.Fn
 			NodeType:                    ("dc1.8xlarge" | "dc1.large" | "dc2.8xlarge" | "dc2.large" | "ds2.8xlarge" | "ds2.xlarge") | fn.Fn
@@ -36,10 +36,10 @@ Redshift :: {
 			PubliclyAccessible?:         bool | fn.Fn
 			SnapshotClusterIdentifier?:  string | fn.Fn
 			SnapshotIdentifier?:         string | fn.Fn
-			Tags?: [...{
+			Tags?:                       [...{
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}]
+			}] | fn.If
 			VpcSecurityGroupIds?: [...(string | fn.Fn)] | (string | fn.Fn)
 		}
 		DependsOn?:           string | [...string]
@@ -53,14 +53,14 @@ Redshift :: {
 		Properties: {
 			Description:          string | fn.Fn
 			ParameterGroupFamily: string | fn.Fn
-			Parameters?: [...{
+			Parameters?:          [...{
 				ParameterName:  string | fn.Fn
 				ParameterValue: string | fn.Fn
-			}]
+			}] | fn.If
 			Tags?: [...{
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}]
+			}] | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -72,10 +72,10 @@ Redshift :: {
 		Type: "AWS::Redshift::ClusterSecurityGroup"
 		Properties: {
 			Description: string | fn.Fn
-			Tags?: [...{
+			Tags?:       [...{
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}]
+			}] | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -102,10 +102,10 @@ Redshift :: {
 		Properties: {
 			Description: string | fn.Fn
 			SubnetIds:   [...(string | fn.Fn)] | (string | fn.Fn)
-			Tags?: [...{
+			Tags?:       [...{
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}]
+			}] | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

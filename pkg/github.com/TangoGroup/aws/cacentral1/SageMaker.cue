@@ -7,11 +7,11 @@ SageMaker :: {
 		Type: "AWS::SageMaker::CodeRepository"
 		Properties: {
 			CodeRepositoryName?: string | fn.Fn
-			GitConfig: {
+			GitConfig:           {
 				Branch?:       string | fn.Fn
 				RepositoryUrl: string | fn.Fn
 				SecretArn?:    string | fn.Fn
-			}
+			} | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -30,9 +30,9 @@ SageMaker :: {
 				Image:         string | fn.Fn
 				Mode?:         string | fn.Fn
 				ModelDataUrl?: string | fn.Fn
-			}]
-			ExecutionRoleArn: string | fn.Fn
-			ModelName?:       string | fn.Fn
+			}] | fn.If
+			ExecutionRoleArn:  string | fn.Fn
+			ModelName?:        string | fn.Fn
 			PrimaryContainer?: {
 				ContainerHostname?: string | fn.Fn
 				Environment?:       {
@@ -41,15 +41,15 @@ SageMaker :: {
 				Image:         string | fn.Fn
 				Mode?:         string | fn.Fn
 				ModelDataUrl?: string | fn.Fn
-			}
+			} | fn.If
 			Tags?: [...{
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}]
+			}] | fn.If
 			VpcConfig?: {
 				SecurityGroupIds: [...(string | fn.Fn)] | (string | fn.Fn)
 				Subnets:          [...(string | fn.Fn)] | (string | fn.Fn)
-			}
+			} | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -72,10 +72,10 @@ SageMaker :: {
 			RootAccess?:                 string | fn.Fn
 			SecurityGroupIds?:           [...(string | fn.Fn)] | (string | fn.Fn)
 			SubnetId?:                   string | fn.Fn
-			Tags?: [...{
+			Tags?:                       [...{
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}]
+			}] | fn.If
 			VolumeSizeInGB?: (>=5 & <=16384) | fn.Fn
 		}
 		DependsOn?:           string | [...string]

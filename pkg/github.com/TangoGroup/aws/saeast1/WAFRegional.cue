@@ -7,15 +7,7 @@ WAFRegional :: {
 		Type: "AWS::WAFRegional::ByteMatchSet"
 		Properties: {
 			ByteMatchTuples?: [...{
-				FieldToMatch: {
-					Data?: string | fn.Fn
-					Type:  string | fn.Fn
-				}
-				PositionalConstraint: string | fn.Fn
-				TargetString?:        string | fn.Fn
-				TargetStringBase64?:  string | fn.Fn
-				TextTransformation:   string | fn.Fn
-			}]
+			}] | fn.If
 			Name: string | fn.Fn
 		}
 		DependsOn?:           string | [...string]
@@ -28,9 +20,7 @@ WAFRegional :: {
 		Type: "AWS::WAFRegional::GeoMatchSet"
 		Properties: {
 			GeoMatchConstraints?: [...{
-				Type:  string | fn.Fn
-				Value: string | fn.Fn
-			}]
+			}] | fn.If
 			Name: string | fn.Fn
 		}
 		DependsOn?:           string | [...string]
@@ -43,9 +33,7 @@ WAFRegional :: {
 		Type: "AWS::WAFRegional::IPSet"
 		Properties: {
 			IPSetDescriptors?: [...{
-				Type:  string | fn.Fn
-				Value: string | fn.Fn
-			}]
+			}] | fn.If
 			Name: string | fn.Fn
 		}
 		DependsOn?:           string | [...string]
@@ -58,10 +46,7 @@ WAFRegional :: {
 		Type: "AWS::WAFRegional::RateBasedRule"
 		Properties: {
 			MatchPredicates?: [...{
-				DataId:  string | fn.Fn
-				Negated: bool | fn.Fn
-				Type:    string | fn.Fn
-			}]
+			}] | fn.If
 			MetricName: string | fn.Fn
 			Name:       string | fn.Fn
 			RateKey:    string | fn.Fn
@@ -88,13 +73,10 @@ WAFRegional :: {
 	Rule :: {
 		Type: "AWS::WAFRegional::Rule"
 		Properties: {
-			MetricName: string | fn.Fn
-			Name:       string | fn.Fn
+			MetricName:  string | fn.Fn
+			Name:        string | fn.Fn
 			Predicates?: [...{
-				DataId:  string | fn.Fn
-				Negated: bool | fn.Fn
-				Type:    ("ByteMatch" | "GeoMatch" | "IPMatch" | "RegexMatch" | "SizeConstraint" | "SqlInjectionMatch" | "XssMatch") | fn.Fn
-			}]
+			}] | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -105,16 +87,9 @@ WAFRegional :: {
 	SizeConstraintSet :: {
 		Type: "AWS::WAFRegional::SizeConstraintSet"
 		Properties: {
-			Name: string | fn.Fn
+			Name:             string | fn.Fn
 			SizeConstraints?: [...{
-				ComparisonOperator: string | fn.Fn
-				FieldToMatch: {
-					Data?: string | fn.Fn
-					Type:  string | fn.Fn
-				}
-				Size:               int | fn.Fn
-				TextTransformation: string | fn.Fn
-			}]
+			}] | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -125,14 +100,9 @@ WAFRegional :: {
 	SqlInjectionMatchSet :: {
 		Type: "AWS::WAFRegional::SqlInjectionMatchSet"
 		Properties: {
-			Name: string | fn.Fn
+			Name:                     string | fn.Fn
 			SqlInjectionMatchTuples?: [...{
-				FieldToMatch: {
-					Data?: string | fn.Fn
-					Type:  string | fn.Fn
-				}
-				TextTransformation: string | fn.Fn
-			}]
+			}] | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -143,14 +113,12 @@ WAFRegional :: {
 	WebACL :: {
 		Type: "AWS::WAFRegional::WebACL"
 		Properties: {
-			DefaultAction: Type: string | fn.Fn
+			DefaultAction: {
+			} | fn.If
 			MetricName: string | fn.Fn
 			Name:       string | fn.Fn
-			Rules?: [...{
-				Action: Type: string | fn.Fn
-				Priority: int | fn.Fn
-				RuleId:   string | fn.Fn
-			}]
+			Rules?:     [...{
+			}] | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -173,14 +141,9 @@ WAFRegional :: {
 	XssMatchSet :: {
 		Type: "AWS::WAFRegional::XssMatchSet"
 		Properties: {
-			Name: string | fn.Fn
+			Name:            string | fn.Fn
 			XssMatchTuples?: [...{
-				FieldToMatch: {
-					Data?: string | fn.Fn
-					Type:  string | fn.Fn
-				}
-				TextTransformation: string | fn.Fn
-			}]
+			}] | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

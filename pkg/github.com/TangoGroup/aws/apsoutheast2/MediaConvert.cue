@@ -6,7 +6,9 @@ MediaConvert :: {
 	JobTemplate :: {
 		Type: "AWS::MediaConvert::JobTemplate"
 		Properties: {
-			AccelerationSettings?: Mode: string | fn.Fn
+			AccelerationSettings?: {
+				Mode: string | fn.Fn
+			} | fn.If
 			Category?:    string | fn.Fn
 			Description?: string | fn.Fn
 			Name?:        string | fn.Fn

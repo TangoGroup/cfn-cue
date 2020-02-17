@@ -25,10 +25,10 @@ ElastiCache :: {
 			SnapshotName?:               string | fn.Fn
 			SnapshotRetentionLimit?:     int | fn.Fn
 			SnapshotWindow?:             string | fn.Fn
-			Tags?: [...{
+			Tags?:                       [...{
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}]
+			}] | fn.If
 			VpcSecurityGroupIds?: [...(string | fn.Fn)] | (string | fn.Fn)
 		}
 		DependsOn?:           string | [...string]
@@ -42,7 +42,9 @@ ElastiCache :: {
 		Properties: {
 			CacheParameterGroupFamily: string | fn.Fn
 			Description:               string | fn.Fn
-			Properties?: [string]: string | fn.Fn
+			Properties?:               {
+				[string]: string | fn.Fn
+			} | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -64,13 +66,13 @@ ElastiCache :: {
 			Engine?:                   string | fn.Fn
 			EngineVersion?:            string | fn.Fn
 			KmsKeyId?:                 string | fn.Fn
-			NodeGroupConfiguration?: [...{
+			NodeGroupConfiguration?:   [...{
 				NodeGroupId?:              string | fn.Fn
 				PrimaryAvailabilityZone?:  string | fn.Fn
 				ReplicaAvailabilityZones?: [...(string | fn.Fn)] | (string | fn.Fn)
 				ReplicaCount?:             int | fn.Fn
 				Slots?:                    string | fn.Fn
-			}]
+			}] | fn.If
 			NotificationTopicArn?:       string | fn.Fn
 			NumCacheClusters?:           (>=1 & <=6) | fn.Fn
 			NumNodeGroups?:              int | fn.Fn
@@ -87,10 +89,10 @@ ElastiCache :: {
 			SnapshotRetentionLimit?:     int | fn.Fn
 			SnapshotWindow?:             string | fn.Fn
 			SnapshottingClusterId?:      string | fn.Fn
-			Tags?: [...{
+			Tags?:                       [...{
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}]
+			}] | fn.If
 			TransitEncryptionEnabled?: bool | fn.Fn
 		}
 		DependsOn?:           string | [...string]

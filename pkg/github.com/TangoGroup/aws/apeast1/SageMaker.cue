@@ -7,8 +7,8 @@ SageMaker :: {
 		Type: "AWS::SageMaker::CodeRepository"
 		Properties: {
 			CodeRepositoryName?: string | fn.Fn
-			GitConfig: {
-			}
+			GitConfig:           {
+			} | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -19,15 +19,15 @@ SageMaker :: {
 	Endpoint :: {
 		Type: "AWS::SageMaker::Endpoint"
 		Properties: {
-			EndpointConfigName: string | fn.Fn
-			EndpointName?:      string | fn.Fn
+			EndpointConfigName:                string | fn.Fn
+			EndpointName?:                     string | fn.Fn
 			ExcludeRetainedVariantProperties?: [...{
-			}]
+			}] | fn.If
 			RetainAllVariantProperties?: bool | fn.Fn
-			Tags?: [...{
+			Tags?:                       [...{
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}]
+			}] | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -40,12 +40,12 @@ SageMaker :: {
 		Properties: {
 			EndpointConfigName?: string | fn.Fn
 			KmsKeyId?:           string | fn.Fn
-			ProductionVariants: [...{
-			}]
+			ProductionVariants:  [...{
+			}] | fn.If
 			Tags?: [...{
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}]
+			}] | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -57,17 +57,17 @@ SageMaker :: {
 		Type: "AWS::SageMaker::Model"
 		Properties: {
 			Containers?: [...{
-			}]
-			ExecutionRoleArn: string | fn.Fn
-			ModelName?:       string | fn.Fn
+			}] | fn.If
+			ExecutionRoleArn:  string | fn.Fn
+			ModelName?:        string | fn.Fn
 			PrimaryContainer?: {
-			}
+			} | fn.If
 			Tags?: [...{
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}]
+			}] | fn.If
 			VpcConfig?: {
-			}
+			} | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -90,10 +90,10 @@ SageMaker :: {
 			RootAccess?:                 string | fn.Fn
 			SecurityGroupIds?:           [...(string | fn.Fn)] | (string | fn.Fn)
 			SubnetId?:                   string | fn.Fn
-			Tags?: [...{
+			Tags?:                       [...{
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}]
+			}] | fn.If
 			VolumeSizeInGB?: int | fn.Fn
 		}
 		DependsOn?:           string | [...string]
@@ -106,10 +106,10 @@ SageMaker :: {
 		Type: "AWS::SageMaker::NotebookInstanceLifecycleConfig"
 		Properties: {
 			NotebookInstanceLifecycleConfigName?: string | fn.Fn
-			OnCreate?: [...{
-			}]
+			OnCreate?:                            [...{
+			}] | fn.If
 			OnStart?: [...{
-			}]
+			}] | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -120,15 +120,15 @@ SageMaker :: {
 	Workteam :: {
 		Type: "AWS::SageMaker::Workteam"
 		Properties: {
-			Description?: string | fn.Fn
+			Description?:       string | fn.Fn
 			MemberDefinitions?: [...{
-			}]
+			}] | fn.If
 			NotificationConfiguration?: {
-			}
+			} | fn.If
 			Tags?: [...{
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}]
+			}] | fn.If
 			WorkteamName?: string | fn.Fn
 		}
 		DependsOn?:           string | [...string]

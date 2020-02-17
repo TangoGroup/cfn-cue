@@ -34,11 +34,13 @@ CloudFormation :: {
 		Type: "AWS::CloudFormation::Stack"
 		Properties: {
 			NotificationARNs?: [...(string | fn.Fn)] | (string | fn.Fn)
-			Parameters?: [string]: string | fn.Fn
+			Parameters?:       {
+				[string]: string | fn.Fn
+			} | fn.If
 			Tags?: [...{
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}]
+			}] | fn.If
 			TemplateURL:       string | fn.Fn
 			TimeoutInMinutes?: int | fn.Fn
 		}

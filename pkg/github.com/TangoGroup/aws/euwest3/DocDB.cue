@@ -7,12 +7,12 @@ DocDB :: {
 		Type: "AWS::DocDB::DBCluster"
 		Properties: {
 			AvailabilityZones?:           [...(string | fn.Fn)] | (string | fn.Fn)
-			BackupRetentionPeriod?:       (>=1 & <=35) | fn.Fn
+			BackupRetentionPeriod?:       int | fn.Fn
 			DBClusterIdentifier?:         string | fn.Fn
 			DBClusterParameterGroupName?: string | fn.Fn
 			DBSubnetGroupName?:           string | fn.Fn
 			EnableCloudwatchLogsExports?: [...(string | fn.Fn)] | (string | fn.Fn)
-			EngineVersion?:               ("3.6.0") | fn.Fn
+			EngineVersion?:               string | fn.Fn
 			KmsKeyId?:                    string | fn.Fn
 			MasterUserPassword:           string | fn.Fn
 			MasterUsername:               string | fn.Fn
@@ -21,10 +21,10 @@ DocDB :: {
 			PreferredMaintenanceWindow?:  string | fn.Fn
 			SnapshotIdentifier?:          string | fn.Fn
 			StorageEncrypted?:            bool | fn.Fn
-			Tags?: [...{
+			Tags?:                        [...{
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}]
+			}] | fn.If
 			VpcSecurityGroupIds?: [...(string | fn.Fn)] | (string | fn.Fn)
 		}
 		DependsOn?:           string | [...string]
@@ -45,7 +45,7 @@ DocDB :: {
 			Tags?: [...{
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}]
+			}] | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -59,13 +59,13 @@ DocDB :: {
 			AutoMinorVersionUpgrade?:    bool | fn.Fn
 			AvailabilityZone?:           string | fn.Fn
 			DBClusterIdentifier:         string | fn.Fn
-			DBInstanceClass:             ("db.r5.12xlarge" | "db.r5.24xlarge" | "db.r5.2xlarge" | "db.r5.4xlarge" | "db.r5.large" | "db.r5.xlarge") | fn.Fn
+			DBInstanceClass:             string | fn.Fn
 			DBInstanceIdentifier?:       string | fn.Fn
 			PreferredMaintenanceWindow?: string | fn.Fn
-			Tags?: [...{
+			Tags?:                       [...{
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}]
+			}] | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -79,10 +79,10 @@ DocDB :: {
 			DBSubnetGroupDescription: string | fn.Fn
 			DBSubnetGroupName?:       string | fn.Fn
 			SubnetIds:                [...(string | fn.Fn)] | (string | fn.Fn)
-			Tags?: [...{
+			Tags?:                    [...{
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}]
+			}] | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

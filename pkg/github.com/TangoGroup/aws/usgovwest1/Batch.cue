@@ -7,8 +7,8 @@ Batch :: {
 		Type: "AWS::Batch::ComputeEnvironment"
 		Properties: {
 			ComputeEnvironmentName?: string | fn.Fn
-			ComputeResources?: {
-			}
+			ComputeResources?:       {
+			} | fn.If
 			ServiceRole: string | fn.Fn
 			State?:      string | fn.Fn
 			Type:        string | fn.Fn
@@ -23,17 +23,17 @@ Batch :: {
 		Type: "AWS::Batch::JobDefinition"
 		Properties: {
 			ContainerProperties?: {
-			}
+			} | fn.If
 			JobDefinitionName?: string | fn.Fn
-			NodeProperties?: {
-			}
+			NodeProperties?:    {
+			} | fn.If
 			Parameters?: {
 				[string]: _
 			} | fn.Fn
 			RetryStrategy?: {
-			}
+			} | fn.If
 			Timeout?: {
-			}
+			} | fn.If
 			Type: string | fn.Fn
 		}
 		DependsOn?:           string | [...string]
@@ -46,7 +46,7 @@ Batch :: {
 		Type: "AWS::Batch::JobQueue"
 		Properties: {
 			ComputeEnvironmentOrder: [...{
-			}]
+			}] | fn.If
 			JobQueueName?: string | fn.Fn
 			Priority:      int | fn.Fn
 			State?:        string | fn.Fn

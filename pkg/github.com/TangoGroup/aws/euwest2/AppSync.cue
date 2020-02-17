@@ -19,171 +19,47 @@ AppSync :: {
 		Metadata?: [string]: _
 		Condition?: string
 	}
-	ApiKey :: {
-		Type: "AWS::AppSync::ApiKey"
-		Properties: {
-			ApiId:        string | fn.Fn
-			Description?: string | fn.Fn
-			Expires?:     number | fn.Fn
-		}
-		DependsOn?:           string | [...string]
-		DeletionPolicy?:      "Delete" | "Retain"
-		UpdateReplacePolicy?: "Delete" | "Retain"
-		Metadata?: [string]: _
-		Condition?: string
-	}
-	DataSource :: {
-		Type: "AWS::AppSync::DataSource"
-		Properties: {
-			ApiId:        string | fn.Fn
-			Description?: string | fn.Fn
-			DynamoDBConfig?: {
-				AwsRegion: string | fn.Fn
-				DeltaSyncConfig?: {
-					BaseTableTTL:       string | fn.Fn
-					DeltaSyncTableName: string | fn.Fn
-					DeltaSyncTableTTL:  string | fn.Fn
-				}
-				TableName:             string | fn.Fn
-				UseCallerCredentials?: bool | fn.Fn
-				Versioned?:            bool | fn.Fn
-			}
-			ElasticsearchConfig?: {
-				AwsRegion: string | fn.Fn
-				Endpoint:  string | fn.Fn
-			}
-			HttpConfig?: {
-				AuthorizationConfig?: {
-					AuthorizationType: string | fn.Fn
-					AwsIamConfig?: {
-						SigningRegion?:      string | fn.Fn
-						SigningServiceName?: string | fn.Fn
-					}
-				}
-				Endpoint: string | fn.Fn
-			}
-			LambdaConfig?: LambdaFunctionArn: string | fn.Fn
-			Name: string | fn.Fn
-			RelationalDatabaseConfig?: {
-				RdsHttpEndpointConfig?: {
-					AwsRegion:           string | fn.Fn
-					AwsSecretStoreArn:   string | fn.Fn
-					DatabaseName?:       string | fn.Fn
-					DbClusterIdentifier: string | fn.Fn
-					Schema?:             string | fn.Fn
-				}
-				RelationalDatabaseSourceType: string | fn.Fn
-			}
-			ServiceRoleArn?: string | fn.Fn
-			Type:            ("AMAZON_DYNAMODB" | "AMAZON_ELASTICSEARCH" | "AWS_LAMBDA" | "HTTP" | "NONE" | "RELATIONAL_DATABASE") | fn.Fn
-		}
-		DependsOn?:           string | [...string]
-		DeletionPolicy?:      "Delete" | "Retain"
-		UpdateReplacePolicy?: "Delete" | "Retain"
-		Metadata?: [string]: _
-		Condition?: string
-	}
-	FunctionConfiguration :: {
-		Type: "AWS::AppSync::FunctionConfiguration"
-		Properties: {
-			ApiId:                              string | fn.Fn
-			DataSourceName:                     string | fn.Fn
-			Description?:                       string | fn.Fn
-			FunctionVersion:                    string | fn.Fn
-			Name:                               string | fn.Fn
-			RequestMappingTemplate?:            string | fn.Fn
-			RequestMappingTemplateS3Location?:  string | fn.Fn
-			ResponseMappingTemplate?:           string | fn.Fn
-			ResponseMappingTemplateS3Location?: string | fn.Fn
-		}
-		DependsOn?:           string | [...string]
-		DeletionPolicy?:      "Delete" | "Retain"
-		UpdateReplacePolicy?: "Delete" | "Retain"
-		Metadata?: [string]: _
-		Condition?: string
-	}
 	GraphQLApi :: {
 		Type: "AWS::AppSync::GraphQLApi"
 		Properties: {
 			AdditionalAuthenticationProviders?: [...{
-				AuthenticationType: string | fn.Fn
+				AuthenticationType:   string | fn.Fn
 				OpenIDConnectConfig?: {
 					AuthTTL?:  number | fn.Fn
 					ClientId?: string | fn.Fn
 					IatTTL?:   number | fn.Fn
 					Issuer?:   string | fn.Fn
-				}
+				} | fn.If
 				UserPoolConfig?: {
 					AppIdClientRegex?: string | fn.Fn
 					AwsRegion?:        string | fn.Fn
 					UserPoolId?:       string | fn.Fn
-				}
-			}]
+				} | fn.If
+			}] | fn.If
 			AuthenticationType: ("AMAZON_COGNITO_USER_POOLS" | "API_KEY" | "AWS_IAM" | "OPENID_CONNECT") | fn.Fn
-			LogConfig?: {
+			LogConfig?:         {
 				CloudWatchLogsRoleArn?: string | fn.Fn
 				ExcludeVerboseContent?: bool | fn.Fn
 				FieldLogLevel?:         string | fn.Fn
-			}
-			Name: string | fn.Fn
+			} | fn.If
+			Name:                 string | fn.Fn
 			OpenIDConnectConfig?: {
 				AuthTTL?:  number | fn.Fn
 				ClientId?: string | fn.Fn
 				IatTTL?:   number | fn.Fn
 				Issuer?:   string | fn.Fn
-			}
+			} | fn.If
 			Tags?: [...{
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}]
+			}] | fn.If
 			UserPoolConfig?: {
 				AppIdClientRegex?: string | fn.Fn
 				AwsRegion?:        string | fn.Fn
 				DefaultAction?:    string | fn.Fn
 				UserPoolId?:       string | fn.Fn
-			}
-		}
-		DependsOn?:           string | [...string]
-		DeletionPolicy?:      "Delete" | "Retain"
-		UpdateReplacePolicy?: "Delete" | "Retain"
-		Metadata?: [string]: _
-		Condition?: string
-	}
-	GraphQLSchema :: {
-		Type: "AWS::AppSync::GraphQLSchema"
-		Properties: {
-			ApiId:                 string | fn.Fn
-			Definition?:           string | fn.Fn
-			DefinitionS3Location?: string | fn.Fn
-		}
-		DependsOn?:           string | [...string]
-		DeletionPolicy?:      "Delete" | "Retain"
-		UpdateReplacePolicy?: "Delete" | "Retain"
-		Metadata?: [string]: _
-		Condition?: string
-	}
-	Resolver :: {
-		Type: "AWS::AppSync::Resolver"
-		Properties: {
-			ApiId: string | fn.Fn
-			CachingConfig?: {
-				CachingKeys?: [...(string | fn.Fn)] | (string | fn.Fn)
-				Ttl?:         number | fn.Fn
-			}
-			DataSourceName?: string | fn.Fn
-			FieldName:       string | fn.Fn
-			Kind?:           ("PIPELINE" | "UNIT") | fn.Fn
-			PipelineConfig?: Functions?: [...(string | fn.Fn)] | (string | fn.Fn)
-			RequestMappingTemplate?:            string | fn.Fn
-			RequestMappingTemplateS3Location?:  string | fn.Fn
-			ResponseMappingTemplate?:           string | fn.Fn
-			ResponseMappingTemplateS3Location?: string | fn.Fn
-			SyncConfig?: {
-				ConflictDetection: string | fn.Fn
-				ConflictHandler?:  string | fn.Fn
-				LambdaConflictHandlerConfig?: LambdaConflictHandlerArn?: string | fn.Fn
-			}
-			TypeName: string | fn.Fn
+			} | fn.If
+			XrayEnabled?: bool | fn.Fn
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
