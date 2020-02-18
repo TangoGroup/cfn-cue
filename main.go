@@ -1067,7 +1067,7 @@ func main() {
 			resourceTypesExpr = &ast.BinaryExpr{X: resourceTypesExpr, Op: token.OR, Y: resource}
 		}
 
-		expr := ast.NewList(resourceTypes...)
+		// expr := ast.NewList(resourceTypes...)
 
 		resourceNames := resourceNamesSlice(spec.Resources)
 		sort.Strings(resourceNames)
@@ -1267,40 +1267,40 @@ func main() {
 		// 		},
 		// 	},
 		// }
-		resourcesForLoop := &ast.Comprehension{
-			Clauses: []ast.Clause{
-				&ast.ForClause{
-					Key:    ast.NewIdent("resourceName"),
-					Value:  ast.NewIdent("resource"),
-					Source: ast.NewIdent("Resources"),
-				},
-			},
-			Value: &ast.StructLit{
-				Elts: []ast.Decl{
-					&ast.Field{
-						Label: ast.NewIdent("Resources"),
-						Value: &ast.StructLit{
-							Elts: []ast.Decl{
-								&ast.Field{
-									Label: &ast.Interpolation{
-										Elts: []ast.Expr{
-											&ast.BasicLit{
-												Kind:  token.STRING,
-												Value: `"\(resourceName)"`,
-											},
-										},
-									},
-									Value: &ast.IndexExpr{
-										X:     ast.NewIdent("ResourceTypesMap"),
-										Index: ast.NewSel(ast.NewIdent("resource"), "Type"),
-									},
-								},
-							},
-						},
-					},
-				},
-			},
-		}
+		// resourcesForLoop := &ast.Comprehension{
+		// 	Clauses: []ast.Clause{
+		// 		&ast.ForClause{
+		// 			Key:    ast.NewIdent("resourceName"),
+		// 			Value:  ast.NewIdent("resource"),
+		// 			Source: ast.NewIdent("Resources"),
+		// 		},
+		// 	},
+		// 	Value: &ast.StructLit{
+		// 		Elts: []ast.Decl{
+		// 			&ast.Field{
+		// 				Label: ast.NewIdent("Resources"),
+		// 				Value: &ast.StructLit{
+		// 					Elts: []ast.Decl{
+		// 						&ast.Field{
+		// 							Label: &ast.Interpolation{
+		// 								Elts: []ast.Expr{
+		// 									&ast.BasicLit{
+		// 										Kind:  token.STRING,
+		// 										Value: `"\(resourceName)"`,
+		// 									},
+		// 								},
+		// 							},
+		// 							Value: &ast.IndexExpr{
+		// 								X:     ast.NewIdent("ResourceTypesMap"),
+		// 								Index: ast.NewSel(ast.NewIdent("resource"), "Type"),
+		// 							},
+		// 						},
+		// 					},
+		// 				},
+		// 			},
+		// 		},
+		// 	},
+		// }
 
 		declarations = append(declarations, &ast.Field{
 			Label: ast.NewIdent("Template"),
@@ -1315,7 +1315,7 @@ func main() {
 					templateParameters(),
 					// templateResources1,
 					templateResources2,
-					resourcesForLoop,
+					// resourcesForLoop,
 					templateOutputs(),
 				},
 			},
@@ -1329,45 +1329,45 @@ func main() {
 		// 	},
 		// })
 
-		resourcesMap := &ast.Field{
-			Label: ast.NewIdent("ResourceTypesMap"),
-			Token: token.ISA,
-			Value: &ast.StructLit{
-				Elts: []ast.Decl{
-					&ast.Comprehension{
-						Clauses: []ast.Clause{
-							&ast.ForClause{
-								Value:  ast.NewIdent("resource"),
-								Source: ast.NewIdent("ResourceTypes"),
-							},
-						},
-						Value: &ast.StructLit{
-							Elts: []ast.Decl{
-								&ast.Field{
-									Label: &ast.Interpolation{
-										Elts: []ast.Expr{
-											&ast.BasicLit{
-												Kind:  token.STRING,
-												Value: `"\(resource.Type)"`,
-											},
-										},
-									},
-									Value: ast.NewIdent("resource"),
-								},
-							},
-						},
-					},
-					&ast.Field{
-						Label: ast.NewIdent("AWS::CloudFormation::CustomResource"),
-						Value: ast.NewSel(ast.NewIdent("CloudFormation"), "CustomResource"),
-					},
-					&ast.Field{
-						Label: ast.NewList(&ast.UnaryExpr{Op: token.MAT, X: &ast.BasicLit{Kind: token.STRING, Value: "#\"^Custom::[a-zA-Z0-9_@-]{1,60}$\"#"}}),
-						Value: ast.NewSel(ast.NewIdent("CloudFormation"), "CustomResource"),
-					},
-				},
-			},
-		}
+		// resourcesMap := &ast.Field{
+		// 	Label: ast.NewIdent("ResourceTypesMap"),
+		// 	Token: token.ISA,
+		// 	Value: &ast.StructLit{
+		// 		Elts: []ast.Decl{
+		// 			&ast.Comprehension{
+		// 				Clauses: []ast.Clause{
+		// 					&ast.ForClause{
+		// 						Value:  ast.NewIdent("resource"),
+		// 						Source: ast.NewIdent("ResourceTypes"),
+		// 					},
+		// 				},
+		// 				Value: &ast.StructLit{
+		// 					Elts: []ast.Decl{
+		// 						&ast.Field{
+		// 							Label: &ast.Interpolation{
+		// 								Elts: []ast.Expr{
+		// 									&ast.BasicLit{
+		// 										Kind:  token.STRING,
+		// 										Value: `"\(resource.Type)"`,
+		// 									},
+		// 								},
+		// 							},
+		// 							Value: ast.NewIdent("resource"),
+		// 						},
+		// 					},
+		// 				},
+		// 			},
+		// 			&ast.Field{
+		// 				Label: ast.NewIdent("AWS::CloudFormation::CustomResource"),
+		// 				Value: ast.NewSel(ast.NewIdent("CloudFormation"), "CustomResource"),
+		// 			},
+		// 			&ast.Field{
+		// 				Label: ast.NewList(&ast.UnaryExpr{Op: token.MAT, X: &ast.BasicLit{Kind: token.STRING, Value: "#\"^Custom::[a-zA-Z0-9_@-]{1,60}$\"#"}}),
+		// 				Value: ast.NewSel(ast.NewIdent("CloudFormation"), "CustomResource"),
+		// 			},
+		// 		},
+		// 	},
+		// }
 
 		// resourcesMapForLoop := &ast.Comprehension{
 		// 	Clauses: []ast.Clause{
@@ -1401,14 +1401,14 @@ func main() {
 		// 	},
 		// }
 
-		declarations = append(declarations, resourcesMap)
+		// declarations = append(declarations, resourcesMap)
 		// declarations = append(declarations, resourcesMapForLoop)
 
-		declarations = append(declarations, &ast.Field{
-			Label: ast.NewIdent("ResourceTypes"),
-			Token: token.ISA,
-			Value: expr,
-		})
+		// declarations = append(declarations, &ast.Field{
+		// 	Label: ast.NewIdent("ResourceTypes"),
+		// 	Token: token.ISA,
+		// 	Value: expr,
+		// })
 
 		allServicesFile := &ast.File{
 			Filename: shortRegion + ".cue",

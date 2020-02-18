@@ -9,16 +9,16 @@ import aws "github.com/TangoGroup/aws/uswest2"
 template: aws.Template
 template: {
 	Description: "This is a template"
-	// for resourceName, resource in Resources {
-	// 	// Resources: "\(resourceName)": aws.ResourceTypesMap[resource.Type] // | aws.CloudFormation.CustomResource
-	// 	if (resource.Type =~ "^Custom::[a-zA-Z0-9_@-]{1,60}$") {
-	// 		Resources: "\(resourceName)": aws.CloudFormation.CustomResource
-	// 	}
-	// 	if (resource.Type !~ "^Custom::[a-zA-Z0-9_@-]{1,60}$") {
-	// 		Resources: "\(resourceName)": aws.ResourceTypesMap[resource.Type]
-	// 	}
-	// }
-	for resourceName, resource in Resources {if (resource.Type =~ "^Custom::[a-zA-Z0-9_@-]{1,60}$") { Resources: "\(resourceName)": aws.CloudFormation.CustomResource}, if (resource.Type !~ "^Custom::[a-zA-Z0-9_@-]{1,60}$") {Resources: "\(resourceName)": aws.ResourceTypesMap[resource.Type]}}
+	for resourceName, resource in Resources {
+		// Resources: "\(resourceName)": aws.ResourceTypesMap[resource.Type] // | aws.CloudFormation.CustomResource
+		if (resource.Type =~ "^Custom::[a-zA-Z0-9_@-]{1,60}$") {
+			Resources: "\(resourceName)": aws.CloudFormation.CustomResource
+		}
+		if (resource.Type !~ "^Custom::[a-zA-Z0-9_@-]{1,60}$") {
+			Resources: "\(resourceName)": aws.ResourceTypesMap[resource.Type]
+		}
+	}
+	// for resourceName, resource in Resources {if (resource.Type =~ "^Custom::[a-zA-Z0-9_@-]{1,60}$") { Resources: "\(resourceName)": aws.CloudFormation.CustomResource}, if (resource.Type !~ "^Custom::[a-zA-Z0-9_@-]{1,60}$") {Resources: "\(resourceName)": aws.ResourceTypesMap[resource.Type]}}
 	// Resources: S3Bucket1: aws.S3.Bucket
 	Resources: S3Bucket1: {
 		Type: "AWS::S3::Bucket"
