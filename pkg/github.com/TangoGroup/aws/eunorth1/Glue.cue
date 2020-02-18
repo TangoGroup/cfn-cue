@@ -7,20 +7,20 @@ Glue :: {
 		Type: "AWS::Glue::Job"
 		Properties: {
 			AllocatedCapacity?: number | fn.Fn
-			Command:            {
+			Command:            close({
 				Name?:           string | fn.Fn
 				ScriptLocation?: string | fn.Fn
-			} | fn.If
-			Connections?: {
+			}) | fn.If
+			Connections?: close({
 				Connections?: [...(string | fn.Fn)] | (string | fn.Fn)
-			} | fn.If
+			}) | fn.If
 			DefaultArguments?: {
 				[string]: _
 			} | fn.Fn
 			Description?:       string | fn.Fn
-			ExecutionProperty?: {
+			ExecutionProperty?: close({
 				MaxConcurrentRuns?: number | fn.Fn
-			} | fn.If
+			}) | fn.If
 			LogUri?:                string | fn.Fn
 			MaxRetries?:            number | fn.Fn
 			Name?:                  string | fn.Fn
@@ -39,23 +39,23 @@ Glue :: {
 	Trigger :: {
 		Type: "AWS::Glue::Trigger"
 		Properties: {
-			Actions: [...{
+			Actions: [...close({
 				Arguments?: {
 					[string]: _
 				} | fn.Fn
 				JobName?:               string | fn.Fn
 				SecurityConfiguration?: string | fn.Fn
-			}] | fn.If
+			})] | fn.If
 			Description?: string | fn.Fn
 			Name?:        string | fn.Fn
-			Predicate?:   {
-				Conditions?: [...{
+			Predicate?:   close({
+				Conditions?: [...close({
 					JobName?:         string | fn.Fn
 					LogicalOperator?: ("EQUALS") | fn.Fn
 					State?:           ("SUCCEEDED") | fn.Fn
-				}] | fn.If
+				})] | fn.If
 				Logical?: ("AND") | fn.Fn
-			} | fn.If
+			}) | fn.If
 			Schedule?: string | fn.Fn
 			Tags?:     {
 				[string]: _

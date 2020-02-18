@@ -10,10 +10,10 @@ RAM :: {
 			Name:                     string | fn.Fn
 			Principals?:              [...(string | fn.Fn)] | (string | fn.Fn)
 			ResourceArns?:            [...(string | fn.Fn)] | (string | fn.Fn)
-			Tags?:                    [...{
+			Tags?:                    [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}] | fn.If
+			})] | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

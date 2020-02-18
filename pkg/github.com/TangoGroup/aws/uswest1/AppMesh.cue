@@ -7,15 +7,15 @@ AppMesh :: {
 		Type: "AWS::AppMesh::Mesh"
 		Properties: {
 			MeshName: string | fn.Fn
-			Spec?:    {
-				EgressFilter?: {
+			Spec?:    close({
+				EgressFilter?: close({
 					Type: string | fn.Fn
-				} | fn.If
-			} | fn.If
-			Tags?: [...{
+				}) | fn.If
+			}) | fn.If
+			Tags?: [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}] | fn.If
+			})] | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -28,129 +28,129 @@ AppMesh :: {
 		Properties: {
 			MeshName:  string | fn.Fn
 			RouteName: string | fn.Fn
-			Spec:      {
-				GrpcRoute?: {
-					Action: {
-						WeightedTargets: [...{
+			Spec:      close({
+				GrpcRoute?: close({
+					Action: close({
+						WeightedTargets: [...close({
 							VirtualNode: string | fn.Fn
 							Weight:      int | fn.Fn
-						}] | fn.If
-					} | fn.If
-					Match: {
-						Metadata?: [...{
+						})] | fn.If
+					}) | fn.If
+					Match: close({
+						Metadata?: [...close({
 							Invert?: bool | fn.Fn
-							Match?:  {
+							Match?:  close({
 								Exact?:  string | fn.Fn
 								Prefix?: string | fn.Fn
-								Range?:  {
+								Range?:  close({
 									End:   int | fn.Fn
 									Start: int | fn.Fn
-								} | fn.If
+								}) | fn.If
 								Regex?:  string | fn.Fn
 								Suffix?: string | fn.Fn
-							} | fn.If
+							}) | fn.If
 							Name: string | fn.Fn
-						}] | fn.If
+						})] | fn.If
 						MethodName?:  string | fn.Fn
 						ServiceName?: string | fn.Fn
-					} | fn.If
-					RetryPolicy?: {
+					}) | fn.If
+					RetryPolicy?: close({
 						GrpcRetryEvents?: [...(string | fn.Fn)] | (string | fn.Fn)
 						HttpRetryEvents?: [...(string | fn.Fn)] | (string | fn.Fn)
 						MaxRetries:       int | fn.Fn
-						PerRetryTimeout:  {
+						PerRetryTimeout:  close({
 							Unit:  string | fn.Fn
 							Value: int | fn.Fn
-						} | fn.If
+						}) | fn.If
 						TcpRetryEvents?: [...(string | fn.Fn)] | (string | fn.Fn)
-					} | fn.If
-				} | fn.If
-				Http2Route?: {
-					Action: {
-						WeightedTargets: [...{
+					}) | fn.If
+				}) | fn.If
+				Http2Route?: close({
+					Action: close({
+						WeightedTargets: [...close({
 							VirtualNode: string | fn.Fn
 							Weight:      int | fn.Fn
-						}] | fn.If
-					} | fn.If
-					Match: {
-						Headers?: [...{
+						})] | fn.If
+					}) | fn.If
+					Match: close({
+						Headers?: [...close({
 							Invert?: bool | fn.Fn
-							Match?:  {
+							Match?:  close({
 								Exact?:  string | fn.Fn
 								Prefix?: string | fn.Fn
-								Range?:  {
+								Range?:  close({
 									End:   int | fn.Fn
 									Start: int | fn.Fn
-								} | fn.If
+								}) | fn.If
 								Regex?:  string | fn.Fn
 								Suffix?: string | fn.Fn
-							} | fn.If
+							}) | fn.If
 							Name: string | fn.Fn
-						}] | fn.If
+						})] | fn.If
 						Method?: string | fn.Fn
 						Prefix:  string | fn.Fn
 						Scheme?: string | fn.Fn
-					} | fn.If
-					RetryPolicy?: {
+					}) | fn.If
+					RetryPolicy?: close({
 						HttpRetryEvents?: [...(string | fn.Fn)] | (string | fn.Fn)
 						MaxRetries:       int | fn.Fn
-						PerRetryTimeout:  {
+						PerRetryTimeout:  close({
 							Unit:  string | fn.Fn
 							Value: int | fn.Fn
-						} | fn.If
+						}) | fn.If
 						TcpRetryEvents?: [...(string | fn.Fn)] | (string | fn.Fn)
-					} | fn.If
-				} | fn.If
-				HttpRoute?: {
-					Action: {
-						WeightedTargets: [...{
+					}) | fn.If
+				}) | fn.If
+				HttpRoute?: close({
+					Action: close({
+						WeightedTargets: [...close({
 							VirtualNode: string | fn.Fn
 							Weight:      int | fn.Fn
-						}] | fn.If
-					} | fn.If
-					Match: {
-						Headers?: [...{
+						})] | fn.If
+					}) | fn.If
+					Match: close({
+						Headers?: [...close({
 							Invert?: bool | fn.Fn
-							Match?:  {
+							Match?:  close({
 								Exact?:  string | fn.Fn
 								Prefix?: string | fn.Fn
-								Range?:  {
+								Range?:  close({
 									End:   int | fn.Fn
 									Start: int | fn.Fn
-								} | fn.If
+								}) | fn.If
 								Regex?:  string | fn.Fn
 								Suffix?: string | fn.Fn
-							} | fn.If
+							}) | fn.If
 							Name: string | fn.Fn
-						}] | fn.If
+						})] | fn.If
 						Method?: string | fn.Fn
 						Prefix:  string | fn.Fn
 						Scheme?: string | fn.Fn
-					} | fn.If
-					RetryPolicy?: {
+					}) | fn.If
+					RetryPolicy?: close({
 						HttpRetryEvents?: [...(string | fn.Fn)] | (string | fn.Fn)
 						MaxRetries:       int | fn.Fn
-						PerRetryTimeout:  {
+						PerRetryTimeout:  close({
 							Unit:  string | fn.Fn
 							Value: int | fn.Fn
-						} | fn.If
+						}) | fn.If
 						TcpRetryEvents?: [...(string | fn.Fn)] | (string | fn.Fn)
-					} | fn.If
-				} | fn.If
+					}) | fn.If
+				}) | fn.If
 				Priority?: int | fn.Fn
-				TcpRoute?: {
-					Action: {
-						WeightedTargets: [...{
+				TcpRoute?: close({
+					Action: close({
+						WeightedTargets: [...close({
 							VirtualNode: string | fn.Fn
 							Weight:      int | fn.Fn
-						}] | fn.If
-					} | fn.If
-				} | fn.If
-			} | fn.If
-			Tags?: [...{
+						})] | fn.If
+					}) | fn.If
+				}) | fn.If
+			}) | fn.If
+			Tags?: [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}] | fn.If
+			})] | fn.If
 			VirtualRouterName: string | fn.Fn
 		}
 		DependsOn?:           string | [...string]
@@ -163,14 +163,14 @@ AppMesh :: {
 		Type: "AWS::AppMesh::VirtualNode"
 		Properties: {
 			MeshName: string | fn.Fn
-			Spec:     {
-				Backends?: [...{
-					VirtualService?: {
+			Spec:     close({
+				Backends?: [...close({
+					VirtualService?: close({
 						VirtualServiceName: string | fn.Fn
-					} | fn.If
-				}] | fn.If
-				Listeners?: [...{
-					HealthCheck?: {
+					}) | fn.If
+				})] | fn.If
+				Listeners?: [...close({
+					HealthCheck?: close({
 						HealthyThreshold:   int | fn.Fn
 						IntervalMillis:     int | fn.Fn
 						Path?:              string | fn.Fn
@@ -178,37 +178,37 @@ AppMesh :: {
 						Protocol:           string | fn.Fn
 						TimeoutMillis:      int | fn.Fn
 						UnhealthyThreshold: int | fn.Fn
-					} | fn.If
-					PortMapping: {
+					}) | fn.If
+					PortMapping: close({
 						Port:     int | fn.Fn
 						Protocol: string | fn.Fn
-					} | fn.If
-				}] | fn.If
-				Logging?: {
-					AccessLog?: {
-						File?: {
+					}) | fn.If
+				})] | fn.If
+				Logging?: close({
+					AccessLog?: close({
+						File?: close({
 							Path: string | fn.Fn
-						} | fn.If
-					} | fn.If
-				} | fn.If
-				ServiceDiscovery?: {
-					AWSCloudMap?: {
-						Attributes?: [...{
+						}) | fn.If
+					}) | fn.If
+				}) | fn.If
+				ServiceDiscovery?: close({
+					AWSCloudMap?: close({
+						Attributes?: [...close({
 							Key:   string | fn.Fn
 							Value: string | fn.Fn
-						}] | fn.If
+						})] | fn.If
 						NamespaceName: string | fn.Fn
 						ServiceName:   string | fn.Fn
-					} | fn.If
-					DNS?: {
+					}) | fn.If
+					DNS?: close({
 						Hostname: string | fn.Fn
-					} | fn.If
-				} | fn.If
-			} | fn.If
-			Tags?: [...{
+					}) | fn.If
+				}) | fn.If
+			}) | fn.If
+			Tags?: [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}] | fn.If
+			})] | fn.If
 			VirtualNodeName: string | fn.Fn
 		}
 		DependsOn?:           string | [...string]
@@ -221,18 +221,18 @@ AppMesh :: {
 		Type: "AWS::AppMesh::VirtualRouter"
 		Properties: {
 			MeshName: string | fn.Fn
-			Spec:     {
-				Listeners: [...{
-					PortMapping: {
+			Spec:     close({
+				Listeners: [...close({
+					PortMapping: close({
 						Port:     int | fn.Fn
 						Protocol: string | fn.Fn
-					} | fn.If
-				}] | fn.If
-			} | fn.If
-			Tags?: [...{
+					}) | fn.If
+				})] | fn.If
+			}) | fn.If
+			Tags?: [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}] | fn.If
+			})] | fn.If
 			VirtualRouterName: string | fn.Fn
 		}
 		DependsOn?:           string | [...string]
@@ -245,20 +245,20 @@ AppMesh :: {
 		Type: "AWS::AppMesh::VirtualService"
 		Properties: {
 			MeshName: string | fn.Fn
-			Spec:     {
-				Provider?: {
-					VirtualNode?: {
+			Spec:     close({
+				Provider?: close({
+					VirtualNode?: close({
 						VirtualNodeName: string | fn.Fn
-					} | fn.If
-					VirtualRouter?: {
+					}) | fn.If
+					VirtualRouter?: close({
 						VirtualRouterName: string | fn.Fn
-					} | fn.If
-				} | fn.If
-			} | fn.If
-			Tags?: [...{
+					}) | fn.If
+				}) | fn.If
+			}) | fn.If
+			Tags?: [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}] | fn.If
+			})] | fn.If
 			VirtualServiceName: string | fn.Fn
 		}
 		DependsOn?:           string | [...string]

@@ -6,22 +6,22 @@ ASK :: {
 	Skill :: {
 		Type: "Alexa::ASK::Skill"
 		Properties: {
-			AuthenticationConfiguration: {
+			AuthenticationConfiguration: close({
 				ClientId:     string | fn.Fn
 				ClientSecret: string | fn.Fn
 				RefreshToken: string | fn.Fn
-			} | fn.If
-			SkillPackage: {
-				Overrides?: {
+			}) | fn.If
+			SkillPackage: close({
+				Overrides?: close({
 					Manifest?: {
 						[string]: _
 					} | fn.Fn
-				} | fn.If
+				}) | fn.If
 				S3Bucket:         string | fn.Fn
 				S3BucketRole?:    string | fn.Fn
 				S3Key:            string | fn.Fn
 				S3ObjectVersion?: string | fn.Fn
-			} | fn.If
+			}) | fn.If
 			VendorId: string | fn.Fn
 		}
 		DependsOn?:           string | [...string]

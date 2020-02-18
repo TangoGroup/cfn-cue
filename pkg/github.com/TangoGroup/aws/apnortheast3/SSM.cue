@@ -10,20 +10,22 @@ SSM :: {
 			DocumentVersion?: string | fn.Fn
 			InstanceId?:      string | fn.Fn
 			Name:             string | fn.Fn
-			OutputLocation?:  {
-				S3Location?: {
+			OutputLocation?:  close({
+				S3Location?: close({
 					OutputS3BucketName?: string | fn.Fn
 					OutputS3KeyPrefix?:  string | fn.Fn
-				} | fn.If
-			} | fn.If
+				}) | fn.If
+			}) | fn.If
 			Parameters?: {
-				[string]: ParameterValues: [...(string | fn.Fn)] | (string | fn.Fn)
+				[string]: close({
+					ParameterValues: [...(string | fn.Fn)] | (string | fn.Fn)
+				})
 			} | fn.If
 			ScheduleExpression?: string | fn.Fn
-			Targets?:            [...{
+			Targets?:            [...close({
 				Key:    string | fn.Fn
 				Values: [...(string | fn.Fn)] | (string | fn.Fn)
-			}] | fn.If
+			})] | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -39,10 +41,10 @@ SSM :: {
 			} | fn.Fn
 			DocumentType?: string | fn.Fn
 			Name?:         string | fn.Fn
-			Tags?:         [...{
+			Tags?:         [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}] | fn.If
+			})] | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

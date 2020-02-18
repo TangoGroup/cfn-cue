@@ -7,8 +7,8 @@ StepFunctions :: {
 		Type: "AWS::StepFunctions::Activity"
 		Properties: {
 			Name:  string | fn.Fn
-			Tags?: [...{
-			}] | fn.If
+			Tags?: [...close({
+			})] | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -20,13 +20,13 @@ StepFunctions :: {
 		Type: "AWS::StepFunctions::StateMachine"
 		Properties: {
 			DefinitionString:      string | fn.Fn
-			LoggingConfiguration?: {
-			} | fn.If
+			LoggingConfiguration?: close({
+			}) | fn.If
 			RoleArn:           string | fn.Fn
 			StateMachineName?: string | fn.Fn
 			StateMachineType?: string | fn.Fn
-			Tags?:             [...{
-			}] | fn.If
+			Tags?:             [...close({
+			})] | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

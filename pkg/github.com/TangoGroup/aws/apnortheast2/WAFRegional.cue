@@ -6,16 +6,16 @@ WAFRegional :: {
 	ByteMatchSet :: {
 		Type: "AWS::WAFRegional::ByteMatchSet"
 		Properties: {
-			ByteMatchTuples?: [...{
-				FieldToMatch: {
+			ByteMatchTuples?: [...close({
+				FieldToMatch: close({
 					Data?: string | fn.Fn
 					Type:  string | fn.Fn
-				} | fn.If
+				}) | fn.If
 				PositionalConstraint: string | fn.Fn
 				TargetString?:        string | fn.Fn
 				TargetStringBase64?:  string | fn.Fn
 				TextTransformation:   string | fn.Fn
-			}] | fn.If
+			})] | fn.If
 			Name: string | fn.Fn
 		}
 		DependsOn?:           string | [...string]
@@ -27,10 +27,10 @@ WAFRegional :: {
 	GeoMatchSet :: {
 		Type: "AWS::WAFRegional::GeoMatchSet"
 		Properties: {
-			GeoMatchConstraints?: [...{
+			GeoMatchConstraints?: [...close({
 				Type:  string | fn.Fn
 				Value: string | fn.Fn
-			}] | fn.If
+			})] | fn.If
 			Name: string | fn.Fn
 		}
 		DependsOn?:           string | [...string]
@@ -42,10 +42,10 @@ WAFRegional :: {
 	IPSet :: {
 		Type: "AWS::WAFRegional::IPSet"
 		Properties: {
-			IPSetDescriptors?: [...{
+			IPSetDescriptors?: [...close({
 				Type:  string | fn.Fn
 				Value: string | fn.Fn
-			}] | fn.If
+			})] | fn.If
 			Name: string | fn.Fn
 		}
 		DependsOn?:           string | [...string]
@@ -57,11 +57,11 @@ WAFRegional :: {
 	RateBasedRule :: {
 		Type: "AWS::WAFRegional::RateBasedRule"
 		Properties: {
-			MatchPredicates?: [...{
+			MatchPredicates?: [...close({
 				DataId:  string | fn.Fn
 				Negated: bool | fn.Fn
 				Type:    string | fn.Fn
-			}] | fn.If
+			})] | fn.If
 			MetricName: string | fn.Fn
 			Name:       string | fn.Fn
 			RateKey:    string | fn.Fn
@@ -90,11 +90,11 @@ WAFRegional :: {
 		Properties: {
 			MetricName:  string | fn.Fn
 			Name:        string | fn.Fn
-			Predicates?: [...{
+			Predicates?: [...close({
 				DataId:  string | fn.Fn
 				Negated: bool | fn.Fn
 				Type:    ("ByteMatch" | "GeoMatch" | "IPMatch" | "RegexMatch" | "SizeConstraint" | "SqlInjectionMatch" | "XssMatch") | fn.Fn
-			}] | fn.If
+			})] | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -106,15 +106,15 @@ WAFRegional :: {
 		Type: "AWS::WAFRegional::SizeConstraintSet"
 		Properties: {
 			Name:             string | fn.Fn
-			SizeConstraints?: [...{
+			SizeConstraints?: [...close({
 				ComparisonOperator: string | fn.Fn
-				FieldToMatch:       {
+				FieldToMatch:       close({
 					Data?: string | fn.Fn
 					Type:  string | fn.Fn
-				} | fn.If
+				}) | fn.If
 				Size:               int | fn.Fn
 				TextTransformation: string | fn.Fn
-			}] | fn.If
+			})] | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -126,13 +126,13 @@ WAFRegional :: {
 		Type: "AWS::WAFRegional::SqlInjectionMatchSet"
 		Properties: {
 			Name:                     string | fn.Fn
-			SqlInjectionMatchTuples?: [...{
-				FieldToMatch: {
+			SqlInjectionMatchTuples?: [...close({
+				FieldToMatch: close({
 					Data?: string | fn.Fn
 					Type:  string | fn.Fn
-				} | fn.If
+				}) | fn.If
 				TextTransformation: string | fn.Fn
-			}] | fn.If
+			})] | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -143,18 +143,18 @@ WAFRegional :: {
 	WebACL :: {
 		Type: "AWS::WAFRegional::WebACL"
 		Properties: {
-			DefaultAction: {
+			DefaultAction: close({
 				Type: string | fn.Fn
-			} | fn.If
+			}) | fn.If
 			MetricName: string | fn.Fn
 			Name:       string | fn.Fn
-			Rules?:     [...{
-				Action: {
+			Rules?:     [...close({
+				Action: close({
 					Type: string | fn.Fn
-				} | fn.If
+				}) | fn.If
 				Priority: int | fn.Fn
 				RuleId:   string | fn.Fn
-			}] | fn.If
+			})] | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -178,13 +178,13 @@ WAFRegional :: {
 		Type: "AWS::WAFRegional::XssMatchSet"
 		Properties: {
 			Name:            string | fn.Fn
-			XssMatchTuples?: [...{
-				FieldToMatch: {
+			XssMatchTuples?: [...close({
+				FieldToMatch: close({
 					Data?: string | fn.Fn
 					Type:  string | fn.Fn
-				} | fn.If
+				}) | fn.If
 				TextTransformation: string | fn.Fn
-			}] | fn.If
+			})] | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

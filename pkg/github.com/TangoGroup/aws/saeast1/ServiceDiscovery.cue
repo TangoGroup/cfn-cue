@@ -59,12 +59,12 @@ ServiceDiscovery :: {
 		Type: "AWS::ServiceDiscovery::Service"
 		Properties: {
 			Description?: string | fn.Fn
-			DnsConfig?:   {
-			} | fn.If
-			HealthCheckConfig?: {
-			} | fn.If
-			HealthCheckCustomConfig?: {
-			} | fn.If
+			DnsConfig?:   close({
+			}) | fn.If
+			HealthCheckConfig?: close({
+			}) | fn.If
+			HealthCheckCustomConfig?: close({
+			}) | fn.If
 			Name?:        string | fn.Fn
 			NamespaceId?: string | fn.Fn
 		}

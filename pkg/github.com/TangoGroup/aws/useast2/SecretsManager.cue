@@ -21,9 +21,9 @@ SecretsManager :: {
 		Type: "AWS::SecretsManager::RotationSchedule"
 		Properties: {
 			RotationLambdaARN?: string | fn.Fn
-			RotationRules?:     {
+			RotationRules?:     close({
 				AutomaticallyAfterDays?: int | fn.Fn
-			} | fn.If
+			}) | fn.If
 			SecretId: string | fn.Fn
 		}
 		DependsOn?:           string | [...string]
@@ -36,7 +36,7 @@ SecretsManager :: {
 		Type: "AWS::SecretsManager::Secret"
 		Properties: {
 			Description?:          string | fn.Fn
-			GenerateSecretString?: {
+			GenerateSecretString?: close({
 				ExcludeCharacters?:       string | fn.Fn
 				ExcludeLowercase?:        bool | fn.Fn
 				ExcludeNumbers?:          bool | fn.Fn
@@ -47,14 +47,14 @@ SecretsManager :: {
 				PasswordLength?:          int | fn.Fn
 				RequireEachIncludedType?: bool | fn.Fn
 				SecretStringTemplate?:    string | fn.Fn
-			} | fn.If
+			}) | fn.If
 			KmsKeyId?:     string | fn.Fn
 			Name?:         string | fn.Fn
 			SecretString?: string | fn.Fn
-			Tags?:         [...{
+			Tags?:         [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}] | fn.If
+			})] | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

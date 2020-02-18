@@ -10,20 +10,22 @@ SSM :: {
 			DocumentVersion?: string | fn.Fn
 			InstanceId?:      string | fn.Fn
 			Name:             string | fn.Fn
-			OutputLocation?:  {
-				S3Location?: {
+			OutputLocation?:  close({
+				S3Location?: close({
 					OutputS3BucketName?: string | fn.Fn
 					OutputS3KeyPrefix?:  string | fn.Fn
-				} | fn.If
-			} | fn.If
+				}) | fn.If
+			}) | fn.If
 			Parameters?: {
-				[string]: ParameterValues: [...(string | fn.Fn)] | (string | fn.Fn)
+				[string]: close({
+					ParameterValues: [...(string | fn.Fn)] | (string | fn.Fn)
+				})
 			} | fn.If
 			ScheduleExpression?: string | fn.Fn
-			Targets?:            [...{
+			Targets?:            [...close({
 				Key:    string | fn.Fn
 				Values: [...(string | fn.Fn)] | (string | fn.Fn)
-			}] | fn.If
+			})] | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -39,10 +41,10 @@ SSM :: {
 			} | fn.Fn
 			DocumentType?: string | fn.Fn
 			Name?:         string | fn.Fn
-			Tags?:         [...{
+			Tags?:         [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}] | fn.If
+			})] | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -62,10 +64,10 @@ SSM :: {
 			Schedule:                 string | fn.Fn
 			ScheduleTimezone?:        string | fn.Fn
 			StartDate?:               string | fn.Fn
-			Tags?:                    [...{
+			Tags?:                    [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}] | fn.If
+			})] | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -80,10 +82,10 @@ SSM :: {
 			Name?:             string | fn.Fn
 			OwnerInformation?: string | fn.Fn
 			ResourceType:      string | fn.Fn
-			Targets:           [...{
+			Targets:           [...close({
 				Key:     string | fn.Fn
 				Values?: [...(string | fn.Fn)] | (string | fn.Fn)
-			}] | fn.If
+			})] | fn.If
 			WindowId: string | fn.Fn
 		}
 		DependsOn?:           string | [...string]
@@ -99,24 +101,24 @@ SSM :: {
 			BucketPrefix?:  string | fn.Fn
 			BucketRegion?:  string | fn.Fn
 			KMSKeyArn?:     string | fn.Fn
-			S3Destination?: {
+			S3Destination?: close({
 				BucketName:    string | fn.Fn
 				BucketPrefix?: string | fn.Fn
 				BucketRegion:  string | fn.Fn
 				KMSKeyArn?:    string | fn.Fn
 				SyncFormat:    string | fn.Fn
-			} | fn.If
+			}) | fn.If
 			SyncFormat?: string | fn.Fn
 			SyncName:    string | fn.Fn
-			SyncSource?: {
-				AwsOrganizationsSource?: {
+			SyncSource?: close({
+				AwsOrganizationsSource?: close({
 					OrganizationSourceType: string | fn.Fn
 					OrganizationalUnits?:   [...(string | fn.Fn)] | (string | fn.Fn)
-				} | fn.If
+				}) | fn.If
 				IncludeFutureRegions?: bool | fn.Fn
 				SourceRegions:         [...(string | fn.Fn)] | (string | fn.Fn)
 				SourceType:            string | fn.Fn
-			} | fn.If
+			}) | fn.If
 			SyncType?: string | fn.Fn
 		}
 		DependsOn?:           string | [...string]

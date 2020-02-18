@@ -6,49 +6,49 @@ MSK :: {
 	Cluster :: {
 		Type: "AWS::MSK::Cluster"
 		Properties: {
-			BrokerNodeGroupInfo: {
+			BrokerNodeGroupInfo: close({
 				BrokerAZDistribution?: string | fn.Fn
 				ClientSubnets:         [...(string | fn.Fn)] | (string | fn.Fn)
 				InstanceType:          string | fn.Fn
 				SecurityGroups?:       [...(string | fn.Fn)] | (string | fn.Fn)
-				StorageInfo?:          {
-					EBSStorageInfo?: {
+				StorageInfo?:          close({
+					EBSStorageInfo?: close({
 						VolumeSize?: int | fn.Fn
-					} | fn.If
-				} | fn.If
-			} | fn.If
-			ClientAuthentication?: {
-				Tls?: {
+					}) | fn.If
+				}) | fn.If
+			}) | fn.If
+			ClientAuthentication?: close({
+				Tls?: close({
 					CertificateAuthorityArnList?: [...(string | fn.Fn)] | (string | fn.Fn)
-				} | fn.If
-			} | fn.If
+				}) | fn.If
+			}) | fn.If
 			ClusterName:        string | fn.Fn
-			ConfigurationInfo?: {
+			ConfigurationInfo?: close({
 				Arn:      string | fn.Fn
 				Revision: int | fn.Fn
-			} | fn.If
-			EncryptionInfo?: {
-				EncryptionAtRest?: {
+			}) | fn.If
+			EncryptionInfo?: close({
+				EncryptionAtRest?: close({
 					DataVolumeKMSKeyId: string | fn.Fn
-				} | fn.If
-				EncryptionInTransit?: {
+				}) | fn.If
+				EncryptionInTransit?: close({
 					ClientBroker?: string | fn.Fn
 					InCluster?:    bool | fn.Fn
-				} | fn.If
-			} | fn.If
+				}) | fn.If
+			}) | fn.If
 			EnhancedMonitoring?: string | fn.Fn
 			KafkaVersion:        string | fn.Fn
 			NumberOfBrokerNodes: int | fn.Fn
-			OpenMonitoring?:     {
-				Prometheus: {
-					JmxExporter?: {
+			OpenMonitoring?:     close({
+				Prometheus: close({
+					JmxExporter?: close({
 						EnabledInBroker: bool | fn.Fn
-					} | fn.If
-					NodeExporter?: {
+					}) | fn.If
+					NodeExporter?: close({
 						EnabledInBroker: bool | fn.Fn
-					} | fn.If
-				} | fn.If
-			} | fn.If
+					}) | fn.If
+				}) | fn.If
+			}) | fn.If
 			Tags?: {
 				[string]: _
 			} | fn.Fn

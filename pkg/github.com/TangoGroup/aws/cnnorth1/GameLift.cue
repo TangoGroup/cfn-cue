@@ -8,11 +8,11 @@ GameLift :: {
 		Properties: {
 			Description?:    string | fn.Fn
 			Name:            string | fn.Fn
-			RoutingStrategy: {
+			RoutingStrategy: close({
 				FleetId?: string | fn.Fn
 				Message?: string | fn.Fn
 				Type:     string | fn.Fn
-			} | fn.If
+			}) | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -25,12 +25,12 @@ GameLift :: {
 		Properties: {
 			Name?:            string | fn.Fn
 			OperatingSystem?: string | fn.Fn
-			StorageLocation?: {
+			StorageLocation?: close({
 				Bucket:         string | fn.Fn
 				Key:            string | fn.Fn
 				ObjectVersion?: string | fn.Fn
 				RoleArn:        string | fn.Fn
-			} | fn.If
+			}) | fn.If
 			Version?: string | fn.Fn
 		}
 		DependsOn?:           string | [...string]
@@ -43,17 +43,17 @@ GameLift :: {
 		Type: "AWS::GameLift::Fleet"
 		Properties: {
 			BuildId?:                  string | fn.Fn
-			CertificateConfiguration?: {
+			CertificateConfiguration?: close({
 				CertificateType: string | fn.Fn
-			} | fn.If
+			}) | fn.If
 			Description?:           string | fn.Fn
 			DesiredEC2Instances?:   int | fn.Fn
-			EC2InboundPermissions?: [...{
+			EC2InboundPermissions?: [...close({
 				FromPort: int | fn.Fn
 				IpRange:  string | fn.Fn
 				Protocol: string | fn.Fn
 				ToPort:   int | fn.Fn
-			}] | fn.If
+			})] | fn.If
 			EC2InstanceType:                 string | fn.Fn
 			FleetType?:                      string | fn.Fn
 			InstanceRoleARN?:                string | fn.Fn
@@ -65,19 +65,19 @@ GameLift :: {
 			NewGameSessionProtectionPolicy?: string | fn.Fn
 			PeerVpcAwsAccountId?:            string | fn.Fn
 			PeerVpcId?:                      string | fn.Fn
-			ResourceCreationLimitPolicy?:    {
+			ResourceCreationLimitPolicy?:    close({
 				NewGameSessionsPerCreator?: int | fn.Fn
 				PolicyPeriodInMinutes?:     int | fn.Fn
-			} | fn.If
-			RuntimeConfiguration?: {
+			}) | fn.If
+			RuntimeConfiguration?: close({
 				GameSessionActivationTimeoutSeconds?: int | fn.Fn
 				MaxConcurrentGameSessionActivations?: int | fn.Fn
-				ServerProcesses?:                     [...{
+				ServerProcesses?:                     [...close({
 					ConcurrentExecutions: int | fn.Fn
 					LaunchPath:           string | fn.Fn
 					Parameters?:          string | fn.Fn
-				}] | fn.If
-			} | fn.If
+				})] | fn.If
+			}) | fn.If
 			ScriptId?:               string | fn.Fn
 			ServerLaunchParameters?: string | fn.Fn
 			ServerLaunchPath?:       string | fn.Fn
@@ -91,14 +91,14 @@ GameLift :: {
 	GameSessionQueue :: {
 		Type: "AWS::GameLift::GameSessionQueue"
 		Properties: {
-			Destinations?: [...{
+			Destinations?: [...close({
 				DestinationArn?: string | fn.Fn
-			}] | fn.If
+			})] | fn.If
 			Name:                   string | fn.Fn
-			PlayerLatencyPolicies?: [...{
+			PlayerLatencyPolicies?: [...close({
 				MaximumIndividualPlayerLatencyMilliseconds?: int | fn.Fn
 				PolicyDurationSeconds?:                      int | fn.Fn
-			}] | fn.If
+			})] | fn.If
 			TimeoutInSeconds?: int | fn.Fn
 		}
 		DependsOn?:           string | [...string]
@@ -116,10 +116,10 @@ GameLift :: {
 			BackfillMode?:             string | fn.Fn
 			CustomEventData?:          string | fn.Fn
 			Description?:              string | fn.Fn
-			GameProperties?:           [...{
+			GameProperties?:           [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}] | fn.If
+			})] | fn.If
 			GameSessionData?:      string | fn.Fn
 			GameSessionQueueArns:  [...(string | fn.Fn)] | (string | fn.Fn)
 			Name:                  string | fn.Fn
@@ -149,12 +149,12 @@ GameLift :: {
 		Type: "AWS::GameLift::Script"
 		Properties: {
 			Name?:           string | fn.Fn
-			StorageLocation: {
+			StorageLocation: close({
 				Bucket:         string | fn.Fn
 				Key:            string | fn.Fn
 				ObjectVersion?: string | fn.Fn
 				RoleArn:        string | fn.Fn
-			} | fn.If
+			}) | fn.If
 			Version?: string | fn.Fn
 		}
 		DependsOn?:           string | [...string]

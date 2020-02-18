@@ -8,55 +8,55 @@ DLM :: {
 		Properties: {
 			Description?:     string | fn.Fn
 			ExecutionRoleArn: string | fn.Fn
-			PolicyDetails?:   {
-				Parameters?: {
+			PolicyDetails?:   close({
+				Parameters?: close({
 					ExcludeBootVolume?: bool | fn.Fn
-				} | fn.If
+				}) | fn.If
 				PolicyType?:   string | fn.Fn
 				ResourceTypes: [...(("INSTANCE" | "VOLUME") | fn.Fn)] | (("INSTANCE" | "VOLUME") | fn.Fn)
-				Schedules:     [...{
+				Schedules:     [...close({
 					CopyTags?:   bool | fn.Fn
-					CreateRule?: {
+					CreateRule?: close({
 						Interval:     int | fn.Fn
 						IntervalUnit: string | fn.Fn
 						Times?:       [...(string | fn.Fn)] | (string | fn.Fn)
-					} | fn.If
-					CrossRegionCopyRules?: [...{
+					}) | fn.If
+					CrossRegionCopyRules?: [...close({
 						CmkArn?:     string | fn.Fn
 						CopyTags?:   bool | fn.Fn
 						Encrypted?:  bool | fn.Fn
-						RetainRule?: {
+						RetainRule?: close({
 							Interval?:     int | fn.Fn
 							IntervalUnit?: string | fn.Fn
-						} | fn.If
+						}) | fn.If
 						TargetRegion?: string | fn.Fn
-					}] | fn.If
-					FastRestoreRule?: {
+					})] | fn.If
+					FastRestoreRule?: close({
 						AvailabilityZones?: [...(string | fn.Fn)] | (string | fn.Fn)
 						Count?:             int | fn.Fn
 						Interval?:          int | fn.Fn
 						IntervalUnit?:      string | fn.Fn
-					} | fn.If
+					}) | fn.If
 					Name?:       string | fn.Fn
-					RetainRule?: {
+					RetainRule?: close({
 						Count?:        int | fn.Fn
 						Interval?:     int | fn.Fn
 						IntervalUnit?: string | fn.Fn
-					} | fn.If
-					TagsToAdd?: [...{
+					}) | fn.If
+					TagsToAdd?: [...close({
 						Key:   string | fn.Fn
 						Value: string | fn.Fn
-					}] | fn.If
-					VariableTags?: [...{
+					})] | fn.If
+					VariableTags?: [...close({
 						Key:   string | fn.Fn
 						Value: string | fn.Fn
-					}] | fn.If
-				}] | fn.If
-				TargetTags: [...{
+					})] | fn.If
+				})] | fn.If
+				TargetTags: [...close({
 					Key:   string | fn.Fn
 					Value: string | fn.Fn
-				}] | fn.If
-			} | fn.If
+				})] | fn.If
+			}) | fn.If
 			State: ("DISABLED" | "ENABLED") | fn.Fn
 		}
 		DependsOn?:           string | [...string]

@@ -7,14 +7,14 @@ EFS :: {
 		Type: "AWS::EFS::FileSystem"
 		Properties: {
 			Encrypted?:      bool | fn.Fn
-			FileSystemTags?: [...{
+			FileSystemTags?: [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}] | fn.If
+			})] | fn.If
 			KmsKeyId?:          string | fn.Fn
-			LifecyclePolicies?: [...{
+			LifecyclePolicies?: [...close({
 				TransitionToIA: ("AFTER_7_DAYS" | "AFTER_14_DAYS" | "AFTER_30_DAYS" | "AFTER_60_DAYS" | "AFTER_90_DAYS") | fn.Fn
-			}] | fn.If
+			})] | fn.If
 			PerformanceMode?:              ("generalPurpose" | "maxIO") | fn.Fn
 			ProvisionedThroughputInMibps?: number | fn.Fn
 			ThroughputMode?:               ("bursting" | "provisioned") | fn.Fn

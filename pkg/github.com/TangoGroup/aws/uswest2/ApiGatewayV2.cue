@@ -11,20 +11,20 @@ ApiGatewayV2 :: {
 			Body?:                      {
 				[string]: _
 			} | fn.Fn
-			BodyS3Location?: {
+			BodyS3Location?: close({
 				Bucket?:  string | fn.Fn
 				Etag?:    string | fn.Fn
 				Key?:     string | fn.Fn
 				Version?: string | fn.Fn
-			} | fn.If
-			CorsConfiguration?: {
+			}) | fn.If
+			CorsConfiguration?: close({
 				AllowCredentials?: bool | fn.Fn
 				AllowHeaders?:     [...(string | fn.Fn)] | (string | fn.Fn)
 				AllowMethods?:     [...(string | fn.Fn)] | (string | fn.Fn)
 				AllowOrigins?:     [...(string | fn.Fn)] | (string | fn.Fn)
 				ExposeHeaders?:    [...(string | fn.Fn)] | (string | fn.Fn)
 				MaxAge?:           int | fn.Fn
-			} | fn.If
+			}) | fn.If
 			CredentialsArn?:           string | fn.Fn
 			Description?:              string | fn.Fn
 			DisableSchemaValidation?:  bool | fn.Fn
@@ -69,10 +69,10 @@ ApiGatewayV2 :: {
 			AuthorizerUri?:                string | fn.Fn
 			IdentitySource:                [...(string | fn.Fn)] | (string | fn.Fn)
 			IdentityValidationExpression?: string | fn.Fn
-			JwtConfiguration?:             {
+			JwtConfiguration?:             close({
 				Audience?: [...(string | fn.Fn)] | (string | fn.Fn)
 				Issuer?:   string | fn.Fn
-			} | fn.If
+			}) | fn.If
 			Name: string | fn.Fn
 		}
 		DependsOn?:           string | [...string]
@@ -98,11 +98,11 @@ ApiGatewayV2 :: {
 		Type: "AWS::ApiGatewayV2::DomainName"
 		Properties: {
 			DomainName:                string | fn.Fn
-			DomainNameConfigurations?: [...{
+			DomainNameConfigurations?: [...close({
 				CertificateArn?:  string | fn.Fn
 				CertificateName?: string | fn.Fn
 				EndpointType?:    string | fn.Fn
-			}] | fn.If
+			})] | fn.If
 			Tags?: {
 				[string]: _
 			} | fn.Fn
@@ -228,20 +228,20 @@ ApiGatewayV2 :: {
 	Stage :: {
 		Type: "AWS::ApiGatewayV2::Stage"
 		Properties: {
-			AccessLogSettings?: {
+			AccessLogSettings?: close({
 				DestinationArn?: string | fn.Fn
 				Format?:         string | fn.Fn
-			} | fn.If
+			}) | fn.If
 			ApiId:                 string | fn.Fn
 			AutoDeploy?:           bool | fn.Fn
 			ClientCertificateId?:  string | fn.Fn
-			DefaultRouteSettings?: {
+			DefaultRouteSettings?: close({
 				DataTraceEnabled?:       bool | fn.Fn
 				DetailedMetricsEnabled?: bool | fn.Fn
 				LoggingLevel?:           string | fn.Fn
 				ThrottlingBurstLimit?:   int | fn.Fn
 				ThrottlingRateLimit?:    number | fn.Fn
-			} | fn.If
+			}) | fn.If
 			DeploymentId?:  string | fn.Fn
 			Description?:   string | fn.Fn
 			RouteSettings?: {

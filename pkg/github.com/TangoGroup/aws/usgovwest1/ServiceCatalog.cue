@@ -23,15 +23,15 @@ ServiceCatalog :: {
 			Distributor?:                   string | fn.Fn
 			Name:                           string | fn.Fn
 			Owner:                          string | fn.Fn
-			ProvisioningArtifactParameters: [...{
-			}] | fn.If
+			ProvisioningArtifactParameters: [...close({
+			})] | fn.If
 			SupportDescription?: string | fn.Fn
 			SupportEmail?:       string | fn.Fn
 			SupportUrl?:         string | fn.Fn
-			Tags?:               [...{
+			Tags?:               [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}] | fn.If
+			})] | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -50,14 +50,14 @@ ServiceCatalog :: {
 			ProvisionedProductName?:   string | fn.Fn
 			ProvisioningArtifactId?:   string | fn.Fn
 			ProvisioningArtifactName?: string | fn.Fn
-			ProvisioningParameters?:   [...{
-			}] | fn.If
-			ProvisioningPreferences?: {
-			} | fn.If
-			Tags?: [...{
+			ProvisioningParameters?:   [...close({
+			})] | fn.If
+			ProvisioningPreferences?: close({
+			}) | fn.If
+			Tags?: [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}] | fn.If
+			})] | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -117,10 +117,10 @@ ServiceCatalog :: {
 			Description?:    string | fn.Fn
 			DisplayName:     string | fn.Fn
 			ProviderName:    string | fn.Fn
-			Tags?:           [...{
+			Tags?:           [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}] | fn.If
+			})] | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

@@ -11,21 +11,21 @@ ServiceCatalog :: {
 			Distributor?:                   string | fn.Fn
 			Name:                           string | fn.Fn
 			Owner:                          string | fn.Fn
-			ProvisioningArtifactParameters: [...{
+			ProvisioningArtifactParameters: [...close({
 				Description?:               string | fn.Fn
 				DisableTemplateValidation?: bool | fn.Fn
 				Info:                       {
 					[string]: _
 				} | fn.Fn
 				Name?: string | fn.Fn
-			}] | fn.If
+			})] | fn.If
 			SupportDescription?: string | fn.Fn
 			SupportEmail?:       string | fn.Fn
 			SupportUrl?:         string | fn.Fn
-			Tags?:               [...{
+			Tags?:               [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}] | fn.If
+			})] | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -44,11 +44,11 @@ ServiceCatalog :: {
 			ProvisionedProductName?:   string | fn.Fn
 			ProvisioningArtifactId?:   string | fn.Fn
 			ProvisioningArtifactName?: string | fn.Fn
-			ProvisioningParameters?:   [...{
+			ProvisioningParameters?:   [...close({
 				Key?:   string | fn.Fn
 				Value?: string | fn.Fn
-			}] | fn.If
-			ProvisioningPreferences?: {
+			})] | fn.If
+			ProvisioningPreferences?: close({
 				StackSetAccounts?:                   [...(string | fn.Fn)] | (string | fn.Fn)
 				StackSetFailureToleranceCount?:      int | fn.Fn
 				StackSetFailureTolerancePercentage?: int | fn.Fn
@@ -56,11 +56,11 @@ ServiceCatalog :: {
 				StackSetMaxConcurrencyPercentage?:   int | fn.Fn
 				StackSetOperationType?:              string | fn.Fn
 				StackSetRegions?:                    [...(string | fn.Fn)] | (string | fn.Fn)
-			} | fn.If
-			Tags?: [...{
+			}) | fn.If
+			Tags?: [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}] | fn.If
+			})] | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -120,10 +120,10 @@ ServiceCatalog :: {
 			Description?:    string | fn.Fn
 			DisplayName:     string | fn.Fn
 			ProviderName:    string | fn.Fn
-			Tags?:           [...{
+			Tags?:           [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}] | fn.If
+			})] | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

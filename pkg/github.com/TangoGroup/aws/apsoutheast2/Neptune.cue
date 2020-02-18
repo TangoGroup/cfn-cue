@@ -21,10 +21,10 @@ Neptune :: {
 			PreferredMaintenanceWindow?:  string | fn.Fn
 			SnapshotIdentifier?:          string | fn.Fn
 			StorageEncrypted?:            bool | fn.Fn
-			Tags?:                        [...{
+			Tags?:                        [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}] | fn.If
+			})] | fn.If
 			VpcSecurityGroupIds?: [...(string | fn.Fn)] | (string | fn.Fn)
 		}
 		DependsOn?:           string | [...string]

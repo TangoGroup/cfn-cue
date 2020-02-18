@@ -21,8 +21,8 @@ GuardDuty :: {
 			Action:          string | fn.Fn
 			Description:     string | fn.Fn
 			DetectorId:      string | fn.Fn
-			FindingCriteria: {
-			} | fn.If
+			FindingCriteria: close({
+			}) | fn.If
 			Name: string | fn.Fn
 			Rank: int | fn.Fn
 		}

@@ -6,13 +6,13 @@ CodeStar :: {
 	GitHubRepository :: {
 		Type: "AWS::CodeStar::GitHubRepository"
 		Properties: {
-			Code?: {
-				S3: {
+			Code?: close({
+				S3: close({
 					Bucket:         string | fn.Fn
 					Key:            string | fn.Fn
 					ObjectVersion?: string | fn.Fn
-				} | fn.If
-			} | fn.If
+				}) | fn.If
+			}) | fn.If
 			EnableIssues?:          bool | fn.Fn
 			IsPrivate?:             bool | fn.Fn
 			RepositoryAccessToken:  string | fn.Fn

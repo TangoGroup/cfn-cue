@@ -21,26 +21,26 @@ DMS :: {
 		Properties: {
 			CertificateArn?:   string | fn.Fn
 			DatabaseName?:     string | fn.Fn
-			DynamoDbSettings?: {
+			DynamoDbSettings?: close({
 				ServiceAccessRoleArn?: string | fn.Fn
-			} | fn.If
-			ElasticsearchSettings?: {
+			}) | fn.If
+			ElasticsearchSettings?: close({
 				EndpointUri?:             string | fn.Fn
 				ErrorRetryDuration?:      int | fn.Fn
 				FullLoadErrorPercentage?: int | fn.Fn
 				ServiceAccessRoleArn?:    string | fn.Fn
-			} | fn.If
+			}) | fn.If
 			EndpointIdentifier?:        string | fn.Fn
 			EndpointType:               ("source" | "target") | fn.Fn
 			EngineName:                 ("aurora-postgresql" | "aurora" | "azuredb" | "db2" | "dynamodb" | "mariadb" | "mongodb" | "mysql" | "oracle" | "postgres" | "redshift" | "s3" | "sqlserver" | "sybase") | fn.Fn
 			ExtraConnectionAttributes?: string | fn.Fn
-			KinesisSettings?:           {
+			KinesisSettings?:           close({
 				MessageFormat?:        string | fn.Fn
 				ServiceAccessRoleArn?: string | fn.Fn
 				StreamArn?:            string | fn.Fn
-			} | fn.If
+			}) | fn.If
 			KmsKeyId?:        string | fn.Fn
-			MongoDbSettings?: {
+			MongoDbSettings?: close({
 				AuthMechanism?:     string | fn.Fn
 				AuthSource?:        string | fn.Fn
 				AuthType?:          string | fn.Fn
@@ -52,10 +52,10 @@ DMS :: {
 				Port?:              int | fn.Fn
 				ServerName?:        string | fn.Fn
 				Username?:          string | fn.Fn
-			} | fn.If
+			}) | fn.If
 			Password?:   string | fn.Fn
 			Port?:       int | fn.Fn
-			S3Settings?: {
+			S3Settings?: close({
 				BucketFolder?:            string | fn.Fn
 				BucketName?:              string | fn.Fn
 				CompressionType?:         string | fn.Fn
@@ -63,13 +63,13 @@ DMS :: {
 				CsvRowDelimiter?:         string | fn.Fn
 				ExternalTableDefinition?: string | fn.Fn
 				ServiceAccessRoleArn?:    string | fn.Fn
-			} | fn.If
+			}) | fn.If
 			ServerName?: string | fn.Fn
 			SslMode?:    ("none" | "require" | "verify-ca" | "verify-full") | fn.Fn
-			Tags?:       [...{
+			Tags?:       [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}] | fn.If
+			})] | fn.If
 			Username?: string | fn.Fn
 		}
 		DependsOn?:           string | [...string]
@@ -87,10 +87,10 @@ DMS :: {
 			SourceIds?:        [...(string | fn.Fn)] | (string | fn.Fn)
 			SourceType?:       string | fn.Fn
 			SubscriptionName?: string | fn.Fn
-			Tags?:             [...{
+			Tags?:             [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}] | fn.If
+			})] | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -113,10 +113,10 @@ DMS :: {
 			ReplicationInstanceClass:          string | fn.Fn
 			ReplicationInstanceIdentifier?:    string | fn.Fn
 			ReplicationSubnetGroupIdentifier?: string | fn.Fn
-			Tags?:                             [...{
+			Tags?:                             [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}] | fn.If
+			})] | fn.If
 			VpcSecurityGroupIds?: [...(string | fn.Fn)] | (string | fn.Fn)
 		}
 		DependsOn?:           string | [...string]
@@ -131,10 +131,10 @@ DMS :: {
 			ReplicationSubnetGroupDescription: string | fn.Fn
 			ReplicationSubnetGroupIdentifier?: string | fn.Fn
 			SubnetIds:                         [...(string | fn.Fn)] | (string | fn.Fn)
-			Tags?:                             [...{
+			Tags?:                             [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}] | fn.If
+			})] | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -154,10 +154,10 @@ DMS :: {
 			ReplicationTaskSettings?:   string | fn.Fn
 			SourceEndpointArn:          string | fn.Fn
 			TableMappings:              string | fn.Fn
-			Tags?:                      [...{
+			Tags?:                      [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}] | fn.If
+			})] | fn.If
 			TargetEndpointArn: string | fn.Fn
 		}
 		DependsOn?:           string | [...string]

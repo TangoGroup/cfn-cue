@@ -22,10 +22,10 @@ Inspector :: {
 			AssessmentTemplateName?:    string | fn.Fn
 			DurationInSeconds:          (>=180 & <=86400) | fn.Fn
 			RulesPackageArns:           [...(string | fn.Fn)] | (string | fn.Fn)
-			UserAttributesForFindings?: [...{
+			UserAttributesForFindings?: [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}] | fn.If
+			})] | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -35,10 +35,10 @@ Inspector :: {
 	}
 	ResourceGroup :: {
 		Type: "AWS::Inspector::ResourceGroup"
-		Properties: ResourceGroupTags: [...{
+		Properties: ResourceGroupTags: [...close({
 			Key:   string | fn.Fn
 			Value: string | fn.Fn
-		}] | fn.If
+		})] | fn.If
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

@@ -7,101 +7,101 @@ MediaLive :: {
 		Type: "AWS::MediaLive::Channel"
 		Properties: {
 			ChannelClass?: string | fn.Fn
-			Destinations?: [...{
+			Destinations?: [...close({
 				Id?:                   string | fn.Fn
-				MediaPackageSettings?: [...{
+				MediaPackageSettings?: [...close({
 					ChannelId?: string | fn.Fn
-				}] | fn.If
-				MultiplexSettings?: {
+				})] | fn.If
+				MultiplexSettings?: close({
 					MultiplexId?: string | fn.Fn
 					ProgramName?: string | fn.Fn
-				} | fn.If
-				Settings?: [...{
+				}) | fn.If
+				Settings?: [...close({
 					PasswordParam?: string | fn.Fn
 					StreamName?:    string | fn.Fn
 					Url?:           string | fn.Fn
 					Username?:      string | fn.Fn
-				}] | fn.If
-			}] | fn.If
+				})] | fn.If
+			})] | fn.If
 			EncoderSettings?: {
 				[string]: _
 			} | fn.Fn
-			InputAttachments?: [...{
+			InputAttachments?: [...close({
 				InputAttachmentName?: string | fn.Fn
 				InputId?:             string | fn.Fn
-				InputSettings?:       {
-					AudioSelectors?: [...{
+				InputSettings?:       close({
+					AudioSelectors?: [...close({
 						Name?:             string | fn.Fn
-						SelectorSettings?: {
-							AudioLanguageSelection?: {
+						SelectorSettings?: close({
+							AudioLanguageSelection?: close({
 								LanguageCode?:            string | fn.Fn
 								LanguageSelectionPolicy?: string | fn.Fn
-							} | fn.If
-							AudioPidSelection?: {
+							}) | fn.If
+							AudioPidSelection?: close({
 								Pid?: int | fn.Fn
-							} | fn.If
-						} | fn.If
-					}] | fn.If
-					CaptionSelectors?: [...{
+							}) | fn.If
+						}) | fn.If
+					})] | fn.If
+					CaptionSelectors?: [...close({
 						LanguageCode?:     string | fn.Fn
 						Name?:             string | fn.Fn
-						SelectorSettings?: {
-							AribSourceSettings?: {
-							} | fn.If
-							DvbSubSourceSettings?: {
+						SelectorSettings?: close({
+							AribSourceSettings?: close({
+							}) | fn.If
+							DvbSubSourceSettings?: close({
 								Pid?: int | fn.Fn
-							} | fn.If
-							EmbeddedSourceSettings?: {
+							}) | fn.If
+							EmbeddedSourceSettings?: close({
 								Convert608To708?:        string | fn.Fn
 								Scte20Detection?:        string | fn.Fn
 								Source608ChannelNumber?: int | fn.Fn
 								Source608TrackNumber?:   int | fn.Fn
-							} | fn.If
-							Scte20SourceSettings?: {
+							}) | fn.If
+							Scte20SourceSettings?: close({
 								Convert608To708?:        string | fn.Fn
 								Source608ChannelNumber?: int | fn.Fn
-							} | fn.If
-							Scte27SourceSettings?: {
+							}) | fn.If
+							Scte27SourceSettings?: close({
 								Pid?: int | fn.Fn
-							} | fn.If
-							TeletextSourceSettings?: {
+							}) | fn.If
+							TeletextSourceSettings?: close({
 								PageNumber?: string | fn.Fn
-							} | fn.If
-						} | fn.If
-					}] | fn.If
+							}) | fn.If
+						}) | fn.If
+					})] | fn.If
 					DeblockFilter?:        string | fn.Fn
 					DenoiseFilter?:        string | fn.Fn
 					FilterStrength?:       int | fn.Fn
 					InputFilter?:          string | fn.Fn
-					NetworkInputSettings?: {
-						HlsInputSettings?: {
+					NetworkInputSettings?: close({
+						HlsInputSettings?: close({
 							Bandwidth?:      int | fn.Fn
 							BufferSegments?: int | fn.Fn
 							Retries?:        int | fn.Fn
 							RetryInterval?:  int | fn.Fn
-						} | fn.If
+						}) | fn.If
 						ServerValidation?: string | fn.Fn
-					} | fn.If
+					}) | fn.If
 					SourceEndBehavior?: string | fn.Fn
-					VideoSelector?:     {
+					VideoSelector?:     close({
 						ColorSpace?:       string | fn.Fn
 						ColorSpaceUsage?:  string | fn.Fn
-						SelectorSettings?: {
-							VideoSelectorPid?: {
+						SelectorSettings?: close({
+							VideoSelectorPid?: close({
 								Pid?: int | fn.Fn
-							} | fn.If
-							VideoSelectorProgramId?: {
+							}) | fn.If
+							VideoSelectorProgramId?: close({
 								ProgramId?: int | fn.Fn
-							} | fn.If
-						} | fn.If
-					} | fn.If
-				} | fn.If
-			}] | fn.If
-			InputSpecification?: {
+							}) | fn.If
+						}) | fn.If
+					}) | fn.If
+				}) | fn.If
+			})] | fn.If
+			InputSpecification?: close({
 				Codec?:          string | fn.Fn
 				MaximumBitrate?: string | fn.Fn
 				Resolution?:     string | fn.Fn
-			} | fn.If
+			}) | fn.If
 			LogLevel?: string | fn.Fn
 			Name?:     string | fn.Fn
 			RoleArn?:  string | fn.Fn
@@ -118,28 +118,28 @@ MediaLive :: {
 	Input :: {
 		Type: "AWS::MediaLive::Input"
 		Properties: {
-			Destinations?: [...{
+			Destinations?: [...close({
 				StreamName?: string | fn.Fn
-			}] | fn.If
+			})] | fn.If
 			InputSecurityGroups?: [...(string | fn.Fn)] | (string | fn.Fn)
-			MediaConnectFlows?:   [...{
+			MediaConnectFlows?:   [...close({
 				FlowArn?: string | fn.Fn
-			}] | fn.If
+			})] | fn.If
 			Name?:    string | fn.Fn
 			RoleArn?: string | fn.Fn
-			Sources?: [...{
+			Sources?: [...close({
 				PasswordParam?: string | fn.Fn
 				Url?:           string | fn.Fn
 				Username?:      string | fn.Fn
-			}] | fn.If
+			})] | fn.If
 			Tags?: {
 				[string]: _
 			} | fn.Fn
 			Type?: string | fn.Fn
-			Vpc?:  {
+			Vpc?:  close({
 				SecurityGroupIds?: [...(string | fn.Fn)] | (string | fn.Fn)
 				SubnetIds?:        [...(string | fn.Fn)] | (string | fn.Fn)
-			} | fn.If
+			}) | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -153,9 +153,9 @@ MediaLive :: {
 			Tags?: {
 				[string]: _
 			} | fn.Fn
-			WhitelistRules?: [...{
+			WhitelistRules?: [...close({
 				Cidr?: string | fn.Fn
-			}] | fn.If
+			})] | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

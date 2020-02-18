@@ -37,10 +37,10 @@ CloudFormation :: {
 			Parameters?:       {
 				[string]: string | fn.Fn
 			} | fn.If
-			Tags?: [...{
+			Tags?: [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}] | fn.If
+			})] | fn.If
 			TemplateURL:       string | fn.Fn
 			TimeoutInMinutes?: int | fn.Fn
 		}

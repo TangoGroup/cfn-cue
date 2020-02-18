@@ -9,37 +9,37 @@ FSx :: {
 			BackupId?:            string | fn.Fn
 			FileSystemType:       string | fn.Fn
 			KmsKeyId?:            string | fn.Fn
-			LustreConfiguration?: {
+			LustreConfiguration?: close({
 				ExportPath?:                 string | fn.Fn
 				ImportPath?:                 string | fn.Fn
 				ImportedFileChunkSize?:      int | fn.Fn
 				WeeklyMaintenanceStartTime?: string | fn.Fn
-			} | fn.If
+			}) | fn.If
 			SecurityGroupIds?: [...(string | fn.Fn)] | (string | fn.Fn)
 			StorageCapacity?:  (>=300 & <=65536) | fn.Fn
 			SubnetIds:         [...(string | fn.Fn)] | (string | fn.Fn)
-			Tags?:             [...{
+			Tags?:             [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}] | fn.If
-			WindowsConfiguration?: {
+			})] | fn.If
+			WindowsConfiguration?: close({
 				ActiveDirectoryId?:                       string | fn.Fn
 				AutomaticBackupRetentionDays?:            int | fn.Fn
 				CopyTagsToBackups?:                       bool | fn.Fn
 				DailyAutomaticBackupStartTime?:           string | fn.Fn
 				DeploymentType?:                          string | fn.Fn
 				PreferredSubnetId?:                       string | fn.Fn
-				SelfManagedActiveDirectoryConfiguration?: {
+				SelfManagedActiveDirectoryConfiguration?: close({
 					DnsIps?:                              [...(string | fn.Fn)] | (string | fn.Fn)
 					DomainName?:                          string | fn.Fn
 					FileSystemAdministratorsGroup?:       string | fn.Fn
 					OrganizationalUnitDistinguishedName?: string | fn.Fn
 					Password?:                            string | fn.Fn
 					UserName?:                            string | fn.Fn
-				} | fn.If
+				}) | fn.If
 				ThroughputCapacity?:         int | fn.Fn
 				WeeklyMaintenanceStartTime?: string | fn.Fn
-			} | fn.If
+			}) | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

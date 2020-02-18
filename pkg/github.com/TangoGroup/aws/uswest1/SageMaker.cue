@@ -7,11 +7,11 @@ SageMaker :: {
 		Type: "AWS::SageMaker::CodeRepository"
 		Properties: {
 			CodeRepositoryName?: string | fn.Fn
-			GitConfig:           {
+			GitConfig:           close({
 				Branch?:       string | fn.Fn
 				RepositoryUrl: string | fn.Fn
 				SecretArn?:    string | fn.Fn
-			} | fn.If
+			}) | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -34,10 +34,10 @@ SageMaker :: {
 			RootAccess?:                 string | fn.Fn
 			SecurityGroupIds?:           [...(string | fn.Fn)] | (string | fn.Fn)
 			SubnetId?:                   string | fn.Fn
-			Tags?:                       [...{
+			Tags?:                       [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}] | fn.If
+			})] | fn.If
 			VolumeSizeInGB?: (>=5 & <=16384) | fn.Fn
 		}
 		DependsOn?:           string | [...string]

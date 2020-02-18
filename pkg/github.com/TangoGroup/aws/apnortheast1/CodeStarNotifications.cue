@@ -14,10 +14,10 @@ CodeStarNotifications :: {
 			Tags?:        {
 				[string]: _
 			} | fn.Fn
-			Targets: [...{
+			Targets: [...close({
 				TargetAddress?: string | fn.Fn
 				TargetType?:    string | fn.Fn
-			}] | fn.If
+			})] | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

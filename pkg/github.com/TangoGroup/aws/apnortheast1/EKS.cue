@@ -7,10 +7,10 @@ EKS :: {
 		Type: "AWS::EKS::Cluster"
 		Properties: {
 			Name?:              string | fn.Fn
-			ResourcesVpcConfig: {
+			ResourcesVpcConfig: close({
 				SecurityGroupIds?: [...(string | fn.Fn)] | (string | fn.Fn)
 				SubnetIds:         [...(string | fn.Fn)] | (string | fn.Fn)
-			} | fn.If
+			}) | fn.If
 			RoleArn:  string | fn.Fn
 			Version?: string | fn.Fn
 		}
@@ -34,15 +34,15 @@ EKS :: {
 			NodeRole:        string | fn.Fn
 			NodegroupName?:  string | fn.Fn
 			ReleaseVersion?: string | fn.Fn
-			RemoteAccess?:   {
+			RemoteAccess?:   close({
 				Ec2SshKey:             string | fn.Fn
 				SourceSecurityGroups?: [...(string | fn.Fn)] | (string | fn.Fn)
-			} | fn.If
-			ScalingConfig?: {
+			}) | fn.If
+			ScalingConfig?: close({
 				DesiredSize?: number | fn.Fn
 				MaxSize?:     number | fn.Fn
 				MinSize?:     number | fn.Fn
-			} | fn.If
+			}) | fn.If
 			Subnets: [...(string | fn.Fn)] | (string | fn.Fn)
 			Tags?:   {
 				[string]: _

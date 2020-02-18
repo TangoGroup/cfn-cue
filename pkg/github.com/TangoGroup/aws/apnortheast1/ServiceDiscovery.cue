@@ -47,22 +47,22 @@ ServiceDiscovery :: {
 		Type: "AWS::ServiceDiscovery::Service"
 		Properties: {
 			Description?: string | fn.Fn
-			DnsConfig?:   {
-				DnsRecords: [...{
+			DnsConfig?:   close({
+				DnsRecords: [...close({
 					TTL:  number | fn.Fn
 					Type: ("A" | "AAAA" | "SRV" | "CNAME") | fn.Fn
-				}] | fn.If
+				})] | fn.If
 				NamespaceId?:   string | fn.Fn
 				RoutingPolicy?: string | fn.Fn
-			} | fn.If
-			HealthCheckConfig?: {
+			}) | fn.If
+			HealthCheckConfig?: close({
 				FailureThreshold?: number | fn.Fn
 				ResourcePath?:     string | fn.Fn
 				Type:              ("HTTP" | "HTTPS" | "TCP") | fn.Fn
-			} | fn.If
-			HealthCheckCustomConfig?: {
+			}) | fn.If
+			HealthCheckCustomConfig?: close({
 				FailureThreshold?: number | fn.Fn
-			} | fn.If
+			}) | fn.If
 			Name?:        string | fn.Fn
 			NamespaceId?: string | fn.Fn
 		}

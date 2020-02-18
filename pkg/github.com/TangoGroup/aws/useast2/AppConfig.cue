@@ -8,10 +8,10 @@ AppConfig :: {
 		Properties: {
 			Description?: string | fn.Fn
 			Name:         string | fn.Fn
-			Tags?:        [...{
+			Tags?:        [...close({
 				Key?:   string | fn.Fn
 				Value?: string | fn.Fn
-			}] | fn.If
+			})] | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -27,14 +27,14 @@ AppConfig :: {
 			LocationUri:       string | fn.Fn
 			Name:              string | fn.Fn
 			RetrievalRoleArn?: string | fn.Fn
-			Tags?:             [...{
+			Tags?:             [...close({
 				Key?:   string | fn.Fn
 				Value?: string | fn.Fn
-			}] | fn.If
-			Validators?: [...{
+			})] | fn.If
+			Validators?: [...close({
 				Content?: string | fn.Fn
 				Type?:    string | fn.Fn
-			}] | fn.If
+			})] | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -51,10 +51,10 @@ AppConfig :: {
 			DeploymentStrategyId:   string | fn.Fn
 			Description?:           string | fn.Fn
 			EnvironmentId:          string | fn.Fn
-			Tags?:                  [...{
+			Tags?:                  [...close({
 				Key?:   string | fn.Fn
 				Value?: string | fn.Fn
-			}] | fn.If
+			})] | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -72,10 +72,10 @@ AppConfig :: {
 			GrowthType?:                 string | fn.Fn
 			Name:                        string | fn.Fn
 			ReplicateTo:                 string | fn.Fn
-			Tags?:                       [...{
+			Tags?:                       [...close({
 				Key?:   string | fn.Fn
 				Value?: string | fn.Fn
-			}] | fn.If
+			})] | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -88,15 +88,15 @@ AppConfig :: {
 		Properties: {
 			ApplicationId: string | fn.Fn
 			Description?:  string | fn.Fn
-			Monitors?:     [...{
+			Monitors?:     [...close({
 				AlarmArn?:     string | fn.Fn
 				AlarmRoleArn?: string | fn.Fn
-			}] | fn.If
+			})] | fn.If
 			Name:  string | fn.Fn
-			Tags?: [...{
+			Tags?: [...close({
 				Key?:   string | fn.Fn
 				Value?: string | fn.Fn
-			}] | fn.If
+			})] | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

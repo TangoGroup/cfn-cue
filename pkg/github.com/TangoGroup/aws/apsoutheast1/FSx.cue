@@ -9,17 +9,17 @@ FSx :: {
 			BackupId?:            string | fn.Fn
 			FileSystemType:       string | fn.Fn
 			KmsKeyId?:            string | fn.Fn
-			LustreConfiguration?: {
-			} | fn.If
+			LustreConfiguration?: close({
+			}) | fn.If
 			SecurityGroupIds?: [...(string | fn.Fn)] | (string | fn.Fn)
 			StorageCapacity?:  int | fn.Fn
 			SubnetIds:         [...(string | fn.Fn)] | (string | fn.Fn)
-			Tags?:             [...{
+			Tags?:             [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}] | fn.If
-			WindowsConfiguration?: {
-			} | fn.If
+			})] | fn.If
+			WindowsConfiguration?: close({
+			}) | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

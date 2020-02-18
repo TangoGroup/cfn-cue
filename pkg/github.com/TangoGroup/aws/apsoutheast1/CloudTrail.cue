@@ -9,14 +9,14 @@ CloudTrail :: {
 			CloudWatchLogsLogGroupArn?: string | fn.Fn
 			CloudWatchLogsRoleArn?:     string | fn.Fn
 			EnableLogFileValidation?:   bool | fn.Fn
-			EventSelectors?:            [...{
-				DataResources?: [...{
+			EventSelectors?:            [...close({
+				DataResources?: [...close({
 					Type:    ("AWS::Lambda::Function" | "AWS::S3::Object") | fn.Fn
 					Values?: [...(string | fn.Fn)] | (string | fn.Fn)
-				}] | fn.If
+				})] | fn.If
 				IncludeManagementEvents?: bool | fn.Fn
 				ReadWriteType?:           ("All" | "ReadOnly" | "WriteOnly") | fn.Fn
-			}] | fn.If
+			})] | fn.If
 			IncludeGlobalServiceEvents?: bool | fn.Fn
 			IsLogging:                   bool | fn.Fn
 			IsMultiRegionTrail?:         bool | fn.Fn
@@ -24,10 +24,10 @@ CloudTrail :: {
 			S3BucketName:                string | fn.Fn
 			S3KeyPrefix?:                string | fn.Fn
 			SnsTopicName?:               string | fn.Fn
-			Tags?:                       [...{
+			Tags?:                       [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}] | fn.If
+			})] | fn.If
 			TrailName?: string | fn.Fn
 		}
 		DependsOn?:           string | [...string]

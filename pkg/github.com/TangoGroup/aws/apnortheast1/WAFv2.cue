@@ -11,10 +11,10 @@ WAFv2 :: {
 			IPAddressVersion: string | fn.Fn
 			Name?:            string | fn.Fn
 			Scope:            string | fn.Fn
-			Tags?:            [...{
+			Tags?:            [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}] | fn.If
+			})] | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -27,14 +27,14 @@ WAFv2 :: {
 		Properties: {
 			Description?:           string | fn.Fn
 			Name?:                  string | fn.Fn
-			RegularExpressionList?: [...{
+			RegularExpressionList?: [...close({
 				RegexString?: string | fn.Fn
-			}] | fn.If
+			})] | fn.If
 			Scope: string | fn.Fn
-			Tags?: [...{
+			Tags?: [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}] | fn.If
+			})] | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -48,3064 +48,3064 @@ WAFv2 :: {
 			Capacity:     int | fn.Fn
 			Description?: string | fn.Fn
 			Name?:        string | fn.Fn
-			Rules?:       [...{
-				Action?: {
-					Allow?: {
-					} | fn.If
-					Block?: {
-					} | fn.If
-					Count?: {
-					} | fn.If
-				} | fn.If
+			Rules?:       [...close({
+				Action?: close({
+					Allow?: close({
+					}) | fn.If
+					Block?: close({
+					}) | fn.If
+					Count?: close({
+					}) | fn.If
+				}) | fn.If
 				Name?:      string | fn.Fn
 				Priority?:  int | fn.Fn
-				Statement?: {
-					AndStatement?: {
-						Statements?: {
-							StatementTwos?: [...{
-								AndStatement?: {
-									Statements?: {
-										StatementThrees?: [...{
-											ByteMatchStatement?: {
-												FieldToMatch?: {
-													AllQueryArguments?: {
-													} | fn.If
-													Body?: {
-													} | fn.If
-													Method?: {
-													} | fn.If
-													QueryString?: {
-													} | fn.If
-													SingleHeader?: {
+				Statement?: close({
+					AndStatement?: close({
+						Statements?: close({
+							StatementTwos?: [...close({
+								AndStatement?: close({
+									Statements?: close({
+										StatementThrees?: [...close({
+											ByteMatchStatement?: close({
+												FieldToMatch?: close({
+													AllQueryArguments?: close({
+													}) | fn.If
+													Body?: close({
+													}) | fn.If
+													Method?: close({
+													}) | fn.If
+													QueryString?: close({
+													}) | fn.If
+													SingleHeader?: close({
 														Name?: string | fn.Fn
-													} | fn.If
-													SingleQueryArgument?: {
+													}) | fn.If
+													SingleQueryArgument?: close({
 														Name?: string | fn.Fn
-													} | fn.If
-													UriPath?: {
-													} | fn.If
-												} | fn.If
+													}) | fn.If
+													UriPath?: close({
+													}) | fn.If
+												}) | fn.If
 												PositionalConstraint?: string | fn.Fn
 												SearchString?:         string | fn.Fn
 												SearchStringBase64?:   string | fn.Fn
-												TextTransformations?:  {
-													TextTransformations?: [...{
+												TextTransformations?:  close({
+													TextTransformations?: [...close({
 														[string]: _
-													}] | fn.If
-												} | fn.If
-											} | fn.If
-											GeoMatchStatement?: {
-												CountryCodes?: {
+													})] | fn.If
+												}) | fn.If
+											}) | fn.If
+											GeoMatchStatement?: close({
+												CountryCodes?: close({
 													CountryCodes?: [...(string | fn.Fn)] | (string | fn.Fn)
-												} | fn.If
-											} | fn.If
-											IPSetReferenceStatement?: {
+												}) | fn.If
+											}) | fn.If
+											IPSetReferenceStatement?: close({
 												Arn?: string | fn.Fn
-											} | fn.If
-											RegexPatternSetReferenceStatement?: {
+											}) | fn.If
+											RegexPatternSetReferenceStatement?: close({
 												Arn?:          string | fn.Fn
-												FieldToMatch?: {
-													AllQueryArguments?: {
-													} | fn.If
-													Body?: {
-													} | fn.If
-													Method?: {
-													} | fn.If
-													QueryString?: {
-													} | fn.If
-													SingleHeader?: {
+												FieldToMatch?: close({
+													AllQueryArguments?: close({
+													}) | fn.If
+													Body?: close({
+													}) | fn.If
+													Method?: close({
+													}) | fn.If
+													QueryString?: close({
+													}) | fn.If
+													SingleHeader?: close({
 														Name?: string | fn.Fn
-													} | fn.If
-													SingleQueryArgument?: {
+													}) | fn.If
+													SingleQueryArgument?: close({
 														Name?: string | fn.Fn
-													} | fn.If
-													UriPath?: {
-													} | fn.If
-												} | fn.If
-												TextTransformations?: {
-													TextTransformations?: [...{
+													}) | fn.If
+													UriPath?: close({
+													}) | fn.If
+												}) | fn.If
+												TextTransformations?: close({
+													TextTransformations?: [...close({
 														[string]: _
-													}] | fn.If
-												} | fn.If
-											} | fn.If
-											SizeConstraintStatement?: {
+													})] | fn.If
+												}) | fn.If
+											}) | fn.If
+											SizeConstraintStatement?: close({
 												ComparisonOperator?: string | fn.Fn
-												FieldToMatch?:       {
-													AllQueryArguments?: {
-													} | fn.If
-													Body?: {
-													} | fn.If
-													Method?: {
-													} | fn.If
-													QueryString?: {
-													} | fn.If
-													SingleHeader?: {
+												FieldToMatch?:       close({
+													AllQueryArguments?: close({
+													}) | fn.If
+													Body?: close({
+													}) | fn.If
+													Method?: close({
+													}) | fn.If
+													QueryString?: close({
+													}) | fn.If
+													SingleHeader?: close({
 														Name?: string | fn.Fn
-													} | fn.If
-													SingleQueryArgument?: {
+													}) | fn.If
+													SingleQueryArgument?: close({
 														Name?: string | fn.Fn
-													} | fn.If
-													UriPath?: {
-													} | fn.If
-												} | fn.If
+													}) | fn.If
+													UriPath?: close({
+													}) | fn.If
+												}) | fn.If
 												Size?:                int | fn.Fn
-												TextTransformations?: {
-													TextTransformations?: [...{
+												TextTransformations?: close({
+													TextTransformations?: [...close({
 														[string]: _
-													}] | fn.If
-												} | fn.If
-											} | fn.If
-											SqliMatchStatement?: {
-												FieldToMatch?: {
-													AllQueryArguments?: {
-													} | fn.If
-													Body?: {
-													} | fn.If
-													Method?: {
-													} | fn.If
-													QueryString?: {
-													} | fn.If
-													SingleHeader?: {
+													})] | fn.If
+												}) | fn.If
+											}) | fn.If
+											SqliMatchStatement?: close({
+												FieldToMatch?: close({
+													AllQueryArguments?: close({
+													}) | fn.If
+													Body?: close({
+													}) | fn.If
+													Method?: close({
+													}) | fn.If
+													QueryString?: close({
+													}) | fn.If
+													SingleHeader?: close({
 														Name?: string | fn.Fn
-													} | fn.If
-													SingleQueryArgument?: {
+													}) | fn.If
+													SingleQueryArgument?: close({
 														Name?: string | fn.Fn
-													} | fn.If
-													UriPath?: {
-													} | fn.If
-												} | fn.If
-												TextTransformations?: {
-													TextTransformations?: [...{
+													}) | fn.If
+													UriPath?: close({
+													}) | fn.If
+												}) | fn.If
+												TextTransformations?: close({
+													TextTransformations?: [...close({
 														[string]: _
-													}] | fn.If
-												} | fn.If
-											} | fn.If
-											XssMatchStatement?: {
-												FieldToMatch?: {
-													AllQueryArguments?: {
-													} | fn.If
-													Body?: {
-													} | fn.If
-													Method?: {
-													} | fn.If
-													QueryString?: {
-													} | fn.If
-													SingleHeader?: {
+													})] | fn.If
+												}) | fn.If
+											}) | fn.If
+											XssMatchStatement?: close({
+												FieldToMatch?: close({
+													AllQueryArguments?: close({
+													}) | fn.If
+													Body?: close({
+													}) | fn.If
+													Method?: close({
+													}) | fn.If
+													QueryString?: close({
+													}) | fn.If
+													SingleHeader?: close({
 														Name?: string | fn.Fn
-													} | fn.If
-													SingleQueryArgument?: {
+													}) | fn.If
+													SingleQueryArgument?: close({
 														Name?: string | fn.Fn
-													} | fn.If
-													UriPath?: {
-													} | fn.If
-												} | fn.If
-												TextTransformations?: {
-													TextTransformations?: [...{
+													}) | fn.If
+													UriPath?: close({
+													}) | fn.If
+												}) | fn.If
+												TextTransformations?: close({
+													TextTransformations?: [...close({
 														[string]: _
-													}] | fn.If
-												} | fn.If
-											} | fn.If
-										}] | fn.If
-									} | fn.If
-								} | fn.If
-								ByteMatchStatement?: {
-									FieldToMatch?: {
-										AllQueryArguments?: {
-										} | fn.If
-										Body?: {
-										} | fn.If
-										Method?: {
-										} | fn.If
-										QueryString?: {
-										} | fn.If
-										SingleHeader?: {
+													})] | fn.If
+												}) | fn.If
+											}) | fn.If
+										})] | fn.If
+									}) | fn.If
+								}) | fn.If
+								ByteMatchStatement?: close({
+									FieldToMatch?: close({
+										AllQueryArguments?: close({
+										}) | fn.If
+										Body?: close({
+										}) | fn.If
+										Method?: close({
+										}) | fn.If
+										QueryString?: close({
+										}) | fn.If
+										SingleHeader?: close({
 											Name?: string | fn.Fn
-										} | fn.If
-										SingleQueryArgument?: {
+										}) | fn.If
+										SingleQueryArgument?: close({
 											Name?: string | fn.Fn
-										} | fn.If
-										UriPath?: {
-										} | fn.If
-									} | fn.If
+										}) | fn.If
+										UriPath?: close({
+										}) | fn.If
+									}) | fn.If
 									PositionalConstraint?: string | fn.Fn
 									SearchString?:         string | fn.Fn
 									SearchStringBase64?:   string | fn.Fn
-									TextTransformations?:  {
-										TextTransformations?: [...{
+									TextTransformations?:  close({
+										TextTransformations?: [...close({
 											[string]: _
-										}] | fn.If
-									} | fn.If
-								} | fn.If
-								GeoMatchStatement?: {
-									CountryCodes?: {
+										})] | fn.If
+									}) | fn.If
+								}) | fn.If
+								GeoMatchStatement?: close({
+									CountryCodes?: close({
 										CountryCodes?: [...(string | fn.Fn)] | (string | fn.Fn)
-									} | fn.If
-								} | fn.If
-								IPSetReferenceStatement?: {
+									}) | fn.If
+								}) | fn.If
+								IPSetReferenceStatement?: close({
 									Arn?: string | fn.Fn
-								} | fn.If
-								NotStatement?: {
-									Statement?: {
-										ByteMatchStatement?: {
-											FieldToMatch?: {
-												AllQueryArguments?: {
-												} | fn.If
-												Body?: {
-												} | fn.If
-												Method?: {
-												} | fn.If
-												QueryString?: {
-												} | fn.If
-												SingleHeader?: {
+								}) | fn.If
+								NotStatement?: close({
+									Statement?: close({
+										ByteMatchStatement?: close({
+											FieldToMatch?: close({
+												AllQueryArguments?: close({
+												}) | fn.If
+												Body?: close({
+												}) | fn.If
+												Method?: close({
+												}) | fn.If
+												QueryString?: close({
+												}) | fn.If
+												SingleHeader?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												SingleQueryArgument?: {
+												}) | fn.If
+												SingleQueryArgument?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												UriPath?: {
-												} | fn.If
-											} | fn.If
+												}) | fn.If
+												UriPath?: close({
+												}) | fn.If
+											}) | fn.If
 											PositionalConstraint?: string | fn.Fn
 											SearchString?:         string | fn.Fn
 											SearchStringBase64?:   string | fn.Fn
-											TextTransformations?:  {
-												TextTransformations?: [...{
+											TextTransformations?:  close({
+												TextTransformations?: [...close({
 													[string]: _
-												}] | fn.If
-											} | fn.If
-										} | fn.If
-										GeoMatchStatement?: {
-											CountryCodes?: {
+												})] | fn.If
+											}) | fn.If
+										}) | fn.If
+										GeoMatchStatement?: close({
+											CountryCodes?: close({
 												CountryCodes?: [...(string | fn.Fn)] | (string | fn.Fn)
-											} | fn.If
-										} | fn.If
-										IPSetReferenceStatement?: {
+											}) | fn.If
+										}) | fn.If
+										IPSetReferenceStatement?: close({
 											Arn?: string | fn.Fn
-										} | fn.If
-										RegexPatternSetReferenceStatement?: {
+										}) | fn.If
+										RegexPatternSetReferenceStatement?: close({
 											Arn?:          string | fn.Fn
-											FieldToMatch?: {
-												AllQueryArguments?: {
-												} | fn.If
-												Body?: {
-												} | fn.If
-												Method?: {
-												} | fn.If
-												QueryString?: {
-												} | fn.If
-												SingleHeader?: {
+											FieldToMatch?: close({
+												AllQueryArguments?: close({
+												}) | fn.If
+												Body?: close({
+												}) | fn.If
+												Method?: close({
+												}) | fn.If
+												QueryString?: close({
+												}) | fn.If
+												SingleHeader?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												SingleQueryArgument?: {
+												}) | fn.If
+												SingleQueryArgument?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												UriPath?: {
-												} | fn.If
-											} | fn.If
-											TextTransformations?: {
-												TextTransformations?: [...{
+												}) | fn.If
+												UriPath?: close({
+												}) | fn.If
+											}) | fn.If
+											TextTransformations?: close({
+												TextTransformations?: [...close({
 													[string]: _
-												}] | fn.If
-											} | fn.If
-										} | fn.If
-										SizeConstraintStatement?: {
+												})] | fn.If
+											}) | fn.If
+										}) | fn.If
+										SizeConstraintStatement?: close({
 											ComparisonOperator?: string | fn.Fn
-											FieldToMatch?:       {
-												AllQueryArguments?: {
-												} | fn.If
-												Body?: {
-												} | fn.If
-												Method?: {
-												} | fn.If
-												QueryString?: {
-												} | fn.If
-												SingleHeader?: {
+											FieldToMatch?:       close({
+												AllQueryArguments?: close({
+												}) | fn.If
+												Body?: close({
+												}) | fn.If
+												Method?: close({
+												}) | fn.If
+												QueryString?: close({
+												}) | fn.If
+												SingleHeader?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												SingleQueryArgument?: {
+												}) | fn.If
+												SingleQueryArgument?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												UriPath?: {
-												} | fn.If
-											} | fn.If
+												}) | fn.If
+												UriPath?: close({
+												}) | fn.If
+											}) | fn.If
 											Size?:                int | fn.Fn
-											TextTransformations?: {
-												TextTransformations?: [...{
+											TextTransformations?: close({
+												TextTransformations?: [...close({
 													[string]: _
-												}] | fn.If
-											} | fn.If
-										} | fn.If
-										SqliMatchStatement?: {
-											FieldToMatch?: {
-												AllQueryArguments?: {
-												} | fn.If
-												Body?: {
-												} | fn.If
-												Method?: {
-												} | fn.If
-												QueryString?: {
-												} | fn.If
-												SingleHeader?: {
+												})] | fn.If
+											}) | fn.If
+										}) | fn.If
+										SqliMatchStatement?: close({
+											FieldToMatch?: close({
+												AllQueryArguments?: close({
+												}) | fn.If
+												Body?: close({
+												}) | fn.If
+												Method?: close({
+												}) | fn.If
+												QueryString?: close({
+												}) | fn.If
+												SingleHeader?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												SingleQueryArgument?: {
+												}) | fn.If
+												SingleQueryArgument?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												UriPath?: {
-												} | fn.If
-											} | fn.If
-											TextTransformations?: {
-												TextTransformations?: [...{
+												}) | fn.If
+												UriPath?: close({
+												}) | fn.If
+											}) | fn.If
+											TextTransformations?: close({
+												TextTransformations?: [...close({
 													[string]: _
-												}] | fn.If
-											} | fn.If
-										} | fn.If
-										XssMatchStatement?: {
-											FieldToMatch?: {
-												AllQueryArguments?: {
-												} | fn.If
-												Body?: {
-												} | fn.If
-												Method?: {
-												} | fn.If
-												QueryString?: {
-												} | fn.If
-												SingleHeader?: {
+												})] | fn.If
+											}) | fn.If
+										}) | fn.If
+										XssMatchStatement?: close({
+											FieldToMatch?: close({
+												AllQueryArguments?: close({
+												}) | fn.If
+												Body?: close({
+												}) | fn.If
+												Method?: close({
+												}) | fn.If
+												QueryString?: close({
+												}) | fn.If
+												SingleHeader?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												SingleQueryArgument?: {
+												}) | fn.If
+												SingleQueryArgument?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												UriPath?: {
-												} | fn.If
-											} | fn.If
-											TextTransformations?: {
-												TextTransformations?: [...{
+												}) | fn.If
+												UriPath?: close({
+												}) | fn.If
+											}) | fn.If
+											TextTransformations?: close({
+												TextTransformations?: [...close({
 													[string]: _
-												}] | fn.If
-											} | fn.If
-										} | fn.If
-									} | fn.If
-								} | fn.If
-								OrStatement?: {
-									Statements?: {
-										StatementThrees?: [...{
-											ByteMatchStatement?: {
-												FieldToMatch?: {
-													AllQueryArguments?: {
-													} | fn.If
-													Body?: {
-													} | fn.If
-													Method?: {
-													} | fn.If
-													QueryString?: {
-													} | fn.If
-													SingleHeader?: {
+												})] | fn.If
+											}) | fn.If
+										}) | fn.If
+									}) | fn.If
+								}) | fn.If
+								OrStatement?: close({
+									Statements?: close({
+										StatementThrees?: [...close({
+											ByteMatchStatement?: close({
+												FieldToMatch?: close({
+													AllQueryArguments?: close({
+													}) | fn.If
+													Body?: close({
+													}) | fn.If
+													Method?: close({
+													}) | fn.If
+													QueryString?: close({
+													}) | fn.If
+													SingleHeader?: close({
 														Name?: string | fn.Fn
-													} | fn.If
-													SingleQueryArgument?: {
+													}) | fn.If
+													SingleQueryArgument?: close({
 														Name?: string | fn.Fn
-													} | fn.If
-													UriPath?: {
-													} | fn.If
-												} | fn.If
+													}) | fn.If
+													UriPath?: close({
+													}) | fn.If
+												}) | fn.If
 												PositionalConstraint?: string | fn.Fn
 												SearchString?:         string | fn.Fn
 												SearchStringBase64?:   string | fn.Fn
-												TextTransformations?:  {
-													TextTransformations?: [...{
+												TextTransformations?:  close({
+													TextTransformations?: [...close({
 														[string]: _
-													}] | fn.If
-												} | fn.If
-											} | fn.If
-											GeoMatchStatement?: {
-												CountryCodes?: {
+													})] | fn.If
+												}) | fn.If
+											}) | fn.If
+											GeoMatchStatement?: close({
+												CountryCodes?: close({
 													CountryCodes?: [...(string | fn.Fn)] | (string | fn.Fn)
-												} | fn.If
-											} | fn.If
-											IPSetReferenceStatement?: {
+												}) | fn.If
+											}) | fn.If
+											IPSetReferenceStatement?: close({
 												Arn?: string | fn.Fn
-											} | fn.If
-											RegexPatternSetReferenceStatement?: {
+											}) | fn.If
+											RegexPatternSetReferenceStatement?: close({
 												Arn?:          string | fn.Fn
-												FieldToMatch?: {
-													AllQueryArguments?: {
-													} | fn.If
-													Body?: {
-													} | fn.If
-													Method?: {
-													} | fn.If
-													QueryString?: {
-													} | fn.If
-													SingleHeader?: {
+												FieldToMatch?: close({
+													AllQueryArguments?: close({
+													}) | fn.If
+													Body?: close({
+													}) | fn.If
+													Method?: close({
+													}) | fn.If
+													QueryString?: close({
+													}) | fn.If
+													SingleHeader?: close({
 														Name?: string | fn.Fn
-													} | fn.If
-													SingleQueryArgument?: {
+													}) | fn.If
+													SingleQueryArgument?: close({
 														Name?: string | fn.Fn
-													} | fn.If
-													UriPath?: {
-													} | fn.If
-												} | fn.If
-												TextTransformations?: {
-													TextTransformations?: [...{
+													}) | fn.If
+													UriPath?: close({
+													}) | fn.If
+												}) | fn.If
+												TextTransformations?: close({
+													TextTransformations?: [...close({
 														[string]: _
-													}] | fn.If
-												} | fn.If
-											} | fn.If
-											SizeConstraintStatement?: {
+													})] | fn.If
+												}) | fn.If
+											}) | fn.If
+											SizeConstraintStatement?: close({
 												ComparisonOperator?: string | fn.Fn
-												FieldToMatch?:       {
-													AllQueryArguments?: {
-													} | fn.If
-													Body?: {
-													} | fn.If
-													Method?: {
-													} | fn.If
-													QueryString?: {
-													} | fn.If
-													SingleHeader?: {
+												FieldToMatch?:       close({
+													AllQueryArguments?: close({
+													}) | fn.If
+													Body?: close({
+													}) | fn.If
+													Method?: close({
+													}) | fn.If
+													QueryString?: close({
+													}) | fn.If
+													SingleHeader?: close({
 														Name?: string | fn.Fn
-													} | fn.If
-													SingleQueryArgument?: {
+													}) | fn.If
+													SingleQueryArgument?: close({
 														Name?: string | fn.Fn
-													} | fn.If
-													UriPath?: {
-													} | fn.If
-												} | fn.If
+													}) | fn.If
+													UriPath?: close({
+													}) | fn.If
+												}) | fn.If
 												Size?:                int | fn.Fn
-												TextTransformations?: {
-													TextTransformations?: [...{
+												TextTransformations?: close({
+													TextTransformations?: [...close({
 														[string]: _
-													}] | fn.If
-												} | fn.If
-											} | fn.If
-											SqliMatchStatement?: {
-												FieldToMatch?: {
-													AllQueryArguments?: {
-													} | fn.If
-													Body?: {
-													} | fn.If
-													Method?: {
-													} | fn.If
-													QueryString?: {
-													} | fn.If
-													SingleHeader?: {
+													})] | fn.If
+												}) | fn.If
+											}) | fn.If
+											SqliMatchStatement?: close({
+												FieldToMatch?: close({
+													AllQueryArguments?: close({
+													}) | fn.If
+													Body?: close({
+													}) | fn.If
+													Method?: close({
+													}) | fn.If
+													QueryString?: close({
+													}) | fn.If
+													SingleHeader?: close({
 														Name?: string | fn.Fn
-													} | fn.If
-													SingleQueryArgument?: {
+													}) | fn.If
+													SingleQueryArgument?: close({
 														Name?: string | fn.Fn
-													} | fn.If
-													UriPath?: {
-													} | fn.If
-												} | fn.If
-												TextTransformations?: {
-													TextTransformations?: [...{
+													}) | fn.If
+													UriPath?: close({
+													}) | fn.If
+												}) | fn.If
+												TextTransformations?: close({
+													TextTransformations?: [...close({
 														[string]: _
-													}] | fn.If
-												} | fn.If
-											} | fn.If
-											XssMatchStatement?: {
-												FieldToMatch?: {
-													AllQueryArguments?: {
-													} | fn.If
-													Body?: {
-													} | fn.If
-													Method?: {
-													} | fn.If
-													QueryString?: {
-													} | fn.If
-													SingleHeader?: {
+													})] | fn.If
+												}) | fn.If
+											}) | fn.If
+											XssMatchStatement?: close({
+												FieldToMatch?: close({
+													AllQueryArguments?: close({
+													}) | fn.If
+													Body?: close({
+													}) | fn.If
+													Method?: close({
+													}) | fn.If
+													QueryString?: close({
+													}) | fn.If
+													SingleHeader?: close({
 														Name?: string | fn.Fn
-													} | fn.If
-													SingleQueryArgument?: {
+													}) | fn.If
+													SingleQueryArgument?: close({
 														Name?: string | fn.Fn
-													} | fn.If
-													UriPath?: {
-													} | fn.If
-												} | fn.If
-												TextTransformations?: {
-													TextTransformations?: [...{
+													}) | fn.If
+													UriPath?: close({
+													}) | fn.If
+												}) | fn.If
+												TextTransformations?: close({
+													TextTransformations?: [...close({
 														[string]: _
-													}] | fn.If
-												} | fn.If
-											} | fn.If
-										}] | fn.If
-									} | fn.If
-								} | fn.If
-								RateBasedStatement?: {
+													})] | fn.If
+												}) | fn.If
+											}) | fn.If
+										})] | fn.If
+									}) | fn.If
+								}) | fn.If
+								RateBasedStatement?: close({
 									AggregateKeyType?:   string | fn.Fn
 									Limit?:              int | fn.Fn
-									ScopeDownStatement?: {
-										ByteMatchStatement?: {
-											FieldToMatch?: {
-												AllQueryArguments?: {
-												} | fn.If
-												Body?: {
-												} | fn.If
-												Method?: {
-												} | fn.If
-												QueryString?: {
-												} | fn.If
-												SingleHeader?: {
+									ScopeDownStatement?: close({
+										ByteMatchStatement?: close({
+											FieldToMatch?: close({
+												AllQueryArguments?: close({
+												}) | fn.If
+												Body?: close({
+												}) | fn.If
+												Method?: close({
+												}) | fn.If
+												QueryString?: close({
+												}) | fn.If
+												SingleHeader?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												SingleQueryArgument?: {
+												}) | fn.If
+												SingleQueryArgument?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												UriPath?: {
-												} | fn.If
-											} | fn.If
+												}) | fn.If
+												UriPath?: close({
+												}) | fn.If
+											}) | fn.If
 											PositionalConstraint?: string | fn.Fn
 											SearchString?:         string | fn.Fn
 											SearchStringBase64?:   string | fn.Fn
-											TextTransformations?:  {
-												TextTransformations?: [...{
+											TextTransformations?:  close({
+												TextTransformations?: [...close({
 													[string]: _
-												}] | fn.If
-											} | fn.If
-										} | fn.If
-										GeoMatchStatement?: {
-											CountryCodes?: {
+												})] | fn.If
+											}) | fn.If
+										}) | fn.If
+										GeoMatchStatement?: close({
+											CountryCodes?: close({
 												CountryCodes?: [...(string | fn.Fn)] | (string | fn.Fn)
-											} | fn.If
-										} | fn.If
-										IPSetReferenceStatement?: {
+											}) | fn.If
+										}) | fn.If
+										IPSetReferenceStatement?: close({
 											Arn?: string | fn.Fn
-										} | fn.If
-										RegexPatternSetReferenceStatement?: {
+										}) | fn.If
+										RegexPatternSetReferenceStatement?: close({
 											Arn?:          string | fn.Fn
-											FieldToMatch?: {
-												AllQueryArguments?: {
-												} | fn.If
-												Body?: {
-												} | fn.If
-												Method?: {
-												} | fn.If
-												QueryString?: {
-												} | fn.If
-												SingleHeader?: {
+											FieldToMatch?: close({
+												AllQueryArguments?: close({
+												}) | fn.If
+												Body?: close({
+												}) | fn.If
+												Method?: close({
+												}) | fn.If
+												QueryString?: close({
+												}) | fn.If
+												SingleHeader?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												SingleQueryArgument?: {
+												}) | fn.If
+												SingleQueryArgument?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												UriPath?: {
-												} | fn.If
-											} | fn.If
-											TextTransformations?: {
-												TextTransformations?: [...{
+												}) | fn.If
+												UriPath?: close({
+												}) | fn.If
+											}) | fn.If
+											TextTransformations?: close({
+												TextTransformations?: [...close({
 													[string]: _
-												}] | fn.If
-											} | fn.If
-										} | fn.If
-										SizeConstraintStatement?: {
+												})] | fn.If
+											}) | fn.If
+										}) | fn.If
+										SizeConstraintStatement?: close({
 											ComparisonOperator?: string | fn.Fn
-											FieldToMatch?:       {
-												AllQueryArguments?: {
-												} | fn.If
-												Body?: {
-												} | fn.If
-												Method?: {
-												} | fn.If
-												QueryString?: {
-												} | fn.If
-												SingleHeader?: {
+											FieldToMatch?:       close({
+												AllQueryArguments?: close({
+												}) | fn.If
+												Body?: close({
+												}) | fn.If
+												Method?: close({
+												}) | fn.If
+												QueryString?: close({
+												}) | fn.If
+												SingleHeader?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												SingleQueryArgument?: {
+												}) | fn.If
+												SingleQueryArgument?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												UriPath?: {
-												} | fn.If
-											} | fn.If
+												}) | fn.If
+												UriPath?: close({
+												}) | fn.If
+											}) | fn.If
 											Size?:                int | fn.Fn
-											TextTransformations?: {
-												TextTransformations?: [...{
+											TextTransformations?: close({
+												TextTransformations?: [...close({
 													[string]: _
-												}] | fn.If
-											} | fn.If
-										} | fn.If
-										SqliMatchStatement?: {
-											FieldToMatch?: {
-												AllQueryArguments?: {
-												} | fn.If
-												Body?: {
-												} | fn.If
-												Method?: {
-												} | fn.If
-												QueryString?: {
-												} | fn.If
-												SingleHeader?: {
+												})] | fn.If
+											}) | fn.If
+										}) | fn.If
+										SqliMatchStatement?: close({
+											FieldToMatch?: close({
+												AllQueryArguments?: close({
+												}) | fn.If
+												Body?: close({
+												}) | fn.If
+												Method?: close({
+												}) | fn.If
+												QueryString?: close({
+												}) | fn.If
+												SingleHeader?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												SingleQueryArgument?: {
+												}) | fn.If
+												SingleQueryArgument?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												UriPath?: {
-												} | fn.If
-											} | fn.If
-											TextTransformations?: {
-												TextTransformations?: [...{
+												}) | fn.If
+												UriPath?: close({
+												}) | fn.If
+											}) | fn.If
+											TextTransformations?: close({
+												TextTransformations?: [...close({
 													[string]: _
-												}] | fn.If
-											} | fn.If
-										} | fn.If
-										XssMatchStatement?: {
-											FieldToMatch?: {
-												AllQueryArguments?: {
-												} | fn.If
-												Body?: {
-												} | fn.If
-												Method?: {
-												} | fn.If
-												QueryString?: {
-												} | fn.If
-												SingleHeader?: {
+												})] | fn.If
+											}) | fn.If
+										}) | fn.If
+										XssMatchStatement?: close({
+											FieldToMatch?: close({
+												AllQueryArguments?: close({
+												}) | fn.If
+												Body?: close({
+												}) | fn.If
+												Method?: close({
+												}) | fn.If
+												QueryString?: close({
+												}) | fn.If
+												SingleHeader?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												SingleQueryArgument?: {
+												}) | fn.If
+												SingleQueryArgument?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												UriPath?: {
-												} | fn.If
-											} | fn.If
-											TextTransformations?: {
-												TextTransformations?: [...{
+												}) | fn.If
+												UriPath?: close({
+												}) | fn.If
+											}) | fn.If
+											TextTransformations?: close({
+												TextTransformations?: [...close({
 													[string]: _
-												}] | fn.If
-											} | fn.If
-										} | fn.If
-									} | fn.If
-								} | fn.If
-								RegexPatternSetReferenceStatement?: {
+												})] | fn.If
+											}) | fn.If
+										}) | fn.If
+									}) | fn.If
+								}) | fn.If
+								RegexPatternSetReferenceStatement?: close({
 									Arn?:          string | fn.Fn
-									FieldToMatch?: {
-										AllQueryArguments?: {
-										} | fn.If
-										Body?: {
-										} | fn.If
-										Method?: {
-										} | fn.If
-										QueryString?: {
-										} | fn.If
-										SingleHeader?: {
+									FieldToMatch?: close({
+										AllQueryArguments?: close({
+										}) | fn.If
+										Body?: close({
+										}) | fn.If
+										Method?: close({
+										}) | fn.If
+										QueryString?: close({
+										}) | fn.If
+										SingleHeader?: close({
 											Name?: string | fn.Fn
-										} | fn.If
-										SingleQueryArgument?: {
+										}) | fn.If
+										SingleQueryArgument?: close({
 											Name?: string | fn.Fn
-										} | fn.If
-										UriPath?: {
-										} | fn.If
-									} | fn.If
-									TextTransformations?: {
-										TextTransformations?: [...{
+										}) | fn.If
+										UriPath?: close({
+										}) | fn.If
+									}) | fn.If
+									TextTransformations?: close({
+										TextTransformations?: [...close({
 											[string]: _
-										}] | fn.If
-									} | fn.If
-								} | fn.If
-								SizeConstraintStatement?: {
+										})] | fn.If
+									}) | fn.If
+								}) | fn.If
+								SizeConstraintStatement?: close({
 									ComparisonOperator?: string | fn.Fn
-									FieldToMatch?:       {
-										AllQueryArguments?: {
-										} | fn.If
-										Body?: {
-										} | fn.If
-										Method?: {
-										} | fn.If
-										QueryString?: {
-										} | fn.If
-										SingleHeader?: {
+									FieldToMatch?:       close({
+										AllQueryArguments?: close({
+										}) | fn.If
+										Body?: close({
+										}) | fn.If
+										Method?: close({
+										}) | fn.If
+										QueryString?: close({
+										}) | fn.If
+										SingleHeader?: close({
 											Name?: string | fn.Fn
-										} | fn.If
-										SingleQueryArgument?: {
+										}) | fn.If
+										SingleQueryArgument?: close({
 											Name?: string | fn.Fn
-										} | fn.If
-										UriPath?: {
-										} | fn.If
-									} | fn.If
+										}) | fn.If
+										UriPath?: close({
+										}) | fn.If
+									}) | fn.If
 									Size?:                int | fn.Fn
-									TextTransformations?: {
-										TextTransformations?: [...{
+									TextTransformations?: close({
+										TextTransformations?: [...close({
 											[string]: _
-										}] | fn.If
-									} | fn.If
-								} | fn.If
-								SqliMatchStatement?: {
-									FieldToMatch?: {
-										AllQueryArguments?: {
-										} | fn.If
-										Body?: {
-										} | fn.If
-										Method?: {
-										} | fn.If
-										QueryString?: {
-										} | fn.If
-										SingleHeader?: {
+										})] | fn.If
+									}) | fn.If
+								}) | fn.If
+								SqliMatchStatement?: close({
+									FieldToMatch?: close({
+										AllQueryArguments?: close({
+										}) | fn.If
+										Body?: close({
+										}) | fn.If
+										Method?: close({
+										}) | fn.If
+										QueryString?: close({
+										}) | fn.If
+										SingleHeader?: close({
 											Name?: string | fn.Fn
-										} | fn.If
-										SingleQueryArgument?: {
+										}) | fn.If
+										SingleQueryArgument?: close({
 											Name?: string | fn.Fn
-										} | fn.If
-										UriPath?: {
-										} | fn.If
-									} | fn.If
-									TextTransformations?: {
-										TextTransformations?: [...{
+										}) | fn.If
+										UriPath?: close({
+										}) | fn.If
+									}) | fn.If
+									TextTransformations?: close({
+										TextTransformations?: [...close({
 											[string]: _
-										}] | fn.If
-									} | fn.If
-								} | fn.If
-								XssMatchStatement?: {
-									FieldToMatch?: {
-										AllQueryArguments?: {
-										} | fn.If
-										Body?: {
-										} | fn.If
-										Method?: {
-										} | fn.If
-										QueryString?: {
-										} | fn.If
-										SingleHeader?: {
+										})] | fn.If
+									}) | fn.If
+								}) | fn.If
+								XssMatchStatement?: close({
+									FieldToMatch?: close({
+										AllQueryArguments?: close({
+										}) | fn.If
+										Body?: close({
+										}) | fn.If
+										Method?: close({
+										}) | fn.If
+										QueryString?: close({
+										}) | fn.If
+										SingleHeader?: close({
 											Name?: string | fn.Fn
-										} | fn.If
-										SingleQueryArgument?: {
+										}) | fn.If
+										SingleQueryArgument?: close({
 											Name?: string | fn.Fn
-										} | fn.If
-										UriPath?: {
-										} | fn.If
-									} | fn.If
-									TextTransformations?: {
-										TextTransformations?: [...{
+										}) | fn.If
+										UriPath?: close({
+										}) | fn.If
+									}) | fn.If
+									TextTransformations?: close({
+										TextTransformations?: [...close({
 											[string]: _
-										}] | fn.If
-									} | fn.If
-								} | fn.If
-							}] | fn.If
-						} | fn.If
-					} | fn.If
-					ByteMatchStatement?: {
-						FieldToMatch?: {
-							AllQueryArguments?: {
-							} | fn.If
-							Body?: {
-							} | fn.If
-							Method?: {
-							} | fn.If
-							QueryString?: {
-							} | fn.If
-							SingleHeader?: {
+										})] | fn.If
+									}) | fn.If
+								}) | fn.If
+							})] | fn.If
+						}) | fn.If
+					}) | fn.If
+					ByteMatchStatement?: close({
+						FieldToMatch?: close({
+							AllQueryArguments?: close({
+							}) | fn.If
+							Body?: close({
+							}) | fn.If
+							Method?: close({
+							}) | fn.If
+							QueryString?: close({
+							}) | fn.If
+							SingleHeader?: close({
 								Name?: string | fn.Fn
-							} | fn.If
-							SingleQueryArgument?: {
+							}) | fn.If
+							SingleQueryArgument?: close({
 								Name?: string | fn.Fn
-							} | fn.If
-							UriPath?: {
-							} | fn.If
-						} | fn.If
+							}) | fn.If
+							UriPath?: close({
+							}) | fn.If
+						}) | fn.If
 						PositionalConstraint?: string | fn.Fn
 						SearchString?:         string | fn.Fn
 						SearchStringBase64?:   string | fn.Fn
-						TextTransformations?:  {
-							TextTransformations?: [...{
+						TextTransformations?:  close({
+							TextTransformations?: [...close({
 								[string]: _
-							}] | fn.If
-						} | fn.If
-					} | fn.If
-					GeoMatchStatement?: {
-						CountryCodes?: {
+							})] | fn.If
+						}) | fn.If
+					}) | fn.If
+					GeoMatchStatement?: close({
+						CountryCodes?: close({
 							CountryCodes?: [...(string | fn.Fn)] | (string | fn.Fn)
-						} | fn.If
-					} | fn.If
-					IPSetReferenceStatement?: {
+						}) | fn.If
+					}) | fn.If
+					IPSetReferenceStatement?: close({
 						Arn?: string | fn.Fn
-					} | fn.If
-					NotStatement?: {
-						Statement?: {
-							AndStatement?: {
-								Statements?: {
-									StatementThrees?: [...{
-										ByteMatchStatement?: {
-											FieldToMatch?: {
-												AllQueryArguments?: {
-												} | fn.If
-												Body?: {
-												} | fn.If
-												Method?: {
-												} | fn.If
-												QueryString?: {
-												} | fn.If
-												SingleHeader?: {
+					}) | fn.If
+					NotStatement?: close({
+						Statement?: close({
+							AndStatement?: close({
+								Statements?: close({
+									StatementThrees?: [...close({
+										ByteMatchStatement?: close({
+											FieldToMatch?: close({
+												AllQueryArguments?: close({
+												}) | fn.If
+												Body?: close({
+												}) | fn.If
+												Method?: close({
+												}) | fn.If
+												QueryString?: close({
+												}) | fn.If
+												SingleHeader?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												SingleQueryArgument?: {
+												}) | fn.If
+												SingleQueryArgument?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												UriPath?: {
-												} | fn.If
-											} | fn.If
+												}) | fn.If
+												UriPath?: close({
+												}) | fn.If
+											}) | fn.If
 											PositionalConstraint?: string | fn.Fn
 											SearchString?:         string | fn.Fn
 											SearchStringBase64?:   string | fn.Fn
-											TextTransformations?:  {
-												TextTransformations?: [...{
+											TextTransformations?:  close({
+												TextTransformations?: [...close({
 													[string]: _
-												}] | fn.If
-											} | fn.If
-										} | fn.If
-										GeoMatchStatement?: {
-											CountryCodes?: {
+												})] | fn.If
+											}) | fn.If
+										}) | fn.If
+										GeoMatchStatement?: close({
+											CountryCodes?: close({
 												CountryCodes?: [...(string | fn.Fn)] | (string | fn.Fn)
-											} | fn.If
-										} | fn.If
-										IPSetReferenceStatement?: {
+											}) | fn.If
+										}) | fn.If
+										IPSetReferenceStatement?: close({
 											Arn?: string | fn.Fn
-										} | fn.If
-										RegexPatternSetReferenceStatement?: {
+										}) | fn.If
+										RegexPatternSetReferenceStatement?: close({
 											Arn?:          string | fn.Fn
-											FieldToMatch?: {
-												AllQueryArguments?: {
-												} | fn.If
-												Body?: {
-												} | fn.If
-												Method?: {
-												} | fn.If
-												QueryString?: {
-												} | fn.If
-												SingleHeader?: {
+											FieldToMatch?: close({
+												AllQueryArguments?: close({
+												}) | fn.If
+												Body?: close({
+												}) | fn.If
+												Method?: close({
+												}) | fn.If
+												QueryString?: close({
+												}) | fn.If
+												SingleHeader?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												SingleQueryArgument?: {
+												}) | fn.If
+												SingleQueryArgument?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												UriPath?: {
-												} | fn.If
-											} | fn.If
-											TextTransformations?: {
-												TextTransformations?: [...{
+												}) | fn.If
+												UriPath?: close({
+												}) | fn.If
+											}) | fn.If
+											TextTransformations?: close({
+												TextTransformations?: [...close({
 													[string]: _
-												}] | fn.If
-											} | fn.If
-										} | fn.If
-										SizeConstraintStatement?: {
+												})] | fn.If
+											}) | fn.If
+										}) | fn.If
+										SizeConstraintStatement?: close({
 											ComparisonOperator?: string | fn.Fn
-											FieldToMatch?:       {
-												AllQueryArguments?: {
-												} | fn.If
-												Body?: {
-												} | fn.If
-												Method?: {
-												} | fn.If
-												QueryString?: {
-												} | fn.If
-												SingleHeader?: {
+											FieldToMatch?:       close({
+												AllQueryArguments?: close({
+												}) | fn.If
+												Body?: close({
+												}) | fn.If
+												Method?: close({
+												}) | fn.If
+												QueryString?: close({
+												}) | fn.If
+												SingleHeader?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												SingleQueryArgument?: {
+												}) | fn.If
+												SingleQueryArgument?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												UriPath?: {
-												} | fn.If
-											} | fn.If
+												}) | fn.If
+												UriPath?: close({
+												}) | fn.If
+											}) | fn.If
 											Size?:                int | fn.Fn
-											TextTransformations?: {
-												TextTransformations?: [...{
+											TextTransformations?: close({
+												TextTransformations?: [...close({
 													[string]: _
-												}] | fn.If
-											} | fn.If
-										} | fn.If
-										SqliMatchStatement?: {
-											FieldToMatch?: {
-												AllQueryArguments?: {
-												} | fn.If
-												Body?: {
-												} | fn.If
-												Method?: {
-												} | fn.If
-												QueryString?: {
-												} | fn.If
-												SingleHeader?: {
+												})] | fn.If
+											}) | fn.If
+										}) | fn.If
+										SqliMatchStatement?: close({
+											FieldToMatch?: close({
+												AllQueryArguments?: close({
+												}) | fn.If
+												Body?: close({
+												}) | fn.If
+												Method?: close({
+												}) | fn.If
+												QueryString?: close({
+												}) | fn.If
+												SingleHeader?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												SingleQueryArgument?: {
+												}) | fn.If
+												SingleQueryArgument?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												UriPath?: {
-												} | fn.If
-											} | fn.If
-											TextTransformations?: {
-												TextTransformations?: [...{
+												}) | fn.If
+												UriPath?: close({
+												}) | fn.If
+											}) | fn.If
+											TextTransformations?: close({
+												TextTransformations?: [...close({
 													[string]: _
-												}] | fn.If
-											} | fn.If
-										} | fn.If
-										XssMatchStatement?: {
-											FieldToMatch?: {
-												AllQueryArguments?: {
-												} | fn.If
-												Body?: {
-												} | fn.If
-												Method?: {
-												} | fn.If
-												QueryString?: {
-												} | fn.If
-												SingleHeader?: {
+												})] | fn.If
+											}) | fn.If
+										}) | fn.If
+										XssMatchStatement?: close({
+											FieldToMatch?: close({
+												AllQueryArguments?: close({
+												}) | fn.If
+												Body?: close({
+												}) | fn.If
+												Method?: close({
+												}) | fn.If
+												QueryString?: close({
+												}) | fn.If
+												SingleHeader?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												SingleQueryArgument?: {
+												}) | fn.If
+												SingleQueryArgument?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												UriPath?: {
-												} | fn.If
-											} | fn.If
-											TextTransformations?: {
-												TextTransformations?: [...{
+												}) | fn.If
+												UriPath?: close({
+												}) | fn.If
+											}) | fn.If
+											TextTransformations?: close({
+												TextTransformations?: [...close({
 													[string]: _
-												}] | fn.If
-											} | fn.If
-										} | fn.If
-									}] | fn.If
-								} | fn.If
-							} | fn.If
-							ByteMatchStatement?: {
-								FieldToMatch?: {
-									AllQueryArguments?: {
-									} | fn.If
-									Body?: {
-									} | fn.If
-									Method?: {
-									} | fn.If
-									QueryString?: {
-									} | fn.If
-									SingleHeader?: {
+												})] | fn.If
+											}) | fn.If
+										}) | fn.If
+									})] | fn.If
+								}) | fn.If
+							}) | fn.If
+							ByteMatchStatement?: close({
+								FieldToMatch?: close({
+									AllQueryArguments?: close({
+									}) | fn.If
+									Body?: close({
+									}) | fn.If
+									Method?: close({
+									}) | fn.If
+									QueryString?: close({
+									}) | fn.If
+									SingleHeader?: close({
 										Name?: string | fn.Fn
-									} | fn.If
-									SingleQueryArgument?: {
+									}) | fn.If
+									SingleQueryArgument?: close({
 										Name?: string | fn.Fn
-									} | fn.If
-									UriPath?: {
-									} | fn.If
-								} | fn.If
+									}) | fn.If
+									UriPath?: close({
+									}) | fn.If
+								}) | fn.If
 								PositionalConstraint?: string | fn.Fn
 								SearchString?:         string | fn.Fn
 								SearchStringBase64?:   string | fn.Fn
-								TextTransformations?:  {
-									TextTransformations?: [...{
+								TextTransformations?:  close({
+									TextTransformations?: [...close({
 										[string]: _
-									}] | fn.If
-								} | fn.If
-							} | fn.If
-							GeoMatchStatement?: {
-								CountryCodes?: {
+									})] | fn.If
+								}) | fn.If
+							}) | fn.If
+							GeoMatchStatement?: close({
+								CountryCodes?: close({
 									CountryCodes?: [...(string | fn.Fn)] | (string | fn.Fn)
-								} | fn.If
-							} | fn.If
-							IPSetReferenceStatement?: {
+								}) | fn.If
+							}) | fn.If
+							IPSetReferenceStatement?: close({
 								Arn?: string | fn.Fn
-							} | fn.If
-							NotStatement?: {
-								Statement?: {
-									ByteMatchStatement?: {
-										FieldToMatch?: {
-											AllQueryArguments?: {
-											} | fn.If
-											Body?: {
-											} | fn.If
-											Method?: {
-											} | fn.If
-											QueryString?: {
-											} | fn.If
-											SingleHeader?: {
+							}) | fn.If
+							NotStatement?: close({
+								Statement?: close({
+									ByteMatchStatement?: close({
+										FieldToMatch?: close({
+											AllQueryArguments?: close({
+											}) | fn.If
+											Body?: close({
+											}) | fn.If
+											Method?: close({
+											}) | fn.If
+											QueryString?: close({
+											}) | fn.If
+											SingleHeader?: close({
 												Name?: string | fn.Fn
-											} | fn.If
-											SingleQueryArgument?: {
+											}) | fn.If
+											SingleQueryArgument?: close({
 												Name?: string | fn.Fn
-											} | fn.If
-											UriPath?: {
-											} | fn.If
-										} | fn.If
+											}) | fn.If
+											UriPath?: close({
+											}) | fn.If
+										}) | fn.If
 										PositionalConstraint?: string | fn.Fn
 										SearchString?:         string | fn.Fn
 										SearchStringBase64?:   string | fn.Fn
-										TextTransformations?:  {
-											TextTransformations?: [...{
+										TextTransformations?:  close({
+											TextTransformations?: [...close({
 												[string]: _
-											}] | fn.If
-										} | fn.If
-									} | fn.If
-									GeoMatchStatement?: {
-										CountryCodes?: {
+											})] | fn.If
+										}) | fn.If
+									}) | fn.If
+									GeoMatchStatement?: close({
+										CountryCodes?: close({
 											CountryCodes?: [...(string | fn.Fn)] | (string | fn.Fn)
-										} | fn.If
-									} | fn.If
-									IPSetReferenceStatement?: {
+										}) | fn.If
+									}) | fn.If
+									IPSetReferenceStatement?: close({
 										Arn?: string | fn.Fn
-									} | fn.If
-									RegexPatternSetReferenceStatement?: {
+									}) | fn.If
+									RegexPatternSetReferenceStatement?: close({
 										Arn?:          string | fn.Fn
-										FieldToMatch?: {
-											AllQueryArguments?: {
-											} | fn.If
-											Body?: {
-											} | fn.If
-											Method?: {
-											} | fn.If
-											QueryString?: {
-											} | fn.If
-											SingleHeader?: {
+										FieldToMatch?: close({
+											AllQueryArguments?: close({
+											}) | fn.If
+											Body?: close({
+											}) | fn.If
+											Method?: close({
+											}) | fn.If
+											QueryString?: close({
+											}) | fn.If
+											SingleHeader?: close({
 												Name?: string | fn.Fn
-											} | fn.If
-											SingleQueryArgument?: {
+											}) | fn.If
+											SingleQueryArgument?: close({
 												Name?: string | fn.Fn
-											} | fn.If
-											UriPath?: {
-											} | fn.If
-										} | fn.If
-										TextTransformations?: {
-											TextTransformations?: [...{
+											}) | fn.If
+											UriPath?: close({
+											}) | fn.If
+										}) | fn.If
+										TextTransformations?: close({
+											TextTransformations?: [...close({
 												[string]: _
-											}] | fn.If
-										} | fn.If
-									} | fn.If
-									SizeConstraintStatement?: {
+											})] | fn.If
+										}) | fn.If
+									}) | fn.If
+									SizeConstraintStatement?: close({
 										ComparisonOperator?: string | fn.Fn
-										FieldToMatch?:       {
-											AllQueryArguments?: {
-											} | fn.If
-											Body?: {
-											} | fn.If
-											Method?: {
-											} | fn.If
-											QueryString?: {
-											} | fn.If
-											SingleHeader?: {
+										FieldToMatch?:       close({
+											AllQueryArguments?: close({
+											}) | fn.If
+											Body?: close({
+											}) | fn.If
+											Method?: close({
+											}) | fn.If
+											QueryString?: close({
+											}) | fn.If
+											SingleHeader?: close({
 												Name?: string | fn.Fn
-											} | fn.If
-											SingleQueryArgument?: {
+											}) | fn.If
+											SingleQueryArgument?: close({
 												Name?: string | fn.Fn
-											} | fn.If
-											UriPath?: {
-											} | fn.If
-										} | fn.If
+											}) | fn.If
+											UriPath?: close({
+											}) | fn.If
+										}) | fn.If
 										Size?:                int | fn.Fn
-										TextTransformations?: {
-											TextTransformations?: [...{
+										TextTransformations?: close({
+											TextTransformations?: [...close({
 												[string]: _
-											}] | fn.If
-										} | fn.If
-									} | fn.If
-									SqliMatchStatement?: {
-										FieldToMatch?: {
-											AllQueryArguments?: {
-											} | fn.If
-											Body?: {
-											} | fn.If
-											Method?: {
-											} | fn.If
-											QueryString?: {
-											} | fn.If
-											SingleHeader?: {
+											})] | fn.If
+										}) | fn.If
+									}) | fn.If
+									SqliMatchStatement?: close({
+										FieldToMatch?: close({
+											AllQueryArguments?: close({
+											}) | fn.If
+											Body?: close({
+											}) | fn.If
+											Method?: close({
+											}) | fn.If
+											QueryString?: close({
+											}) | fn.If
+											SingleHeader?: close({
 												Name?: string | fn.Fn
-											} | fn.If
-											SingleQueryArgument?: {
+											}) | fn.If
+											SingleQueryArgument?: close({
 												Name?: string | fn.Fn
-											} | fn.If
-											UriPath?: {
-											} | fn.If
-										} | fn.If
-										TextTransformations?: {
-											TextTransformations?: [...{
+											}) | fn.If
+											UriPath?: close({
+											}) | fn.If
+										}) | fn.If
+										TextTransformations?: close({
+											TextTransformations?: [...close({
 												[string]: _
-											}] | fn.If
-										} | fn.If
-									} | fn.If
-									XssMatchStatement?: {
-										FieldToMatch?: {
-											AllQueryArguments?: {
-											} | fn.If
-											Body?: {
-											} | fn.If
-											Method?: {
-											} | fn.If
-											QueryString?: {
-											} | fn.If
-											SingleHeader?: {
+											})] | fn.If
+										}) | fn.If
+									}) | fn.If
+									XssMatchStatement?: close({
+										FieldToMatch?: close({
+											AllQueryArguments?: close({
+											}) | fn.If
+											Body?: close({
+											}) | fn.If
+											Method?: close({
+											}) | fn.If
+											QueryString?: close({
+											}) | fn.If
+											SingleHeader?: close({
 												Name?: string | fn.Fn
-											} | fn.If
-											SingleQueryArgument?: {
+											}) | fn.If
+											SingleQueryArgument?: close({
 												Name?: string | fn.Fn
-											} | fn.If
-											UriPath?: {
-											} | fn.If
-										} | fn.If
-										TextTransformations?: {
-											TextTransformations?: [...{
+											}) | fn.If
+											UriPath?: close({
+											}) | fn.If
+										}) | fn.If
+										TextTransformations?: close({
+											TextTransformations?: [...close({
 												[string]: _
-											}] | fn.If
-										} | fn.If
-									} | fn.If
-								} | fn.If
-							} | fn.If
-							OrStatement?: {
-								Statements?: {
-									StatementThrees?: [...{
-										ByteMatchStatement?: {
-											FieldToMatch?: {
-												AllQueryArguments?: {
-												} | fn.If
-												Body?: {
-												} | fn.If
-												Method?: {
-												} | fn.If
-												QueryString?: {
-												} | fn.If
-												SingleHeader?: {
+											})] | fn.If
+										}) | fn.If
+									}) | fn.If
+								}) | fn.If
+							}) | fn.If
+							OrStatement?: close({
+								Statements?: close({
+									StatementThrees?: [...close({
+										ByteMatchStatement?: close({
+											FieldToMatch?: close({
+												AllQueryArguments?: close({
+												}) | fn.If
+												Body?: close({
+												}) | fn.If
+												Method?: close({
+												}) | fn.If
+												QueryString?: close({
+												}) | fn.If
+												SingleHeader?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												SingleQueryArgument?: {
+												}) | fn.If
+												SingleQueryArgument?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												UriPath?: {
-												} | fn.If
-											} | fn.If
+												}) | fn.If
+												UriPath?: close({
+												}) | fn.If
+											}) | fn.If
 											PositionalConstraint?: string | fn.Fn
 											SearchString?:         string | fn.Fn
 											SearchStringBase64?:   string | fn.Fn
-											TextTransformations?:  {
-												TextTransformations?: [...{
+											TextTransformations?:  close({
+												TextTransformations?: [...close({
 													[string]: _
-												}] | fn.If
-											} | fn.If
-										} | fn.If
-										GeoMatchStatement?: {
-											CountryCodes?: {
+												})] | fn.If
+											}) | fn.If
+										}) | fn.If
+										GeoMatchStatement?: close({
+											CountryCodes?: close({
 												CountryCodes?: [...(string | fn.Fn)] | (string | fn.Fn)
-											} | fn.If
-										} | fn.If
-										IPSetReferenceStatement?: {
+											}) | fn.If
+										}) | fn.If
+										IPSetReferenceStatement?: close({
 											Arn?: string | fn.Fn
-										} | fn.If
-										RegexPatternSetReferenceStatement?: {
+										}) | fn.If
+										RegexPatternSetReferenceStatement?: close({
 											Arn?:          string | fn.Fn
-											FieldToMatch?: {
-												AllQueryArguments?: {
-												} | fn.If
-												Body?: {
-												} | fn.If
-												Method?: {
-												} | fn.If
-												QueryString?: {
-												} | fn.If
-												SingleHeader?: {
+											FieldToMatch?: close({
+												AllQueryArguments?: close({
+												}) | fn.If
+												Body?: close({
+												}) | fn.If
+												Method?: close({
+												}) | fn.If
+												QueryString?: close({
+												}) | fn.If
+												SingleHeader?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												SingleQueryArgument?: {
+												}) | fn.If
+												SingleQueryArgument?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												UriPath?: {
-												} | fn.If
-											} | fn.If
-											TextTransformations?: {
-												TextTransformations?: [...{
+												}) | fn.If
+												UriPath?: close({
+												}) | fn.If
+											}) | fn.If
+											TextTransformations?: close({
+												TextTransformations?: [...close({
 													[string]: _
-												}] | fn.If
-											} | fn.If
-										} | fn.If
-										SizeConstraintStatement?: {
+												})] | fn.If
+											}) | fn.If
+										}) | fn.If
+										SizeConstraintStatement?: close({
 											ComparisonOperator?: string | fn.Fn
-											FieldToMatch?:       {
-												AllQueryArguments?: {
-												} | fn.If
-												Body?: {
-												} | fn.If
-												Method?: {
-												} | fn.If
-												QueryString?: {
-												} | fn.If
-												SingleHeader?: {
+											FieldToMatch?:       close({
+												AllQueryArguments?: close({
+												}) | fn.If
+												Body?: close({
+												}) | fn.If
+												Method?: close({
+												}) | fn.If
+												QueryString?: close({
+												}) | fn.If
+												SingleHeader?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												SingleQueryArgument?: {
+												}) | fn.If
+												SingleQueryArgument?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												UriPath?: {
-												} | fn.If
-											} | fn.If
+												}) | fn.If
+												UriPath?: close({
+												}) | fn.If
+											}) | fn.If
 											Size?:                int | fn.Fn
-											TextTransformations?: {
-												TextTransformations?: [...{
+											TextTransformations?: close({
+												TextTransformations?: [...close({
 													[string]: _
-												}] | fn.If
-											} | fn.If
-										} | fn.If
-										SqliMatchStatement?: {
-											FieldToMatch?: {
-												AllQueryArguments?: {
-												} | fn.If
-												Body?: {
-												} | fn.If
-												Method?: {
-												} | fn.If
-												QueryString?: {
-												} | fn.If
-												SingleHeader?: {
+												})] | fn.If
+											}) | fn.If
+										}) | fn.If
+										SqliMatchStatement?: close({
+											FieldToMatch?: close({
+												AllQueryArguments?: close({
+												}) | fn.If
+												Body?: close({
+												}) | fn.If
+												Method?: close({
+												}) | fn.If
+												QueryString?: close({
+												}) | fn.If
+												SingleHeader?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												SingleQueryArgument?: {
+												}) | fn.If
+												SingleQueryArgument?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												UriPath?: {
-												} | fn.If
-											} | fn.If
-											TextTransformations?: {
-												TextTransformations?: [...{
+												}) | fn.If
+												UriPath?: close({
+												}) | fn.If
+											}) | fn.If
+											TextTransformations?: close({
+												TextTransformations?: [...close({
 													[string]: _
-												}] | fn.If
-											} | fn.If
-										} | fn.If
-										XssMatchStatement?: {
-											FieldToMatch?: {
-												AllQueryArguments?: {
-												} | fn.If
-												Body?: {
-												} | fn.If
-												Method?: {
-												} | fn.If
-												QueryString?: {
-												} | fn.If
-												SingleHeader?: {
+												})] | fn.If
+											}) | fn.If
+										}) | fn.If
+										XssMatchStatement?: close({
+											FieldToMatch?: close({
+												AllQueryArguments?: close({
+												}) | fn.If
+												Body?: close({
+												}) | fn.If
+												Method?: close({
+												}) | fn.If
+												QueryString?: close({
+												}) | fn.If
+												SingleHeader?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												SingleQueryArgument?: {
+												}) | fn.If
+												SingleQueryArgument?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												UriPath?: {
-												} | fn.If
-											} | fn.If
-											TextTransformations?: {
-												TextTransformations?: [...{
+												}) | fn.If
+												UriPath?: close({
+												}) | fn.If
+											}) | fn.If
+											TextTransformations?: close({
+												TextTransformations?: [...close({
 													[string]: _
-												}] | fn.If
-											} | fn.If
-										} | fn.If
-									}] | fn.If
-								} | fn.If
-							} | fn.If
-							RateBasedStatement?: {
+												})] | fn.If
+											}) | fn.If
+										}) | fn.If
+									})] | fn.If
+								}) | fn.If
+							}) | fn.If
+							RateBasedStatement?: close({
 								AggregateKeyType?:   string | fn.Fn
 								Limit?:              int | fn.Fn
-								ScopeDownStatement?: {
-									ByteMatchStatement?: {
-										FieldToMatch?: {
-											AllQueryArguments?: {
-											} | fn.If
-											Body?: {
-											} | fn.If
-											Method?: {
-											} | fn.If
-											QueryString?: {
-											} | fn.If
-											SingleHeader?: {
+								ScopeDownStatement?: close({
+									ByteMatchStatement?: close({
+										FieldToMatch?: close({
+											AllQueryArguments?: close({
+											}) | fn.If
+											Body?: close({
+											}) | fn.If
+											Method?: close({
+											}) | fn.If
+											QueryString?: close({
+											}) | fn.If
+											SingleHeader?: close({
 												Name?: string | fn.Fn
-											} | fn.If
-											SingleQueryArgument?: {
+											}) | fn.If
+											SingleQueryArgument?: close({
 												Name?: string | fn.Fn
-											} | fn.If
-											UriPath?: {
-											} | fn.If
-										} | fn.If
+											}) | fn.If
+											UriPath?: close({
+											}) | fn.If
+										}) | fn.If
 										PositionalConstraint?: string | fn.Fn
 										SearchString?:         string | fn.Fn
 										SearchStringBase64?:   string | fn.Fn
-										TextTransformations?:  {
-											TextTransformations?: [...{
+										TextTransformations?:  close({
+											TextTransformations?: [...close({
 												[string]: _
-											}] | fn.If
-										} | fn.If
-									} | fn.If
-									GeoMatchStatement?: {
-										CountryCodes?: {
+											})] | fn.If
+										}) | fn.If
+									}) | fn.If
+									GeoMatchStatement?: close({
+										CountryCodes?: close({
 											CountryCodes?: [...(string | fn.Fn)] | (string | fn.Fn)
-										} | fn.If
-									} | fn.If
-									IPSetReferenceStatement?: {
+										}) | fn.If
+									}) | fn.If
+									IPSetReferenceStatement?: close({
 										Arn?: string | fn.Fn
-									} | fn.If
-									RegexPatternSetReferenceStatement?: {
+									}) | fn.If
+									RegexPatternSetReferenceStatement?: close({
 										Arn?:          string | fn.Fn
-										FieldToMatch?: {
-											AllQueryArguments?: {
-											} | fn.If
-											Body?: {
-											} | fn.If
-											Method?: {
-											} | fn.If
-											QueryString?: {
-											} | fn.If
-											SingleHeader?: {
+										FieldToMatch?: close({
+											AllQueryArguments?: close({
+											}) | fn.If
+											Body?: close({
+											}) | fn.If
+											Method?: close({
+											}) | fn.If
+											QueryString?: close({
+											}) | fn.If
+											SingleHeader?: close({
 												Name?: string | fn.Fn
-											} | fn.If
-											SingleQueryArgument?: {
+											}) | fn.If
+											SingleQueryArgument?: close({
 												Name?: string | fn.Fn
-											} | fn.If
-											UriPath?: {
-											} | fn.If
-										} | fn.If
-										TextTransformations?: {
-											TextTransformations?: [...{
+											}) | fn.If
+											UriPath?: close({
+											}) | fn.If
+										}) | fn.If
+										TextTransformations?: close({
+											TextTransformations?: [...close({
 												[string]: _
-											}] | fn.If
-										} | fn.If
-									} | fn.If
-									SizeConstraintStatement?: {
+											})] | fn.If
+										}) | fn.If
+									}) | fn.If
+									SizeConstraintStatement?: close({
 										ComparisonOperator?: string | fn.Fn
-										FieldToMatch?:       {
-											AllQueryArguments?: {
-											} | fn.If
-											Body?: {
-											} | fn.If
-											Method?: {
-											} | fn.If
-											QueryString?: {
-											} | fn.If
-											SingleHeader?: {
+										FieldToMatch?:       close({
+											AllQueryArguments?: close({
+											}) | fn.If
+											Body?: close({
+											}) | fn.If
+											Method?: close({
+											}) | fn.If
+											QueryString?: close({
+											}) | fn.If
+											SingleHeader?: close({
 												Name?: string | fn.Fn
-											} | fn.If
-											SingleQueryArgument?: {
+											}) | fn.If
+											SingleQueryArgument?: close({
 												Name?: string | fn.Fn
-											} | fn.If
-											UriPath?: {
-											} | fn.If
-										} | fn.If
+											}) | fn.If
+											UriPath?: close({
+											}) | fn.If
+										}) | fn.If
 										Size?:                int | fn.Fn
-										TextTransformations?: {
-											TextTransformations?: [...{
+										TextTransformations?: close({
+											TextTransformations?: [...close({
 												[string]: _
-											}] | fn.If
-										} | fn.If
-									} | fn.If
-									SqliMatchStatement?: {
-										FieldToMatch?: {
-											AllQueryArguments?: {
-											} | fn.If
-											Body?: {
-											} | fn.If
-											Method?: {
-											} | fn.If
-											QueryString?: {
-											} | fn.If
-											SingleHeader?: {
+											})] | fn.If
+										}) | fn.If
+									}) | fn.If
+									SqliMatchStatement?: close({
+										FieldToMatch?: close({
+											AllQueryArguments?: close({
+											}) | fn.If
+											Body?: close({
+											}) | fn.If
+											Method?: close({
+											}) | fn.If
+											QueryString?: close({
+											}) | fn.If
+											SingleHeader?: close({
 												Name?: string | fn.Fn
-											} | fn.If
-											SingleQueryArgument?: {
+											}) | fn.If
+											SingleQueryArgument?: close({
 												Name?: string | fn.Fn
-											} | fn.If
-											UriPath?: {
-											} | fn.If
-										} | fn.If
-										TextTransformations?: {
-											TextTransformations?: [...{
+											}) | fn.If
+											UriPath?: close({
+											}) | fn.If
+										}) | fn.If
+										TextTransformations?: close({
+											TextTransformations?: [...close({
 												[string]: _
-											}] | fn.If
-										} | fn.If
-									} | fn.If
-									XssMatchStatement?: {
-										FieldToMatch?: {
-											AllQueryArguments?: {
-											} | fn.If
-											Body?: {
-											} | fn.If
-											Method?: {
-											} | fn.If
-											QueryString?: {
-											} | fn.If
-											SingleHeader?: {
+											})] | fn.If
+										}) | fn.If
+									}) | fn.If
+									XssMatchStatement?: close({
+										FieldToMatch?: close({
+											AllQueryArguments?: close({
+											}) | fn.If
+											Body?: close({
+											}) | fn.If
+											Method?: close({
+											}) | fn.If
+											QueryString?: close({
+											}) | fn.If
+											SingleHeader?: close({
 												Name?: string | fn.Fn
-											} | fn.If
-											SingleQueryArgument?: {
+											}) | fn.If
+											SingleQueryArgument?: close({
 												Name?: string | fn.Fn
-											} | fn.If
-											UriPath?: {
-											} | fn.If
-										} | fn.If
-										TextTransformations?: {
-											TextTransformations?: [...{
+											}) | fn.If
+											UriPath?: close({
+											}) | fn.If
+										}) | fn.If
+										TextTransformations?: close({
+											TextTransformations?: [...close({
 												[string]: _
-											}] | fn.If
-										} | fn.If
-									} | fn.If
-								} | fn.If
-							} | fn.If
-							RegexPatternSetReferenceStatement?: {
+											})] | fn.If
+										}) | fn.If
+									}) | fn.If
+								}) | fn.If
+							}) | fn.If
+							RegexPatternSetReferenceStatement?: close({
 								Arn?:          string | fn.Fn
-								FieldToMatch?: {
-									AllQueryArguments?: {
-									} | fn.If
-									Body?: {
-									} | fn.If
-									Method?: {
-									} | fn.If
-									QueryString?: {
-									} | fn.If
-									SingleHeader?: {
+								FieldToMatch?: close({
+									AllQueryArguments?: close({
+									}) | fn.If
+									Body?: close({
+									}) | fn.If
+									Method?: close({
+									}) | fn.If
+									QueryString?: close({
+									}) | fn.If
+									SingleHeader?: close({
 										Name?: string | fn.Fn
-									} | fn.If
-									SingleQueryArgument?: {
+									}) | fn.If
+									SingleQueryArgument?: close({
 										Name?: string | fn.Fn
-									} | fn.If
-									UriPath?: {
-									} | fn.If
-								} | fn.If
-								TextTransformations?: {
-									TextTransformations?: [...{
+									}) | fn.If
+									UriPath?: close({
+									}) | fn.If
+								}) | fn.If
+								TextTransformations?: close({
+									TextTransformations?: [...close({
 										[string]: _
-									}] | fn.If
-								} | fn.If
-							} | fn.If
-							SizeConstraintStatement?: {
+									})] | fn.If
+								}) | fn.If
+							}) | fn.If
+							SizeConstraintStatement?: close({
 								ComparisonOperator?: string | fn.Fn
-								FieldToMatch?:       {
-									AllQueryArguments?: {
-									} | fn.If
-									Body?: {
-									} | fn.If
-									Method?: {
-									} | fn.If
-									QueryString?: {
-									} | fn.If
-									SingleHeader?: {
+								FieldToMatch?:       close({
+									AllQueryArguments?: close({
+									}) | fn.If
+									Body?: close({
+									}) | fn.If
+									Method?: close({
+									}) | fn.If
+									QueryString?: close({
+									}) | fn.If
+									SingleHeader?: close({
 										Name?: string | fn.Fn
-									} | fn.If
-									SingleQueryArgument?: {
+									}) | fn.If
+									SingleQueryArgument?: close({
 										Name?: string | fn.Fn
-									} | fn.If
-									UriPath?: {
-									} | fn.If
-								} | fn.If
+									}) | fn.If
+									UriPath?: close({
+									}) | fn.If
+								}) | fn.If
 								Size?:                int | fn.Fn
-								TextTransformations?: {
-									TextTransformations?: [...{
+								TextTransformations?: close({
+									TextTransformations?: [...close({
 										[string]: _
-									}] | fn.If
-								} | fn.If
-							} | fn.If
-							SqliMatchStatement?: {
-								FieldToMatch?: {
-									AllQueryArguments?: {
-									} | fn.If
-									Body?: {
-									} | fn.If
-									Method?: {
-									} | fn.If
-									QueryString?: {
-									} | fn.If
-									SingleHeader?: {
+									})] | fn.If
+								}) | fn.If
+							}) | fn.If
+							SqliMatchStatement?: close({
+								FieldToMatch?: close({
+									AllQueryArguments?: close({
+									}) | fn.If
+									Body?: close({
+									}) | fn.If
+									Method?: close({
+									}) | fn.If
+									QueryString?: close({
+									}) | fn.If
+									SingleHeader?: close({
 										Name?: string | fn.Fn
-									} | fn.If
-									SingleQueryArgument?: {
+									}) | fn.If
+									SingleQueryArgument?: close({
 										Name?: string | fn.Fn
-									} | fn.If
-									UriPath?: {
-									} | fn.If
-								} | fn.If
-								TextTransformations?: {
-									TextTransformations?: [...{
+									}) | fn.If
+									UriPath?: close({
+									}) | fn.If
+								}) | fn.If
+								TextTransformations?: close({
+									TextTransformations?: [...close({
 										[string]: _
-									}] | fn.If
-								} | fn.If
-							} | fn.If
-							XssMatchStatement?: {
-								FieldToMatch?: {
-									AllQueryArguments?: {
-									} | fn.If
-									Body?: {
-									} | fn.If
-									Method?: {
-									} | fn.If
-									QueryString?: {
-									} | fn.If
-									SingleHeader?: {
+									})] | fn.If
+								}) | fn.If
+							}) | fn.If
+							XssMatchStatement?: close({
+								FieldToMatch?: close({
+									AllQueryArguments?: close({
+									}) | fn.If
+									Body?: close({
+									}) | fn.If
+									Method?: close({
+									}) | fn.If
+									QueryString?: close({
+									}) | fn.If
+									SingleHeader?: close({
 										Name?: string | fn.Fn
-									} | fn.If
-									SingleQueryArgument?: {
+									}) | fn.If
+									SingleQueryArgument?: close({
 										Name?: string | fn.Fn
-									} | fn.If
-									UriPath?: {
-									} | fn.If
-								} | fn.If
-								TextTransformations?: {
-									TextTransformations?: [...{
+									}) | fn.If
+									UriPath?: close({
+									}) | fn.If
+								}) | fn.If
+								TextTransformations?: close({
+									TextTransformations?: [...close({
 										[string]: _
-									}] | fn.If
-								} | fn.If
-							} | fn.If
-						} | fn.If
-					} | fn.If
-					OrStatement?: {
-						Statements?: {
-							StatementTwos?: [...{
-								AndStatement?: {
-									Statements?: {
-										StatementThrees?: [...{
-											ByteMatchStatement?: {
-												FieldToMatch?: {
-													AllQueryArguments?: {
-													} | fn.If
-													Body?: {
-													} | fn.If
-													Method?: {
-													} | fn.If
-													QueryString?: {
-													} | fn.If
-													SingleHeader?: {
+									})] | fn.If
+								}) | fn.If
+							}) | fn.If
+						}) | fn.If
+					}) | fn.If
+					OrStatement?: close({
+						Statements?: close({
+							StatementTwos?: [...close({
+								AndStatement?: close({
+									Statements?: close({
+										StatementThrees?: [...close({
+											ByteMatchStatement?: close({
+												FieldToMatch?: close({
+													AllQueryArguments?: close({
+													}) | fn.If
+													Body?: close({
+													}) | fn.If
+													Method?: close({
+													}) | fn.If
+													QueryString?: close({
+													}) | fn.If
+													SingleHeader?: close({
 														Name?: string | fn.Fn
-													} | fn.If
-													SingleQueryArgument?: {
+													}) | fn.If
+													SingleQueryArgument?: close({
 														Name?: string | fn.Fn
-													} | fn.If
-													UriPath?: {
-													} | fn.If
-												} | fn.If
+													}) | fn.If
+													UriPath?: close({
+													}) | fn.If
+												}) | fn.If
 												PositionalConstraint?: string | fn.Fn
 												SearchString?:         string | fn.Fn
 												SearchStringBase64?:   string | fn.Fn
-												TextTransformations?:  {
-													TextTransformations?: [...{
+												TextTransformations?:  close({
+													TextTransformations?: [...close({
 														[string]: _
-													}] | fn.If
-												} | fn.If
-											} | fn.If
-											GeoMatchStatement?: {
-												CountryCodes?: {
+													})] | fn.If
+												}) | fn.If
+											}) | fn.If
+											GeoMatchStatement?: close({
+												CountryCodes?: close({
 													CountryCodes?: [...(string | fn.Fn)] | (string | fn.Fn)
-												} | fn.If
-											} | fn.If
-											IPSetReferenceStatement?: {
+												}) | fn.If
+											}) | fn.If
+											IPSetReferenceStatement?: close({
 												Arn?: string | fn.Fn
-											} | fn.If
-											RegexPatternSetReferenceStatement?: {
+											}) | fn.If
+											RegexPatternSetReferenceStatement?: close({
 												Arn?:          string | fn.Fn
-												FieldToMatch?: {
-													AllQueryArguments?: {
-													} | fn.If
-													Body?: {
-													} | fn.If
-													Method?: {
-													} | fn.If
-													QueryString?: {
-													} | fn.If
-													SingleHeader?: {
+												FieldToMatch?: close({
+													AllQueryArguments?: close({
+													}) | fn.If
+													Body?: close({
+													}) | fn.If
+													Method?: close({
+													}) | fn.If
+													QueryString?: close({
+													}) | fn.If
+													SingleHeader?: close({
 														Name?: string | fn.Fn
-													} | fn.If
-													SingleQueryArgument?: {
+													}) | fn.If
+													SingleQueryArgument?: close({
 														Name?: string | fn.Fn
-													} | fn.If
-													UriPath?: {
-													} | fn.If
-												} | fn.If
-												TextTransformations?: {
-													TextTransformations?: [...{
+													}) | fn.If
+													UriPath?: close({
+													}) | fn.If
+												}) | fn.If
+												TextTransformations?: close({
+													TextTransformations?: [...close({
 														[string]: _
-													}] | fn.If
-												} | fn.If
-											} | fn.If
-											SizeConstraintStatement?: {
+													})] | fn.If
+												}) | fn.If
+											}) | fn.If
+											SizeConstraintStatement?: close({
 												ComparisonOperator?: string | fn.Fn
-												FieldToMatch?:       {
-													AllQueryArguments?: {
-													} | fn.If
-													Body?: {
-													} | fn.If
-													Method?: {
-													} | fn.If
-													QueryString?: {
-													} | fn.If
-													SingleHeader?: {
+												FieldToMatch?:       close({
+													AllQueryArguments?: close({
+													}) | fn.If
+													Body?: close({
+													}) | fn.If
+													Method?: close({
+													}) | fn.If
+													QueryString?: close({
+													}) | fn.If
+													SingleHeader?: close({
 														Name?: string | fn.Fn
-													} | fn.If
-													SingleQueryArgument?: {
+													}) | fn.If
+													SingleQueryArgument?: close({
 														Name?: string | fn.Fn
-													} | fn.If
-													UriPath?: {
-													} | fn.If
-												} | fn.If
+													}) | fn.If
+													UriPath?: close({
+													}) | fn.If
+												}) | fn.If
 												Size?:                int | fn.Fn
-												TextTransformations?: {
-													TextTransformations?: [...{
+												TextTransformations?: close({
+													TextTransformations?: [...close({
 														[string]: _
-													}] | fn.If
-												} | fn.If
-											} | fn.If
-											SqliMatchStatement?: {
-												FieldToMatch?: {
-													AllQueryArguments?: {
-													} | fn.If
-													Body?: {
-													} | fn.If
-													Method?: {
-													} | fn.If
-													QueryString?: {
-													} | fn.If
-													SingleHeader?: {
+													})] | fn.If
+												}) | fn.If
+											}) | fn.If
+											SqliMatchStatement?: close({
+												FieldToMatch?: close({
+													AllQueryArguments?: close({
+													}) | fn.If
+													Body?: close({
+													}) | fn.If
+													Method?: close({
+													}) | fn.If
+													QueryString?: close({
+													}) | fn.If
+													SingleHeader?: close({
 														Name?: string | fn.Fn
-													} | fn.If
-													SingleQueryArgument?: {
+													}) | fn.If
+													SingleQueryArgument?: close({
 														Name?: string | fn.Fn
-													} | fn.If
-													UriPath?: {
-													} | fn.If
-												} | fn.If
-												TextTransformations?: {
-													TextTransformations?: [...{
+													}) | fn.If
+													UriPath?: close({
+													}) | fn.If
+												}) | fn.If
+												TextTransformations?: close({
+													TextTransformations?: [...close({
 														[string]: _
-													}] | fn.If
-												} | fn.If
-											} | fn.If
-											XssMatchStatement?: {
-												FieldToMatch?: {
-													AllQueryArguments?: {
-													} | fn.If
-													Body?: {
-													} | fn.If
-													Method?: {
-													} | fn.If
-													QueryString?: {
-													} | fn.If
-													SingleHeader?: {
+													})] | fn.If
+												}) | fn.If
+											}) | fn.If
+											XssMatchStatement?: close({
+												FieldToMatch?: close({
+													AllQueryArguments?: close({
+													}) | fn.If
+													Body?: close({
+													}) | fn.If
+													Method?: close({
+													}) | fn.If
+													QueryString?: close({
+													}) | fn.If
+													SingleHeader?: close({
 														Name?: string | fn.Fn
-													} | fn.If
-													SingleQueryArgument?: {
+													}) | fn.If
+													SingleQueryArgument?: close({
 														Name?: string | fn.Fn
-													} | fn.If
-													UriPath?: {
-													} | fn.If
-												} | fn.If
-												TextTransformations?: {
-													TextTransformations?: [...{
+													}) | fn.If
+													UriPath?: close({
+													}) | fn.If
+												}) | fn.If
+												TextTransformations?: close({
+													TextTransformations?: [...close({
 														[string]: _
-													}] | fn.If
-												} | fn.If
-											} | fn.If
-										}] | fn.If
-									} | fn.If
-								} | fn.If
-								ByteMatchStatement?: {
-									FieldToMatch?: {
-										AllQueryArguments?: {
-										} | fn.If
-										Body?: {
-										} | fn.If
-										Method?: {
-										} | fn.If
-										QueryString?: {
-										} | fn.If
-										SingleHeader?: {
+													})] | fn.If
+												}) | fn.If
+											}) | fn.If
+										})] | fn.If
+									}) | fn.If
+								}) | fn.If
+								ByteMatchStatement?: close({
+									FieldToMatch?: close({
+										AllQueryArguments?: close({
+										}) | fn.If
+										Body?: close({
+										}) | fn.If
+										Method?: close({
+										}) | fn.If
+										QueryString?: close({
+										}) | fn.If
+										SingleHeader?: close({
 											Name?: string | fn.Fn
-										} | fn.If
-										SingleQueryArgument?: {
+										}) | fn.If
+										SingleQueryArgument?: close({
 											Name?: string | fn.Fn
-										} | fn.If
-										UriPath?: {
-										} | fn.If
-									} | fn.If
+										}) | fn.If
+										UriPath?: close({
+										}) | fn.If
+									}) | fn.If
 									PositionalConstraint?: string | fn.Fn
 									SearchString?:         string | fn.Fn
 									SearchStringBase64?:   string | fn.Fn
-									TextTransformations?:  {
-										TextTransformations?: [...{
+									TextTransformations?:  close({
+										TextTransformations?: [...close({
 											[string]: _
-										}] | fn.If
-									} | fn.If
-								} | fn.If
-								GeoMatchStatement?: {
-									CountryCodes?: {
+										})] | fn.If
+									}) | fn.If
+								}) | fn.If
+								GeoMatchStatement?: close({
+									CountryCodes?: close({
 										CountryCodes?: [...(string | fn.Fn)] | (string | fn.Fn)
-									} | fn.If
-								} | fn.If
-								IPSetReferenceStatement?: {
+									}) | fn.If
+								}) | fn.If
+								IPSetReferenceStatement?: close({
 									Arn?: string | fn.Fn
-								} | fn.If
-								NotStatement?: {
-									Statement?: {
-										ByteMatchStatement?: {
-											FieldToMatch?: {
-												AllQueryArguments?: {
-												} | fn.If
-												Body?: {
-												} | fn.If
-												Method?: {
-												} | fn.If
-												QueryString?: {
-												} | fn.If
-												SingleHeader?: {
+								}) | fn.If
+								NotStatement?: close({
+									Statement?: close({
+										ByteMatchStatement?: close({
+											FieldToMatch?: close({
+												AllQueryArguments?: close({
+												}) | fn.If
+												Body?: close({
+												}) | fn.If
+												Method?: close({
+												}) | fn.If
+												QueryString?: close({
+												}) | fn.If
+												SingleHeader?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												SingleQueryArgument?: {
+												}) | fn.If
+												SingleQueryArgument?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												UriPath?: {
-												} | fn.If
-											} | fn.If
+												}) | fn.If
+												UriPath?: close({
+												}) | fn.If
+											}) | fn.If
 											PositionalConstraint?: string | fn.Fn
 											SearchString?:         string | fn.Fn
 											SearchStringBase64?:   string | fn.Fn
-											TextTransformations?:  {
-												TextTransformations?: [...{
+											TextTransformations?:  close({
+												TextTransformations?: [...close({
 													[string]: _
-												}] | fn.If
-											} | fn.If
-										} | fn.If
-										GeoMatchStatement?: {
-											CountryCodes?: {
+												})] | fn.If
+											}) | fn.If
+										}) | fn.If
+										GeoMatchStatement?: close({
+											CountryCodes?: close({
 												CountryCodes?: [...(string | fn.Fn)] | (string | fn.Fn)
-											} | fn.If
-										} | fn.If
-										IPSetReferenceStatement?: {
+											}) | fn.If
+										}) | fn.If
+										IPSetReferenceStatement?: close({
 											Arn?: string | fn.Fn
-										} | fn.If
-										RegexPatternSetReferenceStatement?: {
+										}) | fn.If
+										RegexPatternSetReferenceStatement?: close({
 											Arn?:          string | fn.Fn
-											FieldToMatch?: {
-												AllQueryArguments?: {
-												} | fn.If
-												Body?: {
-												} | fn.If
-												Method?: {
-												} | fn.If
-												QueryString?: {
-												} | fn.If
-												SingleHeader?: {
+											FieldToMatch?: close({
+												AllQueryArguments?: close({
+												}) | fn.If
+												Body?: close({
+												}) | fn.If
+												Method?: close({
+												}) | fn.If
+												QueryString?: close({
+												}) | fn.If
+												SingleHeader?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												SingleQueryArgument?: {
+												}) | fn.If
+												SingleQueryArgument?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												UriPath?: {
-												} | fn.If
-											} | fn.If
-											TextTransformations?: {
-												TextTransformations?: [...{
+												}) | fn.If
+												UriPath?: close({
+												}) | fn.If
+											}) | fn.If
+											TextTransformations?: close({
+												TextTransformations?: [...close({
 													[string]: _
-												}] | fn.If
-											} | fn.If
-										} | fn.If
-										SizeConstraintStatement?: {
+												})] | fn.If
+											}) | fn.If
+										}) | fn.If
+										SizeConstraintStatement?: close({
 											ComparisonOperator?: string | fn.Fn
-											FieldToMatch?:       {
-												AllQueryArguments?: {
-												} | fn.If
-												Body?: {
-												} | fn.If
-												Method?: {
-												} | fn.If
-												QueryString?: {
-												} | fn.If
-												SingleHeader?: {
+											FieldToMatch?:       close({
+												AllQueryArguments?: close({
+												}) | fn.If
+												Body?: close({
+												}) | fn.If
+												Method?: close({
+												}) | fn.If
+												QueryString?: close({
+												}) | fn.If
+												SingleHeader?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												SingleQueryArgument?: {
+												}) | fn.If
+												SingleQueryArgument?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												UriPath?: {
-												} | fn.If
-											} | fn.If
+												}) | fn.If
+												UriPath?: close({
+												}) | fn.If
+											}) | fn.If
 											Size?:                int | fn.Fn
-											TextTransformations?: {
-												TextTransformations?: [...{
+											TextTransformations?: close({
+												TextTransformations?: [...close({
 													[string]: _
-												}] | fn.If
-											} | fn.If
-										} | fn.If
-										SqliMatchStatement?: {
-											FieldToMatch?: {
-												AllQueryArguments?: {
-												} | fn.If
-												Body?: {
-												} | fn.If
-												Method?: {
-												} | fn.If
-												QueryString?: {
-												} | fn.If
-												SingleHeader?: {
+												})] | fn.If
+											}) | fn.If
+										}) | fn.If
+										SqliMatchStatement?: close({
+											FieldToMatch?: close({
+												AllQueryArguments?: close({
+												}) | fn.If
+												Body?: close({
+												}) | fn.If
+												Method?: close({
+												}) | fn.If
+												QueryString?: close({
+												}) | fn.If
+												SingleHeader?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												SingleQueryArgument?: {
+												}) | fn.If
+												SingleQueryArgument?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												UriPath?: {
-												} | fn.If
-											} | fn.If
-											TextTransformations?: {
-												TextTransformations?: [...{
+												}) | fn.If
+												UriPath?: close({
+												}) | fn.If
+											}) | fn.If
+											TextTransformations?: close({
+												TextTransformations?: [...close({
 													[string]: _
-												}] | fn.If
-											} | fn.If
-										} | fn.If
-										XssMatchStatement?: {
-											FieldToMatch?: {
-												AllQueryArguments?: {
-												} | fn.If
-												Body?: {
-												} | fn.If
-												Method?: {
-												} | fn.If
-												QueryString?: {
-												} | fn.If
-												SingleHeader?: {
+												})] | fn.If
+											}) | fn.If
+										}) | fn.If
+										XssMatchStatement?: close({
+											FieldToMatch?: close({
+												AllQueryArguments?: close({
+												}) | fn.If
+												Body?: close({
+												}) | fn.If
+												Method?: close({
+												}) | fn.If
+												QueryString?: close({
+												}) | fn.If
+												SingleHeader?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												SingleQueryArgument?: {
+												}) | fn.If
+												SingleQueryArgument?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												UriPath?: {
-												} | fn.If
-											} | fn.If
-											TextTransformations?: {
-												TextTransformations?: [...{
+												}) | fn.If
+												UriPath?: close({
+												}) | fn.If
+											}) | fn.If
+											TextTransformations?: close({
+												TextTransformations?: [...close({
 													[string]: _
-												}] | fn.If
-											} | fn.If
-										} | fn.If
-									} | fn.If
-								} | fn.If
-								OrStatement?: {
-									Statements?: {
-										StatementThrees?: [...{
-											ByteMatchStatement?: {
-												FieldToMatch?: {
-													AllQueryArguments?: {
-													} | fn.If
-													Body?: {
-													} | fn.If
-													Method?: {
-													} | fn.If
-													QueryString?: {
-													} | fn.If
-													SingleHeader?: {
+												})] | fn.If
+											}) | fn.If
+										}) | fn.If
+									}) | fn.If
+								}) | fn.If
+								OrStatement?: close({
+									Statements?: close({
+										StatementThrees?: [...close({
+											ByteMatchStatement?: close({
+												FieldToMatch?: close({
+													AllQueryArguments?: close({
+													}) | fn.If
+													Body?: close({
+													}) | fn.If
+													Method?: close({
+													}) | fn.If
+													QueryString?: close({
+													}) | fn.If
+													SingleHeader?: close({
 														Name?: string | fn.Fn
-													} | fn.If
-													SingleQueryArgument?: {
+													}) | fn.If
+													SingleQueryArgument?: close({
 														Name?: string | fn.Fn
-													} | fn.If
-													UriPath?: {
-													} | fn.If
-												} | fn.If
+													}) | fn.If
+													UriPath?: close({
+													}) | fn.If
+												}) | fn.If
 												PositionalConstraint?: string | fn.Fn
 												SearchString?:         string | fn.Fn
 												SearchStringBase64?:   string | fn.Fn
-												TextTransformations?:  {
-													TextTransformations?: [...{
+												TextTransformations?:  close({
+													TextTransformations?: [...close({
 														[string]: _
-													}] | fn.If
-												} | fn.If
-											} | fn.If
-											GeoMatchStatement?: {
-												CountryCodes?: {
+													})] | fn.If
+												}) | fn.If
+											}) | fn.If
+											GeoMatchStatement?: close({
+												CountryCodes?: close({
 													CountryCodes?: [...(string | fn.Fn)] | (string | fn.Fn)
-												} | fn.If
-											} | fn.If
-											IPSetReferenceStatement?: {
+												}) | fn.If
+											}) | fn.If
+											IPSetReferenceStatement?: close({
 												Arn?: string | fn.Fn
-											} | fn.If
-											RegexPatternSetReferenceStatement?: {
+											}) | fn.If
+											RegexPatternSetReferenceStatement?: close({
 												Arn?:          string | fn.Fn
-												FieldToMatch?: {
-													AllQueryArguments?: {
-													} | fn.If
-													Body?: {
-													} | fn.If
-													Method?: {
-													} | fn.If
-													QueryString?: {
-													} | fn.If
-													SingleHeader?: {
+												FieldToMatch?: close({
+													AllQueryArguments?: close({
+													}) | fn.If
+													Body?: close({
+													}) | fn.If
+													Method?: close({
+													}) | fn.If
+													QueryString?: close({
+													}) | fn.If
+													SingleHeader?: close({
 														Name?: string | fn.Fn
-													} | fn.If
-													SingleQueryArgument?: {
+													}) | fn.If
+													SingleQueryArgument?: close({
 														Name?: string | fn.Fn
-													} | fn.If
-													UriPath?: {
-													} | fn.If
-												} | fn.If
-												TextTransformations?: {
-													TextTransformations?: [...{
+													}) | fn.If
+													UriPath?: close({
+													}) | fn.If
+												}) | fn.If
+												TextTransformations?: close({
+													TextTransformations?: [...close({
 														[string]: _
-													}] | fn.If
-												} | fn.If
-											} | fn.If
-											SizeConstraintStatement?: {
+													})] | fn.If
+												}) | fn.If
+											}) | fn.If
+											SizeConstraintStatement?: close({
 												ComparisonOperator?: string | fn.Fn
-												FieldToMatch?:       {
-													AllQueryArguments?: {
-													} | fn.If
-													Body?: {
-													} | fn.If
-													Method?: {
-													} | fn.If
-													QueryString?: {
-													} | fn.If
-													SingleHeader?: {
+												FieldToMatch?:       close({
+													AllQueryArguments?: close({
+													}) | fn.If
+													Body?: close({
+													}) | fn.If
+													Method?: close({
+													}) | fn.If
+													QueryString?: close({
+													}) | fn.If
+													SingleHeader?: close({
 														Name?: string | fn.Fn
-													} | fn.If
-													SingleQueryArgument?: {
+													}) | fn.If
+													SingleQueryArgument?: close({
 														Name?: string | fn.Fn
-													} | fn.If
-													UriPath?: {
-													} | fn.If
-												} | fn.If
+													}) | fn.If
+													UriPath?: close({
+													}) | fn.If
+												}) | fn.If
 												Size?:                int | fn.Fn
-												TextTransformations?: {
-													TextTransformations?: [...{
+												TextTransformations?: close({
+													TextTransformations?: [...close({
 														[string]: _
-													}] | fn.If
-												} | fn.If
-											} | fn.If
-											SqliMatchStatement?: {
-												FieldToMatch?: {
-													AllQueryArguments?: {
-													} | fn.If
-													Body?: {
-													} | fn.If
-													Method?: {
-													} | fn.If
-													QueryString?: {
-													} | fn.If
-													SingleHeader?: {
+													})] | fn.If
+												}) | fn.If
+											}) | fn.If
+											SqliMatchStatement?: close({
+												FieldToMatch?: close({
+													AllQueryArguments?: close({
+													}) | fn.If
+													Body?: close({
+													}) | fn.If
+													Method?: close({
+													}) | fn.If
+													QueryString?: close({
+													}) | fn.If
+													SingleHeader?: close({
 														Name?: string | fn.Fn
-													} | fn.If
-													SingleQueryArgument?: {
+													}) | fn.If
+													SingleQueryArgument?: close({
 														Name?: string | fn.Fn
-													} | fn.If
-													UriPath?: {
-													} | fn.If
-												} | fn.If
-												TextTransformations?: {
-													TextTransformations?: [...{
+													}) | fn.If
+													UriPath?: close({
+													}) | fn.If
+												}) | fn.If
+												TextTransformations?: close({
+													TextTransformations?: [...close({
 														[string]: _
-													}] | fn.If
-												} | fn.If
-											} | fn.If
-											XssMatchStatement?: {
-												FieldToMatch?: {
-													AllQueryArguments?: {
-													} | fn.If
-													Body?: {
-													} | fn.If
-													Method?: {
-													} | fn.If
-													QueryString?: {
-													} | fn.If
-													SingleHeader?: {
+													})] | fn.If
+												}) | fn.If
+											}) | fn.If
+											XssMatchStatement?: close({
+												FieldToMatch?: close({
+													AllQueryArguments?: close({
+													}) | fn.If
+													Body?: close({
+													}) | fn.If
+													Method?: close({
+													}) | fn.If
+													QueryString?: close({
+													}) | fn.If
+													SingleHeader?: close({
 														Name?: string | fn.Fn
-													} | fn.If
-													SingleQueryArgument?: {
+													}) | fn.If
+													SingleQueryArgument?: close({
 														Name?: string | fn.Fn
-													} | fn.If
-													UriPath?: {
-													} | fn.If
-												} | fn.If
-												TextTransformations?: {
-													TextTransformations?: [...{
+													}) | fn.If
+													UriPath?: close({
+													}) | fn.If
+												}) | fn.If
+												TextTransformations?: close({
+													TextTransformations?: [...close({
 														[string]: _
-													}] | fn.If
-												} | fn.If
-											} | fn.If
-										}] | fn.If
-									} | fn.If
-								} | fn.If
-								RateBasedStatement?: {
+													})] | fn.If
+												}) | fn.If
+											}) | fn.If
+										})] | fn.If
+									}) | fn.If
+								}) | fn.If
+								RateBasedStatement?: close({
 									AggregateKeyType?:   string | fn.Fn
 									Limit?:              int | fn.Fn
-									ScopeDownStatement?: {
-										ByteMatchStatement?: {
-											FieldToMatch?: {
-												AllQueryArguments?: {
-												} | fn.If
-												Body?: {
-												} | fn.If
-												Method?: {
-												} | fn.If
-												QueryString?: {
-												} | fn.If
-												SingleHeader?: {
+									ScopeDownStatement?: close({
+										ByteMatchStatement?: close({
+											FieldToMatch?: close({
+												AllQueryArguments?: close({
+												}) | fn.If
+												Body?: close({
+												}) | fn.If
+												Method?: close({
+												}) | fn.If
+												QueryString?: close({
+												}) | fn.If
+												SingleHeader?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												SingleQueryArgument?: {
+												}) | fn.If
+												SingleQueryArgument?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												UriPath?: {
-												} | fn.If
-											} | fn.If
+												}) | fn.If
+												UriPath?: close({
+												}) | fn.If
+											}) | fn.If
 											PositionalConstraint?: string | fn.Fn
 											SearchString?:         string | fn.Fn
 											SearchStringBase64?:   string | fn.Fn
-											TextTransformations?:  {
-												TextTransformations?: [...{
+											TextTransformations?:  close({
+												TextTransformations?: [...close({
 													[string]: _
-												}] | fn.If
-											} | fn.If
-										} | fn.If
-										GeoMatchStatement?: {
-											CountryCodes?: {
+												})] | fn.If
+											}) | fn.If
+										}) | fn.If
+										GeoMatchStatement?: close({
+											CountryCodes?: close({
 												CountryCodes?: [...(string | fn.Fn)] | (string | fn.Fn)
-											} | fn.If
-										} | fn.If
-										IPSetReferenceStatement?: {
+											}) | fn.If
+										}) | fn.If
+										IPSetReferenceStatement?: close({
 											Arn?: string | fn.Fn
-										} | fn.If
-										RegexPatternSetReferenceStatement?: {
+										}) | fn.If
+										RegexPatternSetReferenceStatement?: close({
 											Arn?:          string | fn.Fn
-											FieldToMatch?: {
-												AllQueryArguments?: {
-												} | fn.If
-												Body?: {
-												} | fn.If
-												Method?: {
-												} | fn.If
-												QueryString?: {
-												} | fn.If
-												SingleHeader?: {
+											FieldToMatch?: close({
+												AllQueryArguments?: close({
+												}) | fn.If
+												Body?: close({
+												}) | fn.If
+												Method?: close({
+												}) | fn.If
+												QueryString?: close({
+												}) | fn.If
+												SingleHeader?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												SingleQueryArgument?: {
+												}) | fn.If
+												SingleQueryArgument?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												UriPath?: {
-												} | fn.If
-											} | fn.If
-											TextTransformations?: {
-												TextTransformations?: [...{
+												}) | fn.If
+												UriPath?: close({
+												}) | fn.If
+											}) | fn.If
+											TextTransformations?: close({
+												TextTransformations?: [...close({
 													[string]: _
-												}] | fn.If
-											} | fn.If
-										} | fn.If
-										SizeConstraintStatement?: {
+												})] | fn.If
+											}) | fn.If
+										}) | fn.If
+										SizeConstraintStatement?: close({
 											ComparisonOperator?: string | fn.Fn
-											FieldToMatch?:       {
-												AllQueryArguments?: {
-												} | fn.If
-												Body?: {
-												} | fn.If
-												Method?: {
-												} | fn.If
-												QueryString?: {
-												} | fn.If
-												SingleHeader?: {
+											FieldToMatch?:       close({
+												AllQueryArguments?: close({
+												}) | fn.If
+												Body?: close({
+												}) | fn.If
+												Method?: close({
+												}) | fn.If
+												QueryString?: close({
+												}) | fn.If
+												SingleHeader?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												SingleQueryArgument?: {
+												}) | fn.If
+												SingleQueryArgument?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												UriPath?: {
-												} | fn.If
-											} | fn.If
+												}) | fn.If
+												UriPath?: close({
+												}) | fn.If
+											}) | fn.If
 											Size?:                int | fn.Fn
-											TextTransformations?: {
-												TextTransformations?: [...{
+											TextTransformations?: close({
+												TextTransformations?: [...close({
 													[string]: _
-												}] | fn.If
-											} | fn.If
-										} | fn.If
-										SqliMatchStatement?: {
-											FieldToMatch?: {
-												AllQueryArguments?: {
-												} | fn.If
-												Body?: {
-												} | fn.If
-												Method?: {
-												} | fn.If
-												QueryString?: {
-												} | fn.If
-												SingleHeader?: {
+												})] | fn.If
+											}) | fn.If
+										}) | fn.If
+										SqliMatchStatement?: close({
+											FieldToMatch?: close({
+												AllQueryArguments?: close({
+												}) | fn.If
+												Body?: close({
+												}) | fn.If
+												Method?: close({
+												}) | fn.If
+												QueryString?: close({
+												}) | fn.If
+												SingleHeader?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												SingleQueryArgument?: {
+												}) | fn.If
+												SingleQueryArgument?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												UriPath?: {
-												} | fn.If
-											} | fn.If
-											TextTransformations?: {
-												TextTransformations?: [...{
+												}) | fn.If
+												UriPath?: close({
+												}) | fn.If
+											}) | fn.If
+											TextTransformations?: close({
+												TextTransformations?: [...close({
 													[string]: _
-												}] | fn.If
-											} | fn.If
-										} | fn.If
-										XssMatchStatement?: {
-											FieldToMatch?: {
-												AllQueryArguments?: {
-												} | fn.If
-												Body?: {
-												} | fn.If
-												Method?: {
-												} | fn.If
-												QueryString?: {
-												} | fn.If
-												SingleHeader?: {
+												})] | fn.If
+											}) | fn.If
+										}) | fn.If
+										XssMatchStatement?: close({
+											FieldToMatch?: close({
+												AllQueryArguments?: close({
+												}) | fn.If
+												Body?: close({
+												}) | fn.If
+												Method?: close({
+												}) | fn.If
+												QueryString?: close({
+												}) | fn.If
+												SingleHeader?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												SingleQueryArgument?: {
+												}) | fn.If
+												SingleQueryArgument?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												UriPath?: {
-												} | fn.If
-											} | fn.If
-											TextTransformations?: {
-												TextTransformations?: [...{
+												}) | fn.If
+												UriPath?: close({
+												}) | fn.If
+											}) | fn.If
+											TextTransformations?: close({
+												TextTransformations?: [...close({
 													[string]: _
-												}] | fn.If
-											} | fn.If
-										} | fn.If
-									} | fn.If
-								} | fn.If
-								RegexPatternSetReferenceStatement?: {
+												})] | fn.If
+											}) | fn.If
+										}) | fn.If
+									}) | fn.If
+								}) | fn.If
+								RegexPatternSetReferenceStatement?: close({
 									Arn?:          string | fn.Fn
-									FieldToMatch?: {
-										AllQueryArguments?: {
-										} | fn.If
-										Body?: {
-										} | fn.If
-										Method?: {
-										} | fn.If
-										QueryString?: {
-										} | fn.If
-										SingleHeader?: {
+									FieldToMatch?: close({
+										AllQueryArguments?: close({
+										}) | fn.If
+										Body?: close({
+										}) | fn.If
+										Method?: close({
+										}) | fn.If
+										QueryString?: close({
+										}) | fn.If
+										SingleHeader?: close({
 											Name?: string | fn.Fn
-										} | fn.If
-										SingleQueryArgument?: {
+										}) | fn.If
+										SingleQueryArgument?: close({
 											Name?: string | fn.Fn
-										} | fn.If
-										UriPath?: {
-										} | fn.If
-									} | fn.If
-									TextTransformations?: {
-										TextTransformations?: [...{
+										}) | fn.If
+										UriPath?: close({
+										}) | fn.If
+									}) | fn.If
+									TextTransformations?: close({
+										TextTransformations?: [...close({
 											[string]: _
-										}] | fn.If
-									} | fn.If
-								} | fn.If
-								SizeConstraintStatement?: {
+										})] | fn.If
+									}) | fn.If
+								}) | fn.If
+								SizeConstraintStatement?: close({
 									ComparisonOperator?: string | fn.Fn
-									FieldToMatch?:       {
-										AllQueryArguments?: {
-										} | fn.If
-										Body?: {
-										} | fn.If
-										Method?: {
-										} | fn.If
-										QueryString?: {
-										} | fn.If
-										SingleHeader?: {
+									FieldToMatch?:       close({
+										AllQueryArguments?: close({
+										}) | fn.If
+										Body?: close({
+										}) | fn.If
+										Method?: close({
+										}) | fn.If
+										QueryString?: close({
+										}) | fn.If
+										SingleHeader?: close({
 											Name?: string | fn.Fn
-										} | fn.If
-										SingleQueryArgument?: {
+										}) | fn.If
+										SingleQueryArgument?: close({
 											Name?: string | fn.Fn
-										} | fn.If
-										UriPath?: {
-										} | fn.If
-									} | fn.If
+										}) | fn.If
+										UriPath?: close({
+										}) | fn.If
+									}) | fn.If
 									Size?:                int | fn.Fn
-									TextTransformations?: {
-										TextTransformations?: [...{
+									TextTransformations?: close({
+										TextTransformations?: [...close({
 											[string]: _
-										}] | fn.If
-									} | fn.If
-								} | fn.If
-								SqliMatchStatement?: {
-									FieldToMatch?: {
-										AllQueryArguments?: {
-										} | fn.If
-										Body?: {
-										} | fn.If
-										Method?: {
-										} | fn.If
-										QueryString?: {
-										} | fn.If
-										SingleHeader?: {
+										})] | fn.If
+									}) | fn.If
+								}) | fn.If
+								SqliMatchStatement?: close({
+									FieldToMatch?: close({
+										AllQueryArguments?: close({
+										}) | fn.If
+										Body?: close({
+										}) | fn.If
+										Method?: close({
+										}) | fn.If
+										QueryString?: close({
+										}) | fn.If
+										SingleHeader?: close({
 											Name?: string | fn.Fn
-										} | fn.If
-										SingleQueryArgument?: {
+										}) | fn.If
+										SingleQueryArgument?: close({
 											Name?: string | fn.Fn
-										} | fn.If
-										UriPath?: {
-										} | fn.If
-									} | fn.If
-									TextTransformations?: {
-										TextTransformations?: [...{
+										}) | fn.If
+										UriPath?: close({
+										}) | fn.If
+									}) | fn.If
+									TextTransformations?: close({
+										TextTransformations?: [...close({
 											[string]: _
-										}] | fn.If
-									} | fn.If
-								} | fn.If
-								XssMatchStatement?: {
-									FieldToMatch?: {
-										AllQueryArguments?: {
-										} | fn.If
-										Body?: {
-										} | fn.If
-										Method?: {
-										} | fn.If
-										QueryString?: {
-										} | fn.If
-										SingleHeader?: {
+										})] | fn.If
+									}) | fn.If
+								}) | fn.If
+								XssMatchStatement?: close({
+									FieldToMatch?: close({
+										AllQueryArguments?: close({
+										}) | fn.If
+										Body?: close({
+										}) | fn.If
+										Method?: close({
+										}) | fn.If
+										QueryString?: close({
+										}) | fn.If
+										SingleHeader?: close({
 											Name?: string | fn.Fn
-										} | fn.If
-										SingleQueryArgument?: {
+										}) | fn.If
+										SingleQueryArgument?: close({
 											Name?: string | fn.Fn
-										} | fn.If
-										UriPath?: {
-										} | fn.If
-									} | fn.If
-									TextTransformations?: {
-										TextTransformations?: [...{
+										}) | fn.If
+										UriPath?: close({
+										}) | fn.If
+									}) | fn.If
+									TextTransformations?: close({
+										TextTransformations?: [...close({
 											[string]: _
-										}] | fn.If
-									} | fn.If
-								} | fn.If
-							}] | fn.If
-						} | fn.If
-					} | fn.If
-					RateBasedStatement?: {
+										})] | fn.If
+									}) | fn.If
+								}) | fn.If
+							})] | fn.If
+						}) | fn.If
+					}) | fn.If
+					RateBasedStatement?: close({
 						AggregateKeyType?:   string | fn.Fn
 						Limit?:              int | fn.Fn
-						ScopeDownStatement?: {
-							AndStatement?: {
-								Statements?: {
-									StatementThrees?: [...{
-										ByteMatchStatement?: {
-											FieldToMatch?: {
-												AllQueryArguments?: {
-												} | fn.If
-												Body?: {
-												} | fn.If
-												Method?: {
-												} | fn.If
-												QueryString?: {
-												} | fn.If
-												SingleHeader?: {
+						ScopeDownStatement?: close({
+							AndStatement?: close({
+								Statements?: close({
+									StatementThrees?: [...close({
+										ByteMatchStatement?: close({
+											FieldToMatch?: close({
+												AllQueryArguments?: close({
+												}) | fn.If
+												Body?: close({
+												}) | fn.If
+												Method?: close({
+												}) | fn.If
+												QueryString?: close({
+												}) | fn.If
+												SingleHeader?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												SingleQueryArgument?: {
+												}) | fn.If
+												SingleQueryArgument?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												UriPath?: {
-												} | fn.If
-											} | fn.If
+												}) | fn.If
+												UriPath?: close({
+												}) | fn.If
+											}) | fn.If
 											PositionalConstraint?: string | fn.Fn
 											SearchString?:         string | fn.Fn
 											SearchStringBase64?:   string | fn.Fn
-											TextTransformations?:  {
-												TextTransformations?: [...{
+											TextTransformations?:  close({
+												TextTransformations?: [...close({
 													[string]: _
-												}] | fn.If
-											} | fn.If
-										} | fn.If
-										GeoMatchStatement?: {
-											CountryCodes?: {
+												})] | fn.If
+											}) | fn.If
+										}) | fn.If
+										GeoMatchStatement?: close({
+											CountryCodes?: close({
 												CountryCodes?: [...(string | fn.Fn)] | (string | fn.Fn)
-											} | fn.If
-										} | fn.If
-										IPSetReferenceStatement?: {
+											}) | fn.If
+										}) | fn.If
+										IPSetReferenceStatement?: close({
 											Arn?: string | fn.Fn
-										} | fn.If
-										RegexPatternSetReferenceStatement?: {
+										}) | fn.If
+										RegexPatternSetReferenceStatement?: close({
 											Arn?:          string | fn.Fn
-											FieldToMatch?: {
-												AllQueryArguments?: {
-												} | fn.If
-												Body?: {
-												} | fn.If
-												Method?: {
-												} | fn.If
-												QueryString?: {
-												} | fn.If
-												SingleHeader?: {
+											FieldToMatch?: close({
+												AllQueryArguments?: close({
+												}) | fn.If
+												Body?: close({
+												}) | fn.If
+												Method?: close({
+												}) | fn.If
+												QueryString?: close({
+												}) | fn.If
+												SingleHeader?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												SingleQueryArgument?: {
+												}) | fn.If
+												SingleQueryArgument?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												UriPath?: {
-												} | fn.If
-											} | fn.If
-											TextTransformations?: {
-												TextTransformations?: [...{
+												}) | fn.If
+												UriPath?: close({
+												}) | fn.If
+											}) | fn.If
+											TextTransformations?: close({
+												TextTransformations?: [...close({
 													[string]: _
-												}] | fn.If
-											} | fn.If
-										} | fn.If
-										SizeConstraintStatement?: {
+												})] | fn.If
+											}) | fn.If
+										}) | fn.If
+										SizeConstraintStatement?: close({
 											ComparisonOperator?: string | fn.Fn
-											FieldToMatch?:       {
-												AllQueryArguments?: {
-												} | fn.If
-												Body?: {
-												} | fn.If
-												Method?: {
-												} | fn.If
-												QueryString?: {
-												} | fn.If
-												SingleHeader?: {
+											FieldToMatch?:       close({
+												AllQueryArguments?: close({
+												}) | fn.If
+												Body?: close({
+												}) | fn.If
+												Method?: close({
+												}) | fn.If
+												QueryString?: close({
+												}) | fn.If
+												SingleHeader?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												SingleQueryArgument?: {
+												}) | fn.If
+												SingleQueryArgument?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												UriPath?: {
-												} | fn.If
-											} | fn.If
+												}) | fn.If
+												UriPath?: close({
+												}) | fn.If
+											}) | fn.If
 											Size?:                int | fn.Fn
-											TextTransformations?: {
-												TextTransformations?: [...{
+											TextTransformations?: close({
+												TextTransformations?: [...close({
 													[string]: _
-												}] | fn.If
-											} | fn.If
-										} | fn.If
-										SqliMatchStatement?: {
-											FieldToMatch?: {
-												AllQueryArguments?: {
-												} | fn.If
-												Body?: {
-												} | fn.If
-												Method?: {
-												} | fn.If
-												QueryString?: {
-												} | fn.If
-												SingleHeader?: {
+												})] | fn.If
+											}) | fn.If
+										}) | fn.If
+										SqliMatchStatement?: close({
+											FieldToMatch?: close({
+												AllQueryArguments?: close({
+												}) | fn.If
+												Body?: close({
+												}) | fn.If
+												Method?: close({
+												}) | fn.If
+												QueryString?: close({
+												}) | fn.If
+												SingleHeader?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												SingleQueryArgument?: {
+												}) | fn.If
+												SingleQueryArgument?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												UriPath?: {
-												} | fn.If
-											} | fn.If
-											TextTransformations?: {
-												TextTransformations?: [...{
+												}) | fn.If
+												UriPath?: close({
+												}) | fn.If
+											}) | fn.If
+											TextTransformations?: close({
+												TextTransformations?: [...close({
 													[string]: _
-												}] | fn.If
-											} | fn.If
-										} | fn.If
-										XssMatchStatement?: {
-											FieldToMatch?: {
-												AllQueryArguments?: {
-												} | fn.If
-												Body?: {
-												} | fn.If
-												Method?: {
-												} | fn.If
-												QueryString?: {
-												} | fn.If
-												SingleHeader?: {
+												})] | fn.If
+											}) | fn.If
+										}) | fn.If
+										XssMatchStatement?: close({
+											FieldToMatch?: close({
+												AllQueryArguments?: close({
+												}) | fn.If
+												Body?: close({
+												}) | fn.If
+												Method?: close({
+												}) | fn.If
+												QueryString?: close({
+												}) | fn.If
+												SingleHeader?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												SingleQueryArgument?: {
+												}) | fn.If
+												SingleQueryArgument?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												UriPath?: {
-												} | fn.If
-											} | fn.If
-											TextTransformations?: {
-												TextTransformations?: [...{
+												}) | fn.If
+												UriPath?: close({
+												}) | fn.If
+											}) | fn.If
+											TextTransformations?: close({
+												TextTransformations?: [...close({
 													[string]: _
-												}] | fn.If
-											} | fn.If
-										} | fn.If
-									}] | fn.If
-								} | fn.If
-							} | fn.If
-							ByteMatchStatement?: {
-								FieldToMatch?: {
-									AllQueryArguments?: {
-									} | fn.If
-									Body?: {
-									} | fn.If
-									Method?: {
-									} | fn.If
-									QueryString?: {
-									} | fn.If
-									SingleHeader?: {
+												})] | fn.If
+											}) | fn.If
+										}) | fn.If
+									})] | fn.If
+								}) | fn.If
+							}) | fn.If
+							ByteMatchStatement?: close({
+								FieldToMatch?: close({
+									AllQueryArguments?: close({
+									}) | fn.If
+									Body?: close({
+									}) | fn.If
+									Method?: close({
+									}) | fn.If
+									QueryString?: close({
+									}) | fn.If
+									SingleHeader?: close({
 										Name?: string | fn.Fn
-									} | fn.If
-									SingleQueryArgument?: {
+									}) | fn.If
+									SingleQueryArgument?: close({
 										Name?: string | fn.Fn
-									} | fn.If
-									UriPath?: {
-									} | fn.If
-								} | fn.If
+									}) | fn.If
+									UriPath?: close({
+									}) | fn.If
+								}) | fn.If
 								PositionalConstraint?: string | fn.Fn
 								SearchString?:         string | fn.Fn
 								SearchStringBase64?:   string | fn.Fn
-								TextTransformations?:  {
-									TextTransformations?: [...{
+								TextTransformations?:  close({
+									TextTransformations?: [...close({
 										[string]: _
-									}] | fn.If
-								} | fn.If
-							} | fn.If
-							GeoMatchStatement?: {
-								CountryCodes?: {
+									})] | fn.If
+								}) | fn.If
+							}) | fn.If
+							GeoMatchStatement?: close({
+								CountryCodes?: close({
 									CountryCodes?: [...(string | fn.Fn)] | (string | fn.Fn)
-								} | fn.If
-							} | fn.If
-							IPSetReferenceStatement?: {
+								}) | fn.If
+							}) | fn.If
+							IPSetReferenceStatement?: close({
 								Arn?: string | fn.Fn
-							} | fn.If
-							NotStatement?: {
-								Statement?: {
-									ByteMatchStatement?: {
-										FieldToMatch?: {
-											AllQueryArguments?: {
-											} | fn.If
-											Body?: {
-											} | fn.If
-											Method?: {
-											} | fn.If
-											QueryString?: {
-											} | fn.If
-											SingleHeader?: {
+							}) | fn.If
+							NotStatement?: close({
+								Statement?: close({
+									ByteMatchStatement?: close({
+										FieldToMatch?: close({
+											AllQueryArguments?: close({
+											}) | fn.If
+											Body?: close({
+											}) | fn.If
+											Method?: close({
+											}) | fn.If
+											QueryString?: close({
+											}) | fn.If
+											SingleHeader?: close({
 												Name?: string | fn.Fn
-											} | fn.If
-											SingleQueryArgument?: {
+											}) | fn.If
+											SingleQueryArgument?: close({
 												Name?: string | fn.Fn
-											} | fn.If
-											UriPath?: {
-											} | fn.If
-										} | fn.If
+											}) | fn.If
+											UriPath?: close({
+											}) | fn.If
+										}) | fn.If
 										PositionalConstraint?: string | fn.Fn
 										SearchString?:         string | fn.Fn
 										SearchStringBase64?:   string | fn.Fn
-										TextTransformations?:  {
-											TextTransformations?: [...{
+										TextTransformations?:  close({
+											TextTransformations?: [...close({
 												[string]: _
-											}] | fn.If
-										} | fn.If
-									} | fn.If
-									GeoMatchStatement?: {
-										CountryCodes?: {
+											})] | fn.If
+										}) | fn.If
+									}) | fn.If
+									GeoMatchStatement?: close({
+										CountryCodes?: close({
 											CountryCodes?: [...(string | fn.Fn)] | (string | fn.Fn)
-										} | fn.If
-									} | fn.If
-									IPSetReferenceStatement?: {
+										}) | fn.If
+									}) | fn.If
+									IPSetReferenceStatement?: close({
 										Arn?: string | fn.Fn
-									} | fn.If
-									RegexPatternSetReferenceStatement?: {
+									}) | fn.If
+									RegexPatternSetReferenceStatement?: close({
 										Arn?:          string | fn.Fn
-										FieldToMatch?: {
-											AllQueryArguments?: {
-											} | fn.If
-											Body?: {
-											} | fn.If
-											Method?: {
-											} | fn.If
-											QueryString?: {
-											} | fn.If
-											SingleHeader?: {
+										FieldToMatch?: close({
+											AllQueryArguments?: close({
+											}) | fn.If
+											Body?: close({
+											}) | fn.If
+											Method?: close({
+											}) | fn.If
+											QueryString?: close({
+											}) | fn.If
+											SingleHeader?: close({
 												Name?: string | fn.Fn
-											} | fn.If
-											SingleQueryArgument?: {
+											}) | fn.If
+											SingleQueryArgument?: close({
 												Name?: string | fn.Fn
-											} | fn.If
-											UriPath?: {
-											} | fn.If
-										} | fn.If
-										TextTransformations?: {
-											TextTransformations?: [...{
+											}) | fn.If
+											UriPath?: close({
+											}) | fn.If
+										}) | fn.If
+										TextTransformations?: close({
+											TextTransformations?: [...close({
 												[string]: _
-											}] | fn.If
-										} | fn.If
-									} | fn.If
-									SizeConstraintStatement?: {
+											})] | fn.If
+										}) | fn.If
+									}) | fn.If
+									SizeConstraintStatement?: close({
 										ComparisonOperator?: string | fn.Fn
-										FieldToMatch?:       {
-											AllQueryArguments?: {
-											} | fn.If
-											Body?: {
-											} | fn.If
-											Method?: {
-											} | fn.If
-											QueryString?: {
-											} | fn.If
-											SingleHeader?: {
+										FieldToMatch?:       close({
+											AllQueryArguments?: close({
+											}) | fn.If
+											Body?: close({
+											}) | fn.If
+											Method?: close({
+											}) | fn.If
+											QueryString?: close({
+											}) | fn.If
+											SingleHeader?: close({
 												Name?: string | fn.Fn
-											} | fn.If
-											SingleQueryArgument?: {
+											}) | fn.If
+											SingleQueryArgument?: close({
 												Name?: string | fn.Fn
-											} | fn.If
-											UriPath?: {
-											} | fn.If
-										} | fn.If
+											}) | fn.If
+											UriPath?: close({
+											}) | fn.If
+										}) | fn.If
 										Size?:                int | fn.Fn
-										TextTransformations?: {
-											TextTransformations?: [...{
+										TextTransformations?: close({
+											TextTransformations?: [...close({
 												[string]: _
-											}] | fn.If
-										} | fn.If
-									} | fn.If
-									SqliMatchStatement?: {
-										FieldToMatch?: {
-											AllQueryArguments?: {
-											} | fn.If
-											Body?: {
-											} | fn.If
-											Method?: {
-											} | fn.If
-											QueryString?: {
-											} | fn.If
-											SingleHeader?: {
+											})] | fn.If
+										}) | fn.If
+									}) | fn.If
+									SqliMatchStatement?: close({
+										FieldToMatch?: close({
+											AllQueryArguments?: close({
+											}) | fn.If
+											Body?: close({
+											}) | fn.If
+											Method?: close({
+											}) | fn.If
+											QueryString?: close({
+											}) | fn.If
+											SingleHeader?: close({
 												Name?: string | fn.Fn
-											} | fn.If
-											SingleQueryArgument?: {
+											}) | fn.If
+											SingleQueryArgument?: close({
 												Name?: string | fn.Fn
-											} | fn.If
-											UriPath?: {
-											} | fn.If
-										} | fn.If
-										TextTransformations?: {
-											TextTransformations?: [...{
+											}) | fn.If
+											UriPath?: close({
+											}) | fn.If
+										}) | fn.If
+										TextTransformations?: close({
+											TextTransformations?: [...close({
 												[string]: _
-											}] | fn.If
-										} | fn.If
-									} | fn.If
-									XssMatchStatement?: {
-										FieldToMatch?: {
-											AllQueryArguments?: {
-											} | fn.If
-											Body?: {
-											} | fn.If
-											Method?: {
-											} | fn.If
-											QueryString?: {
-											} | fn.If
-											SingleHeader?: {
+											})] | fn.If
+										}) | fn.If
+									}) | fn.If
+									XssMatchStatement?: close({
+										FieldToMatch?: close({
+											AllQueryArguments?: close({
+											}) | fn.If
+											Body?: close({
+											}) | fn.If
+											Method?: close({
+											}) | fn.If
+											QueryString?: close({
+											}) | fn.If
+											SingleHeader?: close({
 												Name?: string | fn.Fn
-											} | fn.If
-											SingleQueryArgument?: {
+											}) | fn.If
+											SingleQueryArgument?: close({
 												Name?: string | fn.Fn
-											} | fn.If
-											UriPath?: {
-											} | fn.If
-										} | fn.If
-										TextTransformations?: {
-											TextTransformations?: [...{
+											}) | fn.If
+											UriPath?: close({
+											}) | fn.If
+										}) | fn.If
+										TextTransformations?: close({
+											TextTransformations?: [...close({
 												[string]: _
-											}] | fn.If
-										} | fn.If
-									} | fn.If
-								} | fn.If
-							} | fn.If
-							OrStatement?: {
-								Statements?: {
-									StatementThrees?: [...{
-										ByteMatchStatement?: {
-											FieldToMatch?: {
-												AllQueryArguments?: {
-												} | fn.If
-												Body?: {
-												} | fn.If
-												Method?: {
-												} | fn.If
-												QueryString?: {
-												} | fn.If
-												SingleHeader?: {
+											})] | fn.If
+										}) | fn.If
+									}) | fn.If
+								}) | fn.If
+							}) | fn.If
+							OrStatement?: close({
+								Statements?: close({
+									StatementThrees?: [...close({
+										ByteMatchStatement?: close({
+											FieldToMatch?: close({
+												AllQueryArguments?: close({
+												}) | fn.If
+												Body?: close({
+												}) | fn.If
+												Method?: close({
+												}) | fn.If
+												QueryString?: close({
+												}) | fn.If
+												SingleHeader?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												SingleQueryArgument?: {
+												}) | fn.If
+												SingleQueryArgument?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												UriPath?: {
-												} | fn.If
-											} | fn.If
+												}) | fn.If
+												UriPath?: close({
+												}) | fn.If
+											}) | fn.If
 											PositionalConstraint?: string | fn.Fn
 											SearchString?:         string | fn.Fn
 											SearchStringBase64?:   string | fn.Fn
-											TextTransformations?:  {
-												TextTransformations?: [...{
+											TextTransformations?:  close({
+												TextTransformations?: [...close({
 													[string]: _
-												}] | fn.If
-											} | fn.If
-										} | fn.If
-										GeoMatchStatement?: {
-											CountryCodes?: {
+												})] | fn.If
+											}) | fn.If
+										}) | fn.If
+										GeoMatchStatement?: close({
+											CountryCodes?: close({
 												CountryCodes?: [...(string | fn.Fn)] | (string | fn.Fn)
-											} | fn.If
-										} | fn.If
-										IPSetReferenceStatement?: {
+											}) | fn.If
+										}) | fn.If
+										IPSetReferenceStatement?: close({
 											Arn?: string | fn.Fn
-										} | fn.If
-										RegexPatternSetReferenceStatement?: {
+										}) | fn.If
+										RegexPatternSetReferenceStatement?: close({
 											Arn?:          string | fn.Fn
-											FieldToMatch?: {
-												AllQueryArguments?: {
-												} | fn.If
-												Body?: {
-												} | fn.If
-												Method?: {
-												} | fn.If
-												QueryString?: {
-												} | fn.If
-												SingleHeader?: {
+											FieldToMatch?: close({
+												AllQueryArguments?: close({
+												}) | fn.If
+												Body?: close({
+												}) | fn.If
+												Method?: close({
+												}) | fn.If
+												QueryString?: close({
+												}) | fn.If
+												SingleHeader?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												SingleQueryArgument?: {
+												}) | fn.If
+												SingleQueryArgument?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												UriPath?: {
-												} | fn.If
-											} | fn.If
-											TextTransformations?: {
-												TextTransformations?: [...{
+												}) | fn.If
+												UriPath?: close({
+												}) | fn.If
+											}) | fn.If
+											TextTransformations?: close({
+												TextTransformations?: [...close({
 													[string]: _
-												}] | fn.If
-											} | fn.If
-										} | fn.If
-										SizeConstraintStatement?: {
+												})] | fn.If
+											}) | fn.If
+										}) | fn.If
+										SizeConstraintStatement?: close({
 											ComparisonOperator?: string | fn.Fn
-											FieldToMatch?:       {
-												AllQueryArguments?: {
-												} | fn.If
-												Body?: {
-												} | fn.If
-												Method?: {
-												} | fn.If
-												QueryString?: {
-												} | fn.If
-												SingleHeader?: {
+											FieldToMatch?:       close({
+												AllQueryArguments?: close({
+												}) | fn.If
+												Body?: close({
+												}) | fn.If
+												Method?: close({
+												}) | fn.If
+												QueryString?: close({
+												}) | fn.If
+												SingleHeader?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												SingleQueryArgument?: {
+												}) | fn.If
+												SingleQueryArgument?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												UriPath?: {
-												} | fn.If
-											} | fn.If
+												}) | fn.If
+												UriPath?: close({
+												}) | fn.If
+											}) | fn.If
 											Size?:                int | fn.Fn
-											TextTransformations?: {
-												TextTransformations?: [...{
+											TextTransformations?: close({
+												TextTransformations?: [...close({
 													[string]: _
-												}] | fn.If
-											} | fn.If
-										} | fn.If
-										SqliMatchStatement?: {
-											FieldToMatch?: {
-												AllQueryArguments?: {
-												} | fn.If
-												Body?: {
-												} | fn.If
-												Method?: {
-												} | fn.If
-												QueryString?: {
-												} | fn.If
-												SingleHeader?: {
+												})] | fn.If
+											}) | fn.If
+										}) | fn.If
+										SqliMatchStatement?: close({
+											FieldToMatch?: close({
+												AllQueryArguments?: close({
+												}) | fn.If
+												Body?: close({
+												}) | fn.If
+												Method?: close({
+												}) | fn.If
+												QueryString?: close({
+												}) | fn.If
+												SingleHeader?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												SingleQueryArgument?: {
+												}) | fn.If
+												SingleQueryArgument?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												UriPath?: {
-												} | fn.If
-											} | fn.If
-											TextTransformations?: {
-												TextTransformations?: [...{
+												}) | fn.If
+												UriPath?: close({
+												}) | fn.If
+											}) | fn.If
+											TextTransformations?: close({
+												TextTransformations?: [...close({
 													[string]: _
-												}] | fn.If
-											} | fn.If
-										} | fn.If
-										XssMatchStatement?: {
-											FieldToMatch?: {
-												AllQueryArguments?: {
-												} | fn.If
-												Body?: {
-												} | fn.If
-												Method?: {
-												} | fn.If
-												QueryString?: {
-												} | fn.If
-												SingleHeader?: {
+												})] | fn.If
+											}) | fn.If
+										}) | fn.If
+										XssMatchStatement?: close({
+											FieldToMatch?: close({
+												AllQueryArguments?: close({
+												}) | fn.If
+												Body?: close({
+												}) | fn.If
+												Method?: close({
+												}) | fn.If
+												QueryString?: close({
+												}) | fn.If
+												SingleHeader?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												SingleQueryArgument?: {
+												}) | fn.If
+												SingleQueryArgument?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												UriPath?: {
-												} | fn.If
-											} | fn.If
-											TextTransformations?: {
-												TextTransformations?: [...{
+												}) | fn.If
+												UriPath?: close({
+												}) | fn.If
+											}) | fn.If
+											TextTransformations?: close({
+												TextTransformations?: [...close({
 													[string]: _
-												}] | fn.If
-											} | fn.If
-										} | fn.If
-									}] | fn.If
-								} | fn.If
-							} | fn.If
-							RateBasedStatement?: {
+												})] | fn.If
+											}) | fn.If
+										}) | fn.If
+									})] | fn.If
+								}) | fn.If
+							}) | fn.If
+							RateBasedStatement?: close({
 								AggregateKeyType?:   string | fn.Fn
 								Limit?:              int | fn.Fn
-								ScopeDownStatement?: {
-									ByteMatchStatement?: {
-										FieldToMatch?: {
-											AllQueryArguments?: {
-											} | fn.If
-											Body?: {
-											} | fn.If
-											Method?: {
-											} | fn.If
-											QueryString?: {
-											} | fn.If
-											SingleHeader?: {
+								ScopeDownStatement?: close({
+									ByteMatchStatement?: close({
+										FieldToMatch?: close({
+											AllQueryArguments?: close({
+											}) | fn.If
+											Body?: close({
+											}) | fn.If
+											Method?: close({
+											}) | fn.If
+											QueryString?: close({
+											}) | fn.If
+											SingleHeader?: close({
 												Name?: string | fn.Fn
-											} | fn.If
-											SingleQueryArgument?: {
+											}) | fn.If
+											SingleQueryArgument?: close({
 												Name?: string | fn.Fn
-											} | fn.If
-											UriPath?: {
-											} | fn.If
-										} | fn.If
+											}) | fn.If
+											UriPath?: close({
+											}) | fn.If
+										}) | fn.If
 										PositionalConstraint?: string | fn.Fn
 										SearchString?:         string | fn.Fn
 										SearchStringBase64?:   string | fn.Fn
-										TextTransformations?:  {
-											TextTransformations?: [...{
+										TextTransformations?:  close({
+											TextTransformations?: [...close({
 												[string]: _
-											}] | fn.If
-										} | fn.If
-									} | fn.If
-									GeoMatchStatement?: {
-										CountryCodes?: {
+											})] | fn.If
+										}) | fn.If
+									}) | fn.If
+									GeoMatchStatement?: close({
+										CountryCodes?: close({
 											CountryCodes?: [...(string | fn.Fn)] | (string | fn.Fn)
-										} | fn.If
-									} | fn.If
-									IPSetReferenceStatement?: {
+										}) | fn.If
+									}) | fn.If
+									IPSetReferenceStatement?: close({
 										Arn?: string | fn.Fn
-									} | fn.If
-									RegexPatternSetReferenceStatement?: {
+									}) | fn.If
+									RegexPatternSetReferenceStatement?: close({
 										Arn?:          string | fn.Fn
-										FieldToMatch?: {
-											AllQueryArguments?: {
-											} | fn.If
-											Body?: {
-											} | fn.If
-											Method?: {
-											} | fn.If
-											QueryString?: {
-											} | fn.If
-											SingleHeader?: {
+										FieldToMatch?: close({
+											AllQueryArguments?: close({
+											}) | fn.If
+											Body?: close({
+											}) | fn.If
+											Method?: close({
+											}) | fn.If
+											QueryString?: close({
+											}) | fn.If
+											SingleHeader?: close({
 												Name?: string | fn.Fn
-											} | fn.If
-											SingleQueryArgument?: {
+											}) | fn.If
+											SingleQueryArgument?: close({
 												Name?: string | fn.Fn
-											} | fn.If
-											UriPath?: {
-											} | fn.If
-										} | fn.If
-										TextTransformations?: {
-											TextTransformations?: [...{
+											}) | fn.If
+											UriPath?: close({
+											}) | fn.If
+										}) | fn.If
+										TextTransformations?: close({
+											TextTransformations?: [...close({
 												[string]: _
-											}] | fn.If
-										} | fn.If
-									} | fn.If
-									SizeConstraintStatement?: {
+											})] | fn.If
+										}) | fn.If
+									}) | fn.If
+									SizeConstraintStatement?: close({
 										ComparisonOperator?: string | fn.Fn
-										FieldToMatch?:       {
-											AllQueryArguments?: {
-											} | fn.If
-											Body?: {
-											} | fn.If
-											Method?: {
-											} | fn.If
-											QueryString?: {
-											} | fn.If
-											SingleHeader?: {
+										FieldToMatch?:       close({
+											AllQueryArguments?: close({
+											}) | fn.If
+											Body?: close({
+											}) | fn.If
+											Method?: close({
+											}) | fn.If
+											QueryString?: close({
+											}) | fn.If
+											SingleHeader?: close({
 												Name?: string | fn.Fn
-											} | fn.If
-											SingleQueryArgument?: {
+											}) | fn.If
+											SingleQueryArgument?: close({
 												Name?: string | fn.Fn
-											} | fn.If
-											UriPath?: {
-											} | fn.If
-										} | fn.If
+											}) | fn.If
+											UriPath?: close({
+											}) | fn.If
+										}) | fn.If
 										Size?:                int | fn.Fn
-										TextTransformations?: {
-											TextTransformations?: [...{
+										TextTransformations?: close({
+											TextTransformations?: [...close({
 												[string]: _
-											}] | fn.If
-										} | fn.If
-									} | fn.If
-									SqliMatchStatement?: {
-										FieldToMatch?: {
-											AllQueryArguments?: {
-											} | fn.If
-											Body?: {
-											} | fn.If
-											Method?: {
-											} | fn.If
-											QueryString?: {
-											} | fn.If
-											SingleHeader?: {
+											})] | fn.If
+										}) | fn.If
+									}) | fn.If
+									SqliMatchStatement?: close({
+										FieldToMatch?: close({
+											AllQueryArguments?: close({
+											}) | fn.If
+											Body?: close({
+											}) | fn.If
+											Method?: close({
+											}) | fn.If
+											QueryString?: close({
+											}) | fn.If
+											SingleHeader?: close({
 												Name?: string | fn.Fn
-											} | fn.If
-											SingleQueryArgument?: {
+											}) | fn.If
+											SingleQueryArgument?: close({
 												Name?: string | fn.Fn
-											} | fn.If
-											UriPath?: {
-											} | fn.If
-										} | fn.If
-										TextTransformations?: {
-											TextTransformations?: [...{
+											}) | fn.If
+											UriPath?: close({
+											}) | fn.If
+										}) | fn.If
+										TextTransformations?: close({
+											TextTransformations?: [...close({
 												[string]: _
-											}] | fn.If
-										} | fn.If
-									} | fn.If
-									XssMatchStatement?: {
-										FieldToMatch?: {
-											AllQueryArguments?: {
-											} | fn.If
-											Body?: {
-											} | fn.If
-											Method?: {
-											} | fn.If
-											QueryString?: {
-											} | fn.If
-											SingleHeader?: {
+											})] | fn.If
+										}) | fn.If
+									}) | fn.If
+									XssMatchStatement?: close({
+										FieldToMatch?: close({
+											AllQueryArguments?: close({
+											}) | fn.If
+											Body?: close({
+											}) | fn.If
+											Method?: close({
+											}) | fn.If
+											QueryString?: close({
+											}) | fn.If
+											SingleHeader?: close({
 												Name?: string | fn.Fn
-											} | fn.If
-											SingleQueryArgument?: {
+											}) | fn.If
+											SingleQueryArgument?: close({
 												Name?: string | fn.Fn
-											} | fn.If
-											UriPath?: {
-											} | fn.If
-										} | fn.If
-										TextTransformations?: {
-											TextTransformations?: [...{
+											}) | fn.If
+											UriPath?: close({
+											}) | fn.If
+										}) | fn.If
+										TextTransformations?: close({
+											TextTransformations?: [...close({
 												[string]: _
-											}] | fn.If
-										} | fn.If
-									} | fn.If
-								} | fn.If
-							} | fn.If
-							RegexPatternSetReferenceStatement?: {
+											})] | fn.If
+										}) | fn.If
+									}) | fn.If
+								}) | fn.If
+							}) | fn.If
+							RegexPatternSetReferenceStatement?: close({
 								Arn?:          string | fn.Fn
-								FieldToMatch?: {
-									AllQueryArguments?: {
-									} | fn.If
-									Body?: {
-									} | fn.If
-									Method?: {
-									} | fn.If
-									QueryString?: {
-									} | fn.If
-									SingleHeader?: {
+								FieldToMatch?: close({
+									AllQueryArguments?: close({
+									}) | fn.If
+									Body?: close({
+									}) | fn.If
+									Method?: close({
+									}) | fn.If
+									QueryString?: close({
+									}) | fn.If
+									SingleHeader?: close({
 										Name?: string | fn.Fn
-									} | fn.If
-									SingleQueryArgument?: {
+									}) | fn.If
+									SingleQueryArgument?: close({
 										Name?: string | fn.Fn
-									} | fn.If
-									UriPath?: {
-									} | fn.If
-								} | fn.If
-								TextTransformations?: {
-									TextTransformations?: [...{
+									}) | fn.If
+									UriPath?: close({
+									}) | fn.If
+								}) | fn.If
+								TextTransformations?: close({
+									TextTransformations?: [...close({
 										[string]: _
-									}] | fn.If
-								} | fn.If
-							} | fn.If
-							SizeConstraintStatement?: {
+									})] | fn.If
+								}) | fn.If
+							}) | fn.If
+							SizeConstraintStatement?: close({
 								ComparisonOperator?: string | fn.Fn
-								FieldToMatch?:       {
-									AllQueryArguments?: {
-									} | fn.If
-									Body?: {
-									} | fn.If
-									Method?: {
-									} | fn.If
-									QueryString?: {
-									} | fn.If
-									SingleHeader?: {
+								FieldToMatch?:       close({
+									AllQueryArguments?: close({
+									}) | fn.If
+									Body?: close({
+									}) | fn.If
+									Method?: close({
+									}) | fn.If
+									QueryString?: close({
+									}) | fn.If
+									SingleHeader?: close({
 										Name?: string | fn.Fn
-									} | fn.If
-									SingleQueryArgument?: {
+									}) | fn.If
+									SingleQueryArgument?: close({
 										Name?: string | fn.Fn
-									} | fn.If
-									UriPath?: {
-									} | fn.If
-								} | fn.If
+									}) | fn.If
+									UriPath?: close({
+									}) | fn.If
+								}) | fn.If
 								Size?:                int | fn.Fn
-								TextTransformations?: {
-									TextTransformations?: [...{
+								TextTransformations?: close({
+									TextTransformations?: [...close({
 										[string]: _
-									}] | fn.If
-								} | fn.If
-							} | fn.If
-							SqliMatchStatement?: {
-								FieldToMatch?: {
-									AllQueryArguments?: {
-									} | fn.If
-									Body?: {
-									} | fn.If
-									Method?: {
-									} | fn.If
-									QueryString?: {
-									} | fn.If
-									SingleHeader?: {
+									})] | fn.If
+								}) | fn.If
+							}) | fn.If
+							SqliMatchStatement?: close({
+								FieldToMatch?: close({
+									AllQueryArguments?: close({
+									}) | fn.If
+									Body?: close({
+									}) | fn.If
+									Method?: close({
+									}) | fn.If
+									QueryString?: close({
+									}) | fn.If
+									SingleHeader?: close({
 										Name?: string | fn.Fn
-									} | fn.If
-									SingleQueryArgument?: {
+									}) | fn.If
+									SingleQueryArgument?: close({
 										Name?: string | fn.Fn
-									} | fn.If
-									UriPath?: {
-									} | fn.If
-								} | fn.If
-								TextTransformations?: {
-									TextTransformations?: [...{
+									}) | fn.If
+									UriPath?: close({
+									}) | fn.If
+								}) | fn.If
+								TextTransformations?: close({
+									TextTransformations?: [...close({
 										[string]: _
-									}] | fn.If
-								} | fn.If
-							} | fn.If
-							XssMatchStatement?: {
-								FieldToMatch?: {
-									AllQueryArguments?: {
-									} | fn.If
-									Body?: {
-									} | fn.If
-									Method?: {
-									} | fn.If
-									QueryString?: {
-									} | fn.If
-									SingleHeader?: {
+									})] | fn.If
+								}) | fn.If
+							}) | fn.If
+							XssMatchStatement?: close({
+								FieldToMatch?: close({
+									AllQueryArguments?: close({
+									}) | fn.If
+									Body?: close({
+									}) | fn.If
+									Method?: close({
+									}) | fn.If
+									QueryString?: close({
+									}) | fn.If
+									SingleHeader?: close({
 										Name?: string | fn.Fn
-									} | fn.If
-									SingleQueryArgument?: {
+									}) | fn.If
+									SingleQueryArgument?: close({
 										Name?: string | fn.Fn
-									} | fn.If
-									UriPath?: {
-									} | fn.If
-								} | fn.If
-								TextTransformations?: {
-									TextTransformations?: [...{
+									}) | fn.If
+									UriPath?: close({
+									}) | fn.If
+								}) | fn.If
+								TextTransformations?: close({
+									TextTransformations?: [...close({
 										[string]: _
-									}] | fn.If
-								} | fn.If
-							} | fn.If
-						} | fn.If
-					} | fn.If
-					RegexPatternSetReferenceStatement?: {
+									})] | fn.If
+								}) | fn.If
+							}) | fn.If
+						}) | fn.If
+					}) | fn.If
+					RegexPatternSetReferenceStatement?: close({
 						Arn?:          string | fn.Fn
-						FieldToMatch?: {
-							AllQueryArguments?: {
-							} | fn.If
-							Body?: {
-							} | fn.If
-							Method?: {
-							} | fn.If
-							QueryString?: {
-							} | fn.If
-							SingleHeader?: {
+						FieldToMatch?: close({
+							AllQueryArguments?: close({
+							}) | fn.If
+							Body?: close({
+							}) | fn.If
+							Method?: close({
+							}) | fn.If
+							QueryString?: close({
+							}) | fn.If
+							SingleHeader?: close({
 								Name?: string | fn.Fn
-							} | fn.If
-							SingleQueryArgument?: {
+							}) | fn.If
+							SingleQueryArgument?: close({
 								Name?: string | fn.Fn
-							} | fn.If
-							UriPath?: {
-							} | fn.If
-						} | fn.If
-						TextTransformations?: {
-							TextTransformations?: [...{
+							}) | fn.If
+							UriPath?: close({
+							}) | fn.If
+						}) | fn.If
+						TextTransformations?: close({
+							TextTransformations?: [...close({
 								[string]: _
-							}] | fn.If
-						} | fn.If
-					} | fn.If
-					SizeConstraintStatement?: {
+							})] | fn.If
+						}) | fn.If
+					}) | fn.If
+					SizeConstraintStatement?: close({
 						ComparisonOperator?: string | fn.Fn
-						FieldToMatch?:       {
-							AllQueryArguments?: {
-							} | fn.If
-							Body?: {
-							} | fn.If
-							Method?: {
-							} | fn.If
-							QueryString?: {
-							} | fn.If
-							SingleHeader?: {
+						FieldToMatch?:       close({
+							AllQueryArguments?: close({
+							}) | fn.If
+							Body?: close({
+							}) | fn.If
+							Method?: close({
+							}) | fn.If
+							QueryString?: close({
+							}) | fn.If
+							SingleHeader?: close({
 								Name?: string | fn.Fn
-							} | fn.If
-							SingleQueryArgument?: {
+							}) | fn.If
+							SingleQueryArgument?: close({
 								Name?: string | fn.Fn
-							} | fn.If
-							UriPath?: {
-							} | fn.If
-						} | fn.If
+							}) | fn.If
+							UriPath?: close({
+							}) | fn.If
+						}) | fn.If
 						Size?:                int | fn.Fn
-						TextTransformations?: {
-							TextTransformations?: [...{
+						TextTransformations?: close({
+							TextTransformations?: [...close({
 								[string]: _
-							}] | fn.If
-						} | fn.If
-					} | fn.If
-					SqliMatchStatement?: {
-						FieldToMatch?: {
-							AllQueryArguments?: {
-							} | fn.If
-							Body?: {
-							} | fn.If
-							Method?: {
-							} | fn.If
-							QueryString?: {
-							} | fn.If
-							SingleHeader?: {
+							})] | fn.If
+						}) | fn.If
+					}) | fn.If
+					SqliMatchStatement?: close({
+						FieldToMatch?: close({
+							AllQueryArguments?: close({
+							}) | fn.If
+							Body?: close({
+							}) | fn.If
+							Method?: close({
+							}) | fn.If
+							QueryString?: close({
+							}) | fn.If
+							SingleHeader?: close({
 								Name?: string | fn.Fn
-							} | fn.If
-							SingleQueryArgument?: {
+							}) | fn.If
+							SingleQueryArgument?: close({
 								Name?: string | fn.Fn
-							} | fn.If
-							UriPath?: {
-							} | fn.If
-						} | fn.If
-						TextTransformations?: {
-							TextTransformations?: [...{
+							}) | fn.If
+							UriPath?: close({
+							}) | fn.If
+						}) | fn.If
+						TextTransformations?: close({
+							TextTransformations?: [...close({
 								[string]: _
-							}] | fn.If
-						} | fn.If
-					} | fn.If
-					XssMatchStatement?: {
-						FieldToMatch?: {
-							AllQueryArguments?: {
-							} | fn.If
-							Body?: {
-							} | fn.If
-							Method?: {
-							} | fn.If
-							QueryString?: {
-							} | fn.If
-							SingleHeader?: {
+							})] | fn.If
+						}) | fn.If
+					}) | fn.If
+					XssMatchStatement?: close({
+						FieldToMatch?: close({
+							AllQueryArguments?: close({
+							}) | fn.If
+							Body?: close({
+							}) | fn.If
+							Method?: close({
+							}) | fn.If
+							QueryString?: close({
+							}) | fn.If
+							SingleHeader?: close({
 								Name?: string | fn.Fn
-							} | fn.If
-							SingleQueryArgument?: {
+							}) | fn.If
+							SingleQueryArgument?: close({
 								Name?: string | fn.Fn
-							} | fn.If
-							UriPath?: {
-							} | fn.If
-						} | fn.If
-						TextTransformations?: {
-							TextTransformations?: [...{
+							}) | fn.If
+							UriPath?: close({
+							}) | fn.If
+						}) | fn.If
+						TextTransformations?: close({
+							TextTransformations?: [...close({
 								[string]: _
-							}] | fn.If
-						} | fn.If
-					} | fn.If
-				} | fn.If
-				VisibilityConfig?: {
+							})] | fn.If
+						}) | fn.If
+					}) | fn.If
+				}) | fn.If
+				VisibilityConfig?: close({
 					CloudWatchMetricsEnabled?: bool | fn.Fn
 					MetricName?:               string | fn.Fn
 					SampledRequestsEnabled?:   bool | fn.Fn
-				} | fn.If
-			}] | fn.If
+				}) | fn.If
+			})] | fn.If
 			Scope: string | fn.Fn
-			Tags?: [...{
+			Tags?: [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}] | fn.If
-			VisibilityConfig: {
+			})] | fn.If
+			VisibilityConfig: close({
 				CloudWatchMetricsEnabled?: bool | fn.Fn
 				MetricName?:               string | fn.Fn
 				SampledRequestsEnabled?:   bool | fn.Fn
-			} | fn.If
+			}) | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -3116,3351 +3116,3351 @@ WAFv2 :: {
 	WebACL :: {
 		Type: "AWS::WAFv2::WebACL"
 		Properties: {
-			DefaultAction: {
-				Allow?: {
-				} | fn.If
-				Block?: {
-				} | fn.If
-			} | fn.If
+			DefaultAction: close({
+				Allow?: close({
+				}) | fn.If
+				Block?: close({
+				}) | fn.If
+			}) | fn.If
 			Description?: string | fn.Fn
 			Name?:        string | fn.Fn
-			Rules?:       [...{
-				Action?: {
-					Allow?: {
-					} | fn.If
-					Block?: {
-					} | fn.If
-					Count?: {
-					} | fn.If
-				} | fn.If
+			Rules?:       [...close({
+				Action?: close({
+					Allow?: close({
+					}) | fn.If
+					Block?: close({
+					}) | fn.If
+					Count?: close({
+					}) | fn.If
+				}) | fn.If
 				Name?:           string | fn.Fn
-				OverrideAction?: {
-					Count?: {
-					} | fn.If
-					None?: {
-					} | fn.If
-				} | fn.If
+				OverrideAction?: close({
+					Count?: close({
+					}) | fn.If
+					None?: close({
+					}) | fn.If
+				}) | fn.If
 				Priority?:  int | fn.Fn
-				Statement?: {
-					AndStatement?: {
-						Statements?: {
-							StatementTwos?: [...{
-								AndStatement?: {
-									Statements?: {
-										StatementThrees?: [...{
-											ByteMatchStatement?: {
-												FieldToMatch?: {
-													AllQueryArguments?: {
-													} | fn.If
-													Body?: {
-													} | fn.If
-													Method?: {
-													} | fn.If
-													QueryString?: {
-													} | fn.If
-													SingleHeader?: {
+				Statement?: close({
+					AndStatement?: close({
+						Statements?: close({
+							StatementTwos?: [...close({
+								AndStatement?: close({
+									Statements?: close({
+										StatementThrees?: [...close({
+											ByteMatchStatement?: close({
+												FieldToMatch?: close({
+													AllQueryArguments?: close({
+													}) | fn.If
+													Body?: close({
+													}) | fn.If
+													Method?: close({
+													}) | fn.If
+													QueryString?: close({
+													}) | fn.If
+													SingleHeader?: close({
 														Name?: string | fn.Fn
-													} | fn.If
-													SingleQueryArgument?: {
+													}) | fn.If
+													SingleQueryArgument?: close({
 														Name?: string | fn.Fn
-													} | fn.If
-													UriPath?: {
-													} | fn.If
-												} | fn.If
+													}) | fn.If
+													UriPath?: close({
+													}) | fn.If
+												}) | fn.If
 												PositionalConstraint?: string | fn.Fn
 												SearchString?:         string | fn.Fn
 												SearchStringBase64?:   string | fn.Fn
-												TextTransformations?:  {
-													TextTransformations?: [...{
+												TextTransformations?:  close({
+													TextTransformations?: [...close({
 														[string]: _
-													}] | fn.If
-												} | fn.If
-											} | fn.If
-											GeoMatchStatement?: {
-												CountryCodes?: {
+													})] | fn.If
+												}) | fn.If
+											}) | fn.If
+											GeoMatchStatement?: close({
+												CountryCodes?: close({
 													CountryCodes?: [...(string | fn.Fn)] | (string | fn.Fn)
-												} | fn.If
-											} | fn.If
-											IPSetReferenceStatement?: {
+												}) | fn.If
+											}) | fn.If
+											IPSetReferenceStatement?: close({
 												Arn?: string | fn.Fn
-											} | fn.If
-											ManagedRuleGroupStatement?: {
-												ExcludedRules?: [...{
+											}) | fn.If
+											ManagedRuleGroupStatement?: close({
+												ExcludedRules?: [...close({
 													Name?: string | fn.Fn
-												}] | fn.If
+												})] | fn.If
 												Name?:       string | fn.Fn
 												VendorName?: string | fn.Fn
-											} | fn.If
-											RegexPatternSetReferenceStatement?: {
+											}) | fn.If
+											RegexPatternSetReferenceStatement?: close({
 												Arn?:          string | fn.Fn
-												FieldToMatch?: {
-													AllQueryArguments?: {
-													} | fn.If
-													Body?: {
-													} | fn.If
-													Method?: {
-													} | fn.If
-													QueryString?: {
-													} | fn.If
-													SingleHeader?: {
+												FieldToMatch?: close({
+													AllQueryArguments?: close({
+													}) | fn.If
+													Body?: close({
+													}) | fn.If
+													Method?: close({
+													}) | fn.If
+													QueryString?: close({
+													}) | fn.If
+													SingleHeader?: close({
 														Name?: string | fn.Fn
-													} | fn.If
-													SingleQueryArgument?: {
+													}) | fn.If
+													SingleQueryArgument?: close({
 														Name?: string | fn.Fn
-													} | fn.If
-													UriPath?: {
-													} | fn.If
-												} | fn.If
-												TextTransformations?: {
-													TextTransformations?: [...{
+													}) | fn.If
+													UriPath?: close({
+													}) | fn.If
+												}) | fn.If
+												TextTransformations?: close({
+													TextTransformations?: [...close({
 														[string]: _
-													}] | fn.If
-												} | fn.If
-											} | fn.If
-											RuleGroupReferenceStatement?: {
+													})] | fn.If
+												}) | fn.If
+											}) | fn.If
+											RuleGroupReferenceStatement?: close({
 												Arn?:           string | fn.Fn
-												ExcludedRules?: [...{
+												ExcludedRules?: [...close({
 													Name?: string | fn.Fn
-												}] | fn.If
-											} | fn.If
-											SizeConstraintStatement?: {
+												})] | fn.If
+											}) | fn.If
+											SizeConstraintStatement?: close({
 												ComparisonOperator?: string | fn.Fn
-												FieldToMatch?:       {
-													AllQueryArguments?: {
-													} | fn.If
-													Body?: {
-													} | fn.If
-													Method?: {
-													} | fn.If
-													QueryString?: {
-													} | fn.If
-													SingleHeader?: {
+												FieldToMatch?:       close({
+													AllQueryArguments?: close({
+													}) | fn.If
+													Body?: close({
+													}) | fn.If
+													Method?: close({
+													}) | fn.If
+													QueryString?: close({
+													}) | fn.If
+													SingleHeader?: close({
 														Name?: string | fn.Fn
-													} | fn.If
-													SingleQueryArgument?: {
+													}) | fn.If
+													SingleQueryArgument?: close({
 														Name?: string | fn.Fn
-													} | fn.If
-													UriPath?: {
-													} | fn.If
-												} | fn.If
+													}) | fn.If
+													UriPath?: close({
+													}) | fn.If
+												}) | fn.If
 												Size?:                int | fn.Fn
-												TextTransformations?: {
-													TextTransformations?: [...{
+												TextTransformations?: close({
+													TextTransformations?: [...close({
 														[string]: _
-													}] | fn.If
-												} | fn.If
-											} | fn.If
-											SqliMatchStatement?: {
-												FieldToMatch?: {
-													AllQueryArguments?: {
-													} | fn.If
-													Body?: {
-													} | fn.If
-													Method?: {
-													} | fn.If
-													QueryString?: {
-													} | fn.If
-													SingleHeader?: {
+													})] | fn.If
+												}) | fn.If
+											}) | fn.If
+											SqliMatchStatement?: close({
+												FieldToMatch?: close({
+													AllQueryArguments?: close({
+													}) | fn.If
+													Body?: close({
+													}) | fn.If
+													Method?: close({
+													}) | fn.If
+													QueryString?: close({
+													}) | fn.If
+													SingleHeader?: close({
 														Name?: string | fn.Fn
-													} | fn.If
-													SingleQueryArgument?: {
+													}) | fn.If
+													SingleQueryArgument?: close({
 														Name?: string | fn.Fn
-													} | fn.If
-													UriPath?: {
-													} | fn.If
-												} | fn.If
-												TextTransformations?: {
-													TextTransformations?: [...{
+													}) | fn.If
+													UriPath?: close({
+													}) | fn.If
+												}) | fn.If
+												TextTransformations?: close({
+													TextTransformations?: [...close({
 														[string]: _
-													}] | fn.If
-												} | fn.If
-											} | fn.If
-											XssMatchStatement?: {
-												FieldToMatch?: {
-													AllQueryArguments?: {
-													} | fn.If
-													Body?: {
-													} | fn.If
-													Method?: {
-													} | fn.If
-													QueryString?: {
-													} | fn.If
-													SingleHeader?: {
+													})] | fn.If
+												}) | fn.If
+											}) | fn.If
+											XssMatchStatement?: close({
+												FieldToMatch?: close({
+													AllQueryArguments?: close({
+													}) | fn.If
+													Body?: close({
+													}) | fn.If
+													Method?: close({
+													}) | fn.If
+													QueryString?: close({
+													}) | fn.If
+													SingleHeader?: close({
 														Name?: string | fn.Fn
-													} | fn.If
-													SingleQueryArgument?: {
+													}) | fn.If
+													SingleQueryArgument?: close({
 														Name?: string | fn.Fn
-													} | fn.If
-													UriPath?: {
-													} | fn.If
-												} | fn.If
-												TextTransformations?: {
-													TextTransformations?: [...{
+													}) | fn.If
+													UriPath?: close({
+													}) | fn.If
+												}) | fn.If
+												TextTransformations?: close({
+													TextTransformations?: [...close({
 														[string]: _
-													}] | fn.If
-												} | fn.If
-											} | fn.If
-										}] | fn.If
-									} | fn.If
-								} | fn.If
-								ByteMatchStatement?: {
-									FieldToMatch?: {
-										AllQueryArguments?: {
-										} | fn.If
-										Body?: {
-										} | fn.If
-										Method?: {
-										} | fn.If
-										QueryString?: {
-										} | fn.If
-										SingleHeader?: {
+													})] | fn.If
+												}) | fn.If
+											}) | fn.If
+										})] | fn.If
+									}) | fn.If
+								}) | fn.If
+								ByteMatchStatement?: close({
+									FieldToMatch?: close({
+										AllQueryArguments?: close({
+										}) | fn.If
+										Body?: close({
+										}) | fn.If
+										Method?: close({
+										}) | fn.If
+										QueryString?: close({
+										}) | fn.If
+										SingleHeader?: close({
 											Name?: string | fn.Fn
-										} | fn.If
-										SingleQueryArgument?: {
+										}) | fn.If
+										SingleQueryArgument?: close({
 											Name?: string | fn.Fn
-										} | fn.If
-										UriPath?: {
-										} | fn.If
-									} | fn.If
+										}) | fn.If
+										UriPath?: close({
+										}) | fn.If
+									}) | fn.If
 									PositionalConstraint?: string | fn.Fn
 									SearchString?:         string | fn.Fn
 									SearchStringBase64?:   string | fn.Fn
-									TextTransformations?:  {
-										TextTransformations?: [...{
+									TextTransformations?:  close({
+										TextTransformations?: [...close({
 											[string]: _
-										}] | fn.If
-									} | fn.If
-								} | fn.If
-								GeoMatchStatement?: {
-									CountryCodes?: {
+										})] | fn.If
+									}) | fn.If
+								}) | fn.If
+								GeoMatchStatement?: close({
+									CountryCodes?: close({
 										CountryCodes?: [...(string | fn.Fn)] | (string | fn.Fn)
-									} | fn.If
-								} | fn.If
-								IPSetReferenceStatement?: {
+									}) | fn.If
+								}) | fn.If
+								IPSetReferenceStatement?: close({
 									Arn?: string | fn.Fn
-								} | fn.If
-								ManagedRuleGroupStatement?: {
-									ExcludedRules?: [...{
+								}) | fn.If
+								ManagedRuleGroupStatement?: close({
+									ExcludedRules?: [...close({
 										Name?: string | fn.Fn
-									}] | fn.If
+									})] | fn.If
 									Name?:       string | fn.Fn
 									VendorName?: string | fn.Fn
-								} | fn.If
-								NotStatement?: {
-									Statement?: {
-										ByteMatchStatement?: {
-											FieldToMatch?: {
-												AllQueryArguments?: {
-												} | fn.If
-												Body?: {
-												} | fn.If
-												Method?: {
-												} | fn.If
-												QueryString?: {
-												} | fn.If
-												SingleHeader?: {
+								}) | fn.If
+								NotStatement?: close({
+									Statement?: close({
+										ByteMatchStatement?: close({
+											FieldToMatch?: close({
+												AllQueryArguments?: close({
+												}) | fn.If
+												Body?: close({
+												}) | fn.If
+												Method?: close({
+												}) | fn.If
+												QueryString?: close({
+												}) | fn.If
+												SingleHeader?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												SingleQueryArgument?: {
+												}) | fn.If
+												SingleQueryArgument?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												UriPath?: {
-												} | fn.If
-											} | fn.If
+												}) | fn.If
+												UriPath?: close({
+												}) | fn.If
+											}) | fn.If
 											PositionalConstraint?: string | fn.Fn
 											SearchString?:         string | fn.Fn
 											SearchStringBase64?:   string | fn.Fn
-											TextTransformations?:  {
-												TextTransformations?: [...{
+											TextTransformations?:  close({
+												TextTransformations?: [...close({
 													[string]: _
-												}] | fn.If
-											} | fn.If
-										} | fn.If
-										GeoMatchStatement?: {
-											CountryCodes?: {
+												})] | fn.If
+											}) | fn.If
+										}) | fn.If
+										GeoMatchStatement?: close({
+											CountryCodes?: close({
 												CountryCodes?: [...(string | fn.Fn)] | (string | fn.Fn)
-											} | fn.If
-										} | fn.If
-										IPSetReferenceStatement?: {
+											}) | fn.If
+										}) | fn.If
+										IPSetReferenceStatement?: close({
 											Arn?: string | fn.Fn
-										} | fn.If
-										ManagedRuleGroupStatement?: {
-											ExcludedRules?: [...{
+										}) | fn.If
+										ManagedRuleGroupStatement?: close({
+											ExcludedRules?: [...close({
 												Name?: string | fn.Fn
-											}] | fn.If
+											})] | fn.If
 											Name?:       string | fn.Fn
 											VendorName?: string | fn.Fn
-										} | fn.If
-										RegexPatternSetReferenceStatement?: {
+										}) | fn.If
+										RegexPatternSetReferenceStatement?: close({
 											Arn?:          string | fn.Fn
-											FieldToMatch?: {
-												AllQueryArguments?: {
-												} | fn.If
-												Body?: {
-												} | fn.If
-												Method?: {
-												} | fn.If
-												QueryString?: {
-												} | fn.If
-												SingleHeader?: {
+											FieldToMatch?: close({
+												AllQueryArguments?: close({
+												}) | fn.If
+												Body?: close({
+												}) | fn.If
+												Method?: close({
+												}) | fn.If
+												QueryString?: close({
+												}) | fn.If
+												SingleHeader?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												SingleQueryArgument?: {
+												}) | fn.If
+												SingleQueryArgument?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												UriPath?: {
-												} | fn.If
-											} | fn.If
-											TextTransformations?: {
-												TextTransformations?: [...{
+												}) | fn.If
+												UriPath?: close({
+												}) | fn.If
+											}) | fn.If
+											TextTransformations?: close({
+												TextTransformations?: [...close({
 													[string]: _
-												}] | fn.If
-											} | fn.If
-										} | fn.If
-										RuleGroupReferenceStatement?: {
+												})] | fn.If
+											}) | fn.If
+										}) | fn.If
+										RuleGroupReferenceStatement?: close({
 											Arn?:           string | fn.Fn
-											ExcludedRules?: [...{
+											ExcludedRules?: [...close({
 												Name?: string | fn.Fn
-											}] | fn.If
-										} | fn.If
-										SizeConstraintStatement?: {
+											})] | fn.If
+										}) | fn.If
+										SizeConstraintStatement?: close({
 											ComparisonOperator?: string | fn.Fn
-											FieldToMatch?:       {
-												AllQueryArguments?: {
-												} | fn.If
-												Body?: {
-												} | fn.If
-												Method?: {
-												} | fn.If
-												QueryString?: {
-												} | fn.If
-												SingleHeader?: {
+											FieldToMatch?:       close({
+												AllQueryArguments?: close({
+												}) | fn.If
+												Body?: close({
+												}) | fn.If
+												Method?: close({
+												}) | fn.If
+												QueryString?: close({
+												}) | fn.If
+												SingleHeader?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												SingleQueryArgument?: {
+												}) | fn.If
+												SingleQueryArgument?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												UriPath?: {
-												} | fn.If
-											} | fn.If
+												}) | fn.If
+												UriPath?: close({
+												}) | fn.If
+											}) | fn.If
 											Size?:                int | fn.Fn
-											TextTransformations?: {
-												TextTransformations?: [...{
+											TextTransformations?: close({
+												TextTransformations?: [...close({
 													[string]: _
-												}] | fn.If
-											} | fn.If
-										} | fn.If
-										SqliMatchStatement?: {
-											FieldToMatch?: {
-												AllQueryArguments?: {
-												} | fn.If
-												Body?: {
-												} | fn.If
-												Method?: {
-												} | fn.If
-												QueryString?: {
-												} | fn.If
-												SingleHeader?: {
+												})] | fn.If
+											}) | fn.If
+										}) | fn.If
+										SqliMatchStatement?: close({
+											FieldToMatch?: close({
+												AllQueryArguments?: close({
+												}) | fn.If
+												Body?: close({
+												}) | fn.If
+												Method?: close({
+												}) | fn.If
+												QueryString?: close({
+												}) | fn.If
+												SingleHeader?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												SingleQueryArgument?: {
+												}) | fn.If
+												SingleQueryArgument?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												UriPath?: {
-												} | fn.If
-											} | fn.If
-											TextTransformations?: {
-												TextTransformations?: [...{
+												}) | fn.If
+												UriPath?: close({
+												}) | fn.If
+											}) | fn.If
+											TextTransformations?: close({
+												TextTransformations?: [...close({
 													[string]: _
-												}] | fn.If
-											} | fn.If
-										} | fn.If
-										XssMatchStatement?: {
-											FieldToMatch?: {
-												AllQueryArguments?: {
-												} | fn.If
-												Body?: {
-												} | fn.If
-												Method?: {
-												} | fn.If
-												QueryString?: {
-												} | fn.If
-												SingleHeader?: {
+												})] | fn.If
+											}) | fn.If
+										}) | fn.If
+										XssMatchStatement?: close({
+											FieldToMatch?: close({
+												AllQueryArguments?: close({
+												}) | fn.If
+												Body?: close({
+												}) | fn.If
+												Method?: close({
+												}) | fn.If
+												QueryString?: close({
+												}) | fn.If
+												SingleHeader?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												SingleQueryArgument?: {
+												}) | fn.If
+												SingleQueryArgument?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												UriPath?: {
-												} | fn.If
-											} | fn.If
-											TextTransformations?: {
-												TextTransformations?: [...{
+												}) | fn.If
+												UriPath?: close({
+												}) | fn.If
+											}) | fn.If
+											TextTransformations?: close({
+												TextTransformations?: [...close({
 													[string]: _
-												}] | fn.If
-											} | fn.If
-										} | fn.If
-									} | fn.If
-								} | fn.If
-								OrStatement?: {
-									Statements?: {
-										StatementThrees?: [...{
-											ByteMatchStatement?: {
-												FieldToMatch?: {
-													AllQueryArguments?: {
-													} | fn.If
-													Body?: {
-													} | fn.If
-													Method?: {
-													} | fn.If
-													QueryString?: {
-													} | fn.If
-													SingleHeader?: {
+												})] | fn.If
+											}) | fn.If
+										}) | fn.If
+									}) | fn.If
+								}) | fn.If
+								OrStatement?: close({
+									Statements?: close({
+										StatementThrees?: [...close({
+											ByteMatchStatement?: close({
+												FieldToMatch?: close({
+													AllQueryArguments?: close({
+													}) | fn.If
+													Body?: close({
+													}) | fn.If
+													Method?: close({
+													}) | fn.If
+													QueryString?: close({
+													}) | fn.If
+													SingleHeader?: close({
 														Name?: string | fn.Fn
-													} | fn.If
-													SingleQueryArgument?: {
+													}) | fn.If
+													SingleQueryArgument?: close({
 														Name?: string | fn.Fn
-													} | fn.If
-													UriPath?: {
-													} | fn.If
-												} | fn.If
+													}) | fn.If
+													UriPath?: close({
+													}) | fn.If
+												}) | fn.If
 												PositionalConstraint?: string | fn.Fn
 												SearchString?:         string | fn.Fn
 												SearchStringBase64?:   string | fn.Fn
-												TextTransformations?:  {
-													TextTransformations?: [...{
+												TextTransformations?:  close({
+													TextTransformations?: [...close({
 														[string]: _
-													}] | fn.If
-												} | fn.If
-											} | fn.If
-											GeoMatchStatement?: {
-												CountryCodes?: {
+													})] | fn.If
+												}) | fn.If
+											}) | fn.If
+											GeoMatchStatement?: close({
+												CountryCodes?: close({
 													CountryCodes?: [...(string | fn.Fn)] | (string | fn.Fn)
-												} | fn.If
-											} | fn.If
-											IPSetReferenceStatement?: {
+												}) | fn.If
+											}) | fn.If
+											IPSetReferenceStatement?: close({
 												Arn?: string | fn.Fn
-											} | fn.If
-											ManagedRuleGroupStatement?: {
-												ExcludedRules?: [...{
+											}) | fn.If
+											ManagedRuleGroupStatement?: close({
+												ExcludedRules?: [...close({
 													Name?: string | fn.Fn
-												}] | fn.If
+												})] | fn.If
 												Name?:       string | fn.Fn
 												VendorName?: string | fn.Fn
-											} | fn.If
-											RegexPatternSetReferenceStatement?: {
+											}) | fn.If
+											RegexPatternSetReferenceStatement?: close({
 												Arn?:          string | fn.Fn
-												FieldToMatch?: {
-													AllQueryArguments?: {
-													} | fn.If
-													Body?: {
-													} | fn.If
-													Method?: {
-													} | fn.If
-													QueryString?: {
-													} | fn.If
-													SingleHeader?: {
+												FieldToMatch?: close({
+													AllQueryArguments?: close({
+													}) | fn.If
+													Body?: close({
+													}) | fn.If
+													Method?: close({
+													}) | fn.If
+													QueryString?: close({
+													}) | fn.If
+													SingleHeader?: close({
 														Name?: string | fn.Fn
-													} | fn.If
-													SingleQueryArgument?: {
+													}) | fn.If
+													SingleQueryArgument?: close({
 														Name?: string | fn.Fn
-													} | fn.If
-													UriPath?: {
-													} | fn.If
-												} | fn.If
-												TextTransformations?: {
-													TextTransformations?: [...{
+													}) | fn.If
+													UriPath?: close({
+													}) | fn.If
+												}) | fn.If
+												TextTransformations?: close({
+													TextTransformations?: [...close({
 														[string]: _
-													}] | fn.If
-												} | fn.If
-											} | fn.If
-											RuleGroupReferenceStatement?: {
+													})] | fn.If
+												}) | fn.If
+											}) | fn.If
+											RuleGroupReferenceStatement?: close({
 												Arn?:           string | fn.Fn
-												ExcludedRules?: [...{
+												ExcludedRules?: [...close({
 													Name?: string | fn.Fn
-												}] | fn.If
-											} | fn.If
-											SizeConstraintStatement?: {
+												})] | fn.If
+											}) | fn.If
+											SizeConstraintStatement?: close({
 												ComparisonOperator?: string | fn.Fn
-												FieldToMatch?:       {
-													AllQueryArguments?: {
-													} | fn.If
-													Body?: {
-													} | fn.If
-													Method?: {
-													} | fn.If
-													QueryString?: {
-													} | fn.If
-													SingleHeader?: {
+												FieldToMatch?:       close({
+													AllQueryArguments?: close({
+													}) | fn.If
+													Body?: close({
+													}) | fn.If
+													Method?: close({
+													}) | fn.If
+													QueryString?: close({
+													}) | fn.If
+													SingleHeader?: close({
 														Name?: string | fn.Fn
-													} | fn.If
-													SingleQueryArgument?: {
+													}) | fn.If
+													SingleQueryArgument?: close({
 														Name?: string | fn.Fn
-													} | fn.If
-													UriPath?: {
-													} | fn.If
-												} | fn.If
+													}) | fn.If
+													UriPath?: close({
+													}) | fn.If
+												}) | fn.If
 												Size?:                int | fn.Fn
-												TextTransformations?: {
-													TextTransformations?: [...{
+												TextTransformations?: close({
+													TextTransformations?: [...close({
 														[string]: _
-													}] | fn.If
-												} | fn.If
-											} | fn.If
-											SqliMatchStatement?: {
-												FieldToMatch?: {
-													AllQueryArguments?: {
-													} | fn.If
-													Body?: {
-													} | fn.If
-													Method?: {
-													} | fn.If
-													QueryString?: {
-													} | fn.If
-													SingleHeader?: {
+													})] | fn.If
+												}) | fn.If
+											}) | fn.If
+											SqliMatchStatement?: close({
+												FieldToMatch?: close({
+													AllQueryArguments?: close({
+													}) | fn.If
+													Body?: close({
+													}) | fn.If
+													Method?: close({
+													}) | fn.If
+													QueryString?: close({
+													}) | fn.If
+													SingleHeader?: close({
 														Name?: string | fn.Fn
-													} | fn.If
-													SingleQueryArgument?: {
+													}) | fn.If
+													SingleQueryArgument?: close({
 														Name?: string | fn.Fn
-													} | fn.If
-													UriPath?: {
-													} | fn.If
-												} | fn.If
-												TextTransformations?: {
-													TextTransformations?: [...{
+													}) | fn.If
+													UriPath?: close({
+													}) | fn.If
+												}) | fn.If
+												TextTransformations?: close({
+													TextTransformations?: [...close({
 														[string]: _
-													}] | fn.If
-												} | fn.If
-											} | fn.If
-											XssMatchStatement?: {
-												FieldToMatch?: {
-													AllQueryArguments?: {
-													} | fn.If
-													Body?: {
-													} | fn.If
-													Method?: {
-													} | fn.If
-													QueryString?: {
-													} | fn.If
-													SingleHeader?: {
+													})] | fn.If
+												}) | fn.If
+											}) | fn.If
+											XssMatchStatement?: close({
+												FieldToMatch?: close({
+													AllQueryArguments?: close({
+													}) | fn.If
+													Body?: close({
+													}) | fn.If
+													Method?: close({
+													}) | fn.If
+													QueryString?: close({
+													}) | fn.If
+													SingleHeader?: close({
 														Name?: string | fn.Fn
-													} | fn.If
-													SingleQueryArgument?: {
+													}) | fn.If
+													SingleQueryArgument?: close({
 														Name?: string | fn.Fn
-													} | fn.If
-													UriPath?: {
-													} | fn.If
-												} | fn.If
-												TextTransformations?: {
-													TextTransformations?: [...{
+													}) | fn.If
+													UriPath?: close({
+													}) | fn.If
+												}) | fn.If
+												TextTransformations?: close({
+													TextTransformations?: [...close({
 														[string]: _
-													}] | fn.If
-												} | fn.If
-											} | fn.If
-										}] | fn.If
-									} | fn.If
-								} | fn.If
-								RateBasedStatement?: {
+													})] | fn.If
+												}) | fn.If
+											}) | fn.If
+										})] | fn.If
+									}) | fn.If
+								}) | fn.If
+								RateBasedStatement?: close({
 									AggregateKeyType?:   string | fn.Fn
 									Limit?:              int | fn.Fn
-									ScopeDownStatement?: {
-										ByteMatchStatement?: {
-											FieldToMatch?: {
-												AllQueryArguments?: {
-												} | fn.If
-												Body?: {
-												} | fn.If
-												Method?: {
-												} | fn.If
-												QueryString?: {
-												} | fn.If
-												SingleHeader?: {
+									ScopeDownStatement?: close({
+										ByteMatchStatement?: close({
+											FieldToMatch?: close({
+												AllQueryArguments?: close({
+												}) | fn.If
+												Body?: close({
+												}) | fn.If
+												Method?: close({
+												}) | fn.If
+												QueryString?: close({
+												}) | fn.If
+												SingleHeader?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												SingleQueryArgument?: {
+												}) | fn.If
+												SingleQueryArgument?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												UriPath?: {
-												} | fn.If
-											} | fn.If
+												}) | fn.If
+												UriPath?: close({
+												}) | fn.If
+											}) | fn.If
 											PositionalConstraint?: string | fn.Fn
 											SearchString?:         string | fn.Fn
 											SearchStringBase64?:   string | fn.Fn
-											TextTransformations?:  {
-												TextTransformations?: [...{
+											TextTransformations?:  close({
+												TextTransformations?: [...close({
 													[string]: _
-												}] | fn.If
-											} | fn.If
-										} | fn.If
-										GeoMatchStatement?: {
-											CountryCodes?: {
+												})] | fn.If
+											}) | fn.If
+										}) | fn.If
+										GeoMatchStatement?: close({
+											CountryCodes?: close({
 												CountryCodes?: [...(string | fn.Fn)] | (string | fn.Fn)
-											} | fn.If
-										} | fn.If
-										IPSetReferenceStatement?: {
+											}) | fn.If
+										}) | fn.If
+										IPSetReferenceStatement?: close({
 											Arn?: string | fn.Fn
-										} | fn.If
-										ManagedRuleGroupStatement?: {
-											ExcludedRules?: [...{
+										}) | fn.If
+										ManagedRuleGroupStatement?: close({
+											ExcludedRules?: [...close({
 												Name?: string | fn.Fn
-											}] | fn.If
+											})] | fn.If
 											Name?:       string | fn.Fn
 											VendorName?: string | fn.Fn
-										} | fn.If
-										RegexPatternSetReferenceStatement?: {
+										}) | fn.If
+										RegexPatternSetReferenceStatement?: close({
 											Arn?:          string | fn.Fn
-											FieldToMatch?: {
-												AllQueryArguments?: {
-												} | fn.If
-												Body?: {
-												} | fn.If
-												Method?: {
-												} | fn.If
-												QueryString?: {
-												} | fn.If
-												SingleHeader?: {
+											FieldToMatch?: close({
+												AllQueryArguments?: close({
+												}) | fn.If
+												Body?: close({
+												}) | fn.If
+												Method?: close({
+												}) | fn.If
+												QueryString?: close({
+												}) | fn.If
+												SingleHeader?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												SingleQueryArgument?: {
+												}) | fn.If
+												SingleQueryArgument?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												UriPath?: {
-												} | fn.If
-											} | fn.If
-											TextTransformations?: {
-												TextTransformations?: [...{
+												}) | fn.If
+												UriPath?: close({
+												}) | fn.If
+											}) | fn.If
+											TextTransformations?: close({
+												TextTransformations?: [...close({
 													[string]: _
-												}] | fn.If
-											} | fn.If
-										} | fn.If
-										RuleGroupReferenceStatement?: {
+												})] | fn.If
+											}) | fn.If
+										}) | fn.If
+										RuleGroupReferenceStatement?: close({
 											Arn?:           string | fn.Fn
-											ExcludedRules?: [...{
+											ExcludedRules?: [...close({
 												Name?: string | fn.Fn
-											}] | fn.If
-										} | fn.If
-										SizeConstraintStatement?: {
+											})] | fn.If
+										}) | fn.If
+										SizeConstraintStatement?: close({
 											ComparisonOperator?: string | fn.Fn
-											FieldToMatch?:       {
-												AllQueryArguments?: {
-												} | fn.If
-												Body?: {
-												} | fn.If
-												Method?: {
-												} | fn.If
-												QueryString?: {
-												} | fn.If
-												SingleHeader?: {
+											FieldToMatch?:       close({
+												AllQueryArguments?: close({
+												}) | fn.If
+												Body?: close({
+												}) | fn.If
+												Method?: close({
+												}) | fn.If
+												QueryString?: close({
+												}) | fn.If
+												SingleHeader?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												SingleQueryArgument?: {
+												}) | fn.If
+												SingleQueryArgument?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												UriPath?: {
-												} | fn.If
-											} | fn.If
+												}) | fn.If
+												UriPath?: close({
+												}) | fn.If
+											}) | fn.If
 											Size?:                int | fn.Fn
-											TextTransformations?: {
-												TextTransformations?: [...{
+											TextTransformations?: close({
+												TextTransformations?: [...close({
 													[string]: _
-												}] | fn.If
-											} | fn.If
-										} | fn.If
-										SqliMatchStatement?: {
-											FieldToMatch?: {
-												AllQueryArguments?: {
-												} | fn.If
-												Body?: {
-												} | fn.If
-												Method?: {
-												} | fn.If
-												QueryString?: {
-												} | fn.If
-												SingleHeader?: {
+												})] | fn.If
+											}) | fn.If
+										}) | fn.If
+										SqliMatchStatement?: close({
+											FieldToMatch?: close({
+												AllQueryArguments?: close({
+												}) | fn.If
+												Body?: close({
+												}) | fn.If
+												Method?: close({
+												}) | fn.If
+												QueryString?: close({
+												}) | fn.If
+												SingleHeader?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												SingleQueryArgument?: {
+												}) | fn.If
+												SingleQueryArgument?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												UriPath?: {
-												} | fn.If
-											} | fn.If
-											TextTransformations?: {
-												TextTransformations?: [...{
+												}) | fn.If
+												UriPath?: close({
+												}) | fn.If
+											}) | fn.If
+											TextTransformations?: close({
+												TextTransformations?: [...close({
 													[string]: _
-												}] | fn.If
-											} | fn.If
-										} | fn.If
-										XssMatchStatement?: {
-											FieldToMatch?: {
-												AllQueryArguments?: {
-												} | fn.If
-												Body?: {
-												} | fn.If
-												Method?: {
-												} | fn.If
-												QueryString?: {
-												} | fn.If
-												SingleHeader?: {
+												})] | fn.If
+											}) | fn.If
+										}) | fn.If
+										XssMatchStatement?: close({
+											FieldToMatch?: close({
+												AllQueryArguments?: close({
+												}) | fn.If
+												Body?: close({
+												}) | fn.If
+												Method?: close({
+												}) | fn.If
+												QueryString?: close({
+												}) | fn.If
+												SingleHeader?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												SingleQueryArgument?: {
+												}) | fn.If
+												SingleQueryArgument?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												UriPath?: {
-												} | fn.If
-											} | fn.If
-											TextTransformations?: {
-												TextTransformations?: [...{
+												}) | fn.If
+												UriPath?: close({
+												}) | fn.If
+											}) | fn.If
+											TextTransformations?: close({
+												TextTransformations?: [...close({
 													[string]: _
-												}] | fn.If
-											} | fn.If
-										} | fn.If
-									} | fn.If
-								} | fn.If
-								RegexPatternSetReferenceStatement?: {
+												})] | fn.If
+											}) | fn.If
+										}) | fn.If
+									}) | fn.If
+								}) | fn.If
+								RegexPatternSetReferenceStatement?: close({
 									Arn?:          string | fn.Fn
-									FieldToMatch?: {
-										AllQueryArguments?: {
-										} | fn.If
-										Body?: {
-										} | fn.If
-										Method?: {
-										} | fn.If
-										QueryString?: {
-										} | fn.If
-										SingleHeader?: {
+									FieldToMatch?: close({
+										AllQueryArguments?: close({
+										}) | fn.If
+										Body?: close({
+										}) | fn.If
+										Method?: close({
+										}) | fn.If
+										QueryString?: close({
+										}) | fn.If
+										SingleHeader?: close({
 											Name?: string | fn.Fn
-										} | fn.If
-										SingleQueryArgument?: {
+										}) | fn.If
+										SingleQueryArgument?: close({
 											Name?: string | fn.Fn
-										} | fn.If
-										UriPath?: {
-										} | fn.If
-									} | fn.If
-									TextTransformations?: {
-										TextTransformations?: [...{
+										}) | fn.If
+										UriPath?: close({
+										}) | fn.If
+									}) | fn.If
+									TextTransformations?: close({
+										TextTransformations?: [...close({
 											[string]: _
-										}] | fn.If
-									} | fn.If
-								} | fn.If
-								RuleGroupReferenceStatement?: {
+										})] | fn.If
+									}) | fn.If
+								}) | fn.If
+								RuleGroupReferenceStatement?: close({
 									Arn?:           string | fn.Fn
-									ExcludedRules?: [...{
+									ExcludedRules?: [...close({
 										Name?: string | fn.Fn
-									}] | fn.If
-								} | fn.If
-								SizeConstraintStatement?: {
+									})] | fn.If
+								}) | fn.If
+								SizeConstraintStatement?: close({
 									ComparisonOperator?: string | fn.Fn
-									FieldToMatch?:       {
-										AllQueryArguments?: {
-										} | fn.If
-										Body?: {
-										} | fn.If
-										Method?: {
-										} | fn.If
-										QueryString?: {
-										} | fn.If
-										SingleHeader?: {
+									FieldToMatch?:       close({
+										AllQueryArguments?: close({
+										}) | fn.If
+										Body?: close({
+										}) | fn.If
+										Method?: close({
+										}) | fn.If
+										QueryString?: close({
+										}) | fn.If
+										SingleHeader?: close({
 											Name?: string | fn.Fn
-										} | fn.If
-										SingleQueryArgument?: {
+										}) | fn.If
+										SingleQueryArgument?: close({
 											Name?: string | fn.Fn
-										} | fn.If
-										UriPath?: {
-										} | fn.If
-									} | fn.If
+										}) | fn.If
+										UriPath?: close({
+										}) | fn.If
+									}) | fn.If
 									Size?:                int | fn.Fn
-									TextTransformations?: {
-										TextTransformations?: [...{
+									TextTransformations?: close({
+										TextTransformations?: [...close({
 											[string]: _
-										}] | fn.If
-									} | fn.If
-								} | fn.If
-								SqliMatchStatement?: {
-									FieldToMatch?: {
-										AllQueryArguments?: {
-										} | fn.If
-										Body?: {
-										} | fn.If
-										Method?: {
-										} | fn.If
-										QueryString?: {
-										} | fn.If
-										SingleHeader?: {
+										})] | fn.If
+									}) | fn.If
+								}) | fn.If
+								SqliMatchStatement?: close({
+									FieldToMatch?: close({
+										AllQueryArguments?: close({
+										}) | fn.If
+										Body?: close({
+										}) | fn.If
+										Method?: close({
+										}) | fn.If
+										QueryString?: close({
+										}) | fn.If
+										SingleHeader?: close({
 											Name?: string | fn.Fn
-										} | fn.If
-										SingleQueryArgument?: {
+										}) | fn.If
+										SingleQueryArgument?: close({
 											Name?: string | fn.Fn
-										} | fn.If
-										UriPath?: {
-										} | fn.If
-									} | fn.If
-									TextTransformations?: {
-										TextTransformations?: [...{
+										}) | fn.If
+										UriPath?: close({
+										}) | fn.If
+									}) | fn.If
+									TextTransformations?: close({
+										TextTransformations?: [...close({
 											[string]: _
-										}] | fn.If
-									} | fn.If
-								} | fn.If
-								XssMatchStatement?: {
-									FieldToMatch?: {
-										AllQueryArguments?: {
-										} | fn.If
-										Body?: {
-										} | fn.If
-										Method?: {
-										} | fn.If
-										QueryString?: {
-										} | fn.If
-										SingleHeader?: {
+										})] | fn.If
+									}) | fn.If
+								}) | fn.If
+								XssMatchStatement?: close({
+									FieldToMatch?: close({
+										AllQueryArguments?: close({
+										}) | fn.If
+										Body?: close({
+										}) | fn.If
+										Method?: close({
+										}) | fn.If
+										QueryString?: close({
+										}) | fn.If
+										SingleHeader?: close({
 											Name?: string | fn.Fn
-										} | fn.If
-										SingleQueryArgument?: {
+										}) | fn.If
+										SingleQueryArgument?: close({
 											Name?: string | fn.Fn
-										} | fn.If
-										UriPath?: {
-										} | fn.If
-									} | fn.If
-									TextTransformations?: {
-										TextTransformations?: [...{
+										}) | fn.If
+										UriPath?: close({
+										}) | fn.If
+									}) | fn.If
+									TextTransformations?: close({
+										TextTransformations?: [...close({
 											[string]: _
-										}] | fn.If
-									} | fn.If
-								} | fn.If
-							}] | fn.If
-						} | fn.If
-					} | fn.If
-					ByteMatchStatement?: {
-						FieldToMatch?: {
-							AllQueryArguments?: {
-							} | fn.If
-							Body?: {
-							} | fn.If
-							Method?: {
-							} | fn.If
-							QueryString?: {
-							} | fn.If
-							SingleHeader?: {
+										})] | fn.If
+									}) | fn.If
+								}) | fn.If
+							})] | fn.If
+						}) | fn.If
+					}) | fn.If
+					ByteMatchStatement?: close({
+						FieldToMatch?: close({
+							AllQueryArguments?: close({
+							}) | fn.If
+							Body?: close({
+							}) | fn.If
+							Method?: close({
+							}) | fn.If
+							QueryString?: close({
+							}) | fn.If
+							SingleHeader?: close({
 								Name?: string | fn.Fn
-							} | fn.If
-							SingleQueryArgument?: {
+							}) | fn.If
+							SingleQueryArgument?: close({
 								Name?: string | fn.Fn
-							} | fn.If
-							UriPath?: {
-							} | fn.If
-						} | fn.If
+							}) | fn.If
+							UriPath?: close({
+							}) | fn.If
+						}) | fn.If
 						PositionalConstraint?: string | fn.Fn
 						SearchString?:         string | fn.Fn
 						SearchStringBase64?:   string | fn.Fn
-						TextTransformations?:  {
-							TextTransformations?: [...{
+						TextTransformations?:  close({
+							TextTransformations?: [...close({
 								[string]: _
-							}] | fn.If
-						} | fn.If
-					} | fn.If
-					GeoMatchStatement?: {
-						CountryCodes?: {
+							})] | fn.If
+						}) | fn.If
+					}) | fn.If
+					GeoMatchStatement?: close({
+						CountryCodes?: close({
 							CountryCodes?: [...(string | fn.Fn)] | (string | fn.Fn)
-						} | fn.If
-					} | fn.If
-					IPSetReferenceStatement?: {
+						}) | fn.If
+					}) | fn.If
+					IPSetReferenceStatement?: close({
 						Arn?: string | fn.Fn
-					} | fn.If
-					ManagedRuleGroupStatement?: {
-						ExcludedRules?: [...{
+					}) | fn.If
+					ManagedRuleGroupStatement?: close({
+						ExcludedRules?: [...close({
 							Name?: string | fn.Fn
-						}] | fn.If
+						})] | fn.If
 						Name?:       string | fn.Fn
 						VendorName?: string | fn.Fn
-					} | fn.If
-					NotStatement?: {
-						Statement?: {
-							AndStatement?: {
-								Statements?: {
-									StatementThrees?: [...{
-										ByteMatchStatement?: {
-											FieldToMatch?: {
-												AllQueryArguments?: {
-												} | fn.If
-												Body?: {
-												} | fn.If
-												Method?: {
-												} | fn.If
-												QueryString?: {
-												} | fn.If
-												SingleHeader?: {
+					}) | fn.If
+					NotStatement?: close({
+						Statement?: close({
+							AndStatement?: close({
+								Statements?: close({
+									StatementThrees?: [...close({
+										ByteMatchStatement?: close({
+											FieldToMatch?: close({
+												AllQueryArguments?: close({
+												}) | fn.If
+												Body?: close({
+												}) | fn.If
+												Method?: close({
+												}) | fn.If
+												QueryString?: close({
+												}) | fn.If
+												SingleHeader?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												SingleQueryArgument?: {
+												}) | fn.If
+												SingleQueryArgument?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												UriPath?: {
-												} | fn.If
-											} | fn.If
+												}) | fn.If
+												UriPath?: close({
+												}) | fn.If
+											}) | fn.If
 											PositionalConstraint?: string | fn.Fn
 											SearchString?:         string | fn.Fn
 											SearchStringBase64?:   string | fn.Fn
-											TextTransformations?:  {
-												TextTransformations?: [...{
+											TextTransformations?:  close({
+												TextTransformations?: [...close({
 													[string]: _
-												}] | fn.If
-											} | fn.If
-										} | fn.If
-										GeoMatchStatement?: {
-											CountryCodes?: {
+												})] | fn.If
+											}) | fn.If
+										}) | fn.If
+										GeoMatchStatement?: close({
+											CountryCodes?: close({
 												CountryCodes?: [...(string | fn.Fn)] | (string | fn.Fn)
-											} | fn.If
-										} | fn.If
-										IPSetReferenceStatement?: {
+											}) | fn.If
+										}) | fn.If
+										IPSetReferenceStatement?: close({
 											Arn?: string | fn.Fn
-										} | fn.If
-										ManagedRuleGroupStatement?: {
-											ExcludedRules?: [...{
+										}) | fn.If
+										ManagedRuleGroupStatement?: close({
+											ExcludedRules?: [...close({
 												Name?: string | fn.Fn
-											}] | fn.If
+											})] | fn.If
 											Name?:       string | fn.Fn
 											VendorName?: string | fn.Fn
-										} | fn.If
-										RegexPatternSetReferenceStatement?: {
+										}) | fn.If
+										RegexPatternSetReferenceStatement?: close({
 											Arn?:          string | fn.Fn
-											FieldToMatch?: {
-												AllQueryArguments?: {
-												} | fn.If
-												Body?: {
-												} | fn.If
-												Method?: {
-												} | fn.If
-												QueryString?: {
-												} | fn.If
-												SingleHeader?: {
+											FieldToMatch?: close({
+												AllQueryArguments?: close({
+												}) | fn.If
+												Body?: close({
+												}) | fn.If
+												Method?: close({
+												}) | fn.If
+												QueryString?: close({
+												}) | fn.If
+												SingleHeader?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												SingleQueryArgument?: {
+												}) | fn.If
+												SingleQueryArgument?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												UriPath?: {
-												} | fn.If
-											} | fn.If
-											TextTransformations?: {
-												TextTransformations?: [...{
+												}) | fn.If
+												UriPath?: close({
+												}) | fn.If
+											}) | fn.If
+											TextTransformations?: close({
+												TextTransformations?: [...close({
 													[string]: _
-												}] | fn.If
-											} | fn.If
-										} | fn.If
-										RuleGroupReferenceStatement?: {
+												})] | fn.If
+											}) | fn.If
+										}) | fn.If
+										RuleGroupReferenceStatement?: close({
 											Arn?:           string | fn.Fn
-											ExcludedRules?: [...{
+											ExcludedRules?: [...close({
 												Name?: string | fn.Fn
-											}] | fn.If
-										} | fn.If
-										SizeConstraintStatement?: {
+											})] | fn.If
+										}) | fn.If
+										SizeConstraintStatement?: close({
 											ComparisonOperator?: string | fn.Fn
-											FieldToMatch?:       {
-												AllQueryArguments?: {
-												} | fn.If
-												Body?: {
-												} | fn.If
-												Method?: {
-												} | fn.If
-												QueryString?: {
-												} | fn.If
-												SingleHeader?: {
+											FieldToMatch?:       close({
+												AllQueryArguments?: close({
+												}) | fn.If
+												Body?: close({
+												}) | fn.If
+												Method?: close({
+												}) | fn.If
+												QueryString?: close({
+												}) | fn.If
+												SingleHeader?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												SingleQueryArgument?: {
+												}) | fn.If
+												SingleQueryArgument?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												UriPath?: {
-												} | fn.If
-											} | fn.If
+												}) | fn.If
+												UriPath?: close({
+												}) | fn.If
+											}) | fn.If
 											Size?:                int | fn.Fn
-											TextTransformations?: {
-												TextTransformations?: [...{
+											TextTransformations?: close({
+												TextTransformations?: [...close({
 													[string]: _
-												}] | fn.If
-											} | fn.If
-										} | fn.If
-										SqliMatchStatement?: {
-											FieldToMatch?: {
-												AllQueryArguments?: {
-												} | fn.If
-												Body?: {
-												} | fn.If
-												Method?: {
-												} | fn.If
-												QueryString?: {
-												} | fn.If
-												SingleHeader?: {
+												})] | fn.If
+											}) | fn.If
+										}) | fn.If
+										SqliMatchStatement?: close({
+											FieldToMatch?: close({
+												AllQueryArguments?: close({
+												}) | fn.If
+												Body?: close({
+												}) | fn.If
+												Method?: close({
+												}) | fn.If
+												QueryString?: close({
+												}) | fn.If
+												SingleHeader?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												SingleQueryArgument?: {
+												}) | fn.If
+												SingleQueryArgument?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												UriPath?: {
-												} | fn.If
-											} | fn.If
-											TextTransformations?: {
-												TextTransformations?: [...{
+												}) | fn.If
+												UriPath?: close({
+												}) | fn.If
+											}) | fn.If
+											TextTransformations?: close({
+												TextTransformations?: [...close({
 													[string]: _
-												}] | fn.If
-											} | fn.If
-										} | fn.If
-										XssMatchStatement?: {
-											FieldToMatch?: {
-												AllQueryArguments?: {
-												} | fn.If
-												Body?: {
-												} | fn.If
-												Method?: {
-												} | fn.If
-												QueryString?: {
-												} | fn.If
-												SingleHeader?: {
+												})] | fn.If
+											}) | fn.If
+										}) | fn.If
+										XssMatchStatement?: close({
+											FieldToMatch?: close({
+												AllQueryArguments?: close({
+												}) | fn.If
+												Body?: close({
+												}) | fn.If
+												Method?: close({
+												}) | fn.If
+												QueryString?: close({
+												}) | fn.If
+												SingleHeader?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												SingleQueryArgument?: {
+												}) | fn.If
+												SingleQueryArgument?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												UriPath?: {
-												} | fn.If
-											} | fn.If
-											TextTransformations?: {
-												TextTransformations?: [...{
+												}) | fn.If
+												UriPath?: close({
+												}) | fn.If
+											}) | fn.If
+											TextTransformations?: close({
+												TextTransformations?: [...close({
 													[string]: _
-												}] | fn.If
-											} | fn.If
-										} | fn.If
-									}] | fn.If
-								} | fn.If
-							} | fn.If
-							ByteMatchStatement?: {
-								FieldToMatch?: {
-									AllQueryArguments?: {
-									} | fn.If
-									Body?: {
-									} | fn.If
-									Method?: {
-									} | fn.If
-									QueryString?: {
-									} | fn.If
-									SingleHeader?: {
+												})] | fn.If
+											}) | fn.If
+										}) | fn.If
+									})] | fn.If
+								}) | fn.If
+							}) | fn.If
+							ByteMatchStatement?: close({
+								FieldToMatch?: close({
+									AllQueryArguments?: close({
+									}) | fn.If
+									Body?: close({
+									}) | fn.If
+									Method?: close({
+									}) | fn.If
+									QueryString?: close({
+									}) | fn.If
+									SingleHeader?: close({
 										Name?: string | fn.Fn
-									} | fn.If
-									SingleQueryArgument?: {
+									}) | fn.If
+									SingleQueryArgument?: close({
 										Name?: string | fn.Fn
-									} | fn.If
-									UriPath?: {
-									} | fn.If
-								} | fn.If
+									}) | fn.If
+									UriPath?: close({
+									}) | fn.If
+								}) | fn.If
 								PositionalConstraint?: string | fn.Fn
 								SearchString?:         string | fn.Fn
 								SearchStringBase64?:   string | fn.Fn
-								TextTransformations?:  {
-									TextTransformations?: [...{
+								TextTransformations?:  close({
+									TextTransformations?: [...close({
 										[string]: _
-									}] | fn.If
-								} | fn.If
-							} | fn.If
-							GeoMatchStatement?: {
-								CountryCodes?: {
+									})] | fn.If
+								}) | fn.If
+							}) | fn.If
+							GeoMatchStatement?: close({
+								CountryCodes?: close({
 									CountryCodes?: [...(string | fn.Fn)] | (string | fn.Fn)
-								} | fn.If
-							} | fn.If
-							IPSetReferenceStatement?: {
+								}) | fn.If
+							}) | fn.If
+							IPSetReferenceStatement?: close({
 								Arn?: string | fn.Fn
-							} | fn.If
-							ManagedRuleGroupStatement?: {
-								ExcludedRules?: [...{
+							}) | fn.If
+							ManagedRuleGroupStatement?: close({
+								ExcludedRules?: [...close({
 									Name?: string | fn.Fn
-								}] | fn.If
+								})] | fn.If
 								Name?:       string | fn.Fn
 								VendorName?: string | fn.Fn
-							} | fn.If
-							NotStatement?: {
-								Statement?: {
-									ByteMatchStatement?: {
-										FieldToMatch?: {
-											AllQueryArguments?: {
-											} | fn.If
-											Body?: {
-											} | fn.If
-											Method?: {
-											} | fn.If
-											QueryString?: {
-											} | fn.If
-											SingleHeader?: {
+							}) | fn.If
+							NotStatement?: close({
+								Statement?: close({
+									ByteMatchStatement?: close({
+										FieldToMatch?: close({
+											AllQueryArguments?: close({
+											}) | fn.If
+											Body?: close({
+											}) | fn.If
+											Method?: close({
+											}) | fn.If
+											QueryString?: close({
+											}) | fn.If
+											SingleHeader?: close({
 												Name?: string | fn.Fn
-											} | fn.If
-											SingleQueryArgument?: {
+											}) | fn.If
+											SingleQueryArgument?: close({
 												Name?: string | fn.Fn
-											} | fn.If
-											UriPath?: {
-											} | fn.If
-										} | fn.If
+											}) | fn.If
+											UriPath?: close({
+											}) | fn.If
+										}) | fn.If
 										PositionalConstraint?: string | fn.Fn
 										SearchString?:         string | fn.Fn
 										SearchStringBase64?:   string | fn.Fn
-										TextTransformations?:  {
-											TextTransformations?: [...{
+										TextTransformations?:  close({
+											TextTransformations?: [...close({
 												[string]: _
-											}] | fn.If
-										} | fn.If
-									} | fn.If
-									GeoMatchStatement?: {
-										CountryCodes?: {
+											})] | fn.If
+										}) | fn.If
+									}) | fn.If
+									GeoMatchStatement?: close({
+										CountryCodes?: close({
 											CountryCodes?: [...(string | fn.Fn)] | (string | fn.Fn)
-										} | fn.If
-									} | fn.If
-									IPSetReferenceStatement?: {
+										}) | fn.If
+									}) | fn.If
+									IPSetReferenceStatement?: close({
 										Arn?: string | fn.Fn
-									} | fn.If
-									ManagedRuleGroupStatement?: {
-										ExcludedRules?: [...{
+									}) | fn.If
+									ManagedRuleGroupStatement?: close({
+										ExcludedRules?: [...close({
 											Name?: string | fn.Fn
-										}] | fn.If
+										})] | fn.If
 										Name?:       string | fn.Fn
 										VendorName?: string | fn.Fn
-									} | fn.If
-									RegexPatternSetReferenceStatement?: {
+									}) | fn.If
+									RegexPatternSetReferenceStatement?: close({
 										Arn?:          string | fn.Fn
-										FieldToMatch?: {
-											AllQueryArguments?: {
-											} | fn.If
-											Body?: {
-											} | fn.If
-											Method?: {
-											} | fn.If
-											QueryString?: {
-											} | fn.If
-											SingleHeader?: {
+										FieldToMatch?: close({
+											AllQueryArguments?: close({
+											}) | fn.If
+											Body?: close({
+											}) | fn.If
+											Method?: close({
+											}) | fn.If
+											QueryString?: close({
+											}) | fn.If
+											SingleHeader?: close({
 												Name?: string | fn.Fn
-											} | fn.If
-											SingleQueryArgument?: {
+											}) | fn.If
+											SingleQueryArgument?: close({
 												Name?: string | fn.Fn
-											} | fn.If
-											UriPath?: {
-											} | fn.If
-										} | fn.If
-										TextTransformations?: {
-											TextTransformations?: [...{
+											}) | fn.If
+											UriPath?: close({
+											}) | fn.If
+										}) | fn.If
+										TextTransformations?: close({
+											TextTransformations?: [...close({
 												[string]: _
-											}] | fn.If
-										} | fn.If
-									} | fn.If
-									RuleGroupReferenceStatement?: {
+											})] | fn.If
+										}) | fn.If
+									}) | fn.If
+									RuleGroupReferenceStatement?: close({
 										Arn?:           string | fn.Fn
-										ExcludedRules?: [...{
+										ExcludedRules?: [...close({
 											Name?: string | fn.Fn
-										}] | fn.If
-									} | fn.If
-									SizeConstraintStatement?: {
+										})] | fn.If
+									}) | fn.If
+									SizeConstraintStatement?: close({
 										ComparisonOperator?: string | fn.Fn
-										FieldToMatch?:       {
-											AllQueryArguments?: {
-											} | fn.If
-											Body?: {
-											} | fn.If
-											Method?: {
-											} | fn.If
-											QueryString?: {
-											} | fn.If
-											SingleHeader?: {
+										FieldToMatch?:       close({
+											AllQueryArguments?: close({
+											}) | fn.If
+											Body?: close({
+											}) | fn.If
+											Method?: close({
+											}) | fn.If
+											QueryString?: close({
+											}) | fn.If
+											SingleHeader?: close({
 												Name?: string | fn.Fn
-											} | fn.If
-											SingleQueryArgument?: {
+											}) | fn.If
+											SingleQueryArgument?: close({
 												Name?: string | fn.Fn
-											} | fn.If
-											UriPath?: {
-											} | fn.If
-										} | fn.If
+											}) | fn.If
+											UriPath?: close({
+											}) | fn.If
+										}) | fn.If
 										Size?:                int | fn.Fn
-										TextTransformations?: {
-											TextTransformations?: [...{
+										TextTransformations?: close({
+											TextTransformations?: [...close({
 												[string]: _
-											}] | fn.If
-										} | fn.If
-									} | fn.If
-									SqliMatchStatement?: {
-										FieldToMatch?: {
-											AllQueryArguments?: {
-											} | fn.If
-											Body?: {
-											} | fn.If
-											Method?: {
-											} | fn.If
-											QueryString?: {
-											} | fn.If
-											SingleHeader?: {
+											})] | fn.If
+										}) | fn.If
+									}) | fn.If
+									SqliMatchStatement?: close({
+										FieldToMatch?: close({
+											AllQueryArguments?: close({
+											}) | fn.If
+											Body?: close({
+											}) | fn.If
+											Method?: close({
+											}) | fn.If
+											QueryString?: close({
+											}) | fn.If
+											SingleHeader?: close({
 												Name?: string | fn.Fn
-											} | fn.If
-											SingleQueryArgument?: {
+											}) | fn.If
+											SingleQueryArgument?: close({
 												Name?: string | fn.Fn
-											} | fn.If
-											UriPath?: {
-											} | fn.If
-										} | fn.If
-										TextTransformations?: {
-											TextTransformations?: [...{
+											}) | fn.If
+											UriPath?: close({
+											}) | fn.If
+										}) | fn.If
+										TextTransformations?: close({
+											TextTransformations?: [...close({
 												[string]: _
-											}] | fn.If
-										} | fn.If
-									} | fn.If
-									XssMatchStatement?: {
-										FieldToMatch?: {
-											AllQueryArguments?: {
-											} | fn.If
-											Body?: {
-											} | fn.If
-											Method?: {
-											} | fn.If
-											QueryString?: {
-											} | fn.If
-											SingleHeader?: {
+											})] | fn.If
+										}) | fn.If
+									}) | fn.If
+									XssMatchStatement?: close({
+										FieldToMatch?: close({
+											AllQueryArguments?: close({
+											}) | fn.If
+											Body?: close({
+											}) | fn.If
+											Method?: close({
+											}) | fn.If
+											QueryString?: close({
+											}) | fn.If
+											SingleHeader?: close({
 												Name?: string | fn.Fn
-											} | fn.If
-											SingleQueryArgument?: {
+											}) | fn.If
+											SingleQueryArgument?: close({
 												Name?: string | fn.Fn
-											} | fn.If
-											UriPath?: {
-											} | fn.If
-										} | fn.If
-										TextTransformations?: {
-											TextTransformations?: [...{
+											}) | fn.If
+											UriPath?: close({
+											}) | fn.If
+										}) | fn.If
+										TextTransformations?: close({
+											TextTransformations?: [...close({
 												[string]: _
-											}] | fn.If
-										} | fn.If
-									} | fn.If
-								} | fn.If
-							} | fn.If
-							OrStatement?: {
-								Statements?: {
-									StatementThrees?: [...{
-										ByteMatchStatement?: {
-											FieldToMatch?: {
-												AllQueryArguments?: {
-												} | fn.If
-												Body?: {
-												} | fn.If
-												Method?: {
-												} | fn.If
-												QueryString?: {
-												} | fn.If
-												SingleHeader?: {
+											})] | fn.If
+										}) | fn.If
+									}) | fn.If
+								}) | fn.If
+							}) | fn.If
+							OrStatement?: close({
+								Statements?: close({
+									StatementThrees?: [...close({
+										ByteMatchStatement?: close({
+											FieldToMatch?: close({
+												AllQueryArguments?: close({
+												}) | fn.If
+												Body?: close({
+												}) | fn.If
+												Method?: close({
+												}) | fn.If
+												QueryString?: close({
+												}) | fn.If
+												SingleHeader?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												SingleQueryArgument?: {
+												}) | fn.If
+												SingleQueryArgument?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												UriPath?: {
-												} | fn.If
-											} | fn.If
+												}) | fn.If
+												UriPath?: close({
+												}) | fn.If
+											}) | fn.If
 											PositionalConstraint?: string | fn.Fn
 											SearchString?:         string | fn.Fn
 											SearchStringBase64?:   string | fn.Fn
-											TextTransformations?:  {
-												TextTransformations?: [...{
+											TextTransformations?:  close({
+												TextTransformations?: [...close({
 													[string]: _
-												}] | fn.If
-											} | fn.If
-										} | fn.If
-										GeoMatchStatement?: {
-											CountryCodes?: {
+												})] | fn.If
+											}) | fn.If
+										}) | fn.If
+										GeoMatchStatement?: close({
+											CountryCodes?: close({
 												CountryCodes?: [...(string | fn.Fn)] | (string | fn.Fn)
-											} | fn.If
-										} | fn.If
-										IPSetReferenceStatement?: {
+											}) | fn.If
+										}) | fn.If
+										IPSetReferenceStatement?: close({
 											Arn?: string | fn.Fn
-										} | fn.If
-										ManagedRuleGroupStatement?: {
-											ExcludedRules?: [...{
+										}) | fn.If
+										ManagedRuleGroupStatement?: close({
+											ExcludedRules?: [...close({
 												Name?: string | fn.Fn
-											}] | fn.If
+											})] | fn.If
 											Name?:       string | fn.Fn
 											VendorName?: string | fn.Fn
-										} | fn.If
-										RegexPatternSetReferenceStatement?: {
+										}) | fn.If
+										RegexPatternSetReferenceStatement?: close({
 											Arn?:          string | fn.Fn
-											FieldToMatch?: {
-												AllQueryArguments?: {
-												} | fn.If
-												Body?: {
-												} | fn.If
-												Method?: {
-												} | fn.If
-												QueryString?: {
-												} | fn.If
-												SingleHeader?: {
+											FieldToMatch?: close({
+												AllQueryArguments?: close({
+												}) | fn.If
+												Body?: close({
+												}) | fn.If
+												Method?: close({
+												}) | fn.If
+												QueryString?: close({
+												}) | fn.If
+												SingleHeader?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												SingleQueryArgument?: {
+												}) | fn.If
+												SingleQueryArgument?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												UriPath?: {
-												} | fn.If
-											} | fn.If
-											TextTransformations?: {
-												TextTransformations?: [...{
+												}) | fn.If
+												UriPath?: close({
+												}) | fn.If
+											}) | fn.If
+											TextTransformations?: close({
+												TextTransformations?: [...close({
 													[string]: _
-												}] | fn.If
-											} | fn.If
-										} | fn.If
-										RuleGroupReferenceStatement?: {
+												})] | fn.If
+											}) | fn.If
+										}) | fn.If
+										RuleGroupReferenceStatement?: close({
 											Arn?:           string | fn.Fn
-											ExcludedRules?: [...{
+											ExcludedRules?: [...close({
 												Name?: string | fn.Fn
-											}] | fn.If
-										} | fn.If
-										SizeConstraintStatement?: {
+											})] | fn.If
+										}) | fn.If
+										SizeConstraintStatement?: close({
 											ComparisonOperator?: string | fn.Fn
-											FieldToMatch?:       {
-												AllQueryArguments?: {
-												} | fn.If
-												Body?: {
-												} | fn.If
-												Method?: {
-												} | fn.If
-												QueryString?: {
-												} | fn.If
-												SingleHeader?: {
+											FieldToMatch?:       close({
+												AllQueryArguments?: close({
+												}) | fn.If
+												Body?: close({
+												}) | fn.If
+												Method?: close({
+												}) | fn.If
+												QueryString?: close({
+												}) | fn.If
+												SingleHeader?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												SingleQueryArgument?: {
+												}) | fn.If
+												SingleQueryArgument?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												UriPath?: {
-												} | fn.If
-											} | fn.If
+												}) | fn.If
+												UriPath?: close({
+												}) | fn.If
+											}) | fn.If
 											Size?:                int | fn.Fn
-											TextTransformations?: {
-												TextTransformations?: [...{
+											TextTransformations?: close({
+												TextTransformations?: [...close({
 													[string]: _
-												}] | fn.If
-											} | fn.If
-										} | fn.If
-										SqliMatchStatement?: {
-											FieldToMatch?: {
-												AllQueryArguments?: {
-												} | fn.If
-												Body?: {
-												} | fn.If
-												Method?: {
-												} | fn.If
-												QueryString?: {
-												} | fn.If
-												SingleHeader?: {
+												})] | fn.If
+											}) | fn.If
+										}) | fn.If
+										SqliMatchStatement?: close({
+											FieldToMatch?: close({
+												AllQueryArguments?: close({
+												}) | fn.If
+												Body?: close({
+												}) | fn.If
+												Method?: close({
+												}) | fn.If
+												QueryString?: close({
+												}) | fn.If
+												SingleHeader?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												SingleQueryArgument?: {
+												}) | fn.If
+												SingleQueryArgument?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												UriPath?: {
-												} | fn.If
-											} | fn.If
-											TextTransformations?: {
-												TextTransformations?: [...{
+												}) | fn.If
+												UriPath?: close({
+												}) | fn.If
+											}) | fn.If
+											TextTransformations?: close({
+												TextTransformations?: [...close({
 													[string]: _
-												}] | fn.If
-											} | fn.If
-										} | fn.If
-										XssMatchStatement?: {
-											FieldToMatch?: {
-												AllQueryArguments?: {
-												} | fn.If
-												Body?: {
-												} | fn.If
-												Method?: {
-												} | fn.If
-												QueryString?: {
-												} | fn.If
-												SingleHeader?: {
+												})] | fn.If
+											}) | fn.If
+										}) | fn.If
+										XssMatchStatement?: close({
+											FieldToMatch?: close({
+												AllQueryArguments?: close({
+												}) | fn.If
+												Body?: close({
+												}) | fn.If
+												Method?: close({
+												}) | fn.If
+												QueryString?: close({
+												}) | fn.If
+												SingleHeader?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												SingleQueryArgument?: {
+												}) | fn.If
+												SingleQueryArgument?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												UriPath?: {
-												} | fn.If
-											} | fn.If
-											TextTransformations?: {
-												TextTransformations?: [...{
+												}) | fn.If
+												UriPath?: close({
+												}) | fn.If
+											}) | fn.If
+											TextTransformations?: close({
+												TextTransformations?: [...close({
 													[string]: _
-												}] | fn.If
-											} | fn.If
-										} | fn.If
-									}] | fn.If
-								} | fn.If
-							} | fn.If
-							RateBasedStatement?: {
+												})] | fn.If
+											}) | fn.If
+										}) | fn.If
+									})] | fn.If
+								}) | fn.If
+							}) | fn.If
+							RateBasedStatement?: close({
 								AggregateKeyType?:   string | fn.Fn
 								Limit?:              int | fn.Fn
-								ScopeDownStatement?: {
-									ByteMatchStatement?: {
-										FieldToMatch?: {
-											AllQueryArguments?: {
-											} | fn.If
-											Body?: {
-											} | fn.If
-											Method?: {
-											} | fn.If
-											QueryString?: {
-											} | fn.If
-											SingleHeader?: {
+								ScopeDownStatement?: close({
+									ByteMatchStatement?: close({
+										FieldToMatch?: close({
+											AllQueryArguments?: close({
+											}) | fn.If
+											Body?: close({
+											}) | fn.If
+											Method?: close({
+											}) | fn.If
+											QueryString?: close({
+											}) | fn.If
+											SingleHeader?: close({
 												Name?: string | fn.Fn
-											} | fn.If
-											SingleQueryArgument?: {
+											}) | fn.If
+											SingleQueryArgument?: close({
 												Name?: string | fn.Fn
-											} | fn.If
-											UriPath?: {
-											} | fn.If
-										} | fn.If
+											}) | fn.If
+											UriPath?: close({
+											}) | fn.If
+										}) | fn.If
 										PositionalConstraint?: string | fn.Fn
 										SearchString?:         string | fn.Fn
 										SearchStringBase64?:   string | fn.Fn
-										TextTransformations?:  {
-											TextTransformations?: [...{
+										TextTransformations?:  close({
+											TextTransformations?: [...close({
 												[string]: _
-											}] | fn.If
-										} | fn.If
-									} | fn.If
-									GeoMatchStatement?: {
-										CountryCodes?: {
+											})] | fn.If
+										}) | fn.If
+									}) | fn.If
+									GeoMatchStatement?: close({
+										CountryCodes?: close({
 											CountryCodes?: [...(string | fn.Fn)] | (string | fn.Fn)
-										} | fn.If
-									} | fn.If
-									IPSetReferenceStatement?: {
+										}) | fn.If
+									}) | fn.If
+									IPSetReferenceStatement?: close({
 										Arn?: string | fn.Fn
-									} | fn.If
-									ManagedRuleGroupStatement?: {
-										ExcludedRules?: [...{
+									}) | fn.If
+									ManagedRuleGroupStatement?: close({
+										ExcludedRules?: [...close({
 											Name?: string | fn.Fn
-										}] | fn.If
+										})] | fn.If
 										Name?:       string | fn.Fn
 										VendorName?: string | fn.Fn
-									} | fn.If
-									RegexPatternSetReferenceStatement?: {
+									}) | fn.If
+									RegexPatternSetReferenceStatement?: close({
 										Arn?:          string | fn.Fn
-										FieldToMatch?: {
-											AllQueryArguments?: {
-											} | fn.If
-											Body?: {
-											} | fn.If
-											Method?: {
-											} | fn.If
-											QueryString?: {
-											} | fn.If
-											SingleHeader?: {
+										FieldToMatch?: close({
+											AllQueryArguments?: close({
+											}) | fn.If
+											Body?: close({
+											}) | fn.If
+											Method?: close({
+											}) | fn.If
+											QueryString?: close({
+											}) | fn.If
+											SingleHeader?: close({
 												Name?: string | fn.Fn
-											} | fn.If
-											SingleQueryArgument?: {
+											}) | fn.If
+											SingleQueryArgument?: close({
 												Name?: string | fn.Fn
-											} | fn.If
-											UriPath?: {
-											} | fn.If
-										} | fn.If
-										TextTransformations?: {
-											TextTransformations?: [...{
+											}) | fn.If
+											UriPath?: close({
+											}) | fn.If
+										}) | fn.If
+										TextTransformations?: close({
+											TextTransformations?: [...close({
 												[string]: _
-											}] | fn.If
-										} | fn.If
-									} | fn.If
-									RuleGroupReferenceStatement?: {
+											})] | fn.If
+										}) | fn.If
+									}) | fn.If
+									RuleGroupReferenceStatement?: close({
 										Arn?:           string | fn.Fn
-										ExcludedRules?: [...{
+										ExcludedRules?: [...close({
 											Name?: string | fn.Fn
-										}] | fn.If
-									} | fn.If
-									SizeConstraintStatement?: {
+										})] | fn.If
+									}) | fn.If
+									SizeConstraintStatement?: close({
 										ComparisonOperator?: string | fn.Fn
-										FieldToMatch?:       {
-											AllQueryArguments?: {
-											} | fn.If
-											Body?: {
-											} | fn.If
-											Method?: {
-											} | fn.If
-											QueryString?: {
-											} | fn.If
-											SingleHeader?: {
+										FieldToMatch?:       close({
+											AllQueryArguments?: close({
+											}) | fn.If
+											Body?: close({
+											}) | fn.If
+											Method?: close({
+											}) | fn.If
+											QueryString?: close({
+											}) | fn.If
+											SingleHeader?: close({
 												Name?: string | fn.Fn
-											} | fn.If
-											SingleQueryArgument?: {
+											}) | fn.If
+											SingleQueryArgument?: close({
 												Name?: string | fn.Fn
-											} | fn.If
-											UriPath?: {
-											} | fn.If
-										} | fn.If
+											}) | fn.If
+											UriPath?: close({
+											}) | fn.If
+										}) | fn.If
 										Size?:                int | fn.Fn
-										TextTransformations?: {
-											TextTransformations?: [...{
+										TextTransformations?: close({
+											TextTransformations?: [...close({
 												[string]: _
-											}] | fn.If
-										} | fn.If
-									} | fn.If
-									SqliMatchStatement?: {
-										FieldToMatch?: {
-											AllQueryArguments?: {
-											} | fn.If
-											Body?: {
-											} | fn.If
-											Method?: {
-											} | fn.If
-											QueryString?: {
-											} | fn.If
-											SingleHeader?: {
+											})] | fn.If
+										}) | fn.If
+									}) | fn.If
+									SqliMatchStatement?: close({
+										FieldToMatch?: close({
+											AllQueryArguments?: close({
+											}) | fn.If
+											Body?: close({
+											}) | fn.If
+											Method?: close({
+											}) | fn.If
+											QueryString?: close({
+											}) | fn.If
+											SingleHeader?: close({
 												Name?: string | fn.Fn
-											} | fn.If
-											SingleQueryArgument?: {
+											}) | fn.If
+											SingleQueryArgument?: close({
 												Name?: string | fn.Fn
-											} | fn.If
-											UriPath?: {
-											} | fn.If
-										} | fn.If
-										TextTransformations?: {
-											TextTransformations?: [...{
+											}) | fn.If
+											UriPath?: close({
+											}) | fn.If
+										}) | fn.If
+										TextTransformations?: close({
+											TextTransformations?: [...close({
 												[string]: _
-											}] | fn.If
-										} | fn.If
-									} | fn.If
-									XssMatchStatement?: {
-										FieldToMatch?: {
-											AllQueryArguments?: {
-											} | fn.If
-											Body?: {
-											} | fn.If
-											Method?: {
-											} | fn.If
-											QueryString?: {
-											} | fn.If
-											SingleHeader?: {
+											})] | fn.If
+										}) | fn.If
+									}) | fn.If
+									XssMatchStatement?: close({
+										FieldToMatch?: close({
+											AllQueryArguments?: close({
+											}) | fn.If
+											Body?: close({
+											}) | fn.If
+											Method?: close({
+											}) | fn.If
+											QueryString?: close({
+											}) | fn.If
+											SingleHeader?: close({
 												Name?: string | fn.Fn
-											} | fn.If
-											SingleQueryArgument?: {
+											}) | fn.If
+											SingleQueryArgument?: close({
 												Name?: string | fn.Fn
-											} | fn.If
-											UriPath?: {
-											} | fn.If
-										} | fn.If
-										TextTransformations?: {
-											TextTransformations?: [...{
+											}) | fn.If
+											UriPath?: close({
+											}) | fn.If
+										}) | fn.If
+										TextTransformations?: close({
+											TextTransformations?: [...close({
 												[string]: _
-											}] | fn.If
-										} | fn.If
-									} | fn.If
-								} | fn.If
-							} | fn.If
-							RegexPatternSetReferenceStatement?: {
+											})] | fn.If
+										}) | fn.If
+									}) | fn.If
+								}) | fn.If
+							}) | fn.If
+							RegexPatternSetReferenceStatement?: close({
 								Arn?:          string | fn.Fn
-								FieldToMatch?: {
-									AllQueryArguments?: {
-									} | fn.If
-									Body?: {
-									} | fn.If
-									Method?: {
-									} | fn.If
-									QueryString?: {
-									} | fn.If
-									SingleHeader?: {
+								FieldToMatch?: close({
+									AllQueryArguments?: close({
+									}) | fn.If
+									Body?: close({
+									}) | fn.If
+									Method?: close({
+									}) | fn.If
+									QueryString?: close({
+									}) | fn.If
+									SingleHeader?: close({
 										Name?: string | fn.Fn
-									} | fn.If
-									SingleQueryArgument?: {
+									}) | fn.If
+									SingleQueryArgument?: close({
 										Name?: string | fn.Fn
-									} | fn.If
-									UriPath?: {
-									} | fn.If
-								} | fn.If
-								TextTransformations?: {
-									TextTransformations?: [...{
+									}) | fn.If
+									UriPath?: close({
+									}) | fn.If
+								}) | fn.If
+								TextTransformations?: close({
+									TextTransformations?: [...close({
 										[string]: _
-									}] | fn.If
-								} | fn.If
-							} | fn.If
-							RuleGroupReferenceStatement?: {
+									})] | fn.If
+								}) | fn.If
+							}) | fn.If
+							RuleGroupReferenceStatement?: close({
 								Arn?:           string | fn.Fn
-								ExcludedRules?: [...{
+								ExcludedRules?: [...close({
 									Name?: string | fn.Fn
-								}] | fn.If
-							} | fn.If
-							SizeConstraintStatement?: {
+								})] | fn.If
+							}) | fn.If
+							SizeConstraintStatement?: close({
 								ComparisonOperator?: string | fn.Fn
-								FieldToMatch?:       {
-									AllQueryArguments?: {
-									} | fn.If
-									Body?: {
-									} | fn.If
-									Method?: {
-									} | fn.If
-									QueryString?: {
-									} | fn.If
-									SingleHeader?: {
+								FieldToMatch?:       close({
+									AllQueryArguments?: close({
+									}) | fn.If
+									Body?: close({
+									}) | fn.If
+									Method?: close({
+									}) | fn.If
+									QueryString?: close({
+									}) | fn.If
+									SingleHeader?: close({
 										Name?: string | fn.Fn
-									} | fn.If
-									SingleQueryArgument?: {
+									}) | fn.If
+									SingleQueryArgument?: close({
 										Name?: string | fn.Fn
-									} | fn.If
-									UriPath?: {
-									} | fn.If
-								} | fn.If
+									}) | fn.If
+									UriPath?: close({
+									}) | fn.If
+								}) | fn.If
 								Size?:                int | fn.Fn
-								TextTransformations?: {
-									TextTransformations?: [...{
+								TextTransformations?: close({
+									TextTransformations?: [...close({
 										[string]: _
-									}] | fn.If
-								} | fn.If
-							} | fn.If
-							SqliMatchStatement?: {
-								FieldToMatch?: {
-									AllQueryArguments?: {
-									} | fn.If
-									Body?: {
-									} | fn.If
-									Method?: {
-									} | fn.If
-									QueryString?: {
-									} | fn.If
-									SingleHeader?: {
+									})] | fn.If
+								}) | fn.If
+							}) | fn.If
+							SqliMatchStatement?: close({
+								FieldToMatch?: close({
+									AllQueryArguments?: close({
+									}) | fn.If
+									Body?: close({
+									}) | fn.If
+									Method?: close({
+									}) | fn.If
+									QueryString?: close({
+									}) | fn.If
+									SingleHeader?: close({
 										Name?: string | fn.Fn
-									} | fn.If
-									SingleQueryArgument?: {
+									}) | fn.If
+									SingleQueryArgument?: close({
 										Name?: string | fn.Fn
-									} | fn.If
-									UriPath?: {
-									} | fn.If
-								} | fn.If
-								TextTransformations?: {
-									TextTransformations?: [...{
+									}) | fn.If
+									UriPath?: close({
+									}) | fn.If
+								}) | fn.If
+								TextTransformations?: close({
+									TextTransformations?: [...close({
 										[string]: _
-									}] | fn.If
-								} | fn.If
-							} | fn.If
-							XssMatchStatement?: {
-								FieldToMatch?: {
-									AllQueryArguments?: {
-									} | fn.If
-									Body?: {
-									} | fn.If
-									Method?: {
-									} | fn.If
-									QueryString?: {
-									} | fn.If
-									SingleHeader?: {
+									})] | fn.If
+								}) | fn.If
+							}) | fn.If
+							XssMatchStatement?: close({
+								FieldToMatch?: close({
+									AllQueryArguments?: close({
+									}) | fn.If
+									Body?: close({
+									}) | fn.If
+									Method?: close({
+									}) | fn.If
+									QueryString?: close({
+									}) | fn.If
+									SingleHeader?: close({
 										Name?: string | fn.Fn
-									} | fn.If
-									SingleQueryArgument?: {
+									}) | fn.If
+									SingleQueryArgument?: close({
 										Name?: string | fn.Fn
-									} | fn.If
-									UriPath?: {
-									} | fn.If
-								} | fn.If
-								TextTransformations?: {
-									TextTransformations?: [...{
+									}) | fn.If
+									UriPath?: close({
+									}) | fn.If
+								}) | fn.If
+								TextTransformations?: close({
+									TextTransformations?: [...close({
 										[string]: _
-									}] | fn.If
-								} | fn.If
-							} | fn.If
-						} | fn.If
-					} | fn.If
-					OrStatement?: {
-						Statements?: {
-							StatementTwos?: [...{
-								AndStatement?: {
-									Statements?: {
-										StatementThrees?: [...{
-											ByteMatchStatement?: {
-												FieldToMatch?: {
-													AllQueryArguments?: {
-													} | fn.If
-													Body?: {
-													} | fn.If
-													Method?: {
-													} | fn.If
-													QueryString?: {
-													} | fn.If
-													SingleHeader?: {
+									})] | fn.If
+								}) | fn.If
+							}) | fn.If
+						}) | fn.If
+					}) | fn.If
+					OrStatement?: close({
+						Statements?: close({
+							StatementTwos?: [...close({
+								AndStatement?: close({
+									Statements?: close({
+										StatementThrees?: [...close({
+											ByteMatchStatement?: close({
+												FieldToMatch?: close({
+													AllQueryArguments?: close({
+													}) | fn.If
+													Body?: close({
+													}) | fn.If
+													Method?: close({
+													}) | fn.If
+													QueryString?: close({
+													}) | fn.If
+													SingleHeader?: close({
 														Name?: string | fn.Fn
-													} | fn.If
-													SingleQueryArgument?: {
+													}) | fn.If
+													SingleQueryArgument?: close({
 														Name?: string | fn.Fn
-													} | fn.If
-													UriPath?: {
-													} | fn.If
-												} | fn.If
+													}) | fn.If
+													UriPath?: close({
+													}) | fn.If
+												}) | fn.If
 												PositionalConstraint?: string | fn.Fn
 												SearchString?:         string | fn.Fn
 												SearchStringBase64?:   string | fn.Fn
-												TextTransformations?:  {
-													TextTransformations?: [...{
+												TextTransformations?:  close({
+													TextTransformations?: [...close({
 														[string]: _
-													}] | fn.If
-												} | fn.If
-											} | fn.If
-											GeoMatchStatement?: {
-												CountryCodes?: {
+													})] | fn.If
+												}) | fn.If
+											}) | fn.If
+											GeoMatchStatement?: close({
+												CountryCodes?: close({
 													CountryCodes?: [...(string | fn.Fn)] | (string | fn.Fn)
-												} | fn.If
-											} | fn.If
-											IPSetReferenceStatement?: {
+												}) | fn.If
+											}) | fn.If
+											IPSetReferenceStatement?: close({
 												Arn?: string | fn.Fn
-											} | fn.If
-											ManagedRuleGroupStatement?: {
-												ExcludedRules?: [...{
+											}) | fn.If
+											ManagedRuleGroupStatement?: close({
+												ExcludedRules?: [...close({
 													Name?: string | fn.Fn
-												}] | fn.If
+												})] | fn.If
 												Name?:       string | fn.Fn
 												VendorName?: string | fn.Fn
-											} | fn.If
-											RegexPatternSetReferenceStatement?: {
+											}) | fn.If
+											RegexPatternSetReferenceStatement?: close({
 												Arn?:          string | fn.Fn
-												FieldToMatch?: {
-													AllQueryArguments?: {
-													} | fn.If
-													Body?: {
-													} | fn.If
-													Method?: {
-													} | fn.If
-													QueryString?: {
-													} | fn.If
-													SingleHeader?: {
+												FieldToMatch?: close({
+													AllQueryArguments?: close({
+													}) | fn.If
+													Body?: close({
+													}) | fn.If
+													Method?: close({
+													}) | fn.If
+													QueryString?: close({
+													}) | fn.If
+													SingleHeader?: close({
 														Name?: string | fn.Fn
-													} | fn.If
-													SingleQueryArgument?: {
+													}) | fn.If
+													SingleQueryArgument?: close({
 														Name?: string | fn.Fn
-													} | fn.If
-													UriPath?: {
-													} | fn.If
-												} | fn.If
-												TextTransformations?: {
-													TextTransformations?: [...{
+													}) | fn.If
+													UriPath?: close({
+													}) | fn.If
+												}) | fn.If
+												TextTransformations?: close({
+													TextTransformations?: [...close({
 														[string]: _
-													}] | fn.If
-												} | fn.If
-											} | fn.If
-											RuleGroupReferenceStatement?: {
+													})] | fn.If
+												}) | fn.If
+											}) | fn.If
+											RuleGroupReferenceStatement?: close({
 												Arn?:           string | fn.Fn
-												ExcludedRules?: [...{
+												ExcludedRules?: [...close({
 													Name?: string | fn.Fn
-												}] | fn.If
-											} | fn.If
-											SizeConstraintStatement?: {
+												})] | fn.If
+											}) | fn.If
+											SizeConstraintStatement?: close({
 												ComparisonOperator?: string | fn.Fn
-												FieldToMatch?:       {
-													AllQueryArguments?: {
-													} | fn.If
-													Body?: {
-													} | fn.If
-													Method?: {
-													} | fn.If
-													QueryString?: {
-													} | fn.If
-													SingleHeader?: {
+												FieldToMatch?:       close({
+													AllQueryArguments?: close({
+													}) | fn.If
+													Body?: close({
+													}) | fn.If
+													Method?: close({
+													}) | fn.If
+													QueryString?: close({
+													}) | fn.If
+													SingleHeader?: close({
 														Name?: string | fn.Fn
-													} | fn.If
-													SingleQueryArgument?: {
+													}) | fn.If
+													SingleQueryArgument?: close({
 														Name?: string | fn.Fn
-													} | fn.If
-													UriPath?: {
-													} | fn.If
-												} | fn.If
+													}) | fn.If
+													UriPath?: close({
+													}) | fn.If
+												}) | fn.If
 												Size?:                int | fn.Fn
-												TextTransformations?: {
-													TextTransformations?: [...{
+												TextTransformations?: close({
+													TextTransformations?: [...close({
 														[string]: _
-													}] | fn.If
-												} | fn.If
-											} | fn.If
-											SqliMatchStatement?: {
-												FieldToMatch?: {
-													AllQueryArguments?: {
-													} | fn.If
-													Body?: {
-													} | fn.If
-													Method?: {
-													} | fn.If
-													QueryString?: {
-													} | fn.If
-													SingleHeader?: {
+													})] | fn.If
+												}) | fn.If
+											}) | fn.If
+											SqliMatchStatement?: close({
+												FieldToMatch?: close({
+													AllQueryArguments?: close({
+													}) | fn.If
+													Body?: close({
+													}) | fn.If
+													Method?: close({
+													}) | fn.If
+													QueryString?: close({
+													}) | fn.If
+													SingleHeader?: close({
 														Name?: string | fn.Fn
-													} | fn.If
-													SingleQueryArgument?: {
+													}) | fn.If
+													SingleQueryArgument?: close({
 														Name?: string | fn.Fn
-													} | fn.If
-													UriPath?: {
-													} | fn.If
-												} | fn.If
-												TextTransformations?: {
-													TextTransformations?: [...{
+													}) | fn.If
+													UriPath?: close({
+													}) | fn.If
+												}) | fn.If
+												TextTransformations?: close({
+													TextTransformations?: [...close({
 														[string]: _
-													}] | fn.If
-												} | fn.If
-											} | fn.If
-											XssMatchStatement?: {
-												FieldToMatch?: {
-													AllQueryArguments?: {
-													} | fn.If
-													Body?: {
-													} | fn.If
-													Method?: {
-													} | fn.If
-													QueryString?: {
-													} | fn.If
-													SingleHeader?: {
+													})] | fn.If
+												}) | fn.If
+											}) | fn.If
+											XssMatchStatement?: close({
+												FieldToMatch?: close({
+													AllQueryArguments?: close({
+													}) | fn.If
+													Body?: close({
+													}) | fn.If
+													Method?: close({
+													}) | fn.If
+													QueryString?: close({
+													}) | fn.If
+													SingleHeader?: close({
 														Name?: string | fn.Fn
-													} | fn.If
-													SingleQueryArgument?: {
+													}) | fn.If
+													SingleQueryArgument?: close({
 														Name?: string | fn.Fn
-													} | fn.If
-													UriPath?: {
-													} | fn.If
-												} | fn.If
-												TextTransformations?: {
-													TextTransformations?: [...{
+													}) | fn.If
+													UriPath?: close({
+													}) | fn.If
+												}) | fn.If
+												TextTransformations?: close({
+													TextTransformations?: [...close({
 														[string]: _
-													}] | fn.If
-												} | fn.If
-											} | fn.If
-										}] | fn.If
-									} | fn.If
-								} | fn.If
-								ByteMatchStatement?: {
-									FieldToMatch?: {
-										AllQueryArguments?: {
-										} | fn.If
-										Body?: {
-										} | fn.If
-										Method?: {
-										} | fn.If
-										QueryString?: {
-										} | fn.If
-										SingleHeader?: {
+													})] | fn.If
+												}) | fn.If
+											}) | fn.If
+										})] | fn.If
+									}) | fn.If
+								}) | fn.If
+								ByteMatchStatement?: close({
+									FieldToMatch?: close({
+										AllQueryArguments?: close({
+										}) | fn.If
+										Body?: close({
+										}) | fn.If
+										Method?: close({
+										}) | fn.If
+										QueryString?: close({
+										}) | fn.If
+										SingleHeader?: close({
 											Name?: string | fn.Fn
-										} | fn.If
-										SingleQueryArgument?: {
+										}) | fn.If
+										SingleQueryArgument?: close({
 											Name?: string | fn.Fn
-										} | fn.If
-										UriPath?: {
-										} | fn.If
-									} | fn.If
+										}) | fn.If
+										UriPath?: close({
+										}) | fn.If
+									}) | fn.If
 									PositionalConstraint?: string | fn.Fn
 									SearchString?:         string | fn.Fn
 									SearchStringBase64?:   string | fn.Fn
-									TextTransformations?:  {
-										TextTransformations?: [...{
+									TextTransformations?:  close({
+										TextTransformations?: [...close({
 											[string]: _
-										}] | fn.If
-									} | fn.If
-								} | fn.If
-								GeoMatchStatement?: {
-									CountryCodes?: {
+										})] | fn.If
+									}) | fn.If
+								}) | fn.If
+								GeoMatchStatement?: close({
+									CountryCodes?: close({
 										CountryCodes?: [...(string | fn.Fn)] | (string | fn.Fn)
-									} | fn.If
-								} | fn.If
-								IPSetReferenceStatement?: {
+									}) | fn.If
+								}) | fn.If
+								IPSetReferenceStatement?: close({
 									Arn?: string | fn.Fn
-								} | fn.If
-								ManagedRuleGroupStatement?: {
-									ExcludedRules?: [...{
+								}) | fn.If
+								ManagedRuleGroupStatement?: close({
+									ExcludedRules?: [...close({
 										Name?: string | fn.Fn
-									}] | fn.If
+									})] | fn.If
 									Name?:       string | fn.Fn
 									VendorName?: string | fn.Fn
-								} | fn.If
-								NotStatement?: {
-									Statement?: {
-										ByteMatchStatement?: {
-											FieldToMatch?: {
-												AllQueryArguments?: {
-												} | fn.If
-												Body?: {
-												} | fn.If
-												Method?: {
-												} | fn.If
-												QueryString?: {
-												} | fn.If
-												SingleHeader?: {
+								}) | fn.If
+								NotStatement?: close({
+									Statement?: close({
+										ByteMatchStatement?: close({
+											FieldToMatch?: close({
+												AllQueryArguments?: close({
+												}) | fn.If
+												Body?: close({
+												}) | fn.If
+												Method?: close({
+												}) | fn.If
+												QueryString?: close({
+												}) | fn.If
+												SingleHeader?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												SingleQueryArgument?: {
+												}) | fn.If
+												SingleQueryArgument?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												UriPath?: {
-												} | fn.If
-											} | fn.If
+												}) | fn.If
+												UriPath?: close({
+												}) | fn.If
+											}) | fn.If
 											PositionalConstraint?: string | fn.Fn
 											SearchString?:         string | fn.Fn
 											SearchStringBase64?:   string | fn.Fn
-											TextTransformations?:  {
-												TextTransformations?: [...{
+											TextTransformations?:  close({
+												TextTransformations?: [...close({
 													[string]: _
-												}] | fn.If
-											} | fn.If
-										} | fn.If
-										GeoMatchStatement?: {
-											CountryCodes?: {
+												})] | fn.If
+											}) | fn.If
+										}) | fn.If
+										GeoMatchStatement?: close({
+											CountryCodes?: close({
 												CountryCodes?: [...(string | fn.Fn)] | (string | fn.Fn)
-											} | fn.If
-										} | fn.If
-										IPSetReferenceStatement?: {
+											}) | fn.If
+										}) | fn.If
+										IPSetReferenceStatement?: close({
 											Arn?: string | fn.Fn
-										} | fn.If
-										ManagedRuleGroupStatement?: {
-											ExcludedRules?: [...{
+										}) | fn.If
+										ManagedRuleGroupStatement?: close({
+											ExcludedRules?: [...close({
 												Name?: string | fn.Fn
-											}] | fn.If
+											})] | fn.If
 											Name?:       string | fn.Fn
 											VendorName?: string | fn.Fn
-										} | fn.If
-										RegexPatternSetReferenceStatement?: {
+										}) | fn.If
+										RegexPatternSetReferenceStatement?: close({
 											Arn?:          string | fn.Fn
-											FieldToMatch?: {
-												AllQueryArguments?: {
-												} | fn.If
-												Body?: {
-												} | fn.If
-												Method?: {
-												} | fn.If
-												QueryString?: {
-												} | fn.If
-												SingleHeader?: {
+											FieldToMatch?: close({
+												AllQueryArguments?: close({
+												}) | fn.If
+												Body?: close({
+												}) | fn.If
+												Method?: close({
+												}) | fn.If
+												QueryString?: close({
+												}) | fn.If
+												SingleHeader?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												SingleQueryArgument?: {
+												}) | fn.If
+												SingleQueryArgument?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												UriPath?: {
-												} | fn.If
-											} | fn.If
-											TextTransformations?: {
-												TextTransformations?: [...{
+												}) | fn.If
+												UriPath?: close({
+												}) | fn.If
+											}) | fn.If
+											TextTransformations?: close({
+												TextTransformations?: [...close({
 													[string]: _
-												}] | fn.If
-											} | fn.If
-										} | fn.If
-										RuleGroupReferenceStatement?: {
+												})] | fn.If
+											}) | fn.If
+										}) | fn.If
+										RuleGroupReferenceStatement?: close({
 											Arn?:           string | fn.Fn
-											ExcludedRules?: [...{
+											ExcludedRules?: [...close({
 												Name?: string | fn.Fn
-											}] | fn.If
-										} | fn.If
-										SizeConstraintStatement?: {
+											})] | fn.If
+										}) | fn.If
+										SizeConstraintStatement?: close({
 											ComparisonOperator?: string | fn.Fn
-											FieldToMatch?:       {
-												AllQueryArguments?: {
-												} | fn.If
-												Body?: {
-												} | fn.If
-												Method?: {
-												} | fn.If
-												QueryString?: {
-												} | fn.If
-												SingleHeader?: {
+											FieldToMatch?:       close({
+												AllQueryArguments?: close({
+												}) | fn.If
+												Body?: close({
+												}) | fn.If
+												Method?: close({
+												}) | fn.If
+												QueryString?: close({
+												}) | fn.If
+												SingleHeader?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												SingleQueryArgument?: {
+												}) | fn.If
+												SingleQueryArgument?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												UriPath?: {
-												} | fn.If
-											} | fn.If
+												}) | fn.If
+												UriPath?: close({
+												}) | fn.If
+											}) | fn.If
 											Size?:                int | fn.Fn
-											TextTransformations?: {
-												TextTransformations?: [...{
+											TextTransformations?: close({
+												TextTransformations?: [...close({
 													[string]: _
-												}] | fn.If
-											} | fn.If
-										} | fn.If
-										SqliMatchStatement?: {
-											FieldToMatch?: {
-												AllQueryArguments?: {
-												} | fn.If
-												Body?: {
-												} | fn.If
-												Method?: {
-												} | fn.If
-												QueryString?: {
-												} | fn.If
-												SingleHeader?: {
+												})] | fn.If
+											}) | fn.If
+										}) | fn.If
+										SqliMatchStatement?: close({
+											FieldToMatch?: close({
+												AllQueryArguments?: close({
+												}) | fn.If
+												Body?: close({
+												}) | fn.If
+												Method?: close({
+												}) | fn.If
+												QueryString?: close({
+												}) | fn.If
+												SingleHeader?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												SingleQueryArgument?: {
+												}) | fn.If
+												SingleQueryArgument?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												UriPath?: {
-												} | fn.If
-											} | fn.If
-											TextTransformations?: {
-												TextTransformations?: [...{
+												}) | fn.If
+												UriPath?: close({
+												}) | fn.If
+											}) | fn.If
+											TextTransformations?: close({
+												TextTransformations?: [...close({
 													[string]: _
-												}] | fn.If
-											} | fn.If
-										} | fn.If
-										XssMatchStatement?: {
-											FieldToMatch?: {
-												AllQueryArguments?: {
-												} | fn.If
-												Body?: {
-												} | fn.If
-												Method?: {
-												} | fn.If
-												QueryString?: {
-												} | fn.If
-												SingleHeader?: {
+												})] | fn.If
+											}) | fn.If
+										}) | fn.If
+										XssMatchStatement?: close({
+											FieldToMatch?: close({
+												AllQueryArguments?: close({
+												}) | fn.If
+												Body?: close({
+												}) | fn.If
+												Method?: close({
+												}) | fn.If
+												QueryString?: close({
+												}) | fn.If
+												SingleHeader?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												SingleQueryArgument?: {
+												}) | fn.If
+												SingleQueryArgument?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												UriPath?: {
-												} | fn.If
-											} | fn.If
-											TextTransformations?: {
-												TextTransformations?: [...{
+												}) | fn.If
+												UriPath?: close({
+												}) | fn.If
+											}) | fn.If
+											TextTransformations?: close({
+												TextTransformations?: [...close({
 													[string]: _
-												}] | fn.If
-											} | fn.If
-										} | fn.If
-									} | fn.If
-								} | fn.If
-								OrStatement?: {
-									Statements?: {
-										StatementThrees?: [...{
-											ByteMatchStatement?: {
-												FieldToMatch?: {
-													AllQueryArguments?: {
-													} | fn.If
-													Body?: {
-													} | fn.If
-													Method?: {
-													} | fn.If
-													QueryString?: {
-													} | fn.If
-													SingleHeader?: {
+												})] | fn.If
+											}) | fn.If
+										}) | fn.If
+									}) | fn.If
+								}) | fn.If
+								OrStatement?: close({
+									Statements?: close({
+										StatementThrees?: [...close({
+											ByteMatchStatement?: close({
+												FieldToMatch?: close({
+													AllQueryArguments?: close({
+													}) | fn.If
+													Body?: close({
+													}) | fn.If
+													Method?: close({
+													}) | fn.If
+													QueryString?: close({
+													}) | fn.If
+													SingleHeader?: close({
 														Name?: string | fn.Fn
-													} | fn.If
-													SingleQueryArgument?: {
+													}) | fn.If
+													SingleQueryArgument?: close({
 														Name?: string | fn.Fn
-													} | fn.If
-													UriPath?: {
-													} | fn.If
-												} | fn.If
+													}) | fn.If
+													UriPath?: close({
+													}) | fn.If
+												}) | fn.If
 												PositionalConstraint?: string | fn.Fn
 												SearchString?:         string | fn.Fn
 												SearchStringBase64?:   string | fn.Fn
-												TextTransformations?:  {
-													TextTransformations?: [...{
+												TextTransformations?:  close({
+													TextTransformations?: [...close({
 														[string]: _
-													}] | fn.If
-												} | fn.If
-											} | fn.If
-											GeoMatchStatement?: {
-												CountryCodes?: {
+													})] | fn.If
+												}) | fn.If
+											}) | fn.If
+											GeoMatchStatement?: close({
+												CountryCodes?: close({
 													CountryCodes?: [...(string | fn.Fn)] | (string | fn.Fn)
-												} | fn.If
-											} | fn.If
-											IPSetReferenceStatement?: {
+												}) | fn.If
+											}) | fn.If
+											IPSetReferenceStatement?: close({
 												Arn?: string | fn.Fn
-											} | fn.If
-											ManagedRuleGroupStatement?: {
-												ExcludedRules?: [...{
+											}) | fn.If
+											ManagedRuleGroupStatement?: close({
+												ExcludedRules?: [...close({
 													Name?: string | fn.Fn
-												}] | fn.If
+												})] | fn.If
 												Name?:       string | fn.Fn
 												VendorName?: string | fn.Fn
-											} | fn.If
-											RegexPatternSetReferenceStatement?: {
+											}) | fn.If
+											RegexPatternSetReferenceStatement?: close({
 												Arn?:          string | fn.Fn
-												FieldToMatch?: {
-													AllQueryArguments?: {
-													} | fn.If
-													Body?: {
-													} | fn.If
-													Method?: {
-													} | fn.If
-													QueryString?: {
-													} | fn.If
-													SingleHeader?: {
+												FieldToMatch?: close({
+													AllQueryArguments?: close({
+													}) | fn.If
+													Body?: close({
+													}) | fn.If
+													Method?: close({
+													}) | fn.If
+													QueryString?: close({
+													}) | fn.If
+													SingleHeader?: close({
 														Name?: string | fn.Fn
-													} | fn.If
-													SingleQueryArgument?: {
+													}) | fn.If
+													SingleQueryArgument?: close({
 														Name?: string | fn.Fn
-													} | fn.If
-													UriPath?: {
-													} | fn.If
-												} | fn.If
-												TextTransformations?: {
-													TextTransformations?: [...{
+													}) | fn.If
+													UriPath?: close({
+													}) | fn.If
+												}) | fn.If
+												TextTransformations?: close({
+													TextTransformations?: [...close({
 														[string]: _
-													}] | fn.If
-												} | fn.If
-											} | fn.If
-											RuleGroupReferenceStatement?: {
+													})] | fn.If
+												}) | fn.If
+											}) | fn.If
+											RuleGroupReferenceStatement?: close({
 												Arn?:           string | fn.Fn
-												ExcludedRules?: [...{
+												ExcludedRules?: [...close({
 													Name?: string | fn.Fn
-												}] | fn.If
-											} | fn.If
-											SizeConstraintStatement?: {
+												})] | fn.If
+											}) | fn.If
+											SizeConstraintStatement?: close({
 												ComparisonOperator?: string | fn.Fn
-												FieldToMatch?:       {
-													AllQueryArguments?: {
-													} | fn.If
-													Body?: {
-													} | fn.If
-													Method?: {
-													} | fn.If
-													QueryString?: {
-													} | fn.If
-													SingleHeader?: {
+												FieldToMatch?:       close({
+													AllQueryArguments?: close({
+													}) | fn.If
+													Body?: close({
+													}) | fn.If
+													Method?: close({
+													}) | fn.If
+													QueryString?: close({
+													}) | fn.If
+													SingleHeader?: close({
 														Name?: string | fn.Fn
-													} | fn.If
-													SingleQueryArgument?: {
+													}) | fn.If
+													SingleQueryArgument?: close({
 														Name?: string | fn.Fn
-													} | fn.If
-													UriPath?: {
-													} | fn.If
-												} | fn.If
+													}) | fn.If
+													UriPath?: close({
+													}) | fn.If
+												}) | fn.If
 												Size?:                int | fn.Fn
-												TextTransformations?: {
-													TextTransformations?: [...{
+												TextTransformations?: close({
+													TextTransformations?: [...close({
 														[string]: _
-													}] | fn.If
-												} | fn.If
-											} | fn.If
-											SqliMatchStatement?: {
-												FieldToMatch?: {
-													AllQueryArguments?: {
-													} | fn.If
-													Body?: {
-													} | fn.If
-													Method?: {
-													} | fn.If
-													QueryString?: {
-													} | fn.If
-													SingleHeader?: {
+													})] | fn.If
+												}) | fn.If
+											}) | fn.If
+											SqliMatchStatement?: close({
+												FieldToMatch?: close({
+													AllQueryArguments?: close({
+													}) | fn.If
+													Body?: close({
+													}) | fn.If
+													Method?: close({
+													}) | fn.If
+													QueryString?: close({
+													}) | fn.If
+													SingleHeader?: close({
 														Name?: string | fn.Fn
-													} | fn.If
-													SingleQueryArgument?: {
+													}) | fn.If
+													SingleQueryArgument?: close({
 														Name?: string | fn.Fn
-													} | fn.If
-													UriPath?: {
-													} | fn.If
-												} | fn.If
-												TextTransformations?: {
-													TextTransformations?: [...{
+													}) | fn.If
+													UriPath?: close({
+													}) | fn.If
+												}) | fn.If
+												TextTransformations?: close({
+													TextTransformations?: [...close({
 														[string]: _
-													}] | fn.If
-												} | fn.If
-											} | fn.If
-											XssMatchStatement?: {
-												FieldToMatch?: {
-													AllQueryArguments?: {
-													} | fn.If
-													Body?: {
-													} | fn.If
-													Method?: {
-													} | fn.If
-													QueryString?: {
-													} | fn.If
-													SingleHeader?: {
+													})] | fn.If
+												}) | fn.If
+											}) | fn.If
+											XssMatchStatement?: close({
+												FieldToMatch?: close({
+													AllQueryArguments?: close({
+													}) | fn.If
+													Body?: close({
+													}) | fn.If
+													Method?: close({
+													}) | fn.If
+													QueryString?: close({
+													}) | fn.If
+													SingleHeader?: close({
 														Name?: string | fn.Fn
-													} | fn.If
-													SingleQueryArgument?: {
+													}) | fn.If
+													SingleQueryArgument?: close({
 														Name?: string | fn.Fn
-													} | fn.If
-													UriPath?: {
-													} | fn.If
-												} | fn.If
-												TextTransformations?: {
-													TextTransformations?: [...{
+													}) | fn.If
+													UriPath?: close({
+													}) | fn.If
+												}) | fn.If
+												TextTransformations?: close({
+													TextTransformations?: [...close({
 														[string]: _
-													}] | fn.If
-												} | fn.If
-											} | fn.If
-										}] | fn.If
-									} | fn.If
-								} | fn.If
-								RateBasedStatement?: {
+													})] | fn.If
+												}) | fn.If
+											}) | fn.If
+										})] | fn.If
+									}) | fn.If
+								}) | fn.If
+								RateBasedStatement?: close({
 									AggregateKeyType?:   string | fn.Fn
 									Limit?:              int | fn.Fn
-									ScopeDownStatement?: {
-										ByteMatchStatement?: {
-											FieldToMatch?: {
-												AllQueryArguments?: {
-												} | fn.If
-												Body?: {
-												} | fn.If
-												Method?: {
-												} | fn.If
-												QueryString?: {
-												} | fn.If
-												SingleHeader?: {
+									ScopeDownStatement?: close({
+										ByteMatchStatement?: close({
+											FieldToMatch?: close({
+												AllQueryArguments?: close({
+												}) | fn.If
+												Body?: close({
+												}) | fn.If
+												Method?: close({
+												}) | fn.If
+												QueryString?: close({
+												}) | fn.If
+												SingleHeader?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												SingleQueryArgument?: {
+												}) | fn.If
+												SingleQueryArgument?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												UriPath?: {
-												} | fn.If
-											} | fn.If
+												}) | fn.If
+												UriPath?: close({
+												}) | fn.If
+											}) | fn.If
 											PositionalConstraint?: string | fn.Fn
 											SearchString?:         string | fn.Fn
 											SearchStringBase64?:   string | fn.Fn
-											TextTransformations?:  {
-												TextTransformations?: [...{
+											TextTransformations?:  close({
+												TextTransformations?: [...close({
 													[string]: _
-												}] | fn.If
-											} | fn.If
-										} | fn.If
-										GeoMatchStatement?: {
-											CountryCodes?: {
+												})] | fn.If
+											}) | fn.If
+										}) | fn.If
+										GeoMatchStatement?: close({
+											CountryCodes?: close({
 												CountryCodes?: [...(string | fn.Fn)] | (string | fn.Fn)
-											} | fn.If
-										} | fn.If
-										IPSetReferenceStatement?: {
+											}) | fn.If
+										}) | fn.If
+										IPSetReferenceStatement?: close({
 											Arn?: string | fn.Fn
-										} | fn.If
-										ManagedRuleGroupStatement?: {
-											ExcludedRules?: [...{
+										}) | fn.If
+										ManagedRuleGroupStatement?: close({
+											ExcludedRules?: [...close({
 												Name?: string | fn.Fn
-											}] | fn.If
+											})] | fn.If
 											Name?:       string | fn.Fn
 											VendorName?: string | fn.Fn
-										} | fn.If
-										RegexPatternSetReferenceStatement?: {
+										}) | fn.If
+										RegexPatternSetReferenceStatement?: close({
 											Arn?:          string | fn.Fn
-											FieldToMatch?: {
-												AllQueryArguments?: {
-												} | fn.If
-												Body?: {
-												} | fn.If
-												Method?: {
-												} | fn.If
-												QueryString?: {
-												} | fn.If
-												SingleHeader?: {
+											FieldToMatch?: close({
+												AllQueryArguments?: close({
+												}) | fn.If
+												Body?: close({
+												}) | fn.If
+												Method?: close({
+												}) | fn.If
+												QueryString?: close({
+												}) | fn.If
+												SingleHeader?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												SingleQueryArgument?: {
+												}) | fn.If
+												SingleQueryArgument?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												UriPath?: {
-												} | fn.If
-											} | fn.If
-											TextTransformations?: {
-												TextTransformations?: [...{
+												}) | fn.If
+												UriPath?: close({
+												}) | fn.If
+											}) | fn.If
+											TextTransformations?: close({
+												TextTransformations?: [...close({
 													[string]: _
-												}] | fn.If
-											} | fn.If
-										} | fn.If
-										RuleGroupReferenceStatement?: {
+												})] | fn.If
+											}) | fn.If
+										}) | fn.If
+										RuleGroupReferenceStatement?: close({
 											Arn?:           string | fn.Fn
-											ExcludedRules?: [...{
+											ExcludedRules?: [...close({
 												Name?: string | fn.Fn
-											}] | fn.If
-										} | fn.If
-										SizeConstraintStatement?: {
+											})] | fn.If
+										}) | fn.If
+										SizeConstraintStatement?: close({
 											ComparisonOperator?: string | fn.Fn
-											FieldToMatch?:       {
-												AllQueryArguments?: {
-												} | fn.If
-												Body?: {
-												} | fn.If
-												Method?: {
-												} | fn.If
-												QueryString?: {
-												} | fn.If
-												SingleHeader?: {
+											FieldToMatch?:       close({
+												AllQueryArguments?: close({
+												}) | fn.If
+												Body?: close({
+												}) | fn.If
+												Method?: close({
+												}) | fn.If
+												QueryString?: close({
+												}) | fn.If
+												SingleHeader?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												SingleQueryArgument?: {
+												}) | fn.If
+												SingleQueryArgument?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												UriPath?: {
-												} | fn.If
-											} | fn.If
+												}) | fn.If
+												UriPath?: close({
+												}) | fn.If
+											}) | fn.If
 											Size?:                int | fn.Fn
-											TextTransformations?: {
-												TextTransformations?: [...{
+											TextTransformations?: close({
+												TextTransformations?: [...close({
 													[string]: _
-												}] | fn.If
-											} | fn.If
-										} | fn.If
-										SqliMatchStatement?: {
-											FieldToMatch?: {
-												AllQueryArguments?: {
-												} | fn.If
-												Body?: {
-												} | fn.If
-												Method?: {
-												} | fn.If
-												QueryString?: {
-												} | fn.If
-												SingleHeader?: {
+												})] | fn.If
+											}) | fn.If
+										}) | fn.If
+										SqliMatchStatement?: close({
+											FieldToMatch?: close({
+												AllQueryArguments?: close({
+												}) | fn.If
+												Body?: close({
+												}) | fn.If
+												Method?: close({
+												}) | fn.If
+												QueryString?: close({
+												}) | fn.If
+												SingleHeader?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												SingleQueryArgument?: {
+												}) | fn.If
+												SingleQueryArgument?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												UriPath?: {
-												} | fn.If
-											} | fn.If
-											TextTransformations?: {
-												TextTransformations?: [...{
+												}) | fn.If
+												UriPath?: close({
+												}) | fn.If
+											}) | fn.If
+											TextTransformations?: close({
+												TextTransformations?: [...close({
 													[string]: _
-												}] | fn.If
-											} | fn.If
-										} | fn.If
-										XssMatchStatement?: {
-											FieldToMatch?: {
-												AllQueryArguments?: {
-												} | fn.If
-												Body?: {
-												} | fn.If
-												Method?: {
-												} | fn.If
-												QueryString?: {
-												} | fn.If
-												SingleHeader?: {
+												})] | fn.If
+											}) | fn.If
+										}) | fn.If
+										XssMatchStatement?: close({
+											FieldToMatch?: close({
+												AllQueryArguments?: close({
+												}) | fn.If
+												Body?: close({
+												}) | fn.If
+												Method?: close({
+												}) | fn.If
+												QueryString?: close({
+												}) | fn.If
+												SingleHeader?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												SingleQueryArgument?: {
+												}) | fn.If
+												SingleQueryArgument?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												UriPath?: {
-												} | fn.If
-											} | fn.If
-											TextTransformations?: {
-												TextTransformations?: [...{
+												}) | fn.If
+												UriPath?: close({
+												}) | fn.If
+											}) | fn.If
+											TextTransformations?: close({
+												TextTransformations?: [...close({
 													[string]: _
-												}] | fn.If
-											} | fn.If
-										} | fn.If
-									} | fn.If
-								} | fn.If
-								RegexPatternSetReferenceStatement?: {
+												})] | fn.If
+											}) | fn.If
+										}) | fn.If
+									}) | fn.If
+								}) | fn.If
+								RegexPatternSetReferenceStatement?: close({
 									Arn?:          string | fn.Fn
-									FieldToMatch?: {
-										AllQueryArguments?: {
-										} | fn.If
-										Body?: {
-										} | fn.If
-										Method?: {
-										} | fn.If
-										QueryString?: {
-										} | fn.If
-										SingleHeader?: {
+									FieldToMatch?: close({
+										AllQueryArguments?: close({
+										}) | fn.If
+										Body?: close({
+										}) | fn.If
+										Method?: close({
+										}) | fn.If
+										QueryString?: close({
+										}) | fn.If
+										SingleHeader?: close({
 											Name?: string | fn.Fn
-										} | fn.If
-										SingleQueryArgument?: {
+										}) | fn.If
+										SingleQueryArgument?: close({
 											Name?: string | fn.Fn
-										} | fn.If
-										UriPath?: {
-										} | fn.If
-									} | fn.If
-									TextTransformations?: {
-										TextTransformations?: [...{
+										}) | fn.If
+										UriPath?: close({
+										}) | fn.If
+									}) | fn.If
+									TextTransformations?: close({
+										TextTransformations?: [...close({
 											[string]: _
-										}] | fn.If
-									} | fn.If
-								} | fn.If
-								RuleGroupReferenceStatement?: {
+										})] | fn.If
+									}) | fn.If
+								}) | fn.If
+								RuleGroupReferenceStatement?: close({
 									Arn?:           string | fn.Fn
-									ExcludedRules?: [...{
+									ExcludedRules?: [...close({
 										Name?: string | fn.Fn
-									}] | fn.If
-								} | fn.If
-								SizeConstraintStatement?: {
+									})] | fn.If
+								}) | fn.If
+								SizeConstraintStatement?: close({
 									ComparisonOperator?: string | fn.Fn
-									FieldToMatch?:       {
-										AllQueryArguments?: {
-										} | fn.If
-										Body?: {
-										} | fn.If
-										Method?: {
-										} | fn.If
-										QueryString?: {
-										} | fn.If
-										SingleHeader?: {
+									FieldToMatch?:       close({
+										AllQueryArguments?: close({
+										}) | fn.If
+										Body?: close({
+										}) | fn.If
+										Method?: close({
+										}) | fn.If
+										QueryString?: close({
+										}) | fn.If
+										SingleHeader?: close({
 											Name?: string | fn.Fn
-										} | fn.If
-										SingleQueryArgument?: {
+										}) | fn.If
+										SingleQueryArgument?: close({
 											Name?: string | fn.Fn
-										} | fn.If
-										UriPath?: {
-										} | fn.If
-									} | fn.If
+										}) | fn.If
+										UriPath?: close({
+										}) | fn.If
+									}) | fn.If
 									Size?:                int | fn.Fn
-									TextTransformations?: {
-										TextTransformations?: [...{
+									TextTransformations?: close({
+										TextTransformations?: [...close({
 											[string]: _
-										}] | fn.If
-									} | fn.If
-								} | fn.If
-								SqliMatchStatement?: {
-									FieldToMatch?: {
-										AllQueryArguments?: {
-										} | fn.If
-										Body?: {
-										} | fn.If
-										Method?: {
-										} | fn.If
-										QueryString?: {
-										} | fn.If
-										SingleHeader?: {
+										})] | fn.If
+									}) | fn.If
+								}) | fn.If
+								SqliMatchStatement?: close({
+									FieldToMatch?: close({
+										AllQueryArguments?: close({
+										}) | fn.If
+										Body?: close({
+										}) | fn.If
+										Method?: close({
+										}) | fn.If
+										QueryString?: close({
+										}) | fn.If
+										SingleHeader?: close({
 											Name?: string | fn.Fn
-										} | fn.If
-										SingleQueryArgument?: {
+										}) | fn.If
+										SingleQueryArgument?: close({
 											Name?: string | fn.Fn
-										} | fn.If
-										UriPath?: {
-										} | fn.If
-									} | fn.If
-									TextTransformations?: {
-										TextTransformations?: [...{
+										}) | fn.If
+										UriPath?: close({
+										}) | fn.If
+									}) | fn.If
+									TextTransformations?: close({
+										TextTransformations?: [...close({
 											[string]: _
-										}] | fn.If
-									} | fn.If
-								} | fn.If
-								XssMatchStatement?: {
-									FieldToMatch?: {
-										AllQueryArguments?: {
-										} | fn.If
-										Body?: {
-										} | fn.If
-										Method?: {
-										} | fn.If
-										QueryString?: {
-										} | fn.If
-										SingleHeader?: {
+										})] | fn.If
+									}) | fn.If
+								}) | fn.If
+								XssMatchStatement?: close({
+									FieldToMatch?: close({
+										AllQueryArguments?: close({
+										}) | fn.If
+										Body?: close({
+										}) | fn.If
+										Method?: close({
+										}) | fn.If
+										QueryString?: close({
+										}) | fn.If
+										SingleHeader?: close({
 											Name?: string | fn.Fn
-										} | fn.If
-										SingleQueryArgument?: {
+										}) | fn.If
+										SingleQueryArgument?: close({
 											Name?: string | fn.Fn
-										} | fn.If
-										UriPath?: {
-										} | fn.If
-									} | fn.If
-									TextTransformations?: {
-										TextTransformations?: [...{
+										}) | fn.If
+										UriPath?: close({
+										}) | fn.If
+									}) | fn.If
+									TextTransformations?: close({
+										TextTransformations?: [...close({
 											[string]: _
-										}] | fn.If
-									} | fn.If
-								} | fn.If
-							}] | fn.If
-						} | fn.If
-					} | fn.If
-					RateBasedStatement?: {
+										})] | fn.If
+									}) | fn.If
+								}) | fn.If
+							})] | fn.If
+						}) | fn.If
+					}) | fn.If
+					RateBasedStatement?: close({
 						AggregateKeyType?:   string | fn.Fn
 						Limit?:              int | fn.Fn
-						ScopeDownStatement?: {
-							AndStatement?: {
-								Statements?: {
-									StatementThrees?: [...{
-										ByteMatchStatement?: {
-											FieldToMatch?: {
-												AllQueryArguments?: {
-												} | fn.If
-												Body?: {
-												} | fn.If
-												Method?: {
-												} | fn.If
-												QueryString?: {
-												} | fn.If
-												SingleHeader?: {
+						ScopeDownStatement?: close({
+							AndStatement?: close({
+								Statements?: close({
+									StatementThrees?: [...close({
+										ByteMatchStatement?: close({
+											FieldToMatch?: close({
+												AllQueryArguments?: close({
+												}) | fn.If
+												Body?: close({
+												}) | fn.If
+												Method?: close({
+												}) | fn.If
+												QueryString?: close({
+												}) | fn.If
+												SingleHeader?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												SingleQueryArgument?: {
+												}) | fn.If
+												SingleQueryArgument?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												UriPath?: {
-												} | fn.If
-											} | fn.If
+												}) | fn.If
+												UriPath?: close({
+												}) | fn.If
+											}) | fn.If
 											PositionalConstraint?: string | fn.Fn
 											SearchString?:         string | fn.Fn
 											SearchStringBase64?:   string | fn.Fn
-											TextTransformations?:  {
-												TextTransformations?: [...{
+											TextTransformations?:  close({
+												TextTransformations?: [...close({
 													[string]: _
-												}] | fn.If
-											} | fn.If
-										} | fn.If
-										GeoMatchStatement?: {
-											CountryCodes?: {
+												})] | fn.If
+											}) | fn.If
+										}) | fn.If
+										GeoMatchStatement?: close({
+											CountryCodes?: close({
 												CountryCodes?: [...(string | fn.Fn)] | (string | fn.Fn)
-											} | fn.If
-										} | fn.If
-										IPSetReferenceStatement?: {
+											}) | fn.If
+										}) | fn.If
+										IPSetReferenceStatement?: close({
 											Arn?: string | fn.Fn
-										} | fn.If
-										ManagedRuleGroupStatement?: {
-											ExcludedRules?: [...{
+										}) | fn.If
+										ManagedRuleGroupStatement?: close({
+											ExcludedRules?: [...close({
 												Name?: string | fn.Fn
-											}] | fn.If
+											})] | fn.If
 											Name?:       string | fn.Fn
 											VendorName?: string | fn.Fn
-										} | fn.If
-										RegexPatternSetReferenceStatement?: {
+										}) | fn.If
+										RegexPatternSetReferenceStatement?: close({
 											Arn?:          string | fn.Fn
-											FieldToMatch?: {
-												AllQueryArguments?: {
-												} | fn.If
-												Body?: {
-												} | fn.If
-												Method?: {
-												} | fn.If
-												QueryString?: {
-												} | fn.If
-												SingleHeader?: {
+											FieldToMatch?: close({
+												AllQueryArguments?: close({
+												}) | fn.If
+												Body?: close({
+												}) | fn.If
+												Method?: close({
+												}) | fn.If
+												QueryString?: close({
+												}) | fn.If
+												SingleHeader?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												SingleQueryArgument?: {
+												}) | fn.If
+												SingleQueryArgument?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												UriPath?: {
-												} | fn.If
-											} | fn.If
-											TextTransformations?: {
-												TextTransformations?: [...{
+												}) | fn.If
+												UriPath?: close({
+												}) | fn.If
+											}) | fn.If
+											TextTransformations?: close({
+												TextTransformations?: [...close({
 													[string]: _
-												}] | fn.If
-											} | fn.If
-										} | fn.If
-										RuleGroupReferenceStatement?: {
+												})] | fn.If
+											}) | fn.If
+										}) | fn.If
+										RuleGroupReferenceStatement?: close({
 											Arn?:           string | fn.Fn
-											ExcludedRules?: [...{
+											ExcludedRules?: [...close({
 												Name?: string | fn.Fn
-											}] | fn.If
-										} | fn.If
-										SizeConstraintStatement?: {
+											})] | fn.If
+										}) | fn.If
+										SizeConstraintStatement?: close({
 											ComparisonOperator?: string | fn.Fn
-											FieldToMatch?:       {
-												AllQueryArguments?: {
-												} | fn.If
-												Body?: {
-												} | fn.If
-												Method?: {
-												} | fn.If
-												QueryString?: {
-												} | fn.If
-												SingleHeader?: {
+											FieldToMatch?:       close({
+												AllQueryArguments?: close({
+												}) | fn.If
+												Body?: close({
+												}) | fn.If
+												Method?: close({
+												}) | fn.If
+												QueryString?: close({
+												}) | fn.If
+												SingleHeader?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												SingleQueryArgument?: {
+												}) | fn.If
+												SingleQueryArgument?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												UriPath?: {
-												} | fn.If
-											} | fn.If
+												}) | fn.If
+												UriPath?: close({
+												}) | fn.If
+											}) | fn.If
 											Size?:                int | fn.Fn
-											TextTransformations?: {
-												TextTransformations?: [...{
+											TextTransformations?: close({
+												TextTransformations?: [...close({
 													[string]: _
-												}] | fn.If
-											} | fn.If
-										} | fn.If
-										SqliMatchStatement?: {
-											FieldToMatch?: {
-												AllQueryArguments?: {
-												} | fn.If
-												Body?: {
-												} | fn.If
-												Method?: {
-												} | fn.If
-												QueryString?: {
-												} | fn.If
-												SingleHeader?: {
+												})] | fn.If
+											}) | fn.If
+										}) | fn.If
+										SqliMatchStatement?: close({
+											FieldToMatch?: close({
+												AllQueryArguments?: close({
+												}) | fn.If
+												Body?: close({
+												}) | fn.If
+												Method?: close({
+												}) | fn.If
+												QueryString?: close({
+												}) | fn.If
+												SingleHeader?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												SingleQueryArgument?: {
+												}) | fn.If
+												SingleQueryArgument?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												UriPath?: {
-												} | fn.If
-											} | fn.If
-											TextTransformations?: {
-												TextTransformations?: [...{
+												}) | fn.If
+												UriPath?: close({
+												}) | fn.If
+											}) | fn.If
+											TextTransformations?: close({
+												TextTransformations?: [...close({
 													[string]: _
-												}] | fn.If
-											} | fn.If
-										} | fn.If
-										XssMatchStatement?: {
-											FieldToMatch?: {
-												AllQueryArguments?: {
-												} | fn.If
-												Body?: {
-												} | fn.If
-												Method?: {
-												} | fn.If
-												QueryString?: {
-												} | fn.If
-												SingleHeader?: {
+												})] | fn.If
+											}) | fn.If
+										}) | fn.If
+										XssMatchStatement?: close({
+											FieldToMatch?: close({
+												AllQueryArguments?: close({
+												}) | fn.If
+												Body?: close({
+												}) | fn.If
+												Method?: close({
+												}) | fn.If
+												QueryString?: close({
+												}) | fn.If
+												SingleHeader?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												SingleQueryArgument?: {
+												}) | fn.If
+												SingleQueryArgument?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												UriPath?: {
-												} | fn.If
-											} | fn.If
-											TextTransformations?: {
-												TextTransformations?: [...{
+												}) | fn.If
+												UriPath?: close({
+												}) | fn.If
+											}) | fn.If
+											TextTransformations?: close({
+												TextTransformations?: [...close({
 													[string]: _
-												}] | fn.If
-											} | fn.If
-										} | fn.If
-									}] | fn.If
-								} | fn.If
-							} | fn.If
-							ByteMatchStatement?: {
-								FieldToMatch?: {
-									AllQueryArguments?: {
-									} | fn.If
-									Body?: {
-									} | fn.If
-									Method?: {
-									} | fn.If
-									QueryString?: {
-									} | fn.If
-									SingleHeader?: {
+												})] | fn.If
+											}) | fn.If
+										}) | fn.If
+									})] | fn.If
+								}) | fn.If
+							}) | fn.If
+							ByteMatchStatement?: close({
+								FieldToMatch?: close({
+									AllQueryArguments?: close({
+									}) | fn.If
+									Body?: close({
+									}) | fn.If
+									Method?: close({
+									}) | fn.If
+									QueryString?: close({
+									}) | fn.If
+									SingleHeader?: close({
 										Name?: string | fn.Fn
-									} | fn.If
-									SingleQueryArgument?: {
+									}) | fn.If
+									SingleQueryArgument?: close({
 										Name?: string | fn.Fn
-									} | fn.If
-									UriPath?: {
-									} | fn.If
-								} | fn.If
+									}) | fn.If
+									UriPath?: close({
+									}) | fn.If
+								}) | fn.If
 								PositionalConstraint?: string | fn.Fn
 								SearchString?:         string | fn.Fn
 								SearchStringBase64?:   string | fn.Fn
-								TextTransformations?:  {
-									TextTransformations?: [...{
+								TextTransformations?:  close({
+									TextTransformations?: [...close({
 										[string]: _
-									}] | fn.If
-								} | fn.If
-							} | fn.If
-							GeoMatchStatement?: {
-								CountryCodes?: {
+									})] | fn.If
+								}) | fn.If
+							}) | fn.If
+							GeoMatchStatement?: close({
+								CountryCodes?: close({
 									CountryCodes?: [...(string | fn.Fn)] | (string | fn.Fn)
-								} | fn.If
-							} | fn.If
-							IPSetReferenceStatement?: {
+								}) | fn.If
+							}) | fn.If
+							IPSetReferenceStatement?: close({
 								Arn?: string | fn.Fn
-							} | fn.If
-							ManagedRuleGroupStatement?: {
-								ExcludedRules?: [...{
+							}) | fn.If
+							ManagedRuleGroupStatement?: close({
+								ExcludedRules?: [...close({
 									Name?: string | fn.Fn
-								}] | fn.If
+								})] | fn.If
 								Name?:       string | fn.Fn
 								VendorName?: string | fn.Fn
-							} | fn.If
-							NotStatement?: {
-								Statement?: {
-									ByteMatchStatement?: {
-										FieldToMatch?: {
-											AllQueryArguments?: {
-											} | fn.If
-											Body?: {
-											} | fn.If
-											Method?: {
-											} | fn.If
-											QueryString?: {
-											} | fn.If
-											SingleHeader?: {
+							}) | fn.If
+							NotStatement?: close({
+								Statement?: close({
+									ByteMatchStatement?: close({
+										FieldToMatch?: close({
+											AllQueryArguments?: close({
+											}) | fn.If
+											Body?: close({
+											}) | fn.If
+											Method?: close({
+											}) | fn.If
+											QueryString?: close({
+											}) | fn.If
+											SingleHeader?: close({
 												Name?: string | fn.Fn
-											} | fn.If
-											SingleQueryArgument?: {
+											}) | fn.If
+											SingleQueryArgument?: close({
 												Name?: string | fn.Fn
-											} | fn.If
-											UriPath?: {
-											} | fn.If
-										} | fn.If
+											}) | fn.If
+											UriPath?: close({
+											}) | fn.If
+										}) | fn.If
 										PositionalConstraint?: string | fn.Fn
 										SearchString?:         string | fn.Fn
 										SearchStringBase64?:   string | fn.Fn
-										TextTransformations?:  {
-											TextTransformations?: [...{
+										TextTransformations?:  close({
+											TextTransformations?: [...close({
 												[string]: _
-											}] | fn.If
-										} | fn.If
-									} | fn.If
-									GeoMatchStatement?: {
-										CountryCodes?: {
+											})] | fn.If
+										}) | fn.If
+									}) | fn.If
+									GeoMatchStatement?: close({
+										CountryCodes?: close({
 											CountryCodes?: [...(string | fn.Fn)] | (string | fn.Fn)
-										} | fn.If
-									} | fn.If
-									IPSetReferenceStatement?: {
+										}) | fn.If
+									}) | fn.If
+									IPSetReferenceStatement?: close({
 										Arn?: string | fn.Fn
-									} | fn.If
-									ManagedRuleGroupStatement?: {
-										ExcludedRules?: [...{
+									}) | fn.If
+									ManagedRuleGroupStatement?: close({
+										ExcludedRules?: [...close({
 											Name?: string | fn.Fn
-										}] | fn.If
+										})] | fn.If
 										Name?:       string | fn.Fn
 										VendorName?: string | fn.Fn
-									} | fn.If
-									RegexPatternSetReferenceStatement?: {
+									}) | fn.If
+									RegexPatternSetReferenceStatement?: close({
 										Arn?:          string | fn.Fn
-										FieldToMatch?: {
-											AllQueryArguments?: {
-											} | fn.If
-											Body?: {
-											} | fn.If
-											Method?: {
-											} | fn.If
-											QueryString?: {
-											} | fn.If
-											SingleHeader?: {
+										FieldToMatch?: close({
+											AllQueryArguments?: close({
+											}) | fn.If
+											Body?: close({
+											}) | fn.If
+											Method?: close({
+											}) | fn.If
+											QueryString?: close({
+											}) | fn.If
+											SingleHeader?: close({
 												Name?: string | fn.Fn
-											} | fn.If
-											SingleQueryArgument?: {
+											}) | fn.If
+											SingleQueryArgument?: close({
 												Name?: string | fn.Fn
-											} | fn.If
-											UriPath?: {
-											} | fn.If
-										} | fn.If
-										TextTransformations?: {
-											TextTransformations?: [...{
+											}) | fn.If
+											UriPath?: close({
+											}) | fn.If
+										}) | fn.If
+										TextTransformations?: close({
+											TextTransformations?: [...close({
 												[string]: _
-											}] | fn.If
-										} | fn.If
-									} | fn.If
-									RuleGroupReferenceStatement?: {
+											})] | fn.If
+										}) | fn.If
+									}) | fn.If
+									RuleGroupReferenceStatement?: close({
 										Arn?:           string | fn.Fn
-										ExcludedRules?: [...{
+										ExcludedRules?: [...close({
 											Name?: string | fn.Fn
-										}] | fn.If
-									} | fn.If
-									SizeConstraintStatement?: {
+										})] | fn.If
+									}) | fn.If
+									SizeConstraintStatement?: close({
 										ComparisonOperator?: string | fn.Fn
-										FieldToMatch?:       {
-											AllQueryArguments?: {
-											} | fn.If
-											Body?: {
-											} | fn.If
-											Method?: {
-											} | fn.If
-											QueryString?: {
-											} | fn.If
-											SingleHeader?: {
+										FieldToMatch?:       close({
+											AllQueryArguments?: close({
+											}) | fn.If
+											Body?: close({
+											}) | fn.If
+											Method?: close({
+											}) | fn.If
+											QueryString?: close({
+											}) | fn.If
+											SingleHeader?: close({
 												Name?: string | fn.Fn
-											} | fn.If
-											SingleQueryArgument?: {
+											}) | fn.If
+											SingleQueryArgument?: close({
 												Name?: string | fn.Fn
-											} | fn.If
-											UriPath?: {
-											} | fn.If
-										} | fn.If
+											}) | fn.If
+											UriPath?: close({
+											}) | fn.If
+										}) | fn.If
 										Size?:                int | fn.Fn
-										TextTransformations?: {
-											TextTransformations?: [...{
+										TextTransformations?: close({
+											TextTransformations?: [...close({
 												[string]: _
-											}] | fn.If
-										} | fn.If
-									} | fn.If
-									SqliMatchStatement?: {
-										FieldToMatch?: {
-											AllQueryArguments?: {
-											} | fn.If
-											Body?: {
-											} | fn.If
-											Method?: {
-											} | fn.If
-											QueryString?: {
-											} | fn.If
-											SingleHeader?: {
+											})] | fn.If
+										}) | fn.If
+									}) | fn.If
+									SqliMatchStatement?: close({
+										FieldToMatch?: close({
+											AllQueryArguments?: close({
+											}) | fn.If
+											Body?: close({
+											}) | fn.If
+											Method?: close({
+											}) | fn.If
+											QueryString?: close({
+											}) | fn.If
+											SingleHeader?: close({
 												Name?: string | fn.Fn
-											} | fn.If
-											SingleQueryArgument?: {
+											}) | fn.If
+											SingleQueryArgument?: close({
 												Name?: string | fn.Fn
-											} | fn.If
-											UriPath?: {
-											} | fn.If
-										} | fn.If
-										TextTransformations?: {
-											TextTransformations?: [...{
+											}) | fn.If
+											UriPath?: close({
+											}) | fn.If
+										}) | fn.If
+										TextTransformations?: close({
+											TextTransformations?: [...close({
 												[string]: _
-											}] | fn.If
-										} | fn.If
-									} | fn.If
-									XssMatchStatement?: {
-										FieldToMatch?: {
-											AllQueryArguments?: {
-											} | fn.If
-											Body?: {
-											} | fn.If
-											Method?: {
-											} | fn.If
-											QueryString?: {
-											} | fn.If
-											SingleHeader?: {
+											})] | fn.If
+										}) | fn.If
+									}) | fn.If
+									XssMatchStatement?: close({
+										FieldToMatch?: close({
+											AllQueryArguments?: close({
+											}) | fn.If
+											Body?: close({
+											}) | fn.If
+											Method?: close({
+											}) | fn.If
+											QueryString?: close({
+											}) | fn.If
+											SingleHeader?: close({
 												Name?: string | fn.Fn
-											} | fn.If
-											SingleQueryArgument?: {
+											}) | fn.If
+											SingleQueryArgument?: close({
 												Name?: string | fn.Fn
-											} | fn.If
-											UriPath?: {
-											} | fn.If
-										} | fn.If
-										TextTransformations?: {
-											TextTransformations?: [...{
+											}) | fn.If
+											UriPath?: close({
+											}) | fn.If
+										}) | fn.If
+										TextTransformations?: close({
+											TextTransformations?: [...close({
 												[string]: _
-											}] | fn.If
-										} | fn.If
-									} | fn.If
-								} | fn.If
-							} | fn.If
-							OrStatement?: {
-								Statements?: {
-									StatementThrees?: [...{
-										ByteMatchStatement?: {
-											FieldToMatch?: {
-												AllQueryArguments?: {
-												} | fn.If
-												Body?: {
-												} | fn.If
-												Method?: {
-												} | fn.If
-												QueryString?: {
-												} | fn.If
-												SingleHeader?: {
+											})] | fn.If
+										}) | fn.If
+									}) | fn.If
+								}) | fn.If
+							}) | fn.If
+							OrStatement?: close({
+								Statements?: close({
+									StatementThrees?: [...close({
+										ByteMatchStatement?: close({
+											FieldToMatch?: close({
+												AllQueryArguments?: close({
+												}) | fn.If
+												Body?: close({
+												}) | fn.If
+												Method?: close({
+												}) | fn.If
+												QueryString?: close({
+												}) | fn.If
+												SingleHeader?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												SingleQueryArgument?: {
+												}) | fn.If
+												SingleQueryArgument?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												UriPath?: {
-												} | fn.If
-											} | fn.If
+												}) | fn.If
+												UriPath?: close({
+												}) | fn.If
+											}) | fn.If
 											PositionalConstraint?: string | fn.Fn
 											SearchString?:         string | fn.Fn
 											SearchStringBase64?:   string | fn.Fn
-											TextTransformations?:  {
-												TextTransformations?: [...{
+											TextTransformations?:  close({
+												TextTransformations?: [...close({
 													[string]: _
-												}] | fn.If
-											} | fn.If
-										} | fn.If
-										GeoMatchStatement?: {
-											CountryCodes?: {
+												})] | fn.If
+											}) | fn.If
+										}) | fn.If
+										GeoMatchStatement?: close({
+											CountryCodes?: close({
 												CountryCodes?: [...(string | fn.Fn)] | (string | fn.Fn)
-											} | fn.If
-										} | fn.If
-										IPSetReferenceStatement?: {
+											}) | fn.If
+										}) | fn.If
+										IPSetReferenceStatement?: close({
 											Arn?: string | fn.Fn
-										} | fn.If
-										ManagedRuleGroupStatement?: {
-											ExcludedRules?: [...{
+										}) | fn.If
+										ManagedRuleGroupStatement?: close({
+											ExcludedRules?: [...close({
 												Name?: string | fn.Fn
-											}] | fn.If
+											})] | fn.If
 											Name?:       string | fn.Fn
 											VendorName?: string | fn.Fn
-										} | fn.If
-										RegexPatternSetReferenceStatement?: {
+										}) | fn.If
+										RegexPatternSetReferenceStatement?: close({
 											Arn?:          string | fn.Fn
-											FieldToMatch?: {
-												AllQueryArguments?: {
-												} | fn.If
-												Body?: {
-												} | fn.If
-												Method?: {
-												} | fn.If
-												QueryString?: {
-												} | fn.If
-												SingleHeader?: {
+											FieldToMatch?: close({
+												AllQueryArguments?: close({
+												}) | fn.If
+												Body?: close({
+												}) | fn.If
+												Method?: close({
+												}) | fn.If
+												QueryString?: close({
+												}) | fn.If
+												SingleHeader?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												SingleQueryArgument?: {
+												}) | fn.If
+												SingleQueryArgument?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												UriPath?: {
-												} | fn.If
-											} | fn.If
-											TextTransformations?: {
-												TextTransformations?: [...{
+												}) | fn.If
+												UriPath?: close({
+												}) | fn.If
+											}) | fn.If
+											TextTransformations?: close({
+												TextTransformations?: [...close({
 													[string]: _
-												}] | fn.If
-											} | fn.If
-										} | fn.If
-										RuleGroupReferenceStatement?: {
+												})] | fn.If
+											}) | fn.If
+										}) | fn.If
+										RuleGroupReferenceStatement?: close({
 											Arn?:           string | fn.Fn
-											ExcludedRules?: [...{
+											ExcludedRules?: [...close({
 												Name?: string | fn.Fn
-											}] | fn.If
-										} | fn.If
-										SizeConstraintStatement?: {
+											})] | fn.If
+										}) | fn.If
+										SizeConstraintStatement?: close({
 											ComparisonOperator?: string | fn.Fn
-											FieldToMatch?:       {
-												AllQueryArguments?: {
-												} | fn.If
-												Body?: {
-												} | fn.If
-												Method?: {
-												} | fn.If
-												QueryString?: {
-												} | fn.If
-												SingleHeader?: {
+											FieldToMatch?:       close({
+												AllQueryArguments?: close({
+												}) | fn.If
+												Body?: close({
+												}) | fn.If
+												Method?: close({
+												}) | fn.If
+												QueryString?: close({
+												}) | fn.If
+												SingleHeader?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												SingleQueryArgument?: {
+												}) | fn.If
+												SingleQueryArgument?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												UriPath?: {
-												} | fn.If
-											} | fn.If
+												}) | fn.If
+												UriPath?: close({
+												}) | fn.If
+											}) | fn.If
 											Size?:                int | fn.Fn
-											TextTransformations?: {
-												TextTransformations?: [...{
+											TextTransformations?: close({
+												TextTransformations?: [...close({
 													[string]: _
-												}] | fn.If
-											} | fn.If
-										} | fn.If
-										SqliMatchStatement?: {
-											FieldToMatch?: {
-												AllQueryArguments?: {
-												} | fn.If
-												Body?: {
-												} | fn.If
-												Method?: {
-												} | fn.If
-												QueryString?: {
-												} | fn.If
-												SingleHeader?: {
+												})] | fn.If
+											}) | fn.If
+										}) | fn.If
+										SqliMatchStatement?: close({
+											FieldToMatch?: close({
+												AllQueryArguments?: close({
+												}) | fn.If
+												Body?: close({
+												}) | fn.If
+												Method?: close({
+												}) | fn.If
+												QueryString?: close({
+												}) | fn.If
+												SingleHeader?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												SingleQueryArgument?: {
+												}) | fn.If
+												SingleQueryArgument?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												UriPath?: {
-												} | fn.If
-											} | fn.If
-											TextTransformations?: {
-												TextTransformations?: [...{
+												}) | fn.If
+												UriPath?: close({
+												}) | fn.If
+											}) | fn.If
+											TextTransformations?: close({
+												TextTransformations?: [...close({
 													[string]: _
-												}] | fn.If
-											} | fn.If
-										} | fn.If
-										XssMatchStatement?: {
-											FieldToMatch?: {
-												AllQueryArguments?: {
-												} | fn.If
-												Body?: {
-												} | fn.If
-												Method?: {
-												} | fn.If
-												QueryString?: {
-												} | fn.If
-												SingleHeader?: {
+												})] | fn.If
+											}) | fn.If
+										}) | fn.If
+										XssMatchStatement?: close({
+											FieldToMatch?: close({
+												AllQueryArguments?: close({
+												}) | fn.If
+												Body?: close({
+												}) | fn.If
+												Method?: close({
+												}) | fn.If
+												QueryString?: close({
+												}) | fn.If
+												SingleHeader?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												SingleQueryArgument?: {
+												}) | fn.If
+												SingleQueryArgument?: close({
 													Name?: string | fn.Fn
-												} | fn.If
-												UriPath?: {
-												} | fn.If
-											} | fn.If
-											TextTransformations?: {
-												TextTransformations?: [...{
+												}) | fn.If
+												UriPath?: close({
+												}) | fn.If
+											}) | fn.If
+											TextTransformations?: close({
+												TextTransformations?: [...close({
 													[string]: _
-												}] | fn.If
-											} | fn.If
-										} | fn.If
-									}] | fn.If
-								} | fn.If
-							} | fn.If
-							RateBasedStatement?: {
+												})] | fn.If
+											}) | fn.If
+										}) | fn.If
+									})] | fn.If
+								}) | fn.If
+							}) | fn.If
+							RateBasedStatement?: close({
 								AggregateKeyType?:   string | fn.Fn
 								Limit?:              int | fn.Fn
-								ScopeDownStatement?: {
-									ByteMatchStatement?: {
-										FieldToMatch?: {
-											AllQueryArguments?: {
-											} | fn.If
-											Body?: {
-											} | fn.If
-											Method?: {
-											} | fn.If
-											QueryString?: {
-											} | fn.If
-											SingleHeader?: {
+								ScopeDownStatement?: close({
+									ByteMatchStatement?: close({
+										FieldToMatch?: close({
+											AllQueryArguments?: close({
+											}) | fn.If
+											Body?: close({
+											}) | fn.If
+											Method?: close({
+											}) | fn.If
+											QueryString?: close({
+											}) | fn.If
+											SingleHeader?: close({
 												Name?: string | fn.Fn
-											} | fn.If
-											SingleQueryArgument?: {
+											}) | fn.If
+											SingleQueryArgument?: close({
 												Name?: string | fn.Fn
-											} | fn.If
-											UriPath?: {
-											} | fn.If
-										} | fn.If
+											}) | fn.If
+											UriPath?: close({
+											}) | fn.If
+										}) | fn.If
 										PositionalConstraint?: string | fn.Fn
 										SearchString?:         string | fn.Fn
 										SearchStringBase64?:   string | fn.Fn
-										TextTransformations?:  {
-											TextTransformations?: [...{
+										TextTransformations?:  close({
+											TextTransformations?: [...close({
 												[string]: _
-											}] | fn.If
-										} | fn.If
-									} | fn.If
-									GeoMatchStatement?: {
-										CountryCodes?: {
+											})] | fn.If
+										}) | fn.If
+									}) | fn.If
+									GeoMatchStatement?: close({
+										CountryCodes?: close({
 											CountryCodes?: [...(string | fn.Fn)] | (string | fn.Fn)
-										} | fn.If
-									} | fn.If
-									IPSetReferenceStatement?: {
+										}) | fn.If
+									}) | fn.If
+									IPSetReferenceStatement?: close({
 										Arn?: string | fn.Fn
-									} | fn.If
-									ManagedRuleGroupStatement?: {
-										ExcludedRules?: [...{
+									}) | fn.If
+									ManagedRuleGroupStatement?: close({
+										ExcludedRules?: [...close({
 											Name?: string | fn.Fn
-										}] | fn.If
+										})] | fn.If
 										Name?:       string | fn.Fn
 										VendorName?: string | fn.Fn
-									} | fn.If
-									RegexPatternSetReferenceStatement?: {
+									}) | fn.If
+									RegexPatternSetReferenceStatement?: close({
 										Arn?:          string | fn.Fn
-										FieldToMatch?: {
-											AllQueryArguments?: {
-											} | fn.If
-											Body?: {
-											} | fn.If
-											Method?: {
-											} | fn.If
-											QueryString?: {
-											} | fn.If
-											SingleHeader?: {
+										FieldToMatch?: close({
+											AllQueryArguments?: close({
+											}) | fn.If
+											Body?: close({
+											}) | fn.If
+											Method?: close({
+											}) | fn.If
+											QueryString?: close({
+											}) | fn.If
+											SingleHeader?: close({
 												Name?: string | fn.Fn
-											} | fn.If
-											SingleQueryArgument?: {
+											}) | fn.If
+											SingleQueryArgument?: close({
 												Name?: string | fn.Fn
-											} | fn.If
-											UriPath?: {
-											} | fn.If
-										} | fn.If
-										TextTransformations?: {
-											TextTransformations?: [...{
+											}) | fn.If
+											UriPath?: close({
+											}) | fn.If
+										}) | fn.If
+										TextTransformations?: close({
+											TextTransformations?: [...close({
 												[string]: _
-											}] | fn.If
-										} | fn.If
-									} | fn.If
-									RuleGroupReferenceStatement?: {
+											})] | fn.If
+										}) | fn.If
+									}) | fn.If
+									RuleGroupReferenceStatement?: close({
 										Arn?:           string | fn.Fn
-										ExcludedRules?: [...{
+										ExcludedRules?: [...close({
 											Name?: string | fn.Fn
-										}] | fn.If
-									} | fn.If
-									SizeConstraintStatement?: {
+										})] | fn.If
+									}) | fn.If
+									SizeConstraintStatement?: close({
 										ComparisonOperator?: string | fn.Fn
-										FieldToMatch?:       {
-											AllQueryArguments?: {
-											} | fn.If
-											Body?: {
-											} | fn.If
-											Method?: {
-											} | fn.If
-											QueryString?: {
-											} | fn.If
-											SingleHeader?: {
+										FieldToMatch?:       close({
+											AllQueryArguments?: close({
+											}) | fn.If
+											Body?: close({
+											}) | fn.If
+											Method?: close({
+											}) | fn.If
+											QueryString?: close({
+											}) | fn.If
+											SingleHeader?: close({
 												Name?: string | fn.Fn
-											} | fn.If
-											SingleQueryArgument?: {
+											}) | fn.If
+											SingleQueryArgument?: close({
 												Name?: string | fn.Fn
-											} | fn.If
-											UriPath?: {
-											} | fn.If
-										} | fn.If
+											}) | fn.If
+											UriPath?: close({
+											}) | fn.If
+										}) | fn.If
 										Size?:                int | fn.Fn
-										TextTransformations?: {
-											TextTransformations?: [...{
+										TextTransformations?: close({
+											TextTransformations?: [...close({
 												[string]: _
-											}] | fn.If
-										} | fn.If
-									} | fn.If
-									SqliMatchStatement?: {
-										FieldToMatch?: {
-											AllQueryArguments?: {
-											} | fn.If
-											Body?: {
-											} | fn.If
-											Method?: {
-											} | fn.If
-											QueryString?: {
-											} | fn.If
-											SingleHeader?: {
+											})] | fn.If
+										}) | fn.If
+									}) | fn.If
+									SqliMatchStatement?: close({
+										FieldToMatch?: close({
+											AllQueryArguments?: close({
+											}) | fn.If
+											Body?: close({
+											}) | fn.If
+											Method?: close({
+											}) | fn.If
+											QueryString?: close({
+											}) | fn.If
+											SingleHeader?: close({
 												Name?: string | fn.Fn
-											} | fn.If
-											SingleQueryArgument?: {
+											}) | fn.If
+											SingleQueryArgument?: close({
 												Name?: string | fn.Fn
-											} | fn.If
-											UriPath?: {
-											} | fn.If
-										} | fn.If
-										TextTransformations?: {
-											TextTransformations?: [...{
+											}) | fn.If
+											UriPath?: close({
+											}) | fn.If
+										}) | fn.If
+										TextTransformations?: close({
+											TextTransformations?: [...close({
 												[string]: _
-											}] | fn.If
-										} | fn.If
-									} | fn.If
-									XssMatchStatement?: {
-										FieldToMatch?: {
-											AllQueryArguments?: {
-											} | fn.If
-											Body?: {
-											} | fn.If
-											Method?: {
-											} | fn.If
-											QueryString?: {
-											} | fn.If
-											SingleHeader?: {
+											})] | fn.If
+										}) | fn.If
+									}) | fn.If
+									XssMatchStatement?: close({
+										FieldToMatch?: close({
+											AllQueryArguments?: close({
+											}) | fn.If
+											Body?: close({
+											}) | fn.If
+											Method?: close({
+											}) | fn.If
+											QueryString?: close({
+											}) | fn.If
+											SingleHeader?: close({
 												Name?: string | fn.Fn
-											} | fn.If
-											SingleQueryArgument?: {
+											}) | fn.If
+											SingleQueryArgument?: close({
 												Name?: string | fn.Fn
-											} | fn.If
-											UriPath?: {
-											} | fn.If
-										} | fn.If
-										TextTransformations?: {
-											TextTransformations?: [...{
+											}) | fn.If
+											UriPath?: close({
+											}) | fn.If
+										}) | fn.If
+										TextTransformations?: close({
+											TextTransformations?: [...close({
 												[string]: _
-											}] | fn.If
-										} | fn.If
-									} | fn.If
-								} | fn.If
-							} | fn.If
-							RegexPatternSetReferenceStatement?: {
+											})] | fn.If
+										}) | fn.If
+									}) | fn.If
+								}) | fn.If
+							}) | fn.If
+							RegexPatternSetReferenceStatement?: close({
 								Arn?:          string | fn.Fn
-								FieldToMatch?: {
-									AllQueryArguments?: {
-									} | fn.If
-									Body?: {
-									} | fn.If
-									Method?: {
-									} | fn.If
-									QueryString?: {
-									} | fn.If
-									SingleHeader?: {
+								FieldToMatch?: close({
+									AllQueryArguments?: close({
+									}) | fn.If
+									Body?: close({
+									}) | fn.If
+									Method?: close({
+									}) | fn.If
+									QueryString?: close({
+									}) | fn.If
+									SingleHeader?: close({
 										Name?: string | fn.Fn
-									} | fn.If
-									SingleQueryArgument?: {
+									}) | fn.If
+									SingleQueryArgument?: close({
 										Name?: string | fn.Fn
-									} | fn.If
-									UriPath?: {
-									} | fn.If
-								} | fn.If
-								TextTransformations?: {
-									TextTransformations?: [...{
+									}) | fn.If
+									UriPath?: close({
+									}) | fn.If
+								}) | fn.If
+								TextTransformations?: close({
+									TextTransformations?: [...close({
 										[string]: _
-									}] | fn.If
-								} | fn.If
-							} | fn.If
-							RuleGroupReferenceStatement?: {
+									})] | fn.If
+								}) | fn.If
+							}) | fn.If
+							RuleGroupReferenceStatement?: close({
 								Arn?:           string | fn.Fn
-								ExcludedRules?: [...{
+								ExcludedRules?: [...close({
 									Name?: string | fn.Fn
-								}] | fn.If
-							} | fn.If
-							SizeConstraintStatement?: {
+								})] | fn.If
+							}) | fn.If
+							SizeConstraintStatement?: close({
 								ComparisonOperator?: string | fn.Fn
-								FieldToMatch?:       {
-									AllQueryArguments?: {
-									} | fn.If
-									Body?: {
-									} | fn.If
-									Method?: {
-									} | fn.If
-									QueryString?: {
-									} | fn.If
-									SingleHeader?: {
+								FieldToMatch?:       close({
+									AllQueryArguments?: close({
+									}) | fn.If
+									Body?: close({
+									}) | fn.If
+									Method?: close({
+									}) | fn.If
+									QueryString?: close({
+									}) | fn.If
+									SingleHeader?: close({
 										Name?: string | fn.Fn
-									} | fn.If
-									SingleQueryArgument?: {
+									}) | fn.If
+									SingleQueryArgument?: close({
 										Name?: string | fn.Fn
-									} | fn.If
-									UriPath?: {
-									} | fn.If
-								} | fn.If
+									}) | fn.If
+									UriPath?: close({
+									}) | fn.If
+								}) | fn.If
 								Size?:                int | fn.Fn
-								TextTransformations?: {
-									TextTransformations?: [...{
+								TextTransformations?: close({
+									TextTransformations?: [...close({
 										[string]: _
-									}] | fn.If
-								} | fn.If
-							} | fn.If
-							SqliMatchStatement?: {
-								FieldToMatch?: {
-									AllQueryArguments?: {
-									} | fn.If
-									Body?: {
-									} | fn.If
-									Method?: {
-									} | fn.If
-									QueryString?: {
-									} | fn.If
-									SingleHeader?: {
+									})] | fn.If
+								}) | fn.If
+							}) | fn.If
+							SqliMatchStatement?: close({
+								FieldToMatch?: close({
+									AllQueryArguments?: close({
+									}) | fn.If
+									Body?: close({
+									}) | fn.If
+									Method?: close({
+									}) | fn.If
+									QueryString?: close({
+									}) | fn.If
+									SingleHeader?: close({
 										Name?: string | fn.Fn
-									} | fn.If
-									SingleQueryArgument?: {
+									}) | fn.If
+									SingleQueryArgument?: close({
 										Name?: string | fn.Fn
-									} | fn.If
-									UriPath?: {
-									} | fn.If
-								} | fn.If
-								TextTransformations?: {
-									TextTransformations?: [...{
+									}) | fn.If
+									UriPath?: close({
+									}) | fn.If
+								}) | fn.If
+								TextTransformations?: close({
+									TextTransformations?: [...close({
 										[string]: _
-									}] | fn.If
-								} | fn.If
-							} | fn.If
-							XssMatchStatement?: {
-								FieldToMatch?: {
-									AllQueryArguments?: {
-									} | fn.If
-									Body?: {
-									} | fn.If
-									Method?: {
-									} | fn.If
-									QueryString?: {
-									} | fn.If
-									SingleHeader?: {
+									})] | fn.If
+								}) | fn.If
+							}) | fn.If
+							XssMatchStatement?: close({
+								FieldToMatch?: close({
+									AllQueryArguments?: close({
+									}) | fn.If
+									Body?: close({
+									}) | fn.If
+									Method?: close({
+									}) | fn.If
+									QueryString?: close({
+									}) | fn.If
+									SingleHeader?: close({
 										Name?: string | fn.Fn
-									} | fn.If
-									SingleQueryArgument?: {
+									}) | fn.If
+									SingleQueryArgument?: close({
 										Name?: string | fn.Fn
-									} | fn.If
-									UriPath?: {
-									} | fn.If
-								} | fn.If
-								TextTransformations?: {
-									TextTransformations?: [...{
+									}) | fn.If
+									UriPath?: close({
+									}) | fn.If
+								}) | fn.If
+								TextTransformations?: close({
+									TextTransformations?: [...close({
 										[string]: _
-									}] | fn.If
-								} | fn.If
-							} | fn.If
-						} | fn.If
-					} | fn.If
-					RegexPatternSetReferenceStatement?: {
+									})] | fn.If
+								}) | fn.If
+							}) | fn.If
+						}) | fn.If
+					}) | fn.If
+					RegexPatternSetReferenceStatement?: close({
 						Arn?:          string | fn.Fn
-						FieldToMatch?: {
-							AllQueryArguments?: {
-							} | fn.If
-							Body?: {
-							} | fn.If
-							Method?: {
-							} | fn.If
-							QueryString?: {
-							} | fn.If
-							SingleHeader?: {
+						FieldToMatch?: close({
+							AllQueryArguments?: close({
+							}) | fn.If
+							Body?: close({
+							}) | fn.If
+							Method?: close({
+							}) | fn.If
+							QueryString?: close({
+							}) | fn.If
+							SingleHeader?: close({
 								Name?: string | fn.Fn
-							} | fn.If
-							SingleQueryArgument?: {
+							}) | fn.If
+							SingleQueryArgument?: close({
 								Name?: string | fn.Fn
-							} | fn.If
-							UriPath?: {
-							} | fn.If
-						} | fn.If
-						TextTransformations?: {
-							TextTransformations?: [...{
+							}) | fn.If
+							UriPath?: close({
+							}) | fn.If
+						}) | fn.If
+						TextTransformations?: close({
+							TextTransformations?: [...close({
 								[string]: _
-							}] | fn.If
-						} | fn.If
-					} | fn.If
-					RuleGroupReferenceStatement?: {
+							})] | fn.If
+						}) | fn.If
+					}) | fn.If
+					RuleGroupReferenceStatement?: close({
 						Arn?:           string | fn.Fn
-						ExcludedRules?: [...{
+						ExcludedRules?: [...close({
 							Name?: string | fn.Fn
-						}] | fn.If
-					} | fn.If
-					SizeConstraintStatement?: {
+						})] | fn.If
+					}) | fn.If
+					SizeConstraintStatement?: close({
 						ComparisonOperator?: string | fn.Fn
-						FieldToMatch?:       {
-							AllQueryArguments?: {
-							} | fn.If
-							Body?: {
-							} | fn.If
-							Method?: {
-							} | fn.If
-							QueryString?: {
-							} | fn.If
-							SingleHeader?: {
+						FieldToMatch?:       close({
+							AllQueryArguments?: close({
+							}) | fn.If
+							Body?: close({
+							}) | fn.If
+							Method?: close({
+							}) | fn.If
+							QueryString?: close({
+							}) | fn.If
+							SingleHeader?: close({
 								Name?: string | fn.Fn
-							} | fn.If
-							SingleQueryArgument?: {
+							}) | fn.If
+							SingleQueryArgument?: close({
 								Name?: string | fn.Fn
-							} | fn.If
-							UriPath?: {
-							} | fn.If
-						} | fn.If
+							}) | fn.If
+							UriPath?: close({
+							}) | fn.If
+						}) | fn.If
 						Size?:                int | fn.Fn
-						TextTransformations?: {
-							TextTransformations?: [...{
+						TextTransformations?: close({
+							TextTransformations?: [...close({
 								[string]: _
-							}] | fn.If
-						} | fn.If
-					} | fn.If
-					SqliMatchStatement?: {
-						FieldToMatch?: {
-							AllQueryArguments?: {
-							} | fn.If
-							Body?: {
-							} | fn.If
-							Method?: {
-							} | fn.If
-							QueryString?: {
-							} | fn.If
-							SingleHeader?: {
+							})] | fn.If
+						}) | fn.If
+					}) | fn.If
+					SqliMatchStatement?: close({
+						FieldToMatch?: close({
+							AllQueryArguments?: close({
+							}) | fn.If
+							Body?: close({
+							}) | fn.If
+							Method?: close({
+							}) | fn.If
+							QueryString?: close({
+							}) | fn.If
+							SingleHeader?: close({
 								Name?: string | fn.Fn
-							} | fn.If
-							SingleQueryArgument?: {
+							}) | fn.If
+							SingleQueryArgument?: close({
 								Name?: string | fn.Fn
-							} | fn.If
-							UriPath?: {
-							} | fn.If
-						} | fn.If
-						TextTransformations?: {
-							TextTransformations?: [...{
+							}) | fn.If
+							UriPath?: close({
+							}) | fn.If
+						}) | fn.If
+						TextTransformations?: close({
+							TextTransformations?: [...close({
 								[string]: _
-							}] | fn.If
-						} | fn.If
-					} | fn.If
-					XssMatchStatement?: {
-						FieldToMatch?: {
-							AllQueryArguments?: {
-							} | fn.If
-							Body?: {
-							} | fn.If
-							Method?: {
-							} | fn.If
-							QueryString?: {
-							} | fn.If
-							SingleHeader?: {
+							})] | fn.If
+						}) | fn.If
+					}) | fn.If
+					XssMatchStatement?: close({
+						FieldToMatch?: close({
+							AllQueryArguments?: close({
+							}) | fn.If
+							Body?: close({
+							}) | fn.If
+							Method?: close({
+							}) | fn.If
+							QueryString?: close({
+							}) | fn.If
+							SingleHeader?: close({
 								Name?: string | fn.Fn
-							} | fn.If
-							SingleQueryArgument?: {
+							}) | fn.If
+							SingleQueryArgument?: close({
 								Name?: string | fn.Fn
-							} | fn.If
-							UriPath?: {
-							} | fn.If
-						} | fn.If
-						TextTransformations?: {
-							TextTransformations?: [...{
+							}) | fn.If
+							UriPath?: close({
+							}) | fn.If
+						}) | fn.If
+						TextTransformations?: close({
+							TextTransformations?: [...close({
 								[string]: _
-							}] | fn.If
-						} | fn.If
-					} | fn.If
-				} | fn.If
-				VisibilityConfig?: {
+							})] | fn.If
+						}) | fn.If
+					}) | fn.If
+				}) | fn.If
+				VisibilityConfig?: close({
 					CloudWatchMetricsEnabled?: bool | fn.Fn
 					MetricName?:               string | fn.Fn
 					SampledRequestsEnabled?:   bool | fn.Fn
-				} | fn.If
-			}] | fn.If
+				}) | fn.If
+			})] | fn.If
 			Scope: string | fn.Fn
-			Tags?: [...{
+			Tags?: [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}] | fn.If
-			VisibilityConfig: {
+			})] | fn.If
+			VisibilityConfig: close({
 				CloudWatchMetricsEnabled?: bool | fn.Fn
 				MetricName?:               string | fn.Fn
 				SampledRequestsEnabled?:   bool | fn.Fn
-			} | fn.If
+			}) | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

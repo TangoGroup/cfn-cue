@@ -7,10 +7,10 @@ StepFunctions :: {
 		Type: "AWS::StepFunctions::Activity"
 		Properties: {
 			Name:  string | fn.Fn
-			Tags?: [...{
+			Tags?: [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}] | fn.If
+			})] | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -22,22 +22,22 @@ StepFunctions :: {
 		Type: "AWS::StepFunctions::StateMachine"
 		Properties: {
 			DefinitionString:      string | fn.Fn
-			LoggingConfiguration?: {
-				Destinations?: [...{
-					CloudWatchLogsLogGroup?: {
+			LoggingConfiguration?: close({
+				Destinations?: [...close({
+					CloudWatchLogsLogGroup?: close({
 						LogGroupArn: string | fn.Fn
-					} | fn.If
-				}] | fn.If
+					}) | fn.If
+				})] | fn.If
 				IncludeExecutionData?: bool | fn.Fn
 				Level?:                string | fn.Fn
-			} | fn.If
+			}) | fn.If
 			RoleArn:           string | fn.Fn
 			StateMachineName?: string | fn.Fn
 			StateMachineType?: string | fn.Fn
-			Tags?:             [...{
+			Tags?:             [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}] | fn.If
+			})] | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

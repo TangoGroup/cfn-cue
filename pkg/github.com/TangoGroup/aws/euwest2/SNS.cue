@@ -32,14 +32,14 @@ SNS :: {
 		Properties: {
 			DisplayName?:    string | fn.Fn
 			KmsMasterKeyId?: string | fn.Fn
-			Subscription?:   [...{
+			Subscription?:   [...close({
 				Endpoint: string | fn.Fn
 				Protocol: string | fn.Fn
-			}] | fn.If
-			Tags?: [...{
+			})] | fn.If
+			Tags?: [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}] | fn.If
+			})] | fn.If
 			TopicName?: string | fn.Fn
 		}
 		DependsOn?:           string | [...string]

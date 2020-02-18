@@ -7,7 +7,7 @@ Batch :: {
 		Type: "AWS::Batch::ComputeEnvironment"
 		Properties: {
 			ComputeEnvironmentName?: string | fn.Fn
-			ComputeResources?:       {
+			ComputeResources?:       close({
 				AllocationStrategy?: string | fn.Fn
 				BidPercentage?:      int | fn.Fn
 				DesiredvCpus?:       int | fn.Fn
@@ -15,11 +15,11 @@ Batch :: {
 				ImageId?:            string | fn.Fn
 				InstanceRole:        string | fn.Fn
 				InstanceTypes:       [...(string | fn.Fn)] | (string | fn.Fn)
-				LaunchTemplate?:     {
+				LaunchTemplate?:     close({
 					LaunchTemplateId?:   string | fn.Fn
 					LaunchTemplateName?: string | fn.Fn
 					Version?:            string | fn.Fn
-				} | fn.If
+				}) | fn.If
 				MaxvCpus:          int | fn.Fn
 				MinvCpus:          int | fn.Fn
 				PlacementGroup?:   string | fn.Fn
@@ -30,7 +30,7 @@ Batch :: {
 					[string]: _
 				} | fn.Fn
 				Type: string | fn.Fn
-			} | fn.If
+			}) | fn.If
 			ServiceRole: (=~#"arn:(aws[a-zA-Z-]*)?:iam::\d{12}:role/[a-zA-Z_0-9+=,.@\-_/]+"#) | fn.Fn
 			State?:      string | fn.Fn
 			Type:        string | fn.Fn
@@ -44,107 +44,107 @@ Batch :: {
 	JobDefinition :: {
 		Type: "AWS::Batch::JobDefinition"
 		Properties: {
-			ContainerProperties?: {
+			ContainerProperties?: close({
 				Command?:     [...(string | fn.Fn)] | (string | fn.Fn)
-				Environment?: [...{
+				Environment?: [...close({
 					Name?:  string | fn.Fn
 					Value?: string | fn.Fn
-				}] | fn.If
+				})] | fn.If
 				Image:            string | fn.Fn
 				InstanceType?:    string | fn.Fn
 				JobRoleArn?:      string | fn.Fn
-				LinuxParameters?: {
-					Devices?: [...{
+				LinuxParameters?: close({
+					Devices?: [...close({
 						ContainerPath?: string | fn.Fn
 						HostPath?:      string | fn.Fn
 						Permissions?:   [...(string | fn.Fn)] | (string | fn.Fn)
-					}] | fn.If
-				} | fn.If
+					})] | fn.If
+				}) | fn.If
 				Memory:       int | fn.Fn
-				MountPoints?: [...{
+				MountPoints?: [...close({
 					ContainerPath?: string | fn.Fn
 					ReadOnly?:      bool | fn.Fn
 					SourceVolume?:  string | fn.Fn
-				}] | fn.If
+				})] | fn.If
 				Privileged?:             bool | fn.Fn
 				ReadonlyRootFilesystem?: bool | fn.Fn
-				ResourceRequirements?:   [...{
+				ResourceRequirements?:   [...close({
 					Type?:  string | fn.Fn
 					Value?: string | fn.Fn
-				}] | fn.If
-				Ulimits?: [...{
+				})] | fn.If
+				Ulimits?: [...close({
 					HardLimit: int | fn.Fn
 					Name:      string | fn.Fn
 					SoftLimit: int | fn.Fn
-				}] | fn.If
+				})] | fn.If
 				User?:    string | fn.Fn
 				Vcpus:    int | fn.Fn
-				Volumes?: [...{
-					Host?: {
+				Volumes?: [...close({
+					Host?: close({
 						SourcePath?: string | fn.Fn
-					} | fn.If
+					}) | fn.If
 					Name?: string | fn.Fn
-				}] | fn.If
-			} | fn.If
+				})] | fn.If
+			}) | fn.If
 			JobDefinitionName?: string | fn.Fn
-			NodeProperties?:    {
+			NodeProperties?:    close({
 				MainNode:            int | fn.Fn
-				NodeRangeProperties: [...{
-					Container?: {
+				NodeRangeProperties: [...close({
+					Container?: close({
 						Command?:     [...(string | fn.Fn)] | (string | fn.Fn)
-						Environment?: [...{
+						Environment?: [...close({
 							Name?:  string | fn.Fn
 							Value?: string | fn.Fn
-						}] | fn.If
+						})] | fn.If
 						Image:            string | fn.Fn
 						InstanceType?:    string | fn.Fn
 						JobRoleArn?:      string | fn.Fn
-						LinuxParameters?: {
-							Devices?: [...{
+						LinuxParameters?: close({
+							Devices?: [...close({
 								ContainerPath?: string | fn.Fn
 								HostPath?:      string | fn.Fn
 								Permissions?:   [...(string | fn.Fn)] | (string | fn.Fn)
-							}] | fn.If
-						} | fn.If
+							})] | fn.If
+						}) | fn.If
 						Memory:       int | fn.Fn
-						MountPoints?: [...{
+						MountPoints?: [...close({
 							ContainerPath?: string | fn.Fn
 							ReadOnly?:      bool | fn.Fn
 							SourceVolume?:  string | fn.Fn
-						}] | fn.If
+						})] | fn.If
 						Privileged?:             bool | fn.Fn
 						ReadonlyRootFilesystem?: bool | fn.Fn
-						ResourceRequirements?:   [...{
+						ResourceRequirements?:   [...close({
 							Type?:  string | fn.Fn
 							Value?: string | fn.Fn
-						}] | fn.If
-						Ulimits?: [...{
+						})] | fn.If
+						Ulimits?: [...close({
 							HardLimit: int | fn.Fn
 							Name:      string | fn.Fn
 							SoftLimit: int | fn.Fn
-						}] | fn.If
+						})] | fn.If
 						User?:    string | fn.Fn
 						Vcpus:    int | fn.Fn
-						Volumes?: [...{
-							Host?: {
+						Volumes?: [...close({
+							Host?: close({
 								SourcePath?: string | fn.Fn
-							} | fn.If
+							}) | fn.If
 							Name?: string | fn.Fn
-						}] | fn.If
-					} | fn.If
+						})] | fn.If
+					}) | fn.If
 					TargetNodes: string | fn.Fn
-				}] | fn.If
+				})] | fn.If
 				NumNodes: int | fn.Fn
-			} | fn.If
+			}) | fn.If
 			Parameters?: {
 				[string]: _
 			} | fn.Fn
-			RetryStrategy?: {
+			RetryStrategy?: close({
 				Attempts?: int | fn.Fn
-			} | fn.If
-			Timeout?: {
+			}) | fn.If
+			Timeout?: close({
 				AttemptDurationSeconds?: int | fn.Fn
-			} | fn.If
+			}) | fn.If
 			Type: string | fn.Fn
 		}
 		DependsOn?:           string | [...string]
@@ -156,10 +156,10 @@ Batch :: {
 	JobQueue :: {
 		Type: "AWS::Batch::JobQueue"
 		Properties: {
-			ComputeEnvironmentOrder: [...{
+			ComputeEnvironmentOrder: [...close({
 				ComputeEnvironment: string | fn.Fn
 				Order:              int | fn.Fn
-			}] | fn.If
+			})] | fn.If
 			JobQueueName?: string | fn.Fn
 			Priority:      int | fn.Fn
 			State?:        string | fn.Fn

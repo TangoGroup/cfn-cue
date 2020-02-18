@@ -6,16 +6,16 @@ CodeCommit :: {
 	Repository :: {
 		Type: "AWS::CodeCommit::Repository"
 		Properties: {
-			Code?: {
-			} | fn.If
+			Code?: close({
+			}) | fn.If
 			RepositoryDescription?: string | fn.Fn
 			RepositoryName:         string | fn.Fn
-			Tags?:                  [...{
+			Tags?:                  [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}] | fn.If
-			Triggers?: [...{
-			}] | fn.If
+			})] | fn.If
+			Triggers?: [...close({
+			})] | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

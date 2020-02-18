@@ -9,98 +9,98 @@ EMR :: {
 			AdditionalInfo?: {
 				[string]: _
 			} | fn.Fn
-			Applications?: [...{
+			Applications?: [...close({
 				AdditionalInfo?: {
 					[string]: string | fn.Fn
 				} | fn.If
 				Args?:    [...(string | fn.Fn)] | (string | fn.Fn)
 				Name?:    string | fn.Fn
 				Version?: string | fn.Fn
-			}] | fn.If
+			})] | fn.If
 			AutoScalingRole?:  string | fn.Fn
-			BootstrapActions?: [...{
+			BootstrapActions?: [...close({
 				Name:                  string | fn.Fn
-				ScriptBootstrapAction: {
+				ScriptBootstrapAction: close({
 					Args?: [...(string | fn.Fn)] | (string | fn.Fn)
 					Path:  string | fn.Fn
-				} | fn.If
-			}] | fn.If
-			Configurations?: [...{
+				}) | fn.If
+			})] | fn.If
+			Configurations?: [...close({
 				Classification?:          string | fn.Fn
 				ConfigurationProperties?: {
 					[string]: string | fn.Fn
 				} | fn.If
-				Configurations?: [...{
+				Configurations?: [...close({
 					[string]: _
-				}] | fn.If
-			}] | fn.If
+				})] | fn.If
+			})] | fn.If
 			CustomAmiId?:       string | fn.Fn
 			EbsRootVolumeSize?: int | fn.Fn
-			Instances:          {
+			Instances:          close({
 				AdditionalMasterSecurityGroups?: [...(string | fn.Fn)] | (string | fn.Fn)
 				AdditionalSlaveSecurityGroups?:  [...(string | fn.Fn)] | (string | fn.Fn)
-				CoreInstanceFleet?:              {
-					InstanceTypeConfigs?: [...{
+				CoreInstanceFleet?:              close({
+					InstanceTypeConfigs?: [...close({
 						BidPrice?:                            string | fn.Fn
 						BidPriceAsPercentageOfOnDemandPrice?: number | fn.Fn
-						Configurations?:                      [...{
+						Configurations?:                      [...close({
 							Classification?:          string | fn.Fn
 							ConfigurationProperties?: {
 								[string]: string | fn.Fn
 							} | fn.If
-							Configurations?: [...{
+							Configurations?: [...close({
 								[string]: _
-							}] | fn.If
-						}] | fn.If
-						EbsConfiguration?: {
-							EbsBlockDeviceConfigs?: [...{
-								VolumeSpecification: {
+							})] | fn.If
+						})] | fn.If
+						EbsConfiguration?: close({
+							EbsBlockDeviceConfigs?: [...close({
+								VolumeSpecification: close({
 									Iops?:      int | fn.Fn
 									SizeInGB:   int | fn.Fn
 									VolumeType: string | fn.Fn
-								} | fn.If
+								}) | fn.If
 								VolumesPerInstance?: int | fn.Fn
-							}] | fn.If
+							})] | fn.If
 							EbsOptimized?: bool | fn.Fn
-						} | fn.If
+						}) | fn.If
 						InstanceType:      string | fn.Fn
 						WeightedCapacity?: int | fn.Fn
-					}] | fn.If
-					LaunchSpecifications?: {
-						SpotSpecification: {
+					})] | fn.If
+					LaunchSpecifications?: close({
+						SpotSpecification: close({
 							BlockDurationMinutes?:  int | fn.Fn
 							TimeoutAction:          string | fn.Fn
 							TimeoutDurationMinutes: int | fn.Fn
-						} | fn.If
-					} | fn.If
+						}) | fn.If
+					}) | fn.If
 					Name?:                   string | fn.Fn
 					TargetOnDemandCapacity?: int | fn.Fn
 					TargetSpotCapacity?:     int | fn.Fn
-				} | fn.If
-				CoreInstanceGroup?: {
-					AutoScalingPolicy?: {
-						Constraints: {
+				}) | fn.If
+				CoreInstanceGroup?: close({
+					AutoScalingPolicy?: close({
+						Constraints: close({
 							MaxCapacity: int | fn.Fn
 							MinCapacity: int | fn.Fn
-						} | fn.If
-						Rules: [...{
-							Action: {
+						}) | fn.If
+						Rules: [...close({
+							Action: close({
 								Market?:                          string | fn.Fn
-								SimpleScalingPolicyConfiguration: {
+								SimpleScalingPolicyConfiguration: close({
 									AdjustmentType?:   string | fn.Fn
 									CoolDown?:         int | fn.Fn
 									ScalingAdjustment: int | fn.Fn
-								} | fn.If
-							} | fn.If
+								}) | fn.If
+							}) | fn.If
 							Description?: string | fn.Fn
 							Name:         string | fn.Fn
-							Trigger:      {
-								CloudWatchAlarmDefinition: {
+							Trigger:      close({
+								CloudWatchAlarmDefinition: close({
 									ComparisonOperator: string | fn.Fn
-									Dimensions?:        [...{
+									Dimensions?:        [...close({
 										Key:   string | fn.Fn
 										Value: string | fn.Fn
-									}] | fn.If
+									})] | fn.If
 									EvaluationPeriods?: int | fn.Fn
 									MetricName:         string | fn.Fn
 									Namespace?:         string | fn.Fn
@@ -108,36 +108,36 @@ EMR :: {
 									Statistic?:         string | fn.Fn
 									Threshold:          number | fn.Fn
 									Unit?:              string | fn.Fn
-								} | fn.If
-							} | fn.If
-						}] | fn.If
-					} | fn.If
+								}) | fn.If
+							}) | fn.If
+						})] | fn.If
+					}) | fn.If
 					BidPrice?:       string | fn.Fn
-					Configurations?: [...{
+					Configurations?: [...close({
 						Classification?:          string | fn.Fn
 						ConfigurationProperties?: {
 							[string]: string | fn.Fn
 						} | fn.If
-						Configurations?: [...{
+						Configurations?: [...close({
 							[string]: _
-						}] | fn.If
-					}] | fn.If
-					EbsConfiguration?: {
-						EbsBlockDeviceConfigs?: [...{
-							VolumeSpecification: {
+						})] | fn.If
+					})] | fn.If
+					EbsConfiguration?: close({
+						EbsBlockDeviceConfigs?: [...close({
+							VolumeSpecification: close({
 								Iops?:      int | fn.Fn
 								SizeInGB:   int | fn.Fn
 								VolumeType: string | fn.Fn
-							} | fn.If
+							}) | fn.If
 							VolumesPerInstance?: int | fn.Fn
-						}] | fn.If
+						})] | fn.If
 						EbsOptimized?: bool | fn.Fn
-					} | fn.If
+					}) | fn.If
 					InstanceCount: int | fn.Fn
 					InstanceType:  string | fn.Fn
 					Market?:       string | fn.Fn
 					Name?:         string | fn.Fn
-				} | fn.If
+				}) | fn.If
 				Ec2KeyName?:                    string | fn.Fn
 				Ec2SubnetId?:                   string | fn.Fn
 				Ec2SubnetIds?:                  [...(string | fn.Fn)] | (string | fn.Fn)
@@ -145,68 +145,68 @@ EMR :: {
 				EmrManagedSlaveSecurityGroup?:  string | fn.Fn
 				HadoopVersion?:                 string | fn.Fn
 				KeepJobFlowAliveWhenNoSteps?:   bool | fn.Fn
-				MasterInstanceFleet?:           {
-					InstanceTypeConfigs?: [...{
+				MasterInstanceFleet?:           close({
+					InstanceTypeConfigs?: [...close({
 						BidPrice?:                            string | fn.Fn
 						BidPriceAsPercentageOfOnDemandPrice?: number | fn.Fn
-						Configurations?:                      [...{
+						Configurations?:                      [...close({
 							Classification?:          string | fn.Fn
 							ConfigurationProperties?: {
 								[string]: string | fn.Fn
 							} | fn.If
-							Configurations?: [...{
+							Configurations?: [...close({
 								[string]: _
-							}] | fn.If
-						}] | fn.If
-						EbsConfiguration?: {
-							EbsBlockDeviceConfigs?: [...{
-								VolumeSpecification: {
+							})] | fn.If
+						})] | fn.If
+						EbsConfiguration?: close({
+							EbsBlockDeviceConfigs?: [...close({
+								VolumeSpecification: close({
 									Iops?:      int | fn.Fn
 									SizeInGB:   int | fn.Fn
 									VolumeType: string | fn.Fn
-								} | fn.If
+								}) | fn.If
 								VolumesPerInstance?: int | fn.Fn
-							}] | fn.If
+							})] | fn.If
 							EbsOptimized?: bool | fn.Fn
-						} | fn.If
+						}) | fn.If
 						InstanceType:      string | fn.Fn
 						WeightedCapacity?: int | fn.Fn
-					}] | fn.If
-					LaunchSpecifications?: {
-						SpotSpecification: {
+					})] | fn.If
+					LaunchSpecifications?: close({
+						SpotSpecification: close({
 							BlockDurationMinutes?:  int | fn.Fn
 							TimeoutAction:          string | fn.Fn
 							TimeoutDurationMinutes: int | fn.Fn
-						} | fn.If
-					} | fn.If
+						}) | fn.If
+					}) | fn.If
 					Name?:                   string | fn.Fn
 					TargetOnDemandCapacity?: int | fn.Fn
 					TargetSpotCapacity?:     int | fn.Fn
-				} | fn.If
-				MasterInstanceGroup?: {
-					AutoScalingPolicy?: {
-						Constraints: {
+				}) | fn.If
+				MasterInstanceGroup?: close({
+					AutoScalingPolicy?: close({
+						Constraints: close({
 							MaxCapacity: int | fn.Fn
 							MinCapacity: int | fn.Fn
-						} | fn.If
-						Rules: [...{
-							Action: {
+						}) | fn.If
+						Rules: [...close({
+							Action: close({
 								Market?:                          string | fn.Fn
-								SimpleScalingPolicyConfiguration: {
+								SimpleScalingPolicyConfiguration: close({
 									AdjustmentType?:   string | fn.Fn
 									CoolDown?:         int | fn.Fn
 									ScalingAdjustment: int | fn.Fn
-								} | fn.If
-							} | fn.If
+								}) | fn.If
+							}) | fn.If
 							Description?: string | fn.Fn
 							Name:         string | fn.Fn
-							Trigger:      {
-								CloudWatchAlarmDefinition: {
+							Trigger:      close({
+								CloudWatchAlarmDefinition: close({
 									ComparisonOperator: string | fn.Fn
-									Dimensions?:        [...{
+									Dimensions?:        [...close({
 										Key:   string | fn.Fn
 										Value: string | fn.Fn
-									}] | fn.If
+									})] | fn.If
 									EvaluationPeriods?: int | fn.Fn
 									MetricName:         string | fn.Fn
 									Namespace?:         string | fn.Fn
@@ -214,73 +214,73 @@ EMR :: {
 									Statistic?:         string | fn.Fn
 									Threshold:          number | fn.Fn
 									Unit?:              string | fn.Fn
-								} | fn.If
-							} | fn.If
-						}] | fn.If
-					} | fn.If
+								}) | fn.If
+							}) | fn.If
+						})] | fn.If
+					}) | fn.If
 					BidPrice?:       string | fn.Fn
-					Configurations?: [...{
+					Configurations?: [...close({
 						Classification?:          string | fn.Fn
 						ConfigurationProperties?: {
 							[string]: string | fn.Fn
 						} | fn.If
-						Configurations?: [...{
+						Configurations?: [...close({
 							[string]: _
-						}] | fn.If
-					}] | fn.If
-					EbsConfiguration?: {
-						EbsBlockDeviceConfigs?: [...{
-							VolumeSpecification: {
+						})] | fn.If
+					})] | fn.If
+					EbsConfiguration?: close({
+						EbsBlockDeviceConfigs?: [...close({
+							VolumeSpecification: close({
 								Iops?:      int | fn.Fn
 								SizeInGB:   int | fn.Fn
 								VolumeType: string | fn.Fn
-							} | fn.If
+							}) | fn.If
 							VolumesPerInstance?: int | fn.Fn
-						}] | fn.If
+						})] | fn.If
 						EbsOptimized?: bool | fn.Fn
-					} | fn.If
+					}) | fn.If
 					InstanceCount: int | fn.Fn
 					InstanceType:  string | fn.Fn
 					Market?:       string | fn.Fn
 					Name?:         string | fn.Fn
-				} | fn.If
-				Placement?: {
+				}) | fn.If
+				Placement?: close({
 					AvailabilityZone: string | fn.Fn
-				} | fn.If
+				}) | fn.If
 				ServiceAccessSecurityGroup?: string | fn.Fn
 				TerminationProtected?:       bool | fn.Fn
-			} | fn.If
+			}) | fn.If
 			JobFlowRole:         (=~#"[a-zA-Z0-9+=,.@\-_]+"#) | fn.Fn
-			KerberosAttributes?: {
+			KerberosAttributes?: close({
 				ADDomainJoinPassword?:             string | fn.Fn
 				ADDomainJoinUser?:                 string | fn.Fn
 				CrossRealmTrustPrincipalPassword?: string | fn.Fn
 				KdcAdminPassword:                  string | fn.Fn
 				Realm:                             string | fn.Fn
-			} | fn.If
+			}) | fn.If
 			LogUri?:                string | fn.Fn
 			Name:                   string | fn.Fn
 			ReleaseLabel?:          string | fn.Fn
 			ScaleDownBehavior?:     string | fn.Fn
 			SecurityConfiguration?: string | fn.Fn
 			ServiceRole:            string | fn.Fn
-			Steps?:                 [...{
+			Steps?:                 [...close({
 				ActionOnFailure?: string | fn.Fn
-				HadoopJarStep:    {
+				HadoopJarStep:    close({
 					Args?:           [...(string | fn.Fn)] | (string | fn.Fn)
 					Jar:             string | fn.Fn
 					MainClass?:      string | fn.Fn
-					StepProperties?: [...{
+					StepProperties?: [...close({
 						Key?:   string | fn.Fn
 						Value?: string | fn.Fn
-					}] | fn.If
-				} | fn.If
+					})] | fn.If
+				}) | fn.If
 				Name: string | fn.Fn
-			}] | fn.If
-			Tags?: [...{
+			})] | fn.If
+			Tags?: [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}] | fn.If
+			})] | fn.If
 			VisibleToAllUsers?: bool | fn.Fn
 		}
 		DependsOn?:           string | [...string]
@@ -294,39 +294,39 @@ EMR :: {
 		Properties: {
 			ClusterId:            string | fn.Fn
 			InstanceFleetType:    string | fn.Fn
-			InstanceTypeConfigs?: [...{
+			InstanceTypeConfigs?: [...close({
 				BidPrice?:                            string | fn.Fn
 				BidPriceAsPercentageOfOnDemandPrice?: number | fn.Fn
-				Configurations?:                      [...{
+				Configurations?:                      [...close({
 					Classification?:          string | fn.Fn
 					ConfigurationProperties?: {
 						[string]: string | fn.Fn
 					} | fn.If
-					Configurations?: [...{
+					Configurations?: [...close({
 						[string]: _
-					}] | fn.If
-				}] | fn.If
-				EbsConfiguration?: {
-					EbsBlockDeviceConfigs?: [...{
-						VolumeSpecification: {
+					})] | fn.If
+				})] | fn.If
+				EbsConfiguration?: close({
+					EbsBlockDeviceConfigs?: [...close({
+						VolumeSpecification: close({
 							Iops?:      int | fn.Fn
 							SizeInGB:   int | fn.Fn
 							VolumeType: string | fn.Fn
-						} | fn.If
+						}) | fn.If
 						VolumesPerInstance?: int | fn.Fn
-					}] | fn.If
+					})] | fn.If
 					EbsOptimized?: bool | fn.Fn
-				} | fn.If
+				}) | fn.If
 				InstanceType:      string | fn.Fn
 				WeightedCapacity?: int | fn.Fn
-			}] | fn.If
-			LaunchSpecifications?: {
-				SpotSpecification: {
+			})] | fn.If
+			LaunchSpecifications?: close({
+				SpotSpecification: close({
 					BlockDurationMinutes?:  int | fn.Fn
 					TimeoutAction:          string | fn.Fn
 					TimeoutDurationMinutes: int | fn.Fn
-				} | fn.If
-			} | fn.If
+				}) | fn.If
+			}) | fn.If
 			Name?:                   string | fn.Fn
 			TargetOnDemandCapacity?: int | fn.Fn
 			TargetSpotCapacity?:     int | fn.Fn
@@ -340,29 +340,29 @@ EMR :: {
 	InstanceGroupConfig :: {
 		Type: "AWS::EMR::InstanceGroupConfig"
 		Properties: {
-			AutoScalingPolicy?: {
-				Constraints: {
+			AutoScalingPolicy?: close({
+				Constraints: close({
 					MaxCapacity: int | fn.Fn
 					MinCapacity: int | fn.Fn
-				} | fn.If
-				Rules: [...{
-					Action: {
+				}) | fn.If
+				Rules: [...close({
+					Action: close({
 						Market?:                          string | fn.Fn
-						SimpleScalingPolicyConfiguration: {
+						SimpleScalingPolicyConfiguration: close({
 							AdjustmentType?:   string | fn.Fn
 							CoolDown?:         int | fn.Fn
 							ScalingAdjustment: int | fn.Fn
-						} | fn.If
-					} | fn.If
+						}) | fn.If
+					}) | fn.If
 					Description?: string | fn.Fn
 					Name:         string | fn.Fn
-					Trigger:      {
-						CloudWatchAlarmDefinition: {
+					Trigger:      close({
+						CloudWatchAlarmDefinition: close({
 							ComparisonOperator: string | fn.Fn
-							Dimensions?:        [...{
+							Dimensions?:        [...close({
 								Key:   string | fn.Fn
 								Value: string | fn.Fn
-							}] | fn.If
+							})] | fn.If
 							EvaluationPeriods?: int | fn.Fn
 							MetricName:         string | fn.Fn
 							Namespace?:         string | fn.Fn
@@ -370,31 +370,31 @@ EMR :: {
 							Statistic?:         string | fn.Fn
 							Threshold:          number | fn.Fn
 							Unit?:              string | fn.Fn
-						} | fn.If
-					} | fn.If
-				}] | fn.If
-			} | fn.If
+						}) | fn.If
+					}) | fn.If
+				})] | fn.If
+			}) | fn.If
 			BidPrice?:       string | fn.Fn
-			Configurations?: [...{
+			Configurations?: [...close({
 				Classification?:          string | fn.Fn
 				ConfigurationProperties?: {
 					[string]: string | fn.Fn
 				} | fn.If
-				Configurations?: [...{
+				Configurations?: [...close({
 					[string]: _
-				}] | fn.If
-			}] | fn.If
-			EbsConfiguration?: {
-				EbsBlockDeviceConfigs?: [...{
-					VolumeSpecification: {
+				})] | fn.If
+			})] | fn.If
+			EbsConfiguration?: close({
+				EbsBlockDeviceConfigs?: [...close({
+					VolumeSpecification: close({
 						Iops?:      int | fn.Fn
 						SizeInGB:   int | fn.Fn
 						VolumeType: string | fn.Fn
-					} | fn.If
+					}) | fn.If
 					VolumesPerInstance?: int | fn.Fn
-				}] | fn.If
+				})] | fn.If
 				EbsOptimized?: bool | fn.Fn
-			} | fn.If
+			}) | fn.If
 			InstanceCount: int | fn.Fn
 			InstanceRole:  string | fn.Fn
 			InstanceType:  string | fn.Fn
@@ -426,15 +426,15 @@ EMR :: {
 		Type: "AWS::EMR::Step"
 		Properties: {
 			ActionOnFailure: string | fn.Fn
-			HadoopJarStep:   {
+			HadoopJarStep:   close({
 				Args?:           [...(string | fn.Fn)] | (string | fn.Fn)
 				Jar:             string | fn.Fn
 				MainClass?:      string | fn.Fn
-				StepProperties?: [...{
+				StepProperties?: [...close({
 					Key?:   string | fn.Fn
 					Value?: string | fn.Fn
-				}] | fn.If
-			} | fn.If
+				})] | fn.If
+			}) | fn.If
 			JobFlowId: string | fn.Fn
 			Name:      string | fn.Fn
 		}

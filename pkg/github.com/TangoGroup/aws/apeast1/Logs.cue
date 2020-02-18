@@ -49,12 +49,12 @@ Logs :: {
 		Properties: {
 			FilterPattern:         string | fn.Fn
 			LogGroupName:          string | fn.Fn
-			MetricTransformations: [...{
+			MetricTransformations: [...close({
 				DefaultValue?:   number | fn.Fn
 				MetricName:      string | fn.Fn
 				MetricNamespace: string | fn.Fn
 				MetricValue:     string | fn.Fn
-			}] | fn.If
+			})] | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

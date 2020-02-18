@@ -72,11 +72,11 @@ ApiGatewayV2 :: {
 		Type: "AWS::ApiGatewayV2::DomainName"
 		Properties: {
 			DomainName:                string | fn.Fn
-			DomainNameConfigurations?: [...{
+			DomainNameConfigurations?: [...close({
 				CertificateArn?:  string | fn.Fn
 				CertificateName?: string | fn.Fn
 				EndpointType?:    string | fn.Fn
-			}] | fn.If
+			})] | fn.If
 			Tags?: {
 				[string]: _
 			} | fn.Fn
@@ -201,19 +201,19 @@ ApiGatewayV2 :: {
 	Stage :: {
 		Type: "AWS::ApiGatewayV2::Stage"
 		Properties: {
-			AccessLogSettings?: {
+			AccessLogSettings?: close({
 				DestinationArn?: string | fn.Fn
 				Format?:         string | fn.Fn
-			} | fn.If
+			}) | fn.If
 			ApiId:                 string | fn.Fn
 			ClientCertificateId?:  string | fn.Fn
-			DefaultRouteSettings?: {
+			DefaultRouteSettings?: close({
 				DataTraceEnabled?:       bool | fn.Fn
 				DetailedMetricsEnabled?: bool | fn.Fn
 				LoggingLevel?:           string | fn.Fn
 				ThrottlingBurstLimit?:   int | fn.Fn
 				ThrottlingRateLimit?:    number | fn.Fn
-			} | fn.If
+			}) | fn.If
 			DeploymentId:   string | fn.Fn
 			Description?:   string | fn.Fn
 			RouteSettings?: {

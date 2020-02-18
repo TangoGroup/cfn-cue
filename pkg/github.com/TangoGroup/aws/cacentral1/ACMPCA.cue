@@ -10,10 +10,10 @@ ACMPCA :: {
 			CertificateSigningRequest: string | fn.Fn
 			SigningAlgorithm:          string | fn.Fn
 			TemplateArn?:              string | fn.Fn
-			Validity:                  {
+			Validity:                  close({
 				Type:  string | fn.Fn
 				Value: int | fn.Fn
-			} | fn.If
+			}) | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -25,16 +25,16 @@ ACMPCA :: {
 		Type: "AWS::ACMPCA::CertificateAuthority"
 		Properties: {
 			KeyAlgorithm:             string | fn.Fn
-			RevocationConfiguration?: {
-				CrlConfiguration?: {
+			RevocationConfiguration?: close({
+				CrlConfiguration?: close({
 					CustomCname?:      string | fn.Fn
 					Enabled?:          bool | fn.Fn
 					ExpirationInDays?: int | fn.Fn
 					S3BucketName?:     string | fn.Fn
-				} | fn.If
-			} | fn.If
+				}) | fn.If
+			}) | fn.If
 			SigningAlgorithm: string | fn.Fn
-			Subject:          {
+			Subject:          close({
 				CommonName?:                 string | fn.Fn
 				Country?:                    string | fn.Fn
 				DistinguishedNameQualifier?: string | fn.Fn
@@ -49,11 +49,11 @@ ACMPCA :: {
 				State?:                      string | fn.Fn
 				Surname?:                    string | fn.Fn
 				Title?:                      string | fn.Fn
-			} | fn.If
-			Tags?: [...{
+			}) | fn.If
+			Tags?: [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}] | fn.If
+			})] | fn.If
 			Type: string | fn.Fn
 		}
 		DependsOn?:           string | [...string]

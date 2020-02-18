@@ -18,10 +18,10 @@ SQS :: {
 			RedrivePolicy?:                 {
 				[string]: _
 			} | fn.Fn
-			Tags?: [...{
+			Tags?: [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}] | fn.If
+			})] | fn.If
 			VisibilityTimeout?: (>=0 & <=43200) | fn.Fn
 		}
 		DependsOn?:           string | [...string]

@@ -25,12 +25,12 @@ IAM :: {
 			GroupName?:         string | fn.Fn
 			ManagedPolicyArns?: [...((=~#"arn:(aws[a-zA-Z-]*)?:iam::(\d{12}|aws):policy/[a-zA-Z_0-9+=,.@\-_/]+"#) | fn.Fn)] | ((=~#"arn:(aws[a-zA-Z-]*)?:iam::(\d{12}|aws):policy/[a-zA-Z_0-9+=,.@\-_/]+"#) | fn.Fn)
 			Path?:              (=~#"^/(.+/)*$"#) | fn.Fn
-			Policies?:          [...{
+			Policies?:          [...close({
 				PolicyDocument: {
 					[string]: _
 				} | fn.Fn
 				PolicyName: (strings.MinRunes(1) & strings.MaxRunes(128) & (=~#"^[a-zA-Z0-9+=,.@\-_]+$"#)) | fn.Fn
-			}] | fn.If
+			})] | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -98,17 +98,17 @@ IAM :: {
 			MaxSessionDuration?:  (>=3600 & <=43200) | fn.Fn
 			Path?:                (=~#"^/(.+/)*$"#) | fn.Fn
 			PermissionsBoundary?: string | fn.Fn
-			Policies?:            [...{
+			Policies?:            [...close({
 				PolicyDocument: {
 					[string]: _
 				} | fn.Fn
 				PolicyName: (strings.MinRunes(1) & strings.MaxRunes(128) & (=~#"^[a-zA-Z0-9+=,.@\-_]+$"#)) | fn.Fn
-			}] | fn.If
+			})] | fn.If
 			RoleName?: string | fn.Fn
-			Tags?:     [...{
+			Tags?:     [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}] | fn.If
+			})] | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -133,23 +133,23 @@ IAM :: {
 		Type: "AWS::IAM::User"
 		Properties: {
 			Groups?:       [...(string | fn.Fn)] | (string | fn.Fn)
-			LoginProfile?: {
+			LoginProfile?: close({
 				Password:               string | fn.Fn
 				PasswordResetRequired?: bool | fn.Fn
-			} | fn.If
+			}) | fn.If
 			ManagedPolicyArns?:   [...((=~#"arn:(aws[a-zA-Z-]*)?:iam::(\d{12}|aws):policy/[a-zA-Z_0-9+=,.@\-_/]+"#) | fn.Fn)] | ((=~#"arn:(aws[a-zA-Z-]*)?:iam::(\d{12}|aws):policy/[a-zA-Z_0-9+=,.@\-_/]+"#) | fn.Fn)
 			Path?:                (=~#"^/(.+/)*$"#) | fn.Fn
 			PermissionsBoundary?: string | fn.Fn
-			Policies?:            [...{
+			Policies?:            [...close({
 				PolicyDocument: {
 					[string]: _
 				} | fn.Fn
 				PolicyName: (strings.MinRunes(1) & strings.MaxRunes(128) & (=~#"^[a-zA-Z0-9+=,.@\-_]+$"#)) | fn.Fn
-			}] | fn.If
-			Tags?: [...{
+			})] | fn.If
+			Tags?: [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}] | fn.If
+			})] | fn.If
 			UserName?: string | fn.Fn
 		}
 		DependsOn?:           string | [...string]

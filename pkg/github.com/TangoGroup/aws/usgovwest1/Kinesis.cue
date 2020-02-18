@@ -9,14 +9,14 @@ Kinesis :: {
 			Name?:                 string | fn.Fn
 			RetentionPeriodHours?: (>=1 & <=168) | fn.Fn
 			ShardCount:            (>=1 & <=100000) | fn.Fn
-			StreamEncryption?:     {
+			StreamEncryption?:     close({
 				EncryptionType: string | fn.Fn
 				KeyId:          string | fn.Fn
-			} | fn.If
-			Tags?: [...{
+			}) | fn.If
+			Tags?: [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}] | fn.If
+			})] | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

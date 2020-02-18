@@ -6,188 +6,188 @@ IoTEvents :: {
 	DetectorModel :: {
 		Type: "AWS::IoTEvents::DetectorModel"
 		Properties: {
-			DetectorModelDefinition?: {
+			DetectorModelDefinition?: close({
 				InitialStateName?: string | fn.Fn
-				States?:           [...{
-					OnEnter?: {
-						Events?: [...{
-							Actions?: [...{
-								ClearTimer?: {
+				States?:           [...close({
+					OnEnter?: close({
+						Events?: [...close({
+							Actions?: [...close({
+								ClearTimer?: close({
 									TimerName?: string | fn.Fn
-								} | fn.If
-								Firehose?: {
+								}) | fn.If
+								Firehose?: close({
 									DeliveryStreamName?: string | fn.Fn
 									Separator?:          string | fn.Fn
-								} | fn.If
-								IotEvents?: {
+								}) | fn.If
+								IotEvents?: close({
 									InputName?: string | fn.Fn
-								} | fn.If
-								IotTopicPublish?: {
+								}) | fn.If
+								IotTopicPublish?: close({
 									MqttTopic?: string | fn.Fn
-								} | fn.If
-								Lambda?: {
+								}) | fn.If
+								Lambda?: close({
 									FunctionArn?: string | fn.Fn
-								} | fn.If
-								ResetTimer?: {
+								}) | fn.If
+								ResetTimer?: close({
 									TimerName?: string | fn.Fn
-								} | fn.If
-								SetTimer?: {
+								}) | fn.If
+								SetTimer?: close({
 									Seconds?:   int | fn.Fn
 									TimerName?: string | fn.Fn
-								} | fn.If
-								SetVariable?: {
+								}) | fn.If
+								SetVariable?: close({
 									Value?:        string | fn.Fn
 									VariableName?: string | fn.Fn
-								} | fn.If
-								Sns?: {
+								}) | fn.If
+								Sns?: close({
 									TargetArn?: string | fn.Fn
-								} | fn.If
-								Sqs?: {
+								}) | fn.If
+								Sqs?: close({
 									QueueUrl?:  string | fn.Fn
 									UseBase64?: bool | fn.Fn
-								} | fn.If
-							}] | fn.If
+								}) | fn.If
+							})] | fn.If
 							Condition?: string | fn.Fn
 							EventName?: string | fn.Fn
-						}] | fn.If
-					} | fn.If
-					OnExit?: {
-						Events?: [...{
-							Actions?: [...{
-								ClearTimer?: {
+						})] | fn.If
+					}) | fn.If
+					OnExit?: close({
+						Events?: [...close({
+							Actions?: [...close({
+								ClearTimer?: close({
 									TimerName?: string | fn.Fn
-								} | fn.If
-								Firehose?: {
+								}) | fn.If
+								Firehose?: close({
 									DeliveryStreamName?: string | fn.Fn
 									Separator?:          string | fn.Fn
-								} | fn.If
-								IotEvents?: {
+								}) | fn.If
+								IotEvents?: close({
 									InputName?: string | fn.Fn
-								} | fn.If
-								IotTopicPublish?: {
+								}) | fn.If
+								IotTopicPublish?: close({
 									MqttTopic?: string | fn.Fn
-								} | fn.If
-								Lambda?: {
+								}) | fn.If
+								Lambda?: close({
 									FunctionArn?: string | fn.Fn
-								} | fn.If
-								ResetTimer?: {
+								}) | fn.If
+								ResetTimer?: close({
 									TimerName?: string | fn.Fn
-								} | fn.If
-								SetTimer?: {
+								}) | fn.If
+								SetTimer?: close({
 									Seconds?:   int | fn.Fn
 									TimerName?: string | fn.Fn
-								} | fn.If
-								SetVariable?: {
+								}) | fn.If
+								SetVariable?: close({
 									Value?:        string | fn.Fn
 									VariableName?: string | fn.Fn
-								} | fn.If
-								Sns?: {
+								}) | fn.If
+								Sns?: close({
 									TargetArn?: string | fn.Fn
-								} | fn.If
-								Sqs?: {
+								}) | fn.If
+								Sqs?: close({
 									QueueUrl?:  string | fn.Fn
 									UseBase64?: bool | fn.Fn
-								} | fn.If
-							}] | fn.If
+								}) | fn.If
+							})] | fn.If
 							Condition?: string | fn.Fn
 							EventName?: string | fn.Fn
-						}] | fn.If
-					} | fn.If
-					OnInput?: {
-						Events?: [...{
-							Actions?: [...{
-								ClearTimer?: {
+						})] | fn.If
+					}) | fn.If
+					OnInput?: close({
+						Events?: [...close({
+							Actions?: [...close({
+								ClearTimer?: close({
 									TimerName?: string | fn.Fn
-								} | fn.If
-								Firehose?: {
+								}) | fn.If
+								Firehose?: close({
 									DeliveryStreamName?: string | fn.Fn
 									Separator?:          string | fn.Fn
-								} | fn.If
-								IotEvents?: {
+								}) | fn.If
+								IotEvents?: close({
 									InputName?: string | fn.Fn
-								} | fn.If
-								IotTopicPublish?: {
+								}) | fn.If
+								IotTopicPublish?: close({
 									MqttTopic?: string | fn.Fn
-								} | fn.If
-								Lambda?: {
+								}) | fn.If
+								Lambda?: close({
 									FunctionArn?: string | fn.Fn
-								} | fn.If
-								ResetTimer?: {
+								}) | fn.If
+								ResetTimer?: close({
 									TimerName?: string | fn.Fn
-								} | fn.If
-								SetTimer?: {
+								}) | fn.If
+								SetTimer?: close({
 									Seconds?:   int | fn.Fn
 									TimerName?: string | fn.Fn
-								} | fn.If
-								SetVariable?: {
+								}) | fn.If
+								SetVariable?: close({
 									Value?:        string | fn.Fn
 									VariableName?: string | fn.Fn
-								} | fn.If
-								Sns?: {
+								}) | fn.If
+								Sns?: close({
 									TargetArn?: string | fn.Fn
-								} | fn.If
-								Sqs?: {
+								}) | fn.If
+								Sqs?: close({
 									QueueUrl?:  string | fn.Fn
 									UseBase64?: bool | fn.Fn
-								} | fn.If
-							}] | fn.If
+								}) | fn.If
+							})] | fn.If
 							Condition?: string | fn.Fn
 							EventName?: string | fn.Fn
-						}] | fn.If
-						TransitionEvents?: [...{
-							Actions?: [...{
-								ClearTimer?: {
+						})] | fn.If
+						TransitionEvents?: [...close({
+							Actions?: [...close({
+								ClearTimer?: close({
 									TimerName?: string | fn.Fn
-								} | fn.If
-								Firehose?: {
+								}) | fn.If
+								Firehose?: close({
 									DeliveryStreamName?: string | fn.Fn
 									Separator?:          string | fn.Fn
-								} | fn.If
-								IotEvents?: {
+								}) | fn.If
+								IotEvents?: close({
 									InputName?: string | fn.Fn
-								} | fn.If
-								IotTopicPublish?: {
+								}) | fn.If
+								IotTopicPublish?: close({
 									MqttTopic?: string | fn.Fn
-								} | fn.If
-								Lambda?: {
+								}) | fn.If
+								Lambda?: close({
 									FunctionArn?: string | fn.Fn
-								} | fn.If
-								ResetTimer?: {
+								}) | fn.If
+								ResetTimer?: close({
 									TimerName?: string | fn.Fn
-								} | fn.If
-								SetTimer?: {
+								}) | fn.If
+								SetTimer?: close({
 									Seconds?:   int | fn.Fn
 									TimerName?: string | fn.Fn
-								} | fn.If
-								SetVariable?: {
+								}) | fn.If
+								SetVariable?: close({
 									Value?:        string | fn.Fn
 									VariableName?: string | fn.Fn
-								} | fn.If
-								Sns?: {
+								}) | fn.If
+								Sns?: close({
 									TargetArn?: string | fn.Fn
-								} | fn.If
-								Sqs?: {
+								}) | fn.If
+								Sqs?: close({
 									QueueUrl?:  string | fn.Fn
 									UseBase64?: bool | fn.Fn
-								} | fn.If
-							}] | fn.If
+								}) | fn.If
+							})] | fn.If
 							Condition?: string | fn.Fn
 							EventName?: string | fn.Fn
 							NextState?: string | fn.Fn
-						}] | fn.If
-					} | fn.If
+						})] | fn.If
+					}) | fn.If
 					StateName?: string | fn.Fn
-				}] | fn.If
-			} | fn.If
+				})] | fn.If
+			}) | fn.If
 			DetectorModelDescription?: string | fn.Fn
 			DetectorModelName?:        string | fn.Fn
 			EvaluationMethod?:         string | fn.Fn
 			Key?:                      string | fn.Fn
 			RoleArn?:                  string | fn.Fn
-			Tags?:                     [...{
+			Tags?:                     [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}] | fn.If
+			})] | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -198,17 +198,17 @@ IoTEvents :: {
 	Input :: {
 		Type: "AWS::IoTEvents::Input"
 		Properties: {
-			InputDefinition?: {
-				Attributes?: [...{
+			InputDefinition?: close({
+				Attributes?: [...close({
 					JsonPath?: string | fn.Fn
-				}] | fn.If
-			} | fn.If
+				})] | fn.If
+			}) | fn.If
 			InputDescription?: string | fn.Fn
 			InputName?:        string | fn.Fn
-			Tags?:             [...{
+			Tags?:             [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}] | fn.If
+			})] | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

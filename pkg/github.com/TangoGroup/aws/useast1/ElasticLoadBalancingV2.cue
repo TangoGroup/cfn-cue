@@ -6,11 +6,11 @@ ElasticLoadBalancingV2 :: {
 	Listener :: {
 		Type: "AWS::ElasticLoadBalancingV2::Listener"
 		Properties: {
-			Certificates?: [...{
+			Certificates?: [...close({
 				CertificateArn?: string | fn.Fn
-			}] | fn.If
-			DefaultActions: [...{
-				AuthenticateCognitoConfig?: {
+			})] | fn.If
+			DefaultActions: [...close({
+				AuthenticateCognitoConfig?: close({
 					AuthenticationRequestExtraParams?: {
 						[string]: string | fn.Fn
 					} | fn.If
@@ -21,8 +21,8 @@ ElasticLoadBalancingV2 :: {
 					UserPoolArn:               string | fn.Fn
 					UserPoolClientId:          string | fn.Fn
 					UserPoolDomain:            string | fn.Fn
-				} | fn.If
-				AuthenticateOidcConfig?: {
+				}) | fn.If
+				AuthenticateOidcConfig?: close({
 					AuthenticationRequestExtraParams?: {
 						[string]: string | fn.Fn
 					} | fn.If
@@ -36,34 +36,34 @@ ElasticLoadBalancingV2 :: {
 					SessionTimeout?:           int | fn.Fn
 					TokenEndpoint:             string | fn.Fn
 					UserInfoEndpoint:          string | fn.Fn
-				} | fn.If
-				FixedResponseConfig?: {
+				}) | fn.If
+				FixedResponseConfig?: close({
 					ContentType?: string | fn.Fn
 					MessageBody?: string | fn.Fn
 					StatusCode:   string | fn.Fn
-				} | fn.If
-				ForwardConfig?: {
-					TargetGroupStickinessConfig?: {
+				}) | fn.If
+				ForwardConfig?: close({
+					TargetGroupStickinessConfig?: close({
 						DurationSeconds?: int | fn.Fn
 						Enabled?:         bool | fn.Fn
-					} | fn.If
-					TargetGroups?: [...{
+					}) | fn.If
+					TargetGroups?: [...close({
 						TargetGroupArn?: string | fn.Fn
 						Weight?:         int | fn.Fn
-					}] | fn.If
-				} | fn.If
+					})] | fn.If
+				}) | fn.If
 				Order?:          int | fn.Fn
-				RedirectConfig?: {
+				RedirectConfig?: close({
 					Host?:      string | fn.Fn
 					Path?:      string | fn.Fn
 					Port?:      string | fn.Fn
 					Protocol?:  string | fn.Fn
 					Query?:     string | fn.Fn
 					StatusCode: string | fn.Fn
-				} | fn.If
+				}) | fn.If
 				TargetGroupArn?: string | fn.Fn
 				Type:            string | fn.Fn
-			}] | fn.If
+			})] | fn.If
 			LoadBalancerArn: string | fn.Fn
 			Port:            (>=1 & <=65535) | fn.Fn
 			Protocol:        string | fn.Fn
@@ -78,9 +78,9 @@ ElasticLoadBalancingV2 :: {
 	ListenerCertificate :: {
 		Type: "AWS::ElasticLoadBalancingV2::ListenerCertificate"
 		Properties: {
-			Certificates: [...{
+			Certificates: [...close({
 				CertificateArn?: string | fn.Fn
-			}] | fn.If
+			})] | fn.If
 			ListenerArn: string | fn.Fn
 		}
 		DependsOn?:           string | [...string]
@@ -92,8 +92,8 @@ ElasticLoadBalancingV2 :: {
 	ListenerRule :: {
 		Type: "AWS::ElasticLoadBalancingV2::ListenerRule"
 		Properties: {
-			Actions: [...{
-				AuthenticateCognitoConfig?: {
+			Actions: [...close({
+				AuthenticateCognitoConfig?: close({
 					AuthenticationRequestExtraParams?: {
 						[string]: string | fn.Fn
 					} | fn.If
@@ -104,8 +104,8 @@ ElasticLoadBalancingV2 :: {
 					UserPoolArn:               string | fn.Fn
 					UserPoolClientId:          string | fn.Fn
 					UserPoolDomain:            string | fn.Fn
-				} | fn.If
-				AuthenticateOidcConfig?: {
+				}) | fn.If
+				AuthenticateOidcConfig?: close({
 					AuthenticationRequestExtraParams?: {
 						[string]: string | fn.Fn
 					} | fn.If
@@ -119,60 +119,60 @@ ElasticLoadBalancingV2 :: {
 					SessionTimeout?:           int | fn.Fn
 					TokenEndpoint:             string | fn.Fn
 					UserInfoEndpoint:          string | fn.Fn
-				} | fn.If
-				FixedResponseConfig?: {
+				}) | fn.If
+				FixedResponseConfig?: close({
 					ContentType?: string | fn.Fn
 					MessageBody?: string | fn.Fn
 					StatusCode:   string | fn.Fn
-				} | fn.If
-				ForwardConfig?: {
-					TargetGroupStickinessConfig?: {
+				}) | fn.If
+				ForwardConfig?: close({
+					TargetGroupStickinessConfig?: close({
 						DurationSeconds?: int | fn.Fn
 						Enabled?:         bool | fn.Fn
-					} | fn.If
-					TargetGroups?: [...{
+					}) | fn.If
+					TargetGroups?: [...close({
 						TargetGroupArn?: string | fn.Fn
 						Weight?:         int | fn.Fn
-					}] | fn.If
-				} | fn.If
+					})] | fn.If
+				}) | fn.If
 				Order?:          int | fn.Fn
-				RedirectConfig?: {
+				RedirectConfig?: close({
 					Host?:      string | fn.Fn
 					Path?:      string | fn.Fn
 					Port?:      string | fn.Fn
 					Protocol?:  string | fn.Fn
 					Query?:     string | fn.Fn
 					StatusCode: string | fn.Fn
-				} | fn.If
+				}) | fn.If
 				TargetGroupArn?: string | fn.Fn
 				Type:            string | fn.Fn
-			}] | fn.If
-			Conditions: [...{
+			})] | fn.If
+			Conditions: [...close({
 				Field?:            string | fn.Fn
-				HostHeaderConfig?: {
+				HostHeaderConfig?: close({
 					Values?: [...(string | fn.Fn)] | (string | fn.Fn)
-				} | fn.If
-				HttpHeaderConfig?: {
+				}) | fn.If
+				HttpHeaderConfig?: close({
 					HttpHeaderName?: string | fn.Fn
 					Values?:         [...(string | fn.Fn)] | (string | fn.Fn)
-				} | fn.If
-				HttpRequestMethodConfig?: {
+				}) | fn.If
+				HttpRequestMethodConfig?: close({
 					Values?: [...(string | fn.Fn)] | (string | fn.Fn)
-				} | fn.If
-				PathPatternConfig?: {
+				}) | fn.If
+				PathPatternConfig?: close({
 					Values?: [...(string | fn.Fn)] | (string | fn.Fn)
-				} | fn.If
-				QueryStringConfig?: {
-					Values?: [...{
+				}) | fn.If
+				QueryStringConfig?: close({
+					Values?: [...close({
 						Key?:   string | fn.Fn
 						Value?: string | fn.Fn
-					}] | fn.If
-				} | fn.If
-				SourceIpConfig?: {
+					})] | fn.If
+				}) | fn.If
+				SourceIpConfig?: close({
 					Values?: [...(string | fn.Fn)] | (string | fn.Fn)
-				} | fn.If
+				}) | fn.If
 				Values?: [...(string | fn.Fn)] | (string | fn.Fn)
-			}] | fn.If
+			})] | fn.If
 			ListenerArn: string | fn.Fn
 			Priority:    int | fn.Fn
 		}
@@ -186,22 +186,22 @@ ElasticLoadBalancingV2 :: {
 		Type: "AWS::ElasticLoadBalancingV2::LoadBalancer"
 		Properties: {
 			IpAddressType?:          string | fn.Fn
-			LoadBalancerAttributes?: [...{
+			LoadBalancerAttributes?: [...close({
 				Key?:   string | fn.Fn
 				Value?: string | fn.Fn
-			}] | fn.If
+			})] | fn.If
 			Name?:           string | fn.Fn
 			Scheme?:         string | fn.Fn
 			SecurityGroups?: [...(string | fn.Fn)] | (string | fn.Fn)
-			SubnetMappings?: [...{
+			SubnetMappings?: [...close({
 				AllocationId: string | fn.Fn
 				SubnetId:     string | fn.Fn
-			}] | fn.If
+			})] | fn.If
 			Subnets?: [...(string | fn.Fn)] | (string | fn.Fn)
-			Tags?:    [...{
+			Tags?:    [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}] | fn.If
+			})] | fn.If
 			Type?: string | fn.Fn
 		}
 		DependsOn?:           string | [...string]
@@ -220,26 +220,26 @@ ElasticLoadBalancingV2 :: {
 			HealthCheckProtocol?:        string | fn.Fn
 			HealthCheckTimeoutSeconds?:  (>=2 & <=120) | fn.Fn
 			HealthyThresholdCount?:      (>=2 & <=10) | fn.Fn
-			Matcher?:                    {
+			Matcher?:                    close({
 				HttpCode: string | fn.Fn
-			} | fn.If
+			}) | fn.If
 			Name?:     string | fn.Fn
 			Port?:     int | fn.Fn
 			Protocol?: string | fn.Fn
-			Tags?:     [...{
+			Tags?:     [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}] | fn.If
-			TargetGroupAttributes?: [...{
+			})] | fn.If
+			TargetGroupAttributes?: [...close({
 				Key?:   string | fn.Fn
 				Value?: string | fn.Fn
-			}] | fn.If
+			})] | fn.If
 			TargetType?: string | fn.Fn
-			Targets?:    [...{
+			Targets?:    [...close({
 				AvailabilityZone?: string | fn.Fn
 				Id:                string | fn.Fn
 				Port?:             int | fn.Fn
-			}] | fn.If
+			})] | fn.If
 			UnhealthyThresholdCount?: (>=2 & <=10) | fn.Fn
 			VpcId?:                   string | fn.Fn
 		}

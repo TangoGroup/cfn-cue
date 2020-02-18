@@ -21,10 +21,10 @@ Neptune :: {
 			PreferredMaintenanceWindow?:  string | fn.Fn
 			SnapshotIdentifier?:          string | fn.Fn
 			StorageEncrypted?:            bool | fn.Fn
-			Tags?:                        [...{
+			Tags?:                        [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}] | fn.If
+			})] | fn.If
 			VpcSecurityGroupIds?: [...(string | fn.Fn)] | (string | fn.Fn)
 		}
 		DependsOn?:           string | [...string]
@@ -42,10 +42,10 @@ Neptune :: {
 			Parameters:  {
 				[string]: _
 			} | fn.Fn
-			Tags?: [...{
+			Tags?: [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}] | fn.If
+			})] | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -66,10 +66,10 @@ Neptune :: {
 			DBSnapshotIdentifier?:       string | fn.Fn
 			DBSubnetGroupName?:          string | fn.Fn
 			PreferredMaintenanceWindow?: string | fn.Fn
-			Tags?:                       [...{
+			Tags?:                       [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}] | fn.If
+			})] | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -86,10 +86,10 @@ Neptune :: {
 			Parameters:  {
 				[string]: _
 			} | fn.Fn
-			Tags?: [...{
+			Tags?: [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}] | fn.If
+			})] | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -103,10 +103,10 @@ Neptune :: {
 			DBSubnetGroupDescription: string | fn.Fn
 			DBSubnetGroupName?:       string | fn.Fn
 			SubnetIds:                [...(string | fn.Fn)] | (string | fn.Fn)
-			Tags?:                    [...{
+			Tags?:                    [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}] | fn.If
+			})] | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

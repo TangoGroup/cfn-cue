@@ -20,14 +20,14 @@ ApiGateway :: {
 			Enabled?:            bool | fn.Fn
 			GenerateDistinctId?: bool | fn.Fn
 			Name?:               string | fn.Fn
-			StageKeys?:          [...{
+			StageKeys?:          [...close({
 				RestApiId?: string | fn.Fn
 				StageName?: string | fn.Fn
-			}] | fn.If
-			Tags?: [...{
+			})] | fn.If
+			Tags?: [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}] | fn.If
+			})] | fn.If
 			Value?: string | fn.Fn
 		}
 		DependsOn?:           string | [...string]
@@ -74,10 +74,10 @@ ApiGateway :: {
 		Type: "AWS::ApiGateway::ClientCertificate"
 		Properties: {
 			Description?: string | fn.Fn
-			Tags?:        [...{
+			Tags?:        [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}] | fn.If
+			})] | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -88,38 +88,38 @@ ApiGateway :: {
 	Deployment :: {
 		Type: "AWS::ApiGateway::Deployment"
 		Properties: {
-			DeploymentCanarySettings?: {
+			DeploymentCanarySettings?: close({
 				PercentTraffic?:         number | fn.Fn
 				StageVariableOverrides?: {
 					[string]: string | fn.Fn
 				} | fn.If
 				UseStageCache?: bool | fn.Fn
-			} | fn.If
+			}) | fn.If
 			Description?:      string | fn.Fn
 			RestApiId:         string | fn.Fn
-			StageDescription?: {
-				AccessLogSetting?: {
+			StageDescription?: close({
+				AccessLogSetting?: close({
 					DestinationArn?: string | fn.Fn
 					Format?:         string | fn.Fn
-				} | fn.If
+				}) | fn.If
 				CacheClusterEnabled?: bool | fn.Fn
 				CacheClusterSize?:    string | fn.Fn
 				CacheDataEncrypted?:  bool | fn.Fn
 				CacheTtlInSeconds?:   int | fn.Fn
 				CachingEnabled?:      bool | fn.Fn
-				CanarySetting?:       {
+				CanarySetting?:       close({
 					PercentTraffic?:         number | fn.Fn
 					StageVariableOverrides?: {
 						[string]: string | fn.Fn
 					} | fn.If
 					UseStageCache?: bool | fn.Fn
-				} | fn.If
+				}) | fn.If
 				ClientCertificateId?:  string | fn.Fn
 				DataTraceEnabled?:     bool | fn.Fn
 				Description?:          string | fn.Fn
 				DocumentationVersion?: string | fn.Fn
 				LoggingLevel?:         string | fn.Fn
-				MethodSettings?:       [...{
+				MethodSettings?:       [...close({
 					CacheDataEncrypted?:   bool | fn.Fn
 					CacheTtlInSeconds?:    int | fn.Fn
 					CachingEnabled?:       bool | fn.Fn
@@ -130,19 +130,19 @@ ApiGateway :: {
 					ResourcePath?:         string | fn.Fn
 					ThrottlingBurstLimit?: int | fn.Fn
 					ThrottlingRateLimit?:  number | fn.Fn
-				}] | fn.If
+				})] | fn.If
 				MetricsEnabled?: bool | fn.Fn
-				Tags?:           [...{
+				Tags?:           [...close({
 					Key:   string | fn.Fn
 					Value: string | fn.Fn
-				}] | fn.If
+				})] | fn.If
 				ThrottlingBurstLimit?: int | fn.Fn
 				ThrottlingRateLimit?:  number | fn.Fn
 				TracingEnabled?:       bool | fn.Fn
 				Variables?:            {
 					[string]: string | fn.Fn
 				} | fn.If
-			} | fn.If
+			}) | fn.If
 			StageName?: string | fn.Fn
 		}
 		DependsOn?:           string | [...string]
@@ -154,13 +154,13 @@ ApiGateway :: {
 	DocumentationPart :: {
 		Type: "AWS::ApiGateway::DocumentationPart"
 		Properties: {
-			Location: {
+			Location: close({
 				Method?:     string | fn.Fn
 				Name?:       string | fn.Fn
 				Path?:       string | fn.Fn
 				StatusCode?: string | fn.Fn
 				Type?:       string | fn.Fn
-			} | fn.If
+			}) | fn.If
 			Properties: string | fn.Fn
 			RestApiId:  string | fn.Fn
 		}
@@ -188,15 +188,15 @@ ApiGateway :: {
 		Properties: {
 			CertificateArn?:        string | fn.Fn
 			DomainName:             string | fn.Fn
-			EndpointConfiguration?: {
+			EndpointConfiguration?: close({
 				Types?: [...(string | fn.Fn)] | (string | fn.Fn)
-			} | fn.If
+			}) | fn.If
 			RegionalCertificateArn?: string | fn.Fn
 			SecurityPolicy?:         string | fn.Fn
-			Tags?:                   [...{
+			Tags?:                   [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}] | fn.If
+			})] | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -231,7 +231,7 @@ ApiGateway :: {
 			AuthorizationType?:   string | fn.Fn
 			AuthorizerId?:        string | fn.Fn
 			HttpMethod:           string | fn.Fn
-			Integration?:         {
+			Integration?:         close({
 				CacheKeyParameters?:    [...(string | fn.Fn)] | (string | fn.Fn)
 				CacheNamespace?:        string | fn.Fn
 				ConnectionId?:          string | fn.Fn
@@ -239,7 +239,7 @@ ApiGateway :: {
 				ContentHandling?:       string | fn.Fn
 				Credentials?:           string | fn.Fn
 				IntegrationHttpMethod?: string | fn.Fn
-				IntegrationResponses?:  [...{
+				IntegrationResponses?:  [...close({
 					ContentHandling?:    string | fn.Fn
 					ResponseParameters?: {
 						[string]: string | fn.Fn
@@ -249,7 +249,7 @@ ApiGateway :: {
 					} | fn.If
 					SelectionPattern?: string | fn.Fn
 					StatusCode:        string | fn.Fn
-				}] | fn.If
+				})] | fn.If
 				PassthroughBehavior?: string | fn.Fn
 				RequestParameters?:   {
 					[string]: string | fn.Fn
@@ -260,8 +260,8 @@ ApiGateway :: {
 				TimeoutInMillis?: int | fn.Fn
 				Type?:            string | fn.Fn
 				Uri?:             string | fn.Fn
-			} | fn.If
-			MethodResponses?: [...{
+			}) | fn.If
+			MethodResponses?: [...close({
 				ResponseModels?: {
 					[string]: string | fn.Fn
 				} | fn.If
@@ -269,7 +269,7 @@ ApiGateway :: {
 					[string]: bool | fn.Fn
 				} | fn.If
 				StatusCode: string | fn.Fn
-			}] | fn.If
+			})] | fn.If
 			OperationName?: string | fn.Fn
 			RequestModels?: {
 				[string]: string | fn.Fn
@@ -339,18 +339,18 @@ ApiGateway :: {
 			Body?:             {
 				[string]: _
 			} | fn.Fn
-			BodyS3Location?: {
+			BodyS3Location?: close({
 				Bucket?:  string | fn.Fn
 				ETag?:    string | fn.Fn
 				Key?:     string | fn.Fn
 				Version?: string | fn.Fn
-			} | fn.If
+			}) | fn.If
 			CloneFrom?:             string | fn.Fn
 			Description?:           string | fn.Fn
-			EndpointConfiguration?: {
+			EndpointConfiguration?: close({
 				Types?:          [...(string | fn.Fn)] | (string | fn.Fn)
 				VpcEndpointIds?: [...(string | fn.Fn)] | (string | fn.Fn)
-			} | fn.If
+			}) | fn.If
 			FailOnWarnings?:         bool | fn.Fn
 			MinimumCompressionSize?: int | fn.Fn
 			Name?:                   string | fn.Fn
@@ -360,10 +360,10 @@ ApiGateway :: {
 			Policy?: {
 				[string]: _
 			} | fn.Fn
-			Tags?: [...{
+			Tags?: [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}] | fn.If
+			})] | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -374,25 +374,25 @@ ApiGateway :: {
 	Stage :: {
 		Type: "AWS::ApiGateway::Stage"
 		Properties: {
-			AccessLogSetting?: {
+			AccessLogSetting?: close({
 				DestinationArn?: string | fn.Fn
 				Format?:         string | fn.Fn
-			} | fn.If
+			}) | fn.If
 			CacheClusterEnabled?: bool | fn.Fn
 			CacheClusterSize?:    string | fn.Fn
-			CanarySetting?:       {
+			CanarySetting?:       close({
 				DeploymentId?:           string | fn.Fn
 				PercentTraffic?:         number | fn.Fn
 				StageVariableOverrides?: {
 					[string]: string | fn.Fn
 				} | fn.If
 				UseStageCache?: bool | fn.Fn
-			} | fn.If
+			}) | fn.If
 			ClientCertificateId?:  string | fn.Fn
 			DeploymentId?:         string | fn.Fn
 			Description?:          string | fn.Fn
 			DocumentationVersion?: string | fn.Fn
-			MethodSettings?:       [...{
+			MethodSettings?:       [...close({
 				CacheDataEncrypted?:   bool | fn.Fn
 				CacheTtlInSeconds?:    int | fn.Fn
 				CachingEnabled?:       bool | fn.Fn
@@ -403,13 +403,13 @@ ApiGateway :: {
 				ResourcePath?:         string | fn.Fn
 				ThrottlingBurstLimit?: int | fn.Fn
 				ThrottlingRateLimit?:  number | fn.Fn
-			}] | fn.If
+			})] | fn.If
 			RestApiId:  string | fn.Fn
 			StageName?: string | fn.Fn
-			Tags?:      [...{
+			Tags?:      [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}] | fn.If
+			})] | fn.If
 			TracingEnabled?: bool | fn.Fn
 			Variables?:      {
 				[string]: string | fn.Fn
@@ -424,30 +424,30 @@ ApiGateway :: {
 	UsagePlan :: {
 		Type: "AWS::ApiGateway::UsagePlan"
 		Properties: {
-			ApiStages?: [...{
+			ApiStages?: [...close({
 				ApiId?:    string | fn.Fn
 				Stage?:    string | fn.Fn
 				Throttle?: {
-					[string]: {
+					[string]: close({
 						BurstLimit?: int | fn.Fn
 						RateLimit?:  number | fn.Fn
-					}
+					})
 				} | fn.If
-			}] | fn.If
+			})] | fn.If
 			Description?: string | fn.Fn
-			Quota?:       {
+			Quota?:       close({
 				Limit?:  int | fn.Fn
 				Offset?: int | fn.Fn
 				Period?: string | fn.Fn
-			} | fn.If
-			Tags?: [...{
+			}) | fn.If
+			Tags?: [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}] | fn.If
-			Throttle?: {
+			})] | fn.If
+			Throttle?: close({
 				BurstLimit?: int | fn.Fn
 				RateLimit?:  number | fn.Fn
-			} | fn.If
+			}) | fn.If
 			UsagePlanName?: string | fn.Fn
 		}
 		DependsOn?:           string | [...string]

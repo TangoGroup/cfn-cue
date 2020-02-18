@@ -203,10 +203,10 @@ func createFieldFromProperty(name string, prop Property, resourceSubproperties m
 				value = val
 			}
 
-			val := &ast.ParenExpr{
+			value = &ast.ParenExpr{
 				X: value,
 			}
-			value = val
+			//  = val
 			// value2 = val
 			// value2 = nil
 		}
@@ -243,6 +243,7 @@ func createFieldFromProperty(name string, prop Property, resourceSubproperties m
 			v, imports = createStructFromResource(name, resourceSubproperties[typeName], resourceSubproperties, valueTypes)
 			value = &v
 		}
+		value = ast.NewCall(ast.NewIdent("close"), value)
 	}
 
 	if prop.IsList() {

@@ -8,26 +8,26 @@ AmazonMQ :: {
 		Properties: {
 			AutoMinorVersionUpgrade: bool | fn.Fn
 			BrokerName:              string | fn.Fn
-			Configuration?:          {
-			} | fn.If
+			Configuration?:          close({
+			}) | fn.If
 			DeploymentMode:     string | fn.Fn
-			EncryptionOptions?: {
-			} | fn.If
+			EncryptionOptions?: close({
+			}) | fn.If
 			EngineType:       string | fn.Fn
 			EngineVersion:    string | fn.Fn
 			HostInstanceType: string | fn.Fn
-			Logs?:            {
-			} | fn.If
-			MaintenanceWindowStartTime?: {
-			} | fn.If
+			Logs?:            close({
+			}) | fn.If
+			MaintenanceWindowStartTime?: close({
+			}) | fn.If
 			PubliclyAccessible: bool | fn.Fn
 			SecurityGroups?:    [...(string | fn.Fn)] | (string | fn.Fn)
 			StorageType?:       string | fn.Fn
 			SubnetIds?:         [...(string | fn.Fn)] | (string | fn.Fn)
-			Tags?:              [...{
-			}] | fn.If
-			Users: [...{
-			}] | fn.If
+			Tags?:              [...close({
+			})] | fn.If
+			Users: [...close({
+			})] | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -43,8 +43,8 @@ AmazonMQ :: {
 			EngineType:    string | fn.Fn
 			EngineVersion: string | fn.Fn
 			Name:          string | fn.Fn
-			Tags?:         [...{
-			}] | fn.If
+			Tags?:         [...close({
+			})] | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -56,8 +56,8 @@ AmazonMQ :: {
 		Type: "AWS::AmazonMQ::ConfigurationAssociation"
 		Properties: {
 			Broker:        string | fn.Fn
-			Configuration: {
-			} | fn.If
+			Configuration: close({
+			}) | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

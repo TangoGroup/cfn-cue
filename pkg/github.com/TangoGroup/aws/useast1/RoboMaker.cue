@@ -39,15 +39,15 @@ RoboMaker :: {
 		Properties: {
 			CurrentRevisionId?: string | fn.Fn
 			Name?:              string | fn.Fn
-			RobotSoftwareSuite: {
+			RobotSoftwareSuite: close({
 				Name:    string | fn.Fn
 				Version: string | fn.Fn
-			} | fn.If
-			Sources: [...{
+			}) | fn.If
+			Sources: [...close({
 				Architecture: string | fn.Fn
 				S3Bucket:     string | fn.Fn
 				S3Key:        string | fn.Fn
-			}] | fn.If
+			})] | fn.If
 			Tags?: {
 				[string]: _
 			} | fn.Fn
@@ -75,23 +75,23 @@ RoboMaker :: {
 		Properties: {
 			CurrentRevisionId?: string | fn.Fn
 			Name?:              string | fn.Fn
-			RenderingEngine:    {
+			RenderingEngine:    close({
 				Name:    string | fn.Fn
 				Version: string | fn.Fn
-			} | fn.If
-			RobotSoftwareSuite: {
+			}) | fn.If
+			RobotSoftwareSuite: close({
 				Name:    string | fn.Fn
 				Version: string | fn.Fn
-			} | fn.If
-			SimulationSoftwareSuite: {
+			}) | fn.If
+			SimulationSoftwareSuite: close({
 				Name:    string | fn.Fn
 				Version: string | fn.Fn
-			} | fn.If
-			Sources: [...{
+			}) | fn.If
+			Sources: [...close({
 				Architecture: string | fn.Fn
 				S3Bucket:     string | fn.Fn
 				S3Key:        string | fn.Fn
-			}] | fn.If
+			})] | fn.If
 			Tags?: {
 				[string]: _
 			} | fn.Fn

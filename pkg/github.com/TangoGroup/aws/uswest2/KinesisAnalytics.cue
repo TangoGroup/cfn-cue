@@ -9,46 +9,46 @@ KinesisAnalytics :: {
 			ApplicationCode?:        string | fn.Fn
 			ApplicationDescription?: string | fn.Fn
 			ApplicationName?:        string | fn.Fn
-			Inputs:                  [...{
-				InputParallelism?: {
+			Inputs:                  [...close({
+				InputParallelism?: close({
 					Count?: int | fn.Fn
-				} | fn.If
-				InputProcessingConfiguration?: {
-					InputLambdaProcessor?: {
+				}) | fn.If
+				InputProcessingConfiguration?: close({
+					InputLambdaProcessor?: close({
 						ResourceARN: string | fn.Fn
 						RoleARN:     string | fn.Fn
-					} | fn.If
-				} | fn.If
-				InputSchema: {
-					RecordColumns: [...{
+					}) | fn.If
+				}) | fn.If
+				InputSchema: close({
+					RecordColumns: [...close({
 						Mapping?: string | fn.Fn
 						Name:     string | fn.Fn
 						SqlType:  string | fn.Fn
-					}] | fn.If
+					})] | fn.If
 					RecordEncoding?: string | fn.Fn
-					RecordFormat:    {
-						MappingParameters?: {
-							CSVMappingParameters?: {
+					RecordFormat:    close({
+						MappingParameters?: close({
+							CSVMappingParameters?: close({
 								RecordColumnDelimiter: string | fn.Fn
 								RecordRowDelimiter:    string | fn.Fn
-							} | fn.If
-							JSONMappingParameters?: {
+							}) | fn.If
+							JSONMappingParameters?: close({
 								RecordRowPath: string | fn.Fn
-							} | fn.If
-						} | fn.If
+							}) | fn.If
+						}) | fn.If
 						RecordFormatType: string | fn.Fn
-					} | fn.If
-				} | fn.If
-				KinesisFirehoseInput?: {
+					}) | fn.If
+				}) | fn.If
+				KinesisFirehoseInput?: close({
 					ResourceARN: string | fn.Fn
 					RoleARN:     string | fn.Fn
-				} | fn.If
-				KinesisStreamsInput?: {
+				}) | fn.If
+				KinesisStreamsInput?: close({
 					ResourceARN: string | fn.Fn
 					RoleARN:     string | fn.Fn
-				} | fn.If
+				}) | fn.If
 				NamePrefix: string | fn.Fn
-			}] | fn.If
+			})] | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -60,24 +60,24 @@ KinesisAnalytics :: {
 		Type: "AWS::KinesisAnalytics::ApplicationOutput"
 		Properties: {
 			ApplicationName: string | fn.Fn
-			Output:          {
-				DestinationSchema: {
+			Output:          close({
+				DestinationSchema: close({
 					RecordFormatType?: string | fn.Fn
-				} | fn.If
-				KinesisFirehoseOutput?: {
+				}) | fn.If
+				KinesisFirehoseOutput?: close({
 					ResourceARN: string | fn.Fn
 					RoleARN:     string | fn.Fn
-				} | fn.If
-				KinesisStreamsOutput?: {
+				}) | fn.If
+				KinesisStreamsOutput?: close({
 					ResourceARN: string | fn.Fn
 					RoleARN:     string | fn.Fn
-				} | fn.If
-				LambdaOutput?: {
+				}) | fn.If
+				LambdaOutput?: close({
 					ResourceARN: string | fn.Fn
 					RoleARN:     string | fn.Fn
-				} | fn.If
+				}) | fn.If
 				Name?: string | fn.Fn
-			} | fn.If
+			}) | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -89,34 +89,34 @@ KinesisAnalytics :: {
 		Type: "AWS::KinesisAnalytics::ApplicationReferenceDataSource"
 		Properties: {
 			ApplicationName:     string | fn.Fn
-			ReferenceDataSource: {
-				ReferenceSchema: {
-					RecordColumns: [...{
+			ReferenceDataSource: close({
+				ReferenceSchema: close({
+					RecordColumns: [...close({
 						Mapping?: string | fn.Fn
 						Name:     string | fn.Fn
 						SqlType:  string | fn.Fn
-					}] | fn.If
+					})] | fn.If
 					RecordEncoding?: string | fn.Fn
-					RecordFormat:    {
-						MappingParameters?: {
-							CSVMappingParameters?: {
+					RecordFormat:    close({
+						MappingParameters?: close({
+							CSVMappingParameters?: close({
 								RecordColumnDelimiter: string | fn.Fn
 								RecordRowDelimiter:    string | fn.Fn
-							} | fn.If
-							JSONMappingParameters?: {
+							}) | fn.If
+							JSONMappingParameters?: close({
 								RecordRowPath: string | fn.Fn
-							} | fn.If
-						} | fn.If
+							}) | fn.If
+						}) | fn.If
 						RecordFormatType: string | fn.Fn
-					} | fn.If
-				} | fn.If
-				S3ReferenceDataSource?: {
+					}) | fn.If
+				}) | fn.If
+				S3ReferenceDataSource?: close({
 					BucketARN:        string | fn.Fn
 					FileKey:          string | fn.Fn
 					ReferenceRoleARN: string | fn.Fn
-				} | fn.If
+				}) | fn.If
 				TableName?: string | fn.Fn
-			} | fn.If
+			}) | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

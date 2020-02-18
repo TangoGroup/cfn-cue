@@ -6,18 +6,18 @@ ECR :: {
 	Repository :: {
 		Type: "AWS::ECR::Repository"
 		Properties: {
-			LifecyclePolicy?: {
+			LifecyclePolicy?: close({
 				LifecyclePolicyText?: string | fn.Fn
 				RegistryId?:          string | fn.Fn
-			} | fn.If
+			}) | fn.If
 			RepositoryName?:       string | fn.Fn
 			RepositoryPolicyText?: {
 				[string]: _
 			} | fn.Fn
-			Tags?: [...{
+			Tags?: [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}] | fn.If
+			})] | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

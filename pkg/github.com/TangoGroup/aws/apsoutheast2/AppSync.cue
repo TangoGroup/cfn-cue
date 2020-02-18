@@ -37,45 +37,45 @@ AppSync :: {
 		Properties: {
 			ApiId:           string | fn.Fn
 			Description?:    string | fn.Fn
-			DynamoDBConfig?: {
+			DynamoDBConfig?: close({
 				AwsRegion:        string | fn.Fn
-				DeltaSyncConfig?: {
+				DeltaSyncConfig?: close({
 					BaseTableTTL:       string | fn.Fn
 					DeltaSyncTableName: string | fn.Fn
 					DeltaSyncTableTTL:  string | fn.Fn
-				} | fn.If
+				}) | fn.If
 				TableName:             string | fn.Fn
 				UseCallerCredentials?: bool | fn.Fn
 				Versioned?:            bool | fn.Fn
-			} | fn.If
-			ElasticsearchConfig?: {
+			}) | fn.If
+			ElasticsearchConfig?: close({
 				AwsRegion: string | fn.Fn
 				Endpoint:  string | fn.Fn
-			} | fn.If
-			HttpConfig?: {
-				AuthorizationConfig?: {
+			}) | fn.If
+			HttpConfig?: close({
+				AuthorizationConfig?: close({
 					AuthorizationType: string | fn.Fn
-					AwsIamConfig?:     {
+					AwsIamConfig?:     close({
 						SigningRegion?:      string | fn.Fn
 						SigningServiceName?: string | fn.Fn
-					} | fn.If
-				} | fn.If
+					}) | fn.If
+				}) | fn.If
 				Endpoint: string | fn.Fn
-			} | fn.If
-			LambdaConfig?: {
+			}) | fn.If
+			LambdaConfig?: close({
 				LambdaFunctionArn: string | fn.Fn
-			} | fn.If
+			}) | fn.If
 			Name:                      string | fn.Fn
-			RelationalDatabaseConfig?: {
-				RdsHttpEndpointConfig?: {
+			RelationalDatabaseConfig?: close({
+				RdsHttpEndpointConfig?: close({
 					AwsRegion:           string | fn.Fn
 					AwsSecretStoreArn:   string | fn.Fn
 					DatabaseName?:       string | fn.Fn
 					DbClusterIdentifier: string | fn.Fn
 					Schema?:             string | fn.Fn
-				} | fn.If
+				}) | fn.If
 				RelationalDatabaseSourceType: string | fn.Fn
-			} | fn.If
+			}) | fn.If
 			ServiceRoleArn?: string | fn.Fn
 			Type:            ("AMAZON_DYNAMODB" | "AMAZON_ELASTICSEARCH" | "AWS_LAMBDA" | "HTTP" | "NONE" | "RELATIONAL_DATABASE") | fn.Fn
 		}
@@ -107,43 +107,43 @@ AppSync :: {
 	GraphQLApi :: {
 		Type: "AWS::AppSync::GraphQLApi"
 		Properties: {
-			AdditionalAuthenticationProviders?: [...{
+			AdditionalAuthenticationProviders?: [...close({
 				AuthenticationType:   string | fn.Fn
-				OpenIDConnectConfig?: {
+				OpenIDConnectConfig?: close({
 					AuthTTL?:  number | fn.Fn
 					ClientId?: string | fn.Fn
 					IatTTL?:   number | fn.Fn
 					Issuer?:   string | fn.Fn
-				} | fn.If
-				UserPoolConfig?: {
+				}) | fn.If
+				UserPoolConfig?: close({
 					AppIdClientRegex?: string | fn.Fn
 					AwsRegion?:        string | fn.Fn
 					UserPoolId?:       string | fn.Fn
-				} | fn.If
-			}] | fn.If
+				}) | fn.If
+			})] | fn.If
 			AuthenticationType: ("AMAZON_COGNITO_USER_POOLS" | "API_KEY" | "AWS_IAM" | "OPENID_CONNECT") | fn.Fn
-			LogConfig?:         {
+			LogConfig?:         close({
 				CloudWatchLogsRoleArn?: string | fn.Fn
 				ExcludeVerboseContent?: bool | fn.Fn
 				FieldLogLevel?:         string | fn.Fn
-			} | fn.If
+			}) | fn.If
 			Name:                 string | fn.Fn
-			OpenIDConnectConfig?: {
+			OpenIDConnectConfig?: close({
 				AuthTTL?:  number | fn.Fn
 				ClientId?: string | fn.Fn
 				IatTTL?:   number | fn.Fn
 				Issuer?:   string | fn.Fn
-			} | fn.If
-			Tags?: [...{
+			}) | fn.If
+			Tags?: [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}] | fn.If
-			UserPoolConfig?: {
+			})] | fn.If
+			UserPoolConfig?: close({
 				AppIdClientRegex?: string | fn.Fn
 				AwsRegion?:        string | fn.Fn
 				DefaultAction?:    string | fn.Fn
 				UserPoolId?:       string | fn.Fn
-			} | fn.If
+			}) | fn.If
 			XrayEnabled?: bool | fn.Fn
 		}
 		DependsOn?:           string | [...string]
@@ -169,27 +169,27 @@ AppSync :: {
 		Type: "AWS::AppSync::Resolver"
 		Properties: {
 			ApiId:          string | fn.Fn
-			CachingConfig?: {
+			CachingConfig?: close({
 				CachingKeys?: [...(string | fn.Fn)] | (string | fn.Fn)
 				Ttl?:         number | fn.Fn
-			} | fn.If
+			}) | fn.If
 			DataSourceName?: string | fn.Fn
 			FieldName:       string | fn.Fn
 			Kind?:           ("PIPELINE" | "UNIT") | fn.Fn
-			PipelineConfig?: {
+			PipelineConfig?: close({
 				Functions?: [...(string | fn.Fn)] | (string | fn.Fn)
-			} | fn.If
+			}) | fn.If
 			RequestMappingTemplate?:            string | fn.Fn
 			RequestMappingTemplateS3Location?:  string | fn.Fn
 			ResponseMappingTemplate?:           string | fn.Fn
 			ResponseMappingTemplateS3Location?: string | fn.Fn
-			SyncConfig?:                        {
+			SyncConfig?:                        close({
 				ConflictDetection:            string | fn.Fn
 				ConflictHandler?:             string | fn.Fn
-				LambdaConflictHandlerConfig?: {
+				LambdaConflictHandlerConfig?: close({
 					LambdaConflictHandlerArn?: string | fn.Fn
-				} | fn.If
-			} | fn.If
+				}) | fn.If
+			}) | fn.If
 			TypeName: string | fn.Fn
 		}
 		DependsOn?:           string | [...string]

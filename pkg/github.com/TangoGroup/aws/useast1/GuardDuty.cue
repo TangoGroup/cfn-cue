@@ -21,18 +21,18 @@ GuardDuty :: {
 			Action:          ("ARCHIVE" | "NOOP") | fn.Fn
 			Description:     string | fn.Fn
 			DetectorId:      string | fn.Fn
-			FindingCriteria: {
+			FindingCriteria: close({
 				Criterion?: {
 					[string]: _
 				} | fn.Fn
-				ItemType?: {
+				ItemType?: close({
 					Eq?:  [...(string | fn.Fn)] | (string | fn.Fn)
 					Gte?: int | fn.Fn
 					Lt?:  int | fn.Fn
 					Lte?: int | fn.Fn
 					Neq?: [...(string | fn.Fn)] | (string | fn.Fn)
-				} | fn.If
-			} | fn.If
+				}) | fn.If
+			}) | fn.If
 			Name: string | fn.Fn
 			Rank: int | fn.Fn
 		}

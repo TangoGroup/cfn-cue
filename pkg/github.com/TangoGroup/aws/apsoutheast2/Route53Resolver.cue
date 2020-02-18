@@ -7,16 +7,16 @@ Route53Resolver :: {
 		Type: "AWS::Route53Resolver::ResolverEndpoint"
 		Properties: {
 			Direction:   ("INBOUND" | "OUTBOUND") | fn.Fn
-			IpAddresses: [...{
+			IpAddresses: [...close({
 				Ip?:      string | fn.Fn
 				SubnetId: string | fn.Fn
-			}] | fn.If
+			})] | fn.If
 			Name?:            string | fn.Fn
 			SecurityGroupIds: [...(string | fn.Fn)] | (string | fn.Fn)
-			Tags?:            [...{
+			Tags?:            [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}] | fn.If
+			})] | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -31,14 +31,14 @@ Route53Resolver :: {
 			Name?:               string | fn.Fn
 			ResolverEndpointId?: string | fn.Fn
 			RuleType:            ("FORWARD" | "RECURSIVE" | "SYSTEM") | fn.Fn
-			Tags?:               [...{
+			Tags?:               [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}] | fn.If
-			TargetIps?: [...{
+			})] | fn.If
+			TargetIps?: [...close({
 				Ip:   string | fn.Fn
 				Port: string | fn.Fn
-			}] | fn.If
+			})] | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

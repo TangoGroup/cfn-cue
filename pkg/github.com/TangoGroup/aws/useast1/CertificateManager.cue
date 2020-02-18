@@ -7,15 +7,15 @@ CertificateManager :: {
 		Type: "AWS::CertificateManager::Certificate"
 		Properties: {
 			DomainName:               string | fn.Fn
-			DomainValidationOptions?: [...{
+			DomainValidationOptions?: [...close({
 				DomainName:       string | fn.Fn
 				ValidationDomain: string | fn.Fn
-			}] | fn.If
+			})] | fn.If
 			SubjectAlternativeNames?: [...(string | fn.Fn)] | (string | fn.Fn)
-			Tags?:                    [...{
+			Tags?:                    [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}] | fn.If
+			})] | fn.If
 			ValidationMethod?: ("DNS" | "EMAIL") | fn.Fn
 		}
 		DependsOn?:           string | [...string]

@@ -8,10 +8,10 @@ EventSchemas :: {
 		Properties: {
 			Description?: string | fn.Fn
 			SourceArn:    string | fn.Fn
-			Tags?:        [...{
+			Tags?:        [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}] | fn.If
+			})] | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -24,10 +24,10 @@ EventSchemas :: {
 		Properties: {
 			Description?:  string | fn.Fn
 			RegistryName?: string | fn.Fn
-			Tags?:         [...{
+			Tags?:         [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}] | fn.If
+			})] | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -42,10 +42,10 @@ EventSchemas :: {
 			Description?: string | fn.Fn
 			RegistryName: string | fn.Fn
 			SchemaName?:  string | fn.Fn
-			Tags?:        [...{
+			Tags?:        [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}] | fn.If
+			})] | fn.If
 			Type: string | fn.Fn
 		}
 		DependsOn?:           string | [...string]

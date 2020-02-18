@@ -11,13 +11,13 @@ Cloud9 :: {
 			InstanceType:              string | fn.Fn
 			Name?:                     string | fn.Fn
 			OwnerArn?:                 string | fn.Fn
-			Repositories?:             [...{
-			}] | fn.If
+			Repositories?:             [...close({
+			})] | fn.If
 			SubnetId?: string | fn.Fn
-			Tags?:     [...{
+			Tags?:     [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}] | fn.If
+			})] | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

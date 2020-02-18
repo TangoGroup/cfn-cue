@@ -6,21 +6,21 @@ Backup :: {
 	BackupPlan :: {
 		Type: "AWS::Backup::BackupPlan"
 		Properties: {
-			BackupPlan: {
+			BackupPlan: close({
 				BackupPlanName: string | fn.Fn
-				BackupPlanRule: [...{
+				BackupPlanRule: [...close({
 					CompletionWindowMinutes?: int | fn.Fn
-					CopyActions?:             [...{
+					CopyActions?:             [...close({
 						DestinationBackupVaultArn: string | fn.Fn
-						Lifecycle?:                {
+						Lifecycle?:                close({
 							DeleteAfterDays?:            int | fn.Fn
 							MoveToColdStorageAfterDays?: int | fn.Fn
-						} | fn.If
-					}] | fn.If
-					Lifecycle?: {
+						}) | fn.If
+					})] | fn.If
+					Lifecycle?: close({
 						DeleteAfterDays?:            int | fn.Fn
 						MoveToColdStorageAfterDays?: int | fn.Fn
-					} | fn.If
+					}) | fn.If
 					RecoveryPointTags?: {
 						[string]: _
 					} | fn.Fn
@@ -28,8 +28,8 @@ Backup :: {
 					ScheduleExpression?: string | fn.Fn
 					StartWindowMinutes?: int | fn.Fn
 					TargetBackupVault:   string | fn.Fn
-				}] | fn.If
-			} | fn.If
+				})] | fn.If
+			}) | fn.If
 			BackupPlanTags?: {
 				[string]: _
 			} | fn.Fn
@@ -44,16 +44,16 @@ Backup :: {
 		Type: "AWS::Backup::BackupSelection"
 		Properties: {
 			BackupPlanId:    string | fn.Fn
-			BackupSelection: {
+			BackupSelection: close({
 				IamRoleArn:  (=~#"arn:(aws[a-zA-Z-]*)?:iam::\d{12}:role/[a-zA-Z_0-9+=,.@\-_/]+"#) | fn.Fn
-				ListOfTags?: [...{
+				ListOfTags?: [...close({
 					ConditionKey:   string | fn.Fn
 					ConditionType:  string | fn.Fn
 					ConditionValue: string | fn.Fn
-				}] | fn.If
+				})] | fn.If
 				Resources?:    [...(string | fn.Fn)] | (string | fn.Fn)
 				SelectionName: string | fn.Fn
-			} | fn.If
+			}) | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -72,10 +72,10 @@ Backup :: {
 				[string]: _
 			} | fn.Fn
 			EncryptionKeyArn?: string | fn.Fn
-			Notifications?:    {
+			Notifications?:    close({
 				BackupVaultEvents: [...(string | fn.Fn)] | (string | fn.Fn)
 				SNSTopicArn:       string | fn.Fn
-			} | fn.If
+			}) | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

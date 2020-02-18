@@ -14,10 +14,10 @@ OpsWorksCM :: {
 			CustomPrivateKey?:         string | fn.Fn
 			DisableAutomatedBackup?:   bool | fn.Fn
 			Engine?:                   string | fn.Fn
-			EngineAttributes?:         [...{
+			EngineAttributes?:         [...close({
 				Name?:  string | fn.Fn
 				Value?: string | fn.Fn
-			}] | fn.If
+			})] | fn.If
 			EngineModel?:                string | fn.Fn
 			EngineVersion?:              string | fn.Fn
 			InstanceProfileArn:          string | fn.Fn
@@ -29,10 +29,10 @@ OpsWorksCM :: {
 			ServerName?:                 string | fn.Fn
 			ServiceRoleArn:              string | fn.Fn
 			SubnetIds?:                  [...(string | fn.Fn)] | (string | fn.Fn)
-			Tags?:                       [...{
+			Tags?:                       [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}] | fn.If
+			})] | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

@@ -14,12 +14,12 @@ AutoScaling :: {
 			HealthCheckType?:         ("EC2" | "ELB") | fn.Fn
 			InstanceId?:              string | fn.Fn
 			LaunchConfigurationName?: string | fn.Fn
-			LaunchTemplate?:          {
+			LaunchTemplate?:          close({
 				LaunchTemplateId?:   string | fn.Fn
 				LaunchTemplateName?: string | fn.Fn
 				Version:             string | fn.Fn
-			} | fn.If
-			LifecycleHookSpecificationList?: [...{
+			}) | fn.If
+			LifecycleHookSpecificationList?: [...close({
 				DefaultResult?:         ("ABANDON" | "CONTINUE") | fn.Fn
 				HeartbeatTimeout?:      int | fn.Fn
 				LifecycleHookName:      string | fn.Fn
@@ -27,46 +27,46 @@ AutoScaling :: {
 				NotificationMetadata?:  string | fn.Fn
 				NotificationTargetARN?: string | fn.Fn
 				RoleARN?:               string | fn.Fn
-			}] | fn.If
+			})] | fn.If
 			LoadBalancerNames?: [...(string | fn.Fn)] | (string | fn.Fn)
 			MaxSize:            string | fn.Fn
-			MetricsCollection?: [...{
+			MetricsCollection?: [...close({
 				Granularity: string | fn.Fn
 				Metrics?:    [...(string | fn.Fn)] | (string | fn.Fn)
-			}] | fn.If
+			})] | fn.If
 			MinSize:               string | fn.Fn
-			MixedInstancesPolicy?: {
-				InstancesDistribution?: {
+			MixedInstancesPolicy?: close({
+				InstancesDistribution?: close({
 					OnDemandAllocationStrategy?:          string | fn.Fn
 					OnDemandBaseCapacity?:                int | fn.Fn
 					OnDemandPercentageAboveBaseCapacity?: int | fn.Fn
 					SpotAllocationStrategy?:              string | fn.Fn
 					SpotInstancePools?:                   int | fn.Fn
 					SpotMaxPrice?:                        string | fn.Fn
-				} | fn.If
-				LaunchTemplate: {
-					LaunchTemplateSpecification: {
+				}) | fn.If
+				LaunchTemplate: close({
+					LaunchTemplateSpecification: close({
 						LaunchTemplateId?:   string | fn.Fn
 						LaunchTemplateName?: string | fn.Fn
 						Version:             string | fn.Fn
-					} | fn.If
-					Overrides?: [...{
+					}) | fn.If
+					Overrides?: [...close({
 						InstanceType?:     string | fn.Fn
 						WeightedCapacity?: string | fn.Fn
-					}] | fn.If
-				} | fn.If
-			} | fn.If
-			NotificationConfigurations?: [...{
+					})] | fn.If
+				}) | fn.If
+			}) | fn.If
+			NotificationConfigurations?: [...close({
 				NotificationTypes?: [...(string | fn.Fn)] | (string | fn.Fn)
 				TopicARN:           string | fn.Fn
-			}] | fn.If
+			})] | fn.If
 			PlacementGroup?:       string | fn.Fn
 			ServiceLinkedRoleARN?: string | fn.Fn
-			Tags?:                 [...{
+			Tags?:                 [...close({
 				Key:               string | fn.Fn
 				PropagateAtLaunch: bool | fn.Fn
 				Value:             string | fn.Fn
-			}] | fn.If
+			})] | fn.If
 			TargetGroupARNs?:     [...(string | fn.Fn)] | (string | fn.Fn)
 			TerminationPolicies?: [...(string | fn.Fn)] | (string | fn.Fn)
 			VPCZoneIdentifier?:   [...(string | fn.Fn)] | (string | fn.Fn)
@@ -89,19 +89,19 @@ AutoScaling :: {
 		Type: "AWS::AutoScaling::LaunchConfiguration"
 		Properties: {
 			AssociatePublicIpAddress?: bool | fn.Fn
-			BlockDeviceMappings?:      [...{
+			BlockDeviceMappings?:      [...close({
 				DeviceName: string | fn.Fn
-				Ebs?:       {
+				Ebs?:       close({
 					DeleteOnTermination?: bool | fn.Fn
 					Encrypted?:           bool | fn.Fn
 					Iops?:                int | fn.Fn
 					SnapshotId?:          string | fn.Fn
 					VolumeSize?:          int | fn.Fn
 					VolumeType?:          ("gp2" | "io1" | "sc1" | "st1" | "standard") | fn.Fn
-				} | fn.If
+				}) | fn.If
 				NoDevice?:    bool | fn.Fn
 				VirtualName?: string | fn.Fn
-			}] | fn.If
+			})] | fn.If
 			ClassicLinkVPCId?:             string | fn.Fn
 			ClassicLinkVPCSecurityGroups?: [...(string | fn.Fn)] | (string | fn.Fn)
 			EbsOptimized?:                 bool | fn.Fn
@@ -154,29 +154,29 @@ AutoScaling :: {
 			MinAdjustmentMagnitude?:  int | fn.Fn
 			PolicyType?:              ("SimpleScaling" | "StepScaling" | "TargetTrackingScaling") | fn.Fn
 			ScalingAdjustment?:       int | fn.Fn
-			StepAdjustments?:         [...{
+			StepAdjustments?:         [...close({
 				MetricIntervalLowerBound?: number | fn.Fn
 				MetricIntervalUpperBound?: number | fn.Fn
 				ScalingAdjustment:         int | fn.Fn
-			}] | fn.If
-			TargetTrackingConfiguration?: {
-				CustomizedMetricSpecification?: {
-					Dimensions?: [...{
+			})] | fn.If
+			TargetTrackingConfiguration?: close({
+				CustomizedMetricSpecification?: close({
+					Dimensions?: [...close({
 						Name:  string | fn.Fn
 						Value: string | fn.Fn
-					}] | fn.If
+					})] | fn.If
 					MetricName: string | fn.Fn
 					Namespace:  string | fn.Fn
 					Statistic:  ("Average" | "Minimum" | "Maximum" | "SampleCount" | "Sum") | fn.Fn
 					Unit?:      string | fn.Fn
-				} | fn.If
+				}) | fn.If
 				DisableScaleIn?:                bool | fn.Fn
-				PredefinedMetricSpecification?: {
+				PredefinedMetricSpecification?: close({
 					PredefinedMetricType: ("ALBRequestCountPerTarget" | "ASGAverageCPUUtilization" | "ASGAverageNetworkIn" | "ASGAverageNetworkOut") | fn.Fn
 					ResourceLabel?:       string | fn.Fn
-				} | fn.If
+				}) | fn.If
 				TargetValue: number | fn.Fn
-			} | fn.If
+			}) | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

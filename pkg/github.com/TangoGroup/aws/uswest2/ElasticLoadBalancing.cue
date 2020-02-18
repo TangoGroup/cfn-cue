@@ -6,47 +6,47 @@ ElasticLoadBalancing :: {
 	LoadBalancer :: {
 		Type: "AWS::ElasticLoadBalancing::LoadBalancer"
 		Properties: {
-			AccessLoggingPolicy?: {
+			AccessLoggingPolicy?: close({
 				EmitInterval?:   int | fn.Fn
 				Enabled:         bool | fn.Fn
 				S3BucketName:    string | fn.Fn
 				S3BucketPrefix?: string | fn.Fn
-			} | fn.If
-			AppCookieStickinessPolicy?: [...{
+			}) | fn.If
+			AppCookieStickinessPolicy?: [...close({
 				CookieName: string | fn.Fn
 				PolicyName: string | fn.Fn
-			}] | fn.If
+			})] | fn.If
 			AvailabilityZones?:        [...(string | fn.Fn)] | (string | fn.Fn)
-			ConnectionDrainingPolicy?: {
+			ConnectionDrainingPolicy?: close({
 				Enabled:  bool | fn.Fn
 				Timeout?: int | fn.Fn
-			} | fn.If
-			ConnectionSettings?: {
+			}) | fn.If
+			ConnectionSettings?: close({
 				IdleTimeout: int | fn.Fn
-			} | fn.If
+			}) | fn.If
 			CrossZone?:   bool | fn.Fn
-			HealthCheck?: {
+			HealthCheck?: close({
 				HealthyThreshold:   string | fn.Fn
 				Interval:           string | fn.Fn
 				Target:             string | fn.Fn
 				Timeout:            string | fn.Fn
 				UnhealthyThreshold: string | fn.Fn
-			} | fn.If
+			}) | fn.If
 			Instances?:                [...(string | fn.Fn)] | (string | fn.Fn)
-			LBCookieStickinessPolicy?: [...{
+			LBCookieStickinessPolicy?: [...close({
 				CookieExpirationPeriod?: string | fn.Fn
 				PolicyName?:             string | fn.Fn
-			}] | fn.If
-			Listeners: [...{
+			})] | fn.If
+			Listeners: [...close({
 				InstancePort:      (>=1 & <=65535) | fn.Fn
 				InstanceProtocol?: string | fn.Fn
 				LoadBalancerPort:  (>=1 & <=65535) | fn.Fn
 				PolicyNames?:      [...(string | fn.Fn)] | (string | fn.Fn)
 				Protocol:          string | fn.Fn
 				SSLCertificateId?: string | fn.Fn
-			}] | fn.If
+			})] | fn.If
 			LoadBalancerName?: string | fn.Fn
-			Policies?:         [...{
+			Policies?:         [...close({
 				Attributes: [...({
 					[string]: _
 				} | fn.Fn)] | ({
@@ -56,14 +56,14 @@ ElasticLoadBalancing :: {
 				LoadBalancerPorts?: [...(string | fn.Fn)] | (string | fn.Fn)
 				PolicyName:         string | fn.Fn
 				PolicyType:         string | fn.Fn
-			}] | fn.If
+			})] | fn.If
 			Scheme?:         string | fn.Fn
 			SecurityGroups?: [...(string | fn.Fn)] | (string | fn.Fn)
 			Subnets?:        [...(string | fn.Fn)] | (string | fn.Fn)
-			Tags?:           [...{
+			Tags?:           [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}] | fn.If
+			})] | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

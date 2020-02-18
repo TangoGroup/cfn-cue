@@ -6,23 +6,23 @@ PinpointEmail :: {
 	ConfigurationSet :: {
 		Type: "AWS::PinpointEmail::ConfigurationSet"
 		Properties: {
-			DeliveryOptions?: {
+			DeliveryOptions?: close({
 				SendingPoolName?: string | fn.Fn
-			} | fn.If
+			}) | fn.If
 			Name:               string | fn.Fn
-			ReputationOptions?: {
+			ReputationOptions?: close({
 				ReputationMetricsEnabled?: bool | fn.Fn
-			} | fn.If
-			SendingOptions?: {
+			}) | fn.If
+			SendingOptions?: close({
 				SendingEnabled?: bool | fn.Fn
-			} | fn.If
-			Tags?: [...{
+			}) | fn.If
+			Tags?: [...close({
 				Key?:   string | fn.Fn
 				Value?: string | fn.Fn
-			}] | fn.If
-			TrackingOptions?: {
+			})] | fn.If
+			TrackingOptions?: close({
 				CustomRedirectDomain?: string | fn.Fn
-			} | fn.If
+			}) | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -34,27 +34,27 @@ PinpointEmail :: {
 		Type: "AWS::PinpointEmail::ConfigurationSetEventDestination"
 		Properties: {
 			ConfigurationSetName: string | fn.Fn
-			EventDestination?:    {
-				CloudWatchDestination?: {
-					DimensionConfigurations?: [...{
+			EventDestination?:    close({
+				CloudWatchDestination?: close({
+					DimensionConfigurations?: [...close({
 						DefaultDimensionValue: string | fn.Fn
 						DimensionName:         string | fn.Fn
 						DimensionValueSource:  string | fn.Fn
-					}] | fn.If
-				} | fn.If
+					})] | fn.If
+				}) | fn.If
 				Enabled?:                    bool | fn.Fn
-				KinesisFirehoseDestination?: {
+				KinesisFirehoseDestination?: close({
 					DeliveryStreamArn: string | fn.Fn
 					IamRoleArn:        string | fn.Fn
-				} | fn.If
+				}) | fn.If
 				MatchingEventTypes:   [...(string | fn.Fn)] | (string | fn.Fn)
-				PinpointDestination?: {
+				PinpointDestination?: close({
 					ApplicationArn?: string | fn.Fn
-				} | fn.If
-				SnsDestination?: {
+				}) | fn.If
+				SnsDestination?: close({
 					TopicArn: string | fn.Fn
-				} | fn.If
-			} | fn.If
+				}) | fn.If
+			}) | fn.If
 			EventDestinationName: string | fn.Fn
 		}
 		DependsOn?:           string | [...string]
@@ -67,10 +67,10 @@ PinpointEmail :: {
 		Type: "AWS::PinpointEmail::DedicatedIpPool"
 		Properties: {
 			PoolName?: string | fn.Fn
-			Tags?:     [...{
+			Tags?:     [...close({
 				Key?:   string | fn.Fn
 				Value?: string | fn.Fn
-			}] | fn.If
+			})] | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -83,15 +83,15 @@ PinpointEmail :: {
 		Properties: {
 			DkimSigningEnabled?:        bool | fn.Fn
 			FeedbackForwardingEnabled?: bool | fn.Fn
-			MailFromAttributes?:        {
+			MailFromAttributes?:        close({
 				BehaviorOnMxFailure?: string | fn.Fn
 				MailFromDomain?:      string | fn.Fn
-			} | fn.If
+			}) | fn.If
 			Name:  string | fn.Fn
-			Tags?: [...{
+			Tags?: [...close({
 				Key?:   string | fn.Fn
 				Value?: string | fn.Fn
-			}] | fn.If
+			})] | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
