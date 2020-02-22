@@ -183,6 +183,19 @@ func createFieldFromProperty(name string, prop Property, resourceSubproperties m
 	if prop.IsPrimitive() || prop.IsMapOfPrimitives() || prop.IsListOfPrimitives() {
 		var constraints []ast.Expr
 		value = prop.getCUEPrimitiveType()
+		if name == "PolicyDocument" || name == "AssumeRolePolicyDocument" {
+			jsonStruct, ok := value.(*ast.StructLit)
+			if ok {
+				jsonStruct.Elts = append(jsonStruct.Elts, &ast.Field{
+					Label: ast.NewIdent("Version"),
+					Value: &ast.BinaryExpr{
+						X:  ast.NewIdent("string"),
+						Op: token.OR,
+						Y:  &ast.BasicLit{Value: `*"2012-10-17"`},
+					},
+				})
+			}
+		}
 		constraints, imports = getPrimitiveConstraints(prop, valueTypes[prop.Value.ValueType])
 		if convertTypeToCUE(prop.getPrimitiveTypeString()) == "time.Time" {
 			imports["time"] = true
@@ -1322,13 +1335,13 @@ func main() {
 			},
 		})
 
-		// declarations = append(declarations, &ast.Field{
-		// 	Label: ast.NewIdent("ResourceTypesMap"),
-		// 	// Token: token.ISA,
-		// 	Value: &ast.StructLit{
-		// 		Elts: resourceTypesFields,
-		// 	},
-		// })
+		declarations = append(declarations, &ast.Field{
+			Label: ast.NewIdent("ResourceTypesMap"),
+			// Token: token.ISA,
+			Value: &ast.StructLit{
+				Elts: resourceTypesFields,
+			},
+		})
 
 		// resourcesMap := &ast.Field{
 		// 	Label: ast.NewIdent("ResourceTypesMap"),

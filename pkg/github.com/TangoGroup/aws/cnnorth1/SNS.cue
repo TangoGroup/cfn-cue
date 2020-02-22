@@ -53,6 +53,7 @@ SNS :: {
 		Properties: {
 			PolicyDocument: {
 				[string]: _
+				Version:  string | *"2012-10-17"
 			} | fn.Fn
 			Topics: [...(string | fn.Fn)] | (string | fn.Fn)
 		}

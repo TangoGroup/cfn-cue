@@ -20,6 +20,7 @@ IoT :: {
 		Properties: {
 			PolicyDocument: {
 				[string]: _
+				Version:  string | *"2012-10-17"
 			} | fn.Fn
 			PolicyName?: string | fn.Fn
 		}

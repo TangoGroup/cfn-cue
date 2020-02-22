@@ -35,6 +35,7 @@ SQS :: {
 		Properties: {
 			PolicyDocument: {
 				[string]: _
+				Version:  string | *"2012-10-17"
 			} | fn.Fn
 			Queues: [...(string | fn.Fn)] | (string | fn.Fn)
 		}

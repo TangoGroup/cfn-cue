@@ -28,6 +28,7 @@ IAM :: {
 			Policies?:          [...close({
 				PolicyDocument: {
 					[string]: _
+					Version:  string | *"2012-10-17"
 				} | fn.Fn
 				PolicyName: (strings.MinRunes(1) & strings.MaxRunes(128) & (=~#"^[a-zA-Z0-9+=,.@\-_]+$"#)) | fn.Fn
 			})] | fn.If
@@ -60,6 +61,7 @@ IAM :: {
 			Path?:              (=~#"^/(.+/)*$"#) | fn.Fn
 			PolicyDocument:     {
 				[string]: _
+				Version:  string | *"2012-10-17"
 			} | fn.Fn
 			Roles?: [...(string | fn.Fn)] | (string | fn.Fn)
 			Users?: [...(string | fn.Fn)] | (string | fn.Fn)
@@ -76,6 +78,7 @@ IAM :: {
 			Groups?:        [...(string | fn.Fn)] | (string | fn.Fn)
 			PolicyDocument: {
 				[string]: _
+				Version:  string | *"2012-10-17"
 			} | fn.Fn
 			PolicyName: (strings.MinRunes(1) & strings.MaxRunes(128) & (=~#"^[a-zA-Z0-9+=,.@\-_]+$"#)) | fn.Fn
 			Roles?:     [...(string | fn.Fn)] | (string | fn.Fn)
@@ -92,6 +95,7 @@ IAM :: {
 		Properties: {
 			AssumeRolePolicyDocument: {
 				[string]: _
+				Version:  string | *"2012-10-17"
 			} | fn.Fn
 			Description?:         string | fn.Fn
 			ManagedPolicyArns?:   [...((=~#"arn:(aws[a-zA-Z-]*)?:iam::(\d{12}|aws):policy/[a-zA-Z_0-9+=,.@\-_/]+"#) | fn.Fn)] | ((=~#"arn:(aws[a-zA-Z-]*)?:iam::(\d{12}|aws):policy/[a-zA-Z_0-9+=,.@\-_/]+"#) | fn.Fn)
@@ -101,6 +105,7 @@ IAM :: {
 			Policies?:            [...close({
 				PolicyDocument: {
 					[string]: _
+					Version:  string | *"2012-10-17"
 				} | fn.Fn
 				PolicyName: (strings.MinRunes(1) & strings.MaxRunes(128) & (=~#"^[a-zA-Z0-9+=,.@\-_]+$"#)) | fn.Fn
 			})] | fn.If
@@ -130,6 +135,7 @@ IAM :: {
 			Policies?:            [...close({
 				PolicyDocument: {
 					[string]: _
+					Version:  string | *"2012-10-17"
 				} | fn.Fn
 				PolicyName: (strings.MinRunes(1) & strings.MaxRunes(128) & (=~#"^[a-zA-Z0-9+=,.@\-_]+$"#)) | fn.Fn
 			})] | fn.If

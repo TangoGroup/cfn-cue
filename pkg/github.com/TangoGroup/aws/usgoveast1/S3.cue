@@ -233,6 +233,7 @@ S3 :: {
 			Bucket:         string | fn.Fn
 			PolicyDocument: {
 				[string]: _
+				Version:  string | *"2012-10-17"
 			} | fn.Fn
 		}
 		DependsOn?:           string | [...string]
