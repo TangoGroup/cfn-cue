@@ -81,7 +81,9 @@ Cognito :: {
 			UserPoolTags?: {
 				[string]: _
 			} | fn.Fn
-			UsernameAttributes?:          [...(string | fn.Fn)] | (string | fn.Fn)
+			UsernameAttributes?:    [...(string | fn.Fn)] | (string | fn.Fn)
+			UsernameConfiguration?: close({
+			}) | fn.If
 			VerificationMessageTemplate?: close({
 			}) | fn.If
 		}

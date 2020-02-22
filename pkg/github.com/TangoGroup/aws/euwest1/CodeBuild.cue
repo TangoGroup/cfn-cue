@@ -42,6 +42,13 @@ CodeBuild :: {
 				}) | fn.If
 				Type: ("LINUX_CONTAINER" | "WINDOWS_CONTAINER") | fn.Fn
 			}) | fn.If
+			FileSystemLocations?: [...close({
+				Identifier:    string | fn.Fn
+				Location:      string | fn.Fn
+				MountOptions?: string | fn.Fn
+				MountPoint:    string | fn.Fn
+				Type:          string | fn.Fn
+			})] | fn.If
 			LogsConfig?: close({
 				CloudWatchLogs?: close({
 					GroupName?:  string | fn.Fn

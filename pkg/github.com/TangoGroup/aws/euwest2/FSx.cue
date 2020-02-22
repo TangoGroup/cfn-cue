@@ -10,9 +10,11 @@ FSx :: {
 			FileSystemType:       string | fn.Fn
 			KmsKeyId?:            string | fn.Fn
 			LustreConfiguration?: close({
+				DeploymentType?:             string | fn.Fn
 				ExportPath?:                 string | fn.Fn
 				ImportPath?:                 string | fn.Fn
 				ImportedFileChunkSize?:      int | fn.Fn
+				PerUnitStorageThroughput?:   int | fn.Fn
 				WeeklyMaintenanceStartTime?: string | fn.Fn
 			}) | fn.If
 			SecurityGroupIds?: [...(string | fn.Fn)] | (string | fn.Fn)

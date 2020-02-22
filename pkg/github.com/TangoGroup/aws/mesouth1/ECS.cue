@@ -22,6 +22,19 @@ ECS :: {
 		Metadata?: [string]: _
 		Condition?: string
 	}
+	PrimaryTaskSet :: {
+		Type: "AWS::ECS::PrimaryTaskSet"
+		Properties: {
+			Cluster:   string | fn.Fn
+			Service:   string | fn.Fn
+			TaskSetId: string | fn.Fn
+		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+		Condition?: string
+	}
 	Service :: {
 		Type: "AWS::ECS::Service"
 		Properties: {
@@ -247,6 +260,45 @@ ECS :: {
 				}) | fn.If
 				Name?: string | fn.Fn
 			})] | fn.If
+		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+		Condition?: string
+	}
+	TaskSet :: {
+		Type: "AWS::ECS::TaskSet"
+		Properties: {
+			Cluster:        string | fn.Fn
+			ExternalId?:    string | fn.Fn
+			LaunchType?:    string | fn.Fn
+			LoadBalancers?: [...close({
+				ContainerName?:    string | fn.Fn
+				ContainerPort?:    int | fn.Fn
+				LoadBalancerName?: string | fn.Fn
+				TargetGroupArn?:   string | fn.Fn
+			})] | fn.If
+			NetworkConfiguration?: close({
+				AwsVpcConfiguration?: close({
+					AssignPublicIp?: string | fn.Fn
+					SecurityGroups?: [...(string | fn.Fn)] | (string | fn.Fn)
+					Subnets:         [...(string | fn.Fn)] | (string | fn.Fn)
+				}) | fn.If
+			}) | fn.If
+			PlatformVersion?: string | fn.Fn
+			Scale?:           close({
+				Unit?:  string | fn.Fn
+				Value?: number | fn.Fn
+			}) | fn.If
+			Service:            string | fn.Fn
+			ServiceRegistries?: [...close({
+				ContainerName?: string | fn.Fn
+				ContainerPort?: int | fn.Fn
+				Port?:          int | fn.Fn
+				RegistryArn?:   string | fn.Fn
+			})] | fn.If
+			TaskDefinition: string | fn.Fn
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

@@ -231,6 +231,18 @@ EC2 :: {
 		Metadata?: [string]: _
 		Condition?: string
 	}
+	GatewayRouteTableAssociation :: {
+		Type: "AWS::EC2::GatewayRouteTableAssociation"
+		Properties: {
+			GatewayId:    string | fn.Fn
+			RouteTableId: string | fn.Fn
+		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+		Condition?: string
+	}
 	Host :: {
 		Type: "AWS::EC2::Host"
 		Properties: {
@@ -490,6 +502,36 @@ EC2 :: {
 				UserData?: string | fn.Fn
 			}) | fn.If
 			LaunchTemplateName?: (strings.MinRunes(3) & strings.MaxRunes(128) & (=~#"^[a-zA-Z0-9().\-/_]+$"#)) | fn.Fn
+		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+		Condition?: string
+	}
+	LocalGatewayRoute :: {
+		Type: "AWS::EC2::LocalGatewayRoute"
+		Properties: {
+			DestinationCidrBlock:                string | fn.Fn
+			LocalGatewayRouteTableId:            string | fn.Fn
+			LocalGatewayVirtualInterfaceGroupId: string | fn.Fn
+		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+		Condition?: string
+	}
+	LocalGatewayRouteTableVPCAssociation :: {
+		Type: "AWS::EC2::LocalGatewayRouteTableVPCAssociation"
+		Properties: {
+			LocalGatewayRouteTableId: string | fn.Fn
+			Tags?:                    close({
+				Tags?: [...close({
+					[string]: _
+				})] | fn.If
+			}) | fn.If
+			VpcId: string | fn.Fn
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

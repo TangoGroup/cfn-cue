@@ -152,6 +152,18 @@ EC2 :: {
 		Metadata?: [string]: _
 		Condition?: string
 	}
+	GatewayRouteTableAssociation :: {
+		Type: "AWS::EC2::GatewayRouteTableAssociation"
+		Properties: {
+			GatewayId:    string | fn.Fn
+			RouteTableId: string | fn.Fn
+		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+		Condition?: string
+	}
 	Host :: {
 		Type: "AWS::EC2::Host"
 		Properties: {

@@ -141,7 +141,10 @@ Cognito :: {
 			UserPoolTags?: {
 				[string]: _
 			} | fn.Fn
-			UsernameAttributes?:          [...(("email" | "phone_number") | fn.Fn)] | (("email" | "phone_number") | fn.Fn)
+			UsernameAttributes?:    [...(("email" | "phone_number") | fn.Fn)] | (("email" | "phone_number") | fn.Fn)
+			UsernameConfiguration?: close({
+				CaseSensitive?: bool | fn.Fn
+			}) | fn.If
 			VerificationMessageTemplate?: close({
 				DefaultEmailOption?: string | fn.Fn
 				EmailMessage?:       string | fn.Fn
