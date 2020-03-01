@@ -94,6 +94,26 @@ SSM :: {
 		Metadata?: [string]: _
 		Condition?: string
 	}
+	Parameter :: {
+		Type: "AWS::SSM::Parameter"
+		Properties: {
+			AllowedPattern?: string | fn.Fn
+			Description?:    string | fn.Fn
+			Name?:           string | fn.Fn
+			Policies?:       string | fn.Fn
+			Tags?:           {
+				[string]: _
+			} | fn.Fn
+			Tier?: string | fn.Fn
+			Type:  string | fn.Fn
+			Value: string | fn.Fn
+		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+		Condition?: string
+	}
 	ResourceDataSync :: {
 		Type: "AWS::SSM::ResourceDataSync"
 		Properties: {

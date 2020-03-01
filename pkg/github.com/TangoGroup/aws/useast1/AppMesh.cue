@@ -164,8 +164,42 @@ AppMesh :: {
 		Properties: {
 			MeshName: string | fn.Fn
 			Spec:     close({
+				BackendDefaults?: close({
+					ClientPolicy?: close({
+						TLS?: close({
+							Enforce?:   bool | fn.Fn
+							Ports?:     [...(int | fn.Fn)] | (int | fn.Fn)
+							Validation: close({
+								Trust: close({
+									ACM?: close({
+										CertificateAuthorityArns: [...(string | fn.Fn)] | (string | fn.Fn)
+									}) | fn.If
+									File?: close({
+										CertificateChain: string | fn.Fn
+									}) | fn.If
+								}) | fn.If
+							}) | fn.If
+						}) | fn.If
+					}) | fn.If
+				}) | fn.If
 				Backends?: [...close({
 					VirtualService?: close({
+						ClientPolicy?: close({
+							TLS?: close({
+								Enforce?:   bool | fn.Fn
+								Ports?:     [...(int | fn.Fn)] | (int | fn.Fn)
+								Validation: close({
+									Trust: close({
+										ACM?: close({
+											CertificateAuthorityArns: [...(string | fn.Fn)] | (string | fn.Fn)
+										}) | fn.If
+										File?: close({
+											CertificateChain: string | fn.Fn
+										}) | fn.If
+									}) | fn.If
+								}) | fn.If
+							}) | fn.If
+						}) | fn.If
 						VirtualServiceName: string | fn.Fn
 					}) | fn.If
 				})] | fn.If
@@ -182,6 +216,18 @@ AppMesh :: {
 					PortMapping: close({
 						Port:     int | fn.Fn
 						Protocol: string | fn.Fn
+					}) | fn.If
+					TLS?: close({
+						Certificate: close({
+							ACM?: close({
+								CertificateArn: string | fn.Fn
+							}) | fn.If
+							File?: close({
+								CertificateChain: string | fn.Fn
+								PrivateKey:       string | fn.Fn
+							}) | fn.If
+						}) | fn.If
+						Mode: string | fn.Fn
 					}) | fn.If
 				})] | fn.If
 				Logging?: close({
