@@ -104,7 +104,7 @@ RDS :: {
 			EnableCloudwatchLogsExports?:        [...(string | fn.Fn)] | (string | fn.Fn)
 			EnableIAMDatabaseAuthentication?:    bool | fn.Fn
 			EnablePerformanceInsights?:          bool | fn.Fn
-			Engine?:                             string | fn.Fn
+			Engine?:                             ("aurora" | "aurora-mysql" | "aurora-postgresql" | "mariadb" | "mysql" | "MySQL" | "oracle-ee" | "oracle-se2" | "oracle-se1" | "oracle-se" | "postgres" | "sqlserver-ee" | "sqlserver-se" | "sqlserver-ex" | "sqlserver-web") | fn.Fn
 			EngineVersion?:                      string | fn.Fn
 			Iops?:                               int | fn.Fn
 			KmsKeyId?:                           string | fn.Fn
