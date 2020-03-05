@@ -82,6 +82,23 @@ CloudWatch :: {
 		Metadata?: [string]: _
 		Condition?: string
 	}
+	CompositeAlarm :: {
+		Type: "AWS::CloudWatch::CompositeAlarm"
+		Properties: {
+			ActionsEnabled?:          bool | fn.Fn
+			AlarmActions?:            [...(string | fn.Fn)] | (string | fn.Fn)
+			AlarmDescription?:        string | fn.Fn
+			AlarmName:                string | fn.Fn
+			AlarmRule:                string | fn.Fn
+			InsufficientDataActions?: [...(string | fn.Fn)] | (string | fn.Fn)
+			OKActions?:               [...(string | fn.Fn)] | (string | fn.Fn)
+		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+		Condition?: string
+	}
 	Dashboard :: {
 		Type: "AWS::CloudWatch::Dashboard"
 		Properties: {

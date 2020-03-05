@@ -333,10 +333,18 @@ Greengrass :: {
 						}) | fn.If
 						S3MachineLearningModelResourceData?: close({
 							DestinationPath: string | fn.Fn
-							S3Uri:           string | fn.Fn
+							OwnerSetting?:   close({
+								GroupOwner:      string | fn.Fn
+								GroupPermission: string | fn.Fn
+							}) | fn.If
+							S3Uri: string | fn.Fn
 						}) | fn.If
 						SageMakerMachineLearningModelResourceData?: close({
 							DestinationPath: string | fn.Fn
+							OwnerSetting?:   close({
+								GroupOwner:      string | fn.Fn
+								GroupPermission: string | fn.Fn
+							}) | fn.If
 							SageMakerJobArn: string | fn.Fn
 						}) | fn.If
 						SecretsManagerSecretResourceData?: close({
@@ -382,10 +390,18 @@ Greengrass :: {
 					}) | fn.If
 					S3MachineLearningModelResourceData?: close({
 						DestinationPath: string | fn.Fn
-						S3Uri:           string | fn.Fn
+						OwnerSetting?:   close({
+							GroupOwner:      string | fn.Fn
+							GroupPermission: string | fn.Fn
+						}) | fn.If
+						S3Uri: string | fn.Fn
 					}) | fn.If
 					SageMakerMachineLearningModelResourceData?: close({
 						DestinationPath: string | fn.Fn
+						OwnerSetting?:   close({
+							GroupOwner:      string | fn.Fn
+							GroupPermission: string | fn.Fn
+						}) | fn.If
 						SageMakerJobArn: string | fn.Fn
 					}) | fn.If
 					SecretsManagerSecretResourceData?: close({
