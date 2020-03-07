@@ -6,8 +6,16 @@ EKS :: {
 	Cluster :: {
 		Type: "AWS::EKS::Cluster"
 		Properties: {
+			EncryptionConfig?: [...close({
+				Provider?: close({
+					KeyArn?: string | fn.Fn
+				}) | fn.If
+				Resources?: [...(string | fn.Fn)] | (string | fn.Fn)
+			})] | fn.If
 			Name?:              string | fn.Fn
 			ResourcesVpcConfig: close({
+				SecurityGroupIds?: [...(string | fn.Fn)] | (string | fn.Fn)
+				SubnetIds:         [...(string | fn.Fn)] | (string | fn.Fn)
 			}) | fn.If
 			RoleArn:  string | fn.Fn
 			Version?: string | fn.Fn
@@ -33,8 +41,13 @@ EKS :: {
 			NodegroupName?:  string | fn.Fn
 			ReleaseVersion?: string | fn.Fn
 			RemoteAccess?:   close({
+				Ec2SshKey:             string | fn.Fn
+				SourceSecurityGroups?: [...(string | fn.Fn)] | (string | fn.Fn)
 			}) | fn.If
 			ScalingConfig?: close({
+				DesiredSize?: number | fn.Fn
+				MaxSize?:     number | fn.Fn
+				MinSize?:     number | fn.Fn
 			}) | fn.If
 			Subnets: [...(string | fn.Fn)] | (string | fn.Fn)
 			Tags?:   {

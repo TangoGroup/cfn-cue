@@ -6,6 +6,12 @@ EKS :: {
 	Cluster :: {
 		Type: "AWS::EKS::Cluster"
 		Properties: {
+			EncryptionConfig?: [...close({
+				Provider?: close({
+					KeyArn?: string | fn.Fn
+				}) | fn.If
+				Resources?: [...(string | fn.Fn)] | (string | fn.Fn)
+			})] | fn.If
 			Name?:              string | fn.Fn
 			ResourcesVpcConfig: close({
 				SecurityGroupIds?: [...(string | fn.Fn)] | (string | fn.Fn)
