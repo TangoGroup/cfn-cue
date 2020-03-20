@@ -91,7 +91,7 @@ KinesisAnalyticsV2 :: {
 			}) | fn.If
 			ApplicationDescription?: string | fn.Fn
 			ApplicationName?:        string | fn.Fn
-			RuntimeEnvironment:      string | fn.Fn
+			RuntimeEnvironment:      ("FLINK-1_6" | "FLINK-1_8" | "SQL-1_0") | fn.Fn
 			ServiceExecutionRole:    string | fn.Fn
 		}
 		DependsOn?:           string | [...string]

@@ -7,14 +7,36 @@ ApiGatewayV2 :: {
 		Type: "AWS::ApiGatewayV2::Api"
 		Properties: {
 			ApiKeySelectionExpression?: string | fn.Fn
-			Description?:               string | fn.Fn
-			DisableSchemaValidation?:   bool | fn.Fn
-			Name:                       string | fn.Fn
-			ProtocolType:               string | fn.Fn
-			RouteSelectionExpression:   string | fn.Fn
-			Tags?:                      {
+			BasePath?:                  string | fn.Fn
+			Body?:                      {
 				[string]: _
 			} | fn.Fn
+			BodyS3Location?: close({
+				Bucket?:  string | fn.Fn
+				Etag?:    string | fn.Fn
+				Key?:     string | fn.Fn
+				Version?: string | fn.Fn
+			}) | fn.If
+			CorsConfiguration?: close({
+				AllowCredentials?: bool | fn.Fn
+				AllowHeaders?:     [...(string | fn.Fn)] | (string | fn.Fn)
+				AllowMethods?:     [...(string | fn.Fn)] | (string | fn.Fn)
+				AllowOrigins?:     [...(string | fn.Fn)] | (string | fn.Fn)
+				ExposeHeaders?:    [...(string | fn.Fn)] | (string | fn.Fn)
+				MaxAge?:           int | fn.Fn
+			}) | fn.If
+			CredentialsArn?:           string | fn.Fn
+			Description?:              string | fn.Fn
+			DisableSchemaValidation?:  bool | fn.Fn
+			FailOnWarnings?:           bool | fn.Fn
+			Name?:                     string | fn.Fn
+			ProtocolType?:             string | fn.Fn
+			RouteKey?:                 string | fn.Fn
+			RouteSelectionExpression?: string | fn.Fn
+			Tags?:                     {
+				[string]: _
+			} | fn.Fn
+			Target?:  string | fn.Fn
 			Version?: string | fn.Fn
 		}
 		DependsOn?:           string | [...string]
@@ -44,10 +66,14 @@ ApiGatewayV2 :: {
 			AuthorizerCredentialsArn?:     string | fn.Fn
 			AuthorizerResultTtlInSeconds?: int | fn.Fn
 			AuthorizerType:                string | fn.Fn
-			AuthorizerUri:                 string | fn.Fn
+			AuthorizerUri?:                string | fn.Fn
 			IdentitySource:                [...(string | fn.Fn)] | (string | fn.Fn)
 			IdentityValidationExpression?: string | fn.Fn
-			Name:                          string | fn.Fn
+			JwtConfiguration?:             close({
+				Audience?: [...(string | fn.Fn)] | (string | fn.Fn)
+				Issuer?:   string | fn.Fn
+			}) | fn.If
+			Name: string | fn.Fn
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -99,6 +125,7 @@ ApiGatewayV2 :: {
 			IntegrationType:          string | fn.Fn
 			IntegrationUri?:          string | fn.Fn
 			PassthroughBehavior?:     string | fn.Fn
+			PayloadFormatVersion?:    string | fn.Fn
 			RequestParameters?:       {
 				[string]: _
 			} | fn.Fn
@@ -107,6 +134,9 @@ ApiGatewayV2 :: {
 			} | fn.Fn
 			TemplateSelectionExpression?: string | fn.Fn
 			TimeoutInMillis?:             int | fn.Fn
+			TlsConfig?:                   close({
+				ServerNameToVerify?: string | fn.Fn
+			}) | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -206,6 +236,7 @@ ApiGatewayV2 :: {
 				Format?:         string | fn.Fn
 			}) | fn.If
 			ApiId:                 string | fn.Fn
+			AutoDeploy?:           bool | fn.Fn
 			ClientCertificateId?:  string | fn.Fn
 			DefaultRouteSettings?: close({
 				DataTraceEnabled?:       bool | fn.Fn
@@ -214,7 +245,7 @@ ApiGatewayV2 :: {
 				ThrottlingBurstLimit?:   int | fn.Fn
 				ThrottlingRateLimit?:    number | fn.Fn
 			}) | fn.If
-			DeploymentId:   string | fn.Fn
+			DeploymentId?:  string | fn.Fn
 			Description?:   string | fn.Fn
 			RouteSettings?: {
 				[string]: _

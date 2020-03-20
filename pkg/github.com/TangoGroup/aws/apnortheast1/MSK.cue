@@ -38,6 +38,23 @@ MSK :: {
 			}) | fn.If
 			EnhancedMonitoring?: string | fn.Fn
 			KafkaVersion:        string | fn.Fn
+			LoggingInfo?:        close({
+				BrokerLogs: close({
+					CloudWatchLogs?: close({
+						Enabled:   bool | fn.Fn
+						LogGroup?: string | fn.Fn
+					}) | fn.If
+					Firehose?: close({
+						DeliveryStream?: string | fn.Fn
+						Enabled:         bool | fn.Fn
+					}) | fn.If
+					S3?: close({
+						Bucket?: string | fn.Fn
+						Enabled: bool | fn.Fn
+						Prefix?: string | fn.Fn
+					}) | fn.If
+				}) | fn.If
+			}) | fn.If
 			NumberOfBrokerNodes: int | fn.Fn
 			OpenMonitoring?:     close({
 				Prometheus: close({

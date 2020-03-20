@@ -139,6 +139,19 @@ AppSync :: {
 		Metadata?: [string]: _
 		Condition?: string
 	}
+	GraphQLSchema :: {
+		Type: "AWS::AppSync::GraphQLSchema"
+		Properties: {
+			ApiId:                 string | fn.Fn
+			Definition?:           string | fn.Fn
+			DefinitionS3Location?: string | fn.Fn
+		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+		Condition?: string
+	}
 	Resolver :: {
 		Type: "AWS::AppSync::Resolver"
 		Properties: {

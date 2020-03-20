@@ -2,7 +2,7 @@ package apsoutheast2
 
 import "github.com/TangoGroup/aws/fn"
 
-ResourceSpecificationVersion :: "11.4.0"
+ResourceSpecificationVersion :: "11.5.0"
 Template :: {
 	AWSTemplateFormatVersion?: "2010-09-09"
 	Description?:              string

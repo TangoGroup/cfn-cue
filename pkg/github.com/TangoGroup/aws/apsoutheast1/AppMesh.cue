@@ -26,9 +26,10 @@ AppMesh :: {
 	Route :: {
 		Type: "AWS::AppMesh::Route"
 		Properties: {
-			MeshName:  string | fn.Fn
-			RouteName: string | fn.Fn
-			Spec:      close({
+			MeshName:   string | fn.Fn
+			MeshOwner?: string | fn.Fn
+			RouteName:  string | fn.Fn
+			Spec:       close({
 				GrpcRoute?: close({
 					Action: close({
 						WeightedTargets: [...close({
@@ -162,8 +163,9 @@ AppMesh :: {
 	VirtualNode :: {
 		Type: "AWS::AppMesh::VirtualNode"
 		Properties: {
-			MeshName: string | fn.Fn
-			Spec:     close({
+			MeshName:   string | fn.Fn
+			MeshOwner?: string | fn.Fn
+			Spec:       close({
 				BackendDefaults?: close({
 					ClientPolicy?: close({
 						TLS?: close({
@@ -266,8 +268,9 @@ AppMesh :: {
 	VirtualRouter :: {
 		Type: "AWS::AppMesh::VirtualRouter"
 		Properties: {
-			MeshName: string | fn.Fn
-			Spec:     close({
+			MeshName:   string | fn.Fn
+			MeshOwner?: string | fn.Fn
+			Spec:       close({
 				Listeners: [...close({
 					PortMapping: close({
 						Port:     int | fn.Fn
@@ -290,8 +293,9 @@ AppMesh :: {
 	VirtualService :: {
 		Type: "AWS::AppMesh::VirtualService"
 		Properties: {
-			MeshName: string | fn.Fn
-			Spec:     close({
+			MeshName:   string | fn.Fn
+			MeshOwner?: string | fn.Fn
+			Spec:       close({
 				Provider?: close({
 					VirtualNode?: close({
 						VirtualNodeName: string | fn.Fn

@@ -36,6 +36,7 @@ CloudFront :: {
 					}) | fn.If
 					LambdaFunctionAssociations?: [...close({
 						EventType?:        ("origin-request" | "origin-response" | "viewer-request" | "viewer-response") | fn.Fn
+						IncludeBody?:      bool | fn.Fn
 						LambdaFunctionARN: string | fn.Fn
 					})] | fn.If
 					MaxTTL?:              number | fn.Fn
@@ -70,6 +71,7 @@ CloudFront :: {
 					}) | fn.If
 					LambdaFunctionAssociations?: [...close({
 						EventType?:        ("origin-request" | "origin-response" | "viewer-request" | "viewer-response") | fn.Fn
+						IncludeBody?:      bool | fn.Fn
 						LambdaFunctionARN: string | fn.Fn
 					})] | fn.If
 					MaxTTL?:              number | fn.Fn
@@ -87,6 +89,24 @@ CloudFront :: {
 					Bucket:          string | fn.Fn
 					IncludeCookies?: bool | fn.Fn
 					Prefix?:         string | fn.Fn
+				}) | fn.If
+				OriginGroups?: close({
+					Items?: [...close({
+						FailoverCriteria: close({
+							StatusCodes: close({
+								Items:    [...(int | fn.Fn)] | (int | fn.Fn)
+								Quantity: int | fn.Fn
+							}) | fn.If
+						}) | fn.If
+						Id:      string | fn.Fn
+						Members: close({
+							Items: [...close({
+								OriginId: string | fn.Fn
+							})] | fn.If
+							Quantity: int | fn.Fn
+						}) | fn.If
+					})] | fn.If
+					Quantity: int | fn.Fn
 				}) | fn.If
 				Origins: [...close({
 					CustomOriginConfig?: close({

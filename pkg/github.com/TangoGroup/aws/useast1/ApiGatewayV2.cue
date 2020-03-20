@@ -134,6 +134,9 @@ ApiGatewayV2 :: {
 			} | fn.Fn
 			TemplateSelectionExpression?: string | fn.Fn
 			TimeoutInMillis?:             int | fn.Fn
+			TlsConfig?:                   close({
+				ServerNameToVerify?: string | fn.Fn
+			}) | fn.If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

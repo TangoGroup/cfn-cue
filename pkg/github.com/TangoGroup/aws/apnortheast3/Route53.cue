@@ -86,7 +86,7 @@ Route53 :: {
 			Region?:           string | fn.Fn
 			ResourceRecords?:  [...(string | fn.Fn)] | (string | fn.Fn)
 			SetIdentifier?:    string | fn.Fn
-			TTL?:              string | fn.Fn
+			TTL?:              int | fn.Fn
 			Type:              ("A" | "AAAA" | "CAA" | "CNAME" | "MX" | "NAPTR" | "NS" | "PTR" | "SOA" | "SPF" | "SRV" | "TXT") | fn.Fn
 			Weight?:           int | fn.Fn
 		}
