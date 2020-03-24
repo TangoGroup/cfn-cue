@@ -29,7 +29,9 @@ DMS :: {
 			EndpointType:               string | fn.Fn
 			EngineName:                 string | fn.Fn
 			ExtraConnectionAttributes?: string | fn.Fn
-			KinesisSettings?:           close({
+			KafkaSettings?:             close({
+			}) | fn.If
+			KinesisSettings?: close({
 			}) | fn.If
 			KmsKeyId?:        string | fn.Fn
 			MongoDbSettings?: close({

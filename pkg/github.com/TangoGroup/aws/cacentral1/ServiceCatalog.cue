@@ -100,9 +100,10 @@ ServiceCatalog :: {
 		Properties: {
 			AcceptLanguage?: string | fn.Fn
 			Description?:    string | fn.Fn
+			LocalRoleName?:  string | fn.Fn
 			PortfolioId:     string | fn.Fn
 			ProductId:       string | fn.Fn
-			RoleArn:         string | fn.Fn
+			RoleArn?:        string | fn.Fn
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

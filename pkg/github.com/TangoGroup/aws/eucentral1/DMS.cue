@@ -34,7 +34,11 @@ DMS :: {
 			EndpointType:               ("source" | "target") | fn.Fn
 			EngineName:                 ("aurora-postgresql" | "aurora" | "azuredb" | "db2" | "dynamodb" | "mariadb" | "mongodb" | "mysql" | "oracle" | "postgres" | "redshift" | "s3" | "sqlserver" | "sybase") | fn.Fn
 			ExtraConnectionAttributes?: string | fn.Fn
-			KinesisSettings?:           close({
+			KafkaSettings?:             close({
+				Broker?: string | fn.Fn
+				Topic?:  string | fn.Fn
+			}) | fn.If
+			KinesisSettings?: close({
 				MessageFormat?:        string | fn.Fn
 				ServiceAccessRoleArn?: string | fn.Fn
 				StreamArn?:            string | fn.Fn

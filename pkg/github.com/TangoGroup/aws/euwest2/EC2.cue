@@ -68,6 +68,7 @@ EC2 :: {
 			}) | fn.If
 			Description?:         string | fn.Fn
 			DnsServers?:          [...(string | fn.Fn)] | (string | fn.Fn)
+			SecurityGroupIds?:    [...(string | fn.Fn)] | (string | fn.Fn)
 			ServerCertificateArn: string | fn.Fn
 			SplitTunnel?:         bool | fn.Fn
 			TagSpecifications?:   [...close({
@@ -78,6 +79,7 @@ EC2 :: {
 				})] | fn.If
 			})] | fn.If
 			TransportProtocol?: string | fn.Fn
+			VpcId?:             string | fn.Fn
 			VpnPort?:           int | fn.Fn
 		}
 		DependsOn?:           string | [...string]
