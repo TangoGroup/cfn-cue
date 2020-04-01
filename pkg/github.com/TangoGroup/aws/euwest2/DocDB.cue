@@ -4,8 +4,8 @@ import "github.com/TangoGroup/aws/fn"
 
 DocDB :: {
 	DBCluster :: {
-		Type: "AWS::DocDB::DBCluster"
-		Properties: {
+		Type:       "AWS::DocDB::DBCluster"
+		Properties: close({
 			AvailabilityZones?:           [...(string | fn.Fn)] | (string | fn.Fn)
 			BackupRetentionPeriod?:       (>=1 & <=35) | fn.Fn
 			DBClusterIdentifier?:         string | fn.Fn
@@ -26,7 +26,7 @@ DocDB :: {
 				Value: string | fn.Fn
 			})] | fn.If
 			VpcSecurityGroupIds?: [...(string | fn.Fn)] | (string | fn.Fn)
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -34,8 +34,8 @@ DocDB :: {
 		Condition?: string
 	}
 	DBClusterParameterGroup :: {
-		Type: "AWS::DocDB::DBClusterParameterGroup"
-		Properties: {
+		Type:       "AWS::DocDB::DBClusterParameterGroup"
+		Properties: close({
 			Description: string | fn.Fn
 			Family:      string | fn.Fn
 			Name?:       string | fn.Fn
@@ -46,7 +46,7 @@ DocDB :: {
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			})] | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -54,8 +54,8 @@ DocDB :: {
 		Condition?: string
 	}
 	DBInstance :: {
-		Type: "AWS::DocDB::DBInstance"
-		Properties: {
+		Type:       "AWS::DocDB::DBInstance"
+		Properties: close({
 			AutoMinorVersionUpgrade?:    bool | fn.Fn
 			AvailabilityZone?:           string | fn.Fn
 			DBClusterIdentifier:         string | fn.Fn
@@ -66,7 +66,7 @@ DocDB :: {
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			})] | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -74,8 +74,8 @@ DocDB :: {
 		Condition?: string
 	}
 	DBSubnetGroup :: {
-		Type: "AWS::DocDB::DBSubnetGroup"
-		Properties: {
+		Type:       "AWS::DocDB::DBSubnetGroup"
+		Properties: close({
 			DBSubnetGroupDescription: string | fn.Fn
 			DBSubnetGroupName?:       string | fn.Fn
 			SubnetIds:                [...(string | fn.Fn)] | (string | fn.Fn)
@@ -83,7 +83,7 @@ DocDB :: {
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			})] | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

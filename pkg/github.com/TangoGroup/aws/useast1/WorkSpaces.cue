@@ -4,8 +4,8 @@ import "github.com/TangoGroup/aws/fn"
 
 WorkSpaces :: {
 	Workspace :: {
-		Type: "AWS::WorkSpaces::Workspace"
-		Properties: {
+		Type:       "AWS::WorkSpaces::Workspace"
+		Properties: close({
 			BundleId:                     string | fn.Fn
 			DirectoryId:                  string | fn.Fn
 			RootVolumeEncryptionEnabled?: bool | fn.Fn
@@ -23,7 +23,7 @@ WorkSpaces :: {
 				RunningModeAutoStopTimeoutInMinutes?: int | fn.Fn
 				UserVolumeSizeGib?:                   int | fn.Fn
 			}) | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

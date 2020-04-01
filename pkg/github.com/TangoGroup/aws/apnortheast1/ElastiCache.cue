@@ -4,8 +4,8 @@ import "github.com/TangoGroup/aws/fn"
 
 ElastiCache :: {
 	CacheCluster :: {
-		Type: "AWS::ElastiCache::CacheCluster"
-		Properties: {
+		Type:       "AWS::ElastiCache::CacheCluster"
+		Properties: close({
 			AZMode?:                     string | fn.Fn
 			AutoMinorVersionUpgrade?:    bool | fn.Fn
 			CacheNodeType:               string | fn.Fn
@@ -30,7 +30,7 @@ ElastiCache :: {
 				Value: string | fn.Fn
 			})] | fn.If
 			VpcSecurityGroupIds?: [...(string | fn.Fn)] | (string | fn.Fn)
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain" | "Snapshot"
 		UpdateReplacePolicy?: "Delete" | "Retain" | "Snapshot"
@@ -38,14 +38,14 @@ ElastiCache :: {
 		Condition?: string
 	}
 	ParameterGroup :: {
-		Type: "AWS::ElastiCache::ParameterGroup"
-		Properties: {
+		Type:       "AWS::ElastiCache::ParameterGroup"
+		Properties: close({
 			CacheParameterGroupFamily: string | fn.Fn
 			Description:               string | fn.Fn
 			Properties?:               {
 				[string]: string | fn.Fn
 			} | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -53,8 +53,8 @@ ElastiCache :: {
 		Condition?: string
 	}
 	ReplicationGroup :: {
-		Type: "AWS::ElastiCache::ReplicationGroup"
-		Properties: {
+		Type:       "AWS::ElastiCache::ReplicationGroup"
+		Properties: close({
 			AtRestEncryptionEnabled?:  bool | fn.Fn
 			AuthToken?:                string | fn.Fn
 			AutoMinorVersionUpgrade?:  bool | fn.Fn
@@ -94,7 +94,7 @@ ElastiCache :: {
 				Value: string | fn.Fn
 			})] | fn.If
 			TransitEncryptionEnabled?: bool | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain" | "Snapshot"
 		UpdateReplacePolicy?: "Delete" | "Retain" | "Snapshot"
@@ -103,8 +103,10 @@ ElastiCache :: {
 		Condition?: string
 	}
 	SecurityGroup :: {
-		Type: "AWS::ElastiCache::SecurityGroup"
-		Properties: Description: string | fn.Fn
+		Type:       "AWS::ElastiCache::SecurityGroup"
+		Properties: close({
+			Description: string | fn.Fn
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -112,12 +114,12 @@ ElastiCache :: {
 		Condition?: string
 	}
 	SecurityGroupIngress :: {
-		Type: "AWS::ElastiCache::SecurityGroupIngress"
-		Properties: {
+		Type:       "AWS::ElastiCache::SecurityGroupIngress"
+		Properties: close({
 			CacheSecurityGroupName:   string | fn.Fn
 			EC2SecurityGroupName:     string | fn.Fn
 			EC2SecurityGroupOwnerId?: string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -125,12 +127,12 @@ ElastiCache :: {
 		Condition?: string
 	}
 	SubnetGroup :: {
-		Type: "AWS::ElastiCache::SubnetGroup"
-		Properties: {
+		Type:       "AWS::ElastiCache::SubnetGroup"
+		Properties: close({
 			CacheSubnetGroupName?: string | fn.Fn
 			Description:           string | fn.Fn
 			SubnetIds:             [...(string | fn.Fn)] | (string | fn.Fn)
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

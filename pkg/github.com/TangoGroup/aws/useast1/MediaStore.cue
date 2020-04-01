@@ -4,8 +4,8 @@ import "github.com/TangoGroup/aws/fn"
 
 MediaStore :: {
 	Container :: {
-		Type: "AWS::MediaStore::Container"
-		Properties: {
+		Type:       "AWS::MediaStore::Container"
+		Properties: close({
 			AccessLoggingEnabled?: bool | fn.Fn
 			ContainerName:         string | fn.Fn
 			CorsPolicy?:           [...close({
@@ -17,7 +17,7 @@ MediaStore :: {
 			})] | fn.If
 			LifecyclePolicy?: string | fn.Fn
 			Policy?:          string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

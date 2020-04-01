@@ -4,8 +4,8 @@ import "github.com/TangoGroup/aws/fn"
 
 Neptune :: {
 	DBCluster :: {
-		Type: "AWS::Neptune::DBCluster"
-		Properties: {
+		Type:       "AWS::Neptune::DBCluster"
+		Properties: close({
 			AvailabilityZones?:           [...(string | fn.Fn)] | (string | fn.Fn)
 			BackupRetentionPeriod?:       int | fn.Fn
 			DBClusterIdentifier?:         string | fn.Fn
@@ -26,7 +26,7 @@ Neptune :: {
 				Value: string | fn.Fn
 			})] | fn.If
 			VpcSecurityGroupIds?: [...(string | fn.Fn)] | (string | fn.Fn)
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain" | "Snapshot"
 		UpdateReplacePolicy?: "Delete" | "Retain" | "Snapshot"
@@ -34,8 +34,8 @@ Neptune :: {
 		Condition?: string
 	}
 	DBClusterParameterGroup :: {
-		Type: "AWS::Neptune::DBClusterParameterGroup"
-		Properties: {
+		Type:       "AWS::Neptune::DBClusterParameterGroup"
+		Properties: close({
 			Description: string | fn.Fn
 			Family:      string | fn.Fn
 			Name?:       string | fn.Fn
@@ -46,7 +46,7 @@ Neptune :: {
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			})] | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -54,8 +54,8 @@ Neptune :: {
 		Condition?: string
 	}
 	DBInstance :: {
-		Type: "AWS::Neptune::DBInstance"
-		Properties: {
+		Type:       "AWS::Neptune::DBInstance"
+		Properties: close({
 			AllowMajorVersionUpgrade?:   bool | fn.Fn
 			AutoMinorVersionUpgrade?:    bool | fn.Fn
 			AvailabilityZone?:           string | fn.Fn
@@ -70,7 +70,7 @@ Neptune :: {
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			})] | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -78,8 +78,8 @@ Neptune :: {
 		Condition?: string
 	}
 	DBParameterGroup :: {
-		Type: "AWS::Neptune::DBParameterGroup"
-		Properties: {
+		Type:       "AWS::Neptune::DBParameterGroup"
+		Properties: close({
 			Description: string | fn.Fn
 			Family:      string | fn.Fn
 			Name?:       string | fn.Fn
@@ -90,7 +90,7 @@ Neptune :: {
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			})] | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -98,8 +98,8 @@ Neptune :: {
 		Condition?: string
 	}
 	DBSubnetGroup :: {
-		Type: "AWS::Neptune::DBSubnetGroup"
-		Properties: {
+		Type:       "AWS::Neptune::DBSubnetGroup"
+		Properties: close({
 			DBSubnetGroupDescription: string | fn.Fn
 			DBSubnetGroupName?:       string | fn.Fn
 			SubnetIds:                [...(string | fn.Fn)] | (string | fn.Fn)
@@ -107,7 +107,7 @@ Neptune :: {
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			})] | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

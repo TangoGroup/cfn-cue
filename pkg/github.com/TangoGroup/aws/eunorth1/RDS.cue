@@ -4,8 +4,8 @@ import "github.com/TangoGroup/aws/fn"
 
 RDS :: {
 	DBCluster :: {
-		Type: "AWS::RDS::DBCluster"
-		Properties: {
+		Type:       "AWS::RDS::DBCluster"
+		Properties: close({
 			AssociatedRoles?: [...close({
 				FeatureName?: string | fn.Fn
 				RoleArn:      string | fn.Fn
@@ -48,7 +48,7 @@ RDS :: {
 			})] | fn.If
 			UseLatestRestorableTime?: bool | fn.Fn
 			VpcSecurityGroupIds?:     [...(string | fn.Fn)] | (string | fn.Fn)
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain" | "Snapshot"
 		UpdateReplacePolicy?: "Delete" | "Retain" | "Snapshot"
@@ -56,8 +56,8 @@ RDS :: {
 		Condition?: string
 	}
 	DBClusterParameterGroup :: {
-		Type: "AWS::RDS::DBClusterParameterGroup"
-		Properties: {
+		Type:       "AWS::RDS::DBClusterParameterGroup"
+		Properties: close({
 			Description: string | fn.Fn
 			Family:      string | fn.Fn
 			Parameters:  {
@@ -67,7 +67,7 @@ RDS :: {
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			})] | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -75,8 +75,8 @@ RDS :: {
 		Condition?: string
 	}
 	DBInstance :: {
-		Type: "AWS::RDS::DBInstance"
-		Properties: {
+		Type:       "AWS::RDS::DBInstance"
+		Properties: close({
 			AllocatedStorage?:         string | fn.Fn
 			AllowMajorVersionUpgrade?: bool | fn.Fn
 			AssociatedRoles?:          [...close({
@@ -104,7 +104,7 @@ RDS :: {
 			EnableCloudwatchLogsExports?:        [...(string | fn.Fn)] | (string | fn.Fn)
 			EnableIAMDatabaseAuthentication?:    bool | fn.Fn
 			EnablePerformanceInsights?:          bool | fn.Fn
-			Engine?:                             ("aurora" | "aurora-mysql" | "aurora-postgresql" | "mariadb" | "mysql" | "MySQL" | "oracle-ee" | "oracle-se2" | "oracle-se1" | "oracle-se" | "postgres" | "sqlserver-ee" | "sqlserver-se" | "sqlserver-ex" | "sqlserver-web") | fn.Fn
+			Engine?:                             string | fn.Fn
 			EngineVersion?:                      string | fn.Fn
 			Iops?:                               int | fn.Fn
 			KmsKeyId?:                           string | fn.Fn
@@ -138,7 +138,7 @@ RDS :: {
 			Timezone?:                    string | fn.Fn
 			UseDefaultProcessorFeatures?: bool | fn.Fn
 			VPCSecurityGroups?:           [...(string | fn.Fn)] | (string | fn.Fn)
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain" | "Snapshot"
 		UpdateReplacePolicy?: "Delete" | "Retain" | "Snapshot"
@@ -146,8 +146,8 @@ RDS :: {
 		Condition?: string
 	}
 	DBParameterGroup :: {
-		Type: "AWS::RDS::DBParameterGroup"
-		Properties: {
+		Type:       "AWS::RDS::DBParameterGroup"
+		Properties: close({
 			Description: string | fn.Fn
 			Family:      string | fn.Fn
 			Parameters?: {
@@ -157,7 +157,7 @@ RDS :: {
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			})] | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -165,8 +165,8 @@ RDS :: {
 		Condition?: string
 	}
 	DBSecurityGroup :: {
-		Type: "AWS::RDS::DBSecurityGroup"
-		Properties: {
+		Type:       "AWS::RDS::DBSecurityGroup"
+		Properties: close({
 			DBSecurityGroupIngress: [...close({
 				CIDRIP?:                  string | fn.Fn
 				EC2SecurityGroupId?:      string | fn.Fn
@@ -179,7 +179,7 @@ RDS :: {
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			})] | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -187,14 +187,14 @@ RDS :: {
 		Condition?: string
 	}
 	DBSecurityGroupIngress :: {
-		Type: "AWS::RDS::DBSecurityGroupIngress"
-		Properties: {
+		Type:       "AWS::RDS::DBSecurityGroupIngress"
+		Properties: close({
 			CIDRIP?:                  string | fn.Fn
 			DBSecurityGroupName:      string | fn.Fn
 			EC2SecurityGroupId?:      string | fn.Fn
 			EC2SecurityGroupName?:    string | fn.Fn
 			EC2SecurityGroupOwnerId?: string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -202,8 +202,8 @@ RDS :: {
 		Condition?: string
 	}
 	DBSubnetGroup :: {
-		Type: "AWS::RDS::DBSubnetGroup"
-		Properties: {
+		Type:       "AWS::RDS::DBSubnetGroup"
+		Properties: close({
 			DBSubnetGroupDescription: string | fn.Fn
 			DBSubnetGroupName?:       string | fn.Fn
 			SubnetIds:                [...(string | fn.Fn)] | (string | fn.Fn)
@@ -211,7 +211,7 @@ RDS :: {
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			})] | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -219,14 +219,14 @@ RDS :: {
 		Condition?: string
 	}
 	EventSubscription :: {
-		Type: "AWS::RDS::EventSubscription"
-		Properties: {
+		Type:       "AWS::RDS::EventSubscription"
+		Properties: close({
 			Enabled?:         bool | fn.Fn
 			EventCategories?: [...(string | fn.Fn)] | (string | fn.Fn)
 			SnsTopicArn:      string | fn.Fn
 			SourceIds?:       [...(string | fn.Fn)] | (string | fn.Fn)
 			SourceType?:      string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -234,8 +234,8 @@ RDS :: {
 		Condition?: string
 	}
 	OptionGroup :: {
-		Type: "AWS::RDS::OptionGroup"
-		Properties: {
+		Type:       "AWS::RDS::OptionGroup"
+		Properties: close({
 			EngineName:           string | fn.Fn
 			MajorEngineVersion:   string | fn.Fn
 			OptionConfigurations: [...close({
@@ -254,7 +254,7 @@ RDS :: {
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			})] | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

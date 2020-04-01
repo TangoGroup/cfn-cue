@@ -4,8 +4,8 @@ import "github.com/TangoGroup/aws/fn"
 
 DynamoDB :: {
 	Table :: {
-		Type: "AWS::DynamoDB::Table"
-		Properties: {
+		Type:       "AWS::DynamoDB::Table"
+		Properties: close({
 			AttributeDefinitions: [...close({
 				AttributeName: string | fn.Fn
 				AttributeType: ("B" | "N" | "S") | fn.Fn
@@ -65,7 +65,7 @@ DynamoDB :: {
 				AttributeName: string | fn.Fn
 				Enabled:       bool | fn.Fn
 			}) | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

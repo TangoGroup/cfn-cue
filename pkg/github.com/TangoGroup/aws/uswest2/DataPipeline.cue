@@ -4,8 +4,8 @@ import "github.com/TangoGroup/aws/fn"
 
 DataPipeline :: {
 	Pipeline :: {
-		Type: "AWS::DataPipeline::Pipeline"
-		Properties: {
+		Type:       "AWS::DataPipeline::Pipeline"
+		Properties: close({
 			Activate?:        bool | fn.Fn
 			Description?:     string | fn.Fn
 			Name:             string | fn.Fn
@@ -33,7 +33,7 @@ DataPipeline :: {
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			})] | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

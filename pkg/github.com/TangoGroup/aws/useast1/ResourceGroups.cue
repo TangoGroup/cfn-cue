@@ -4,8 +4,8 @@ import "github.com/TangoGroup/aws/fn"
 
 ResourceGroups :: {
 	Group :: {
-		Type: "AWS::ResourceGroups::Group"
-		Properties: {
+		Type:       "AWS::ResourceGroups::Group"
+		Properties: close({
 			Description?:   string | fn.Fn
 			Name:           string | fn.Fn
 			ResourceQuery?: close({
@@ -23,7 +23,7 @@ ResourceGroups :: {
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			})] | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

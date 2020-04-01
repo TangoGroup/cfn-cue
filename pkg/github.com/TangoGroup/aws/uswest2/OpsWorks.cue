@@ -4,8 +4,8 @@ import "github.com/TangoGroup/aws/fn"
 
 OpsWorks :: {
 	App :: {
-		Type: "AWS::OpsWorks::App"
-		Properties: {
+		Type:       "AWS::OpsWorks::App"
+		Properties: close({
 			AppSource?: close({
 				Password?: string | fn.Fn
 				Revision?: string | fn.Fn
@@ -39,7 +39,7 @@ OpsWorks :: {
 			}) | fn.If
 			StackId: string | fn.Fn
 			Type:    string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -47,11 +47,11 @@ OpsWorks :: {
 		Condition?: string
 	}
 	ElasticLoadBalancerAttachment :: {
-		Type: "AWS::OpsWorks::ElasticLoadBalancerAttachment"
-		Properties: {
+		Type:       "AWS::OpsWorks::ElasticLoadBalancerAttachment"
+		Properties: close({
 			ElasticLoadBalancerName: string | fn.Fn
 			LayerId:                 string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -59,8 +59,8 @@ OpsWorks :: {
 		Condition?: string
 	}
 	Instance :: {
-		Type: "AWS::OpsWorks::Instance"
-		Properties: {
+		Type:       "AWS::OpsWorks::Instance"
+		Properties: close({
 			AgentVersion?:        string | fn.Fn
 			AmiId?:               string | fn.Fn
 			Architecture?:        string | fn.Fn
@@ -115,7 +115,7 @@ OpsWorks :: {
 			}) | fn.If
 			VirtualizationType?: string | fn.Fn
 			Volumes?:            [...(string | fn.Fn)] | (string | fn.Fn)
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -123,8 +123,8 @@ OpsWorks :: {
 		Condition?: string
 	}
 	Layer :: {
-		Type: "AWS::OpsWorks::Layer"
-		Properties: {
+		Type:       "AWS::OpsWorks::Layer"
+		Properties: close({
 			Attributes?: {
 				[string]: string | fn.Fn
 			} | fn.If
@@ -188,7 +188,7 @@ OpsWorks :: {
 				Size?:          int | fn.Fn
 				VolumeType?:    ("gp2" | "io1" | "sc1" | "st1" | "standard") | fn.Fn
 			})] | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -196,8 +196,8 @@ OpsWorks :: {
 		Condition?: string
 	}
 	Stack :: {
-		Type: "AWS::OpsWorks::Stack"
-		Properties: {
+		Type:       "AWS::OpsWorks::Stack"
+		Properties: close({
 			AgentVersion?: string | fn.Fn
 			Attributes?:   {
 				[string]: string | fn.Fn
@@ -250,7 +250,7 @@ OpsWorks :: {
 			UseCustomCookbooks?:        bool | fn.Fn
 			UseOpsworksSecurityGroups?: bool | fn.Fn
 			VpcId?:                     string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -258,13 +258,13 @@ OpsWorks :: {
 		Condition?: string
 	}
 	UserProfile :: {
-		Type: "AWS::OpsWorks::UserProfile"
-		Properties: {
+		Type:       "AWS::OpsWorks::UserProfile"
+		Properties: close({
 			AllowSelfManagement?: bool | fn.Fn
 			IamUserArn:           string | fn.Fn
 			SshPublicKey?:        string | fn.Fn
 			SshUsername?:         string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -272,13 +272,13 @@ OpsWorks :: {
 		Condition?: string
 	}
 	Volume :: {
-		Type: "AWS::OpsWorks::Volume"
-		Properties: {
+		Type:       "AWS::OpsWorks::Volume"
+		Properties: close({
 			Ec2VolumeId: string | fn.Fn
 			MountPoint?: string | fn.Fn
 			Name?:       string | fn.Fn
 			StackId:     string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

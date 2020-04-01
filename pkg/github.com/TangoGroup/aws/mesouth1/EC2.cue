@@ -7,8 +7,8 @@ import (
 
 EC2 :: {
 	CustomerGateway :: {
-		Type: "AWS::EC2::CustomerGateway"
-		Properties: {
+		Type:       "AWS::EC2::CustomerGateway"
+		Properties: close({
 			BgpAsn:    int | fn.Fn
 			IpAddress: string | fn.Fn
 			Tags?:     [...close({
@@ -16,7 +16,7 @@ EC2 :: {
 				Value: string | fn.Fn
 			})] | fn.If
 			Type: ("ipsec.1") | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -24,8 +24,8 @@ EC2 :: {
 		Condition?: string
 	}
 	DHCPOptions :: {
-		Type: "AWS::EC2::DHCPOptions"
-		Properties: {
+		Type:       "AWS::EC2::DHCPOptions"
+		Properties: close({
 			DomainName?:         string | fn.Fn
 			DomainNameServers?:  [...(string | fn.Fn)] | (string | fn.Fn)
 			NetbiosNameServers?: [...(string | fn.Fn)] | (string | fn.Fn)
@@ -35,7 +35,7 @@ EC2 :: {
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			})] | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -43,8 +43,8 @@ EC2 :: {
 		Condition?: string
 	}
 	EC2Fleet :: {
-		Type: "AWS::EC2::EC2Fleet"
-		Properties: {
+		Type:       "AWS::EC2::EC2Fleet"
+		Properties: close({
 			ExcessCapacityTerminationPolicy?: ("no-termination" | "termination") | fn.Fn
 			LaunchTemplateConfigs:            [...close({
 				LaunchTemplateSpecification?: close({
@@ -87,7 +87,7 @@ EC2 :: {
 			Type?:                             ("instant" | "maintain" | "request") | fn.Fn
 			ValidFrom?:                        string | fn.Fn
 			ValidUntil?:                       string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -95,8 +95,8 @@ EC2 :: {
 		Condition?: string
 	}
 	EIP :: {
-		Type: "AWS::EC2::EIP"
-		Properties: {
+		Type:       "AWS::EC2::EIP"
+		Properties: close({
 			Domain?:         ("standard" | "vpc") | fn.Fn
 			InstanceId?:     string | fn.Fn
 			PublicIpv4Pool?: string | fn.Fn
@@ -104,7 +104,7 @@ EC2 :: {
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			})] | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -112,14 +112,14 @@ EC2 :: {
 		Condition?: string
 	}
 	EIPAssociation :: {
-		Type: "AWS::EC2::EIPAssociation"
-		Properties: {
+		Type:       "AWS::EC2::EIPAssociation"
+		Properties: close({
 			AllocationId?:       string | fn.Fn
 			EIP?:                string | fn.Fn
 			InstanceId?:         string | fn.Fn
 			NetworkInterfaceId?: string | fn.Fn
 			PrivateIpAddress?:   string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -127,8 +127,10 @@ EC2 :: {
 		Condition?: string
 	}
 	EgressOnlyInternetGateway :: {
-		Type: "AWS::EC2::EgressOnlyInternetGateway"
-		Properties: VpcId: string | fn.Fn
+		Type:       "AWS::EC2::EgressOnlyInternetGateway"
+		Properties: close({
+			VpcId: string | fn.Fn
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -136,8 +138,8 @@ EC2 :: {
 		Condition?: string
 	}
 	FlowLog :: {
-		Type: "AWS::EC2::FlowLog"
-		Properties: {
+		Type:       "AWS::EC2::FlowLog"
+		Properties: close({
 			DeliverLogsPermissionArn?: string | fn.Fn
 			LogDestination?:           string | fn.Fn
 			LogDestinationType?:       ("cloud-watch-logs" | "s3") | fn.Fn
@@ -145,7 +147,7 @@ EC2 :: {
 			ResourceId:                string | fn.Fn
 			ResourceType:              ("NetworkInterface" | "Subnet" | "VPC") | fn.Fn
 			TrafficType:               ("ACCEPT" | "ALL" | "REJECT") | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -153,11 +155,11 @@ EC2 :: {
 		Condition?: string
 	}
 	GatewayRouteTableAssociation :: {
-		Type: "AWS::EC2::GatewayRouteTableAssociation"
-		Properties: {
+		Type:       "AWS::EC2::GatewayRouteTableAssociation"
+		Properties: close({
 			GatewayId:    string | fn.Fn
 			RouteTableId: string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -165,13 +167,13 @@ EC2 :: {
 		Condition?: string
 	}
 	Host :: {
-		Type: "AWS::EC2::Host"
-		Properties: {
+		Type:       "AWS::EC2::Host"
+		Properties: close({
 			AutoPlacement?:   ("off" | "on") | fn.Fn
 			AvailabilityZone: string | fn.Fn
 			HostRecovery?:    string | fn.Fn
 			InstanceType:     string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -179,8 +181,8 @@ EC2 :: {
 		Condition?: string
 	}
 	Instance :: {
-		Type: "AWS::EC2::Instance"
-		Properties: {
+		Type:       "AWS::EC2::Instance"
+		Properties: close({
 			AdditionalInfo?:      string | fn.Fn
 			Affinity?:            ("default" | "host") | fn.Fn
 			AvailabilityZone?:    string | fn.Fn
@@ -281,7 +283,7 @@ EC2 :: {
 				Device:   string | fn.Fn
 				VolumeId: string | fn.Fn
 			})] | fn.If
-		}
+		})
 		DependsOn?: string | [...string]
 		CreationPolicy?: {
 			AutoScalingCreationPolicy?: MinSuccessfulInstancesPercent?: int
@@ -296,11 +298,13 @@ EC2 :: {
 		Condition?: string
 	}
 	InternetGateway :: {
-		Type: "AWS::EC2::InternetGateway"
-		Properties: Tags?: [...close({
-			Key:   string | fn.Fn
-			Value: string | fn.Fn
-		})] | fn.If
+		Type:       "AWS::EC2::InternetGateway"
+		Properties: close({
+			Tags?: [...close({
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
+			})] | fn.If
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -308,8 +312,8 @@ EC2 :: {
 		Condition?: string
 	}
 	LaunchTemplate :: {
-		Type: "AWS::EC2::LaunchTemplate"
-		Properties: {
+		Type:       "AWS::EC2::LaunchTemplate"
+		Properties: close({
 			LaunchTemplateData?: close({
 				BlockDeviceMappings?: [...close({
 					DeviceName?: string | fn.Fn
@@ -423,7 +427,7 @@ EC2 :: {
 				UserData?: string | fn.Fn
 			}) | fn.If
 			LaunchTemplateName?: (strings.MinRunes(3) & strings.MaxRunes(128) & (=~#"^[a-zA-Z0-9().\-/_]+$"#)) | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -431,12 +435,12 @@ EC2 :: {
 		Condition?: string
 	}
 	LocalGatewayRoute :: {
-		Type: "AWS::EC2::LocalGatewayRoute"
-		Properties: {
+		Type:       "AWS::EC2::LocalGatewayRoute"
+		Properties: close({
 			DestinationCidrBlock:                string | fn.Fn
 			LocalGatewayRouteTableId:            string | fn.Fn
 			LocalGatewayVirtualInterfaceGroupId: string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -444,8 +448,8 @@ EC2 :: {
 		Condition?: string
 	}
 	LocalGatewayRouteTableVPCAssociation :: {
-		Type: "AWS::EC2::LocalGatewayRouteTableVPCAssociation"
-		Properties: {
+		Type:       "AWS::EC2::LocalGatewayRouteTableVPCAssociation"
+		Properties: close({
 			LocalGatewayRouteTableId: string | fn.Fn
 			Tags?:                    close({
 				Tags?: [...close({
@@ -453,7 +457,7 @@ EC2 :: {
 				})] | fn.If
 			}) | fn.If
 			VpcId: string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -461,15 +465,15 @@ EC2 :: {
 		Condition?: string
 	}
 	NatGateway :: {
-		Type: "AWS::EC2::NatGateway"
-		Properties: {
+		Type:       "AWS::EC2::NatGateway"
+		Properties: close({
 			AllocationId: string | fn.Fn
 			SubnetId:     string | fn.Fn
 			Tags?:        [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			})] | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -477,14 +481,14 @@ EC2 :: {
 		Condition?: string
 	}
 	NetworkAcl :: {
-		Type: "AWS::EC2::NetworkAcl"
-		Properties: {
+		Type:       "AWS::EC2::NetworkAcl"
+		Properties: close({
 			Tags?: [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			})] | fn.If
 			VpcId: string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -492,8 +496,8 @@ EC2 :: {
 		Condition?: string
 	}
 	NetworkAclEntry :: {
-		Type: "AWS::EC2::NetworkAclEntry"
-		Properties: {
+		Type:       "AWS::EC2::NetworkAclEntry"
+		Properties: close({
 			CidrBlock?: (=~#"^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(/([0-9]|[1-2][0-9]|3[0-2]))$"#) | fn.Fn
 			Egress?:    bool | fn.Fn
 			Icmp?:      close({
@@ -509,7 +513,7 @@ EC2 :: {
 			Protocol:   int | fn.Fn
 			RuleAction: ("allow" | "deny") | fn.Fn
 			RuleNumber: (>=1 & <=32766) | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -517,8 +521,8 @@ EC2 :: {
 		Condition?: string
 	}
 	NetworkInterface :: {
-		Type: "AWS::EC2::NetworkInterface"
-		Properties: {
+		Type:       "AWS::EC2::NetworkInterface"
+		Properties: close({
 			Description?:      string | fn.Fn
 			GroupSet?:         [...(string | fn.Fn)] | (string | fn.Fn)
 			InterfaceType?:    string | fn.Fn
@@ -538,7 +542,7 @@ EC2 :: {
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			})] | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -546,13 +550,13 @@ EC2 :: {
 		Condition?: string
 	}
 	NetworkInterfaceAttachment :: {
-		Type: "AWS::EC2::NetworkInterfaceAttachment"
-		Properties: {
+		Type:       "AWS::EC2::NetworkInterfaceAttachment"
+		Properties: close({
 			DeleteOnTermination?: bool | fn.Fn
 			DeviceIndex:          string | fn.Fn
 			InstanceId:           string | fn.Fn
 			NetworkInterfaceId:   string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -560,12 +564,12 @@ EC2 :: {
 		Condition?: string
 	}
 	NetworkInterfacePermission :: {
-		Type: "AWS::EC2::NetworkInterfacePermission"
-		Properties: {
+		Type:       "AWS::EC2::NetworkInterfacePermission"
+		Properties: close({
 			AwsAccountId:       string | fn.Fn
 			NetworkInterfaceId: string | fn.Fn
 			Permission:         ("EIP-ASSOCIATE" | "INSTANCE-ATTACH") | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -573,8 +577,10 @@ EC2 :: {
 		Condition?: string
 	}
 	PlacementGroup :: {
-		Type: "AWS::EC2::PlacementGroup"
-		Properties: Strategy?: ("cluster" | "partition" | "spread") | fn.Fn
+		Type:       "AWS::EC2::PlacementGroup"
+		Properties: close({
+			Strategy?: ("cluster" | "partition" | "spread") | fn.Fn
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -582,8 +588,8 @@ EC2 :: {
 		Condition?: string
 	}
 	Route :: {
-		Type: "AWS::EC2::Route"
-		Properties: {
+		Type:       "AWS::EC2::Route"
+		Properties: close({
 			DestinationCidrBlock?:        string | fn.Fn
 			DestinationIpv6CidrBlock?:    string | fn.Fn
 			EgressOnlyInternetGatewayId?: string | fn.Fn
@@ -594,7 +600,7 @@ EC2 :: {
 			RouteTableId:                 string | fn.Fn
 			TransitGatewayId?:            string | fn.Fn
 			VpcPeeringConnectionId?:      string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -602,14 +608,14 @@ EC2 :: {
 		Condition?: string
 	}
 	RouteTable :: {
-		Type: "AWS::EC2::RouteTable"
-		Properties: {
+		Type:       "AWS::EC2::RouteTable"
+		Properties: close({
 			Tags?: [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			})] | fn.If
 			VpcId: string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -617,8 +623,8 @@ EC2 :: {
 		Condition?: string
 	}
 	SecurityGroup :: {
-		Type: "AWS::EC2::SecurityGroup"
-		Properties: {
+		Type:       "AWS::EC2::SecurityGroup"
+		Properties: close({
 			GroupDescription:     (strings.MinRunes(0) & strings.MaxRunes(255) & (=~#"^([a-z,A-Z,0-9,. _\-:/()#,@[\]+=&;\{\}!$*])*$"#)) | fn.Fn
 			GroupName?:           string | fn.Fn
 			SecurityGroupEgress?: [...close({
@@ -648,7 +654,7 @@ EC2 :: {
 				Value: string | fn.Fn
 			})] | fn.If
 			VpcId?: string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -656,8 +662,8 @@ EC2 :: {
 		Condition?: string
 	}
 	SecurityGroupEgress :: {
-		Type: "AWS::EC2::SecurityGroupEgress"
-		Properties: {
+		Type:       "AWS::EC2::SecurityGroupEgress"
+		Properties: close({
 			CidrIp?:                     (=~#"^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(/([0-9]|[1-2][0-9]|3[0-2]))$"#) | fn.Fn
 			CidrIpv6?:                   string | fn.Fn
 			Description?:                string | fn.Fn
@@ -667,7 +673,7 @@ EC2 :: {
 			GroupId:                     string | fn.Fn
 			IpProtocol:                  string | fn.Fn
 			ToPort?:                     int | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -675,8 +681,8 @@ EC2 :: {
 		Condition?: string
 	}
 	SecurityGroupIngress :: {
-		Type: "AWS::EC2::SecurityGroupIngress"
-		Properties: {
+		Type:       "AWS::EC2::SecurityGroupIngress"
+		Properties: close({
 			CidrIp?:                     (=~#"^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(/([0-9]|[1-2][0-9]|3[0-2]))$"#) | fn.Fn
 			CidrIpv6?:                   string | fn.Fn
 			Description?:                string | fn.Fn
@@ -689,7 +695,7 @@ EC2 :: {
 			SourceSecurityGroupName?:    string | fn.Fn
 			SourceSecurityGroupOwnerId?: string | fn.Fn
 			ToPort?:                     int | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -697,110 +703,112 @@ EC2 :: {
 		Condition?: string
 	}
 	SpotFleet :: {
-		Type: "AWS::EC2::SpotFleet"
-		Properties: SpotFleetRequestConfigData: close({
-			AllocationStrategy?:              ("capacityOptimized" | "diversified" | "lowestPrice") | fn.Fn
-			ExcessCapacityTerminationPolicy?: ("default" | "noTermination") | fn.Fn
-			IamFleetRole:                     (=~#"arn:(aws[a-zA-Z-]*)?:iam::\d{12}:role/[a-zA-Z_0-9+=,.@\-_/]+"#) | fn.Fn
-			InstanceInterruptionBehavior?:    ("hibernate" | "stop" | "terminate") | fn.Fn
-			LaunchSpecifications?:            [...close({
-				BlockDeviceMappings?: [...close({
-					DeviceName: string | fn.Fn
-					Ebs?:       close({
-						DeleteOnTermination?: bool | fn.Fn
-						Encrypted?:           bool | fn.Fn
-						Iops?:                int | fn.Fn
-						SnapshotId?:          string | fn.Fn
-						VolumeSize?:          int | fn.Fn
-						VolumeType?:          ("gp2" | "io1" | "sc1" | "st1" | "standard") | fn.Fn
+		Type:       "AWS::EC2::SpotFleet"
+		Properties: close({
+			SpotFleetRequestConfigData: close({
+				AllocationStrategy?:              ("capacityOptimized" | "diversified" | "lowestPrice") | fn.Fn
+				ExcessCapacityTerminationPolicy?: ("default" | "noTermination") | fn.Fn
+				IamFleetRole:                     (=~#"arn:(aws[a-zA-Z-]*)?:iam::\d{12}:role/[a-zA-Z_0-9+=,.@\-_/]+"#) | fn.Fn
+				InstanceInterruptionBehavior?:    ("hibernate" | "stop" | "terminate") | fn.Fn
+				LaunchSpecifications?:            [...close({
+					BlockDeviceMappings?: [...close({
+						DeviceName: string | fn.Fn
+						Ebs?:       close({
+							DeleteOnTermination?: bool | fn.Fn
+							Encrypted?:           bool | fn.Fn
+							Iops?:                int | fn.Fn
+							SnapshotId?:          string | fn.Fn
+							VolumeSize?:          int | fn.Fn
+							VolumeType?:          ("gp2" | "io1" | "sc1" | "st1" | "standard") | fn.Fn
+						}) | fn.If
+						NoDevice?:    string | fn.Fn
+						VirtualName?: string | fn.Fn
+					})] | fn.If
+					EbsOptimized?:       bool | fn.Fn
+					IamInstanceProfile?: close({
+						Arn?: string | fn.Fn
 					}) | fn.If
-					NoDevice?:    string | fn.Fn
-					VirtualName?: string | fn.Fn
-				})] | fn.If
-				EbsOptimized?:       bool | fn.Fn
-				IamInstanceProfile?: close({
-					Arn?: string | fn.Fn
-				}) | fn.If
-				ImageId:      string | fn.Fn
-				InstanceType: ("c5.18xlarge" | "c5.2xlarge" | "c5.4xlarge" | "c5.9xlarge" | "c5.large" | "c5.xlarge" | "c5d.12xlarge" | "c5d.18xlarge" | "c5d.24xlarge" | "c5d.2xlarge" | "c5d.4xlarge" | "c5d.9xlarge" | "c5d.large" | "c5d.metal" | "c5d.xlarge" | "d2.2xlarge" | "d2.4xlarge" | "d2.8xlarge" | "d2.xlarge" | "g4dn.12xlarge" | "g4dn.16xlarge" | "g4dn.2xlarge" | "g4dn.4xlarge" | "g4dn.8xlarge" | "g4dn.metal" | "g4dn.xlarge" | "i3.16xlarge" | "i3.2xlarge" | "i3.4xlarge" | "i3.8xlarge" | "i3.large" | "i3.xlarge" | "m5.12xlarge" | "m5.16xlarge" | "m5.24xlarge" | "m5.2xlarge" | "m5.4xlarge" | "m5.8xlarge" | "m5.large" | "m5.metal" | "m5.xlarge" | "m5d.12xlarge" | "m5d.16xlarge" | "m5d.24xlarge" | "m5d.2xlarge" | "m5d.4xlarge" | "m5d.8xlarge" | "m5d.large" | "m5d.metal" | "m5d.xlarge" | "r5.12xlarge" | "r5.16xlarge" | "r5.24xlarge" | "r5.2xlarge" | "r5.4xlarge" | "r5.8xlarge" | "r5.large" | "r5.metal" | "r5.xlarge" | "r5d.12xlarge" | "r5d.16xlarge" | "r5d.24xlarge" | "r5d.2xlarge" | "r5d.4xlarge" | "r5d.8xlarge" | "r5d.large" | "r5d.metal" | "r5d.xlarge" | "t3.2xlarge" | "t3.large" | "t3.medium" | "t3.micro" | "t3.nano" | "t3.small" | "t3.xlarge") | fn.Fn
-				KernelId?:    string | fn.Fn
-				KeyName?:     string | fn.Fn
-				Monitoring?:  close({
-					Enabled?: bool | fn.Fn
-				}) | fn.If
-				NetworkInterfaces?: [...close({
-					AssociatePublicIpAddress?: bool | fn.Fn
-					DeleteOnTermination?:      bool | fn.Fn
-					Description?:              string | fn.Fn
-					DeviceIndex?:              int | fn.Fn
-					Groups?:                   [...(string | fn.Fn)] | (string | fn.Fn)
-					Ipv6AddressCount?:         int | fn.Fn
-					Ipv6Addresses?:            [...close({
-						Ipv6Address: string | fn.Fn
+					ImageId:      string | fn.Fn
+					InstanceType: ("c5.18xlarge" | "c5.2xlarge" | "c5.4xlarge" | "c5.9xlarge" | "c5.large" | "c5.xlarge" | "c5d.12xlarge" | "c5d.18xlarge" | "c5d.24xlarge" | "c5d.2xlarge" | "c5d.4xlarge" | "c5d.9xlarge" | "c5d.large" | "c5d.metal" | "c5d.xlarge" | "d2.2xlarge" | "d2.4xlarge" | "d2.8xlarge" | "d2.xlarge" | "g4dn.12xlarge" | "g4dn.16xlarge" | "g4dn.2xlarge" | "g4dn.4xlarge" | "g4dn.8xlarge" | "g4dn.metal" | "g4dn.xlarge" | "i3.16xlarge" | "i3.2xlarge" | "i3.4xlarge" | "i3.8xlarge" | "i3.large" | "i3.xlarge" | "m5.12xlarge" | "m5.16xlarge" | "m5.24xlarge" | "m5.2xlarge" | "m5.4xlarge" | "m5.8xlarge" | "m5.large" | "m5.metal" | "m5.xlarge" | "m5d.12xlarge" | "m5d.16xlarge" | "m5d.24xlarge" | "m5d.2xlarge" | "m5d.4xlarge" | "m5d.8xlarge" | "m5d.large" | "m5d.metal" | "m5d.xlarge" | "r5.12xlarge" | "r5.16xlarge" | "r5.24xlarge" | "r5.2xlarge" | "r5.4xlarge" | "r5.8xlarge" | "r5.large" | "r5.metal" | "r5.xlarge" | "r5d.12xlarge" | "r5d.16xlarge" | "r5d.24xlarge" | "r5d.2xlarge" | "r5d.4xlarge" | "r5d.8xlarge" | "r5d.large" | "r5d.metal" | "r5d.xlarge" | "t3.2xlarge" | "t3.large" | "t3.medium" | "t3.micro" | "t3.nano" | "t3.small" | "t3.xlarge") | fn.Fn
+					KernelId?:    string | fn.Fn
+					KeyName?:     string | fn.Fn
+					Monitoring?:  close({
+						Enabled?: bool | fn.Fn
+					}) | fn.If
+					NetworkInterfaces?: [...close({
+						AssociatePublicIpAddress?: bool | fn.Fn
+						DeleteOnTermination?:      bool | fn.Fn
+						Description?:              string | fn.Fn
+						DeviceIndex?:              int | fn.Fn
+						Groups?:                   [...(string | fn.Fn)] | (string | fn.Fn)
+						Ipv6AddressCount?:         int | fn.Fn
+						Ipv6Addresses?:            [...close({
+							Ipv6Address: string | fn.Fn
+						})] | fn.If
+						NetworkInterfaceId?: string | fn.Fn
+						PrivateIpAddresses?: [...close({
+							Primary?:         bool | fn.Fn
+							PrivateIpAddress: string | fn.Fn
+						})] | fn.If
+						SecondaryPrivateIpAddressCount?: int | fn.Fn
+						SubnetId?:                       string | fn.Fn
 					})] | fn.If
-					NetworkInterfaceId?: string | fn.Fn
-					PrivateIpAddresses?: [...close({
-						Primary?:         bool | fn.Fn
-						PrivateIpAddress: string | fn.Fn
+					Placement?: close({
+						AvailabilityZone?: string | fn.Fn
+						GroupName?:        string | fn.Fn
+						Tenancy?:          string | fn.Fn
+					}) | fn.If
+					RamdiskId?:      string | fn.Fn
+					SecurityGroups?: [...close({
+						GroupId: string | fn.Fn
 					})] | fn.If
-					SecondaryPrivateIpAddressCount?: int | fn.Fn
-					SubnetId?:                       string | fn.Fn
-				})] | fn.If
-				Placement?: close({
-					AvailabilityZone?: string | fn.Fn
-					GroupName?:        string | fn.Fn
-					Tenancy?:          string | fn.Fn
-				}) | fn.If
-				RamdiskId?:      string | fn.Fn
-				SecurityGroups?: [...close({
-					GroupId: string | fn.Fn
-				})] | fn.If
-				SpotPrice?:         string | fn.Fn
-				SubnetId?:          string | fn.Fn
-				TagSpecifications?: [...close({
-					ResourceType?: string | fn.Fn
-					Tags?:         [...close({
-						Key:   string | fn.Fn
-						Value: string | fn.Fn
+					SpotPrice?:         string | fn.Fn
+					SubnetId?:          string | fn.Fn
+					TagSpecifications?: [...close({
+						ResourceType?: string | fn.Fn
+						Tags?:         [...close({
+							Key:   string | fn.Fn
+							Value: string | fn.Fn
+						})] | fn.If
 					})] | fn.If
-				})] | fn.If
-				UserData?:         string | fn.Fn
-				WeightedCapacity?: number | fn.Fn
-			})] | fn.If
-			LaunchTemplateConfigs?: [...close({
-				LaunchTemplateSpecification?: close({
-					LaunchTemplateId?:   string | fn.Fn
-					LaunchTemplateName?: string | fn.Fn
-					Version:             string | fn.Fn
-				}) | fn.If
-				Overrides?: [...close({
-					AvailabilityZone?: string | fn.Fn
-					InstanceType?:     string | fn.Fn
-					SpotPrice?:        string | fn.Fn
-					SubnetId?:         string | fn.Fn
+					UserData?:         string | fn.Fn
 					WeightedCapacity?: number | fn.Fn
 				})] | fn.If
-			})] | fn.If
-			LoadBalancersConfig?: close({
-				ClassicLoadBalancersConfig?: close({
-					ClassicLoadBalancers: [...close({
-						Name: string | fn.Fn
+				LaunchTemplateConfigs?: [...close({
+					LaunchTemplateSpecification?: close({
+						LaunchTemplateId?:   string | fn.Fn
+						LaunchTemplateName?: string | fn.Fn
+						Version:             string | fn.Fn
+					}) | fn.If
+					Overrides?: [...close({
+						AvailabilityZone?: string | fn.Fn
+						InstanceType?:     string | fn.Fn
+						SpotPrice?:        string | fn.Fn
+						SubnetId?:         string | fn.Fn
+						WeightedCapacity?: number | fn.Fn
 					})] | fn.If
+				})] | fn.If
+				LoadBalancersConfig?: close({
+					ClassicLoadBalancersConfig?: close({
+						ClassicLoadBalancers: [...close({
+							Name: string | fn.Fn
+						})] | fn.If
+					}) | fn.If
+					TargetGroupsConfig?: close({
+						TargetGroups: [...close({
+							Arn: string | fn.Fn
+						})] | fn.If
+					}) | fn.If
 				}) | fn.If
-				TargetGroupsConfig?: close({
-					TargetGroups: [...close({
-						Arn: string | fn.Fn
-					})] | fn.If
-				}) | fn.If
+				ReplaceUnhealthyInstances?:        bool | fn.Fn
+				SpotPrice?:                        string | fn.Fn
+				TargetCapacity:                    int | fn.Fn
+				TerminateInstancesWithExpiration?: bool | fn.Fn
+				Type?:                             ("instant" | "maintain" | "request") | fn.Fn
+				ValidFrom?:                        string | fn.Fn
+				ValidUntil?:                       string | fn.Fn
 			}) | fn.If
-			ReplaceUnhealthyInstances?:        bool | fn.Fn
-			SpotPrice?:                        string | fn.Fn
-			TargetCapacity:                    int | fn.Fn
-			TerminateInstancesWithExpiration?: bool | fn.Fn
-			Type?:                             ("instant" | "maintain" | "request") | fn.Fn
-			ValidFrom?:                        string | fn.Fn
-			ValidUntil?:                       string | fn.Fn
-		}) | fn.If
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -808,8 +816,8 @@ EC2 :: {
 		Condition?: string
 	}
 	Subnet :: {
-		Type: "AWS::EC2::Subnet"
-		Properties: {
+		Type:       "AWS::EC2::Subnet"
+		Properties: close({
 			AssignIpv6AddressOnCreation?: bool | fn.Fn
 			AvailabilityZone?:            string | fn.Fn
 			CidrBlock:                    string | fn.Fn
@@ -820,7 +828,7 @@ EC2 :: {
 				Value: string | fn.Fn
 			})] | fn.If
 			VpcId: string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -828,11 +836,11 @@ EC2 :: {
 		Condition?: string
 	}
 	SubnetCidrBlock :: {
-		Type: "AWS::EC2::SubnetCidrBlock"
-		Properties: {
+		Type:       "AWS::EC2::SubnetCidrBlock"
+		Properties: close({
 			Ipv6CidrBlock: string | fn.Fn
 			SubnetId:      string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -840,11 +848,11 @@ EC2 :: {
 		Condition?: string
 	}
 	SubnetNetworkAclAssociation :: {
-		Type: "AWS::EC2::SubnetNetworkAclAssociation"
-		Properties: {
+		Type:       "AWS::EC2::SubnetNetworkAclAssociation"
+		Properties: close({
 			NetworkAclId: string | fn.Fn
 			SubnetId:     string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -852,11 +860,11 @@ EC2 :: {
 		Condition?: string
 	}
 	SubnetRouteTableAssociation :: {
-		Type: "AWS::EC2::SubnetRouteTableAssociation"
-		Properties: {
+		Type:       "AWS::EC2::SubnetRouteTableAssociation"
+		Properties: close({
 			RouteTableId: string | fn.Fn
 			SubnetId:     string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -864,8 +872,8 @@ EC2 :: {
 		Condition?: string
 	}
 	VPC :: {
-		Type: "AWS::EC2::VPC"
-		Properties: {
+		Type:       "AWS::EC2::VPC"
+		Properties: close({
 			CidrBlock:           string | fn.Fn
 			EnableDnsHostnames?: bool | fn.Fn
 			EnableDnsSupport?:   bool | fn.Fn
@@ -874,7 +882,7 @@ EC2 :: {
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			})] | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -882,12 +890,12 @@ EC2 :: {
 		Condition?: string
 	}
 	VPCCidrBlock :: {
-		Type: "AWS::EC2::VPCCidrBlock"
-		Properties: {
+		Type:       "AWS::EC2::VPCCidrBlock"
+		Properties: close({
 			AmazonProvidedIpv6CidrBlock?: bool | fn.Fn
 			CidrBlock?:                   string | fn.Fn
 			VpcId:                        string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -895,11 +903,11 @@ EC2 :: {
 		Condition?: string
 	}
 	VPCDHCPOptionsAssociation :: {
-		Type: "AWS::EC2::VPCDHCPOptionsAssociation"
-		Properties: {
+		Type:       "AWS::EC2::VPCDHCPOptionsAssociation"
+		Properties: close({
 			DhcpOptionsId: string | fn.Fn
 			VpcId:         string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -907,8 +915,8 @@ EC2 :: {
 		Condition?: string
 	}
 	VPCEndpoint :: {
-		Type: "AWS::EC2::VPCEndpoint"
-		Properties: {
+		Type:       "AWS::EC2::VPCEndpoint"
+		Properties: close({
 			PolicyDocument?: {
 				[string]: _
 				Version:  string | *"2012-10-17"
@@ -920,7 +928,7 @@ EC2 :: {
 			SubnetIds?:         [...(string | fn.Fn)] | (string | fn.Fn)
 			VpcEndpointType?:   ("Gateway" | "Interface") | fn.Fn
 			VpcId:              string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -928,11 +936,11 @@ EC2 :: {
 		Condition?: string
 	}
 	VPCEndpointService :: {
-		Type: "AWS::EC2::VPCEndpointService"
-		Properties: {
+		Type:       "AWS::EC2::VPCEndpointService"
+		Properties: close({
 			AcceptanceRequired?:     bool | fn.Fn
 			NetworkLoadBalancerArns: [...(string | fn.Fn)] | (string | fn.Fn)
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -940,12 +948,12 @@ EC2 :: {
 		Condition?: string
 	}
 	VPCGatewayAttachment :: {
-		Type: "AWS::EC2::VPCGatewayAttachment"
-		Properties: {
+		Type:       "AWS::EC2::VPCGatewayAttachment"
+		Properties: close({
 			InternetGatewayId?: string | fn.Fn
 			VpcId:              string | fn.Fn
 			VpnGatewayId?:      string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -953,8 +961,8 @@ EC2 :: {
 		Condition?: string
 	}
 	VPCPeeringConnection :: {
-		Type: "AWS::EC2::VPCPeeringConnection"
-		Properties: {
+		Type:       "AWS::EC2::VPCPeeringConnection"
+		Properties: close({
 			PeerOwnerId?: string | fn.Fn
 			PeerRegion?:  string | fn.Fn
 			PeerRoleArn?: string | fn.Fn
@@ -964,7 +972,7 @@ EC2 :: {
 				Value: string | fn.Fn
 			})] | fn.If
 			VpcId: string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -972,8 +980,8 @@ EC2 :: {
 		Condition?: string
 	}
 	VPNConnection :: {
-		Type: "AWS::EC2::VPNConnection"
-		Properties: {
+		Type:       "AWS::EC2::VPNConnection"
+		Properties: close({
 			CustomerGatewayId: string | fn.Fn
 			StaticRoutesOnly?: bool | fn.Fn
 			Tags?:             [...close({
@@ -987,7 +995,7 @@ EC2 :: {
 				PreSharedKey?:     string | fn.Fn
 				TunnelInsideCidr?: string | fn.Fn
 			})] | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -995,11 +1003,11 @@ EC2 :: {
 		Condition?: string
 	}
 	VPNConnectionRoute :: {
-		Type: "AWS::EC2::VPNConnectionRoute"
-		Properties: {
+		Type:       "AWS::EC2::VPNConnectionRoute"
+		Properties: close({
 			DestinationCidrBlock: string | fn.Fn
 			VpnConnectionId:      string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -1007,15 +1015,15 @@ EC2 :: {
 		Condition?: string
 	}
 	VPNGateway :: {
-		Type: "AWS::EC2::VPNGateway"
-		Properties: {
+		Type:       "AWS::EC2::VPNGateway"
+		Properties: close({
 			AmazonSideAsn?: int | fn.Fn
 			Tags?:          [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			})] | fn.If
 			Type: ("ipsec.1") | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -1023,11 +1031,11 @@ EC2 :: {
 		Condition?: string
 	}
 	VPNGatewayRoutePropagation :: {
-		Type: "AWS::EC2::VPNGatewayRoutePropagation"
-		Properties: {
+		Type:       "AWS::EC2::VPNGatewayRoutePropagation"
+		Properties: close({
 			RouteTableIds: [...(string | fn.Fn)] | (string | fn.Fn)
 			VpnGatewayId:  string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -1035,21 +1043,22 @@ EC2 :: {
 		Condition?: string
 	}
 	Volume :: {
-		Type: "AWS::EC2::Volume"
-		Properties: {
-			AutoEnableIO?:    bool | fn.Fn
-			AvailabilityZone: string | fn.Fn
-			Encrypted?:       bool | fn.Fn
-			Iops?:            int | fn.Fn
-			KmsKeyId?:        string | fn.Fn
-			Size?:            int | fn.Fn
-			SnapshotId?:      string | fn.Fn
-			Tags?:            [...close({
+		Type:       "AWS::EC2::Volume"
+		Properties: close({
+			AutoEnableIO?:       bool | fn.Fn
+			AvailabilityZone:    string | fn.Fn
+			Encrypted?:          bool | fn.Fn
+			Iops?:               int | fn.Fn
+			KmsKeyId?:           string | fn.Fn
+			MultiAttachEnabled?: bool | fn.Fn
+			Size?:               int | fn.Fn
+			SnapshotId?:         string | fn.Fn
+			Tags?:               [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			})] | fn.If
 			VolumeType?: ("gp2" | "io1" | "sc1" | "st1" | "standard") | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain" | "Snapshot"
 		UpdateReplacePolicy?: "Delete" | "Retain" | "Snapshot"
@@ -1057,12 +1066,12 @@ EC2 :: {
 		Condition?: string
 	}
 	VolumeAttachment :: {
-		Type: "AWS::EC2::VolumeAttachment"
-		Properties: {
+		Type:       "AWS::EC2::VolumeAttachment"
+		Properties: close({
 			Device:     string | fn.Fn
 			InstanceId: string | fn.Fn
 			VolumeId:   string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

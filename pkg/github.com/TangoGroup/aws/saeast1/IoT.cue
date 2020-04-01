@@ -4,11 +4,11 @@ import "github.com/TangoGroup/aws/fn"
 
 IoT :: {
 	Certificate :: {
-		Type: "AWS::IoT::Certificate"
-		Properties: {
+		Type:       "AWS::IoT::Certificate"
+		Properties: close({
 			CertificateSigningRequest: string | fn.Fn
 			Status:                    string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -16,14 +16,14 @@ IoT :: {
 		Condition?: string
 	}
 	Policy :: {
-		Type: "AWS::IoT::Policy"
-		Properties: {
+		Type:       "AWS::IoT::Policy"
+		Properties: close({
 			PolicyDocument: {
 				[string]: _
 				Version:  string | *"2012-10-17"
 			} | fn.Fn
 			PolicyName?: string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -31,11 +31,11 @@ IoT :: {
 		Condition?: string
 	}
 	PolicyPrincipalAttachment :: {
-		Type: "AWS::IoT::PolicyPrincipalAttachment"
-		Properties: {
+		Type:       "AWS::IoT::PolicyPrincipalAttachment"
+		Properties: close({
 			PolicyName: string | fn.Fn
 			Principal:  string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -43,15 +43,15 @@ IoT :: {
 		Condition?: string
 	}
 	Thing :: {
-		Type: "AWS::IoT::Thing"
-		Properties: {
+		Type:       "AWS::IoT::Thing"
+		Properties: close({
 			AttributePayload?: close({
 				Attributes?: {
 					[string]: string | fn.Fn
 				} | fn.If
 			}) | fn.If
 			ThingName?: string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -59,11 +59,11 @@ IoT :: {
 		Condition?: string
 	}
 	ThingPrincipalAttachment :: {
-		Type: "AWS::IoT::ThingPrincipalAttachment"
-		Properties: {
+		Type:       "AWS::IoT::ThingPrincipalAttachment"
+		Properties: close({
 			Principal: string | fn.Fn
 			ThingName: string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -71,8 +71,8 @@ IoT :: {
 		Condition?: string
 	}
 	TopicRule :: {
-		Type: "AWS::IoT::TopicRule"
-		Properties: {
+		Type:       "AWS::IoT::TopicRule"
+		Properties: close({
 			RuleName?:        string | fn.Fn
 			TopicRulePayload: close({
 				Actions: [...close({
@@ -119,9 +119,51 @@ IoT :: {
 						RoleArn:            string | fn.Fn
 						Separator?:         string | fn.Fn
 					}) | fn.If
+					Http?: close({
+						Auth?: close({
+							Sigv4?: close({
+								RoleArn:       string | fn.Fn
+								ServiceName:   string | fn.Fn
+								SigningRegion: string | fn.Fn
+							}) | fn.If
+						}) | fn.If
+						ConfirmationUrl?: string | fn.Fn
+						Headers?:         [...close({
+							Key:   string | fn.Fn
+							Value: string | fn.Fn
+						})] | fn.If
+						Url: string | fn.Fn
+					}) | fn.If
 					IotAnalytics?: close({
 						ChannelName: string | fn.Fn
 						RoleArn:     string | fn.Fn
+					}) | fn.If
+					IotEvents?: close({
+						InputName:  string | fn.Fn
+						MessageId?: string | fn.Fn
+						RoleArn:    string | fn.Fn
+					}) | fn.If
+					IotSiteWise?: close({
+						PutAssetPropertyValueEntries: [...close({
+							AssetId?:       string | fn.Fn
+							EntryId?:       string | fn.Fn
+							PropertyAlias?: string | fn.Fn
+							PropertyId?:    string | fn.Fn
+							PropertyValues: [...close({
+								Quality?:  string | fn.Fn
+								Timestamp: close({
+									OffsetInNanos?: string | fn.Fn
+									TimeInSeconds:  string | fn.Fn
+								}) | fn.If
+								Value: close({
+									BooleanValue?: string | fn.Fn
+									DoubleValue?:  string | fn.Fn
+									IntegerValue?: string | fn.Fn
+									StringValue?:  string | fn.Fn
+								}) | fn.If
+							})] | fn.If
+						})] | fn.If
+						RoleArn: string | fn.Fn
 					}) | fn.If
 					Kinesis?: close({
 						PartitionKey?: string | fn.Fn
@@ -132,6 +174,7 @@ IoT :: {
 						FunctionArn?: string | fn.Fn
 					}) | fn.If
 					Republish?: close({
+						Qos?:    int | fn.Fn
 						RoleArn: string | fn.Fn
 						Topic:   string | fn.Fn
 					}) | fn.If
@@ -202,9 +245,51 @@ IoT :: {
 						RoleArn:            string | fn.Fn
 						Separator?:         string | fn.Fn
 					}) | fn.If
+					Http?: close({
+						Auth?: close({
+							Sigv4?: close({
+								RoleArn:       string | fn.Fn
+								ServiceName:   string | fn.Fn
+								SigningRegion: string | fn.Fn
+							}) | fn.If
+						}) | fn.If
+						ConfirmationUrl?: string | fn.Fn
+						Headers?:         [...close({
+							Key:   string | fn.Fn
+							Value: string | fn.Fn
+						})] | fn.If
+						Url: string | fn.Fn
+					}) | fn.If
 					IotAnalytics?: close({
 						ChannelName: string | fn.Fn
 						RoleArn:     string | fn.Fn
+					}) | fn.If
+					IotEvents?: close({
+						InputName:  string | fn.Fn
+						MessageId?: string | fn.Fn
+						RoleArn:    string | fn.Fn
+					}) | fn.If
+					IotSiteWise?: close({
+						PutAssetPropertyValueEntries: [...close({
+							AssetId?:       string | fn.Fn
+							EntryId?:       string | fn.Fn
+							PropertyAlias?: string | fn.Fn
+							PropertyId?:    string | fn.Fn
+							PropertyValues: [...close({
+								Quality?:  string | fn.Fn
+								Timestamp: close({
+									OffsetInNanos?: string | fn.Fn
+									TimeInSeconds:  string | fn.Fn
+								}) | fn.If
+								Value: close({
+									BooleanValue?: string | fn.Fn
+									DoubleValue?:  string | fn.Fn
+									IntegerValue?: string | fn.Fn
+									StringValue?:  string | fn.Fn
+								}) | fn.If
+							})] | fn.If
+						})] | fn.If
+						RoleArn: string | fn.Fn
 					}) | fn.If
 					Kinesis?: close({
 						PartitionKey?: string | fn.Fn
@@ -215,6 +300,7 @@ IoT :: {
 						FunctionArn?: string | fn.Fn
 					}) | fn.If
 					Republish?: close({
+						Qos?:    int | fn.Fn
 						RoleArn: string | fn.Fn
 						Topic:   string | fn.Fn
 					}) | fn.If
@@ -242,7 +328,7 @@ IoT :: {
 				RuleDisabled: bool | fn.Fn
 				Sql:          string | fn.Fn
 			}) | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

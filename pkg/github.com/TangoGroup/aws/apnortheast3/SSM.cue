@@ -4,8 +4,8 @@ import "github.com/TangoGroup/aws/fn"
 
 SSM :: {
 	Association :: {
-		Type: "AWS::SSM::Association"
-		Properties: {
+		Type:       "AWS::SSM::Association"
+		Properties: close({
 			AssociationName?: string | fn.Fn
 			DocumentVersion?: string | fn.Fn
 			InstanceId?:      string | fn.Fn
@@ -26,7 +26,7 @@ SSM :: {
 				Key:    string | fn.Fn
 				Values: [...(string | fn.Fn)] | (string | fn.Fn)
 			})] | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -34,8 +34,8 @@ SSM :: {
 		Condition?: string
 	}
 	Document :: {
-		Type: "AWS::SSM::Document"
-		Properties: {
+		Type:       "AWS::SSM::Document"
+		Properties: close({
 			Content: {
 				[string]: _
 			} | fn.Fn
@@ -45,7 +45,7 @@ SSM :: {
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			})] | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

@@ -4,11 +4,11 @@ import "github.com/TangoGroup/aws/fn"
 
 FMS :: {
 	NotificationChannel :: {
-		Type: "AWS::FMS::NotificationChannel"
-		Properties: {
+		Type:       "AWS::FMS::NotificationChannel"
+		Properties: close({
 			SnsRoleName: string | fn.Fn
 			SnsTopicArn: string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -16,8 +16,8 @@ FMS :: {
 		Condition?: string
 	}
 	Policy :: {
-		Type: "AWS::FMS::Policy"
-		Properties: {
+		Type:       "AWS::FMS::Policy"
+		Properties: close({
 			DeleteAllPolicyResources?: bool | fn.Fn
 			ExcludeMap?:               close({
 				ACCOUNT?: [...(string | fn.Fn)] | (string | fn.Fn)
@@ -41,7 +41,7 @@ FMS :: {
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			})] | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

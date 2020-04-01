@@ -4,8 +4,8 @@ import "github.com/TangoGroup/aws/fn"
 
 MSK :: {
 	Cluster :: {
-		Type: "AWS::MSK::Cluster"
-		Properties: {
+		Type:       "AWS::MSK::Cluster"
+		Properties: close({
 			BrokerNodeGroupInfo: close({
 				BrokerAZDistribution?: string | fn.Fn
 				ClientSubnets:         [...(string | fn.Fn)] | (string | fn.Fn)
@@ -69,7 +69,7 @@ MSK :: {
 			Tags?: {
 				[string]: _
 			} | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

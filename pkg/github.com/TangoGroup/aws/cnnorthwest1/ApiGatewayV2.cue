@@ -4,13 +4,13 @@ import "github.com/TangoGroup/aws/fn"
 
 ApiGatewayV2 :: {
 	ApiMapping :: {
-		Type: "AWS::ApiGatewayV2::ApiMapping"
-		Properties: {
+		Type:       "AWS::ApiGatewayV2::ApiMapping"
+		Properties: close({
 			ApiId:          string | fn.Fn
 			ApiMappingKey?: string | fn.Fn
 			DomainName:     string | fn.Fn
 			Stage:          string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -18,8 +18,8 @@ ApiGatewayV2 :: {
 		Condition?: string
 	}
 	DomainName :: {
-		Type: "AWS::ApiGatewayV2::DomainName"
-		Properties: {
+		Type:       "AWS::ApiGatewayV2::DomainName"
+		Properties: close({
 			DomainName:                string | fn.Fn
 			DomainNameConfigurations?: [...close({
 				CertificateArn?:  string | fn.Fn
@@ -29,7 +29,7 @@ ApiGatewayV2 :: {
 			Tags?: {
 				[string]: _
 			} | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

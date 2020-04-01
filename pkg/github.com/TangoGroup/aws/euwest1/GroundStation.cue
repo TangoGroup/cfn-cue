@@ -4,8 +4,8 @@ import "github.com/TangoGroup/aws/fn"
 
 GroundStation :: {
 	Config :: {
-		Type: "AWS::GroundStation::Config"
-		Properties: {
+		Type:       "AWS::GroundStation::Config"
+		Properties: close({
 			ConfigData: {
 				[string]: _
 			} | fn.Fn
@@ -14,7 +14,7 @@ GroundStation :: {
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			})] | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -22,8 +22,8 @@ GroundStation :: {
 		Condition?: string
 	}
 	DataflowEndpointGroup :: {
-		Type: "AWS::GroundStation::DataflowEndpointGroup"
-		Properties: {
+		Type:       "AWS::GroundStation::DataflowEndpointGroup"
+		Properties: close({
 			EndpointDetails: [...close({
 				Endpoint?: close({
 					Address?: close({
@@ -42,7 +42,7 @@ GroundStation :: {
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			})] | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -50,8 +50,8 @@ GroundStation :: {
 		Condition?: string
 	}
 	MissionProfile :: {
-		Type: "AWS::GroundStation::MissionProfile"
-		Properties: {
+		Type:       "AWS::GroundStation::MissionProfile"
+		Properties: close({
 			ContactPostPassDurationSeconds?: int | fn.Fn
 			ContactPrePassDurationSeconds?:  int | fn.Fn
 			DataflowEdges:                   [...close({
@@ -65,7 +65,7 @@ GroundStation :: {
 				Value: string | fn.Fn
 			})] | fn.If
 			TrackingConfigArn: string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

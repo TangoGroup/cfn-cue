@@ -4,8 +4,8 @@ import "github.com/TangoGroup/aws/fn"
 
 KinesisAnalytics :: {
 	Application :: {
-		Type: "AWS::KinesisAnalytics::Application"
-		Properties: {
+		Type:       "AWS::KinesisAnalytics::Application"
+		Properties: close({
 			ApplicationCode?:        string | fn.Fn
 			ApplicationDescription?: string | fn.Fn
 			ApplicationName?:        string | fn.Fn
@@ -49,7 +49,7 @@ KinesisAnalytics :: {
 				}) | fn.If
 				NamePrefix: string | fn.Fn
 			})] | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -57,8 +57,8 @@ KinesisAnalytics :: {
 		Condition?: string
 	}
 	ApplicationOutput :: {
-		Type: "AWS::KinesisAnalytics::ApplicationOutput"
-		Properties: {
+		Type:       "AWS::KinesisAnalytics::ApplicationOutput"
+		Properties: close({
 			ApplicationName: string | fn.Fn
 			Output:          close({
 				DestinationSchema: close({
@@ -78,7 +78,7 @@ KinesisAnalytics :: {
 				}) | fn.If
 				Name?: string | fn.Fn
 			}) | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -86,8 +86,8 @@ KinesisAnalytics :: {
 		Condition?: string
 	}
 	ApplicationReferenceDataSource :: {
-		Type: "AWS::KinesisAnalytics::ApplicationReferenceDataSource"
-		Properties: {
+		Type:       "AWS::KinesisAnalytics::ApplicationReferenceDataSource"
+		Properties: close({
 			ApplicationName:     string | fn.Fn
 			ReferenceDataSource: close({
 				ReferenceSchema: close({
@@ -117,7 +117,7 @@ KinesisAnalytics :: {
 				}) | fn.If
 				TableName?: string | fn.Fn
 			}) | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

@@ -4,15 +4,15 @@ import "github.com/TangoGroup/aws/fn"
 
 AppSync :: {
 	ApiCache :: {
-		Type: "AWS::AppSync::ApiCache"
-		Properties: {
+		Type:       "AWS::AppSync::ApiCache"
+		Properties: close({
 			ApiCachingBehavior:        string | fn.Fn
 			ApiId:                     string | fn.Fn
 			AtRestEncryptionEnabled?:  bool | fn.Fn
 			TransitEncryptionEnabled?: bool | fn.Fn
 			Ttl:                       number | fn.Fn
 			Type:                      string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -20,8 +20,8 @@ AppSync :: {
 		Condition?: string
 	}
 	GraphQLApi :: {
-		Type: "AWS::AppSync::GraphQLApi"
-		Properties: {
+		Type:       "AWS::AppSync::GraphQLApi"
+		Properties: close({
 			AdditionalAuthenticationProviders?: [...close({
 				AuthenticationType:   string | fn.Fn
 				OpenIDConnectConfig?: close({
@@ -60,7 +60,7 @@ AppSync :: {
 				UserPoolId?:       string | fn.Fn
 			}) | fn.If
 			XrayEnabled?: bool | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

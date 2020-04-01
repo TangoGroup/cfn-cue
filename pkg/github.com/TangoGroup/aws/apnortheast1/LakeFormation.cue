@@ -4,10 +4,12 @@ import "github.com/TangoGroup/aws/fn"
 
 LakeFormation :: {
 	DataLakeSettings :: {
-		Type: "AWS::LakeFormation::DataLakeSettings"
-		Properties: Admins?: [...close({
-			DataLakePrincipalIdentifier?: string | fn.Fn
-		})] | fn.If
+		Type:       "AWS::LakeFormation::DataLakeSettings"
+		Properties: close({
+			Admins?: [...close({
+				DataLakePrincipalIdentifier?: string | fn.Fn
+			})] | fn.If
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -15,8 +17,8 @@ LakeFormation :: {
 		Condition?: string
 	}
 	Permissions :: {
-		Type: "AWS::LakeFormation::Permissions"
-		Properties: {
+		Type:       "AWS::LakeFormation::Permissions"
+		Properties: close({
 			DataLakePrincipal: close({
 				DataLakePrincipalIdentifier?: string | fn.Fn
 			}) | fn.If
@@ -42,7 +44,7 @@ LakeFormation :: {
 					Name?:         string | fn.Fn
 				}) | fn.If
 			}) | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -50,12 +52,12 @@ LakeFormation :: {
 		Condition?: string
 	}
 	Resource :: {
-		Type: "AWS::LakeFormation::Resource"
-		Properties: {
+		Type:       "AWS::LakeFormation::Resource"
+		Properties: close({
 			ResourceArn:          string | fn.Fn
 			RoleArn?:             string | fn.Fn
 			UseServiceLinkedRole: bool | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

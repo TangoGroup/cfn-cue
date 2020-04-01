@@ -4,8 +4,8 @@ import "github.com/TangoGroup/aws/fn"
 
 DirectoryService :: {
 	MicrosoftAD :: {
-		Type: "AWS::DirectoryService::MicrosoftAD"
-		Properties: {
+		Type:       "AWS::DirectoryService::MicrosoftAD"
+		Properties: close({
 			CreateAlias?: bool | fn.Fn
 			Edition?:     ("Enterprise" | "Standard") | fn.Fn
 			EnableSso?:   bool | fn.Fn
@@ -16,7 +16,7 @@ DirectoryService :: {
 				SubnetIds: [...(string | fn.Fn)] | (string | fn.Fn)
 				VpcId:     string | fn.Fn
 			}) | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -24,8 +24,8 @@ DirectoryService :: {
 		Condition?: string
 	}
 	SimpleAD :: {
-		Type: "AWS::DirectoryService::SimpleAD"
-		Properties: {
+		Type:       "AWS::DirectoryService::SimpleAD"
+		Properties: close({
 			CreateAlias?: bool | fn.Fn
 			Description?: string | fn.Fn
 			EnableSso?:   bool | fn.Fn
@@ -37,7 +37,7 @@ DirectoryService :: {
 				SubnetIds: [...(string | fn.Fn)] | (string | fn.Fn)
 				VpcId:     string | fn.Fn
 			}) | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

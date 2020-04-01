@@ -4,8 +4,8 @@ import "github.com/TangoGroup/aws/fn"
 
 MediaLive :: {
 	Channel :: {
-		Type: "AWS::MediaLive::Channel"
-		Properties: {
+		Type:       "AWS::MediaLive::Channel"
+		Properties: close({
 			ChannelClass?: string | fn.Fn
 			Destinations?: [...close({
 				Id?:                   string | fn.Fn
@@ -108,7 +108,7 @@ MediaLive :: {
 			Tags?:     {
 				[string]: _
 			} | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -116,8 +116,8 @@ MediaLive :: {
 		Condition?: string
 	}
 	Input :: {
-		Type: "AWS::MediaLive::Input"
-		Properties: {
+		Type:       "AWS::MediaLive::Input"
+		Properties: close({
 			Destinations?: [...close({
 				StreamName?: string | fn.Fn
 			})] | fn.If
@@ -140,7 +140,7 @@ MediaLive :: {
 				SecurityGroupIds?: [...(string | fn.Fn)] | (string | fn.Fn)
 				SubnetIds?:        [...(string | fn.Fn)] | (string | fn.Fn)
 			}) | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -148,15 +148,15 @@ MediaLive :: {
 		Condition?: string
 	}
 	InputSecurityGroup :: {
-		Type: "AWS::MediaLive::InputSecurityGroup"
-		Properties: {
+		Type:       "AWS::MediaLive::InputSecurityGroup"
+		Properties: close({
 			Tags?: {
 				[string]: _
 			} | fn.Fn
 			WhitelistRules?: [...close({
 				Cidr?: string | fn.Fn
 			})] | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

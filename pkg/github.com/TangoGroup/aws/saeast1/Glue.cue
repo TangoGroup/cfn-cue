@@ -4,8 +4,8 @@ import "github.com/TangoGroup/aws/fn"
 
 Glue :: {
 	Classifier :: {
-		Type: "AWS::Glue::Classifier"
-		Properties: {
+		Type:       "AWS::Glue::Classifier"
+		Properties: close({
 			CsvClassifier?: close({
 			}) | fn.If
 			GrokClassifier?: close({
@@ -14,7 +14,7 @@ Glue :: {
 			}) | fn.If
 			XMLClassifier?: close({
 			}) | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -22,12 +22,12 @@ Glue :: {
 		Condition?: string
 	}
 	Connection :: {
-		Type: "AWS::Glue::Connection"
-		Properties: {
+		Type:       "AWS::Glue::Connection"
+		Properties: close({
 			CatalogId:       string | fn.Fn
 			ConnectionInput: close({
 			}) | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -35,8 +35,8 @@ Glue :: {
 		Condition?: string
 	}
 	Crawler :: {
-		Type: "AWS::Glue::Crawler"
-		Properties: {
+		Type:       "AWS::Glue::Crawler"
+		Properties: close({
 			Classifiers?:                  [...(string | fn.Fn)] | (string | fn.Fn)
 			Configuration?:                string | fn.Fn
 			CrawlerSecurityConfiguration?: string | fn.Fn
@@ -54,7 +54,7 @@ Glue :: {
 			} | fn.Fn
 			Targets: close({
 			}) | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -62,12 +62,12 @@ Glue :: {
 		Condition?: string
 	}
 	DataCatalogEncryptionSettings :: {
-		Type: "AWS::Glue::DataCatalogEncryptionSettings"
-		Properties: {
+		Type:       "AWS::Glue::DataCatalogEncryptionSettings"
+		Properties: close({
 			CatalogId:                     string | fn.Fn
 			DataCatalogEncryptionSettings: close({
 			}) | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -75,12 +75,12 @@ Glue :: {
 		Condition?: string
 	}
 	Database :: {
-		Type: "AWS::Glue::Database"
-		Properties: {
+		Type:       "AWS::Glue::Database"
+		Properties: close({
 			CatalogId:     string | fn.Fn
 			DatabaseInput: close({
 			}) | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -88,8 +88,8 @@ Glue :: {
 		Condition?: string
 	}
 	DevEndpoint :: {
-		Type: "AWS::Glue::DevEndpoint"
-		Properties: {
+		Type:       "AWS::Glue::DevEndpoint"
+		Properties: close({
 			Arguments?: {
 				[string]: _
 			} | fn.Fn
@@ -108,7 +108,7 @@ Glue :: {
 				[string]: _
 			} | fn.Fn
 			WorkerType?: string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -116,8 +116,8 @@ Glue :: {
 		Condition?: string
 	}
 	Job :: {
-		Type: "AWS::Glue::Job"
-		Properties: {
+		Type:       "AWS::Glue::Job"
+		Properties: close({
 			AllocatedCapacity?: number | fn.Fn
 			Command:            close({
 			}) | fn.If
@@ -144,7 +144,7 @@ Glue :: {
 			} | fn.Fn
 			Timeout?:    int | fn.Fn
 			WorkerType?: string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -152,8 +152,8 @@ Glue :: {
 		Condition?: string
 	}
 	MLTransform :: {
-		Type: "AWS::Glue::MLTransform"
-		Properties: {
+		Type:       "AWS::Glue::MLTransform"
+		Properties: close({
 			Description?:      string | fn.Fn
 			GlueVersion?:      string | fn.Fn
 			InputRecordTables: close({
@@ -167,7 +167,7 @@ Glue :: {
 			TransformParameters: close({
 			}) | fn.If
 			WorkerType?: string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -175,14 +175,14 @@ Glue :: {
 		Condition?: string
 	}
 	Partition :: {
-		Type: "AWS::Glue::Partition"
-		Properties: {
+		Type:       "AWS::Glue::Partition"
+		Properties: close({
 			CatalogId:      string | fn.Fn
 			DatabaseName:   string | fn.Fn
 			PartitionInput: close({
 			}) | fn.If
 			TableName: string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -190,12 +190,12 @@ Glue :: {
 		Condition?: string
 	}
 	SecurityConfiguration :: {
-		Type: "AWS::Glue::SecurityConfiguration"
-		Properties: {
+		Type:       "AWS::Glue::SecurityConfiguration"
+		Properties: close({
 			EncryptionConfiguration: close({
 			}) | fn.If
 			Name: string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -203,13 +203,13 @@ Glue :: {
 		Condition?: string
 	}
 	Table :: {
-		Type: "AWS::Glue::Table"
-		Properties: {
+		Type:       "AWS::Glue::Table"
+		Properties: close({
 			CatalogId:    string | fn.Fn
 			DatabaseName: string | fn.Fn
 			TableInput:   close({
 			}) | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -217,8 +217,8 @@ Glue :: {
 		Condition?: string
 	}
 	Trigger :: {
-		Type: "AWS::Glue::Trigger"
-		Properties: {
+		Type:       "AWS::Glue::Trigger"
+		Properties: close({
 			Actions: [...close({
 			})] | fn.If
 			Description?: string | fn.Fn
@@ -232,7 +232,7 @@ Glue :: {
 			} | fn.Fn
 			Type:          string | fn.Fn
 			WorkflowName?: string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -240,8 +240,8 @@ Glue :: {
 		Condition?: string
 	}
 	Workflow :: {
-		Type: "AWS::Glue::Workflow"
-		Properties: {
+		Type:       "AWS::Glue::Workflow"
+		Properties: close({
 			DefaultRunProperties?: {
 				[string]: _
 			} | fn.Fn
@@ -250,7 +250,7 @@ Glue :: {
 			Tags?:        {
 				[string]: _
 			} | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

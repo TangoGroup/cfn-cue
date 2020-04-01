@@ -4,8 +4,8 @@ import "github.com/TangoGroup/aws/fn"
 
 Kinesis :: {
 	Stream :: {
-		Type: "AWS::Kinesis::Stream"
-		Properties: {
+		Type:       "AWS::Kinesis::Stream"
+		Properties: close({
 			Name?:                 string | fn.Fn
 			RetentionPeriodHours?: (>=1 & <=168) | fn.Fn
 			ShardCount:            (>=1 & <=100000) | fn.Fn
@@ -17,7 +17,7 @@ Kinesis :: {
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			})] | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -25,11 +25,11 @@ Kinesis :: {
 		Condition?: string
 	}
 	StreamConsumer :: {
-		Type: "AWS::Kinesis::StreamConsumer"
-		Properties: {
+		Type:       "AWS::Kinesis::StreamConsumer"
+		Properties: close({
 			ConsumerName: string | fn.Fn
 			StreamARN:    string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

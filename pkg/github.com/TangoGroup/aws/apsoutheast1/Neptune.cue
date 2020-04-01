@@ -4,8 +4,8 @@ import "github.com/TangoGroup/aws/fn"
 
 Neptune :: {
 	DBCluster :: {
-		Type: "AWS::Neptune::DBCluster"
-		Properties: {
+		Type:       "AWS::Neptune::DBCluster"
+		Properties: close({
 			AvailabilityZones?:           [...(string | fn.Fn)] | (string | fn.Fn)
 			BackupRetentionPeriod?:       int | fn.Fn
 			DBClusterIdentifier?:         string | fn.Fn
@@ -26,7 +26,7 @@ Neptune :: {
 				Value: string | fn.Fn
 			})] | fn.If
 			VpcSecurityGroupIds?: [...(string | fn.Fn)] | (string | fn.Fn)
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain" | "Snapshot"
 		UpdateReplacePolicy?: "Delete" | "Retain" | "Snapshot"

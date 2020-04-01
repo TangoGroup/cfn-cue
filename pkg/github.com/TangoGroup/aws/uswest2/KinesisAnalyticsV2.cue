@@ -4,8 +4,8 @@ import "github.com/TangoGroup/aws/fn"
 
 KinesisAnalyticsV2 :: {
 	Application :: {
-		Type: "AWS::KinesisAnalyticsV2::Application"
-		Properties: {
+		Type:       "AWS::KinesisAnalyticsV2::Application"
+		Properties: close({
 			ApplicationConfiguration?: close({
 				ApplicationCodeConfiguration?: close({
 					CodeContent: close({
@@ -93,7 +93,7 @@ KinesisAnalyticsV2 :: {
 			ApplicationName?:        string | fn.Fn
 			RuntimeEnvironment:      ("FLINK-1_6" | "FLINK-1_8" | "SQL-1_0") | fn.Fn
 			ServiceExecutionRole:    string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -101,13 +101,13 @@ KinesisAnalyticsV2 :: {
 		Condition?: string
 	}
 	ApplicationCloudWatchLoggingOption :: {
-		Type: "AWS::KinesisAnalyticsV2::ApplicationCloudWatchLoggingOption"
-		Properties: {
+		Type:       "AWS::KinesisAnalyticsV2::ApplicationCloudWatchLoggingOption"
+		Properties: close({
 			ApplicationName:         string | fn.Fn
 			CloudWatchLoggingOption: close({
 				LogStreamARN: string | fn.Fn
 			}) | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -115,8 +115,8 @@ KinesisAnalyticsV2 :: {
 		Condition?: string
 	}
 	ApplicationOutput :: {
-		Type: "AWS::KinesisAnalyticsV2::ApplicationOutput"
-		Properties: {
+		Type:       "AWS::KinesisAnalyticsV2::ApplicationOutput"
+		Properties: close({
 			ApplicationName: string | fn.Fn
 			Output:          close({
 				DestinationSchema: close({
@@ -133,7 +133,7 @@ KinesisAnalyticsV2 :: {
 				}) | fn.If
 				Name?: string | fn.Fn
 			}) | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -141,8 +141,8 @@ KinesisAnalyticsV2 :: {
 		Condition?: string
 	}
 	ApplicationReferenceDataSource :: {
-		Type: "AWS::KinesisAnalyticsV2::ApplicationReferenceDataSource"
-		Properties: {
+		Type:       "AWS::KinesisAnalyticsV2::ApplicationReferenceDataSource"
+		Properties: close({
 			ApplicationName:     string | fn.Fn
 			ReferenceDataSource: close({
 				ReferenceSchema: close({
@@ -171,7 +171,7 @@ KinesisAnalyticsV2 :: {
 				}) | fn.If
 				TableName?: string | fn.Fn
 			}) | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

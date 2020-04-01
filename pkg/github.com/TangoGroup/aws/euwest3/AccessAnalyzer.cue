@@ -4,8 +4,8 @@ import "github.com/TangoGroup/aws/fn"
 
 AccessAnalyzer :: {
 	Analyzer :: {
-		Type: "AWS::AccessAnalyzer::Analyzer"
-		Properties: {
+		Type:       "AWS::AccessAnalyzer::Analyzer"
+		Properties: close({
 			AnalyzerName?: string | fn.Fn
 			ArchiveRules?: [...close({
 				Filter: [...close({
@@ -22,7 +22,7 @@ AccessAnalyzer :: {
 				Value: string | fn.Fn
 			})] | fn.If
 			Type: string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

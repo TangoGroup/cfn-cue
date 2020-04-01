@@ -4,15 +4,15 @@ import "github.com/TangoGroup/aws/fn"
 
 AppSync :: {
 	ApiCache :: {
-		Type: "AWS::AppSync::ApiCache"
-		Properties: {
+		Type:       "AWS::AppSync::ApiCache"
+		Properties: close({
 			ApiCachingBehavior:        string | fn.Fn
 			ApiId:                     string | fn.Fn
 			AtRestEncryptionEnabled?:  bool | fn.Fn
 			TransitEncryptionEnabled?: bool | fn.Fn
 			Ttl:                       number | fn.Fn
 			Type:                      string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -20,8 +20,8 @@ AppSync :: {
 		Condition?: string
 	}
 	DataSource :: {
-		Type: "AWS::AppSync::DataSource"
-		Properties: {
+		Type:       "AWS::AppSync::DataSource"
+		Properties: close({
 			ApiId:           string | fn.Fn
 			Description?:    string | fn.Fn
 			DynamoDBConfig?: close({
@@ -65,7 +65,7 @@ AppSync :: {
 			}) | fn.If
 			ServiceRoleArn?: string | fn.Fn
 			Type:            ("AMAZON_DYNAMODB" | "AMAZON_ELASTICSEARCH" | "AWS_LAMBDA" | "HTTP" | "NONE" | "RELATIONAL_DATABASE") | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -73,8 +73,8 @@ AppSync :: {
 		Condition?: string
 	}
 	FunctionConfiguration :: {
-		Type: "AWS::AppSync::FunctionConfiguration"
-		Properties: {
+		Type:       "AWS::AppSync::FunctionConfiguration"
+		Properties: close({
 			ApiId:                              string | fn.Fn
 			DataSourceName:                     string | fn.Fn
 			Description?:                       string | fn.Fn
@@ -84,7 +84,7 @@ AppSync :: {
 			RequestMappingTemplateS3Location?:  string | fn.Fn
 			ResponseMappingTemplate?:           string | fn.Fn
 			ResponseMappingTemplateS3Location?: string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -92,8 +92,8 @@ AppSync :: {
 		Condition?: string
 	}
 	GraphQLApi :: {
-		Type: "AWS::AppSync::GraphQLApi"
-		Properties: {
+		Type:       "AWS::AppSync::GraphQLApi"
+		Properties: close({
 			AdditionalAuthenticationProviders?: [...close({
 				AuthenticationType:   string | fn.Fn
 				OpenIDConnectConfig?: close({
@@ -132,7 +132,7 @@ AppSync :: {
 				UserPoolId?:       string | fn.Fn
 			}) | fn.If
 			XrayEnabled?: bool | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -140,12 +140,12 @@ AppSync :: {
 		Condition?: string
 	}
 	GraphQLSchema :: {
-		Type: "AWS::AppSync::GraphQLSchema"
-		Properties: {
+		Type:       "AWS::AppSync::GraphQLSchema"
+		Properties: close({
 			ApiId:                 string | fn.Fn
 			Definition?:           string | fn.Fn
 			DefinitionS3Location?: string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -153,8 +153,8 @@ AppSync :: {
 		Condition?: string
 	}
 	Resolver :: {
-		Type: "AWS::AppSync::Resolver"
-		Properties: {
+		Type:       "AWS::AppSync::Resolver"
+		Properties: close({
 			ApiId:          string | fn.Fn
 			CachingConfig?: close({
 				CachingKeys?: [...(string | fn.Fn)] | (string | fn.Fn)
@@ -178,7 +178,7 @@ AppSync :: {
 				}) | fn.If
 			}) | fn.If
 			TypeName: string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

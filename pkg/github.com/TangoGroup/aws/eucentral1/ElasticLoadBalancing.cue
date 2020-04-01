@@ -4,8 +4,8 @@ import "github.com/TangoGroup/aws/fn"
 
 ElasticLoadBalancing :: {
 	LoadBalancer :: {
-		Type: "AWS::ElasticLoadBalancing::LoadBalancer"
-		Properties: {
+		Type:       "AWS::ElasticLoadBalancing::LoadBalancer"
+		Properties: close({
 			AccessLoggingPolicy?: close({
 				EmitInterval?:   int | fn.Fn
 				Enabled:         bool | fn.Fn
@@ -64,7 +64,7 @@ ElasticLoadBalancing :: {
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			})] | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

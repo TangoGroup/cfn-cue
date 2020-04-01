@@ -4,8 +4,10 @@ import "github.com/TangoGroup/aws/fn"
 
 SES :: {
 	ConfigurationSet :: {
-		Type: "AWS::SES::ConfigurationSet"
-		Properties: Name?: string | fn.Fn
+		Type:       "AWS::SES::ConfigurationSet"
+		Properties: close({
+			Name?: string | fn.Fn
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -13,8 +15,8 @@ SES :: {
 		Condition?: string
 	}
 	ConfigurationSetEventDestination :: {
-		Type: "AWS::SES::ConfigurationSetEventDestination"
-		Properties: {
+		Type:       "AWS::SES::ConfigurationSetEventDestination"
+		Properties: close({
 			ConfigurationSetName: string | fn.Fn
 			EventDestination:     close({
 				CloudWatchDestination?: close({
@@ -32,7 +34,7 @@ SES :: {
 				MatchingEventTypes: [...(string | fn.Fn)] | (string | fn.Fn)
 				Name?:              string | fn.Fn
 			}) | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -40,14 +42,16 @@ SES :: {
 		Condition?: string
 	}
 	ReceiptFilter :: {
-		Type: "AWS::SES::ReceiptFilter"
-		Properties: Filter: close({
-			IpFilter: close({
-				Cidr:   string | fn.Fn
-				Policy: string | fn.Fn
+		Type:       "AWS::SES::ReceiptFilter"
+		Properties: close({
+			Filter: close({
+				IpFilter: close({
+					Cidr:   string | fn.Fn
+					Policy: string | fn.Fn
+				}) | fn.If
+				Name?: string | fn.Fn
 			}) | fn.If
-			Name?: string | fn.Fn
-		}) | fn.If
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -55,8 +59,8 @@ SES :: {
 		Condition?: string
 	}
 	ReceiptRule :: {
-		Type: "AWS::SES::ReceiptRule"
-		Properties: {
+		Type:       "AWS::SES::ReceiptRule"
+		Properties: close({
 			After?: string | fn.Fn
 			Rule:   close({
 				Actions?: [...close({
@@ -102,7 +106,7 @@ SES :: {
 				TlsPolicy?:   ("Optional" | "Require") | fn.Fn
 			}) | fn.If
 			RuleSetName: string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -110,8 +114,10 @@ SES :: {
 		Condition?: string
 	}
 	ReceiptRuleSet :: {
-		Type: "AWS::SES::ReceiptRuleSet"
-		Properties: RuleSetName?: string | fn.Fn
+		Type:       "AWS::SES::ReceiptRuleSet"
+		Properties: close({
+			RuleSetName?: string | fn.Fn
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -119,13 +125,15 @@ SES :: {
 		Condition?: string
 	}
 	Template :: {
-		Type: "AWS::SES::Template"
-		Properties: Template?: close({
-			HtmlPart?:     string | fn.Fn
-			SubjectPart?:  string | fn.Fn
-			TemplateName?: string | fn.Fn
-			TextPart?:     string | fn.Fn
-		}) | fn.If
+		Type:       "AWS::SES::Template"
+		Properties: close({
+			Template?: close({
+				HtmlPart?:     string | fn.Fn
+				SubjectPart?:  string | fn.Fn
+				TemplateName?: string | fn.Fn
+				TextPart?:     string | fn.Fn
+			}) | fn.If
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

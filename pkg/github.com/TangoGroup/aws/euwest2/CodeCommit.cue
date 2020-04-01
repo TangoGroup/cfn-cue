@@ -4,8 +4,8 @@ import "github.com/TangoGroup/aws/fn"
 
 CodeCommit :: {
 	Repository :: {
-		Type: "AWS::CodeCommit::Repository"
-		Properties: {
+		Type:       "AWS::CodeCommit::Repository"
+		Properties: close({
 			Code?: close({
 			}) | fn.If
 			RepositoryDescription?: string | fn.Fn
@@ -16,7 +16,7 @@ CodeCommit :: {
 			})] | fn.If
 			Triggers?: [...close({
 			})] | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

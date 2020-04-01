@@ -4,8 +4,8 @@ import "github.com/TangoGroup/aws/fn"
 
 ManagedBlockchain :: {
 	Member :: {
-		Type: "AWS::ManagedBlockchain::Member"
-		Properties: {
+		Type:       "AWS::ManagedBlockchain::Member"
+		Properties: close({
 			InvitationId?:       string | fn.Fn
 			MemberConfiguration: close({
 				Description?:                  string | fn.Fn
@@ -36,7 +36,7 @@ ManagedBlockchain :: {
 				}) | fn.If
 			}) | fn.If
 			NetworkId?: string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -44,15 +44,15 @@ ManagedBlockchain :: {
 		Condition?: string
 	}
 	Node :: {
-		Type: "AWS::ManagedBlockchain::Node"
-		Properties: {
+		Type:       "AWS::ManagedBlockchain::Node"
+		Properties: close({
 			MemberId:          string | fn.Fn
 			NetworkId:         string | fn.Fn
 			NodeConfiguration: close({
 				AvailabilityZone: string | fn.Fn
 				InstanceType:     string | fn.Fn
 			}) | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

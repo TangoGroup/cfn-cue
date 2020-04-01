@@ -4,15 +4,15 @@ import "github.com/TangoGroup/aws/fn"
 
 SageMaker :: {
 	CodeRepository :: {
-		Type: "AWS::SageMaker::CodeRepository"
-		Properties: {
+		Type:       "AWS::SageMaker::CodeRepository"
+		Properties: close({
 			CodeRepositoryName?: string | fn.Fn
 			GitConfig:           close({
 				Branch?:       string | fn.Fn
 				RepositoryUrl: string | fn.Fn
 				SecretArn?:    string | fn.Fn
 			}) | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -20,8 +20,8 @@ SageMaker :: {
 		Condition?: string
 	}
 	Model :: {
-		Type: "AWS::SageMaker::Model"
-		Properties: {
+		Type:       "AWS::SageMaker::Model"
+		Properties: close({
 			Containers?: [...close({
 				ContainerHostname?: string | fn.Fn
 				Environment?:       {
@@ -50,7 +50,7 @@ SageMaker :: {
 				SecurityGroupIds: [...(string | fn.Fn)] | (string | fn.Fn)
 				Subnets:          [...(string | fn.Fn)] | (string | fn.Fn)
 			}) | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -58,8 +58,8 @@ SageMaker :: {
 		Condition?: string
 	}
 	NotebookInstance :: {
-		Type: "AWS::SageMaker::NotebookInstance"
-		Properties: {
+		Type:       "AWS::SageMaker::NotebookInstance"
+		Properties: close({
 			AcceleratorTypes?:           [...(string | fn.Fn)] | (string | fn.Fn)
 			AdditionalCodeRepositories?: [...(string | fn.Fn)] | (string | fn.Fn)
 			DefaultCodeRepository?:      string | fn.Fn
@@ -77,7 +77,7 @@ SageMaker :: {
 				Value: string | fn.Fn
 			})] | fn.If
 			VolumeSizeInGB?: (>=5 & <=16384) | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

@@ -4,8 +4,8 @@ import "github.com/TangoGroup/aws/fn"
 
 AutoScaling :: {
 	AutoScalingGroup :: {
-		Type: "AWS::AutoScaling::AutoScalingGroup"
-		Properties: {
+		Type:       "AWS::AutoScaling::AutoScalingGroup"
+		Properties: close({
 			AutoScalingGroupName?:    string | fn.Fn
 			AvailabilityZones?:       [...(string | fn.Fn)] | (string | fn.Fn)
 			Cooldown?:                string | fn.Fn
@@ -28,9 +28,10 @@ AutoScaling :: {
 				NotificationTargetARN?: string | fn.Fn
 				RoleARN?:               string | fn.Fn
 			})] | fn.If
-			LoadBalancerNames?: [...(string | fn.Fn)] | (string | fn.Fn)
-			MaxSize:            string | fn.Fn
-			MetricsCollection?: [...close({
+			LoadBalancerNames?:   [...(string | fn.Fn)] | (string | fn.Fn)
+			MaxInstanceLifetime?: int | fn.Fn
+			MaxSize:              string | fn.Fn
+			MetricsCollection?:   [...close({
 				Granularity: string | fn.Fn
 				Metrics?:    [...(string | fn.Fn)] | (string | fn.Fn)
 			})] | fn.If
@@ -70,7 +71,7 @@ AutoScaling :: {
 			TargetGroupARNs?:     [...(string | fn.Fn)] | (string | fn.Fn)
 			TerminationPolicies?: [...(string | fn.Fn)] | (string | fn.Fn)
 			VPCZoneIdentifier?:   [...(string | fn.Fn)] | (string | fn.Fn)
-		}
+		})
 		DependsOn?: string | [...string]
 		CreationPolicy?: {
 			AutoScalingCreationPolicy?: MinSuccessfulInstancesPercent?: int
@@ -86,8 +87,8 @@ AutoScaling :: {
 		Condition?: string
 	}
 	LaunchConfiguration :: {
-		Type: "AWS::AutoScaling::LaunchConfiguration"
-		Properties: {
+		Type:       "AWS::AutoScaling::LaunchConfiguration"
+		Properties: close({
 			AssociatePublicIpAddress?: bool | fn.Fn
 			BlockDeviceMappings?:      [...close({
 				DeviceName: string | fn.Fn
@@ -109,7 +110,7 @@ AutoScaling :: {
 			ImageId:                       string | fn.Fn
 			InstanceId?:                   string | fn.Fn
 			InstanceMonitoring?:           bool | fn.Fn
-			InstanceType:                  ("c5.18xlarge" | "c5.2xlarge" | "c5.4xlarge" | "c5.9xlarge" | "c5.large" | "c5.xlarge" | "c5d.18xlarge" | "c5d.2xlarge" | "c5d.4xlarge" | "c5d.9xlarge" | "c5d.large" | "c5d.xlarge" | "d2.2xlarge" | "d2.4xlarge" | "d2.8xlarge" | "d2.xlarge" | "g4dn.12xlarge" | "g4dn.16xlarge" | "g4dn.2xlarge" | "g4dn.4xlarge" | "g4dn.8xlarge" | "g4dn.metal" | "g4dn.xlarge" | "i3.16xlarge" | "i3.2xlarge" | "i3.4xlarge" | "i3.8xlarge" | "i3.large" | "i3.xlarge" | "m5.12xlarge" | "m5.16xlarge" | "m5.24xlarge" | "m5.2xlarge" | "m5.4xlarge" | "m5.8xlarge" | "m5.large" | "m5.metal" | "m5.xlarge" | "m5d.12xlarge" | "m5d.16xlarge" | "m5d.24xlarge" | "m5d.2xlarge" | "m5d.4xlarge" | "m5d.8xlarge" | "m5d.large" | "m5d.metal" | "m5d.xlarge" | "r5.12xlarge" | "r5.16xlarge" | "r5.24xlarge" | "r5.2xlarge" | "r5.4xlarge" | "r5.8xlarge" | "r5.large" | "r5.metal" | "r5.xlarge" | "r5d.12xlarge" | "r5d.16xlarge" | "r5d.24xlarge" | "r5d.2xlarge" | "r5d.4xlarge" | "r5d.8xlarge" | "r5d.large" | "r5d.metal" | "r5d.xlarge" | "t3.2xlarge" | "t3.large" | "t3.medium" | "t3.micro" | "t3.nano" | "t3.small" | "t3.xlarge" | "x1.16xlarge" | "x1.32xlarge") | fn.Fn
+			InstanceType:                  ("c5.18xlarge" | "c5.2xlarge" | "c5.4xlarge" | "c5.9xlarge" | "c5.large" | "c5.xlarge" | "c5d.18xlarge" | "c5d.2xlarge" | "c5d.4xlarge" | "c5d.9xlarge" | "c5d.large" | "c5d.xlarge" | "d2.2xlarge" | "d2.4xlarge" | "d2.8xlarge" | "d2.xlarge" | "g4dn.12xlarge" | "g4dn.16xlarge" | "g4dn.2xlarge" | "g4dn.4xlarge" | "g4dn.8xlarge" | "g4dn.metal" | "g4dn.xlarge" | "i3.16xlarge" | "i3.2xlarge" | "i3.4xlarge" | "i3.8xlarge" | "i3.large" | "i3.metal" | "i3.xlarge" | "m5.12xlarge" | "m5.16xlarge" | "m5.24xlarge" | "m5.2xlarge" | "m5.4xlarge" | "m5.8xlarge" | "m5.large" | "m5.metal" | "m5.xlarge" | "m5d.12xlarge" | "m5d.16xlarge" | "m5d.24xlarge" | "m5d.2xlarge" | "m5d.4xlarge" | "m5d.8xlarge" | "m5d.large" | "m5d.metal" | "m5d.xlarge" | "r5.12xlarge" | "r5.16xlarge" | "r5.24xlarge" | "r5.2xlarge" | "r5.4xlarge" | "r5.8xlarge" | "r5.large" | "r5.metal" | "r5.xlarge" | "r5d.12xlarge" | "r5d.16xlarge" | "r5d.24xlarge" | "r5d.2xlarge" | "r5d.4xlarge" | "r5d.8xlarge" | "r5d.large" | "r5d.metal" | "r5d.xlarge" | "t3.2xlarge" | "t3.large" | "t3.medium" | "t3.micro" | "t3.nano" | "t3.small" | "t3.xlarge" | "x1.16xlarge" | "x1.32xlarge") | fn.Fn
 			KernelId?:                     string | fn.Fn
 			KeyName?:                      string | fn.Fn
 			LaunchConfigurationName?:      string | fn.Fn
@@ -118,7 +119,7 @@ AutoScaling :: {
 			SecurityGroups?:               [...(string | fn.Fn)] | (string | fn.Fn)
 			SpotPrice?:                    string | fn.Fn
 			UserData?:                     string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -126,8 +127,8 @@ AutoScaling :: {
 		Condition?: string
 	}
 	LifecycleHook :: {
-		Type: "AWS::AutoScaling::LifecycleHook"
-		Properties: {
+		Type:       "AWS::AutoScaling::LifecycleHook"
+		Properties: close({
 			AutoScalingGroupName:   string | fn.Fn
 			DefaultResult?:         ("ABANDON" | "CONTINUE") | fn.Fn
 			HeartbeatTimeout?:      int | fn.Fn
@@ -136,7 +137,7 @@ AutoScaling :: {
 			NotificationMetadata?:  string | fn.Fn
 			NotificationTargetARN?: string | fn.Fn
 			RoleARN?:               string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -144,8 +145,8 @@ AutoScaling :: {
 		Condition?: string
 	}
 	ScalingPolicy :: {
-		Type: "AWS::AutoScaling::ScalingPolicy"
-		Properties: {
+		Type:       "AWS::AutoScaling::ScalingPolicy"
+		Properties: close({
 			AdjustmentType?:          ("ChangeInCapacity" | "ExactCapacity" | "PercentChangeInCapacity") | fn.Fn
 			AutoScalingGroupName:     string | fn.Fn
 			Cooldown?:                string | fn.Fn
@@ -177,7 +178,7 @@ AutoScaling :: {
 				}) | fn.If
 				TargetValue: number | fn.Fn
 			}) | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -185,8 +186,8 @@ AutoScaling :: {
 		Condition?: string
 	}
 	ScheduledAction :: {
-		Type: "AWS::AutoScaling::ScheduledAction"
-		Properties: {
+		Type:       "AWS::AutoScaling::ScheduledAction"
+		Properties: close({
 			AutoScalingGroupName: string | fn.Fn
 			DesiredCapacity?:     int | fn.Fn
 			EndTime?:             string | fn.Fn
@@ -194,7 +195,7 @@ AutoScaling :: {
 			MinSize?:             int | fn.Fn
 			Recurrence?:          string | fn.Fn
 			StartTime?:           string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

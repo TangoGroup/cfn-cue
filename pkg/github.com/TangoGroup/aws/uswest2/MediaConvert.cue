@@ -4,8 +4,8 @@ import "github.com/TangoGroup/aws/fn"
 
 MediaConvert :: {
 	JobTemplate :: {
-		Type: "AWS::MediaConvert::JobTemplate"
-		Properties: {
+		Type:       "AWS::MediaConvert::JobTemplate"
+		Properties: close({
 			AccelerationSettings?: close({
 				Mode: string | fn.Fn
 			}) | fn.If
@@ -21,7 +21,7 @@ MediaConvert :: {
 			Tags?:                 {
 				[string]: _
 			} | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -29,8 +29,8 @@ MediaConvert :: {
 		Condition?: string
 	}
 	Preset :: {
-		Type: "AWS::MediaConvert::Preset"
-		Properties: {
+		Type:       "AWS::MediaConvert::Preset"
+		Properties: close({
 			Category?:    string | fn.Fn
 			Description?: string | fn.Fn
 			Name?:        string | fn.Fn
@@ -40,7 +40,7 @@ MediaConvert :: {
 			Tags?: {
 				[string]: _
 			} | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -48,8 +48,8 @@ MediaConvert :: {
 		Condition?: string
 	}
 	Queue :: {
-		Type: "AWS::MediaConvert::Queue"
-		Properties: {
+		Type:       "AWS::MediaConvert::Queue"
+		Properties: close({
 			Description?: string | fn.Fn
 			Name?:        string | fn.Fn
 			PricingPlan?: string | fn.Fn
@@ -57,7 +57,7 @@ MediaConvert :: {
 			Tags?:        {
 				[string]: _
 			} | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

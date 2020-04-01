@@ -4,8 +4,8 @@ import "github.com/TangoGroup/aws/fn"
 
 Cloud9 :: {
 	EnvironmentEC2 :: {
-		Type: "AWS::Cloud9::EnvironmentEC2"
-		Properties: {
+		Type:       "AWS::Cloud9::EnvironmentEC2"
+		Properties: close({
 			AutomaticStopTimeMinutes?: int | fn.Fn
 			Description?:              string | fn.Fn
 			InstanceType:              string | fn.Fn
@@ -18,7 +18,7 @@ Cloud9 :: {
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			})] | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

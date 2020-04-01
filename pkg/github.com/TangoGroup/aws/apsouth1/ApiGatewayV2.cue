@@ -4,8 +4,8 @@ import "github.com/TangoGroup/aws/fn"
 
 ApiGatewayV2 :: {
 	Api :: {
-		Type: "AWS::ApiGatewayV2::Api"
-		Properties: {
+		Type:       "AWS::ApiGatewayV2::Api"
+		Properties: close({
 			ApiKeySelectionExpression?: string | fn.Fn
 			BasePath?:                  string | fn.Fn
 			Body?:                      {
@@ -38,7 +38,7 @@ ApiGatewayV2 :: {
 			} | fn.Fn
 			Target?:  string | fn.Fn
 			Version?: string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -46,13 +46,13 @@ ApiGatewayV2 :: {
 		Condition?: string
 	}
 	ApiMapping :: {
-		Type: "AWS::ApiGatewayV2::ApiMapping"
-		Properties: {
+		Type:       "AWS::ApiGatewayV2::ApiMapping"
+		Properties: close({
 			ApiId:          string | fn.Fn
 			ApiMappingKey?: string | fn.Fn
 			DomainName:     string | fn.Fn
 			Stage:          string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -60,8 +60,8 @@ ApiGatewayV2 :: {
 		Condition?: string
 	}
 	Authorizer :: {
-		Type: "AWS::ApiGatewayV2::Authorizer"
-		Properties: {
+		Type:       "AWS::ApiGatewayV2::Authorizer"
+		Properties: close({
 			ApiId:                         string | fn.Fn
 			AuthorizerCredentialsArn?:     string | fn.Fn
 			AuthorizerResultTtlInSeconds?: int | fn.Fn
@@ -74,7 +74,7 @@ ApiGatewayV2 :: {
 				Issuer?:   string | fn.Fn
 			}) | fn.If
 			Name: string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -82,12 +82,12 @@ ApiGatewayV2 :: {
 		Condition?: string
 	}
 	Deployment :: {
-		Type: "AWS::ApiGatewayV2::Deployment"
-		Properties: {
+		Type:       "AWS::ApiGatewayV2::Deployment"
+		Properties: close({
 			ApiId:        string | fn.Fn
 			Description?: string | fn.Fn
 			StageName?:   string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -95,8 +95,8 @@ ApiGatewayV2 :: {
 		Condition?: string
 	}
 	DomainName :: {
-		Type: "AWS::ApiGatewayV2::DomainName"
-		Properties: {
+		Type:       "AWS::ApiGatewayV2::DomainName"
+		Properties: close({
 			DomainName:                string | fn.Fn
 			DomainNameConfigurations?: [...close({
 				CertificateArn?:  string | fn.Fn
@@ -106,7 +106,7 @@ ApiGatewayV2 :: {
 			Tags?: {
 				[string]: _
 			} | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -114,9 +114,10 @@ ApiGatewayV2 :: {
 		Condition?: string
 	}
 	Integration :: {
-		Type: "AWS::ApiGatewayV2::Integration"
-		Properties: {
+		Type:       "AWS::ApiGatewayV2::Integration"
+		Properties: close({
 			ApiId:                    string | fn.Fn
+			ConnectionId?:            string | fn.Fn
 			ConnectionType?:          string | fn.Fn
 			ContentHandlingStrategy?: string | fn.Fn
 			CredentialsArn?:          string | fn.Fn
@@ -137,7 +138,7 @@ ApiGatewayV2 :: {
 			TlsConfig?:                   close({
 				ServerNameToVerify?: string | fn.Fn
 			}) | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -145,8 +146,8 @@ ApiGatewayV2 :: {
 		Condition?: string
 	}
 	IntegrationResponse :: {
-		Type: "AWS::ApiGatewayV2::IntegrationResponse"
-		Properties: {
+		Type:       "AWS::ApiGatewayV2::IntegrationResponse"
+		Properties: close({
 			ApiId:                    string | fn.Fn
 			ContentHandlingStrategy?: string | fn.Fn
 			IntegrationId:            string | fn.Fn
@@ -158,7 +159,7 @@ ApiGatewayV2 :: {
 				[string]: _
 			} | fn.Fn
 			TemplateSelectionExpression?: string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -166,8 +167,8 @@ ApiGatewayV2 :: {
 		Condition?: string
 	}
 	Model :: {
-		Type: "AWS::ApiGatewayV2::Model"
-		Properties: {
+		Type:       "AWS::ApiGatewayV2::Model"
+		Properties: close({
 			ApiId:        string | fn.Fn
 			ContentType?: string | fn.Fn
 			Description?: string | fn.Fn
@@ -175,7 +176,7 @@ ApiGatewayV2 :: {
 			Schema:       {
 				[string]: _
 			} | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -183,8 +184,8 @@ ApiGatewayV2 :: {
 		Condition?: string
 	}
 	Route :: {
-		Type: "AWS::ApiGatewayV2::Route"
-		Properties: {
+		Type:       "AWS::ApiGatewayV2::Route"
+		Properties: close({
 			ApiId:                     string | fn.Fn
 			ApiKeyRequired?:           bool | fn.Fn
 			AuthorizationScopes?:      [...(string | fn.Fn)] | (string | fn.Fn)
@@ -201,7 +202,7 @@ ApiGatewayV2 :: {
 			RouteKey:                          string | fn.Fn
 			RouteResponseSelectionExpression?: string | fn.Fn
 			Target?:                           string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -209,8 +210,8 @@ ApiGatewayV2 :: {
 		Condition?: string
 	}
 	RouteResponse :: {
-		Type: "AWS::ApiGatewayV2::RouteResponse"
-		Properties: {
+		Type:       "AWS::ApiGatewayV2::RouteResponse"
+		Properties: close({
 			ApiId:                     string | fn.Fn
 			ModelSelectionExpression?: string | fn.Fn
 			ResponseModels?:           {
@@ -221,7 +222,7 @@ ApiGatewayV2 :: {
 			} | fn.Fn
 			RouteId:          string | fn.Fn
 			RouteResponseKey: string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -229,8 +230,8 @@ ApiGatewayV2 :: {
 		Condition?: string
 	}
 	Stage :: {
-		Type: "AWS::ApiGatewayV2::Stage"
-		Properties: {
+		Type:       "AWS::ApiGatewayV2::Stage"
+		Properties: close({
 			AccessLogSettings?: close({
 				DestinationArn?: string | fn.Fn
 				Format?:         string | fn.Fn
@@ -257,7 +258,7 @@ ApiGatewayV2 :: {
 			Tags?: {
 				[string]: _
 			} | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

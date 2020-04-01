@@ -4,8 +4,10 @@ import "github.com/TangoGroup/aws/fn"
 
 SES :: {
 	ConfigurationSet :: {
-		Type: "AWS::SES::ConfigurationSet"
-		Properties: Name?: string | fn.Fn
+		Type:       "AWS::SES::ConfigurationSet"
+		Properties: close({
+			Name?: string | fn.Fn
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

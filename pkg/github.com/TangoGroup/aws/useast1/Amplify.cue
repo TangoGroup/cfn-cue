@@ -4,8 +4,8 @@ import "github.com/TangoGroup/aws/fn"
 
 Amplify :: {
 	App :: {
-		Type: "AWS::Amplify::App"
-		Properties: {
+		Type:       "AWS::Amplify::App"
+		Properties: close({
 			AccessToken?:              string | fn.Fn
 			AutoBranchCreationConfig?: close({
 				AutoBranchCreationPatterns?: [...(string | fn.Fn)] | (string | fn.Fn)
@@ -50,7 +50,7 @@ Amplify :: {
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			})] | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -58,8 +58,8 @@ Amplify :: {
 		Condition?: string
 	}
 	Branch :: {
-		Type: "AWS::Amplify::Branch"
-		Properties: {
+		Type:       "AWS::Amplify::Branch"
+		Properties: close({
 			AppId:            string | fn.Fn
 			BasicAuthConfig?: close({
 				EnableBasicAuth?: bool | fn.Fn
@@ -81,7 +81,7 @@ Amplify :: {
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			})] | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -89,15 +89,15 @@ Amplify :: {
 		Condition?: string
 	}
 	Domain :: {
-		Type: "AWS::Amplify::Domain"
-		Properties: {
+		Type:       "AWS::Amplify::Domain"
+		Properties: close({
 			AppId:             string | fn.Fn
 			DomainName:        string | fn.Fn
 			SubDomainSettings: [...close({
 				BranchName: string | fn.Fn
 				Prefix:     string | fn.Fn
 			})] | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

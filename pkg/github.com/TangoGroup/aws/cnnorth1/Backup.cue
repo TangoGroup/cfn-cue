@@ -4,8 +4,8 @@ import "github.com/TangoGroup/aws/fn"
 
 Backup :: {
 	BackupPlan :: {
-		Type: "AWS::Backup::BackupPlan"
-		Properties: {
+		Type:       "AWS::Backup::BackupPlan"
+		Properties: close({
 			BackupPlan: close({
 				BackupPlanName: string | fn.Fn
 				BackupPlanRule: [...close({
@@ -33,7 +33,7 @@ Backup :: {
 			BackupPlanTags?: {
 				[string]: _
 			} | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

@@ -8,8 +8,8 @@ import (
 
 S3 :: {
 	Bucket :: {
-		Type: "AWS::S3::Bucket"
-		Properties: {
+		Type:       "AWS::S3::Bucket"
+		Properties: close({
 			AccelerateConfiguration?: close({
 				AccelerationStatus: ("Enabled" | "Suspended") | fn.Fn
 			}) | fn.If
@@ -220,7 +220,7 @@ S3 :: {
 					}) | fn.If
 				})] | fn.If
 			}) | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -228,14 +228,14 @@ S3 :: {
 		Condition?: string
 	}
 	BucketPolicy :: {
-		Type: "AWS::S3::BucketPolicy"
-		Properties: {
+		Type:       "AWS::S3::BucketPolicy"
+		Properties: close({
 			Bucket:         string | fn.Fn
 			PolicyDocument: {
 				[string]: _
 				Version:  string | *"2012-10-17"
 			} | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

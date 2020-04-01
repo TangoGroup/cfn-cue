@@ -4,8 +4,8 @@ import "github.com/TangoGroup/aws/fn"
 
 WAFv2 :: {
 	IPSet :: {
-		Type: "AWS::WAFv2::IPSet"
-		Properties: {
+		Type:       "AWS::WAFv2::IPSet"
+		Properties: close({
 			Addresses:        [...(string | fn.Fn)] | (string | fn.Fn)
 			Description?:     string | fn.Fn
 			IPAddressVersion: string | fn.Fn
@@ -15,7 +15,7 @@ WAFv2 :: {
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			})] | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -23,8 +23,8 @@ WAFv2 :: {
 		Condition?: string
 	}
 	RegexPatternSet :: {
-		Type: "AWS::WAFv2::RegexPatternSet"
-		Properties: {
+		Type:       "AWS::WAFv2::RegexPatternSet"
+		Properties: close({
 			Description?:          string | fn.Fn
 			Name?:                 string | fn.Fn
 			RegularExpressionList: [...(string | fn.Fn)] | (string | fn.Fn)
@@ -33,7 +33,7 @@ WAFv2 :: {
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			})] | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -41,8 +41,8 @@ WAFv2 :: {
 		Condition?: string
 	}
 	RuleGroup :: {
-		Type: "AWS::WAFv2::RuleGroup"
-		Properties: {
+		Type:       "AWS::WAFv2::RuleGroup"
+		Properties: close({
 			Capacity:     int | fn.Fn
 			Description?: string | fn.Fn
 			Name?:        string | fn.Fn
@@ -3465,7 +3465,7 @@ WAFv2 :: {
 				MetricName:               string | fn.Fn
 				SampledRequestsEnabled:   bool | fn.Fn
 			}) | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -3473,8 +3473,8 @@ WAFv2 :: {
 		Condition?: string
 	}
 	WebACL :: {
-		Type: "AWS::WAFv2::WebACL"
-		Properties: {
+		Type:       "AWS::WAFv2::WebACL"
+		Properties: close({
 			DefaultAction: close({
 				Allow?: {
 					[string]: _
@@ -7185,7 +7185,7 @@ WAFv2 :: {
 				MetricName:               string | fn.Fn
 				SampledRequestsEnabled:   bool | fn.Fn
 			}) | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -7193,11 +7193,11 @@ WAFv2 :: {
 		Condition?: string
 	}
 	WebACLAssociation :: {
-		Type: "AWS::WAFv2::WebACLAssociation"
-		Properties: {
+		Type:       "AWS::WAFv2::WebACLAssociation"
+		Properties: close({
 			ResourceArn: string | fn.Fn
 			WebACLArn:   string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

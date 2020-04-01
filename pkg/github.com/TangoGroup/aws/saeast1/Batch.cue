@@ -4,8 +4,8 @@ import "github.com/TangoGroup/aws/fn"
 
 Batch :: {
 	ComputeEnvironment :: {
-		Type: "AWS::Batch::ComputeEnvironment"
-		Properties: {
+		Type:       "AWS::Batch::ComputeEnvironment"
+		Properties: close({
 			ComputeEnvironmentName?: string | fn.Fn
 			ComputeResources?:       close({
 				AllocationStrategy?: string | fn.Fn
@@ -34,7 +34,7 @@ Batch :: {
 			ServiceRole: (=~#"arn:(aws[a-zA-Z-]*)?:iam::\d{12}:role/[a-zA-Z_0-9+=,.@\-_/]+"#) | fn.Fn
 			State?:      string | fn.Fn
 			Type:        string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -42,8 +42,8 @@ Batch :: {
 		Condition?: string
 	}
 	JobDefinition :: {
-		Type: "AWS::Batch::JobDefinition"
-		Properties: {
+		Type:       "AWS::Batch::JobDefinition"
+		Properties: close({
 			ContainerProperties?: close({
 				Command?:     [...(string | fn.Fn)] | (string | fn.Fn)
 				Environment?: [...close({
@@ -60,7 +60,7 @@ Batch :: {
 						Permissions?:   [...(string | fn.Fn)] | (string | fn.Fn)
 					})] | fn.If
 				}) | fn.If
-				Memory:       int | fn.Fn
+				Memory?:      int | fn.Fn
 				MountPoints?: [...close({
 					ContainerPath?: string | fn.Fn
 					ReadOnly?:      bool | fn.Fn
@@ -78,7 +78,7 @@ Batch :: {
 					SoftLimit: int | fn.Fn
 				})] | fn.If
 				User?:    string | fn.Fn
-				Vcpus:    int | fn.Fn
+				Vcpus?:   int | fn.Fn
 				Volumes?: [...close({
 					Host?: close({
 						SourcePath?: string | fn.Fn
@@ -106,7 +106,7 @@ Batch :: {
 								Permissions?:   [...(string | fn.Fn)] | (string | fn.Fn)
 							})] | fn.If
 						}) | fn.If
-						Memory:       int | fn.Fn
+						Memory?:      int | fn.Fn
 						MountPoints?: [...close({
 							ContainerPath?: string | fn.Fn
 							ReadOnly?:      bool | fn.Fn
@@ -124,7 +124,7 @@ Batch :: {
 							SoftLimit: int | fn.Fn
 						})] | fn.If
 						User?:    string | fn.Fn
-						Vcpus:    int | fn.Fn
+						Vcpus?:   int | fn.Fn
 						Volumes?: [...close({
 							Host?: close({
 								SourcePath?: string | fn.Fn
@@ -146,7 +146,7 @@ Batch :: {
 				AttemptDurationSeconds?: int | fn.Fn
 			}) | fn.If
 			Type: string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

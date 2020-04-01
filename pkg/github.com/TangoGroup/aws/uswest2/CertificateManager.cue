@@ -4,8 +4,8 @@ import "github.com/TangoGroup/aws/fn"
 
 CertificateManager :: {
 	Certificate :: {
-		Type: "AWS::CertificateManager::Certificate"
-		Properties: {
+		Type:       "AWS::CertificateManager::Certificate"
+		Properties: close({
 			DomainName:               string | fn.Fn
 			DomainValidationOptions?: [...close({
 				DomainName:       string | fn.Fn
@@ -17,7 +17,7 @@ CertificateManager :: {
 				Value: string | fn.Fn
 			})] | fn.If
 			ValidationMethod?: ("DNS" | "EMAIL") | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

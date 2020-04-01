@@ -4,8 +4,8 @@ import "github.com/TangoGroup/aws/fn"
 
 Backup :: {
 	BackupPlan :: {
-		Type: "AWS::Backup::BackupPlan"
-		Properties: {
+		Type:       "AWS::Backup::BackupPlan"
+		Properties: close({
 			BackupPlan: close({
 				BackupPlanName: string | fn.Fn
 				BackupPlanRule: [...close({
@@ -33,7 +33,7 @@ Backup :: {
 			BackupPlanTags?: {
 				[string]: _
 			} | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -41,8 +41,8 @@ Backup :: {
 		Condition?: string
 	}
 	BackupSelection :: {
-		Type: "AWS::Backup::BackupSelection"
-		Properties: {
+		Type:       "AWS::Backup::BackupSelection"
+		Properties: close({
 			BackupPlanId:    string | fn.Fn
 			BackupSelection: close({
 				IamRoleArn:  (=~#"arn:(aws[a-zA-Z-]*)?:iam::\d{12}:role/[a-zA-Z_0-9+=,.@\-_/]+"#) | fn.Fn
@@ -54,7 +54,7 @@ Backup :: {
 				Resources?:    [...(string | fn.Fn)] | (string | fn.Fn)
 				SelectionName: string | fn.Fn
 			}) | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -62,8 +62,8 @@ Backup :: {
 		Condition?: string
 	}
 	BackupVault :: {
-		Type: "AWS::Backup::BackupVault"
-		Properties: {
+		Type:       "AWS::Backup::BackupVault"
+		Properties: close({
 			AccessPolicy?: {
 				[string]: _
 			} | fn.Fn
@@ -76,7 +76,7 @@ Backup :: {
 				BackupVaultEvents: [...(string | fn.Fn)] | (string | fn.Fn)
 				SNSTopicArn:       string | fn.Fn
 			}) | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

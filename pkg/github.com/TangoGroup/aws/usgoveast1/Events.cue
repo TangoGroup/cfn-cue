@@ -4,8 +4,8 @@ import "github.com/TangoGroup/aws/fn"
 
 Events :: {
 	EventBusPolicy :: {
-		Type: "AWS::Events::EventBusPolicy"
-		Properties: {
+		Type:       "AWS::Events::EventBusPolicy"
+		Properties: close({
 			Action:     ("events:PutEvents") | fn.Fn
 			Condition?: close({
 				Key?:   ("aws:PrincipalOrgID") | fn.Fn
@@ -14,7 +14,7 @@ Events :: {
 			}) | fn.If
 			Principal:   string | fn.Fn
 			StatementId: string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -22,8 +22,8 @@ Events :: {
 		Condition?: string
 	}
 	Rule :: {
-		Type: "AWS::Events::Rule"
-		Properties: {
+		Type:       "AWS::Events::Rule"
+		Properties: close({
 			Description?:  string | fn.Fn
 			EventBusName?: string | fn.Fn
 			EventPattern?: {
@@ -82,7 +82,7 @@ Events :: {
 					MessageGroupId: string | fn.Fn
 				}) | fn.If
 			})] | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

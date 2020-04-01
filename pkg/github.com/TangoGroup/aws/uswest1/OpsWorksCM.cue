@@ -4,8 +4,8 @@ import "github.com/TangoGroup/aws/fn"
 
 OpsWorksCM :: {
 	Server :: {
-		Type: "AWS::OpsWorksCM::Server"
-		Properties: {
+		Type:       "AWS::OpsWorksCM::Server"
+		Properties: close({
 			AssociatePublicIpAddress?: bool | fn.Fn
 			BackupId?:                 string | fn.Fn
 			BackupRetentionCount?:     int | fn.Fn
@@ -33,7 +33,7 @@ OpsWorksCM :: {
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			})] | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

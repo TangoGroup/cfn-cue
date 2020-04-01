@@ -4,8 +4,8 @@ import "github.com/TangoGroup/aws/fn"
 
 Transfer :: {
 	Server :: {
-		Type: "AWS::Transfer::Server"
-		Properties: {
+		Type:       "AWS::Transfer::Server"
+		Properties: close({
 			EndpointDetails?: close({
 				AddressAllocationIds?: [...(string | fn.Fn)] | (string | fn.Fn)
 				SubnetIds?:            [...(string | fn.Fn)] | (string | fn.Fn)
@@ -23,7 +23,7 @@ Transfer :: {
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			})] | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -31,8 +31,8 @@ Transfer :: {
 		Condition?: string
 	}
 	User :: {
-		Type: "AWS::Transfer::User"
-		Properties: {
+		Type:       "AWS::Transfer::User"
+		Properties: close({
 			HomeDirectory?:         string | fn.Fn
 			HomeDirectoryMappings?: [...close({
 				Entry:  string | fn.Fn
@@ -48,7 +48,7 @@ Transfer :: {
 				Value: string | fn.Fn
 			})] | fn.If
 			UserName: string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

@@ -4,11 +4,11 @@ import "github.com/TangoGroup/aws/fn"
 
 CodeDeploy :: {
 	Application :: {
-		Type: "AWS::CodeDeploy::Application"
-		Properties: {
+		Type:       "AWS::CodeDeploy::Application"
+		Properties: close({
 			ApplicationName?: string | fn.Fn
 			ComputePlatform?: ("ECS" | "Lambda" | "Server") | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -16,14 +16,14 @@ CodeDeploy :: {
 		Condition?: string
 	}
 	DeploymentConfig :: {
-		Type: "AWS::CodeDeploy::DeploymentConfig"
-		Properties: {
+		Type:       "AWS::CodeDeploy::DeploymentConfig"
+		Properties: close({
 			DeploymentConfigName?: string | fn.Fn
 			MinimumHealthyHosts?:  close({
 				Type:  ("FLEET_PERCENT" | "HOST_COUNT") | fn.Fn
 				Value: int | fn.Fn
 			}) | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -31,8 +31,8 @@ CodeDeploy :: {
 		Condition?: string
 	}
 	DeploymentGroup :: {
-		Type: "AWS::CodeDeploy::DeploymentGroup"
-		Properties: {
+		Type:       "AWS::CodeDeploy::DeploymentGroup"
+		Properties: close({
 			AlarmConfiguration?: close({
 				Alarms?: [...close({
 					Name?: string | fn.Fn
@@ -112,7 +112,7 @@ CodeDeploy :: {
 				TriggerName?:      string | fn.Fn
 				TriggerTargetArn?: string | fn.Fn
 			})] | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

@@ -4,8 +4,8 @@ import "github.com/TangoGroup/aws/fn"
 
 KinesisFirehose :: {
 	DeliveryStream :: {
-		Type: "AWS::KinesisFirehose::DeliveryStream"
-		Properties: {
+		Type:       "AWS::KinesisFirehose::DeliveryStream"
+		Properties: close({
 			DeliveryStreamName?:                    string | fn.Fn
 			DeliveryStreamType?:                    string | fn.Fn
 			ElasticsearchDestinationConfiguration?: close({
@@ -285,7 +285,7 @@ KinesisFirehose :: {
 					RoleARN:            string | fn.Fn
 				}) | fn.If
 			}) | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

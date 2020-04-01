@@ -4,8 +4,8 @@ import "github.com/TangoGroup/aws/fn"
 
 Glue :: {
 	Job :: {
-		Type: "AWS::Glue::Job"
-		Properties: {
+		Type:       "AWS::Glue::Job"
+		Properties: close({
 			AllocatedCapacity?: number | fn.Fn
 			Command:            close({
 				Name?:           string | fn.Fn
@@ -38,7 +38,7 @@ Glue :: {
 			} | fn.Fn
 			Timeout?:    int | fn.Fn
 			WorkerType?: string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -46,8 +46,8 @@ Glue :: {
 		Condition?: string
 	}
 	Trigger :: {
-		Type: "AWS::Glue::Trigger"
-		Properties: {
+		Type:       "AWS::Glue::Trigger"
+		Properties: close({
 			Actions: [...close({
 				Arguments?: {
 					[string]: _
@@ -79,7 +79,7 @@ Glue :: {
 			} | fn.Fn
 			Type:          ("CONDITIONAL" | "ON_DEMAND" | "SCHEDULED") | fn.Fn
 			WorkflowName?: string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

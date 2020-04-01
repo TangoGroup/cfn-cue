@@ -4,8 +4,8 @@ import "github.com/TangoGroup/aws/fn"
 
 QLDB :: {
 	Ledger :: {
-		Type: "AWS::QLDB::Ledger"
-		Properties: {
+		Type:       "AWS::QLDB::Ledger"
+		Properties: close({
 			DeletionProtection?: bool | fn.Fn
 			Name?:               string | fn.Fn
 			PermissionsMode:     string | fn.Fn
@@ -13,7 +13,7 @@ QLDB :: {
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			})] | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

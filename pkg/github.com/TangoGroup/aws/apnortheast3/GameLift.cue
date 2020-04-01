@@ -4,8 +4,8 @@ import "github.com/TangoGroup/aws/fn"
 
 GameLift :: {
 	Alias :: {
-		Type: "AWS::GameLift::Alias"
-		Properties: {
+		Type:       "AWS::GameLift::Alias"
+		Properties: close({
 			Description?:    string | fn.Fn
 			Name:            string | fn.Fn
 			RoutingStrategy: close({
@@ -13,7 +13,7 @@ GameLift :: {
 				Message?: string | fn.Fn
 				Type:     string | fn.Fn
 			}) | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -21,8 +21,8 @@ GameLift :: {
 		Condition?: string
 	}
 	Build :: {
-		Type: "AWS::GameLift::Build"
-		Properties: {
+		Type:       "AWS::GameLift::Build"
+		Properties: close({
 			Name?:            string | fn.Fn
 			OperatingSystem?: string | fn.Fn
 			StorageLocation?: close({
@@ -32,7 +32,7 @@ GameLift :: {
 				RoleArn:        string | fn.Fn
 			}) | fn.If
 			Version?: string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -40,8 +40,8 @@ GameLift :: {
 		Condition?: string
 	}
 	Fleet :: {
-		Type: "AWS::GameLift::Fleet"
-		Properties: {
+		Type:       "AWS::GameLift::Fleet"
+		Properties: close({
 			BuildId?:                  string | fn.Fn
 			CertificateConfiguration?: close({
 				CertificateType: string | fn.Fn
@@ -81,7 +81,7 @@ GameLift :: {
 			ScriptId?:               string | fn.Fn
 			ServerLaunchParameters?: string | fn.Fn
 			ServerLaunchPath?:       string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

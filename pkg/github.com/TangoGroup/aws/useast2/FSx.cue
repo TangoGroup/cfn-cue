@@ -4,8 +4,8 @@ import "github.com/TangoGroup/aws/fn"
 
 FSx :: {
 	FileSystem :: {
-		Type: "AWS::FSx::FileSystem"
-		Properties: {
+		Type:       "AWS::FSx::FileSystem"
+		Properties: close({
 			BackupId?:            string | fn.Fn
 			FileSystemType:       string | fn.Fn
 			KmsKeyId?:            string | fn.Fn
@@ -42,7 +42,7 @@ FSx :: {
 				ThroughputCapacity?:         int | fn.Fn
 				WeeklyMaintenanceStartTime?: string | fn.Fn
 			}) | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

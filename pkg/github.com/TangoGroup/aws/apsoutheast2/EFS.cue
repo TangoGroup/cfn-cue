@@ -4,8 +4,8 @@ import "github.com/TangoGroup/aws/fn"
 
 EFS :: {
 	FileSystem :: {
-		Type: "AWS::EFS::FileSystem"
-		Properties: {
+		Type:       "AWS::EFS::FileSystem"
+		Properties: close({
 			Encrypted?:      bool | fn.Fn
 			FileSystemTags?: [...close({
 				Key:   string | fn.Fn
@@ -18,7 +18,7 @@ EFS :: {
 			PerformanceMode?:              ("generalPurpose" | "maxIO") | fn.Fn
 			ProvisionedThroughputInMibps?: number | fn.Fn
 			ThroughputMode?:               ("bursting" | "provisioned") | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -26,13 +26,13 @@ EFS :: {
 		Condition?: string
 	}
 	MountTarget :: {
-		Type: "AWS::EFS::MountTarget"
-		Properties: {
+		Type:       "AWS::EFS::MountTarget"
+		Properties: close({
 			FileSystemId:   string | fn.Fn
 			IpAddress?:     string | fn.Fn
 			SecurityGroups: [...(string | fn.Fn)] | (string | fn.Fn)
 			SubnetId:       string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

@@ -4,8 +4,8 @@ import "github.com/TangoGroup/aws/fn"
 
 CodePipeline :: {
 	CustomActionType :: {
-		Type: "AWS::CodePipeline::CustomActionType"
-		Properties: {
+		Type:       "AWS::CodePipeline::CustomActionType"
+		Properties: close({
 			Category:                 ("Approval" | "Build" | "Deploy" | "Invoke" | "Source" | "Test") | fn.Fn
 			ConfigurationProperties?: [...close({
 				Description?: string | fn.Fn
@@ -36,7 +36,7 @@ CodePipeline :: {
 				Value: string | fn.Fn
 			})] | fn.If
 			Version: string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -44,8 +44,8 @@ CodePipeline :: {
 		Condition?: string
 	}
 	Pipeline :: {
-		Type: "AWS::CodePipeline::Pipeline"
-		Properties: {
+		Type:       "AWS::CodePipeline::Pipeline"
+		Properties: close({
 			ArtifactStore?: close({
 				EncryptionKey?: close({
 					Id:   string | fn.Fn
@@ -105,7 +105,7 @@ CodePipeline :: {
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			})] | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -113,8 +113,8 @@ CodePipeline :: {
 		Condition?: string
 	}
 	Webhook :: {
-		Type: "AWS::CodePipeline::Webhook"
-		Properties: {
+		Type:       "AWS::CodePipeline::Webhook"
+		Properties: close({
 			Authentication:              ("GITHUB_HMAC" | "IP" | "UNAUTHENTICATED") | fn.Fn
 			AuthenticationConfiguration: close({
 				AllowedIPRange?: string | fn.Fn
@@ -129,7 +129,7 @@ CodePipeline :: {
 			TargetAction:            string | fn.Fn
 			TargetPipeline:          string | fn.Fn
 			TargetPipelineVersion:   int | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

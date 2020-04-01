@@ -4,11 +4,11 @@ import "github.com/TangoGroup/aws/fn"
 
 ServiceDiscovery :: {
 	HttpNamespace :: {
-		Type: "AWS::ServiceDiscovery::HttpNamespace"
-		Properties: {
+		Type:       "AWS::ServiceDiscovery::HttpNamespace"
+		Properties: close({
 			Description?: string | fn.Fn
 			Name:         string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -16,14 +16,14 @@ ServiceDiscovery :: {
 		Condition?: string
 	}
 	Instance :: {
-		Type: "AWS::ServiceDiscovery::Instance"
-		Properties: {
+		Type:       "AWS::ServiceDiscovery::Instance"
+		Properties: close({
 			InstanceAttributes: {
 				[string]: string | fn.Fn
 			} | fn.If
 			InstanceId?: string | fn.Fn
 			ServiceId:   string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -31,12 +31,12 @@ ServiceDiscovery :: {
 		Condition?: string
 	}
 	PrivateDnsNamespace :: {
-		Type: "AWS::ServiceDiscovery::PrivateDnsNamespace"
-		Properties: {
+		Type:       "AWS::ServiceDiscovery::PrivateDnsNamespace"
+		Properties: close({
 			Description?: string | fn.Fn
 			Name:         string | fn.Fn
 			Vpc:          string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -44,11 +44,11 @@ ServiceDiscovery :: {
 		Condition?: string
 	}
 	PublicDnsNamespace :: {
-		Type: "AWS::ServiceDiscovery::PublicDnsNamespace"
-		Properties: {
+		Type:       "AWS::ServiceDiscovery::PublicDnsNamespace"
+		Properties: close({
 			Description?: string | fn.Fn
 			Name:         string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -56,8 +56,8 @@ ServiceDiscovery :: {
 		Condition?: string
 	}
 	Service :: {
-		Type: "AWS::ServiceDiscovery::Service"
-		Properties: {
+		Type:       "AWS::ServiceDiscovery::Service"
+		Properties: close({
 			Description?: string | fn.Fn
 			DnsConfig?:   close({
 				DnsRecords: [...close({
@@ -77,7 +77,7 @@ ServiceDiscovery :: {
 			}) | fn.If
 			Name?:        string | fn.Fn
 			NamespaceId?: string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

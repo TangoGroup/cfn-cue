@@ -4,8 +4,8 @@ import "github.com/TangoGroup/aws/fn"
 
 CodeStar :: {
 	GitHubRepository :: {
-		Type: "AWS::CodeStar::GitHubRepository"
-		Properties: {
+		Type:       "AWS::CodeStar::GitHubRepository"
+		Properties: close({
 			Code?: close({
 				S3: close({
 					Bucket:         string | fn.Fn
@@ -19,7 +19,7 @@ CodeStar :: {
 			RepositoryDescription?: string | fn.Fn
 			RepositoryName:         string | fn.Fn
 			RepositoryOwner:        string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

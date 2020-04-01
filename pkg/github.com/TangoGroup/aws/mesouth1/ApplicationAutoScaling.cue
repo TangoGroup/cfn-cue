@@ -7,8 +7,8 @@ import (
 
 ApplicationAutoScaling :: {
 	ScalableTarget :: {
-		Type: "AWS::ApplicationAutoScaling::ScalableTarget"
-		Properties: {
+		Type:       "AWS::ApplicationAutoScaling::ScalableTarget"
+		Properties: close({
 			MaxCapacity:       int | fn.Fn
 			MinCapacity:       int | fn.Fn
 			ResourceId:        string | fn.Fn
@@ -30,7 +30,7 @@ ApplicationAutoScaling :: {
 				DynamicScalingOutSuspended?: bool | fn.Fn
 				ScheduledScalingSuspended?:  bool | fn.Fn
 			}) | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -38,8 +38,8 @@ ApplicationAutoScaling :: {
 		Condition?: string
 	}
 	ScalingPolicy :: {
-		Type: "AWS::ApplicationAutoScaling::ScalingPolicy"
-		Properties: {
+		Type:       "AWS::ApplicationAutoScaling::ScalingPolicy"
+		Properties: close({
 			PolicyName:                      string | fn.Fn
 			PolicyType:                      ("StepScaling" | "TargetTrackingScaling") | fn.Fn
 			ResourceId?:                     string | fn.Fn
@@ -77,7 +77,7 @@ ApplicationAutoScaling :: {
 				ScaleOutCooldown?: int | fn.Fn
 				TargetValue:       number | fn.Fn
 			}) | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

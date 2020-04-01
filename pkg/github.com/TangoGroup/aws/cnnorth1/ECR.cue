@@ -4,8 +4,8 @@ import "github.com/TangoGroup/aws/fn"
 
 ECR :: {
 	Repository :: {
-		Type: "AWS::ECR::Repository"
-		Properties: {
+		Type:       "AWS::ECR::Repository"
+		Properties: close({
 			LifecyclePolicy?: close({
 				LifecyclePolicyText?: string | fn.Fn
 				RegistryId?:          string | fn.Fn
@@ -18,7 +18,7 @@ ECR :: {
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			})] | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

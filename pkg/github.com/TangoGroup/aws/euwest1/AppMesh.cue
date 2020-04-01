@@ -4,8 +4,8 @@ import "github.com/TangoGroup/aws/fn"
 
 AppMesh :: {
 	Mesh :: {
-		Type: "AWS::AppMesh::Mesh"
-		Properties: {
+		Type:       "AWS::AppMesh::Mesh"
+		Properties: close({
 			MeshName: string | fn.Fn
 			Spec?:    close({
 				EgressFilter?: close({
@@ -16,7 +16,7 @@ AppMesh :: {
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			})] | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -24,8 +24,8 @@ AppMesh :: {
 		Condition?: string
 	}
 	Route :: {
-		Type: "AWS::AppMesh::Route"
-		Properties: {
+		Type:       "AWS::AppMesh::Route"
+		Properties: close({
 			MeshName:   string | fn.Fn
 			MeshOwner?: string | fn.Fn
 			RouteName:  string | fn.Fn
@@ -153,7 +153,7 @@ AppMesh :: {
 				Value: string | fn.Fn
 			})] | fn.If
 			VirtualRouterName: string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -161,8 +161,8 @@ AppMesh :: {
 		Condition?: string
 	}
 	VirtualNode :: {
-		Type: "AWS::AppMesh::VirtualNode"
-		Properties: {
+		Type:       "AWS::AppMesh::VirtualNode"
+		Properties: close({
 			MeshName:   string | fn.Fn
 			MeshOwner?: string | fn.Fn
 			Spec:       close({
@@ -258,7 +258,7 @@ AppMesh :: {
 				Value: string | fn.Fn
 			})] | fn.If
 			VirtualNodeName: string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -266,8 +266,8 @@ AppMesh :: {
 		Condition?: string
 	}
 	VirtualRouter :: {
-		Type: "AWS::AppMesh::VirtualRouter"
-		Properties: {
+		Type:       "AWS::AppMesh::VirtualRouter"
+		Properties: close({
 			MeshName:   string | fn.Fn
 			MeshOwner?: string | fn.Fn
 			Spec:       close({
@@ -283,7 +283,7 @@ AppMesh :: {
 				Value: string | fn.Fn
 			})] | fn.If
 			VirtualRouterName: string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -291,8 +291,8 @@ AppMesh :: {
 		Condition?: string
 	}
 	VirtualService :: {
-		Type: "AWS::AppMesh::VirtualService"
-		Properties: {
+		Type:       "AWS::AppMesh::VirtualService"
+		Properties: close({
 			MeshName:   string | fn.Fn
 			MeshOwner?: string | fn.Fn
 			Spec:       close({
@@ -310,7 +310,7 @@ AppMesh :: {
 				Value: string | fn.Fn
 			})] | fn.If
 			VirtualServiceName: string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

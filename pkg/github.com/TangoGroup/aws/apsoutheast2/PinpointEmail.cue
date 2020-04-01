@@ -4,8 +4,8 @@ import "github.com/TangoGroup/aws/fn"
 
 PinpointEmail :: {
 	ConfigurationSet :: {
-		Type: "AWS::PinpointEmail::ConfigurationSet"
-		Properties: {
+		Type:       "AWS::PinpointEmail::ConfigurationSet"
+		Properties: close({
 			DeliveryOptions?: close({
 				SendingPoolName?: string | fn.Fn
 			}) | fn.If
@@ -23,7 +23,7 @@ PinpointEmail :: {
 			TrackingOptions?: close({
 				CustomRedirectDomain?: string | fn.Fn
 			}) | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -31,8 +31,8 @@ PinpointEmail :: {
 		Condition?: string
 	}
 	ConfigurationSetEventDestination :: {
-		Type: "AWS::PinpointEmail::ConfigurationSetEventDestination"
-		Properties: {
+		Type:       "AWS::PinpointEmail::ConfigurationSetEventDestination"
+		Properties: close({
 			ConfigurationSetName: string | fn.Fn
 			EventDestination?:    close({
 				CloudWatchDestination?: close({
@@ -56,7 +56,7 @@ PinpointEmail :: {
 				}) | fn.If
 			}) | fn.If
 			EventDestinationName: string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -64,14 +64,14 @@ PinpointEmail :: {
 		Condition?: string
 	}
 	DedicatedIpPool :: {
-		Type: "AWS::PinpointEmail::DedicatedIpPool"
-		Properties: {
+		Type:       "AWS::PinpointEmail::DedicatedIpPool"
+		Properties: close({
 			PoolName?: string | fn.Fn
 			Tags?:     [...close({
 				Key?:   string | fn.Fn
 				Value?: string | fn.Fn
 			})] | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -79,8 +79,8 @@ PinpointEmail :: {
 		Condition?: string
 	}
 	Identity :: {
-		Type: "AWS::PinpointEmail::Identity"
-		Properties: {
+		Type:       "AWS::PinpointEmail::Identity"
+		Properties: close({
 			DkimSigningEnabled?:        bool | fn.Fn
 			FeedbackForwardingEnabled?: bool | fn.Fn
 			MailFromAttributes?:        close({
@@ -92,7 +92,7 @@ PinpointEmail :: {
 				Key?:   string | fn.Fn
 				Value?: string | fn.Fn
 			})] | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

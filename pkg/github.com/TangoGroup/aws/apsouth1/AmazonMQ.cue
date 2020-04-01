@@ -4,8 +4,8 @@ import "github.com/TangoGroup/aws/fn"
 
 AmazonMQ :: {
 	Broker :: {
-		Type: "AWS::AmazonMQ::Broker"
-		Properties: {
+		Type:       "AWS::AmazonMQ::Broker"
+		Properties: close({
 			AutoMinorVersionUpgrade: bool | fn.Fn
 			BrokerName:              string | fn.Fn
 			Configuration?:          close({
@@ -43,7 +43,7 @@ AmazonMQ :: {
 				Password:       string | fn.Fn
 				Username:       string | fn.Fn
 			})] | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -51,8 +51,8 @@ AmazonMQ :: {
 		Condition?: string
 	}
 	Configuration :: {
-		Type: "AWS::AmazonMQ::Configuration"
-		Properties: {
+		Type:       "AWS::AmazonMQ::Configuration"
+		Properties: close({
 			Data:          string | fn.Fn
 			Description?:  string | fn.Fn
 			EngineType:    ("ACTIVEMQ") | fn.Fn
@@ -62,7 +62,7 @@ AmazonMQ :: {
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			})] | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -70,14 +70,14 @@ AmazonMQ :: {
 		Condition?: string
 	}
 	ConfigurationAssociation :: {
-		Type: "AWS::AmazonMQ::ConfigurationAssociation"
-		Properties: {
+		Type:       "AWS::AmazonMQ::ConfigurationAssociation"
+		Properties: close({
 			Broker:        string | fn.Fn
 			Configuration: close({
 				Id:       string | fn.Fn
 				Revision: int | fn.Fn
 			}) | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

@@ -7,8 +7,8 @@ import (
 
 CodeCommit :: {
 	Repository :: {
-		Type: "AWS::CodeCommit::Repository"
-		Properties: {
+		Type:       "AWS::CodeCommit::Repository"
+		Properties: close({
 			Code?: close({
 				S3: close({
 					Bucket:         string | fn.Fn
@@ -29,7 +29,7 @@ CodeCommit :: {
 				Events:         [...(("all" | "createReference" | "deleteReference" | "updateReference") | fn.Fn)] | (("all" | "createReference" | "deleteReference" | "updateReference") | fn.Fn)
 				Name:           string | fn.Fn
 			})] | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

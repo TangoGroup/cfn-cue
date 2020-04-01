@@ -4,8 +4,8 @@ import "github.com/TangoGroup/aws/fn"
 
 EKS :: {
 	Cluster :: {
-		Type: "AWS::EKS::Cluster"
-		Properties: {
+		Type:       "AWS::EKS::Cluster"
+		Properties: close({
 			EncryptionConfig?: [...close({
 				Provider?: close({
 					KeyArn?: string | fn.Fn
@@ -19,7 +19,7 @@ EKS :: {
 			}) | fn.If
 			RoleArn:  string | fn.Fn
 			Version?: string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -27,8 +27,8 @@ EKS :: {
 		Condition?: string
 	}
 	Nodegroup :: {
-		Type: "AWS::EKS::Nodegroup"
-		Properties: {
+		Type:       "AWS::EKS::Nodegroup"
+		Properties: close({
 			AmiType?:            string | fn.Fn
 			ClusterName:         string | fn.Fn
 			DiskSize?:           number | fn.Fn
@@ -54,7 +54,7 @@ EKS :: {
 				[string]: _
 			} | fn.Fn
 			Version?: string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

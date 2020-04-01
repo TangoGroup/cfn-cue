@@ -4,15 +4,15 @@ import "github.com/TangoGroup/aws/fn"
 
 AppConfig :: {
 	Application :: {
-		Type: "AWS::AppConfig::Application"
-		Properties: {
+		Type:       "AWS::AppConfig::Application"
+		Properties: close({
 			Description?: string | fn.Fn
 			Name:         string | fn.Fn
 			Tags?:        [...close({
 				Key?:   string | fn.Fn
 				Value?: string | fn.Fn
 			})] | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -20,8 +20,8 @@ AppConfig :: {
 		Condition?: string
 	}
 	ConfigurationProfile :: {
-		Type: "AWS::AppConfig::ConfigurationProfile"
-		Properties: {
+		Type:       "AWS::AppConfig::ConfigurationProfile"
+		Properties: close({
 			ApplicationId:     string | fn.Fn
 			Description?:      string | fn.Fn
 			LocationUri:       string | fn.Fn
@@ -35,7 +35,7 @@ AppConfig :: {
 				Content?: string | fn.Fn
 				Type?:    string | fn.Fn
 			})] | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -43,8 +43,8 @@ AppConfig :: {
 		Condition?: string
 	}
 	Deployment :: {
-		Type: "AWS::AppConfig::Deployment"
-		Properties: {
+		Type:       "AWS::AppConfig::Deployment"
+		Properties: close({
 			ApplicationId:          string | fn.Fn
 			ConfigurationProfileId: string | fn.Fn
 			ConfigurationVersion:   string | fn.Fn
@@ -55,7 +55,7 @@ AppConfig :: {
 				Key?:   string | fn.Fn
 				Value?: string | fn.Fn
 			})] | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -63,8 +63,8 @@ AppConfig :: {
 		Condition?: string
 	}
 	DeploymentStrategy :: {
-		Type: "AWS::AppConfig::DeploymentStrategy"
-		Properties: {
+		Type:       "AWS::AppConfig::DeploymentStrategy"
+		Properties: close({
 			DeploymentDurationInMinutes: number | fn.Fn
 			Description?:                string | fn.Fn
 			FinalBakeTimeInMinutes?:     number | fn.Fn
@@ -76,7 +76,7 @@ AppConfig :: {
 				Key?:   string | fn.Fn
 				Value?: string | fn.Fn
 			})] | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -84,8 +84,8 @@ AppConfig :: {
 		Condition?: string
 	}
 	Environment :: {
-		Type: "AWS::AppConfig::Environment"
-		Properties: {
+		Type:       "AWS::AppConfig::Environment"
+		Properties: close({
 			ApplicationId: string | fn.Fn
 			Description?:  string | fn.Fn
 			Monitors?:     [...close({
@@ -97,7 +97,7 @@ AppConfig :: {
 				Key?:   string | fn.Fn
 				Value?: string | fn.Fn
 			})] | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

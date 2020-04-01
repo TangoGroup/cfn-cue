@@ -4,11 +4,11 @@ import "github.com/TangoGroup/aws/fn"
 
 KMS :: {
 	Alias :: {
-		Type: "AWS::KMS::Alias"
-		Properties: {
+		Type:       "AWS::KMS::Alias"
+		Properties: close({
 			AliasName:   string | fn.Fn
 			TargetKeyId: string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -16,8 +16,8 @@ KMS :: {
 		Condition?: string
 	}
 	Key :: {
-		Type: "AWS::KMS::Key"
-		Properties: {
+		Type:       "AWS::KMS::Key"
+		Properties: close({
 			Description?:       string | fn.Fn
 			EnableKeyRotation?: bool | fn.Fn
 			Enabled?:           bool | fn.Fn
@@ -30,7 +30,7 @@ KMS :: {
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			})] | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

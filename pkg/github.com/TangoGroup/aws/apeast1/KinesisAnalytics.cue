@@ -4,14 +4,14 @@ import "github.com/TangoGroup/aws/fn"
 
 KinesisAnalytics :: {
 	Application :: {
-		Type: "AWS::KinesisAnalytics::Application"
-		Properties: {
+		Type:       "AWS::KinesisAnalytics::Application"
+		Properties: close({
 			ApplicationCode?:        string | fn.Fn
 			ApplicationDescription?: string | fn.Fn
 			ApplicationName?:        string | fn.Fn
 			Inputs:                  [...close({
 			})] | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -19,12 +19,12 @@ KinesisAnalytics :: {
 		Condition?: string
 	}
 	ApplicationOutput :: {
-		Type: "AWS::KinesisAnalytics::ApplicationOutput"
-		Properties: {
+		Type:       "AWS::KinesisAnalytics::ApplicationOutput"
+		Properties: close({
 			ApplicationName: string | fn.Fn
 			Output:          close({
 			}) | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -32,12 +32,12 @@ KinesisAnalytics :: {
 		Condition?: string
 	}
 	ApplicationReferenceDataSource :: {
-		Type: "AWS::KinesisAnalytics::ApplicationReferenceDataSource"
-		Properties: {
+		Type:       "AWS::KinesisAnalytics::ApplicationReferenceDataSource"
+		Properties: close({
 			ApplicationName:     string | fn.Fn
 			ReferenceDataSource: close({
 			}) | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

@@ -8,8 +8,8 @@ import (
 
 S3 :: {
 	AccessPoint :: {
-		Type: "AWS::S3::AccessPoint"
-		Properties: {
+		Type:       "AWS::S3::AccessPoint"
+		Properties: close({
 			Bucket:         string | fn.Fn
 			CreationDate?:  string | fn.Fn
 			Name?:          string | fn.Fn
@@ -29,7 +29,7 @@ S3 :: {
 			VpcConfiguration?: close({
 				VpcId?: string | fn.Fn
 			}) | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -37,8 +37,8 @@ S3 :: {
 		Condition?: string
 	}
 	Bucket :: {
-		Type: "AWS::S3::Bucket"
-		Properties: {
+		Type:       "AWS::S3::Bucket"
+		Properties: close({
 			AccelerateConfiguration?: close({
 				AccelerationStatus: ("Enabled" | "Suspended") | fn.Fn
 			}) | fn.If
@@ -249,7 +249,7 @@ S3 :: {
 					}) | fn.If
 				})] | fn.If
 			}) | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -257,14 +257,14 @@ S3 :: {
 		Condition?: string
 	}
 	BucketPolicy :: {
-		Type: "AWS::S3::BucketPolicy"
-		Properties: {
+		Type:       "AWS::S3::BucketPolicy"
+		Properties: close({
 			Bucket:         string | fn.Fn
 			PolicyDocument: {
 				[string]: _
 				Version:  string | *"2012-10-17"
 			} | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

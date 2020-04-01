@@ -4,13 +4,13 @@ import "github.com/TangoGroup/aws/fn"
 
 SecretsManager :: {
 	ResourcePolicy :: {
-		Type: "AWS::SecretsManager::ResourcePolicy"
-		Properties: {
+		Type:       "AWS::SecretsManager::ResourcePolicy"
+		Properties: close({
 			ResourcePolicy: {
 				[string]: _
 			} | fn.Fn
 			SecretId: string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -18,13 +18,13 @@ SecretsManager :: {
 		Condition?: string
 	}
 	RotationSchedule :: {
-		Type: "AWS::SecretsManager::RotationSchedule"
-		Properties: {
+		Type:       "AWS::SecretsManager::RotationSchedule"
+		Properties: close({
 			RotationLambdaARN?: string | fn.Fn
 			RotationRules?:     close({
 			}) | fn.If
 			SecretId: string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -32,8 +32,8 @@ SecretsManager :: {
 		Condition?: string
 	}
 	Secret :: {
-		Type: "AWS::SecretsManager::Secret"
-		Properties: {
+		Type:       "AWS::SecretsManager::Secret"
+		Properties: close({
 			Description?:          string | fn.Fn
 			GenerateSecretString?: close({
 			}) | fn.If
@@ -44,7 +44,7 @@ SecretsManager :: {
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			})] | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -52,12 +52,12 @@ SecretsManager :: {
 		Condition?: string
 	}
 	SecretTargetAttachment :: {
-		Type: "AWS::SecretsManager::SecretTargetAttachment"
-		Properties: {
+		Type:       "AWS::SecretsManager::SecretTargetAttachment"
+		Properties: close({
 			SecretId:   string | fn.Fn
 			TargetId:   string | fn.Fn
 			TargetType: string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

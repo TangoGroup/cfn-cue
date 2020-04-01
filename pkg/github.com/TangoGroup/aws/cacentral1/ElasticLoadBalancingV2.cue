@@ -4,8 +4,8 @@ import "github.com/TangoGroup/aws/fn"
 
 ElasticLoadBalancingV2 :: {
 	Listener :: {
-		Type: "AWS::ElasticLoadBalancingV2::Listener"
-		Properties: {
+		Type:       "AWS::ElasticLoadBalancingV2::Listener"
+		Properties: close({
 			Certificates?: [...close({
 				CertificateArn?: string | fn.Fn
 			})] | fn.If
@@ -68,7 +68,7 @@ ElasticLoadBalancingV2 :: {
 			Port:            (>=1 & <=65535) | fn.Fn
 			Protocol:        string | fn.Fn
 			SslPolicy?:      string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -76,13 +76,13 @@ ElasticLoadBalancingV2 :: {
 		Condition?: string
 	}
 	ListenerCertificate :: {
-		Type: "AWS::ElasticLoadBalancingV2::ListenerCertificate"
-		Properties: {
+		Type:       "AWS::ElasticLoadBalancingV2::ListenerCertificate"
+		Properties: close({
 			Certificates: [...close({
 				CertificateArn?: string | fn.Fn
 			})] | fn.If
 			ListenerArn: string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -90,8 +90,8 @@ ElasticLoadBalancingV2 :: {
 		Condition?: string
 	}
 	ListenerRule :: {
-		Type: "AWS::ElasticLoadBalancingV2::ListenerRule"
-		Properties: {
+		Type:       "AWS::ElasticLoadBalancingV2::ListenerRule"
+		Properties: close({
 			Actions: [...close({
 				AuthenticateCognitoConfig?: close({
 					AuthenticationRequestExtraParams?: {
@@ -175,7 +175,7 @@ ElasticLoadBalancingV2 :: {
 			})] | fn.If
 			ListenerArn: string | fn.Fn
 			Priority:    int | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -183,8 +183,8 @@ ElasticLoadBalancingV2 :: {
 		Condition?: string
 	}
 	LoadBalancer :: {
-		Type: "AWS::ElasticLoadBalancingV2::LoadBalancer"
-		Properties: {
+		Type:       "AWS::ElasticLoadBalancingV2::LoadBalancer"
+		Properties: close({
 			IpAddressType?:          string | fn.Fn
 			LoadBalancerAttributes?: [...close({
 				Key?:   string | fn.Fn
@@ -203,7 +203,7 @@ ElasticLoadBalancingV2 :: {
 				Value: string | fn.Fn
 			})] | fn.If
 			Type?: string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -211,8 +211,8 @@ ElasticLoadBalancingV2 :: {
 		Condition?: string
 	}
 	TargetGroup :: {
-		Type: "AWS::ElasticLoadBalancingV2::TargetGroup"
-		Properties: {
+		Type:       "AWS::ElasticLoadBalancingV2::TargetGroup"
+		Properties: close({
 			HealthCheckEnabled?:         bool | fn.Fn
 			HealthCheckIntervalSeconds?: (>=5 & <=300) | fn.Fn
 			HealthCheckPath?:            string | fn.Fn
@@ -242,7 +242,7 @@ ElasticLoadBalancingV2 :: {
 			})] | fn.If
 			UnhealthyThresholdCount?: (>=2 & <=10) | fn.Fn
 			VpcId?:                   string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

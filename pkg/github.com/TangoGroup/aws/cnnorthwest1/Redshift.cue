@@ -4,8 +4,8 @@ import "github.com/TangoGroup/aws/fn"
 
 Redshift :: {
 	Cluster :: {
-		Type: "AWS::Redshift::Cluster"
-		Properties: {
+		Type:       "AWS::Redshift::Cluster"
+		Properties: close({
 			AllowVersionUpgrade?:              bool | fn.Fn
 			AutomatedSnapshotRetentionPeriod?: int | fn.Fn
 			AvailabilityZone?:                 string | fn.Fn
@@ -41,7 +41,7 @@ Redshift :: {
 				Value: string | fn.Fn
 			})] | fn.If
 			VpcSecurityGroupIds?: [...(string | fn.Fn)] | (string | fn.Fn)
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain" | "Snapshot"
 		UpdateReplacePolicy?: "Delete" | "Retain" | "Snapshot"
@@ -49,8 +49,8 @@ Redshift :: {
 		Condition?: string
 	}
 	ClusterParameterGroup :: {
-		Type: "AWS::Redshift::ClusterParameterGroup"
-		Properties: {
+		Type:       "AWS::Redshift::ClusterParameterGroup"
+		Properties: close({
 			Description:          string | fn.Fn
 			ParameterGroupFamily: string | fn.Fn
 			Parameters?:          [...close({
@@ -61,7 +61,7 @@ Redshift :: {
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			})] | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -69,14 +69,14 @@ Redshift :: {
 		Condition?: string
 	}
 	ClusterSecurityGroup :: {
-		Type: "AWS::Redshift::ClusterSecurityGroup"
-		Properties: {
+		Type:       "AWS::Redshift::ClusterSecurityGroup"
+		Properties: close({
 			Description: string | fn.Fn
 			Tags?:       [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			})] | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -84,13 +84,13 @@ Redshift :: {
 		Condition?: string
 	}
 	ClusterSecurityGroupIngress :: {
-		Type: "AWS::Redshift::ClusterSecurityGroupIngress"
-		Properties: {
+		Type:       "AWS::Redshift::ClusterSecurityGroupIngress"
+		Properties: close({
 			CIDRIP?:                  string | fn.Fn
 			ClusterSecurityGroupName: string | fn.Fn
 			EC2SecurityGroupName?:    string | fn.Fn
 			EC2SecurityGroupOwnerId?: string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -98,15 +98,15 @@ Redshift :: {
 		Condition?: string
 	}
 	ClusterSubnetGroup :: {
-		Type: "AWS::Redshift::ClusterSubnetGroup"
-		Properties: {
+		Type:       "AWS::Redshift::ClusterSubnetGroup"
+		Properties: close({
 			Description: string | fn.Fn
 			SubnetIds:   [...(string | fn.Fn)] | (string | fn.Fn)
 			Tags?:       [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			})] | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

@@ -4,8 +4,8 @@ import "github.com/TangoGroup/aws/fn"
 
 IoTAnalytics :: {
 	Channel :: {
-		Type: "AWS::IoTAnalytics::Channel"
-		Properties: {
+		Type:       "AWS::IoTAnalytics::Channel"
+		Properties: close({
 			ChannelName?:    string | fn.Fn
 			ChannelStorage?: close({
 				CustomerManagedS3?: close({
@@ -24,7 +24,7 @@ IoTAnalytics :: {
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			})] | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -32,8 +32,8 @@ IoTAnalytics :: {
 		Condition?: string
 	}
 	Dataset :: {
-		Type: "AWS::IoTAnalytics::Dataset"
-		Properties: {
+		Type:       "AWS::IoTAnalytics::Dataset"
+		Properties: close({
 			Actions: [...close({
 				ActionName:       string | fn.Fn
 				ContainerAction?: close({
@@ -104,7 +104,7 @@ IoTAnalytics :: {
 				MaxVersions?: int | fn.Fn
 				Unlimited?:   bool | fn.Fn
 			}) | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -112,8 +112,8 @@ IoTAnalytics :: {
 		Condition?: string
 	}
 	Datastore :: {
-		Type: "AWS::IoTAnalytics::Datastore"
-		Properties: {
+		Type:       "AWS::IoTAnalytics::Datastore"
+		Properties: close({
 			DatastoreName?:    string | fn.Fn
 			DatastoreStorage?: close({
 				CustomerManagedS3?: close({
@@ -132,7 +132,7 @@ IoTAnalytics :: {
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			})] | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -140,8 +140,8 @@ IoTAnalytics :: {
 		Condition?: string
 	}
 	Pipeline :: {
-		Type: "AWS::IoTAnalytics::Pipeline"
-		Properties: {
+		Type:       "AWS::IoTAnalytics::Pipeline"
+		Properties: close({
 			PipelineActivities: [...close({
 				AddAttributes?: close({
 					Attributes?: {
@@ -206,7 +206,7 @@ IoTAnalytics :: {
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			})] | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

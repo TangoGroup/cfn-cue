@@ -4,8 +4,8 @@ import "github.com/TangoGroup/aws/fn"
 
 AutoScalingPlans :: {
 	ScalingPlan :: {
-		Type: "AWS::AutoScalingPlans::ScalingPlan"
-		Properties: {
+		Type:       "AWS::AutoScalingPlans::ScalingPlan"
+		Properties: close({
 			ApplicationSource: close({
 				CloudFormationStackARN?: string | fn.Fn
 				TagFilters?:             [...close({
@@ -61,7 +61,7 @@ AutoScalingPlans :: {
 					TargetValue:       number | fn.Fn
 				})] | fn.If
 			})] | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

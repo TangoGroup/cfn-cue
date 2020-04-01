@@ -4,15 +4,15 @@ import "github.com/TangoGroup/aws/fn"
 
 SageMaker :: {
 	CodeRepository :: {
-		Type: "AWS::SageMaker::CodeRepository"
-		Properties: {
+		Type:       "AWS::SageMaker::CodeRepository"
+		Properties: close({
 			CodeRepositoryName?: string | fn.Fn
 			GitConfig:           close({
 				Branch?:       string | fn.Fn
 				RepositoryUrl: string | fn.Fn
 				SecretArn?:    string | fn.Fn
 			}) | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -20,8 +20,8 @@ SageMaker :: {
 		Condition?: string
 	}
 	Endpoint :: {
-		Type: "AWS::SageMaker::Endpoint"
-		Properties: {
+		Type:       "AWS::SageMaker::Endpoint"
+		Properties: close({
 			EndpointConfigName:                string | fn.Fn
 			EndpointName?:                     string | fn.Fn
 			ExcludeRetainedVariantProperties?: [...close({
@@ -32,7 +32,7 @@ SageMaker :: {
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			})] | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -40,8 +40,8 @@ SageMaker :: {
 		Condition?: string
 	}
 	EndpointConfig :: {
-		Type: "AWS::SageMaker::EndpointConfig"
-		Properties: {
+		Type:       "AWS::SageMaker::EndpointConfig"
+		Properties: close({
 			EndpointConfigName?: string | fn.Fn
 			KmsKeyId?:           string | fn.Fn
 			ProductionVariants:  [...close({
@@ -56,7 +56,7 @@ SageMaker :: {
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			})] | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -64,8 +64,8 @@ SageMaker :: {
 		Condition?: string
 	}
 	Model :: {
-		Type: "AWS::SageMaker::Model"
-		Properties: {
+		Type:       "AWS::SageMaker::Model"
+		Properties: close({
 			Containers?: [...close({
 				ContainerHostname?: string | fn.Fn
 				Environment?:       {
@@ -94,7 +94,7 @@ SageMaker :: {
 				SecurityGroupIds: [...(string | fn.Fn)] | (string | fn.Fn)
 				Subnets:          [...(string | fn.Fn)] | (string | fn.Fn)
 			}) | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -102,8 +102,8 @@ SageMaker :: {
 		Condition?: string
 	}
 	NotebookInstance :: {
-		Type: "AWS::SageMaker::NotebookInstance"
-		Properties: {
+		Type:       "AWS::SageMaker::NotebookInstance"
+		Properties: close({
 			AcceleratorTypes?:           [...(string | fn.Fn)] | (string | fn.Fn)
 			AdditionalCodeRepositories?: [...(string | fn.Fn)] | (string | fn.Fn)
 			DefaultCodeRepository?:      string | fn.Fn
@@ -121,7 +121,7 @@ SageMaker :: {
 				Value: string | fn.Fn
 			})] | fn.If
 			VolumeSizeInGB?: (>=5 & <=16384) | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -129,8 +129,8 @@ SageMaker :: {
 		Condition?: string
 	}
 	NotebookInstanceLifecycleConfig :: {
-		Type: "AWS::SageMaker::NotebookInstanceLifecycleConfig"
-		Properties: {
+		Type:       "AWS::SageMaker::NotebookInstanceLifecycleConfig"
+		Properties: close({
 			NotebookInstanceLifecycleConfigName?: string | fn.Fn
 			OnCreate?:                            [...close({
 				Content?: string | fn.Fn
@@ -138,7 +138,7 @@ SageMaker :: {
 			OnStart?: [...close({
 				Content?: string | fn.Fn
 			})] | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -146,8 +146,8 @@ SageMaker :: {
 		Condition?: string
 	}
 	Workteam :: {
-		Type: "AWS::SageMaker::Workteam"
-		Properties: {
+		Type:       "AWS::SageMaker::Workteam"
+		Properties: close({
 			Description?:       string | fn.Fn
 			MemberDefinitions?: [...close({
 				CognitoMemberDefinition: close({
@@ -164,7 +164,7 @@ SageMaker :: {
 				Value: string | fn.Fn
 			})] | fn.If
 			WorkteamName?: string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

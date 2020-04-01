@@ -4,8 +4,8 @@ import "github.com/TangoGroup/aws/fn"
 
 CodeBuild :: {
 	Project :: {
-		Type: "AWS::CodeBuild::Project"
-		Properties: {
+		Type:       "AWS::CodeBuild::Project"
+		Properties: close({
 			Artifacts: close({
 				ArtifactIdentifier?:   string | fn.Fn
 				EncryptionDisabled?:   bool | fn.Fn
@@ -130,7 +130,7 @@ CodeBuild :: {
 				Subnets?:          [...(string | fn.Fn)] | (string | fn.Fn)
 				VpcId?:            string | fn.Fn
 			}) | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -138,8 +138,8 @@ CodeBuild :: {
 		Condition?: string
 	}
 	ReportGroup :: {
-		Type: "AWS::CodeBuild::ReportGroup"
-		Properties: {
+		Type:       "AWS::CodeBuild::ReportGroup"
+		Properties: close({
 			ExportConfig: close({
 				ExportConfigType: string | fn.Fn
 				S3Destination?:   close({
@@ -156,7 +156,7 @@ CodeBuild :: {
 				Value: string | fn.Fn
 			})] | fn.If
 			Type: string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -164,13 +164,13 @@ CodeBuild :: {
 		Condition?: string
 	}
 	SourceCredential :: {
-		Type: "AWS::CodeBuild::SourceCredential"
-		Properties: {
+		Type:       "AWS::CodeBuild::SourceCredential"
+		Properties: close({
 			AuthType:   string | fn.Fn
 			ServerType: string | fn.Fn
 			Token:      string | fn.Fn
 			Username?:  string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

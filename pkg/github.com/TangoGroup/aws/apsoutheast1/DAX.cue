@@ -4,8 +4,8 @@ import "github.com/TangoGroup/aws/fn"
 
 DAX :: {
 	Cluster :: {
-		Type: "AWS::DAX::Cluster"
-		Properties: {
+		Type:       "AWS::DAX::Cluster"
+		Properties: close({
 			AvailabilityZones?:          [...(string | fn.Fn)] | (string | fn.Fn)
 			ClusterName?:                string | fn.Fn
 			Description?:                string | fn.Fn
@@ -22,7 +22,7 @@ DAX :: {
 			Tags?:             {
 				[string]: _
 			} | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -30,14 +30,14 @@ DAX :: {
 		Condition?: string
 	}
 	ParameterGroup :: {
-		Type: "AWS::DAX::ParameterGroup"
-		Properties: {
+		Type:       "AWS::DAX::ParameterGroup"
+		Properties: close({
 			Description?:         string | fn.Fn
 			ParameterGroupName?:  string | fn.Fn
 			ParameterNameValues?: {
 				[string]: _
 			} | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -45,12 +45,12 @@ DAX :: {
 		Condition?: string
 	}
 	SubnetGroup :: {
-		Type: "AWS::DAX::SubnetGroup"
-		Properties: {
+		Type:       "AWS::DAX::SubnetGroup"
+		Properties: close({
 			Description?:     string | fn.Fn
 			SubnetGroupName?: string | fn.Fn
 			SubnetIds:        [...(string | fn.Fn)] | (string | fn.Fn)
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

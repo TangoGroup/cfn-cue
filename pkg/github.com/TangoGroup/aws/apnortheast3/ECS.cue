@@ -4,8 +4,8 @@ import "github.com/TangoGroup/aws/fn"
 
 ECS :: {
 	Cluster :: {
-		Type: "AWS::ECS::Cluster"
-		Properties: {
+		Type:       "AWS::ECS::Cluster"
+		Properties: close({
 			ClusterName?:     string | fn.Fn
 			ClusterSettings?: [...close({
 				Name:  string | fn.Fn
@@ -15,7 +15,7 @@ ECS :: {
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			})] | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -23,8 +23,8 @@ ECS :: {
 		Condition?: string
 	}
 	Service :: {
-		Type: "AWS::ECS::Service"
-		Properties: {
+		Type:       "AWS::ECS::Service"
+		Properties: close({
 			Cluster?:                 string | fn.Fn
 			DeploymentConfiguration?: close({
 				MaximumPercent?:        int | fn.Fn
@@ -74,7 +74,7 @@ ECS :: {
 				Value: string | fn.Fn
 			})] | fn.If
 			TaskDefinition?: string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -82,8 +82,8 @@ ECS :: {
 		Condition?: string
 	}
 	TaskDefinition :: {
-		Type: "AWS::ECS::TaskDefinition"
-		Properties: {
+		Type:       "AWS::ECS::TaskDefinition"
+		Properties: close({
 			ContainerDefinitions?: [...close({
 				Command?:   [...(string | fn.Fn)] | (string | fn.Fn)
 				Cpu?:       int | fn.Fn
@@ -247,7 +247,7 @@ ECS :: {
 				}) | fn.If
 				Name?: string | fn.Fn
 			})] | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

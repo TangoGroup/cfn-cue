@@ -4,8 +4,8 @@ import "github.com/TangoGroup/aws/fn"
 
 EMR :: {
 	Cluster :: {
-		Type: "AWS::EMR::Cluster"
-		Properties: {
+		Type:       "AWS::EMR::Cluster"
+		Properties: close({
 			AdditionalInfo?: {
 				[string]: _
 			} | fn.Fn
@@ -282,7 +282,7 @@ EMR :: {
 				Value: string | fn.Fn
 			})] | fn.If
 			VisibleToAllUsers?: bool | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -290,8 +290,8 @@ EMR :: {
 		Condition?: string
 	}
 	InstanceFleetConfig :: {
-		Type: "AWS::EMR::InstanceFleetConfig"
-		Properties: {
+		Type:       "AWS::EMR::InstanceFleetConfig"
+		Properties: close({
 			ClusterId:            string | fn.Fn
 			InstanceFleetType:    string | fn.Fn
 			InstanceTypeConfigs?: [...close({
@@ -330,7 +330,7 @@ EMR :: {
 			Name?:                   string | fn.Fn
 			TargetOnDemandCapacity?: int | fn.Fn
 			TargetSpotCapacity?:     int | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -338,8 +338,8 @@ EMR :: {
 		Condition?: string
 	}
 	InstanceGroupConfig :: {
-		Type: "AWS::EMR::InstanceGroupConfig"
-		Properties: {
+		Type:       "AWS::EMR::InstanceGroupConfig"
+		Properties: close({
 			AutoScalingPolicy?: close({
 				Constraints: close({
 					MaxCapacity: int | fn.Fn
@@ -401,7 +401,7 @@ EMR :: {
 			JobFlowId:     string | fn.Fn
 			Market?:       string | fn.Fn
 			Name?:         string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -409,13 +409,13 @@ EMR :: {
 		Condition?: string
 	}
 	SecurityConfiguration :: {
-		Type: "AWS::EMR::SecurityConfiguration"
-		Properties: {
+		Type:       "AWS::EMR::SecurityConfiguration"
+		Properties: close({
 			Name?:                 string | fn.Fn
 			SecurityConfiguration: {
 				[string]: _
 			} | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -423,8 +423,8 @@ EMR :: {
 		Condition?: string
 	}
 	Step :: {
-		Type: "AWS::EMR::Step"
-		Properties: {
+		Type:       "AWS::EMR::Step"
+		Properties: close({
 			ActionOnFailure: string | fn.Fn
 			HadoopJarStep:   close({
 				Args?:           [...(string | fn.Fn)] | (string | fn.Fn)
@@ -437,7 +437,7 @@ EMR :: {
 			}) | fn.If
 			JobFlowId: string | fn.Fn
 			Name:      string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

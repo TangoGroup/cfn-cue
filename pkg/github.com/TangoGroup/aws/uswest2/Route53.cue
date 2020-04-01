@@ -4,8 +4,8 @@ import "github.com/TangoGroup/aws/fn"
 
 Route53 :: {
 	HealthCheck :: {
-		Type: "AWS::Route53::HealthCheck"
-		Properties: {
+		Type:       "AWS::Route53::HealthCheck"
+		Properties: close({
 			HealthCheckConfig: close({
 				AlarmIdentifier?: close({
 					Name:   string | fn.Fn
@@ -31,7 +31,7 @@ Route53 :: {
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			})] | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -39,8 +39,8 @@ Route53 :: {
 		Condition?: string
 	}
 	HostedZone :: {
-		Type: "AWS::Route53::HostedZone"
-		Properties: {
+		Type:       "AWS::Route53::HostedZone"
+		Properties: close({
 			HostedZoneConfig?: close({
 				Comment?: string | fn.Fn
 			}) | fn.If
@@ -56,7 +56,7 @@ Route53 :: {
 				VPCId:     string | fn.Fn
 				VPCRegion: string | fn.Fn
 			})] | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -64,8 +64,8 @@ Route53 :: {
 		Condition?: string
 	}
 	RecordSet :: {
-		Type: "AWS::Route53::RecordSet"
-		Properties: {
+		Type:       "AWS::Route53::RecordSet"
+		Properties: close({
 			AliasTarget?: close({
 				DNSName:               string | fn.Fn
 				EvaluateTargetHealth?: bool | fn.Fn
@@ -89,7 +89,7 @@ Route53 :: {
 			TTL?:              int | fn.Fn
 			Type:              ("A" | "AAAA" | "CAA" | "CNAME" | "MX" | "NAPTR" | "NS" | "PTR" | "SOA" | "SPF" | "SRV" | "TXT") | fn.Fn
 			Weight?:           int | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -97,8 +97,8 @@ Route53 :: {
 		Condition?: string
 	}
 	RecordSetGroup :: {
-		Type: "AWS::Route53::RecordSetGroup"
-		Properties: {
+		Type:       "AWS::Route53::RecordSetGroup"
+		Properties: close({
 			Comment?:        string | fn.Fn
 			HostedZoneId?:   string | fn.Fn
 			HostedZoneName?: string | fn.Fn
@@ -127,7 +127,7 @@ Route53 :: {
 				Type:              ("A" | "AAAA" | "CAA" | "CNAME" | "MX" | "NAPTR" | "NS" | "PTR" | "SOA" | "SPF" | "SRV" | "TXT") | fn.Fn
 				Weight?:           int | fn.Fn
 			})] | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

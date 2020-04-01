@@ -4,8 +4,8 @@ import "github.com/TangoGroup/aws/fn"
 
 Elasticsearch :: {
 	Domain :: {
-		Type: "AWS::Elasticsearch::Domain"
-		Properties: {
+		Type:       "AWS::Elasticsearch::Domain"
+		Properties: close({
 			AccessPolicies?: {
 				[string]: _
 			} | fn.Fn
@@ -61,7 +61,7 @@ Elasticsearch :: {
 				SecurityGroupIds?: [...(string | fn.Fn)] | (string | fn.Fn)
 				SubnetIds?:        [...(string | fn.Fn)] | (string | fn.Fn)
 			}) | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

@@ -4,8 +4,8 @@ import "github.com/TangoGroup/aws/fn"
 
 SageMaker :: {
 	NotebookInstance :: {
-		Type: "AWS::SageMaker::NotebookInstance"
-		Properties: {
+		Type:       "AWS::SageMaker::NotebookInstance"
+		Properties: close({
 			AcceleratorTypes?:           [...(string | fn.Fn)] | (string | fn.Fn)
 			AdditionalCodeRepositories?: [...(string | fn.Fn)] | (string | fn.Fn)
 			DefaultCodeRepository?:      string | fn.Fn
@@ -23,7 +23,7 @@ SageMaker :: {
 				Value: string | fn.Fn
 			})] | fn.If
 			VolumeSizeInGB?: (>=5 & <=16384) | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

@@ -4,8 +4,8 @@ import "github.com/TangoGroup/aws/fn"
 
 SNS :: {
 	Subscription :: {
-		Type: "AWS::SNS::Subscription"
-		Properties: {
+		Type:       "AWS::SNS::Subscription"
+		Properties: close({
 			DeliveryPolicy?: {
 				[string]: _
 			} | fn.Fn
@@ -20,7 +20,7 @@ SNS :: {
 			} | fn.Fn
 			Region?:  string | fn.Fn
 			TopicArn: string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -28,8 +28,8 @@ SNS :: {
 		Condition?: string
 	}
 	Topic :: {
-		Type: "AWS::SNS::Topic"
-		Properties: {
+		Type:       "AWS::SNS::Topic"
+		Properties: close({
 			DisplayName?:    string | fn.Fn
 			KmsMasterKeyId?: string | fn.Fn
 			Subscription?:   [...close({
@@ -41,7 +41,7 @@ SNS :: {
 				Value: string | fn.Fn
 			})] | fn.If
 			TopicName?: string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -49,14 +49,14 @@ SNS :: {
 		Condition?: string
 	}
 	TopicPolicy :: {
-		Type: "AWS::SNS::TopicPolicy"
-		Properties: {
+		Type:       "AWS::SNS::TopicPolicy"
+		Properties: close({
 			PolicyDocument: {
 				[string]: _
 				Version:  string | *"2012-10-17"
 			} | fn.Fn
 			Topics: [...(string | fn.Fn)] | (string | fn.Fn)
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

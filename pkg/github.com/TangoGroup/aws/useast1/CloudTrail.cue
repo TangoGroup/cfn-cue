@@ -4,8 +4,8 @@ import "github.com/TangoGroup/aws/fn"
 
 CloudTrail :: {
 	Trail :: {
-		Type: "AWS::CloudTrail::Trail"
-		Properties: {
+		Type:       "AWS::CloudTrail::Trail"
+		Properties: close({
 			CloudWatchLogsLogGroupArn?: string | fn.Fn
 			CloudWatchLogsRoleArn?:     string | fn.Fn
 			EnableLogFileValidation?:   bool | fn.Fn
@@ -29,7 +29,7 @@ CloudTrail :: {
 				Value: string | fn.Fn
 			})] | fn.If
 			TrailName?: string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

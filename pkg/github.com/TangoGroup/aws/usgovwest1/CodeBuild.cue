@@ -4,8 +4,8 @@ import "github.com/TangoGroup/aws/fn"
 
 CodeBuild :: {
 	Project :: {
-		Type: "AWS::CodeBuild::Project"
-		Properties: {
+		Type:       "AWS::CodeBuild::Project"
+		Properties: close({
 			Artifacts: close({
 				ArtifactIdentifier?:   string | fn.Fn
 				EncryptionDisabled?:   bool | fn.Fn
@@ -123,7 +123,7 @@ CodeBuild :: {
 				Subnets?:          [...(string | fn.Fn)] | (string | fn.Fn)
 				VpcId?:            string | fn.Fn
 			}) | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

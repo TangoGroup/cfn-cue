@@ -983,7 +983,7 @@ func main() {
 				importStrings = mergeMaps(importStrings, resourceImports)
 				propertiesStruct := &ast.Field{
 					Label: ast.NewIdent("Properties"),
-					Value: &properties,
+					Value: ast.NewCall(ast.NewIdent("close"), &properties),
 				}
 				resourceType := resourceType(resourceName)
 				resourceElts := []ast.Decl{

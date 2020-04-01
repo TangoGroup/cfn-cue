@@ -4,8 +4,8 @@ import "github.com/TangoGroup/aws/fn"
 
 DLM :: {
 	LifecyclePolicy :: {
-		Type: "AWS::DLM::LifecyclePolicy"
-		Properties: {
+		Type:       "AWS::DLM::LifecyclePolicy"
+		Properties: close({
 			Description?:     string | fn.Fn
 			ExecutionRoleArn: string | fn.Fn
 			PolicyDetails?:   close({
@@ -58,7 +58,7 @@ DLM :: {
 				})] | fn.If
 			}) | fn.If
 			State: ("DISABLED" | "ENABLED") | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

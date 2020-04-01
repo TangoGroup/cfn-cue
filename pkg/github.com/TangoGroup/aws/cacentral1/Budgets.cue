@@ -4,8 +4,8 @@ import "github.com/TangoGroup/aws/fn"
 
 Budgets :: {
 	Budget :: {
-		Type: "AWS::Budgets::Budget"
-		Properties: {
+		Type:       "AWS::Budgets::Budget"
+		Properties: close({
 			Budget: close({
 				BudgetLimit?: close({
 					Amount: number | fn.Fn
@@ -50,7 +50,7 @@ Budgets :: {
 					SubscriptionType: ("EMAIL" | "SNS") | fn.Fn
 				})] | fn.If
 			})] | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

@@ -4,13 +4,13 @@ import "github.com/TangoGroup/aws/fn"
 
 RoboMaker :: {
 	Fleet :: {
-		Type: "AWS::RoboMaker::Fleet"
-		Properties: {
+		Type:       "AWS::RoboMaker::Fleet"
+		Properties: close({
 			Name?: string | fn.Fn
 			Tags?: {
 				[string]: _
 			} | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -18,8 +18,8 @@ RoboMaker :: {
 		Condition?: string
 	}
 	Robot :: {
-		Type: "AWS::RoboMaker::Robot"
-		Properties: {
+		Type:       "AWS::RoboMaker::Robot"
+		Properties: close({
 			Architecture:      string | fn.Fn
 			Fleet?:            string | fn.Fn
 			GreengrassGroupId: string | fn.Fn
@@ -27,7 +27,7 @@ RoboMaker :: {
 			Tags?:             {
 				[string]: _
 			} | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -35,8 +35,8 @@ RoboMaker :: {
 		Condition?: string
 	}
 	RobotApplication :: {
-		Type: "AWS::RoboMaker::RobotApplication"
-		Properties: {
+		Type:       "AWS::RoboMaker::RobotApplication"
+		Properties: close({
 			CurrentRevisionId?: string | fn.Fn
 			Name?:              string | fn.Fn
 			RobotSoftwareSuite: close({
@@ -51,7 +51,7 @@ RoboMaker :: {
 			Tags?: {
 				[string]: _
 			} | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -59,11 +59,11 @@ RoboMaker :: {
 		Condition?: string
 	}
 	RobotApplicationVersion :: {
-		Type: "AWS::RoboMaker::RobotApplicationVersion"
-		Properties: {
+		Type:       "AWS::RoboMaker::RobotApplicationVersion"
+		Properties: close({
 			Application:        string | fn.Fn
 			CurrentRevisionId?: string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -71,8 +71,8 @@ RoboMaker :: {
 		Condition?: string
 	}
 	SimulationApplication :: {
-		Type: "AWS::RoboMaker::SimulationApplication"
-		Properties: {
+		Type:       "AWS::RoboMaker::SimulationApplication"
+		Properties: close({
 			CurrentRevisionId?: string | fn.Fn
 			Name?:              string | fn.Fn
 			RenderingEngine:    close({
@@ -95,7 +95,7 @@ RoboMaker :: {
 			Tags?: {
 				[string]: _
 			} | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -103,11 +103,11 @@ RoboMaker :: {
 		Condition?: string
 	}
 	SimulationApplicationVersion :: {
-		Type: "AWS::RoboMaker::SimulationApplicationVersion"
-		Properties: {
+		Type:       "AWS::RoboMaker::SimulationApplicationVersion"
+		Properties: close({
 			Application:        string | fn.Fn
 			CurrentRevisionId?: string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

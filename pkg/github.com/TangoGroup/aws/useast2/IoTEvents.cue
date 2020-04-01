@@ -4,8 +4,8 @@ import "github.com/TangoGroup/aws/fn"
 
 IoTEvents :: {
 	DetectorModel :: {
-		Type: "AWS::IoTEvents::DetectorModel"
-		Properties: {
+		Type:       "AWS::IoTEvents::DetectorModel"
+		Properties: close({
 			DetectorModelDefinition?: close({
 				InitialStateName?: string | fn.Fn
 				States?:           [...close({
@@ -188,7 +188,7 @@ IoTEvents :: {
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			})] | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -196,8 +196,8 @@ IoTEvents :: {
 		Condition?: string
 	}
 	Input :: {
-		Type: "AWS::IoTEvents::Input"
-		Properties: {
+		Type:       "AWS::IoTEvents::Input"
+		Properties: close({
 			InputDefinition?: close({
 				Attributes?: [...close({
 					JsonPath?: string | fn.Fn
@@ -209,7 +209,7 @@ IoTEvents :: {
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			})] | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

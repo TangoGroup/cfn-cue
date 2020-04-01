@@ -4,11 +4,11 @@ import "github.com/TangoGroup/aws/fn"
 
 Events :: {
 	EventBus :: {
-		Type: "AWS::Events::EventBus"
-		Properties: {
+		Type:       "AWS::Events::EventBus"
+		Properties: close({
 			EventSourceName?: string | fn.Fn
 			Name:             string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -16,8 +16,8 @@ Events :: {
 		Condition?: string
 	}
 	EventBusPolicy :: {
-		Type: "AWS::Events::EventBusPolicy"
-		Properties: {
+		Type:       "AWS::Events::EventBusPolicy"
+		Properties: close({
 			Action:     ("events:PutEvents") | fn.Fn
 			Condition?: close({
 				Key?:   ("aws:PrincipalOrgID") | fn.Fn
@@ -27,7 +27,7 @@ Events :: {
 			EventBusName?: string | fn.Fn
 			Principal:     string | fn.Fn
 			StatementId:   string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -35,8 +35,8 @@ Events :: {
 		Condition?: string
 	}
 	Rule :: {
-		Type: "AWS::Events::Rule"
-		Properties: {
+		Type:       "AWS::Events::Rule"
+		Properties: close({
 			Description?:  string | fn.Fn
 			EventBusName?: string | fn.Fn
 			EventPattern?: {
@@ -95,7 +95,7 @@ Events :: {
 					MessageGroupId: string | fn.Fn
 				}) | fn.If
 			})] | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

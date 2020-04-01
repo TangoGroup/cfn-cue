@@ -4,10 +4,12 @@ import "github.com/TangoGroup/aws/fn"
 
 CloudFront :: {
 	CloudFrontOriginAccessIdentity :: {
-		Type: "AWS::CloudFront::CloudFrontOriginAccessIdentity"
-		Properties: CloudFrontOriginAccessIdentityConfig: close({
-			Comment: string | fn.Fn
-		}) | fn.If
+		Type:       "AWS::CloudFront::CloudFrontOriginAccessIdentity"
+		Properties: close({
+			CloudFrontOriginAccessIdentityConfig: close({
+				Comment: string | fn.Fn
+			}) | fn.If
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -15,8 +17,8 @@ CloudFront :: {
 		Condition?: string
 	}
 	Distribution :: {
-		Type: "AWS::CloudFront::Distribution"
-		Properties: {
+		Type:       "AWS::CloudFront::Distribution"
+		Properties: close({
 			DistributionConfig: close({
 				Aliases?:        [...(string | fn.Fn)] | (string | fn.Fn)
 				CacheBehaviors?: [...close({
@@ -148,7 +150,7 @@ CloudFront :: {
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			})] | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -156,8 +158,8 @@ CloudFront :: {
 		Condition?: string
 	}
 	StreamingDistribution :: {
-		Type: "AWS::CloudFront::StreamingDistribution"
-		Properties: {
+		Type:       "AWS::CloudFront::StreamingDistribution"
+		Properties: close({
 			StreamingDistributionConfig: close({
 				Aliases?: [...(string | fn.Fn)] | (string | fn.Fn)
 				Comment:  string | fn.Fn
@@ -181,7 +183,7 @@ CloudFront :: {
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			})] | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

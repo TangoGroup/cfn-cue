@@ -4,8 +4,8 @@ import "github.com/TangoGroup/aws/fn"
 
 ASK :: {
 	Skill :: {
-		Type: "Alexa::ASK::Skill"
-		Properties: {
+		Type:       "Alexa::ASK::Skill"
+		Properties: close({
 			AuthenticationConfiguration: close({
 				ClientId:     string | fn.Fn
 				ClientSecret: string | fn.Fn
@@ -23,7 +23,7 @@ ASK :: {
 				S3ObjectVersion?: string | fn.Fn
 			}) | fn.If
 			VendorId: string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

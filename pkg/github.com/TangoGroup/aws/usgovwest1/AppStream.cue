@@ -4,15 +4,15 @@ import "github.com/TangoGroup/aws/fn"
 
 AppStream :: {
 	DirectoryConfig :: {
-		Type: "AWS::AppStream::DirectoryConfig"
-		Properties: {
+		Type:       "AWS::AppStream::DirectoryConfig"
+		Properties: close({
 			DirectoryName:                        string | fn.Fn
 			OrganizationalUnitDistinguishedNames: [...(string | fn.Fn)] | (string | fn.Fn)
 			ServiceAccountCredentials:            close({
 				AccountName:     string | fn.Fn
 				AccountPassword: string | fn.Fn
 			}) | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -20,8 +20,8 @@ AppStream :: {
 		Condition?: string
 	}
 	Fleet :: {
-		Type: "AWS::AppStream::Fleet"
-		Properties: {
+		Type:       "AWS::AppStream::Fleet"
+		Properties: close({
 			ComputeCapacity: close({
 				DesiredInstances: int | fn.Fn
 			}) | fn.If
@@ -48,7 +48,7 @@ AppStream :: {
 				SecurityGroupIds?: [...(string | fn.Fn)] | (string | fn.Fn)
 				SubnetIds?:        [...(string | fn.Fn)] | (string | fn.Fn)
 			}) | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -56,8 +56,8 @@ AppStream :: {
 		Condition?: string
 	}
 	ImageBuilder :: {
-		Type: "AWS::AppStream::ImageBuilder"
-		Properties: {
+		Type:       "AWS::AppStream::ImageBuilder"
+		Properties: close({
 			AccessEndpoints?: [...close({
 				EndpointType: string | fn.Fn
 				VpceId:       string | fn.Fn
@@ -82,7 +82,7 @@ AppStream :: {
 				SecurityGroupIds?: [...(string | fn.Fn)] | (string | fn.Fn)
 				SubnetIds?:        [...(string | fn.Fn)] | (string | fn.Fn)
 			}) | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -90,8 +90,8 @@ AppStream :: {
 		Condition?: string
 	}
 	Stack :: {
-		Type: "AWS::AppStream::Stack"
-		Properties: {
+		Type:       "AWS::AppStream::Stack"
+		Properties: close({
 			AccessEndpoints?: [...close({
 				EndpointType: string | fn.Fn
 				VpceId:       string | fn.Fn
@@ -121,7 +121,7 @@ AppStream :: {
 				Action:     string | fn.Fn
 				Permission: string | fn.Fn
 			})] | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -129,11 +129,11 @@ AppStream :: {
 		Condition?: string
 	}
 	StackFleetAssociation :: {
-		Type: "AWS::AppStream::StackFleetAssociation"
-		Properties: {
+		Type:       "AWS::AppStream::StackFleetAssociation"
+		Properties: close({
 			FleetName: string | fn.Fn
 			StackName: string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

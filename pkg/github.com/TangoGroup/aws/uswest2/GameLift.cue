@@ -4,8 +4,8 @@ import "github.com/TangoGroup/aws/fn"
 
 GameLift :: {
 	Alias :: {
-		Type: "AWS::GameLift::Alias"
-		Properties: {
+		Type:       "AWS::GameLift::Alias"
+		Properties: close({
 			Description?:    string | fn.Fn
 			Name:            string | fn.Fn
 			RoutingStrategy: close({
@@ -13,7 +13,7 @@ GameLift :: {
 				Message?: string | fn.Fn
 				Type:     string | fn.Fn
 			}) | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -21,8 +21,8 @@ GameLift :: {
 		Condition?: string
 	}
 	Build :: {
-		Type: "AWS::GameLift::Build"
-		Properties: {
+		Type:       "AWS::GameLift::Build"
+		Properties: close({
 			Name?:            string | fn.Fn
 			OperatingSystem?: string | fn.Fn
 			StorageLocation?: close({
@@ -32,7 +32,7 @@ GameLift :: {
 				RoleArn:        string | fn.Fn
 			}) | fn.If
 			Version?: string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -40,8 +40,8 @@ GameLift :: {
 		Condition?: string
 	}
 	Fleet :: {
-		Type: "AWS::GameLift::Fleet"
-		Properties: {
+		Type:       "AWS::GameLift::Fleet"
+		Properties: close({
 			BuildId?:                  string | fn.Fn
 			CertificateConfiguration?: close({
 				CertificateType: string | fn.Fn
@@ -81,7 +81,7 @@ GameLift :: {
 			ScriptId?:               string | fn.Fn
 			ServerLaunchParameters?: string | fn.Fn
 			ServerLaunchPath?:       string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -89,8 +89,8 @@ GameLift :: {
 		Condition?: string
 	}
 	GameSessionQueue :: {
-		Type: "AWS::GameLift::GameSessionQueue"
-		Properties: {
+		Type:       "AWS::GameLift::GameSessionQueue"
+		Properties: close({
 			Destinations?: [...close({
 				DestinationArn?: string | fn.Fn
 			})] | fn.If
@@ -100,7 +100,7 @@ GameLift :: {
 				PolicyDurationSeconds?:                      int | fn.Fn
 			})] | fn.If
 			TimeoutInSeconds?: int | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -108,8 +108,8 @@ GameLift :: {
 		Condition?: string
 	}
 	MatchmakingConfiguration :: {
-		Type: "AWS::GameLift::MatchmakingConfiguration"
-		Properties: {
+		Type:       "AWS::GameLift::MatchmakingConfiguration"
+		Properties: close({
 			AcceptanceRequired:        bool | fn.Fn
 			AcceptanceTimeoutSeconds?: int | fn.Fn
 			AdditionalPlayerCount?:    int | fn.Fn
@@ -126,7 +126,7 @@ GameLift :: {
 			NotificationTarget?:   string | fn.Fn
 			RequestTimeoutSeconds: int | fn.Fn
 			RuleSetName:           string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -134,11 +134,11 @@ GameLift :: {
 		Condition?: string
 	}
 	MatchmakingRuleSet :: {
-		Type: "AWS::GameLift::MatchmakingRuleSet"
-		Properties: {
+		Type:       "AWS::GameLift::MatchmakingRuleSet"
+		Properties: close({
 			Name:        string | fn.Fn
 			RuleSetBody: string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -146,8 +146,8 @@ GameLift :: {
 		Condition?: string
 	}
 	Script :: {
-		Type: "AWS::GameLift::Script"
-		Properties: {
+		Type:       "AWS::GameLift::Script"
+		Properties: close({
 			Name?:           string | fn.Fn
 			StorageLocation: close({
 				Bucket:         string | fn.Fn
@@ -156,7 +156,7 @@ GameLift :: {
 				RoleArn:        string | fn.Fn
 			}) | fn.If
 			Version?: string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

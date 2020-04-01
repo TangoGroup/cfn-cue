@@ -4,11 +4,11 @@ import "github.com/TangoGroup/aws/fn"
 
 ServiceCatalog :: {
 	AcceptedPortfolioShare :: {
-		Type: "AWS::ServiceCatalog::AcceptedPortfolioShare"
-		Properties: {
+		Type:       "AWS::ServiceCatalog::AcceptedPortfolioShare"
+		Properties: close({
 			AcceptLanguage?: string | fn.Fn
 			PortfolioId:     string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -16,8 +16,8 @@ ServiceCatalog :: {
 		Condition?: string
 	}
 	CloudFormationProduct :: {
-		Type: "AWS::ServiceCatalog::CloudFormationProduct"
-		Properties: {
+		Type:       "AWS::ServiceCatalog::CloudFormationProduct"
+		Properties: close({
 			AcceptLanguage?:                string | fn.Fn
 			Description?:                   string | fn.Fn
 			Distributor?:                   string | fn.Fn
@@ -32,7 +32,7 @@ ServiceCatalog :: {
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			})] | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -40,8 +40,8 @@ ServiceCatalog :: {
 		Condition?: string
 	}
 	CloudFormationProvisionedProduct :: {
-		Type: "AWS::ServiceCatalog::CloudFormationProvisionedProduct"
-		Properties: {
+		Type:       "AWS::ServiceCatalog::CloudFormationProvisionedProduct"
+		Properties: close({
 			AcceptLanguage?:           string | fn.Fn
 			NotificationArns?:         [...(string | fn.Fn)] | (string | fn.Fn)
 			PathId?:                   string | fn.Fn
@@ -58,7 +58,7 @@ ServiceCatalog :: {
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			})] | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -66,14 +66,14 @@ ServiceCatalog :: {
 		Condition?: string
 	}
 	LaunchNotificationConstraint :: {
-		Type: "AWS::ServiceCatalog::LaunchNotificationConstraint"
-		Properties: {
+		Type:       "AWS::ServiceCatalog::LaunchNotificationConstraint"
+		Properties: close({
 			AcceptLanguage?:  string | fn.Fn
 			Description?:     string | fn.Fn
 			NotificationArns: [...(string | fn.Fn)] | (string | fn.Fn)
 			PortfolioId:      string | fn.Fn
 			ProductId:        string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -81,15 +81,15 @@ ServiceCatalog :: {
 		Condition?: string
 	}
 	LaunchRoleConstraint :: {
-		Type: "AWS::ServiceCatalog::LaunchRoleConstraint"
-		Properties: {
+		Type:       "AWS::ServiceCatalog::LaunchRoleConstraint"
+		Properties: close({
 			AcceptLanguage?: string | fn.Fn
 			Description?:    string | fn.Fn
 			LocalRoleName?:  string | fn.Fn
 			PortfolioId:     string | fn.Fn
 			ProductId:       string | fn.Fn
 			RoleArn?:        string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -97,14 +97,14 @@ ServiceCatalog :: {
 		Condition?: string
 	}
 	LaunchTemplateConstraint :: {
-		Type: "AWS::ServiceCatalog::LaunchTemplateConstraint"
-		Properties: {
+		Type:       "AWS::ServiceCatalog::LaunchTemplateConstraint"
+		Properties: close({
 			AcceptLanguage?: string | fn.Fn
 			Description?:    string | fn.Fn
 			PortfolioId:     string | fn.Fn
 			ProductId:       string | fn.Fn
 			Rules:           string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -112,8 +112,8 @@ ServiceCatalog :: {
 		Condition?: string
 	}
 	Portfolio :: {
-		Type: "AWS::ServiceCatalog::Portfolio"
-		Properties: {
+		Type:       "AWS::ServiceCatalog::Portfolio"
+		Properties: close({
 			AcceptLanguage?: string | fn.Fn
 			Description?:    string | fn.Fn
 			DisplayName:     string | fn.Fn
@@ -122,7 +122,7 @@ ServiceCatalog :: {
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			})] | fn.If
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -130,13 +130,13 @@ ServiceCatalog :: {
 		Condition?: string
 	}
 	PortfolioPrincipalAssociation :: {
-		Type: "AWS::ServiceCatalog::PortfolioPrincipalAssociation"
-		Properties: {
+		Type:       "AWS::ServiceCatalog::PortfolioPrincipalAssociation"
+		Properties: close({
 			AcceptLanguage?: string | fn.Fn
 			PortfolioId:     string | fn.Fn
 			PrincipalARN:    string | fn.Fn
 			PrincipalType:   string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -144,13 +144,13 @@ ServiceCatalog :: {
 		Condition?: string
 	}
 	PortfolioProductAssociation :: {
-		Type: "AWS::ServiceCatalog::PortfolioProductAssociation"
-		Properties: {
+		Type:       "AWS::ServiceCatalog::PortfolioProductAssociation"
+		Properties: close({
 			AcceptLanguage?:    string | fn.Fn
 			PortfolioId:        string | fn.Fn
 			ProductId:          string | fn.Fn
 			SourcePortfolioId?: string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -158,12 +158,12 @@ ServiceCatalog :: {
 		Condition?: string
 	}
 	PortfolioShare :: {
-		Type: "AWS::ServiceCatalog::PortfolioShare"
-		Properties: {
+		Type:       "AWS::ServiceCatalog::PortfolioShare"
+		Properties: close({
 			AcceptLanguage?: string | fn.Fn
 			AccountId:       string | fn.Fn
 			PortfolioId:     string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -171,14 +171,14 @@ ServiceCatalog :: {
 		Condition?: string
 	}
 	ResourceUpdateConstraint :: {
-		Type: "AWS::ServiceCatalog::ResourceUpdateConstraint"
-		Properties: {
+		Type:       "AWS::ServiceCatalog::ResourceUpdateConstraint"
+		Properties: close({
 			AcceptLanguage?:               string | fn.Fn
 			Description?:                  string | fn.Fn
 			PortfolioId:                   string | fn.Fn
 			ProductId:                     string | fn.Fn
 			TagUpdateOnProvisionedProduct: string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -186,8 +186,8 @@ ServiceCatalog :: {
 		Condition?: string
 	}
 	StackSetConstraint :: {
-		Type: "AWS::ServiceCatalog::StackSetConstraint"
-		Properties: {
+		Type:       "AWS::ServiceCatalog::StackSetConstraint"
+		Properties: close({
 			AcceptLanguage?:      string | fn.Fn
 			AccountList:          [...(string | fn.Fn)] | (string | fn.Fn)
 			AdminRole:            string | fn.Fn
@@ -197,7 +197,7 @@ ServiceCatalog :: {
 			ProductId:            string | fn.Fn
 			RegionList:           [...(string | fn.Fn)] | (string | fn.Fn)
 			StackInstanceControl: string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -205,12 +205,12 @@ ServiceCatalog :: {
 		Condition?: string
 	}
 	TagOption :: {
-		Type: "AWS::ServiceCatalog::TagOption"
-		Properties: {
+		Type:       "AWS::ServiceCatalog::TagOption"
+		Properties: close({
 			Active?: bool | fn.Fn
 			Key:     string | fn.Fn
 			Value:   string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -218,11 +218,11 @@ ServiceCatalog :: {
 		Condition?: string
 	}
 	TagOptionAssociation :: {
-		Type: "AWS::ServiceCatalog::TagOptionAssociation"
-		Properties: {
+		Type:       "AWS::ServiceCatalog::TagOptionAssociation"
+		Properties: close({
 			ResourceId:  string | fn.Fn
 			TagOptionId: string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
