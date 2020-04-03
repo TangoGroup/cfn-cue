@@ -60,7 +60,7 @@ Batch :: {
 						Permissions?:   [...(string | fn.Fn)] | (string | fn.Fn)
 					})] | fn.If
 				}) | fn.If
-				Memory:       int | fn.Fn
+				Memory?:      int | fn.Fn
 				MountPoints?: [...close({
 					ContainerPath?: string | fn.Fn
 					ReadOnly?:      bool | fn.Fn
@@ -78,7 +78,7 @@ Batch :: {
 					SoftLimit: int | fn.Fn
 				})] | fn.If
 				User?:    string | fn.Fn
-				Vcpus:    int | fn.Fn
+				Vcpus?:   int | fn.Fn
 				Volumes?: [...close({
 					Host?: close({
 						SourcePath?: string | fn.Fn
@@ -106,7 +106,7 @@ Batch :: {
 								Permissions?:   [...(string | fn.Fn)] | (string | fn.Fn)
 							})] | fn.If
 						}) | fn.If
-						Memory:       int | fn.Fn
+						Memory?:      int | fn.Fn
 						MountPoints?: [...close({
 							ContainerPath?: string | fn.Fn
 							ReadOnly?:      bool | fn.Fn
@@ -124,7 +124,7 @@ Batch :: {
 							SoftLimit: int | fn.Fn
 						})] | fn.If
 						User?:    string | fn.Fn
-						Vcpus:    int | fn.Fn
+						Vcpus?:   int | fn.Fn
 						Volumes?: [...close({
 							Host?: close({
 								SourcePath?: string | fn.Fn

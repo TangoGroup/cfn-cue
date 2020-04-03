@@ -56,25 +56,46 @@ EC2 :: {
 					AvailabilityZone?: string | fn.Fn
 					InstanceType?:     string | fn.Fn
 					MaxPrice?:         string | fn.Fn
+					Placement?:        close({
+						Affinity?:             string | fn.Fn
+						AvailabilityZone?:     string | fn.Fn
+						GroupName?:            string | fn.Fn
+						HostId?:               string | fn.Fn
+						HostResourceGroupArn?: string | fn.Fn
+						PartitionNumber?:      int | fn.Fn
+						SpreadDomain?:         string | fn.Fn
+						Tenancy?:              string | fn.Fn
+					}) | fn.If
 					Priority?:         number | fn.Fn
 					SubnetId?:         string | fn.Fn
 					WeightedCapacity?: number | fn.Fn
 				})] | fn.If
 			})] | fn.If
 			OnDemandOptions?: close({
-				AllocationStrategy?: ("lowest-price" | "prioritized") | fn.Fn
+				AllocationStrategy?:         ("lowest-price" | "prioritized") | fn.Fn
+				CapacityReservationOptions?: close({
+					UsageStrategy?: string | fn.Fn
+				}) | fn.If
+				MaxTotalPrice?:          string | fn.Fn
+				MinTargetCapacity?:      int | fn.Fn
+				SingleAvailabilityZone?: bool | fn.Fn
+				SingleInstanceType?:     bool | fn.Fn
 			}) | fn.If
 			ReplaceUnhealthyInstances?: bool | fn.Fn
 			SpotOptions?:               close({
 				AllocationStrategy?:           ("capacityOptimized" | "diversified" | "lowestPrice") | fn.Fn
 				InstanceInterruptionBehavior?: ("hibernate" | "stop" | "terminate") | fn.Fn
 				InstancePoolsToUseCount?:      int | fn.Fn
+				MaxTotalPrice?:                string | fn.Fn
+				MinTargetCapacity?:            int | fn.Fn
+				SingleAvailabilityZone?:       bool | fn.Fn
+				SingleInstanceType?:           bool | fn.Fn
 			}) | fn.If
 			TagSpecifications?: [...close({
 				ResourceType?: string | fn.Fn
 				Tags?:         [...close({
-					Key?:   string | fn.Fn
-					Value?: string | fn.Fn
+					Key:   string | fn.Fn
+					Value: string | fn.Fn
 				})] | fn.If
 			})] | fn.If
 			TargetCapacitySpecification: close({

@@ -56,25 +56,46 @@ EC2 :: {
 					AvailabilityZone?: string | fn.Fn
 					InstanceType?:     ("c5.12xlarge" | "c5.18xlarge" | "c5.24xlarge" | "c5.2xlarge" | "c5.4xlarge" | "c5.9xlarge" | "c5.large" | "c5.metal" | "c5.xlarge" | "c5d.18xlarge" | "c5d.2xlarge" | "c5d.4xlarge" | "c5d.9xlarge" | "c5d.large" | "c5d.xlarge" | "c5n.18xlarge" | "c5n.2xlarge" | "c5n.4xlarge" | "c5n.9xlarge" | "c5n.large" | "c5n.metal" | "c5n.xlarge" | "d2.2xlarge" | "d2.4xlarge" | "d2.8xlarge" | "d2.xlarge" | "i3.16xlarge" | "i3.2xlarge" | "i3.4xlarge" | "i3.8xlarge" | "i3.large" | "i3.metal" | "i3.xlarge" | "i3en.12xlarge" | "i3en.24xlarge" | "i3en.2xlarge" | "i3en.3xlarge" | "i3en.6xlarge" | "i3en.large" | "i3en.metal" | "i3en.xlarge" | "m5.12xlarge" | "m5.16xlarge" | "m5.24xlarge" | "m5.2xlarge" | "m5.4xlarge" | "m5.8xlarge" | "m5.large" | "m5.metal" | "m5.xlarge" | "m5a.12xlarge" | "m5a.16xlarge" | "m5a.24xlarge" | "m5a.2xlarge" | "m5a.4xlarge" | "m5a.8xlarge" | "m5a.large" | "m5a.xlarge" | "m5d.12xlarge" | "m5d.16xlarge" | "m5d.24xlarge" | "m5d.2xlarge" | "m5d.4xlarge" | "m5d.8xlarge" | "m5d.large" | "m5d.metal" | "m5d.xlarge" | "p3dn.24xlarge" | "r5.12xlarge" | "r5.16xlarge" | "r5.24xlarge" | "r5.2xlarge" | "r5.4xlarge" | "r5.8xlarge" | "r5.large" | "r5.metal" | "r5.xlarge" | "r5a.12xlarge" | "r5a.16xlarge" | "r5a.24xlarge" | "r5a.2xlarge" | "r5a.4xlarge" | "r5a.8xlarge" | "r5a.large" | "r5a.xlarge" | "r5d.12xlarge" | "r5d.16xlarge" | "r5d.24xlarge" | "r5d.2xlarge" | "r5d.4xlarge" | "r5d.8xlarge" | "r5d.large" | "r5d.metal" | "r5d.xlarge" | "t3.2xlarge" | "t3.large" | "t3.medium" | "t3.micro" | "t3.nano" | "t3.small" | "t3.xlarge" | "t3a.2xlarge" | "t3a.large" | "t3a.medium" | "t3a.micro" | "t3a.nano" | "t3a.small" | "t3a.xlarge" | "u-12tb1.metal" | "u-18tb1.metal" | "u-24tb1.metal" | "u-6tb1.metal" | "u-9tb1.metal" | "x1.16xlarge" | "x1.32xlarge" | "x1e.16xlarge" | "x1e.2xlarge" | "x1e.32xlarge" | "x1e.4xlarge" | "x1e.8xlarge" | "x1e.xlarge") | fn.Fn
 					MaxPrice?:         string | fn.Fn
+					Placement?:        close({
+						Affinity?:             string | fn.Fn
+						AvailabilityZone?:     string | fn.Fn
+						GroupName?:            string | fn.Fn
+						HostId?:               string | fn.Fn
+						HostResourceGroupArn?: string | fn.Fn
+						PartitionNumber?:      int | fn.Fn
+						SpreadDomain?:         string | fn.Fn
+						Tenancy?:              string | fn.Fn
+					}) | fn.If
 					Priority?:         number | fn.Fn
 					SubnetId?:         string | fn.Fn
 					WeightedCapacity?: number | fn.Fn
 				})] | fn.If
 			})] | fn.If
 			OnDemandOptions?: close({
-				AllocationStrategy?: ("lowest-price" | "prioritized") | fn.Fn
+				AllocationStrategy?:         ("lowest-price" | "prioritized") | fn.Fn
+				CapacityReservationOptions?: close({
+					UsageStrategy?: string | fn.Fn
+				}) | fn.If
+				MaxTotalPrice?:          string | fn.Fn
+				MinTargetCapacity?:      int | fn.Fn
+				SingleAvailabilityZone?: bool | fn.Fn
+				SingleInstanceType?:     bool | fn.Fn
 			}) | fn.If
 			ReplaceUnhealthyInstances?: bool | fn.Fn
 			SpotOptions?:               close({
 				AllocationStrategy?:           ("capacityOptimized" | "diversified" | "lowestPrice") | fn.Fn
 				InstanceInterruptionBehavior?: ("hibernate" | "stop" | "terminate") | fn.Fn
 				InstancePoolsToUseCount?:      int | fn.Fn
+				MaxTotalPrice?:                string | fn.Fn
+				MinTargetCapacity?:            int | fn.Fn
+				SingleAvailabilityZone?:       bool | fn.Fn
+				SingleInstanceType?:           bool | fn.Fn
 			}) | fn.If
 			TagSpecifications?: [...close({
 				ResourceType?: string | fn.Fn
 				Tags?:         [...close({
-					Key?:   string | fn.Fn
-					Value?: string | fn.Fn
+					Key:   string | fn.Fn
+					Value: string | fn.Fn
 				})] | fn.If
 			})] | fn.If
 			TargetCapacitySpecification: close({

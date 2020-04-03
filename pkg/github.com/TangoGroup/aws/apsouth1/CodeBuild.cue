@@ -151,7 +151,11 @@ CodeBuild :: {
 				}) | fn.If
 			}) | fn.If
 			Name?: string | fn.Fn
-			Type:  string | fn.Fn
+			Tags?: [...close({
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
+			})] | fn.If
+			Type: string | fn.Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

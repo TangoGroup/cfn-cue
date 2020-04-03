@@ -56,25 +56,46 @@ EC2 :: {
 					AvailabilityZone?: string | fn.Fn
 					InstanceType?:     ("c3.2xlarge" | "c3.4xlarge" | "c3.8xlarge" | "c3.large" | "c3.xlarge" | "c4.2xlarge" | "c4.4xlarge" | "c4.8xlarge" | "c4.large" | "c4.xlarge" | "c5.18xlarge" | "c5.2xlarge" | "c5.4xlarge" | "c5.9xlarge" | "c5.large" | "c5.xlarge" | "c5d.18xlarge" | "c5d.2xlarge" | "c5d.4xlarge" | "c5d.9xlarge" | "c5d.large" | "c5d.xlarge" | "d2.2xlarge" | "d2.4xlarge" | "d2.8xlarge" | "d2.xlarge" | "i3.16xlarge" | "i3.2xlarge" | "i3.4xlarge" | "i3.8xlarge" | "i3.large" | "i3.xlarge" | "m3.2xlarge" | "m3.large" | "m3.medium" | "m3.xlarge" | "m4.10xlarge" | "m4.16xlarge" | "m4.2xlarge" | "m4.4xlarge" | "m4.large" | "m4.xlarge" | "m5.12xlarge" | "m5.16xlarge" | "m5.24xlarge" | "m5.2xlarge" | "m5.4xlarge" | "m5.8xlarge" | "m5.large" | "m5.metal" | "m5.xlarge" | "m5d.12xlarge" | "m5d.16xlarge" | "m5d.24xlarge" | "m5d.2xlarge" | "m5d.4xlarge" | "m5d.8xlarge" | "m5d.large" | "m5d.metal" | "m5d.xlarge" | "r3.2xlarge" | "r3.4xlarge" | "r3.8xlarge" | "r3.large" | "r3.xlarge" | "r4.16xlarge" | "r4.2xlarge" | "r4.4xlarge" | "r4.8xlarge" | "r4.large" | "r4.xlarge" | "r5.12xlarge" | "r5.16xlarge" | "r5.24xlarge" | "r5.2xlarge" | "r5.4xlarge" | "r5.8xlarge" | "r5.large" | "r5.metal" | "r5.xlarge" | "r5d.12xlarge" | "r5d.16xlarge" | "r5d.24xlarge" | "r5d.2xlarge" | "r5d.4xlarge" | "r5d.8xlarge" | "r5d.large" | "r5d.metal" | "r5d.xlarge" | "t2.2xlarge" | "t2.large" | "t2.medium" | "t2.micro" | "t2.nano" | "t2.small" | "t2.xlarge" | "t3.2xlarge" | "t3.large" | "t3.medium" | "t3.micro" | "t3.nano" | "t3.small" | "t3.xlarge") | fn.Fn
 					MaxPrice?:         string | fn.Fn
+					Placement?:        close({
+						Affinity?:             string | fn.Fn
+						AvailabilityZone?:     string | fn.Fn
+						GroupName?:            string | fn.Fn
+						HostId?:               string | fn.Fn
+						HostResourceGroupArn?: string | fn.Fn
+						PartitionNumber?:      int | fn.Fn
+						SpreadDomain?:         string | fn.Fn
+						Tenancy?:              string | fn.Fn
+					}) | fn.If
 					Priority?:         number | fn.Fn
 					SubnetId?:         string | fn.Fn
 					WeightedCapacity?: number | fn.Fn
 				})] | fn.If
 			})] | fn.If
 			OnDemandOptions?: close({
-				AllocationStrategy?: ("lowest-price" | "prioritized") | fn.Fn
+				AllocationStrategy?:         ("lowest-price" | "prioritized") | fn.Fn
+				CapacityReservationOptions?: close({
+					UsageStrategy?: string | fn.Fn
+				}) | fn.If
+				MaxTotalPrice?:          string | fn.Fn
+				MinTargetCapacity?:      int | fn.Fn
+				SingleAvailabilityZone?: bool | fn.Fn
+				SingleInstanceType?:     bool | fn.Fn
 			}) | fn.If
 			ReplaceUnhealthyInstances?: bool | fn.Fn
 			SpotOptions?:               close({
 				AllocationStrategy?:           ("capacityOptimized" | "diversified" | "lowestPrice") | fn.Fn
 				InstanceInterruptionBehavior?: ("hibernate" | "stop" | "terminate") | fn.Fn
 				InstancePoolsToUseCount?:      int | fn.Fn
+				MaxTotalPrice?:                string | fn.Fn
+				MinTargetCapacity?:            int | fn.Fn
+				SingleAvailabilityZone?:       bool | fn.Fn
+				SingleInstanceType?:           bool | fn.Fn
 			}) | fn.If
 			TagSpecifications?: [...close({
 				ResourceType?: string | fn.Fn
 				Tags?:         [...close({
-					Key?:   string | fn.Fn
-					Value?: string | fn.Fn
+					Key:   string | fn.Fn
+					Value: string | fn.Fn
 				})] | fn.If
 			})] | fn.If
 			TargetCapacitySpecification: close({
