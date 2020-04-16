@@ -30,7 +30,6 @@ Stack :: {
 		Key: string & !~"^aws:" & strings.MaxLength(128)
 		Value: string & strings.MaxLength(256	)
 	}]
-	TemplateBody: string
-	TemplateURL: string
+	{TemplateBody: string} | {TemplateURL: string}
 	TimeoutInMinutes: int
 }
