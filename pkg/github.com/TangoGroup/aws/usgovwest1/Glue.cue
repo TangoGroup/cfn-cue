@@ -100,6 +100,7 @@ Glue :: {
 			NumberOfNodes?:         int | fn.Fn
 			NumberOfWorkers?:       int | fn.Fn
 			PublicKey?:             string | fn.Fn
+			PublicKeys?:            [...(string | fn.Fn)] | (string | fn.Fn)
 			RoleArn:                string | fn.Fn
 			SecurityConfiguration?: string | fn.Fn
 			SecurityGroupIds?:      [...(string | fn.Fn)] | (string | fn.Fn)
@@ -158,11 +159,14 @@ Glue :: {
 			GlueVersion?:      string | fn.Fn
 			InputRecordTables: close({
 			}) | fn.If
-			MaxCapacity?:        number | fn.Fn
-			MaxRetries?:         int | fn.Fn
-			Name?:               string | fn.Fn
-			NumberOfWorkers?:    int | fn.Fn
-			Role:                string | fn.Fn
+			MaxCapacity?:     number | fn.Fn
+			MaxRetries?:      int | fn.Fn
+			Name?:            string | fn.Fn
+			NumberOfWorkers?: int | fn.Fn
+			Role:             string | fn.Fn
+			Tags?:            {
+				[string]: _
+			} | fn.Fn
 			Timeout?:            int | fn.Fn
 			TransformParameters: close({
 			}) | fn.If

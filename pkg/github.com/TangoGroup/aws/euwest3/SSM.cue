@@ -163,7 +163,6 @@ SSM :: {
 		Type:       "AWS::SSM::Parameter"
 		Properties: close({
 			AllowedPattern?: string | fn.Fn
-			DataType?:       string | fn.Fn
 			Description?:    string | fn.Fn
 			Name?:           string | fn.Fn
 			Policies?:       string | fn.Fn

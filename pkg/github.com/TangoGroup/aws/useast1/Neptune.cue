@@ -60,7 +60,7 @@ Neptune :: {
 			AutoMinorVersionUpgrade?:    bool | fn.Fn
 			AvailabilityZone?:           string | fn.Fn
 			DBClusterIdentifier?:        string | fn.Fn
-			DBInstanceClass:             ("db.r4.2xlarge" | "db.r4.4xlarge" | "db.r4.8xlarge" | "db.r4.large" | "db.r4.xlarge" | "db.r5.12xl" | "db.r5.2xl" | "db.r5.4xl" | "db.r5.8xl" | "db.r5.large" | "db.r5.xl") | fn.Fn
+			DBInstanceClass:             ("db.r4.2xlarge" | "db.r4.4xlarge" | "db.r4.8xlarge" | "db.r4.large" | "db.r4.xlarge" | "db.r5.12xl" | "db.r5.2xl" | "db.r5.4xl" | "db.r5.8xl" | "db.r5.large" | "db.r5.xl" | "db.t3.medium") | fn.Fn
 			DBInstanceIdentifier?:       string | fn.Fn
 			DBParameterGroupName?:       string | fn.Fn
 			DBSnapshotIdentifier?:       string | fn.Fn

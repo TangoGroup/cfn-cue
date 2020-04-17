@@ -651,7 +651,7 @@ EC2 :: {
 			SecurityGroupEgress?: [...close({
 				CidrIp?:                     (=~#"^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(/([0-9]|[1-2][0-9]|3[0-2]))$"#) | fn.Fn
 				CidrIpv6?:                   string | fn.Fn
-				Description?:                string | fn.Fn
+				Description?:                (strings.MinRunes(0) & strings.MaxRunes(255) & (=~#"^([a-z,A-Z,0-9,. _\-:/()#,@[\]+=&;\{\}!$*])*$"#)) | fn.Fn
 				DestinationPrefixListId?:    string | fn.Fn
 				DestinationSecurityGroupId?: string | fn.Fn
 				FromPort?:                   int | fn.Fn
@@ -661,7 +661,7 @@ EC2 :: {
 			SecurityGroupIngress?: [...close({
 				CidrIp?:                     (=~#"^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(/([0-9]|[1-2][0-9]|3[0-2]))$"#) | fn.Fn
 				CidrIpv6?:                   string | fn.Fn
-				Description?:                string | fn.Fn
+				Description?:                (strings.MinRunes(0) & strings.MaxRunes(255) & (=~#"^([a-z,A-Z,0-9,. _\-:/()#,@[\]+=&;\{\}!$*])*$"#)) | fn.Fn
 				FromPort?:                   int | fn.Fn
 				IpProtocol:                  string | fn.Fn
 				SourcePrefixListId?:         string | fn.Fn
@@ -885,6 +885,86 @@ EC2 :: {
 		Properties: close({
 			RouteTableId: string | fn.Fn
 			SubnetId:     string | fn.Fn
+		})
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+		Condition?: string
+	}
+	TrafficMirrorFilter :: {
+		Type:       "AWS::EC2::TrafficMirrorFilter"
+		Properties: close({
+			Description?:     string | fn.Fn
+			NetworkServices?: [...(string | fn.Fn)] | (string | fn.Fn)
+			Tags?:            [...close({
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
+			})] | fn.If
+		})
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+		Condition?: string
+	}
+	TrafficMirrorFilterRule :: {
+		Type:       "AWS::EC2::TrafficMirrorFilterRule"
+		Properties: close({
+			Description?:          string | fn.Fn
+			DestinationCidrBlock:  string | fn.Fn
+			DestinationPortRange?: close({
+				FromPort: int | fn.Fn
+				ToPort:   int | fn.Fn
+			}) | fn.If
+			Protocol?:        int | fn.Fn
+			RuleAction:       string | fn.Fn
+			RuleNumber:       int | fn.Fn
+			SourceCidrBlock:  string | fn.Fn
+			SourcePortRange?: close({
+				FromPort: int | fn.Fn
+				ToPort:   int | fn.Fn
+			}) | fn.If
+			TrafficDirection:      string | fn.Fn
+			TrafficMirrorFilterId: string | fn.Fn
+		})
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+		Condition?: string
+	}
+	TrafficMirrorSession :: {
+		Type:       "AWS::EC2::TrafficMirrorSession"
+		Properties: close({
+			Description?:       string | fn.Fn
+			NetworkInterfaceId: string | fn.Fn
+			PacketLength?:      int | fn.Fn
+			SessionNumber:      int | fn.Fn
+			Tags?:              [...close({
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
+			})] | fn.If
+			TrafficMirrorFilterId: string | fn.Fn
+			TrafficMirrorTargetId: string | fn.Fn
+			VirtualNetworkId?:     int | fn.Fn
+		})
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+		Condition?: string
+	}
+	TrafficMirrorTarget :: {
+		Type:       "AWS::EC2::TrafficMirrorTarget"
+		Properties: close({
+			Description?:            string | fn.Fn
+			NetworkInterfaceId?:     string | fn.Fn
+			NetworkLoadBalancerArn?: string | fn.Fn
+			Tags?:                   [...close({
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
+			})] | fn.If
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

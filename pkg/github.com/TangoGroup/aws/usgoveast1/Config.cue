@@ -3,6 +3,22 @@ package usgoveast1
 import "github.com/TangoGroup/aws/fn"
 
 Config :: {
+	AggregationAuthorization :: {
+		Type:       "AWS::Config::AggregationAuthorization"
+		Properties: close({
+			AuthorizedAccountId: string | fn.Fn
+			AuthorizedAwsRegion: ("ap-northeast-1" | "ap-northeast-2" | "ap-northeast-3" | "ap-south-1" | "ap-southeast-1" | "ap-southeast-2" | "ca-central-1" | "eu-central-1" | "eu-north-1" | "eu-west-1" | "eu-west-2" | "eu-west-3" | "sa-east-1" | "us-east-1" | "us-east-2" | "us-gov-east-1" | "us-gov-west-1" | "us-west-1" | "us-west-2") | fn.Fn
+			Tags?:               [...close({
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
+			})] | fn.If
+		})
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+		Condition?: string
+	}
 	ConfigRule :: {
 		Type:       "AWS::Config::ConfigRule"
 		Properties: close({
@@ -27,6 +43,31 @@ Config :: {
 				})] | fn.If
 				SourceIdentifier: string | fn.Fn
 			}) | fn.If
+		})
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+		Condition?: string
+	}
+	ConfigurationAggregator :: {
+		Type:       "AWS::Config::ConfigurationAggregator"
+		Properties: close({
+			AccountAggregationSources?: [...close({
+				AccountIds:     [...(string | fn.Fn)] | (string | fn.Fn)
+				AllAwsRegions?: bool | fn.Fn
+				AwsRegions?:    [...(string | fn.Fn)] | (string | fn.Fn)
+			})] | fn.If
+			ConfigurationAggregatorName:    string | fn.Fn
+			OrganizationAggregationSource?: close({
+				AllAwsRegions?: bool | fn.Fn
+				AwsRegions?:    [...(string | fn.Fn)] | (string | fn.Fn)
+				RoleArn:        string | fn.Fn
+			}) | fn.If
+			Tags?: [...close({
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
+			})] | fn.If
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

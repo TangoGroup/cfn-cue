@@ -732,7 +732,7 @@ EC2 :: {
 			SecurityGroupEgress?: [...close({
 				CidrIp?:                     (=~#"^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(/([0-9]|[1-2][0-9]|3[0-2]))$"#) | fn.Fn
 				CidrIpv6?:                   string | fn.Fn
-				Description?:                string | fn.Fn
+				Description?:                (strings.MinRunes(0) & strings.MaxRunes(255) & (=~#"^([a-z,A-Z,0-9,. _\-:/()#,@[\]+=&;\{\}!$*])*$"#)) | fn.Fn
 				DestinationPrefixListId?:    string | fn.Fn
 				DestinationSecurityGroupId?: string | fn.Fn
 				FromPort?:                   int | fn.Fn
@@ -742,7 +742,7 @@ EC2 :: {
 			SecurityGroupIngress?: [...close({
 				CidrIp?:                     (=~#"^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(/([0-9]|[1-2][0-9]|3[0-2]))$"#) | fn.Fn
 				CidrIpv6?:                   string | fn.Fn
-				Description?:                string | fn.Fn
+				Description?:                (strings.MinRunes(0) & strings.MaxRunes(255) & (=~#"^([a-z,A-Z,0-9,. _\-:/()#,@[\]+=&;\{\}!$*])*$"#)) | fn.Fn
 				FromPort?:                   int | fn.Fn
 				IpProtocol:                  string | fn.Fn
 				SourcePrefixListId?:         string | fn.Fn

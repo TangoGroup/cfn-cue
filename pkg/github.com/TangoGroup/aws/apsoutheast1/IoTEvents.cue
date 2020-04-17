@@ -32,8 +32,9 @@ IoTEvents :: {
 									TimerName?: string | fn.Fn
 								}) | fn.If
 								SetTimer?: close({
-									Seconds?:   int | fn.Fn
-									TimerName?: string | fn.Fn
+									DurationExpression?: string | fn.Fn
+									Seconds?:            int | fn.Fn
+									TimerName?:          string | fn.Fn
 								}) | fn.If
 								SetVariable?: close({
 									Value?:        string | fn.Fn
@@ -74,8 +75,9 @@ IoTEvents :: {
 									TimerName?: string | fn.Fn
 								}) | fn.If
 								SetTimer?: close({
-									Seconds?:   int | fn.Fn
-									TimerName?: string | fn.Fn
+									DurationExpression?: string | fn.Fn
+									Seconds?:            int | fn.Fn
+									TimerName?:          string | fn.Fn
 								}) | fn.If
 								SetVariable?: close({
 									Value?:        string | fn.Fn
@@ -116,8 +118,9 @@ IoTEvents :: {
 									TimerName?: string | fn.Fn
 								}) | fn.If
 								SetTimer?: close({
-									Seconds?:   int | fn.Fn
-									TimerName?: string | fn.Fn
+									DurationExpression?: string | fn.Fn
+									Seconds?:            int | fn.Fn
+									TimerName?:          string | fn.Fn
 								}) | fn.If
 								SetVariable?: close({
 									Value?:        string | fn.Fn
@@ -156,8 +159,9 @@ IoTEvents :: {
 									TimerName?: string | fn.Fn
 								}) | fn.If
 								SetTimer?: close({
-									Seconds?:   int | fn.Fn
-									TimerName?: string | fn.Fn
+									DurationExpression?: string | fn.Fn
+									Seconds?:            int | fn.Fn
+									TimerName?:          string | fn.Fn
 								}) | fn.If
 								SetVariable?: close({
 									Value?:        string | fn.Fn

@@ -93,6 +93,10 @@ KinesisAnalyticsV2 :: {
 			ApplicationName?:        string | fn.Fn
 			RuntimeEnvironment:      ("FLINK-1_6" | "FLINK-1_8" | "SQL-1_0") | fn.Fn
 			ServiceExecutionRole:    string | fn.Fn
+			Tags?:                   [...close({
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
+			})] | fn.If
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

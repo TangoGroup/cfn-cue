@@ -11,6 +11,7 @@ DocDB :: {
 			DBClusterIdentifier?:         string | fn.Fn
 			DBClusterParameterGroupName?: string | fn.Fn
 			DBSubnetGroupName?:           string | fn.Fn
+			DeletionProtection?:          bool | fn.Fn
 			EnableCloudwatchLogsExports?: [...(string | fn.Fn)] | (string | fn.Fn)
 			EngineVersion?:               ("3.6.0") | fn.Fn
 			KmsKeyId?:                    string | fn.Fn
