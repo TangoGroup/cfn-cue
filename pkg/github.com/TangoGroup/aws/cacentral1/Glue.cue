@@ -37,6 +37,31 @@ Glue :: {
 		Metadata?: [string]: _
 		Condition?: string
 	}
+	Connection :: {
+		Type:       "AWS::Glue::Connection"
+		Properties: close({
+			CatalogId:       string | fn.Fn
+			ConnectionInput: close({
+				ConnectionProperties: {
+					[string]: _
+				} | fn.Fn
+				ConnectionType:                  ("JDBC" | "SFTP") | fn.Fn
+				Description?:                    string | fn.Fn
+				MatchCriteria?:                  [...(string | fn.Fn)] | (string | fn.Fn)
+				Name?:                           string | fn.Fn
+				PhysicalConnectionRequirements?: close({
+					AvailabilityZone?:    string | fn.Fn
+					SecurityGroupIdList?: [...(string | fn.Fn)] | (string | fn.Fn)
+					SubnetId?:            string | fn.Fn
+				}) | fn.If
+			}) | fn.If
+		})
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+		Condition?: string
+	}
 	Crawler :: {
 		Type:       "AWS::Glue::Crawler"
 		Properties: close({
@@ -104,6 +129,25 @@ Glue :: {
 		Metadata?: [string]: _
 		Condition?: string
 	}
+	Database :: {
+		Type:       "AWS::Glue::Database"
+		Properties: close({
+			CatalogId:     string | fn.Fn
+			DatabaseInput: close({
+				Description?: string | fn.Fn
+				LocationUri?: string | fn.Fn
+				Name?:        string | fn.Fn
+				Parameters?:  {
+					[string]: _
+				} | fn.Fn
+			}) | fn.If
+		})
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+		Condition?: string
+	}
 	DevEndpoint :: {
 		Type:       "AWS::Glue::DevEndpoint"
 		Properties: close({
@@ -117,6 +161,7 @@ Glue :: {
 			NumberOfNodes?:         int | fn.Fn
 			NumberOfWorkers?:       int | fn.Fn
 			PublicKey?:             string | fn.Fn
+			PublicKeys?:            [...(string | fn.Fn)] | (string | fn.Fn)
 			RoleArn:                string | fn.Fn
 			SecurityConfiguration?: string | fn.Fn
 			SecurityGroupIds?:      [...(string | fn.Fn)] | (string | fn.Fn)
@@ -187,11 +232,14 @@ Glue :: {
 					TableName:       string | fn.Fn
 				})] | fn.If
 			}) | fn.If
-			MaxCapacity?:        (>=1 & <=100) | fn.Fn
-			MaxRetries?:         int | fn.Fn
-			Name?:               string | fn.Fn
-			NumberOfWorkers?:    int | fn.Fn
-			Role:                string | fn.Fn
+			MaxCapacity?:     (>=1 & <=100) | fn.Fn
+			MaxRetries?:      int | fn.Fn
+			Name?:            string | fn.Fn
+			NumberOfWorkers?: int | fn.Fn
+			Role:             string | fn.Fn
+			Tags?:            {
+				[string]: _
+			} | fn.Fn
 			Timeout?:            int | fn.Fn
 			TransformParameters: close({
 				FindMatchesParameters?: close({
@@ -203,6 +251,60 @@ Glue :: {
 				TransformType: string | fn.Fn
 			}) | fn.If
 			WorkerType?: string | fn.Fn
+		})
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+		Condition?: string
+	}
+	Partition :: {
+		Type:       "AWS::Glue::Partition"
+		Properties: close({
+			CatalogId:      string | fn.Fn
+			DatabaseName:   string | fn.Fn
+			PartitionInput: close({
+				Parameters?: {
+					[string]: _
+				} | fn.Fn
+				StorageDescriptor?: close({
+					BucketColumns?: [...(string | fn.Fn)] | (string | fn.Fn)
+					Columns?:       [...close({
+						Comment?: string | fn.Fn
+						Name:     string | fn.Fn
+						Type?:    string | fn.Fn
+					})] | fn.If
+					Compressed?:      bool | fn.Fn
+					InputFormat?:     string | fn.Fn
+					Location?:        string | fn.Fn
+					NumberOfBuckets?: int | fn.Fn
+					OutputFormat?:    string | fn.Fn
+					Parameters?:      {
+						[string]: _
+					} | fn.Fn
+					SerdeInfo?: close({
+						Name?:       string | fn.Fn
+						Parameters?: {
+							[string]: _
+						} | fn.Fn
+						SerializationLibrary?: string | fn.Fn
+					}) | fn.If
+					SkewedInfo?: close({
+						SkewedColumnNames?:             [...(string | fn.Fn)] | (string | fn.Fn)
+						SkewedColumnValueLocationMaps?: {
+							[string]: _
+						} | fn.Fn
+						SkewedColumnValues?: [...(string | fn.Fn)] | (string | fn.Fn)
+					}) | fn.If
+					SortColumns?: [...close({
+						Column:     string | fn.Fn
+						SortOrder?: int | fn.Fn
+					})] | fn.If
+					StoredAsSubDirectories?: bool | fn.Fn
+				}) | fn.If
+				Values: [...(string | fn.Fn)] | (string | fn.Fn)
+			}) | fn.If
+			TableName: string | fn.Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -228,6 +330,70 @@ Glue :: {
 				})] | fn.If
 			}) | fn.If
 			Name: string | fn.Fn
+		})
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+		Condition?: string
+	}
+	Table :: {
+		Type:       "AWS::Glue::Table"
+		Properties: close({
+			CatalogId:    string | fn.Fn
+			DatabaseName: string | fn.Fn
+			TableInput:   close({
+				Description?: string | fn.Fn
+				Name?:        string | fn.Fn
+				Owner?:       string | fn.Fn
+				Parameters?:  {
+					[string]: _
+				} | fn.Fn
+				PartitionKeys?: [...close({
+					Comment?: string | fn.Fn
+					Name:     string | fn.Fn
+					Type?:    string | fn.Fn
+				})] | fn.If
+				Retention?:         int | fn.Fn
+				StorageDescriptor?: close({
+					BucketColumns?: [...(string | fn.Fn)] | (string | fn.Fn)
+					Columns?:       [...close({
+						Comment?: string | fn.Fn
+						Name:     string | fn.Fn
+						Type?:    string | fn.Fn
+					})] | fn.If
+					Compressed?:      bool | fn.Fn
+					InputFormat?:     string | fn.Fn
+					Location?:        string | fn.Fn
+					NumberOfBuckets?: int | fn.Fn
+					OutputFormat?:    string | fn.Fn
+					Parameters?:      {
+						[string]: _
+					} | fn.Fn
+					SerdeInfo?: close({
+						Name?:       string | fn.Fn
+						Parameters?: {
+							[string]: _
+						} | fn.Fn
+						SerializationLibrary?: string | fn.Fn
+					}) | fn.If
+					SkewedInfo?: close({
+						SkewedColumnNames?:             [...(string | fn.Fn)] | (string | fn.Fn)
+						SkewedColumnValueLocationMaps?: {
+							[string]: _
+						} | fn.Fn
+						SkewedColumnValues?: [...(string | fn.Fn)] | (string | fn.Fn)
+					}) | fn.If
+					SortColumns?: [...close({
+						Column:    string | fn.Fn
+						SortOrder: int | fn.Fn
+					})] | fn.If
+					StoredAsSubDirectories?: bool | fn.Fn
+				}) | fn.If
+				TableType?:        ("EXTERNAL_TABLE" | "VIRTUAL_VIEW") | fn.Fn
+				ViewExpandedText?: string | fn.Fn
+				ViewOriginalText?: string | fn.Fn
+			}) | fn.If
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

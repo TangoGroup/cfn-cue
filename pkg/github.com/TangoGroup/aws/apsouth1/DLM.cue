@@ -24,12 +24,12 @@ DLM :: {
 					CrossRegionCopyRules?: [...close({
 						CmkArn?:     string | fn.Fn
 						CopyTags?:   bool | fn.Fn
-						Encrypted?:  bool | fn.Fn
+						Encrypted:   bool | fn.Fn
 						RetainRule?: close({
-							Interval?:     int | fn.Fn
-							IntervalUnit?: string | fn.Fn
+							Interval:     int | fn.Fn
+							IntervalUnit: string | fn.Fn
 						}) | fn.If
-						TargetRegion?: string | fn.Fn
+						TargetRegion: string | fn.Fn
 					})] | fn.If
 					FastRestoreRule?: close({
 						AvailabilityZones?: [...(string | fn.Fn)] | (string | fn.Fn)

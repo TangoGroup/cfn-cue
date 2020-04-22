@@ -184,7 +184,9 @@ SSM :: {
 		Properties: close({
 			ApprovalRules?: close({
 				PatchRules?: [...close({
-					ApproveAfterDays?:  int | fn.Fn
+					ApproveAfterDays?: int | fn.Fn
+					ApproveUntilDate?: close({
+					}) | fn.If
 					ComplianceLevel?:   string | fn.Fn
 					EnableNonSecurity?: bool | fn.Fn
 					PatchFilterGroup?:  close({
