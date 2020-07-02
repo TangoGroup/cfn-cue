@@ -194,8 +194,9 @@ ElasticLoadBalancingV2 :: {
 			Scheme?:         string | fn.Fn
 			SecurityGroups?: [...(string | fn.Fn)] | (string | fn.Fn)
 			SubnetMappings?: [...close({
-				AllocationId: string | fn.Fn
-				SubnetId:     string | fn.Fn
+				AllocationId?:       string | fn.Fn
+				PrivateIPv4Address?: string | fn.Fn
+				SubnetId:            string | fn.Fn
 			})] | fn.If
 			Subnets?: [...(string | fn.Fn)] | (string | fn.Fn)
 			Tags?:    [...close({

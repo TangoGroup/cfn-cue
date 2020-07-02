@@ -30,9 +30,11 @@ SNS :: {
 	Topic :: {
 		Type:       "AWS::SNS::Topic"
 		Properties: close({
-			DisplayName?:    string | fn.Fn
-			KmsMasterKeyId?: string | fn.Fn
-			Subscription?:   [...close({
+			ContentBasedDeduplication?: bool | fn.Fn
+			DisplayName?:               string | fn.Fn
+			FifoTopic?:                 bool | fn.Fn
+			KmsMasterKeyId?:            string | fn.Fn
+			Subscription?:              [...close({
 				Endpoint: string | fn.Fn
 				Protocol: string | fn.Fn
 			})] | fn.If

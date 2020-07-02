@@ -55,6 +55,9 @@ EC2 :: {
 				ActiveDirectory?: close({
 					DirectoryId: string | fn.Fn
 				}) | fn.If
+				FederatedAuthentication?: close({
+					SAMLProviderArn: string | fn.Fn
+				}) | fn.If
 				MutualAuthentication?: close({
 					ClientRootCertificateChainArn: string | fn.Fn
 				}) | fn.If
@@ -1333,6 +1336,7 @@ EC2 :: {
 			Iops?:               int | fn.Fn
 			KmsKeyId?:           string | fn.Fn
 			MultiAttachEnabled?: bool | fn.Fn
+			OutpostArn?:         string | fn.Fn
 			Size?:               int | fn.Fn
 			SnapshotId?:         string | fn.Fn
 			Tags?:               [...close({

@@ -8,7 +8,7 @@ ElastiCache :: {
 		Properties: close({
 			AZMode?:                     string | fn.Fn
 			AutoMinorVersionUpgrade?:    bool | fn.Fn
-			CacheNodeType:               string | fn.Fn
+			CacheNodeType:               ("cache.r4.16xlarge" | "cache.r4.2xlarge" | "cache.r4.4xlarge" | "cache.r4.8xlarge" | "cache.r4.large" | "cache.r4.xlarge" | "cache.t2.medium" | "cache.t2.micro" | "cache.t2.small" | "cache.t3.medium" | "cache.t3.micro" | "cache.t3.small") | fn.Fn
 			CacheParameterGroupName?:    string | fn.Fn
 			CacheSecurityGroupNames?:    [...(string | fn.Fn)] | (string | fn.Fn)
 			CacheSubnetGroupName?:       string | fn.Fn
@@ -59,13 +59,14 @@ ElastiCache :: {
 			AuthToken?:                string | fn.Fn
 			AutoMinorVersionUpgrade?:  bool | fn.Fn
 			AutomaticFailoverEnabled?: bool | fn.Fn
-			CacheNodeType?:            string | fn.Fn
+			CacheNodeType?:            ("cache.r4.16xlarge" | "cache.r4.2xlarge" | "cache.r4.4xlarge" | "cache.r4.8xlarge" | "cache.r4.large" | "cache.r4.xlarge" | "cache.t2.medium" | "cache.t2.micro" | "cache.t2.small" | "cache.t3.medium" | "cache.t3.micro" | "cache.t3.small") | fn.Fn
 			CacheParameterGroupName?:  string | fn.Fn
 			CacheSecurityGroupNames?:  [...(string | fn.Fn)] | (string | fn.Fn)
 			CacheSubnetGroupName?:     string | fn.Fn
 			Engine?:                   string | fn.Fn
 			EngineVersion?:            string | fn.Fn
 			KmsKeyId?:                 string | fn.Fn
+			MultiAZEnabled?:           bool | fn.Fn
 			NodeGroupConfiguration?:   [...close({
 				NodeGroupId?:              string | fn.Fn
 				PrimaryAvailabilityZone?:  string | fn.Fn

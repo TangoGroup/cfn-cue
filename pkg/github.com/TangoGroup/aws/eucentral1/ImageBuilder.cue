@@ -33,10 +33,30 @@ ImageBuilder :: {
 					[string]: _
 				} | fn.Fn
 				LicenseConfigurationArns?: [...(string | fn.Fn)] | (string | fn.Fn)
-				Region?:                   string | fn.Fn
+				Region:                    string | fn.Fn
 			})] | fn.If
 			Name:  string | fn.Fn
 			Tags?: {
+				[string]: string | fn.Fn
+			} | fn.If
+		})
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+		Condition?: string
+	}
+	Image :: {
+		Type:       "AWS::ImageBuilder::Image"
+		Properties: close({
+			DistributionConfigurationArn?: string | fn.Fn
+			ImageRecipeArn:                string | fn.Fn
+			ImageTestsConfiguration?:      close({
+				ImageTestsEnabled?: bool | fn.Fn
+				TimeoutMinutes?:    int | fn.Fn
+			}) | fn.If
+			InfrastructureConfigurationArn: string | fn.Fn
+			Tags?:                          {
 				[string]: string | fn.Fn
 			} | fn.If
 		})

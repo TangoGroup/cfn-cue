@@ -1178,6 +1178,7 @@ EC2 :: {
 			Iops?:               int | fn.Fn
 			KmsKeyId?:           string | fn.Fn
 			MultiAttachEnabled?: bool | fn.Fn
+			OutpostArn?:         string | fn.Fn
 			Size?:               int | fn.Fn
 			SnapshotId?:         string | fn.Fn
 			Tags?:               [...close({

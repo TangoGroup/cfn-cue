@@ -19,7 +19,11 @@ StepFunctions :: {
 	StateMachine :: {
 		Type:       "AWS::StepFunctions::StateMachine"
 		Properties: close({
-			DefinitionString:      string | fn.Fn
+			DefinitionS3Location?: close({
+			}) | fn.If
+			DefinitionString?:        string | fn.Fn
+			DefinitionSubstitutions?: close({
+			}) | fn.If
 			LoggingConfiguration?: close({
 			}) | fn.If
 			RoleArn:           string | fn.Fn
@@ -27,8 +31,6 @@ StepFunctions :: {
 			StateMachineType?: string | fn.Fn
 			Tags?:             [...close({
 			})] | fn.If
-			TracingConfiguration?: close({
-			}) | fn.If
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

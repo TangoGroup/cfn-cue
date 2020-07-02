@@ -7,6 +7,7 @@ Cloud9 :: {
 		Type:       "AWS::Cloud9::EnvironmentEC2"
 		Properties: close({
 			AutomaticStopTimeMinutes?: int | fn.Fn
+			ConnectionType?:           string | fn.Fn
 			Description?:              string | fn.Fn
 			InstanceType:              string | fn.Fn
 			Name?:                     string | fn.Fn

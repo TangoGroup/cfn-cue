@@ -15,18 +15,75 @@ IoTEvents :: {
 								ClearTimer?: close({
 									TimerName?: string | fn.Fn
 								}) | fn.If
+								DynamoDB?: close({
+									HashKeyField?: string | fn.Fn
+									HashKeyType?:  string | fn.Fn
+									HashKeyValue?: string | fn.Fn
+									Operation?:    string | fn.Fn
+									Payload?:      close({
+										ContentExpression?: string | fn.Fn
+										Type?:              string | fn.Fn
+									}) | fn.If
+									PayloadField?:  string | fn.Fn
+									RangeKeyField?: string | fn.Fn
+									RangeKeyType?:  string | fn.Fn
+									RangeKeyValue?: string | fn.Fn
+									TableName?:     string | fn.Fn
+								}) | fn.If
+								DynamoDBv2?: close({
+									Payload?: close({
+										ContentExpression?: string | fn.Fn
+										Type?:              string | fn.Fn
+									}) | fn.If
+									TableName?: string | fn.Fn
+								}) | fn.If
 								Firehose?: close({
 									DeliveryStreamName?: string | fn.Fn
-									Separator?:          string | fn.Fn
+									Payload?:            close({
+										ContentExpression?: string | fn.Fn
+										Type?:              string | fn.Fn
+									}) | fn.If
+									Separator?: string | fn.Fn
 								}) | fn.If
 								IotEvents?: close({
 									InputName?: string | fn.Fn
+									Payload?:   close({
+										ContentExpression?: string | fn.Fn
+										Type?:              string | fn.Fn
+									}) | fn.If
+								}) | fn.If
+								IotSiteWise?: close({
+									AssetId?:       string | fn.Fn
+									EntryId?:       string | fn.Fn
+									PropertyAlias?: string | fn.Fn
+									PropertyId?:    string | fn.Fn
+									PropertyValue?: close({
+										Quality?:   string | fn.Fn
+										Timestamp?: close({
+											OffsetInNanos?: string | fn.Fn
+											TimeInSeconds?: string | fn.Fn
+										}) | fn.If
+										Value?: close({
+											BooleanValue?: string | fn.Fn
+											DoubleValue?:  string | fn.Fn
+											IntegerValue?: string | fn.Fn
+											StringValue?:  string | fn.Fn
+										}) | fn.If
+									}) | fn.If
 								}) | fn.If
 								IotTopicPublish?: close({
 									MqttTopic?: string | fn.Fn
+									Payload?:   close({
+										ContentExpression?: string | fn.Fn
+										Type?:              string | fn.Fn
+									}) | fn.If
 								}) | fn.If
 								Lambda?: close({
 									FunctionArn?: string | fn.Fn
+									Payload?:     close({
+										ContentExpression?: string | fn.Fn
+										Type?:              string | fn.Fn
+									}) | fn.If
 								}) | fn.If
 								ResetTimer?: close({
 									TimerName?: string | fn.Fn
@@ -41,9 +98,17 @@ IoTEvents :: {
 									VariableName?: string | fn.Fn
 								}) | fn.If
 								Sns?: close({
+									Payload?: close({
+										ContentExpression?: string | fn.Fn
+										Type?:              string | fn.Fn
+									}) | fn.If
 									TargetArn?: string | fn.Fn
 								}) | fn.If
 								Sqs?: close({
+									Payload?: close({
+										ContentExpression?: string | fn.Fn
+										Type?:              string | fn.Fn
+									}) | fn.If
 									QueueUrl?:  string | fn.Fn
 									UseBase64?: bool | fn.Fn
 								}) | fn.If
@@ -58,18 +123,75 @@ IoTEvents :: {
 								ClearTimer?: close({
 									TimerName?: string | fn.Fn
 								}) | fn.If
+								DynamoDB?: close({
+									HashKeyField?: string | fn.Fn
+									HashKeyType?:  string | fn.Fn
+									HashKeyValue?: string | fn.Fn
+									Operation?:    string | fn.Fn
+									Payload?:      close({
+										ContentExpression?: string | fn.Fn
+										Type?:              string | fn.Fn
+									}) | fn.If
+									PayloadField?:  string | fn.Fn
+									RangeKeyField?: string | fn.Fn
+									RangeKeyType?:  string | fn.Fn
+									RangeKeyValue?: string | fn.Fn
+									TableName?:     string | fn.Fn
+								}) | fn.If
+								DynamoDBv2?: close({
+									Payload?: close({
+										ContentExpression?: string | fn.Fn
+										Type?:              string | fn.Fn
+									}) | fn.If
+									TableName?: string | fn.Fn
+								}) | fn.If
 								Firehose?: close({
 									DeliveryStreamName?: string | fn.Fn
-									Separator?:          string | fn.Fn
+									Payload?:            close({
+										ContentExpression?: string | fn.Fn
+										Type?:              string | fn.Fn
+									}) | fn.If
+									Separator?: string | fn.Fn
 								}) | fn.If
 								IotEvents?: close({
 									InputName?: string | fn.Fn
+									Payload?:   close({
+										ContentExpression?: string | fn.Fn
+										Type?:              string | fn.Fn
+									}) | fn.If
+								}) | fn.If
+								IotSiteWise?: close({
+									AssetId?:       string | fn.Fn
+									EntryId?:       string | fn.Fn
+									PropertyAlias?: string | fn.Fn
+									PropertyId?:    string | fn.Fn
+									PropertyValue?: close({
+										Quality?:   string | fn.Fn
+										Timestamp?: close({
+											OffsetInNanos?: string | fn.Fn
+											TimeInSeconds?: string | fn.Fn
+										}) | fn.If
+										Value?: close({
+											BooleanValue?: string | fn.Fn
+											DoubleValue?:  string | fn.Fn
+											IntegerValue?: string | fn.Fn
+											StringValue?:  string | fn.Fn
+										}) | fn.If
+									}) | fn.If
 								}) | fn.If
 								IotTopicPublish?: close({
 									MqttTopic?: string | fn.Fn
+									Payload?:   close({
+										ContentExpression?: string | fn.Fn
+										Type?:              string | fn.Fn
+									}) | fn.If
 								}) | fn.If
 								Lambda?: close({
 									FunctionArn?: string | fn.Fn
+									Payload?:     close({
+										ContentExpression?: string | fn.Fn
+										Type?:              string | fn.Fn
+									}) | fn.If
 								}) | fn.If
 								ResetTimer?: close({
 									TimerName?: string | fn.Fn
@@ -84,9 +206,17 @@ IoTEvents :: {
 									VariableName?: string | fn.Fn
 								}) | fn.If
 								Sns?: close({
+									Payload?: close({
+										ContentExpression?: string | fn.Fn
+										Type?:              string | fn.Fn
+									}) | fn.If
 									TargetArn?: string | fn.Fn
 								}) | fn.If
 								Sqs?: close({
+									Payload?: close({
+										ContentExpression?: string | fn.Fn
+										Type?:              string | fn.Fn
+									}) | fn.If
 									QueueUrl?:  string | fn.Fn
 									UseBase64?: bool | fn.Fn
 								}) | fn.If
@@ -101,18 +231,75 @@ IoTEvents :: {
 								ClearTimer?: close({
 									TimerName?: string | fn.Fn
 								}) | fn.If
+								DynamoDB?: close({
+									HashKeyField?: string | fn.Fn
+									HashKeyType?:  string | fn.Fn
+									HashKeyValue?: string | fn.Fn
+									Operation?:    string | fn.Fn
+									Payload?:      close({
+										ContentExpression?: string | fn.Fn
+										Type?:              string | fn.Fn
+									}) | fn.If
+									PayloadField?:  string | fn.Fn
+									RangeKeyField?: string | fn.Fn
+									RangeKeyType?:  string | fn.Fn
+									RangeKeyValue?: string | fn.Fn
+									TableName?:     string | fn.Fn
+								}) | fn.If
+								DynamoDBv2?: close({
+									Payload?: close({
+										ContentExpression?: string | fn.Fn
+										Type?:              string | fn.Fn
+									}) | fn.If
+									TableName?: string | fn.Fn
+								}) | fn.If
 								Firehose?: close({
 									DeliveryStreamName?: string | fn.Fn
-									Separator?:          string | fn.Fn
+									Payload?:            close({
+										ContentExpression?: string | fn.Fn
+										Type?:              string | fn.Fn
+									}) | fn.If
+									Separator?: string | fn.Fn
 								}) | fn.If
 								IotEvents?: close({
 									InputName?: string | fn.Fn
+									Payload?:   close({
+										ContentExpression?: string | fn.Fn
+										Type?:              string | fn.Fn
+									}) | fn.If
+								}) | fn.If
+								IotSiteWise?: close({
+									AssetId?:       string | fn.Fn
+									EntryId?:       string | fn.Fn
+									PropertyAlias?: string | fn.Fn
+									PropertyId?:    string | fn.Fn
+									PropertyValue?: close({
+										Quality?:   string | fn.Fn
+										Timestamp?: close({
+											OffsetInNanos?: string | fn.Fn
+											TimeInSeconds?: string | fn.Fn
+										}) | fn.If
+										Value?: close({
+											BooleanValue?: string | fn.Fn
+											DoubleValue?:  string | fn.Fn
+											IntegerValue?: string | fn.Fn
+											StringValue?:  string | fn.Fn
+										}) | fn.If
+									}) | fn.If
 								}) | fn.If
 								IotTopicPublish?: close({
 									MqttTopic?: string | fn.Fn
+									Payload?:   close({
+										ContentExpression?: string | fn.Fn
+										Type?:              string | fn.Fn
+									}) | fn.If
 								}) | fn.If
 								Lambda?: close({
 									FunctionArn?: string | fn.Fn
+									Payload?:     close({
+										ContentExpression?: string | fn.Fn
+										Type?:              string | fn.Fn
+									}) | fn.If
 								}) | fn.If
 								ResetTimer?: close({
 									TimerName?: string | fn.Fn
@@ -127,9 +314,17 @@ IoTEvents :: {
 									VariableName?: string | fn.Fn
 								}) | fn.If
 								Sns?: close({
+									Payload?: close({
+										ContentExpression?: string | fn.Fn
+										Type?:              string | fn.Fn
+									}) | fn.If
 									TargetArn?: string | fn.Fn
 								}) | fn.If
 								Sqs?: close({
+									Payload?: close({
+										ContentExpression?: string | fn.Fn
+										Type?:              string | fn.Fn
+									}) | fn.If
 									QueueUrl?:  string | fn.Fn
 									UseBase64?: bool | fn.Fn
 								}) | fn.If
@@ -142,18 +337,75 @@ IoTEvents :: {
 								ClearTimer?: close({
 									TimerName?: string | fn.Fn
 								}) | fn.If
+								DynamoDB?: close({
+									HashKeyField?: string | fn.Fn
+									HashKeyType?:  string | fn.Fn
+									HashKeyValue?: string | fn.Fn
+									Operation?:    string | fn.Fn
+									Payload?:      close({
+										ContentExpression?: string | fn.Fn
+										Type?:              string | fn.Fn
+									}) | fn.If
+									PayloadField?:  string | fn.Fn
+									RangeKeyField?: string | fn.Fn
+									RangeKeyType?:  string | fn.Fn
+									RangeKeyValue?: string | fn.Fn
+									TableName?:     string | fn.Fn
+								}) | fn.If
+								DynamoDBv2?: close({
+									Payload?: close({
+										ContentExpression?: string | fn.Fn
+										Type?:              string | fn.Fn
+									}) | fn.If
+									TableName?: string | fn.Fn
+								}) | fn.If
 								Firehose?: close({
 									DeliveryStreamName?: string | fn.Fn
-									Separator?:          string | fn.Fn
+									Payload?:            close({
+										ContentExpression?: string | fn.Fn
+										Type?:              string | fn.Fn
+									}) | fn.If
+									Separator?: string | fn.Fn
 								}) | fn.If
 								IotEvents?: close({
 									InputName?: string | fn.Fn
+									Payload?:   close({
+										ContentExpression?: string | fn.Fn
+										Type?:              string | fn.Fn
+									}) | fn.If
+								}) | fn.If
+								IotSiteWise?: close({
+									AssetId?:       string | fn.Fn
+									EntryId?:       string | fn.Fn
+									PropertyAlias?: string | fn.Fn
+									PropertyId?:    string | fn.Fn
+									PropertyValue?: close({
+										Quality?:   string | fn.Fn
+										Timestamp?: close({
+											OffsetInNanos?: string | fn.Fn
+											TimeInSeconds?: string | fn.Fn
+										}) | fn.If
+										Value?: close({
+											BooleanValue?: string | fn.Fn
+											DoubleValue?:  string | fn.Fn
+											IntegerValue?: string | fn.Fn
+											StringValue?:  string | fn.Fn
+										}) | fn.If
+									}) | fn.If
 								}) | fn.If
 								IotTopicPublish?: close({
 									MqttTopic?: string | fn.Fn
+									Payload?:   close({
+										ContentExpression?: string | fn.Fn
+										Type?:              string | fn.Fn
+									}) | fn.If
 								}) | fn.If
 								Lambda?: close({
 									FunctionArn?: string | fn.Fn
+									Payload?:     close({
+										ContentExpression?: string | fn.Fn
+										Type?:              string | fn.Fn
+									}) | fn.If
 								}) | fn.If
 								ResetTimer?: close({
 									TimerName?: string | fn.Fn
@@ -168,9 +420,17 @@ IoTEvents :: {
 									VariableName?: string | fn.Fn
 								}) | fn.If
 								Sns?: close({
+									Payload?: close({
+										ContentExpression?: string | fn.Fn
+										Type?:              string | fn.Fn
+									}) | fn.If
 									TargetArn?: string | fn.Fn
 								}) | fn.If
 								Sqs?: close({
+									Payload?: close({
+										ContentExpression?: string | fn.Fn
+										Type?:              string | fn.Fn
+									}) | fn.If
 									QueueUrl?:  string | fn.Fn
 									UseBase64?: bool | fn.Fn
 								}) | fn.If

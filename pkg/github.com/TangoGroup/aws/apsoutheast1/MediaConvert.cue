@@ -9,8 +9,13 @@ MediaConvert :: {
 			AccelerationSettings?: close({
 				Mode: string | fn.Fn
 			}) | fn.If
-			Category?:    string | fn.Fn
-			Description?: string | fn.Fn
+			Category?:        string | fn.Fn
+			Description?:     string | fn.Fn
+			HopDestinations?: [...close({
+				Priority?:    int | fn.Fn
+				Queue?:       string | fn.Fn
+				WaitMinutes?: int | fn.Fn
+			})] | fn.If
 			Name?:        string | fn.Fn
 			Priority?:    int | fn.Fn
 			Queue?:       string | fn.Fn

@@ -455,6 +455,36 @@ EC2 :: {
 		Metadata?: [string]: _
 		Condition?: string
 	}
+	LocalGatewayRoute :: {
+		Type:       "AWS::EC2::LocalGatewayRoute"
+		Properties: close({
+			DestinationCidrBlock:                string | fn.Fn
+			LocalGatewayRouteTableId:            string | fn.Fn
+			LocalGatewayVirtualInterfaceGroupId: string | fn.Fn
+		})
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+		Condition?: string
+	}
+	LocalGatewayRouteTableVPCAssociation :: {
+		Type:       "AWS::EC2::LocalGatewayRouteTableVPCAssociation"
+		Properties: close({
+			LocalGatewayRouteTableId: string | fn.Fn
+			Tags?:                    close({
+				Tags?: [...close({
+					[string]: _
+				})] | fn.If
+			}) | fn.If
+			VpcId: string | fn.Fn
+		})
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+		Condition?: string
+	}
 	NatGateway :: {
 		Type:       "AWS::EC2::NatGateway"
 		Properties: close({
@@ -1213,6 +1243,7 @@ EC2 :: {
 			Iops?:               int | fn.Fn
 			KmsKeyId?:           string | fn.Fn
 			MultiAttachEnabled?: bool | fn.Fn
+			OutpostArn?:         string | fn.Fn
 			Size?:               int | fn.Fn
 			SnapshotId?:         string | fn.Fn
 			Tags?:               [...close({

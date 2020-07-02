@@ -59,6 +59,15 @@ Events :: {
 					TaskCount?:        int | fn.Fn
 					TaskDefinitionArn: string | fn.Fn
 				}) | fn.If
+				HttpParameters?: close({
+					HeaderParameters?: {
+						[string]: string | fn.Fn
+					} | fn.If
+					PathParameterValues?:   [...(string | fn.Fn)] | (string | fn.Fn)
+					QueryStringParameters?: {
+						[string]: string | fn.Fn
+					} | fn.If
+				}) | fn.If
 				Id:                string | fn.Fn
 				Input?:            string | fn.Fn
 				InputPath?:        string | fn.Fn

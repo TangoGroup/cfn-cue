@@ -25,10 +25,11 @@ ServiceCatalog :: {
 			Owner:                          string | fn.Fn
 			ProvisioningArtifactParameters: [...close({
 			})] | fn.If
-			SupportDescription?: string | fn.Fn
-			SupportEmail?:       string | fn.Fn
-			SupportUrl?:         string | fn.Fn
-			Tags?:               [...close({
+			ReplaceProvisioningArtifacts?: bool | fn.Fn
+			SupportDescription?:           string | fn.Fn
+			SupportEmail?:                 string | fn.Fn
+			SupportUrl?:                   string | fn.Fn
+			Tags?:                         [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			})] | fn.If

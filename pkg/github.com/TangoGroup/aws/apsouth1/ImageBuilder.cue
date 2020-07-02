@@ -46,6 +46,53 @@ ImageBuilder :: {
 		Metadata?: [string]: _
 		Condition?: string
 	}
+	Image :: {
+		Type:       "AWS::ImageBuilder::Image"
+		Properties: close({
+			DistributionConfigurationArn?: string | fn.Fn
+			ImageRecipeArn:                string | fn.Fn
+			ImageTestsConfiguration?:      close({
+				ImageTestsEnabled?: bool | fn.Fn
+				TimeoutMinutes?:    int | fn.Fn
+			}) | fn.If
+			InfrastructureConfigurationArn: string | fn.Fn
+			Tags?:                          {
+				[string]: string | fn.Fn
+			} | fn.If
+		})
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+		Condition?: string
+	}
+	ImagePipeline :: {
+		Type:       "AWS::ImageBuilder::ImagePipeline"
+		Properties: close({
+			Description?:                  string | fn.Fn
+			DistributionConfigurationArn?: string | fn.Fn
+			ImageRecipeArn:                string | fn.Fn
+			ImageTestsConfiguration?:      close({
+				ImageTestsEnabled?: bool | fn.Fn
+				TimeoutMinutes?:    int | fn.Fn
+			}) | fn.If
+			InfrastructureConfigurationArn: string | fn.Fn
+			Name:                           string | fn.Fn
+			Schedule?:                      close({
+				PipelineExecutionStartCondition?: string | fn.Fn
+				ScheduleExpression?:              string | fn.Fn
+			}) | fn.If
+			Status?: string | fn.Fn
+			Tags?:   {
+				[string]: string | fn.Fn
+			} | fn.If
+		})
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+		Condition?: string
+	}
 	ImageRecipe :: {
 		Type:       "AWS::ImageBuilder::ImageRecipe"
 		Properties: close({
@@ -73,6 +120,31 @@ ImageBuilder :: {
 				[string]: string | fn.Fn
 			} | fn.If
 			Version: string | fn.Fn
+		})
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+		Condition?: string
+	}
+	InfrastructureConfiguration :: {
+		Type:       "AWS::ImageBuilder::InfrastructureConfiguration"
+		Properties: close({
+			Description?:        string | fn.Fn
+			InstanceProfileName: string | fn.Fn
+			InstanceTypes?:      [...(string | fn.Fn)] | (string | fn.Fn)
+			KeyPair?:            string | fn.Fn
+			Logging?:            {
+				[string]: _
+			} | fn.Fn
+			Name:              string | fn.Fn
+			SecurityGroupIds?: [...(string | fn.Fn)] | (string | fn.Fn)
+			SnsTopicArn?:      string | fn.Fn
+			SubnetId?:         string | fn.Fn
+			Tags?:             {
+				[string]: string | fn.Fn
+			} | fn.If
+			TerminateInstanceOnFailure?: bool | fn.Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

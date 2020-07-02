@@ -42,6 +42,29 @@ IoT :: {
 		Metadata?: [string]: _
 		Condition?: string
 	}
+	ProvisioningTemplate :: {
+		Type:       "AWS::IoT::ProvisioningTemplate"
+		Properties: close({
+			Description?:         string | fn.Fn
+			Enabled?:             bool | fn.Fn
+			PreProvisioningHook?: close({
+				PayloadVersion?: string | fn.Fn
+				TargetArn?:      string | fn.Fn
+			}) | fn.If
+			ProvisioningRoleArn: string | fn.Fn
+			Tags?:               [...close({
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
+			})] | fn.If
+			TemplateBody:  string | fn.Fn
+			TemplateName?: string | fn.Fn
+		})
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+		Condition?: string
+	}
 	Thing :: {
 		Type:       "AWS::IoT::Thing"
 		Properties: close({

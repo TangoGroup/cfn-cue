@@ -60,11 +60,11 @@ S3 :: {
 					Prefix?:          string | fn.Fn
 				}) | fn.If
 				Enabled:                bool | fn.Fn
-				Id:                     string | fn.Fn
-				IncludedObjectVersions: string | fn.Fn
+				Id:                     (strings.MinRunes(1) & strings.MaxRunes(64) & (=~#"^[a-zA-Z0-9-_.]+$"#)) | fn.Fn
+				IncludedObjectVersions: ("All" | "Current") | fn.Fn
 				OptionalFields?:        [...(string | fn.Fn)] | (string | fn.Fn)
 				Prefix?:                string | fn.Fn
-				ScheduleFrequency:      string | fn.Fn
+				ScheduleFrequency:      ("Daily" | "Weekly") | fn.Fn
 			})] | fn.If
 			LifecycleConfiguration?: close({
 				Rules: [...close({
@@ -171,6 +171,9 @@ S3 :: {
 			ReplicationConfiguration?: close({
 				Role:  (=~#"arn:(aws[a-zA-Z-]*)?:iam::\d{12}:role/[a-zA-Z_0-9+=,.@\-_/]+"#) | fn.Fn
 				Rules: [...close({
+					DeleteMarkerReplication?: close({
+						Status?: string | fn.Fn
+					}) | fn.If
 					Destination: close({
 						AccessControlTranslation?: close({
 							Owner: string | fn.Fn
@@ -180,10 +183,37 @@ S3 :: {
 						EncryptionConfiguration?: close({
 							ReplicaKmsKeyID: string | fn.Fn
 						}) | fn.If
+						Metrics?: close({
+							EventThreshold: close({
+								Minutes: int | fn.Fn
+							}) | fn.If
+							Status: string | fn.Fn
+						}) | fn.If
+						ReplicationTime?: close({
+							Status: string | fn.Fn
+							Time:   close({
+								Minutes: int | fn.Fn
+							}) | fn.If
+						}) | fn.If
 						StorageClass?: string | fn.Fn
 					}) | fn.If
+					Filter?: close({
+						And?: close({
+							Prefix?:     string | fn.Fn
+							TagFilters?: [...close({
+								Key:   string | fn.Fn
+								Value: string | fn.Fn
+							})] | fn.If
+						}) | fn.If
+						Prefix?:    string | fn.Fn
+						TagFilter?: close({
+							Key:   string | fn.Fn
+							Value: string | fn.Fn
+						}) | fn.If
+					}) | fn.If
 					Id?:                      string | fn.Fn
-					Prefix:                   string | fn.Fn
+					Prefix?:                  string | fn.Fn
+					Priority?:                int | fn.Fn
 					SourceSelectionCriteria?: close({
 						SseKmsEncryptedObjects: close({
 							Status: string | fn.Fn

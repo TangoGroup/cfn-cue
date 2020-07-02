@@ -66,6 +66,7 @@ ElastiCache :: {
 			Engine?:                   string | fn.Fn
 			EngineVersion?:            string | fn.Fn
 			KmsKeyId?:                 string | fn.Fn
+			MultiAZEnabled?:           bool | fn.Fn
 			NodeGroupConfiguration?:   [...close({
 				NodeGroupId?:              string | fn.Fn
 				PrimaryAvailabilityZone?:  string | fn.Fn

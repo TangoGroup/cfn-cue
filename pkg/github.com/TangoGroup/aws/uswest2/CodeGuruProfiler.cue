@@ -6,6 +6,9 @@ CodeGuruProfiler :: {
 	ProfilingGroup :: {
 		Type:       "AWS::CodeGuruProfiler::ProfilingGroup"
 		Properties: close({
+			AgentPermissions?: {
+				[string]: _
+			} | fn.Fn
 			ProfilingGroupName: string | fn.Fn
 		})
 		DependsOn?:           string | [...string]

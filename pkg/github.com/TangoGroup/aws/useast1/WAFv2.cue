@@ -90,7 +90,7 @@ WAFv2 :: {
 											} | fn.Fn
 										}) | fn.If
 										PositionalConstraint: string | fn.Fn
-										SearchString:         string | fn.Fn
+										SearchString?:        string | fn.Fn
 										SearchStringBase64?:  string | fn.Fn
 										TextTransformations:  [...close({
 											Priority: int | fn.Fn
@@ -249,7 +249,7 @@ WAFv2 :: {
 									} | fn.Fn
 								}) | fn.If
 								PositionalConstraint: string | fn.Fn
-								SearchString:         string | fn.Fn
+								SearchString?:        string | fn.Fn
 								SearchStringBase64?:  string | fn.Fn
 								TextTransformations:  [...close({
 									Priority: int | fn.Fn
@@ -289,7 +289,7 @@ WAFv2 :: {
 											} | fn.Fn
 										}) | fn.If
 										PositionalConstraint: string | fn.Fn
-										SearchString:         string | fn.Fn
+										SearchString?:        string | fn.Fn
 										SearchStringBase64?:  string | fn.Fn
 										TextTransformations:  [...close({
 											Priority: int | fn.Fn
@@ -450,7 +450,7 @@ WAFv2 :: {
 											} | fn.Fn
 										}) | fn.If
 										PositionalConstraint: string | fn.Fn
-										SearchString:         string | fn.Fn
+										SearchString?:        string | fn.Fn
 										SearchStringBase64?:  string | fn.Fn
 										TextTransformations:  [...close({
 											Priority: int | fn.Fn
@@ -585,8 +585,8 @@ WAFv2 :: {
 								})] | fn.If
 							}) | fn.If
 							RateBasedStatement?: close({
-								AggregateKeyType:    string | fn.Fn
-								Limit:               int | fn.Fn
+								AggregateKeyType:    ("IP") | fn.Fn
+								Limit:               (>=100 & <=20000000) | fn.Fn
 								ScopeDownStatement?: close({
 									ByteMatchStatement?: close({
 										FieldToMatch: close({
@@ -613,7 +613,7 @@ WAFv2 :: {
 											} | fn.Fn
 										}) | fn.If
 										PositionalConstraint: string | fn.Fn
-										SearchString:         string | fn.Fn
+										SearchString?:        string | fn.Fn
 										SearchStringBase64?:  string | fn.Fn
 										TextTransformations:  [...close({
 											Priority: int | fn.Fn
@@ -893,7 +893,7 @@ WAFv2 :: {
 							} | fn.Fn
 						}) | fn.If
 						PositionalConstraint: string | fn.Fn
-						SearchString:         string | fn.Fn
+						SearchString?:        string | fn.Fn
 						SearchStringBase64?:  string | fn.Fn
 						TextTransformations:  [...close({
 							Priority: int | fn.Fn
@@ -935,7 +935,7 @@ WAFv2 :: {
 											} | fn.Fn
 										}) | fn.If
 										PositionalConstraint: string | fn.Fn
-										SearchString:         string | fn.Fn
+										SearchString?:        string | fn.Fn
 										SearchStringBase64?:  string | fn.Fn
 										TextTransformations:  [...close({
 											Priority: int | fn.Fn
@@ -1094,7 +1094,7 @@ WAFv2 :: {
 									} | fn.Fn
 								}) | fn.If
 								PositionalConstraint: string | fn.Fn
-								SearchString:         string | fn.Fn
+								SearchString?:        string | fn.Fn
 								SearchStringBase64?:  string | fn.Fn
 								TextTransformations:  [...close({
 									Priority: int | fn.Fn
@@ -1134,7 +1134,7 @@ WAFv2 :: {
 											} | fn.Fn
 										}) | fn.If
 										PositionalConstraint: string | fn.Fn
-										SearchString:         string | fn.Fn
+										SearchString?:        string | fn.Fn
 										SearchStringBase64?:  string | fn.Fn
 										TextTransformations:  [...close({
 											Priority: int | fn.Fn
@@ -1295,7 +1295,7 @@ WAFv2 :: {
 											} | fn.Fn
 										}) | fn.If
 										PositionalConstraint: string | fn.Fn
-										SearchString:         string | fn.Fn
+										SearchString?:        string | fn.Fn
 										SearchStringBase64?:  string | fn.Fn
 										TextTransformations:  [...close({
 											Priority: int | fn.Fn
@@ -1430,8 +1430,8 @@ WAFv2 :: {
 								})] | fn.If
 							}) | fn.If
 							RateBasedStatement?: close({
-								AggregateKeyType:    string | fn.Fn
-								Limit:               int | fn.Fn
+								AggregateKeyType:    ("IP") | fn.Fn
+								Limit:               (>=100 & <=20000000) | fn.Fn
 								ScopeDownStatement?: close({
 									ByteMatchStatement?: close({
 										FieldToMatch: close({
@@ -1458,7 +1458,7 @@ WAFv2 :: {
 											} | fn.Fn
 										}) | fn.If
 										PositionalConstraint: string | fn.Fn
-										SearchString:         string | fn.Fn
+										SearchString?:        string | fn.Fn
 										SearchStringBase64?:  string | fn.Fn
 										TextTransformations:  [...close({
 											Priority: int | fn.Fn
@@ -1742,7 +1742,7 @@ WAFv2 :: {
 											} | fn.Fn
 										}) | fn.If
 										PositionalConstraint: string | fn.Fn
-										SearchString:         string | fn.Fn
+										SearchString?:        string | fn.Fn
 										SearchStringBase64?:  string | fn.Fn
 										TextTransformations:  [...close({
 											Priority: int | fn.Fn
@@ -1901,7 +1901,7 @@ WAFv2 :: {
 									} | fn.Fn
 								}) | fn.If
 								PositionalConstraint: string | fn.Fn
-								SearchString:         string | fn.Fn
+								SearchString?:        string | fn.Fn
 								SearchStringBase64?:  string | fn.Fn
 								TextTransformations:  [...close({
 									Priority: int | fn.Fn
@@ -1941,7 +1941,7 @@ WAFv2 :: {
 											} | fn.Fn
 										}) | fn.If
 										PositionalConstraint: string | fn.Fn
-										SearchString:         string | fn.Fn
+										SearchString?:        string | fn.Fn
 										SearchStringBase64?:  string | fn.Fn
 										TextTransformations:  [...close({
 											Priority: int | fn.Fn
@@ -2102,7 +2102,7 @@ WAFv2 :: {
 											} | fn.Fn
 										}) | fn.If
 										PositionalConstraint: string | fn.Fn
-										SearchString:         string | fn.Fn
+										SearchString?:        string | fn.Fn
 										SearchStringBase64?:  string | fn.Fn
 										TextTransformations:  [...close({
 											Priority: int | fn.Fn
@@ -2237,8 +2237,8 @@ WAFv2 :: {
 								})] | fn.If
 							}) | fn.If
 							RateBasedStatement?: close({
-								AggregateKeyType:    string | fn.Fn
-								Limit:               int | fn.Fn
+								AggregateKeyType:    ("IP") | fn.Fn
+								Limit:               (>=100 & <=20000000) | fn.Fn
 								ScopeDownStatement?: close({
 									ByteMatchStatement?: close({
 										FieldToMatch: close({
@@ -2265,7 +2265,7 @@ WAFv2 :: {
 											} | fn.Fn
 										}) | fn.If
 										PositionalConstraint: string | fn.Fn
-										SearchString:         string | fn.Fn
+										SearchString?:        string | fn.Fn
 										SearchStringBase64?:  string | fn.Fn
 										TextTransformations:  [...close({
 											Priority: int | fn.Fn
@@ -2521,8 +2521,8 @@ WAFv2 :: {
 						})] | fn.If
 					}) | fn.If
 					RateBasedStatement?: close({
-						AggregateKeyType:    string | fn.Fn
-						Limit:               int | fn.Fn
+						AggregateKeyType:    ("IP") | fn.Fn
+						Limit:               (>=100 & <=20000000) | fn.Fn
 						ScopeDownStatement?: close({
 							AndStatement?: close({
 								Statements: [...close({
@@ -2551,7 +2551,7 @@ WAFv2 :: {
 											} | fn.Fn
 										}) | fn.If
 										PositionalConstraint: string | fn.Fn
-										SearchString:         string | fn.Fn
+										SearchString?:        string | fn.Fn
 										SearchStringBase64?:  string | fn.Fn
 										TextTransformations:  [...close({
 											Priority: int | fn.Fn
@@ -2710,7 +2710,7 @@ WAFv2 :: {
 									} | fn.Fn
 								}) | fn.If
 								PositionalConstraint: string | fn.Fn
-								SearchString:         string | fn.Fn
+								SearchString?:        string | fn.Fn
 								SearchStringBase64?:  string | fn.Fn
 								TextTransformations:  [...close({
 									Priority: int | fn.Fn
@@ -2750,7 +2750,7 @@ WAFv2 :: {
 											} | fn.Fn
 										}) | fn.If
 										PositionalConstraint: string | fn.Fn
-										SearchString:         string | fn.Fn
+										SearchString?:        string | fn.Fn
 										SearchStringBase64?:  string | fn.Fn
 										TextTransformations:  [...close({
 											Priority: int | fn.Fn
@@ -2911,7 +2911,7 @@ WAFv2 :: {
 											} | fn.Fn
 										}) | fn.If
 										PositionalConstraint: string | fn.Fn
-										SearchString:         string | fn.Fn
+										SearchString?:        string | fn.Fn
 										SearchStringBase64?:  string | fn.Fn
 										TextTransformations:  [...close({
 											Priority: int | fn.Fn
@@ -3046,8 +3046,8 @@ WAFv2 :: {
 								})] | fn.If
 							}) | fn.If
 							RateBasedStatement?: close({
-								AggregateKeyType:    string | fn.Fn
-								Limit:               int | fn.Fn
+								AggregateKeyType:    ("IP") | fn.Fn
+								Limit:               (>=100 & <=20000000) | fn.Fn
 								ScopeDownStatement?: close({
 									ByteMatchStatement?: close({
 										FieldToMatch: close({
@@ -3074,7 +3074,7 @@ WAFv2 :: {
 											} | fn.Fn
 										}) | fn.If
 										PositionalConstraint: string | fn.Fn
-										SearchString:         string | fn.Fn
+										SearchString?:        string | fn.Fn
 										SearchStringBase64?:  string | fn.Fn
 										TextTransformations:  [...close({
 											Priority: int | fn.Fn
@@ -3537,7 +3537,7 @@ WAFv2 :: {
 											} | fn.Fn
 										}) | fn.If
 										PositionalConstraint: string | fn.Fn
-										SearchString:         string | fn.Fn
+										SearchString?:        string | fn.Fn
 										SearchStringBase64?:  string | fn.Fn
 										TextTransformations:  [...close({
 											Priority: int | fn.Fn
@@ -3709,7 +3709,7 @@ WAFv2 :: {
 									} | fn.Fn
 								}) | fn.If
 								PositionalConstraint: string | fn.Fn
-								SearchString:         string | fn.Fn
+								SearchString?:        string | fn.Fn
 								SearchStringBase64?:  string | fn.Fn
 								TextTransformations:  [...close({
 									Priority: int | fn.Fn
@@ -3756,7 +3756,7 @@ WAFv2 :: {
 											} | fn.Fn
 										}) | fn.If
 										PositionalConstraint: string | fn.Fn
-										SearchString:         string | fn.Fn
+										SearchString?:        string | fn.Fn
 										SearchStringBase64?:  string | fn.Fn
 										TextTransformations:  [...close({
 											Priority: int | fn.Fn
@@ -3930,7 +3930,7 @@ WAFv2 :: {
 											} | fn.Fn
 										}) | fn.If
 										PositionalConstraint: string | fn.Fn
-										SearchString:         string | fn.Fn
+										SearchString?:        string | fn.Fn
 										SearchStringBase64?:  string | fn.Fn
 										TextTransformations:  [...close({
 											Priority: int | fn.Fn
@@ -4078,8 +4078,8 @@ WAFv2 :: {
 								})] | fn.If
 							}) | fn.If
 							RateBasedStatement?: close({
-								AggregateKeyType:    string | fn.Fn
-								Limit:               int | fn.Fn
+								AggregateKeyType:    ("IP") | fn.Fn
+								Limit:               (>=100 & <=20000000) | fn.Fn
 								ScopeDownStatement?: close({
 									ByteMatchStatement?: close({
 										FieldToMatch: close({
@@ -4106,7 +4106,7 @@ WAFv2 :: {
 											} | fn.Fn
 										}) | fn.If
 										PositionalConstraint: string | fn.Fn
-										SearchString:         string | fn.Fn
+										SearchString?:        string | fn.Fn
 										SearchStringBase64?:  string | fn.Fn
 										TextTransformations:  [...close({
 											Priority: int | fn.Fn
@@ -4405,7 +4405,7 @@ WAFv2 :: {
 							} | fn.Fn
 						}) | fn.If
 						PositionalConstraint: string | fn.Fn
-						SearchString:         string | fn.Fn
+						SearchString?:        string | fn.Fn
 						SearchStringBase64?:  string | fn.Fn
 						TextTransformations:  [...close({
 							Priority: int | fn.Fn
@@ -4454,7 +4454,7 @@ WAFv2 :: {
 											} | fn.Fn
 										}) | fn.If
 										PositionalConstraint: string | fn.Fn
-										SearchString:         string | fn.Fn
+										SearchString?:        string | fn.Fn
 										SearchStringBase64?:  string | fn.Fn
 										TextTransformations:  [...close({
 											Priority: int | fn.Fn
@@ -4626,7 +4626,7 @@ WAFv2 :: {
 									} | fn.Fn
 								}) | fn.If
 								PositionalConstraint: string | fn.Fn
-								SearchString:         string | fn.Fn
+								SearchString?:        string | fn.Fn
 								SearchStringBase64?:  string | fn.Fn
 								TextTransformations:  [...close({
 									Priority: int | fn.Fn
@@ -4673,7 +4673,7 @@ WAFv2 :: {
 											} | fn.Fn
 										}) | fn.If
 										PositionalConstraint: string | fn.Fn
-										SearchString:         string | fn.Fn
+										SearchString?:        string | fn.Fn
 										SearchStringBase64?:  string | fn.Fn
 										TextTransformations:  [...close({
 											Priority: int | fn.Fn
@@ -4847,7 +4847,7 @@ WAFv2 :: {
 											} | fn.Fn
 										}) | fn.If
 										PositionalConstraint: string | fn.Fn
-										SearchString:         string | fn.Fn
+										SearchString?:        string | fn.Fn
 										SearchStringBase64?:  string | fn.Fn
 										TextTransformations:  [...close({
 											Priority: int | fn.Fn
@@ -4995,8 +4995,8 @@ WAFv2 :: {
 								})] | fn.If
 							}) | fn.If
 							RateBasedStatement?: close({
-								AggregateKeyType:    string | fn.Fn
-								Limit:               int | fn.Fn
+								AggregateKeyType:    ("IP") | fn.Fn
+								Limit:               (>=100 & <=20000000) | fn.Fn
 								ScopeDownStatement?: close({
 									ByteMatchStatement?: close({
 										FieldToMatch: close({
@@ -5023,7 +5023,7 @@ WAFv2 :: {
 											} | fn.Fn
 										}) | fn.If
 										PositionalConstraint: string | fn.Fn
-										SearchString:         string | fn.Fn
+										SearchString?:        string | fn.Fn
 										SearchStringBase64?:  string | fn.Fn
 										TextTransformations:  [...close({
 											Priority: int | fn.Fn
@@ -5326,7 +5326,7 @@ WAFv2 :: {
 											} | fn.Fn
 										}) | fn.If
 										PositionalConstraint: string | fn.Fn
-										SearchString:         string | fn.Fn
+										SearchString?:        string | fn.Fn
 										SearchStringBase64?:  string | fn.Fn
 										TextTransformations:  [...close({
 											Priority: int | fn.Fn
@@ -5498,7 +5498,7 @@ WAFv2 :: {
 									} | fn.Fn
 								}) | fn.If
 								PositionalConstraint: string | fn.Fn
-								SearchString:         string | fn.Fn
+								SearchString?:        string | fn.Fn
 								SearchStringBase64?:  string | fn.Fn
 								TextTransformations:  [...close({
 									Priority: int | fn.Fn
@@ -5545,7 +5545,7 @@ WAFv2 :: {
 											} | fn.Fn
 										}) | fn.If
 										PositionalConstraint: string | fn.Fn
-										SearchString:         string | fn.Fn
+										SearchString?:        string | fn.Fn
 										SearchStringBase64?:  string | fn.Fn
 										TextTransformations:  [...close({
 											Priority: int | fn.Fn
@@ -5719,7 +5719,7 @@ WAFv2 :: {
 											} | fn.Fn
 										}) | fn.If
 										PositionalConstraint: string | fn.Fn
-										SearchString:         string | fn.Fn
+										SearchString?:        string | fn.Fn
 										SearchStringBase64?:  string | fn.Fn
 										TextTransformations:  [...close({
 											Priority: int | fn.Fn
@@ -5867,8 +5867,8 @@ WAFv2 :: {
 								})] | fn.If
 							}) | fn.If
 							RateBasedStatement?: close({
-								AggregateKeyType:    string | fn.Fn
-								Limit:               int | fn.Fn
+								AggregateKeyType:    ("IP") | fn.Fn
+								Limit:               (>=100 & <=20000000) | fn.Fn
 								ScopeDownStatement?: close({
 									ByteMatchStatement?: close({
 										FieldToMatch: close({
@@ -5895,7 +5895,7 @@ WAFv2 :: {
 											} | fn.Fn
 										}) | fn.If
 										PositionalConstraint: string | fn.Fn
-										SearchString:         string | fn.Fn
+										SearchString?:        string | fn.Fn
 										SearchStringBase64?:  string | fn.Fn
 										TextTransformations:  [...close({
 											Priority: int | fn.Fn
@@ -6170,8 +6170,8 @@ WAFv2 :: {
 						})] | fn.If
 					}) | fn.If
 					RateBasedStatement?: close({
-						AggregateKeyType:    string | fn.Fn
-						Limit:               int | fn.Fn
+						AggregateKeyType:    ("IP") | fn.Fn
+						Limit:               (>=100 & <=20000000) | fn.Fn
 						ScopeDownStatement?: close({
 							AndStatement?: close({
 								Statements: [...close({
@@ -6200,7 +6200,7 @@ WAFv2 :: {
 											} | fn.Fn
 										}) | fn.If
 										PositionalConstraint: string | fn.Fn
-										SearchString:         string | fn.Fn
+										SearchString?:        string | fn.Fn
 										SearchStringBase64?:  string | fn.Fn
 										TextTransformations:  [...close({
 											Priority: int | fn.Fn
@@ -6372,7 +6372,7 @@ WAFv2 :: {
 									} | fn.Fn
 								}) | fn.If
 								PositionalConstraint: string | fn.Fn
-								SearchString:         string | fn.Fn
+								SearchString?:        string | fn.Fn
 								SearchStringBase64?:  string | fn.Fn
 								TextTransformations:  [...close({
 									Priority: int | fn.Fn
@@ -6419,7 +6419,7 @@ WAFv2 :: {
 											} | fn.Fn
 										}) | fn.If
 										PositionalConstraint: string | fn.Fn
-										SearchString:         string | fn.Fn
+										SearchString?:        string | fn.Fn
 										SearchStringBase64?:  string | fn.Fn
 										TextTransformations:  [...close({
 											Priority: int | fn.Fn
@@ -6593,7 +6593,7 @@ WAFv2 :: {
 											} | fn.Fn
 										}) | fn.If
 										PositionalConstraint: string | fn.Fn
-										SearchString:         string | fn.Fn
+										SearchString?:        string | fn.Fn
 										SearchStringBase64?:  string | fn.Fn
 										TextTransformations:  [...close({
 											Priority: int | fn.Fn
@@ -6741,8 +6741,8 @@ WAFv2 :: {
 								})] | fn.If
 							}) | fn.If
 							RateBasedStatement?: close({
-								AggregateKeyType:    string | fn.Fn
-								Limit:               int | fn.Fn
+								AggregateKeyType:    ("IP") | fn.Fn
+								Limit:               (>=100 & <=20000000) | fn.Fn
 								ScopeDownStatement?: close({
 									ByteMatchStatement?: close({
 										FieldToMatch: close({
@@ -6769,7 +6769,7 @@ WAFv2 :: {
 											} | fn.Fn
 										}) | fn.If
 										PositionalConstraint: string | fn.Fn
-										SearchString:         string | fn.Fn
+										SearchString?:        string | fn.Fn
 										SearchStringBase64?:  string | fn.Fn
 										TextTransformations:  [...close({
 											Priority: int | fn.Fn

@@ -36,6 +36,8 @@ DMS :: {
 			KmsKeyId?:        string | fn.Fn
 			MongoDbSettings?: close({
 			}) | fn.If
+			NeptuneSettings?: close({
+			}) | fn.If
 			Password?:   string | fn.Fn
 			Port?:       int | fn.Fn
 			S3Settings?: close({
@@ -135,6 +137,7 @@ DMS :: {
 				Value: string | fn.Fn
 			})] | fn.If
 			TargetEndpointArn: string | fn.Fn
+			TaskData?:         string | fn.Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

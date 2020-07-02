@@ -111,6 +111,8 @@ CloudFront :: {
 					Quantity: int | fn.Fn
 				}) | fn.If
 				Origins: [...close({
+					ConnectionAttempts?: int | fn.Fn
+					ConnectionTimeout?:  int | fn.Fn
 					CustomOriginConfig?: close({
 						HTTPPort?:               int | fn.Fn
 						HTTPSPort?:              int | fn.Fn

@@ -6,10 +6,13 @@ CertificateManager :: {
 	Certificate :: {
 		Type:       "AWS::CertificateManager::Certificate"
 		Properties: close({
-			DomainName:               string | fn.Fn
-			DomainValidationOptions?: [...close({
-				DomainName:       string | fn.Fn
-				ValidationDomain: string | fn.Fn
+			CertificateAuthorityArn?:                  string | fn.Fn
+			CertificateTransparencyLoggingPreference?: string | fn.Fn
+			DomainName:                                string | fn.Fn
+			DomainValidationOptions?:                  [...close({
+				DomainName:        string | fn.Fn
+				HostedZoneId?:     string | fn.Fn
+				ValidationDomain?: string | fn.Fn
 			})] | fn.If
 			SubjectAlternativeNames?: [...(string | fn.Fn)] | (string | fn.Fn)
 			Tags?:                    [...close({

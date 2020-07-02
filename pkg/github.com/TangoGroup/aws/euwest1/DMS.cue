@@ -57,6 +57,15 @@ DMS :: {
 				ServerName?:        string | fn.Fn
 				Username?:          string | fn.Fn
 			}) | fn.If
+			NeptuneSettings?: close({
+				ErrorRetryDuration?:   int | fn.Fn
+				IamAuthEnabled?:       bool | fn.Fn
+				MaxFileSize?:          int | fn.Fn
+				MaxRetryCount?:        int | fn.Fn
+				S3BucketFolder?:       string | fn.Fn
+				S3BucketName?:         string | fn.Fn
+				ServiceAccessRoleArn?: string | fn.Fn
+			}) | fn.If
 			Password?:   string | fn.Fn
 			Port?:       int | fn.Fn
 			S3Settings?: close({
@@ -163,6 +172,7 @@ DMS :: {
 				Value: string | fn.Fn
 			})] | fn.If
 			TargetEndpointArn: string | fn.Fn
+			TaskData?:         string | fn.Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

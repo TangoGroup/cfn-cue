@@ -164,6 +164,55 @@ RDS :: {
 		Metadata?: [string]: _
 		Condition?: string
 	}
+	DBProxy :: {
+		Type:       "AWS::RDS::DBProxy"
+		Properties: close({
+			Auth: [...close({
+				AuthScheme?:  string | fn.Fn
+				Description?: string | fn.Fn
+				IAMAuth?:     string | fn.Fn
+				SecretArn?:   string | fn.Fn
+				UserName?:    string | fn.Fn
+			})] | fn.If
+			DBProxyName:        string | fn.Fn
+			DebugLogging?:      bool | fn.Fn
+			EngineFamily:       string | fn.Fn
+			IdleClientTimeout?: int | fn.Fn
+			RequireTLS?:        bool | fn.Fn
+			RoleArn:            string | fn.Fn
+			Tags?:              [...close({
+				Key?:   string | fn.Fn
+				Value?: string | fn.Fn
+			})] | fn.If
+			VpcSecurityGroupIds?: [...(string | fn.Fn)] | (string | fn.Fn)
+			VpcSubnetIds:         [...(string | fn.Fn)] | (string | fn.Fn)
+		})
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+		Condition?: string
+	}
+	DBProxyTargetGroup :: {
+		Type:       "AWS::RDS::DBProxyTargetGroup"
+		Properties: close({
+			ConnectionPoolConfigurationInfo?: close({
+				ConnectionBorrowTimeout?:   int | fn.Fn
+				InitQuery?:                 string | fn.Fn
+				MaxConnectionsPercent?:     int | fn.Fn
+				MaxIdleConnectionsPercent?: int | fn.Fn
+				SessionPinningFilters?:     [...(string | fn.Fn)] | (string | fn.Fn)
+			}) | fn.If
+			DBClusterIdentifiers?:  [...(string | fn.Fn)] | (string | fn.Fn)
+			DBInstanceIdentifiers?: [...(string | fn.Fn)] | (string | fn.Fn)
+			DBProxyName:            string | fn.Fn
+		})
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+		Condition?: string
+	}
 	DBSecurityGroup :: {
 		Type:       "AWS::RDS::DBSecurityGroup"
 		Properties: close({

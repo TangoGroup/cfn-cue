@@ -3,6 +3,37 @@ package mesouth1
 import "github.com/TangoGroup/aws/fn"
 
 Events :: {
+	EventBus :: {
+		Type:       "AWS::Events::EventBus"
+		Properties: close({
+			EventSourceName?: string | fn.Fn
+			Name:             string | fn.Fn
+		})
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+		Condition?: string
+	}
+	EventBusPolicy :: {
+		Type:       "AWS::Events::EventBusPolicy"
+		Properties: close({
+			Action:     ("events:PutEvents") | fn.Fn
+			Condition?: close({
+				Key?:   ("aws:PrincipalOrgID") | fn.Fn
+				Type?:  ("StringEquals") | fn.Fn
+				Value?: string | fn.Fn
+			}) | fn.If
+			EventBusName?: string | fn.Fn
+			Principal:     string | fn.Fn
+			StatementId:   string | fn.Fn
+		})
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+		Condition?: string
+	}
 	Rule :: {
 		Type:       "AWS::Events::Rule"
 		Properties: close({
@@ -40,6 +71,15 @@ Events :: {
 					PlatformVersion?:  string | fn.Fn
 					TaskCount?:        int | fn.Fn
 					TaskDefinitionArn: string | fn.Fn
+				}) | fn.If
+				HttpParameters?: close({
+					HeaderParameters?: {
+						[string]: string | fn.Fn
+					} | fn.If
+					PathParameterValues?:   [...(string | fn.Fn)] | (string | fn.Fn)
+					QueryStringParameters?: {
+						[string]: string | fn.Fn
+					} | fn.If
 				}) | fn.If
 				Id:                string | fn.Fn
 				Input?:            string | fn.Fn

@@ -6,6 +6,7 @@ Transfer :: {
 	Server :: {
 		Type:       "AWS::Transfer::Server"
 		Properties: close({
+			Certificate?:     string | fn.Fn
 			EndpointDetails?: close({
 				AddressAllocationIds?: [...(string | fn.Fn)] | (string | fn.Fn)
 				SubnetIds?:            [...(string | fn.Fn)] | (string | fn.Fn)
@@ -19,7 +20,9 @@ Transfer :: {
 			}) | fn.If
 			IdentityProviderType?: string | fn.Fn
 			LoggingRole?:          string | fn.Fn
-			Tags?:                 [...close({
+			Protocols?:            [...close({
+			})] | fn.If
+			Tags?: [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			})] | fn.If

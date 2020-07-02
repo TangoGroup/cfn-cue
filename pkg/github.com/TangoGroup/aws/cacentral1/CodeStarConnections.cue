@@ -8,6 +8,10 @@ CodeStarConnections :: {
 		Properties: close({
 			ConnectionName: string | fn.Fn
 			ProviderType:   string | fn.Fn
+			Tags?:          [...close({
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
+			})] | fn.If
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

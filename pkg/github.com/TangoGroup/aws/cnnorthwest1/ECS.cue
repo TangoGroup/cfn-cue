@@ -3,13 +3,44 @@ package cnnorthwest1
 import "github.com/TangoGroup/aws/fn"
 
 ECS :: {
+	CapacityProvider :: {
+		Type:       "AWS::ECS::CapacityProvider"
+		Properties: close({
+			AutoScalingGroupProvider: close({
+				AutoScalingGroupArn: string | fn.Fn
+				ManagedScaling?:     close({
+					MaximumScalingStepSize?: int | fn.Fn
+					MinimumScalingStepSize?: int | fn.Fn
+					Status?:                 string | fn.Fn
+					TargetCapacity?:         int | fn.Fn
+				}) | fn.If
+				ManagedTerminationProtection?: string | fn.Fn
+			}) | fn.If
+			Name?: string | fn.Fn
+			Tags?: [...close({
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
+			})] | fn.If
+		})
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+		Condition?: string
+	}
 	Cluster :: {
 		Type:       "AWS::ECS::Cluster"
 		Properties: close({
-			ClusterName?:     string | fn.Fn
-			ClusterSettings?: [...close({
-				Name:  string | fn.Fn
-				Value: string | fn.Fn
+			CapacityProviders?: [...(string | fn.Fn)] | (string | fn.Fn)
+			ClusterName?:       string | fn.Fn
+			ClusterSettings?:   [...close({
+				Name?:  string | fn.Fn
+				Value?: string | fn.Fn
+			})] | fn.If
+			DefaultCapacityProviderStrategy?: [...close({
+				Base?:             int | fn.Fn
+				CapacityProvider?: string | fn.Fn
+				Weight?:           int | fn.Fn
 			})] | fn.If
 			Tags?: [...close({
 				Key:   string | fn.Fn
@@ -217,9 +248,8 @@ ECS :: {
 			ExecutionRoleArn?:      (=~#"arn:(aws[a-zA-Z-]*)?:iam::\d{12}:role/[a-zA-Z_0-9+=,.@\-_/]+"#) | fn.Fn
 			Family?:                string | fn.Fn
 			InferenceAccelerators?: [...close({
-				DeviceName?:   string | fn.Fn
-				DevicePolicy?: string | fn.Fn
-				DeviceType?:   string | fn.Fn
+				DeviceName?: string | fn.Fn
+				DeviceType?: string | fn.Fn
 			})] | fn.If
 			IpcMode?:              string | fn.Fn
 			Memory?:               string | fn.Fn

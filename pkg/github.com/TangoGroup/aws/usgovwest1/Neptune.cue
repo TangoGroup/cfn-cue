@@ -19,13 +19,17 @@ Neptune :: {
 			Port?:                        int | fn.Fn
 			PreferredBackupWindow?:       string | fn.Fn
 			PreferredMaintenanceWindow?:  string | fn.Fn
+			RestoreToTime?:               string | fn.Fn
+			RestoreType?:                 string | fn.Fn
 			SnapshotIdentifier?:          string | fn.Fn
+			SourceDBClusterIdentifier?:   string | fn.Fn
 			StorageEncrypted?:            bool | fn.Fn
 			Tags?:                        [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			})] | fn.If
-			VpcSecurityGroupIds?: [...(string | fn.Fn)] | (string | fn.Fn)
+			UseLatestRestorableTime?: bool | fn.Fn
+			VpcSecurityGroupIds?:     [...(string | fn.Fn)] | (string | fn.Fn)
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain" | "Snapshot"

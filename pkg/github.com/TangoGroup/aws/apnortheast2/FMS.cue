@@ -21,10 +21,12 @@ FMS :: {
 			DeleteAllPolicyResources?: bool | fn.Fn
 			ExcludeMap?:               close({
 				ACCOUNT?: [...(string | fn.Fn)] | (string | fn.Fn)
+				ORGUNIT?: [...(string | fn.Fn)] | (string | fn.Fn)
 			}) | fn.If
 			ExcludeResourceTags: bool | fn.Fn
 			IncludeMap?:         close({
 				ACCOUNT?: [...(string | fn.Fn)] | (string | fn.Fn)
+				ORGUNIT?: [...(string | fn.Fn)] | (string | fn.Fn)
 			}) | fn.If
 			PolicyName:         string | fn.Fn
 			RemediationEnabled: bool | fn.Fn

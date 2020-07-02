@@ -204,9 +204,8 @@ ECS :: {
 			ExecutionRoleArn?:      (=~#"arn:(aws[a-zA-Z-]*)?:iam::\d{12}:role/[a-zA-Z_0-9+=,.@\-_/]+"#) | fn.Fn
 			Family?:                string | fn.Fn
 			InferenceAccelerators?: [...close({
-				DeviceName?:   string | fn.Fn
-				DevicePolicy?: string | fn.Fn
-				DeviceType?:   string | fn.Fn
+				DeviceName?: string | fn.Fn
+				DeviceType?: string | fn.Fn
 			})] | fn.If
 			IpcMode?:              string | fn.Fn
 			Memory?:               string | fn.Fn

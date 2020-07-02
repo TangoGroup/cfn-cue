@@ -8,6 +8,10 @@ ServiceDiscovery :: {
 		Properties: close({
 			Description?: string | fn.Fn
 			Name:         string | fn.Fn
+			Tags?:        [...close({
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
+			})] | fn.If
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -35,7 +39,11 @@ ServiceDiscovery :: {
 		Properties: close({
 			Description?: string | fn.Fn
 			Name:         string | fn.Fn
-			Vpc:          string | fn.Fn
+			Tags?:        [...close({
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
+			})] | fn.If
+			Vpc: string | fn.Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -48,6 +56,10 @@ ServiceDiscovery :: {
 		Properties: close({
 			Description?: string | fn.Fn
 			Name:         string | fn.Fn
+			Tags?:        [...close({
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
+			})] | fn.If
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -67,6 +79,10 @@ ServiceDiscovery :: {
 			}) | fn.If
 			Name?:        string | fn.Fn
 			NamespaceId?: string | fn.Fn
+			Tags?:        [...close({
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
+			})] | fn.If
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

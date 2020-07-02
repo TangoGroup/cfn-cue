@@ -6,7 +6,6 @@ Chatbot :: {
 	SlackChannelConfiguration :: {
 		Type:       "AWS::Chatbot::SlackChannelConfiguration"
 		Properties: close({
-			Arn?:              string | fn.Fn
 			ConfigurationName: string | fn.Fn
 			IamRoleArn:        string | fn.Fn
 			LoggingLevel?:     string | fn.Fn

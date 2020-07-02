@@ -41,6 +41,7 @@ CloudWatch :: {
 					Stat:   string | fn.Fn
 					Unit?:  string | fn.Fn
 				}) | fn.If
+				Period?:     int | fn.Fn
 				ReturnData?: bool | fn.Fn
 			})] | fn.If
 			Namespace?:         string | fn.Fn

@@ -17,9 +17,10 @@ DLM :: {
 				Schedules:     [...close({
 					CopyTags?:   bool | fn.Fn
 					CreateRule?: close({
-						Interval:     int | fn.Fn
-						IntervalUnit: string | fn.Fn
-						Times?:       [...(string | fn.Fn)] | (string | fn.Fn)
+						CronExpression?: string | fn.Fn
+						Interval?:       int | fn.Fn
+						IntervalUnit?:   string | fn.Fn
+						Times?:          [...(string | fn.Fn)] | (string | fn.Fn)
 					}) | fn.If
 					CrossRegionCopyRules?: [...close({
 						CmkArn?:     string | fn.Fn

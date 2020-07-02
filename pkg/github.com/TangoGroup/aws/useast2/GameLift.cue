@@ -54,7 +54,7 @@ GameLift :: {
 				Protocol: string | fn.Fn
 				ToPort:   int | fn.Fn
 			})] | fn.If
-			EC2InstanceType:                 string | fn.Fn
+			EC2InstanceType:                 ("c4.2xlarge" | "c4.4xlarge" | "c4.8xlarge" | "c4.large" | "c4.xlarge" | "c5.12xlarge" | "c5.18xlarge" | "c5.24xlarge" | "c5.2xlarge" | "c5.4xlarge" | "c5.9xlarge" | "c5.large" | "c5.xlarge" | "m4.10xlarge" | "m4.2xlarge" | "m4.4xlarge" | "m4.large" | "m4.xlarge" | "m5.12xlarge" | "m5.16xlarge" | "m5.24xlarge" | "m5.2xlarge" | "m5.4xlarge" | "m5.8xlarge" | "m5.large" | "m5.xlarge" | "r4.16xlarge" | "r4.2xlarge" | "r4.4xlarge" | "r4.8xlarge" | "r4.large" | "r4.xlarge" | "r5.12xlarge" | "r5.16xlarge" | "r5.24xlarge" | "r5.2xlarge" | "r5.4xlarge" | "r5.8xlarge" | "r5.large" | "r5.xlarge" | "t2.large" | "t2.medium" | "t2.micro" | "t2.small") | fn.Fn
 			FleetType?:                      string | fn.Fn
 			InstanceRoleARN?:                string | fn.Fn
 			LogPaths?:                       [...(string | fn.Fn)] | (string | fn.Fn)

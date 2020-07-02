@@ -8,7 +8,7 @@ ElastiCache :: {
 		Properties: close({
 			AZMode?:                     string | fn.Fn
 			AutoMinorVersionUpgrade?:    bool | fn.Fn
-			CacheNodeType:               string | fn.Fn
+			CacheNodeType:               ("cache.m3.2xlarge" | "cache.m3.large" | "cache.m3.medium" | "cache.m3.xlarge" | "cache.m5.12xlarge" | "cache.m5.24xlarge" | "cache.m5.2xlarge" | "cache.m5.4xlarge" | "cache.m5.large" | "cache.m5.xlarge" | "cache.r3.2xlarge" | "cache.r3.4xlarge" | "cache.r3.8xlarge" | "cache.r3.large" | "cache.r3.xlarge" | "cache.r4.16xlarge" | "cache.r4.2xlarge" | "cache.r4.4xlarge" | "cache.r4.8xlarge" | "cache.r4.large" | "cache.r4.xlarge" | "cache.r5.12xlarge" | "cache.r5.24xlarge" | "cache.r5.2xlarge" | "cache.r5.4xlarge" | "cache.r5.large" | "cache.r5.xlarge" | "cache.t2.medium" | "cache.t2.micro" | "cache.t2.small" | "cache.t3.medium" | "cache.t3.micro" | "cache.t3.small") | fn.Fn
 			CacheParameterGroupName?:    string | fn.Fn
 			CacheSecurityGroupNames?:    [...(string | fn.Fn)] | (string | fn.Fn)
 			CacheSubnetGroupName?:       string | fn.Fn
@@ -59,13 +59,14 @@ ElastiCache :: {
 			AuthToken?:                string | fn.Fn
 			AutoMinorVersionUpgrade?:  bool | fn.Fn
 			AutomaticFailoverEnabled?: bool | fn.Fn
-			CacheNodeType?:            string | fn.Fn
+			CacheNodeType?:            ("cache.m3.2xlarge" | "cache.m3.large" | "cache.m3.medium" | "cache.m3.xlarge" | "cache.m5.12xlarge" | "cache.m5.24xlarge" | "cache.m5.2xlarge" | "cache.m5.4xlarge" | "cache.m5.large" | "cache.m5.xlarge" | "cache.r3.2xlarge" | "cache.r3.4xlarge" | "cache.r3.8xlarge" | "cache.r3.large" | "cache.r3.xlarge" | "cache.r4.16xlarge" | "cache.r4.2xlarge" | "cache.r4.4xlarge" | "cache.r4.8xlarge" | "cache.r4.large" | "cache.r4.xlarge" | "cache.r5.12xlarge" | "cache.r5.24xlarge" | "cache.r5.2xlarge" | "cache.r5.4xlarge" | "cache.r5.large" | "cache.r5.xlarge" | "cache.t2.medium" | "cache.t2.micro" | "cache.t2.small" | "cache.t3.medium" | "cache.t3.micro" | "cache.t3.small") | fn.Fn
 			CacheParameterGroupName?:  string | fn.Fn
 			CacheSecurityGroupNames?:  [...(string | fn.Fn)] | (string | fn.Fn)
 			CacheSubnetGroupName?:     string | fn.Fn
 			Engine?:                   string | fn.Fn
 			EngineVersion?:            string | fn.Fn
 			KmsKeyId?:                 string | fn.Fn
+			MultiAZEnabled?:           bool | fn.Fn
 			NodeGroupConfiguration?:   [...close({
 				NodeGroupId?:              string | fn.Fn
 				PrimaryAvailabilityZone?:  string | fn.Fn

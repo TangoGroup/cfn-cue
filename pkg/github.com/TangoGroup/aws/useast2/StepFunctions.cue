@@ -21,7 +21,14 @@ StepFunctions :: {
 	StateMachine :: {
 		Type:       "AWS::StepFunctions::StateMachine"
 		Properties: close({
-			DefinitionString:      string | fn.Fn
+			DefinitionS3Location?: close({
+				Bucket:   string | fn.Fn
+				Key:      string | fn.Fn
+				Version?: string | fn.Fn
+			}) | fn.If
+			DefinitionString?:        string | fn.Fn
+			DefinitionSubstitutions?: close({
+			}) | fn.If
 			LoggingConfiguration?: close({
 				Destinations?: [...close({
 					CloudWatchLogsLogGroup?: close({
@@ -38,9 +45,6 @@ StepFunctions :: {
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			})] | fn.If
-			TracingConfiguration?: close({
-				Enabled: bool | fn.Fn
-			}) | fn.If
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

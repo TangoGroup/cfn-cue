@@ -161,7 +161,6 @@ Glue :: {
 			NumberOfNodes?:         int | fn.Fn
 			NumberOfWorkers?:       int | fn.Fn
 			PublicKey?:             string | fn.Fn
-			PublicKeys?:            [...(string | fn.Fn)] | (string | fn.Fn)
 			RoleArn:                string | fn.Fn
 			SecurityConfiguration?: string | fn.Fn
 			SecurityGroupIds?:      [...(string | fn.Fn)] | (string | fn.Fn)
@@ -204,39 +203,13 @@ Glue :: {
 			NotificationProperty?: close({
 				NotifyDelayAfter?: int | fn.Fn
 			}) | fn.If
-			NumberOfWorkers?:       int | fn.Fn
+			NumberOfWorkers?:       (>=0 & <=299) | fn.Fn
 			Role:                   string | fn.Fn
 			SecurityConfiguration?: string | fn.Fn
 			Tags?:                  {
 				[string]: _
 			} | fn.Fn
 			Timeout?:    int | fn.Fn
-			WorkerType?: string | fn.Fn
-		})
-		DependsOn?:           string | [...string]
-		DeletionPolicy?:      "Delete" | "Retain"
-		UpdateReplacePolicy?: "Delete" | "Retain"
-		Metadata?: [string]: _
-		Condition?: string
-	}
-	MLTransform :: {
-		Type:       "AWS::Glue::MLTransform"
-		Properties: close({
-			Description?:      string | fn.Fn
-			GlueVersion?:      string | fn.Fn
-			InputRecordTables: close({
-			}) | fn.If
-			MaxCapacity?:     number | fn.Fn
-			MaxRetries?:      int | fn.Fn
-			Name?:            string | fn.Fn
-			NumberOfWorkers?: int | fn.Fn
-			Role:             string | fn.Fn
-			Tags?:            {
-				[string]: _
-			} | fn.Fn
-			Timeout?:            int | fn.Fn
-			TransformParameters: close({
-			}) | fn.If
 			WorkerType?: string | fn.Fn
 		})
 		DependsOn?:           string | [...string]
@@ -416,7 +389,7 @@ Glue :: {
 			Tags?:            {
 				[string]: _
 			} | fn.Fn
-			Type:          string | fn.Fn
+			Type:          ("CONDITIONAL" | "ON_DEMAND" | "SCHEDULED") | fn.Fn
 			WorkflowName?: string | fn.Fn
 		})
 		DependsOn?:           string | [...string]

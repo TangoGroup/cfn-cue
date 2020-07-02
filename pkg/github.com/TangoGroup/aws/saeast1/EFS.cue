@@ -3,10 +3,42 @@ package saeast1
 import "github.com/TangoGroup/aws/fn"
 
 EFS :: {
+	AccessPoint :: {
+		Type:       "AWS::EFS::AccessPoint"
+		Properties: close({
+			AccessPointTags?: [...close({
+				Key?:   string | fn.Fn
+				Value?: string | fn.Fn
+			})] | fn.If
+			ClientToken?: string | fn.Fn
+			FileSystemId: string | fn.Fn
+			PosixUser?:   close({
+				Gid:            string | fn.Fn
+				SecondaryGids?: [...(string | fn.Fn)] | (string | fn.Fn)
+				Uid:            string | fn.Fn
+			}) | fn.If
+			RootDirectory?: close({
+				CreationInfo?: close({
+					OwnerGid:    string | fn.Fn
+					OwnerUid:    string | fn.Fn
+					Permissions: string | fn.Fn
+				}) | fn.If
+				Path?: string | fn.Fn
+			}) | fn.If
+		})
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+		Condition?: string
+	}
 	FileSystem :: {
 		Type:       "AWS::EFS::FileSystem"
 		Properties: close({
-			Encrypted?:      bool | fn.Fn
+			Encrypted?:        bool | fn.Fn
+			FileSystemPolicy?: {
+				[string]: _
+			} | fn.Fn
 			FileSystemTags?: [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn

@@ -117,6 +117,7 @@ ApiGatewayV2 :: {
 		Type:       "AWS::ApiGatewayV2::Integration"
 		Properties: close({
 			ApiId:                    string | fn.Fn
+			ConnectionId?:            string | fn.Fn
 			ConnectionType?:          string | fn.Fn
 			ContentHandlingStrategy?: string | fn.Fn
 			CredentialsArn?:          string | fn.Fn
@@ -134,6 +135,9 @@ ApiGatewayV2 :: {
 			} | fn.Fn
 			TemplateSelectionExpression?: string | fn.Fn
 			TimeoutInMillis?:             int | fn.Fn
+			TlsConfig?:                   close({
+				ServerNameToVerify?: string | fn.Fn
+			}) | fn.If
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

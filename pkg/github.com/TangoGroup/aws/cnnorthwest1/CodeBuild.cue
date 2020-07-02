@@ -40,7 +40,7 @@ CodeBuild :: {
 					Credential:         string | fn.Fn
 					CredentialProvider: string | fn.Fn
 				}) | fn.If
-				Type: ("LINUX_CONTAINER" | "WINDOWS_CONTAINER") | fn.Fn
+				Type: ("ARM_CONTAINER" | "LINUX_CONTAINER" | "LINUX_GPU_CONTAINER" | "WINDOWS_CONTAINER") | fn.Fn
 			}) | fn.If
 			FileSystemLocations?: [...close({
 				Identifier:    string | fn.Fn
