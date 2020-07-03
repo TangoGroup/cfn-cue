@@ -21,9 +21,8 @@ SecretsManager :: {
 		Type:       "AWS::SecretsManager::RotationSchedule"
 		Properties: close({
 			RotationLambdaARN?: string | fn.Fn
-			RotationRules?:     close({
-			}) | fn.If
-			SecretId: string | fn.Fn
+			RotationRules?:     close({}) | fn.If
+			SecretId:           string | fn.Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -35,12 +34,11 @@ SecretsManager :: {
 		Type:       "AWS::SecretsManager::Secret"
 		Properties: close({
 			Description?:          string | fn.Fn
-			GenerateSecretString?: close({
-			}) | fn.If
-			KmsKeyId?:     string | fn.Fn
-			Name?:         string | fn.Fn
-			SecretString?: string | fn.Fn
-			Tags?:         [...close({
+			GenerateSecretString?: close({}) | fn.If
+			KmsKeyId?:             string | fn.Fn
+			Name?:                 string | fn.Fn
+			SecretString?:         string | fn.Fn
+			Tags?:                 [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			})] | fn.If

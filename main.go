@@ -349,8 +349,8 @@ func createExprFromNumberMinMax(prop Property, min, max float64) (expr ast.Expr)
 }
 
 func createExprFromStringMinMax(prop Property, min, max int64) (expr ast.Expr) {
-	minLen := ast.NewCall(ast.NewIdent("strings.MinRunes"), &ast.BasicLit{Value: strconv.FormatInt(min, 10)})
-	maxLen := ast.NewCall(ast.NewIdent("strings.MaxRunes"), &ast.BasicLit{Value: strconv.FormatInt(max, 10)})
+	minLen := ast.NewCall(ast.NewSel(ast.NewIdent("strings"), "MinRunes"), &ast.BasicLit{Value: strconv.FormatInt(min, 10)})
+	maxLen := ast.NewCall(ast.NewSel(ast.NewIdent("strings"), "MaxRunes"), &ast.BasicLit{Value: strconv.FormatInt(max, 10)})
 
 	return &ast.BinaryExpr{X: minLen, Op: token.AND, Y: maxLen}
 }
@@ -958,11 +958,9 @@ func main() {
 			}
 			importStrings := map[string]bool{}
 			imports := &ast.ImportDecl{
-				Specs: []*ast.ImportSpec{
-					&ast.ImportSpec{
-						Path: ast.NewString("github.com/TangoGroup/aws/fn"),
-					},
-				},
+				Specs: []*ast.ImportSpec{{
+					Path: ast.NewString("github.com/TangoGroup/aws/fn"),
+				}},
 			}
 
 			serviceResources := make([]ast.Decl, 0)
@@ -1102,11 +1100,9 @@ func main() {
 				Name: ast.NewIdent(shortRegion),
 			},
 			&ast.ImportDecl{
-				Specs: []*ast.ImportSpec{
-					&ast.ImportSpec{
-						Path: ast.NewString("github.com/TangoGroup/aws/fn"),
-					},
-				},
+				Specs: []*ast.ImportSpec{{
+					Path: ast.NewString("github.com/TangoGroup/aws/fn"),
+				}},
 			},
 			templateResourceSpecVersion(spec.ResourceSpecificationVersion),
 		}

@@ -6,10 +6,8 @@ Budgets :: {
 	Budget :: {
 		Type:       "AWS::Budgets::Budget"
 		Properties: close({
-			Budget: close({
-			}) | fn.If
-			NotificationsWithSubscribers?: [...close({
-			})] | fn.If
+			Budget:                        close({}) | fn.If
+			NotificationsWithSubscribers?: [...close({})] | fn.If
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

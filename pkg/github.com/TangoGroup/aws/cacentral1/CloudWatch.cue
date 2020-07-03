@@ -118,8 +118,7 @@ CloudWatch :: {
 			RuleBody:  string | fn.Fn
 			RuleName:  string | fn.Fn
 			RuleState: string | fn.Fn
-			Tags?:     close({
-			}) | fn.If
+			Tags?:     close({}) | fn.If
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

@@ -21,10 +21,9 @@ GuardDuty :: {
 			Action:          string | fn.Fn
 			Description:     string | fn.Fn
 			DetectorId:      string | fn.Fn
-			FindingCriteria: close({
-			}) | fn.If
-			Name: string | fn.Fn
-			Rank: int | fn.Fn
+			FindingCriteria: close({}) | fn.If
+			Name:            string | fn.Fn
+			Rank:            int | fn.Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

@@ -6,14 +6,10 @@ Glue :: {
 	Classifier :: {
 		Type:       "AWS::Glue::Classifier"
 		Properties: close({
-			CsvClassifier?: close({
-			}) | fn.If
-			GrokClassifier?: close({
-			}) | fn.If
-			JsonClassifier?: close({
-			}) | fn.If
-			XMLClassifier?: close({
-			}) | fn.If
+			CsvClassifier?:  close({}) | fn.If
+			GrokClassifier?: close({}) | fn.If
+			JsonClassifier?: close({}) | fn.If
+			XMLClassifier?:  close({}) | fn.If
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -25,8 +21,7 @@ Glue :: {
 		Type:       "AWS::Glue::Connection"
 		Properties: close({
 			CatalogId:       string | fn.Fn
-			ConnectionInput: close({
-			}) | fn.If
+			ConnectionInput: close({}) | fn.If
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -44,16 +39,13 @@ Glue :: {
 			Description?:                  string | fn.Fn
 			Name?:                         string | fn.Fn
 			Role:                          string | fn.Fn
-			Schedule?:                     close({
-			}) | fn.If
-			SchemaChangePolicy?: close({
-			}) | fn.If
-			TablePrefix?: string | fn.Fn
-			Tags?:        {
+			Schedule?:                     close({}) | fn.If
+			SchemaChangePolicy?:           close({}) | fn.If
+			TablePrefix?:                  string | fn.Fn
+			Tags?:                         {
 				[string]: _
 			} | fn.Fn
-			Targets: close({
-			}) | fn.If
+			Targets: close({}) | fn.If
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -65,8 +57,7 @@ Glue :: {
 		Type:       "AWS::Glue::DataCatalogEncryptionSettings"
 		Properties: close({
 			CatalogId:                     string | fn.Fn
-			DataCatalogEncryptionSettings: close({
-			}) | fn.If
+			DataCatalogEncryptionSettings: close({}) | fn.If
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -78,8 +69,7 @@ Glue :: {
 		Type:       "AWS::Glue::Database"
 		Properties: close({
 			CatalogId:     string | fn.Fn
-			DatabaseInput: close({
-			}) | fn.If
+			DatabaseInput: close({}) | fn.If
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -120,23 +110,19 @@ Glue :: {
 		Type:       "AWS::Glue::Job"
 		Properties: close({
 			AllocatedCapacity?: number | fn.Fn
-			Command:            close({
-			}) | fn.If
-			Connections?: close({
-			}) | fn.If
-			DefaultArguments?: {
+			Command:            close({}) | fn.If
+			Connections?:       close({}) | fn.If
+			DefaultArguments?:  {
 				[string]: _
 			} | fn.Fn
-			Description?:       string | fn.Fn
-			ExecutionProperty?: close({
-			}) | fn.If
-			GlueVersion?:          string | fn.Fn
-			LogUri?:               string | fn.Fn
-			MaxCapacity?:          number | fn.Fn
-			MaxRetries?:           number | fn.Fn
-			Name?:                 string | fn.Fn
-			NotificationProperty?: close({
-			}) | fn.If
+			Description?:           string | fn.Fn
+			ExecutionProperty?:     close({}) | fn.If
+			GlueVersion?:           string | fn.Fn
+			LogUri?:                string | fn.Fn
+			MaxCapacity?:           number | fn.Fn
+			MaxRetries?:            number | fn.Fn
+			Name?:                  string | fn.Fn
+			NotificationProperty?:  close({}) | fn.If
 			NumberOfWorkers?:       int | fn.Fn
 			Role:                   string | fn.Fn
 			SecurityConfiguration?: string | fn.Fn
@@ -157,20 +143,18 @@ Glue :: {
 		Properties: close({
 			Description?:      string | fn.Fn
 			GlueVersion?:      string | fn.Fn
-			InputRecordTables: close({
-			}) | fn.If
-			MaxCapacity?:     number | fn.Fn
-			MaxRetries?:      int | fn.Fn
-			Name?:            string | fn.Fn
-			NumberOfWorkers?: int | fn.Fn
-			Role:             string | fn.Fn
-			Tags?:            {
+			InputRecordTables: close({}) | fn.If
+			MaxCapacity?:      number | fn.Fn
+			MaxRetries?:       int | fn.Fn
+			Name?:             string | fn.Fn
+			NumberOfWorkers?:  int | fn.Fn
+			Role:              string | fn.Fn
+			Tags?:             {
 				[string]: _
 			} | fn.Fn
 			Timeout?:            int | fn.Fn
-			TransformParameters: close({
-			}) | fn.If
-			WorkerType?: string | fn.Fn
+			TransformParameters: close({}) | fn.If
+			WorkerType?:         string | fn.Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -183,9 +167,8 @@ Glue :: {
 		Properties: close({
 			CatalogId:      string | fn.Fn
 			DatabaseName:   string | fn.Fn
-			PartitionInput: close({
-			}) | fn.If
-			TableName: string | fn.Fn
+			PartitionInput: close({}) | fn.If
+			TableName:      string | fn.Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -196,9 +179,8 @@ Glue :: {
 	SecurityConfiguration :: {
 		Type:       "AWS::Glue::SecurityConfiguration"
 		Properties: close({
-			EncryptionConfiguration: close({
-			}) | fn.If
-			Name: string | fn.Fn
+			EncryptionConfiguration: close({}) | fn.If
+			Name:                    string | fn.Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -211,8 +193,7 @@ Glue :: {
 		Properties: close({
 			CatalogId:    string | fn.Fn
 			DatabaseName: string | fn.Fn
-			TableInput:   close({
-			}) | fn.If
+			TableInput:   close({}) | fn.If
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -223,12 +204,10 @@ Glue :: {
 	Trigger :: {
 		Type:       "AWS::Glue::Trigger"
 		Properties: close({
-			Actions: [...close({
-			})] | fn.If
-			Description?: string | fn.Fn
-			Name?:        string | fn.Fn
-			Predicate?:   close({
-			}) | fn.If
+			Actions:          [...close({})] | fn.If
+			Description?:     string | fn.Fn
+			Name?:            string | fn.Fn
+			Predicate?:       close({}) | fn.If
 			Schedule?:        string | fn.Fn
 			StartOnCreation?: bool | fn.Fn
 			Tags?:            {

@@ -12,10 +12,9 @@ Cloud9 :: {
 			InstanceType:              string | fn.Fn
 			Name?:                     string | fn.Fn
 			OwnerArn?:                 string | fn.Fn
-			Repositories?:             [...close({
-			})] | fn.If
-			SubnetId?: string | fn.Fn
-			Tags?:     [...close({
+			Repositories?:             [...close({})] | fn.If
+			SubnetId?:                 string | fn.Fn
+			Tags?:                     [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			})] | fn.If

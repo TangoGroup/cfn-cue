@@ -19,32 +19,25 @@ DMS :: {
 	Endpoint :: {
 		Type:       "AWS::DMS::Endpoint"
 		Properties: close({
-			CertificateArn?:   string | fn.Fn
-			DatabaseName?:     string | fn.Fn
-			DynamoDbSettings?: close({
-			}) | fn.If
-			ElasticsearchSettings?: close({
-			}) | fn.If
+			CertificateArn?:            string | fn.Fn
+			DatabaseName?:              string | fn.Fn
+			DynamoDbSettings?:          close({}) | fn.If
+			ElasticsearchSettings?:     close({}) | fn.If
 			EndpointIdentifier?:        string | fn.Fn
 			EndpointType:               string | fn.Fn
 			EngineName:                 string | fn.Fn
 			ExtraConnectionAttributes?: string | fn.Fn
-			KafkaSettings?:             close({
-			}) | fn.If
-			KinesisSettings?: close({
-			}) | fn.If
-			KmsKeyId?:        string | fn.Fn
-			MongoDbSettings?: close({
-			}) | fn.If
-			NeptuneSettings?: close({
-			}) | fn.If
-			Password?:   string | fn.Fn
-			Port?:       int | fn.Fn
-			S3Settings?: close({
-			}) | fn.If
-			ServerName?: string | fn.Fn
-			SslMode?:    string | fn.Fn
-			Tags?:       [...close({
+			KafkaSettings?:             close({}) | fn.If
+			KinesisSettings?:           close({}) | fn.If
+			KmsKeyId?:                  string | fn.Fn
+			MongoDbSettings?:           close({}) | fn.If
+			NeptuneSettings?:           close({}) | fn.If
+			Password?:                  string | fn.Fn
+			Port?:                      int | fn.Fn
+			S3Settings?:                close({}) | fn.If
+			ServerName?:                string | fn.Fn
+			SslMode?:                   string | fn.Fn
+			Tags?:                      [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			})] | fn.If

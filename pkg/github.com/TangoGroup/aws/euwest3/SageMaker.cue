@@ -7,8 +7,7 @@ SageMaker :: {
 		Type:       "AWS::SageMaker::CodeRepository"
 		Properties: close({
 			CodeRepositoryName?: string | fn.Fn
-			GitConfig:           close({
-			}) | fn.If
+			GitConfig:           close({}) | fn.If
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -21,10 +20,9 @@ SageMaker :: {
 		Properties: close({
 			EndpointConfigName:                string | fn.Fn
 			EndpointName?:                     string | fn.Fn
-			ExcludeRetainedVariantProperties?: [...close({
-			})] | fn.If
-			RetainAllVariantProperties?: bool | fn.Fn
-			Tags?:                       [...close({
+			ExcludeRetainedVariantProperties?: [...close({})] | fn.If
+			RetainAllVariantProperties?:       bool | fn.Fn
+			Tags?:                             [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			})] | fn.If
@@ -40,9 +38,8 @@ SageMaker :: {
 		Properties: close({
 			EndpointConfigName?: string | fn.Fn
 			KmsKeyId?:           string | fn.Fn
-			ProductionVariants:  [...close({
-			})] | fn.If
-			Tags?: [...close({
+			ProductionVariants:  [...close({})] | fn.If
+			Tags?:               [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			})] | fn.If
@@ -56,18 +53,15 @@ SageMaker :: {
 	Model :: {
 		Type:       "AWS::SageMaker::Model"
 		Properties: close({
-			Containers?: [...close({
-			})] | fn.If
+			Containers?:       [...close({})] | fn.If
 			ExecutionRoleArn:  string | fn.Fn
 			ModelName?:        string | fn.Fn
-			PrimaryContainer?: close({
-			}) | fn.If
-			Tags?: [...close({
+			PrimaryContainer?: close({}) | fn.If
+			Tags?:             [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			})] | fn.If
-			VpcConfig?: close({
-			}) | fn.If
+			VpcConfig?: close({}) | fn.If
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -106,10 +100,8 @@ SageMaker :: {
 		Type:       "AWS::SageMaker::NotebookInstanceLifecycleConfig"
 		Properties: close({
 			NotebookInstanceLifecycleConfigName?: string | fn.Fn
-			OnCreate?:                            [...close({
-			})] | fn.If
-			OnStart?: [...close({
-			})] | fn.If
+			OnCreate?:                            [...close({})] | fn.If
+			OnStart?:                             [...close({})] | fn.If
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -120,12 +112,10 @@ SageMaker :: {
 	Workteam :: {
 		Type:       "AWS::SageMaker::Workteam"
 		Properties: close({
-			Description?:       string | fn.Fn
-			MemberDefinitions?: [...close({
-			})] | fn.If
-			NotificationConfiguration?: close({
-			}) | fn.If
-			Tags?: [...close({
+			Description?:               string | fn.Fn
+			MemberDefinitions?:         [...close({})] | fn.If
+			NotificationConfiguration?: close({}) | fn.If
+			Tags?:                      [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			})] | fn.If

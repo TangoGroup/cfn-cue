@@ -4,9 +4,8 @@ import "github.com/TangoGroup/aws/fn"
 
 Detective :: {
 	Graph :: {
-		Type:       "AWS::Detective::Graph"
-		Properties: close({
-		})
+		Type:                 "AWS::Detective::Graph"
+		Properties:           close({})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

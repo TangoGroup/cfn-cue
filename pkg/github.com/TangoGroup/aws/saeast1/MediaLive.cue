@@ -46,8 +46,7 @@ MediaLive :: {
 						LanguageCode?:     string | fn.Fn
 						Name?:             string | fn.Fn
 						SelectorSettings?: close({
-							AribSourceSettings?: close({
-							}) | fn.If
+							AribSourceSettings?:   close({}) | fn.If
 							DvbSubSourceSettings?: close({
 								Pid?: int | fn.Fn
 							}) | fn.If

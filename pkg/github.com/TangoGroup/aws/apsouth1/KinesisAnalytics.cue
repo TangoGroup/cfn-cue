@@ -9,8 +9,7 @@ KinesisAnalytics :: {
 			ApplicationCode?:        string | fn.Fn
 			ApplicationDescription?: string | fn.Fn
 			ApplicationName?:        string | fn.Fn
-			Inputs:                  [...close({
-			})] | fn.If
+			Inputs:                  [...close({})] | fn.If
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -22,8 +21,7 @@ KinesisAnalytics :: {
 		Type:       "AWS::KinesisAnalytics::ApplicationOutput"
 		Properties: close({
 			ApplicationName: string | fn.Fn
-			Output:          close({
-			}) | fn.If
+			Output:          close({}) | fn.If
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -35,8 +33,7 @@ KinesisAnalytics :: {
 		Type:       "AWS::KinesisAnalytics::ApplicationReferenceDataSource"
 		Properties: close({
 			ApplicationName:     string | fn.Fn
-			ReferenceDataSource: close({
-			}) | fn.If
+			ReferenceDataSource: close({}) | fn.If
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

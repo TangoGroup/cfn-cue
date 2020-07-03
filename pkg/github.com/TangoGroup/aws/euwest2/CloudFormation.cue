@@ -71,9 +71,8 @@ CloudFormation :: {
 		Condition?: string
 	}
 	WaitConditionHandle :: {
-		Type:       "AWS::CloudFormation::WaitConditionHandle"
-		Properties: close({
-		})
+		Type:                 "AWS::CloudFormation::WaitConditionHandle"
+		Properties:           close({})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

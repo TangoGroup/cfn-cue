@@ -25,8 +25,7 @@ Macie :: {
 			Action?:         string | fn.Fn
 			Description?:    string | fn.Fn
 			FindingCriteria: close({
-				Criterion?: close({
-				}) | fn.If
+				Criterion?: close({}) | fn.If
 			}) | fn.If
 			Name:      string | fn.Fn
 			Position?: int | fn.Fn

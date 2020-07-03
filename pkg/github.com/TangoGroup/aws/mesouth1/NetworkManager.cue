@@ -82,9 +82,8 @@ NetworkManager :: {
 		Condition?: string
 	}
 	LinkAssociation :: {
-		Type:       "AWS::NetworkManager::LinkAssociation"
-		Properties: close({
-		})
+		Type:                 "AWS::NetworkManager::LinkAssociation"
+		Properties:           close({})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

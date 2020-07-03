@@ -20,9 +20,8 @@ Transfer :: {
 			}) | fn.If
 			IdentityProviderType?: string | fn.Fn
 			LoggingRole?:          string | fn.Fn
-			Protocols?:            [...close({
-			})] | fn.If
-			Tags?: [...close({
+			Protocols?:            [...close({})] | fn.If
+			Tags?:                 [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			})] | fn.If

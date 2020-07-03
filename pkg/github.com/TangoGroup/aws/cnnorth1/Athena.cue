@@ -20,16 +20,13 @@ Athena :: {
 	WorkGroup :: {
 		Type:       "AWS::Athena::WorkGroup"
 		Properties: close({
-			Description?:           string | fn.Fn
-			Name:                   string | fn.Fn
-			RecursiveDeleteOption?: bool | fn.Fn
-			State?:                 string | fn.Fn
-			Tags?:                  close({
-			}) | fn.If
-			WorkGroupConfiguration?: close({
-			}) | fn.If
-			WorkGroupConfigurationUpdates?: close({
-			}) | fn.If
+			Description?:                   string | fn.Fn
+			Name:                           string | fn.Fn
+			RecursiveDeleteOption?:         bool | fn.Fn
+			State?:                         string | fn.Fn
+			Tags?:                          close({}) | fn.If
+			WorkGroupConfiguration?:        close({}) | fn.If
+			WorkGroupConfigurationUpdates?: close({}) | fn.If
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

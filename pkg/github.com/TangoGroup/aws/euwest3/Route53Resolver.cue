@@ -6,9 +6,8 @@ Route53Resolver :: {
 	ResolverEndpoint :: {
 		Type:       "AWS::Route53Resolver::ResolverEndpoint"
 		Properties: close({
-			Direction:   string | fn.Fn
-			IpAddresses: [...close({
-			})] | fn.If
+			Direction:        string | fn.Fn
+			IpAddresses:      [...close({})] | fn.If
 			Name?:            string | fn.Fn
 			SecurityGroupIds: [...(string | fn.Fn)] | (string | fn.Fn)
 			Tags?:            [...close({
@@ -33,8 +32,7 @@ Route53Resolver :: {
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			})] | fn.If
-			TargetIps?: [...close({
-			})] | fn.If
+			TargetIps?: [...close({})] | fn.If
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

@@ -18,8 +18,7 @@ SES :: {
 		Type:       "AWS::SES::ConfigurationSetEventDestination"
 		Properties: close({
 			ConfigurationSetName: string | fn.Fn
-			EventDestination:     close({
-			}) | fn.If
+			EventDestination:     close({}) | fn.If
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -30,8 +29,7 @@ SES :: {
 	ReceiptFilter :: {
 		Type:       "AWS::SES::ReceiptFilter"
 		Properties: close({
-			Filter: close({
-			}) | fn.If
+			Filter: close({}) | fn.If
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -42,9 +40,8 @@ SES :: {
 	ReceiptRule :: {
 		Type:       "AWS::SES::ReceiptRule"
 		Properties: close({
-			After?: string | fn.Fn
-			Rule:   close({
-			}) | fn.If
+			After?:      string | fn.Fn
+			Rule:        close({}) | fn.If
 			RuleSetName: string | fn.Fn
 		})
 		DependsOn?:           string | [...string]
@@ -67,8 +64,7 @@ SES :: {
 	Template :: {
 		Type:       "AWS::SES::Template"
 		Properties: close({
-			Template?: close({
-			}) | fn.If
+			Template?: close({}) | fn.If
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

@@ -13,8 +13,7 @@ IoTAnalytics :: {
 					KeyPrefix?: string | fn.Fn
 					RoleArn:    string | fn.Fn
 				}) | fn.If
-				ServiceManagedS3?: close({
-				}) | fn.If
+				ServiceManagedS3?: close({}) | fn.If
 			}) | fn.If
 			RetentionPeriod?: close({
 				NumberOfDays?: int | fn.Fn
@@ -121,8 +120,7 @@ IoTAnalytics :: {
 					KeyPrefix?: string | fn.Fn
 					RoleArn:    string | fn.Fn
 				}) | fn.If
-				ServiceManagedS3?: close({
-				}) | fn.If
+				ServiceManagedS3?: close({}) | fn.If
 			}) | fn.If
 			RetentionPeriod?: close({
 				NumberOfDays?: int | fn.Fn

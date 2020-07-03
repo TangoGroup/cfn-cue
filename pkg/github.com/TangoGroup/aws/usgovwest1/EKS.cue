@@ -6,13 +6,11 @@ EKS :: {
 	Cluster :: {
 		Type:       "AWS::EKS::Cluster"
 		Properties: close({
-			EncryptionConfig?: [...close({
-			})] | fn.If
+			EncryptionConfig?:  [...close({})] | fn.If
 			Name?:              string | fn.Fn
-			ResourcesVpcConfig: close({
-			}) | fn.If
-			RoleArn:  string | fn.Fn
-			Version?: string | fn.Fn
+			ResourcesVpcConfig: close({}) | fn.If
+			RoleArn:            string | fn.Fn
+			Version?:           string | fn.Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -34,12 +32,10 @@ EKS :: {
 			NodeRole:        string | fn.Fn
 			NodegroupName?:  string | fn.Fn
 			ReleaseVersion?: string | fn.Fn
-			RemoteAccess?:   close({
-			}) | fn.If
-			ScalingConfig?: close({
-			}) | fn.If
-			Subnets: [...(string | fn.Fn)] | (string | fn.Fn)
-			Tags?:   {
+			RemoteAccess?:   close({}) | fn.If
+			ScalingConfig?:  close({}) | fn.If
+			Subnets:         [...(string | fn.Fn)] | (string | fn.Fn)
+			Tags?:           {
 				[string]: _
 			} | fn.Fn
 			Version?: string | fn.Fn

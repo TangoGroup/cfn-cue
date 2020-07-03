@@ -23,13 +23,12 @@ ServiceCatalog :: {
 			Distributor?:                   string | fn.Fn
 			Name:                           string | fn.Fn
 			Owner:                          string | fn.Fn
-			ProvisioningArtifactParameters: [...close({
-			})] | fn.If
-			ReplaceProvisioningArtifacts?: bool | fn.Fn
-			SupportDescription?:           string | fn.Fn
-			SupportEmail?:                 string | fn.Fn
-			SupportUrl?:                   string | fn.Fn
-			Tags?:                         [...close({
+			ProvisioningArtifactParameters: [...close({})] | fn.If
+			ReplaceProvisioningArtifacts?:  bool | fn.Fn
+			SupportDescription?:            string | fn.Fn
+			SupportEmail?:                  string | fn.Fn
+			SupportUrl?:                    string | fn.Fn
+			Tags?:                          [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			})] | fn.If
@@ -51,11 +50,9 @@ ServiceCatalog :: {
 			ProvisionedProductName?:   string | fn.Fn
 			ProvisioningArtifactId?:   string | fn.Fn
 			ProvisioningArtifactName?: string | fn.Fn
-			ProvisioningParameters?:   [...close({
-			})] | fn.If
-			ProvisioningPreferences?: close({
-			}) | fn.If
-			Tags?: [...close({
+			ProvisioningParameters?:   [...close({})] | fn.If
+			ProvisioningPreferences?:  close({}) | fn.If
+			Tags?:                     [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			})] | fn.If

@@ -15,11 +15,10 @@ DAX :: {
 			ParameterGroupName?:         string | fn.Fn
 			PreferredMaintenanceWindow?: string | fn.Fn
 			ReplicationFactor:           int | fn.Fn
-			SSESpecification?:           close({
-			}) | fn.If
-			SecurityGroupIds?: [...(string | fn.Fn)] | (string | fn.Fn)
-			SubnetGroupName?:  string | fn.Fn
-			Tags?:             {
+			SSESpecification?:           close({}) | fn.If
+			SecurityGroupIds?:           [...(string | fn.Fn)] | (string | fn.Fn)
+			SubnetGroupName?:            string | fn.Fn
+			Tags?:                       {
 				[string]: _
 			} | fn.Fn
 		})

@@ -70,16 +70,13 @@ ServiceDiscovery :: {
 	Service :: {
 		Type:       "AWS::ServiceDiscovery::Service"
 		Properties: close({
-			Description?: string | fn.Fn
-			DnsConfig?:   close({
-			}) | fn.If
-			HealthCheckConfig?: close({
-			}) | fn.If
-			HealthCheckCustomConfig?: close({
-			}) | fn.If
-			Name?:        string | fn.Fn
-			NamespaceId?: string | fn.Fn
-			Tags?:        [...close({
+			Description?:             string | fn.Fn
+			DnsConfig?:               close({}) | fn.If
+			HealthCheckConfig?:       close({}) | fn.If
+			HealthCheckCustomConfig?: close({}) | fn.If
+			Name?:                    string | fn.Fn
+			NamespaceId?:             string | fn.Fn
+			Tags?:                    [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			})] | fn.If
