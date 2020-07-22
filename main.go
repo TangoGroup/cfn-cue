@@ -186,14 +186,19 @@ func createFieldFromProperty(name string, prop Property, resourceSubproperties m
 		if name == "PolicyDocument" || name == "AssumeRolePolicyDocument" {
 			jsonStruct, ok := value.(*ast.StructLit)
 			if ok {
-				jsonStruct.Elts = append(jsonStruct.Elts, &ast.Field{
-					Label: ast.NewIdent("Version"),
-					Value: &ast.BinaryExpr{
-						X:  ast.NewIdent("string"),
-						Op: token.OR,
-						Y:  &ast.BasicLit{Value: `*"2012-10-17"`},
+				value = &ast.StructLit{
+					Elts: []ast.Decl{
+						jsonStruct,
+						&ast.Field{
+							Label: ast.NewIdent("Version"),
+							Value: &ast.BinaryExpr{
+								X:  ast.NewIdent("string"),
+								Op: token.OR,
+								Y:  &ast.BasicLit{Value: `*"2012-10-17"`},
+							},
+						},
 					},
-				})
+				}
 			}
 		}
 		constraints, imports = getPrimitiveConstraints(prop, valueTypes[prop.Value.ValueType])
@@ -227,7 +232,7 @@ func createFieldFromProperty(name string, prop Property, resourceSubproperties m
 		value = &ast.BinaryExpr{
 			X:  value,
 			Op: token.OR,
-			Y:  ast.NewSel(ast.NewIdent("fn"), "Fn"),
+			Y:  ast.NewSel(ast.NewIdent("fn"), "#Fn"),
 		}
 
 		if prop.IsList() {
@@ -389,9 +394,13 @@ func createStructFromResource(resourceName string, resource Resource, resourceSu
 	}
 
 	if resourceName == "AWS::CloudFormation::CustomResource" {
-		propertyDecls = append(propertyDecls, &ast.Field{
-			Label: ast.NewList(&ast.BasicLit{Value: "string"}),
-			Value: &ast.BasicLit{Value: "_"},
+		propertyDecls = append(propertyDecls, &ast.StructLit{
+			Elts: []ast.Decl{
+				&ast.Field{
+					Label: ast.NewList(&ast.BasicLit{Value: "string"}),
+					Value: &ast.BasicLit{Value: "_"},
+				},
+			},
 		})
 	}
 
@@ -605,8 +614,8 @@ func writeServiceFile(serviceName string, resources map[string]Resource, shortRe
 
 func templateResourceSpecVersion(resourceSpecificationVersion string) *ast.Field {
 	return &ast.Field{
-		Label: ast.NewIdent("ResourceSpecificationVersion"),
-		Token: token.ISA,
+		Label: ast.NewIdent("#ResourceSpecificationVersion"),
+		// Token: token.ISA,
 		Value: ast.NewString(resourceSpecificationVersion),
 	}
 }
@@ -1002,8 +1011,8 @@ func main() {
 				})
 
 				f := &ast.Field{
-					Label: ast.NewIdent(resourceStr),
-					Token: token.ISA,
+					Label: ast.NewIdent("#" + resourceStr),
+					// Token: token.ISA,
 					Value: &ast.StructLit{
 						Elts: resourceElts,
 					},
@@ -1015,7 +1024,7 @@ func main() {
 				resourceTypesFields = append(resourceTypesFields, &ast.Field{
 					Label: ast.NewIdent(resourceName),
 					// Token: token.ISA,
-					Value: ast.NewSel(ast.NewIdent(serviceName), resourceStr),
+					Value: ast.NewSel(ast.NewIdent("#"+serviceName), "#"+resourceStr),
 				})
 			}
 
@@ -1032,8 +1041,8 @@ func main() {
 			ff.Decls = append(ff.Decls, imports)
 
 			serviceField := &ast.Field{
-				Label: ast.NewIdent(serviceName),
-				Token: token.ISA,
+				Label: ast.NewIdent("#" + serviceName),
+				// Token: token.ISA,
 				Value: &ast.StructLit{
 					Elts: serviceResources,
 				},
@@ -1313,8 +1322,8 @@ func main() {
 		// }
 
 		declarations = append(declarations, &ast.Field{
-			Label: ast.NewIdent("Template"),
-			Token: token.ISA,
+			Label: ast.NewIdent("#" + "Template"),
+			// Token: token.ISA,
 			Value: &ast.StructLit{
 				Elts: []ast.Decl{
 					templateVersion(),
