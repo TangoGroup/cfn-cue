@@ -12,11 +12,24 @@ Elasticsearch :: {
 			AdvancedOptions?: {
 				[string]: string | fn.Fn
 			} | fn.If
+			AdvancedSecurityOptions?: close({
+				Enabled?:                     bool | fn.Fn
+				InternalUserDatabaseEnabled?: bool | fn.Fn
+				MasterUserOptions?:           close({
+					MasterUserARN?:      string | fn.Fn
+					MasterUserName?:     string | fn.Fn
+					MasterUserPassword?: string | fn.Fn
+				}) | fn.If
+			}) | fn.If
 			CognitoOptions?: close({
 				Enabled?:        bool | fn.Fn
 				IdentityPoolId?: string | fn.Fn
 				RoleArn?:        string | fn.Fn
 				UserPoolId?:     string | fn.Fn
+			}) | fn.If
+			DomainEndpointOptions?: close({
+				EnforceHTTPS?:      bool | fn.Fn
+				TLSSecurityPolicy?: string | fn.Fn
 			}) | fn.If
 			DomainName?: string | fn.Fn
 			EBSOptions?: close({

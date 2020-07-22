@@ -65,6 +65,16 @@ AppMesh :: {
 						}) | fn.If
 						TcpRetryEvents?: [...(string | fn.Fn)] | (string | fn.Fn)
 					}) | fn.If
+					Timeout?: close({
+						Idle?: close({
+							Unit:  string | fn.Fn
+							Value: int | fn.Fn
+						}) | fn.If
+						PerRequest?: close({
+							Unit:  string | fn.Fn
+							Value: int | fn.Fn
+						}) | fn.If
+					}) | fn.If
 				}) | fn.If
 				Http2Route?: close({
 					Action: close({
@@ -100,6 +110,16 @@ AppMesh :: {
 							Value: int | fn.Fn
 						}) | fn.If
 						TcpRetryEvents?: [...(string | fn.Fn)] | (string | fn.Fn)
+					}) | fn.If
+					Timeout?: close({
+						Idle?: close({
+							Unit:  string | fn.Fn
+							Value: int | fn.Fn
+						}) | fn.If
+						PerRequest?: close({
+							Unit:  string | fn.Fn
+							Value: int | fn.Fn
+						}) | fn.If
 					}) | fn.If
 				}) | fn.If
 				HttpRoute?: close({
@@ -137,6 +157,16 @@ AppMesh :: {
 						}) | fn.If
 						TcpRetryEvents?: [...(string | fn.Fn)] | (string | fn.Fn)
 					}) | fn.If
+					Timeout?: close({
+						Idle?: close({
+							Unit:  string | fn.Fn
+							Value: int | fn.Fn
+						}) | fn.If
+						PerRequest?: close({
+							Unit:  string | fn.Fn
+							Value: int | fn.Fn
+						}) | fn.If
+					}) | fn.If
 				}) | fn.If
 				Priority?: int | fn.Fn
 				TcpRoute?: close({
@@ -145,6 +175,12 @@ AppMesh :: {
 							VirtualNode: string | fn.Fn
 							Weight:      int | fn.Fn
 						})] | fn.If
+					}) | fn.If
+					Timeout?: close({
+						Idle?: close({
+							Unit:  string | fn.Fn
+							Value: int | fn.Fn
+						}) | fn.If
 					}) | fn.If
 				}) | fn.If
 			}) | fn.If
@@ -230,6 +266,44 @@ AppMesh :: {
 							}) | fn.If
 						}) | fn.If
 						Mode: string | fn.Fn
+					}) | fn.If
+					Timeout?: close({
+						GRPC?: close({
+							Idle?: close({
+								Unit:  string | fn.Fn
+								Value: int | fn.Fn
+							}) | fn.If
+							PerRequest?: close({
+								Unit:  string | fn.Fn
+								Value: int | fn.Fn
+							}) | fn.If
+						}) | fn.If
+						HTTP?: close({
+							Idle?: close({
+								Unit:  string | fn.Fn
+								Value: int | fn.Fn
+							}) | fn.If
+							PerRequest?: close({
+								Unit:  string | fn.Fn
+								Value: int | fn.Fn
+							}) | fn.If
+						}) | fn.If
+						HTTP2?: close({
+							Idle?: close({
+								Unit:  string | fn.Fn
+								Value: int | fn.Fn
+							}) | fn.If
+							PerRequest?: close({
+								Unit:  string | fn.Fn
+								Value: int | fn.Fn
+							}) | fn.If
+						}) | fn.If
+						TCP?: close({
+							Idle?: close({
+								Unit:  string | fn.Fn
+								Value: int | fn.Fn
+							}) | fn.If
+						}) | fn.If
 					}) | fn.If
 				})] | fn.If
 				Logging?: close({

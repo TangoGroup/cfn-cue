@@ -6,6 +6,7 @@ ElasticLoadBalancingV2 :: {
 	Listener :: {
 		Type:       "AWS::ElasticLoadBalancingV2::Listener"
 		Properties: close({
+			AlpnPolicy?:   [...(string | fn.Fn)] | (string | fn.Fn)
 			Certificates?: [...close({
 				CertificateArn?: string | fn.Fn
 			})] | fn.If
@@ -174,7 +175,7 @@ ElasticLoadBalancingV2 :: {
 				Values?: [...(string | fn.Fn)] | (string | fn.Fn)
 			})] | fn.If
 			ListenerArn: string | fn.Fn
-			Priority:    int | fn.Fn
+			Priority:    (>=1 & <=50000) | fn.Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

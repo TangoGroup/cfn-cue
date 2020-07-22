@@ -161,6 +161,7 @@ Glue :: {
 			NumberOfNodes?:         int | fn.Fn
 			NumberOfWorkers?:       int | fn.Fn
 			PublicKey?:             string | fn.Fn
+			PublicKeys?:            [...(string | fn.Fn)] | (string | fn.Fn)
 			RoleArn:                string | fn.Fn
 			SecurityConfiguration?: string | fn.Fn
 			SecurityGroupIds?:      [...(string | fn.Fn)] | (string | fn.Fn)
@@ -276,6 +277,10 @@ Glue :: {
 		Type:       "AWS::Glue::SecurityConfiguration"
 		Properties: close({
 			EncryptionConfiguration: close({
+				CloudWatchEncryption?: close({
+					CloudWatchEncryptionMode?: string | fn.Fn
+					KmsKeyArn?:                string | fn.Fn
+				}) | fn.If
 				JobBookmarksEncryption?: close({
 					JobBookmarksEncryptionMode?: string | fn.Fn
 					KmsKeyArn?:                  string | fn.Fn
@@ -382,7 +387,7 @@ Glue :: {
 					LogicalOperator?: ("EQUALS") | fn.Fn
 					State?:           ("SUCCEEDED") | fn.Fn
 				})] | fn.If
-				Logical?: ("AND") | fn.Fn
+				Logical?: ("AND" | "ANY") | fn.Fn
 			}) | fn.If
 			Schedule?:        string | fn.Fn
 			StartOnCreation?: bool | fn.Fn

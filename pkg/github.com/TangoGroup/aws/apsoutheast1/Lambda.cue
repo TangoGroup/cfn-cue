@@ -92,6 +92,10 @@ Lambda :: {
 					[string]: string | fn.Fn
 				} | fn.If
 			}) | fn.If
+			FileSystemConfigs?: [...close({
+				Arn:            string | fn.Fn
+				LocalMountPath: string | fn.Fn
+			})] | fn.If
 			FunctionName?:                 string | fn.Fn
 			Handler:                       string | fn.Fn
 			KmsKeyArn?:                    string | fn.Fn

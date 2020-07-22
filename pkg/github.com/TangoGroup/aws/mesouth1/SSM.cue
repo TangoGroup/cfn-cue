@@ -6,6 +6,7 @@ SSM :: {
 	Association :: {
 		Type:       "AWS::SSM::Association"
 		Properties: close({
+			ApplyOnlyAtCronInterval?:       bool | fn.Fn
 			AssociationName?:               string | fn.Fn
 			AutomationTargetParameterName?: string | fn.Fn
 			ComplianceSeverity?:            string | fn.Fn

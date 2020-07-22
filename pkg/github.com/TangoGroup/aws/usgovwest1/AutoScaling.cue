@@ -57,7 +57,8 @@ AutoScaling :: {
 					})] | fn.If
 				}) | fn.If
 			}) | fn.If
-			NotificationConfigurations?: [...close({
+			NewInstancesProtectedFromScaleIn?: bool | fn.Fn
+			NotificationConfigurations?:       [...close({
 				NotificationTypes?: [...(string | fn.Fn)] | (string | fn.Fn)
 				TopicARN:           string | fn.Fn
 			})] | fn.If

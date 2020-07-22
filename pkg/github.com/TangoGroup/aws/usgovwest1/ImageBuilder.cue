@@ -6,13 +6,14 @@ ImageBuilder :: {
 	Component :: {
 		Type:       "AWS::ImageBuilder::Component"
 		Properties: close({
-			ChangeDescription?: string | fn.Fn
-			Data?:              string | fn.Fn
-			Description?:       string | fn.Fn
-			KmsKeyId?:          string | fn.Fn
-			Name:               string | fn.Fn
-			Platform:           string | fn.Fn
-			Tags?:              {
+			ChangeDescription?:   string | fn.Fn
+			Data?:                string | fn.Fn
+			Description?:         string | fn.Fn
+			KmsKeyId?:            string | fn.Fn
+			Name:                 string | fn.Fn
+			Platform:             string | fn.Fn
+			SupportedOsVersions?: [...(string | fn.Fn)] | (string | fn.Fn)
+			Tags?:                {
 				[string]: string | fn.Fn
 			} | fn.If
 			Uri?:    string | fn.Fn
@@ -50,6 +51,7 @@ ImageBuilder :: {
 		Type:       "AWS::ImageBuilder::Image"
 		Properties: close({
 			DistributionConfigurationArn?: string | fn.Fn
+			EnhancedImageMetadataEnabled?: bool | fn.Fn
 			ImageRecipeArn:                string | fn.Fn
 			ImageTestsConfiguration?:      close({
 				ImageTestsEnabled?: bool | fn.Fn
@@ -71,6 +73,7 @@ ImageBuilder :: {
 		Properties: close({
 			Description?:                  string | fn.Fn
 			DistributionConfigurationArn?: string | fn.Fn
+			EnhancedImageMetadataEnabled?: bool | fn.Fn
 			ImageRecipeArn:                string | fn.Fn
 			ImageTestsConfiguration?:      close({
 				ImageTestsEnabled?: bool | fn.Fn
@@ -119,7 +122,8 @@ ImageBuilder :: {
 			Tags?:        {
 				[string]: string | fn.Fn
 			} | fn.If
-			Version: string | fn.Fn
+			Version:           string | fn.Fn
+			WorkingDirectory?: string | fn.Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

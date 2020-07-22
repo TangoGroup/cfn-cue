@@ -42,6 +42,13 @@ CodeBuild :: {
 				}) | fn.If
 				Type: ("ARM_CONTAINER" | "LINUX_CONTAINER" | "LINUX_GPU_CONTAINER" | "WINDOWS_CONTAINER") | fn.Fn
 			}) | fn.If
+			FileSystemLocations?: [...close({
+				Identifier:    string | fn.Fn
+				Location:      string | fn.Fn
+				MountOptions?: string | fn.Fn
+				MountPoint:    string | fn.Fn
+				Type:          string | fn.Fn
+			})] | fn.If
 			LogsConfig?: close({
 				CloudWatchLogs?: close({
 					GroupName?:  string | fn.Fn
@@ -76,7 +83,11 @@ CodeBuild :: {
 					Resource?: string | fn.Fn
 					Type:      string | fn.Fn
 				}) | fn.If
-				BuildSpec?:           string | fn.Fn
+				BuildSpec?:         string | fn.Fn
+				BuildStatusConfig?: close({
+					Context?:   string | fn.Fn
+					TargetUrl?: string | fn.Fn
+				}) | fn.If
 				GitCloneDepth?:       int | fn.Fn
 				GitSubmodulesConfig?: close({
 					FetchSubmodules: bool | fn.Fn
@@ -93,7 +104,11 @@ CodeBuild :: {
 					Resource?: string | fn.Fn
 					Type:      string | fn.Fn
 				}) | fn.If
-				BuildSpec?:           string | fn.Fn
+				BuildSpec?:         string | fn.Fn
+				BuildStatusConfig?: close({
+					Context?:   string | fn.Fn
+					TargetUrl?: string | fn.Fn
+				}) | fn.If
 				GitCloneDepth?:       int | fn.Fn
 				GitSubmodulesConfig?: close({
 					FetchSubmodules: bool | fn.Fn

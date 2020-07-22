@@ -60,7 +60,7 @@ DocDB :: {
 			AutoMinorVersionUpgrade?:    bool | fn.Fn
 			AvailabilityZone?:           string | fn.Fn
 			DBClusterIdentifier:         string | fn.Fn
-			DBInstanceClass:             ("db.r4.16xlarge" | "db.r4.2xlarge" | "db.r4.4xlarge" | "db.r4.8xlarge" | "db.r4.large" | "db.r4.xlarge" | "db.r5.12xlarge" | "db.r5.24xlarge" | "db.r5.2xlarge" | "db.r5.4xlarge" | "db.r5.large" | "db.r5.xlarge") | fn.Fn
+			DBInstanceClass:             ("db.r4.16xlarge" | "db.r4.2xlarge" | "db.r4.4xlarge" | "db.r4.8xlarge" | "db.r4.large" | "db.r4.xlarge" | "db.r5.12xlarge" | "db.r5.24xlarge" | "db.r5.2xlarge" | "db.r5.4xlarge" | "db.r5.large" | "db.r5.xlarge" | "db.t3.medium") | fn.Fn
 			DBInstanceIdentifier?:       string | fn.Fn
 			PreferredMaintenanceWindow?: string | fn.Fn
 			Tags?:                       [...close({

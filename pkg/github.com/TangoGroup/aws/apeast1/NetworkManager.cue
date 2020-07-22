@@ -84,6 +84,9 @@ NetworkManager :: {
 	LinkAssociation :: {
 		Type:       "AWS::NetworkManager::LinkAssociation"
 		Properties: close({
+			DeviceId:        string | fn.Fn
+			GlobalNetworkId: string | fn.Fn
+			LinkId:          string | fn.Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

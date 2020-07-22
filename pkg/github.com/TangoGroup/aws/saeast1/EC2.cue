@@ -455,6 +455,36 @@ EC2 :: {
 		Metadata?: [string]: _
 		Condition?: string
 	}
+	LocalGatewayRoute :: {
+		Type:       "AWS::EC2::LocalGatewayRoute"
+		Properties: close({
+			DestinationCidrBlock:                string | fn.Fn
+			LocalGatewayRouteTableId:            string | fn.Fn
+			LocalGatewayVirtualInterfaceGroupId: string | fn.Fn
+		})
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+		Condition?: string
+	}
+	LocalGatewayRouteTableVPCAssociation :: {
+		Type:       "AWS::EC2::LocalGatewayRouteTableVPCAssociation"
+		Properties: close({
+			LocalGatewayRouteTableId: string | fn.Fn
+			Tags?:                    close({
+				Tags?: [...close({
+					[string]: _
+				})] | fn.If
+			}) | fn.If
+			VpcId: string | fn.Fn
+		})
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+		Condition?: string
+	}
 	NatGateway :: {
 		Type:       "AWS::EC2::NatGateway"
 		Properties: close({
@@ -571,6 +601,27 @@ EC2 :: {
 		Type:       "AWS::EC2::PlacementGroup"
 		Properties: close({
 			Strategy?: ("cluster" | "partition" | "spread") | fn.Fn
+		})
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+		Condition?: string
+	}
+	PrefixList :: {
+		Type:       "AWS::EC2::PrefixList"
+		Properties: close({
+			AddressFamily: string | fn.Fn
+			Entries?:      [...close({
+				Cidr:         string | fn.Fn
+				Description?: string | fn.Fn
+			})] | fn.If
+			MaxEntries:     int | fn.Fn
+			PrefixListName: string | fn.Fn
+			Tags?:          [...close({
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
+			})] | fn.If
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
