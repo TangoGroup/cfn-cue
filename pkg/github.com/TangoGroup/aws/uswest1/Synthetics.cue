@@ -2,40 +2,40 @@ package uswest1
 
 import "github.com/TangoGroup/aws/fn"
 
-Synthetics :: {
-	Canary :: {
+#Synthetics: {
+	#Canary: {
 		Type:       "AWS::Synthetics::Canary"
 		Properties: close({
-			ArtifactS3Location: string | fn.Fn
+			ArtifactS3Location: string | fn.#Fn
 			Code:               close({
-				Handler?:         string | fn.Fn
-				S3Bucket?:        string | fn.Fn
-				S3Key?:           string | fn.Fn
-				S3ObjectVersion?: string | fn.Fn
-				Script?:          string | fn.Fn
+				Handler?:         string | fn.#Fn
+				S3Bucket?:        string | fn.#Fn
+				S3Key?:           string | fn.#Fn
+				S3ObjectVersion?: string | fn.#Fn
+				Script?:          string | fn.#Fn
 			}) | fn.If
-			ExecutionRoleArn:        string | fn.Fn
-			FailureRetentionPeriod?: int | fn.Fn
-			Name:                    string | fn.Fn
+			ExecutionRoleArn:        string | fn.#Fn
+			FailureRetentionPeriod?: int | fn.#Fn
+			Name:                    string | fn.#Fn
 			RunConfig?:              close({
-				MemoryInMB?:      int | fn.Fn
-				TimeoutInSeconds: int | fn.Fn
+				MemoryInMB?:      int | fn.#Fn
+				TimeoutInSeconds: int | fn.#Fn
 			}) | fn.If
-			RuntimeVersion: string | fn.Fn
+			RuntimeVersion: string | fn.#Fn
 			Schedule:       close({
-				DurationInSeconds?: string | fn.Fn
-				Expression:         string | fn.Fn
+				DurationInSeconds?: string | fn.#Fn
+				Expression:         string | fn.#Fn
 			}) | fn.If
-			StartCanaryAfterCreation: bool | fn.Fn
-			SuccessRetentionPeriod?:  int | fn.Fn
+			StartCanaryAfterCreation: bool | fn.#Fn
+			SuccessRetentionPeriod?:  int | fn.#Fn
 			Tags?:                    [...close({
-				Key:   string | fn.Fn
-				Value: string | fn.Fn
+				Key:   string | fn.#Fn
+				Value: string | fn.#Fn
 			})] | fn.If
 			VPCConfig?: close({
-				SecurityGroupIds: [...(string | fn.Fn)] | (string | fn.Fn)
-				SubnetIds:        [...(string | fn.Fn)] | (string | fn.Fn)
-				VpcId?:           string | fn.Fn
+				SecurityGroupIds: [...(string | fn.#Fn)] | (string | fn.#Fn)
+				SubnetIds:        [...(string | fn.#Fn)] | (string | fn.#Fn)
+				VpcId?:           string | fn.#Fn
 			}) | fn.If
 		})
 		DependsOn?:           string | [...string]

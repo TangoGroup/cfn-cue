@@ -2,13 +2,13 @@ package apsoutheast2
 
 import "github.com/TangoGroup/aws/fn"
 
-SecurityHub :: {
-	Hub :: {
+#SecurityHub: {
+	#Hub: {
 		Type:       "AWS::SecurityHub::Hub"
 		Properties: close({
 			Tags?: {
 				[string]: _
-			} | fn.Fn
+			} | fn.#Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

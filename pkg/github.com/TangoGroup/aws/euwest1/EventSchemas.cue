@@ -2,15 +2,15 @@ package euwest1
 
 import "github.com/TangoGroup/aws/fn"
 
-EventSchemas :: {
-	Discoverer :: {
+#EventSchemas: {
+	#Discoverer: {
 		Type:       "AWS::EventSchemas::Discoverer"
 		Properties: close({
-			Description?: string | fn.Fn
-			SourceArn:    string | fn.Fn
+			Description?: string | fn.#Fn
+			SourceArn:    string | fn.#Fn
 			Tags?:        [...close({
-				Key:   string | fn.Fn
-				Value: string | fn.Fn
+				Key:   string | fn.#Fn
+				Value: string | fn.#Fn
 			})] | fn.If
 		})
 		DependsOn?:           string | [...string]
@@ -19,14 +19,14 @@ EventSchemas :: {
 		Metadata?: [string]: _
 		Condition?: string
 	}
-	Registry :: {
+	#Registry: {
 		Type:       "AWS::EventSchemas::Registry"
 		Properties: close({
-			Description?:  string | fn.Fn
-			RegistryName?: string | fn.Fn
+			Description?:  string | fn.#Fn
+			RegistryName?: string | fn.#Fn
 			Tags?:         [...close({
-				Key:   string | fn.Fn
-				Value: string | fn.Fn
+				Key:   string | fn.#Fn
+				Value: string | fn.#Fn
 			})] | fn.If
 		})
 		DependsOn?:           string | [...string]
@@ -35,14 +35,14 @@ EventSchemas :: {
 		Metadata?: [string]: _
 		Condition?: string
 	}
-	RegistryPolicy :: {
+	#RegistryPolicy: {
 		Type:       "AWS::EventSchemas::RegistryPolicy"
 		Properties: close({
 			Policy: {
 				[string]: _
-			} | fn.Fn
-			RegistryName: string | fn.Fn
-			RevisionId?:  string | fn.Fn
+			} | fn.#Fn
+			RegistryName: string | fn.#Fn
+			RevisionId?:  string | fn.#Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -50,18 +50,18 @@ EventSchemas :: {
 		Metadata?: [string]: _
 		Condition?: string
 	}
-	Schema :: {
+	#Schema: {
 		Type:       "AWS::EventSchemas::Schema"
 		Properties: close({
-			Content:      string | fn.Fn
-			Description?: string | fn.Fn
-			RegistryName: string | fn.Fn
-			SchemaName?:  string | fn.Fn
+			Content:      string | fn.#Fn
+			Description?: string | fn.#Fn
+			RegistryName: string | fn.#Fn
+			SchemaName?:  string | fn.#Fn
 			Tags?:        [...close({
-				Key:   string | fn.Fn
-				Value: string | fn.Fn
+				Key:   string | fn.#Fn
+				Value: string | fn.#Fn
 			})] | fn.If
-			Type: string | fn.Fn
+			Type: string | fn.#Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

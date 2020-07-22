@@ -2,20 +2,20 @@ package eucentral1
 
 import "github.com/TangoGroup/aws/fn"
 
-Kinesis :: {
-	Stream :: {
+#Kinesis: {
+	#Stream: {
 		Type:       "AWS::Kinesis::Stream"
 		Properties: close({
-			Name?:                 string | fn.Fn
-			RetentionPeriodHours?: (>=1 & <=168) | fn.Fn
-			ShardCount:            (>=1 & <=100000) | fn.Fn
+			Name?:                 string | fn.#Fn
+			RetentionPeriodHours?: (>=1 & <=168) | fn.#Fn
+			ShardCount:            (>=1 & <=100000) | fn.#Fn
 			StreamEncryption?:     close({
-				EncryptionType: string | fn.Fn
-				KeyId:          string | fn.Fn
+				EncryptionType: string | fn.#Fn
+				KeyId:          string | fn.#Fn
 			}) | fn.If
 			Tags?: [...close({
-				Key:   string | fn.Fn
-				Value: string | fn.Fn
+				Key:   string | fn.#Fn
+				Value: string | fn.#Fn
 			})] | fn.If
 		})
 		DependsOn?:           string | [...string]
@@ -24,11 +24,11 @@ Kinesis :: {
 		Metadata?: [string]: _
 		Condition?: string
 	}
-	StreamConsumer :: {
+	#StreamConsumer: {
 		Type:       "AWS::Kinesis::StreamConsumer"
 		Properties: close({
-			ConsumerName: string | fn.Fn
-			StreamARN:    string | fn.Fn
+			ConsumerName: string | fn.#Fn
+			StreamARN:    string | fn.#Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

@@ -2,17 +2,17 @@ package apeast1
 
 import "github.com/TangoGroup/aws/fn"
 
-ACMPCA :: {
-	Certificate :: {
+#ACMPCA: {
+	#Certificate: {
 		Type:       "AWS::ACMPCA::Certificate"
 		Properties: close({
-			CertificateAuthorityArn:   string | fn.Fn
-			CertificateSigningRequest: string | fn.Fn
-			SigningAlgorithm:          string | fn.Fn
-			TemplateArn?:              string | fn.Fn
+			CertificateAuthorityArn:   string | fn.#Fn
+			CertificateSigningRequest: string | fn.#Fn
+			SigningAlgorithm:          string | fn.#Fn
+			TemplateArn?:              string | fn.#Fn
 			Validity:                  {
 				[string]: _
-			} | fn.Fn
+			} | fn.#Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -20,22 +20,22 @@ ACMPCA :: {
 		Metadata?: [string]: _
 		Condition?: string
 	}
-	CertificateAuthority :: {
+	#CertificateAuthority: {
 		Type:       "AWS::ACMPCA::CertificateAuthority"
 		Properties: close({
-			KeyAlgorithm:             string | fn.Fn
+			KeyAlgorithm:             string | fn.#Fn
 			RevocationConfiguration?: {
 				[string]: _
-			} | fn.Fn
-			SigningAlgorithm: string | fn.Fn
+			} | fn.#Fn
+			SigningAlgorithm: string | fn.#Fn
 			Subject:          {
 				[string]: _
-			} | fn.Fn
+			} | fn.#Fn
 			Tags?: [...close({
-				Key:   string | fn.Fn
-				Value: string | fn.Fn
+				Key:   string | fn.#Fn
+				Value: string | fn.#Fn
 			})] | fn.If
-			Type: string | fn.Fn
+			Type: string | fn.#Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -43,13 +43,13 @@ ACMPCA :: {
 		Metadata?: [string]: _
 		Condition?: string
 	}
-	CertificateAuthorityActivation :: {
+	#CertificateAuthorityActivation: {
 		Type:       "AWS::ACMPCA::CertificateAuthorityActivation"
 		Properties: close({
-			Certificate:             string | fn.Fn
-			CertificateAuthorityArn: string | fn.Fn
-			CertificateChain?:       string | fn.Fn
-			Status?:                 string | fn.Fn
+			Certificate:             string | fn.#Fn
+			CertificateAuthorityArn: string | fn.#Fn
+			CertificateChain?:       string | fn.#Fn
+			Status?:                 string | fn.#Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

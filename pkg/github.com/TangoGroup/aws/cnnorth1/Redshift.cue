@@ -2,45 +2,45 @@ package cnnorth1
 
 import "github.com/TangoGroup/aws/fn"
 
-Redshift :: {
-	Cluster :: {
+#Redshift: {
+	#Cluster: {
 		Type:       "AWS::Redshift::Cluster"
 		Properties: close({
-			AllowVersionUpgrade?:              bool | fn.Fn
-			AutomatedSnapshotRetentionPeriod?: int | fn.Fn
-			AvailabilityZone?:                 string | fn.Fn
-			ClusterIdentifier?:                string | fn.Fn
-			ClusterParameterGroupName?:        string | fn.Fn
-			ClusterSecurityGroups?:            [...(string | fn.Fn)] | (string | fn.Fn)
-			ClusterSubnetGroupName?:           string | fn.Fn
-			ClusterType:                       ("multi-node" | "single-node") | fn.Fn
-			ClusterVersion?:                   ("1.0") | fn.Fn
-			DBName:                            string | fn.Fn
-			ElasticIp?:                        string | fn.Fn
-			Encrypted?:                        bool | fn.Fn
-			HsmClientCertificateIdentifier?:   string | fn.Fn
-			HsmConfigurationIdentifier?:       string | fn.Fn
-			IamRoles?:                         [...(string | fn.Fn)] | (string | fn.Fn)
-			KmsKeyId?:                         string | fn.Fn
+			AllowVersionUpgrade?:              bool | fn.#Fn
+			AutomatedSnapshotRetentionPeriod?: int | fn.#Fn
+			AvailabilityZone?:                 string | fn.#Fn
+			ClusterIdentifier?:                string | fn.#Fn
+			ClusterParameterGroupName?:        string | fn.#Fn
+			ClusterSecurityGroups?:            [...(string | fn.#Fn)] | (string | fn.#Fn)
+			ClusterSubnetGroupName?:           string | fn.#Fn
+			ClusterType:                       ("multi-node" | "single-node") | fn.#Fn
+			ClusterVersion?:                   ("1.0") | fn.#Fn
+			DBName:                            string | fn.#Fn
+			ElasticIp?:                        string | fn.#Fn
+			Encrypted?:                        bool | fn.#Fn
+			HsmClientCertificateIdentifier?:   string | fn.#Fn
+			HsmConfigurationIdentifier?:       string | fn.#Fn
+			IamRoles?:                         [...(string | fn.#Fn)] | (string | fn.#Fn)
+			KmsKeyId?:                         string | fn.#Fn
 			LoggingProperties?:                close({
-				BucketName:   string | fn.Fn
-				S3KeyPrefix?: string | fn.Fn
+				BucketName:   string | fn.#Fn
+				S3KeyPrefix?: string | fn.#Fn
 			}) | fn.If
-			MasterUserPassword:          string | fn.Fn
-			MasterUsername:              string | fn.Fn
-			NodeType:                    string | fn.Fn
-			NumberOfNodes?:              (>=1 & <=100) | fn.Fn
-			OwnerAccount?:               string | fn.Fn
-			Port?:                       int | fn.Fn
-			PreferredMaintenanceWindow?: string | fn.Fn
-			PubliclyAccessible?:         bool | fn.Fn
-			SnapshotClusterIdentifier?:  string | fn.Fn
-			SnapshotIdentifier?:         string | fn.Fn
+			MasterUserPassword:          string | fn.#Fn
+			MasterUsername:              string | fn.#Fn
+			NodeType:                    string | fn.#Fn
+			NumberOfNodes?:              (>=1 & <=100) | fn.#Fn
+			OwnerAccount?:               string | fn.#Fn
+			Port?:                       int | fn.#Fn
+			PreferredMaintenanceWindow?: string | fn.#Fn
+			PubliclyAccessible?:         bool | fn.#Fn
+			SnapshotClusterIdentifier?:  string | fn.#Fn
+			SnapshotIdentifier?:         string | fn.#Fn
 			Tags?:                       [...close({
-				Key:   string | fn.Fn
-				Value: string | fn.Fn
+				Key:   string | fn.#Fn
+				Value: string | fn.#Fn
 			})] | fn.If
-			VpcSecurityGroupIds?: [...(string | fn.Fn)] | (string | fn.Fn)
+			VpcSecurityGroupIds?: [...(string | fn.#Fn)] | (string | fn.#Fn)
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain" | "Snapshot"
@@ -48,18 +48,18 @@ Redshift :: {
 		Metadata?: [string]: _
 		Condition?: string
 	}
-	ClusterParameterGroup :: {
+	#ClusterParameterGroup: {
 		Type:       "AWS::Redshift::ClusterParameterGroup"
 		Properties: close({
-			Description:          string | fn.Fn
-			ParameterGroupFamily: string | fn.Fn
+			Description:          string | fn.#Fn
+			ParameterGroupFamily: string | fn.#Fn
 			Parameters?:          [...close({
-				ParameterName:  string | fn.Fn
-				ParameterValue: string | fn.Fn
+				ParameterName:  string | fn.#Fn
+				ParameterValue: string | fn.#Fn
 			})] | fn.If
 			Tags?: [...close({
-				Key:   string | fn.Fn
-				Value: string | fn.Fn
+				Key:   string | fn.#Fn
+				Value: string | fn.#Fn
 			})] | fn.If
 		})
 		DependsOn?:           string | [...string]
@@ -68,13 +68,13 @@ Redshift :: {
 		Metadata?: [string]: _
 		Condition?: string
 	}
-	ClusterSecurityGroup :: {
+	#ClusterSecurityGroup: {
 		Type:       "AWS::Redshift::ClusterSecurityGroup"
 		Properties: close({
-			Description: string | fn.Fn
+			Description: string | fn.#Fn
 			Tags?:       [...close({
-				Key:   string | fn.Fn
-				Value: string | fn.Fn
+				Key:   string | fn.#Fn
+				Value: string | fn.#Fn
 			})] | fn.If
 		})
 		DependsOn?:           string | [...string]
@@ -83,13 +83,13 @@ Redshift :: {
 		Metadata?: [string]: _
 		Condition?: string
 	}
-	ClusterSecurityGroupIngress :: {
+	#ClusterSecurityGroupIngress: {
 		Type:       "AWS::Redshift::ClusterSecurityGroupIngress"
 		Properties: close({
-			CIDRIP?:                  string | fn.Fn
-			ClusterSecurityGroupName: string | fn.Fn
-			EC2SecurityGroupName?:    string | fn.Fn
-			EC2SecurityGroupOwnerId?: string | fn.Fn
+			CIDRIP?:                  string | fn.#Fn
+			ClusterSecurityGroupName: string | fn.#Fn
+			EC2SecurityGroupName?:    string | fn.#Fn
+			EC2SecurityGroupOwnerId?: string | fn.#Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -97,14 +97,14 @@ Redshift :: {
 		Metadata?: [string]: _
 		Condition?: string
 	}
-	ClusterSubnetGroup :: {
+	#ClusterSubnetGroup: {
 		Type:       "AWS::Redshift::ClusterSubnetGroup"
 		Properties: close({
-			Description: string | fn.Fn
-			SubnetIds:   [...(string | fn.Fn)] | (string | fn.Fn)
+			Description: string | fn.#Fn
+			SubnetIds:   [...(string | fn.#Fn)] | (string | fn.#Fn)
 			Tags?:       [...close({
-				Key:   string | fn.Fn
-				Value: string | fn.Fn
+				Key:   string | fn.#Fn
+				Value: string | fn.#Fn
 			})] | fn.If
 		})
 		DependsOn?:           string | [...string]

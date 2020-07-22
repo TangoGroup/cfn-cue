@@ -2,8 +2,8 @@ package apeast1
 
 import "github.com/TangoGroup/aws/fn"
 
-Glue :: {
-	Classifier :: {
+#Glue: {
+	#Classifier: {
 		Type:       "AWS::Glue::Classifier"
 		Properties: close({
 			CsvClassifier?:  close({}) | fn.If
@@ -17,10 +17,10 @@ Glue :: {
 		Metadata?: [string]: _
 		Condition?: string
 	}
-	Connection :: {
+	#Connection: {
 		Type:       "AWS::Glue::Connection"
 		Properties: close({
-			CatalogId:       string | fn.Fn
+			CatalogId:       string | fn.#Fn
 			ConnectionInput: close({}) | fn.If
 		})
 		DependsOn?:           string | [...string]
@@ -29,22 +29,22 @@ Glue :: {
 		Metadata?: [string]: _
 		Condition?: string
 	}
-	Crawler :: {
+	#Crawler: {
 		Type:       "AWS::Glue::Crawler"
 		Properties: close({
-			Classifiers?:                  [...(string | fn.Fn)] | (string | fn.Fn)
-			Configuration?:                string | fn.Fn
-			CrawlerSecurityConfiguration?: string | fn.Fn
-			DatabaseName?:                 string | fn.Fn
-			Description?:                  string | fn.Fn
-			Name?:                         string | fn.Fn
-			Role:                          string | fn.Fn
+			Classifiers?:                  [...(string | fn.#Fn)] | (string | fn.#Fn)
+			Configuration?:                string | fn.#Fn
+			CrawlerSecurityConfiguration?: string | fn.#Fn
+			DatabaseName?:                 string | fn.#Fn
+			Description?:                  string | fn.#Fn
+			Name?:                         string | fn.#Fn
+			Role:                          string | fn.#Fn
 			Schedule?:                     close({}) | fn.If
 			SchemaChangePolicy?:           close({}) | fn.If
-			TablePrefix?:                  string | fn.Fn
+			TablePrefix?:                  string | fn.#Fn
 			Tags?:                         {
 				[string]: _
-			} | fn.Fn
+			} | fn.#Fn
 			Targets: close({}) | fn.If
 		})
 		DependsOn?:           string | [...string]
@@ -53,10 +53,10 @@ Glue :: {
 		Metadata?: [string]: _
 		Condition?: string
 	}
-	DataCatalogEncryptionSettings :: {
+	#DataCatalogEncryptionSettings: {
 		Type:       "AWS::Glue::DataCatalogEncryptionSettings"
 		Properties: close({
-			CatalogId:                     string | fn.Fn
+			CatalogId:                     string | fn.#Fn
 			DataCatalogEncryptionSettings: close({}) | fn.If
 		})
 		DependsOn?:           string | [...string]
@@ -65,10 +65,10 @@ Glue :: {
 		Metadata?: [string]: _
 		Condition?: string
 	}
-	Database :: {
+	#Database: {
 		Type:       "AWS::Glue::Database"
 		Properties: close({
-			CatalogId:     string | fn.Fn
+			CatalogId:     string | fn.#Fn
 			DatabaseInput: close({}) | fn.If
 		})
 		DependsOn?:           string | [...string]
@@ -77,28 +77,28 @@ Glue :: {
 		Metadata?: [string]: _
 		Condition?: string
 	}
-	DevEndpoint :: {
+	#DevEndpoint: {
 		Type:       "AWS::Glue::DevEndpoint"
 		Properties: close({
 			Arguments?: {
 				[string]: _
-			} | fn.Fn
-			EndpointName?:          string | fn.Fn
-			ExtraJarsS3Path?:       string | fn.Fn
-			ExtraPythonLibsS3Path?: string | fn.Fn
-			GlueVersion?:           string | fn.Fn
-			NumberOfNodes?:         int | fn.Fn
-			NumberOfWorkers?:       int | fn.Fn
-			PublicKey?:             string | fn.Fn
-			PublicKeys?:            [...(string | fn.Fn)] | (string | fn.Fn)
-			RoleArn:                string | fn.Fn
-			SecurityConfiguration?: string | fn.Fn
-			SecurityGroupIds?:      [...(string | fn.Fn)] | (string | fn.Fn)
-			SubnetId?:              string | fn.Fn
+			} | fn.#Fn
+			EndpointName?:          string | fn.#Fn
+			ExtraJarsS3Path?:       string | fn.#Fn
+			ExtraPythonLibsS3Path?: string | fn.#Fn
+			GlueVersion?:           string | fn.#Fn
+			NumberOfNodes?:         int | fn.#Fn
+			NumberOfWorkers?:       int | fn.#Fn
+			PublicKey?:             string | fn.#Fn
+			PublicKeys?:            [...(string | fn.#Fn)] | (string | fn.#Fn)
+			RoleArn:                string | fn.#Fn
+			SecurityConfiguration?: string | fn.#Fn
+			SecurityGroupIds?:      [...(string | fn.#Fn)] | (string | fn.#Fn)
+			SubnetId?:              string | fn.#Fn
 			Tags?:                  {
 				[string]: _
-			} | fn.Fn
-			WorkerType?: string | fn.Fn
+			} | fn.#Fn
+			WorkerType?: string | fn.#Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -106,31 +106,31 @@ Glue :: {
 		Metadata?: [string]: _
 		Condition?: string
 	}
-	Job :: {
+	#Job: {
 		Type:       "AWS::Glue::Job"
 		Properties: close({
-			AllocatedCapacity?: number | fn.Fn
+			AllocatedCapacity?: number | fn.#Fn
 			Command:            close({}) | fn.If
 			Connections?:       close({}) | fn.If
 			DefaultArguments?:  {
 				[string]: _
-			} | fn.Fn
-			Description?:           string | fn.Fn
+			} | fn.#Fn
+			Description?:           string | fn.#Fn
 			ExecutionProperty?:     close({}) | fn.If
-			GlueVersion?:           string | fn.Fn
-			LogUri?:                string | fn.Fn
-			MaxCapacity?:           number | fn.Fn
-			MaxRetries?:            number | fn.Fn
-			Name?:                  string | fn.Fn
+			GlueVersion?:           string | fn.#Fn
+			LogUri?:                string | fn.#Fn
+			MaxCapacity?:           number | fn.#Fn
+			MaxRetries?:            number | fn.#Fn
+			Name?:                  string | fn.#Fn
 			NotificationProperty?:  close({}) | fn.If
-			NumberOfWorkers?:       int | fn.Fn
-			Role:                   string | fn.Fn
-			SecurityConfiguration?: string | fn.Fn
+			NumberOfWorkers?:       int | fn.#Fn
+			Role:                   string | fn.#Fn
+			SecurityConfiguration?: string | fn.#Fn
 			Tags?:                  {
 				[string]: _
-			} | fn.Fn
-			Timeout?:    int | fn.Fn
-			WorkerType?: string | fn.Fn
+			} | fn.#Fn
+			Timeout?:    int | fn.#Fn
+			WorkerType?: string | fn.#Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -138,23 +138,23 @@ Glue :: {
 		Metadata?: [string]: _
 		Condition?: string
 	}
-	MLTransform :: {
+	#MLTransform: {
 		Type:       "AWS::Glue::MLTransform"
 		Properties: close({
-			Description?:      string | fn.Fn
-			GlueVersion?:      string | fn.Fn
+			Description?:      string | fn.#Fn
+			GlueVersion?:      string | fn.#Fn
 			InputRecordTables: close({}) | fn.If
-			MaxCapacity?:      number | fn.Fn
-			MaxRetries?:       int | fn.Fn
-			Name?:             string | fn.Fn
-			NumberOfWorkers?:  int | fn.Fn
-			Role:              string | fn.Fn
+			MaxCapacity?:      number | fn.#Fn
+			MaxRetries?:       int | fn.#Fn
+			Name?:             string | fn.#Fn
+			NumberOfWorkers?:  int | fn.#Fn
+			Role:              string | fn.#Fn
 			Tags?:             {
 				[string]: _
-			} | fn.Fn
-			Timeout?:            int | fn.Fn
+			} | fn.#Fn
+			Timeout?:            int | fn.#Fn
 			TransformParameters: close({}) | fn.If
-			WorkerType?:         string | fn.Fn
+			WorkerType?:         string | fn.#Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -162,13 +162,13 @@ Glue :: {
 		Metadata?: [string]: _
 		Condition?: string
 	}
-	Partition :: {
+	#Partition: {
 		Type:       "AWS::Glue::Partition"
 		Properties: close({
-			CatalogId:      string | fn.Fn
-			DatabaseName:   string | fn.Fn
+			CatalogId:      string | fn.#Fn
+			DatabaseName:   string | fn.#Fn
 			PartitionInput: close({}) | fn.If
-			TableName:      string | fn.Fn
+			TableName:      string | fn.#Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -176,11 +176,11 @@ Glue :: {
 		Metadata?: [string]: _
 		Condition?: string
 	}
-	SecurityConfiguration :: {
+	#SecurityConfiguration: {
 		Type:       "AWS::Glue::SecurityConfiguration"
 		Properties: close({
 			EncryptionConfiguration: close({}) | fn.If
-			Name:                    string | fn.Fn
+			Name:                    string | fn.#Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -188,11 +188,11 @@ Glue :: {
 		Metadata?: [string]: _
 		Condition?: string
 	}
-	Table :: {
+	#Table: {
 		Type:       "AWS::Glue::Table"
 		Properties: close({
-			CatalogId:    string | fn.Fn
-			DatabaseName: string | fn.Fn
+			CatalogId:    string | fn.#Fn
+			DatabaseName: string | fn.#Fn
 			TableInput:   close({}) | fn.If
 		})
 		DependsOn?:           string | [...string]
@@ -201,20 +201,20 @@ Glue :: {
 		Metadata?: [string]: _
 		Condition?: string
 	}
-	Trigger :: {
+	#Trigger: {
 		Type:       "AWS::Glue::Trigger"
 		Properties: close({
 			Actions:          [...close({})] | fn.If
-			Description?:     string | fn.Fn
-			Name?:            string | fn.Fn
+			Description?:     string | fn.#Fn
+			Name?:            string | fn.#Fn
 			Predicate?:       close({}) | fn.If
-			Schedule?:        string | fn.Fn
-			StartOnCreation?: bool | fn.Fn
+			Schedule?:        string | fn.#Fn
+			StartOnCreation?: bool | fn.#Fn
 			Tags?:            {
 				[string]: _
-			} | fn.Fn
-			Type:          string | fn.Fn
-			WorkflowName?: string | fn.Fn
+			} | fn.#Fn
+			Type:          string | fn.#Fn
+			WorkflowName?: string | fn.#Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -222,17 +222,17 @@ Glue :: {
 		Metadata?: [string]: _
 		Condition?: string
 	}
-	Workflow :: {
+	#Workflow: {
 		Type:       "AWS::Glue::Workflow"
 		Properties: close({
 			DefaultRunProperties?: {
 				[string]: _
-			} | fn.Fn
-			Description?: string | fn.Fn
-			Name?:        string | fn.Fn
+			} | fn.#Fn
+			Description?: string | fn.#Fn
+			Name?:        string | fn.#Fn
 			Tags?:        {
 				[string]: _
-			} | fn.Fn
+			} | fn.#Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

@@ -2,15 +2,15 @@ package apnortheast1
 
 import "github.com/TangoGroup/aws/fn"
 
-CodeStarConnections :: {
-	Connection :: {
+#CodeStarConnections: {
+	#Connection: {
 		Type:       "AWS::CodeStarConnections::Connection"
 		Properties: close({
-			ConnectionName: string | fn.Fn
-			ProviderType:   string | fn.Fn
+			ConnectionName: string | fn.#Fn
+			ProviderType:   string | fn.#Fn
 			Tags?:          [...close({
-				Key:   string | fn.Fn
-				Value: string | fn.Fn
+				Key:   string | fn.#Fn
+				Value: string | fn.#Fn
 			})] | fn.If
 		})
 		DependsOn?:           string | [...string]

@@ -2,27 +2,27 @@ package mesouth1
 
 import "github.com/TangoGroup/aws/fn"
 
-SQS :: {
-	Queue :: {
+#SQS: {
+	#Queue: {
 		Type:       "AWS::SQS::Queue"
 		Properties: close({
-			ContentBasedDeduplication?:     bool | fn.Fn
-			DelaySeconds?:                  (>=0 & <=900) | fn.Fn
-			FifoQueue?:                     bool | fn.Fn
-			KmsDataKeyReusePeriodSeconds?:  (>=60 & <=86400) | fn.Fn
-			KmsMasterKeyId?:                string | fn.Fn
-			MaximumMessageSize?:            (>=1024 & <=262144) | fn.Fn
-			MessageRetentionPeriod?:        (>=60 & <=1209600) | fn.Fn
-			QueueName?:                     string | fn.Fn
-			ReceiveMessageWaitTimeSeconds?: (>=0 & <=20) | fn.Fn
+			ContentBasedDeduplication?:     bool | fn.#Fn
+			DelaySeconds?:                  (>=0 & <=900) | fn.#Fn
+			FifoQueue?:                     bool | fn.#Fn
+			KmsDataKeyReusePeriodSeconds?:  (>=60 & <=86400) | fn.#Fn
+			KmsMasterKeyId?:                string | fn.#Fn
+			MaximumMessageSize?:            (>=1024 & <=262144) | fn.#Fn
+			MessageRetentionPeriod?:        (>=60 & <=1209600) | fn.#Fn
+			QueueName?:                     string | fn.#Fn
+			ReceiveMessageWaitTimeSeconds?: (>=0 & <=20) | fn.#Fn
 			RedrivePolicy?:                 {
 				[string]: _
-			} | fn.Fn
+			} | fn.#Fn
 			Tags?: [...close({
-				Key:   string | fn.Fn
-				Value: string | fn.Fn
+				Key:   string | fn.#Fn
+				Value: string | fn.#Fn
 			})] | fn.If
-			VisibilityTimeout?: (>=0 & <=43200) | fn.Fn
+			VisibilityTimeout?: (>=0 & <=43200) | fn.#Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -30,14 +30,16 @@ SQS :: {
 		Metadata?: [string]: _
 		Condition?: string
 	}
-	QueuePolicy :: {
+	#QueuePolicy: {
 		Type:       "AWS::SQS::QueuePolicy"
 		Properties: close({
 			PolicyDocument: {
-				[string]: _
-				Version:  string | *"2012-10-17"
-			} | fn.Fn
-			Queues: [...(string | fn.Fn)] | (string | fn.Fn)
+				{
+					[string]: _
+				}
+				Version: string | *"2012-10-17"
+			} | fn.#Fn
+			Queues: [...(string | fn.#Fn)] | (string | fn.#Fn)
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

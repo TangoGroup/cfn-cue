@@ -2,11 +2,11 @@ package cacentral1
 
 import "github.com/TangoGroup/aws/fn"
 
-StepFunctions :: {
-	Activity :: {
+#StepFunctions: {
+	#Activity: {
 		Type:       "AWS::StepFunctions::Activity"
 		Properties: close({
-			Name:  string | fn.Fn
+			Name:  string | fn.#Fn
 			Tags?: [...close({})] | fn.If
 		})
 		DependsOn?:           string | [...string]
@@ -15,16 +15,16 @@ StepFunctions :: {
 		Metadata?: [string]: _
 		Condition?: string
 	}
-	StateMachine :: {
+	#StateMachine: {
 		Type:       "AWS::StepFunctions::StateMachine"
 		Properties: close({
 			DefinitionS3Location?:    close({}) | fn.If
-			DefinitionString?:        string | fn.Fn
+			DefinitionString?:        string | fn.#Fn
 			DefinitionSubstitutions?: close({}) | fn.If
 			LoggingConfiguration?:    close({}) | fn.If
-			RoleArn:                  string | fn.Fn
-			StateMachineName?:        string | fn.Fn
-			StateMachineType?:        string | fn.Fn
+			RoleArn:                  string | fn.#Fn
+			StateMachineName?:        string | fn.#Fn
+			StateMachineType?:        string | fn.#Fn
 			Tags?:                    [...close({})] | fn.If
 		})
 		DependsOn?:           string | [...string]

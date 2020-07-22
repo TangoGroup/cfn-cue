@@ -2,22 +2,22 @@ package apnortheast3
 
 import "github.com/TangoGroup/aws/fn"
 
-EFS :: {
-	FileSystem :: {
+#EFS: {
+	#FileSystem: {
 		Type:       "AWS::EFS::FileSystem"
 		Properties: close({
-			Encrypted?:      bool | fn.Fn
+			Encrypted?:      bool | fn.#Fn
 			FileSystemTags?: [...close({
-				Key:   string | fn.Fn
-				Value: string | fn.Fn
+				Key:   string | fn.#Fn
+				Value: string | fn.#Fn
 			})] | fn.If
-			KmsKeyId?:          string | fn.Fn
+			KmsKeyId?:          string | fn.#Fn
 			LifecyclePolicies?: [...close({
-				TransitionToIA: ("AFTER_7_DAYS" | "AFTER_14_DAYS" | "AFTER_30_DAYS" | "AFTER_60_DAYS" | "AFTER_90_DAYS") | fn.Fn
+				TransitionToIA: ("AFTER_7_DAYS" | "AFTER_14_DAYS" | "AFTER_30_DAYS" | "AFTER_60_DAYS" | "AFTER_90_DAYS") | fn.#Fn
 			})] | fn.If
-			PerformanceMode?:              ("generalPurpose" | "maxIO") | fn.Fn
-			ProvisionedThroughputInMibps?: number | fn.Fn
-			ThroughputMode?:               ("bursting" | "provisioned") | fn.Fn
+			PerformanceMode?:              ("generalPurpose" | "maxIO") | fn.#Fn
+			ProvisionedThroughputInMibps?: number | fn.#Fn
+			ThroughputMode?:               ("bursting" | "provisioned") | fn.#Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -25,13 +25,13 @@ EFS :: {
 		Metadata?: [string]: _
 		Condition?: string
 	}
-	MountTarget :: {
+	#MountTarget: {
 		Type:       "AWS::EFS::MountTarget"
 		Properties: close({
-			FileSystemId:   string | fn.Fn
-			IpAddress?:     string | fn.Fn
-			SecurityGroups: [...(string | fn.Fn)] | (string | fn.Fn)
-			SubnetId:       string | fn.Fn
+			FileSystemId:   string | fn.#Fn
+			IpAddress?:     string | fn.#Fn
+			SecurityGroups: [...(string | fn.#Fn)] | (string | fn.#Fn)
+			SubnetId:       string | fn.#Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

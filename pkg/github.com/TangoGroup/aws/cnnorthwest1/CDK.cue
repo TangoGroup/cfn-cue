@@ -2,11 +2,11 @@ package cnnorthwest1
 
 import "github.com/TangoGroup/aws/fn"
 
-CDK :: {
-	Metadata :: {
+#CDK: {
+	#Metadata: {
 		Type:       "AWS::CDK::Metadata"
 		Properties: close({
-			Modules: string | fn.Fn
+			Modules: string | fn.#Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

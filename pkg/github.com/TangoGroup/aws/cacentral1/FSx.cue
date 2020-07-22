@@ -2,21 +2,21 @@ package cacentral1
 
 import "github.com/TangoGroup/aws/fn"
 
-FSx :: {
-	FileSystem :: {
+#FSx: {
+	#FileSystem: {
 		Type:       "AWS::FSx::FileSystem"
 		Properties: close({
-			BackupId?:            string | fn.Fn
-			FileSystemType:       string | fn.Fn
-			KmsKeyId?:            string | fn.Fn
+			BackupId?:            string | fn.#Fn
+			FileSystemType:       string | fn.#Fn
+			KmsKeyId?:            string | fn.#Fn
 			LustreConfiguration?: close({}) | fn.If
-			SecurityGroupIds?:    [...(string | fn.Fn)] | (string | fn.Fn)
-			StorageCapacity?:     int | fn.Fn
-			StorageType?:         string | fn.Fn
-			SubnetIds:            [...(string | fn.Fn)] | (string | fn.Fn)
+			SecurityGroupIds?:    [...(string | fn.#Fn)] | (string | fn.#Fn)
+			StorageCapacity?:     int | fn.#Fn
+			StorageType?:         string | fn.#Fn
+			SubnetIds:            [...(string | fn.#Fn)] | (string | fn.#Fn)
 			Tags?:                [...close({
-				Key:   string | fn.Fn
-				Value: string | fn.Fn
+				Key:   string | fn.#Fn
+				Value: string | fn.#Fn
 			})] | fn.If
 			WindowsConfiguration?: close({}) | fn.If
 		})

@@ -6,28 +6,28 @@ import (
 	"time"
 )
 
-S3 :: {
-	AccessPoint :: {
+#S3: {
+	#AccessPoint: {
 		Type:       "AWS::S3::AccessPoint"
 		Properties: close({
-			Bucket:         string | fn.Fn
-			CreationDate?:  string | fn.Fn
-			Name?:          string | fn.Fn
-			NetworkOrigin?: string | fn.Fn
+			Bucket:         string | fn.#Fn
+			CreationDate?:  string | fn.#Fn
+			Name?:          string | fn.#Fn
+			NetworkOrigin?: string | fn.#Fn
 			Policy?:        {
 				[string]: _
-			} | fn.Fn
+			} | fn.#Fn
 			PolicyStatus?: {
 				[string]: _
-			} | fn.Fn
+			} | fn.#Fn
 			PublicAccessBlockConfiguration?: close({
-				BlockPublicAcls?:       bool | fn.Fn
-				BlockPublicPolicy?:     bool | fn.Fn
-				IgnorePublicAcls?:      bool | fn.Fn
-				RestrictPublicBuckets?: bool | fn.Fn
+				BlockPublicAcls?:       bool | fn.#Fn
+				BlockPublicPolicy?:     bool | fn.#Fn
+				IgnorePublicAcls?:      bool | fn.#Fn
+				RestrictPublicBuckets?: bool | fn.#Fn
 			}) | fn.If
 			VpcConfiguration?: close({
-				VpcId?: string | fn.Fn
+				VpcId?: string | fn.#Fn
 			}) | fn.If
 		})
 		DependsOn?:           string | [...string]
@@ -36,246 +36,246 @@ S3 :: {
 		Metadata?: [string]: _
 		Condition?: string
 	}
-	Bucket :: {
+	#Bucket: {
 		Type:       "AWS::S3::Bucket"
 		Properties: close({
 			AccelerateConfiguration?: close({
-				AccelerationStatus: ("Enabled" | "Suspended") | fn.Fn
+				AccelerationStatus: ("Enabled" | "Suspended") | fn.#Fn
 			}) | fn.If
-			AccessControl?:           ("AuthenticatedRead" | "AwsExecRead" | "BucketOwnerFullControl" | "BucketOwnerRead" | "LogDeliveryWrite" | "Private" | "PublicRead" | "PublicReadWrite") | fn.Fn
+			AccessControl?:           ("AuthenticatedRead" | "AwsExecRead" | "BucketOwnerFullControl" | "BucketOwnerRead" | "LogDeliveryWrite" | "Private" | "PublicRead" | "PublicReadWrite") | fn.#Fn
 			AnalyticsConfigurations?: [...close({
-				Id:                   string | fn.Fn
-				Prefix?:              string | fn.Fn
+				Id:                   string | fn.#Fn
+				Prefix?:              string | fn.#Fn
 				StorageClassAnalysis: close({
 					DataExport?: close({
 						Destination: close({
-							BucketAccountId?: string | fn.Fn
-							BucketArn:        string | fn.Fn
-							Format:           string | fn.Fn
-							Prefix?:          string | fn.Fn
+							BucketAccountId?: string | fn.#Fn
+							BucketArn:        string | fn.#Fn
+							Format:           string | fn.#Fn
+							Prefix?:          string | fn.#Fn
 						}) | fn.If
-						OutputSchemaVersion: string | fn.Fn
+						OutputSchemaVersion: string | fn.#Fn
 					}) | fn.If
 				}) | fn.If
 				TagFilters?: [...close({
-					Key:   string | fn.Fn
-					Value: string | fn.Fn
+					Key:   string | fn.#Fn
+					Value: string | fn.#Fn
 				})] | fn.If
 			})] | fn.If
 			BucketEncryption?: close({
 				ServerSideEncryptionConfiguration: [...close({
 					ServerSideEncryptionByDefault?: close({
-						KMSMasterKeyID?: string | fn.Fn
-						SSEAlgorithm:    ("AES256" | "aws:kms") | fn.Fn
+						KMSMasterKeyID?: string | fn.#Fn
+						SSEAlgorithm:    ("AES256" | "aws:kms") | fn.#Fn
 					}) | fn.If
 				})] | fn.If
 			}) | fn.If
-			BucketName?:        (strings.MinRunes(3) & strings.MaxRunes(63) & (=~#"^[a-z0-9][a-z0-9.-]*[a-z0-9]$"#)) | fn.Fn
+			BucketName?:        (strings.MinRunes(3) & strings.MaxRunes(63) & (=~#"^[a-z0-9][a-z0-9.-]*[a-z0-9]$"#)) | fn.#Fn
 			CorsConfiguration?: close({
 				CorsRules: [...close({
-					AllowedHeaders?: [...(string | fn.Fn)] | (string | fn.Fn)
-					AllowedMethods:  [...(string | fn.Fn)] | (string | fn.Fn)
-					AllowedOrigins:  [...(string | fn.Fn)] | (string | fn.Fn)
-					ExposedHeaders?: [...(string | fn.Fn)] | (string | fn.Fn)
-					Id?:             string | fn.Fn
-					MaxAge?:         int | fn.Fn
+					AllowedHeaders?: [...(string | fn.#Fn)] | (string | fn.#Fn)
+					AllowedMethods:  [...(string | fn.#Fn)] | (string | fn.#Fn)
+					AllowedOrigins:  [...(string | fn.#Fn)] | (string | fn.#Fn)
+					ExposedHeaders?: [...(string | fn.#Fn)] | (string | fn.#Fn)
+					Id?:             string | fn.#Fn
+					MaxAge?:         int | fn.#Fn
 				})] | fn.If
 			}) | fn.If
 			InventoryConfigurations?: [...close({
 				Destination: close({
-					BucketAccountId?: string | fn.Fn
-					BucketArn:        string | fn.Fn
-					Format:           string | fn.Fn
-					Prefix?:          string | fn.Fn
+					BucketAccountId?: string | fn.#Fn
+					BucketArn:        string | fn.#Fn
+					Format:           string | fn.#Fn
+					Prefix?:          string | fn.#Fn
 				}) | fn.If
-				Enabled:                bool | fn.Fn
-				Id:                     (strings.MinRunes(1) & strings.MaxRunes(64) & (=~#"^[a-zA-Z0-9-_.]+$"#)) | fn.Fn
-				IncludedObjectVersions: ("All" | "Current") | fn.Fn
-				OptionalFields?:        [...(string | fn.Fn)] | (string | fn.Fn)
-				Prefix?:                string | fn.Fn
-				ScheduleFrequency:      ("Daily" | "Weekly") | fn.Fn
+				Enabled:                bool | fn.#Fn
+				Id:                     (strings.MinRunes(1) & strings.MaxRunes(64) & (=~#"^[a-zA-Z0-9-_.]+$"#)) | fn.#Fn
+				IncludedObjectVersions: ("All" | "Current") | fn.#Fn
+				OptionalFields?:        [...(string | fn.#Fn)] | (string | fn.#Fn)
+				Prefix?:                string | fn.#Fn
+				ScheduleFrequency:      ("Daily" | "Weekly") | fn.#Fn
 			})] | fn.If
 			LifecycleConfiguration?: close({
 				Rules: [...close({
 					AbortIncompleteMultipartUpload?: close({
-						DaysAfterInitiation: int | fn.Fn
+						DaysAfterInitiation: int | fn.#Fn
 					}) | fn.If
-					ExpirationDate?:                    time.Time | fn.Fn
-					ExpirationInDays?:                  int | fn.Fn
-					Id?:                                string | fn.Fn
-					NoncurrentVersionExpirationInDays?: int | fn.Fn
+					ExpirationDate?:                    time.Time | fn.#Fn
+					ExpirationInDays?:                  int | fn.#Fn
+					Id?:                                string | fn.#Fn
+					NoncurrentVersionExpirationInDays?: int | fn.#Fn
 					NoncurrentVersionTransition?:       close({
-						StorageClass:     string | fn.Fn
-						TransitionInDays: int | fn.Fn
+						StorageClass:     string | fn.#Fn
+						TransitionInDays: int | fn.#Fn
 					}) | fn.If
 					NoncurrentVersionTransitions?: [...close({
-						StorageClass:     string | fn.Fn
-						TransitionInDays: int | fn.Fn
+						StorageClass:     string | fn.#Fn
+						TransitionInDays: int | fn.#Fn
 					})] | fn.If
-					Prefix?:     string | fn.Fn
-					Status:      string | fn.Fn
+					Prefix?:     string | fn.#Fn
+					Status:      string | fn.#Fn
 					TagFilters?: [...close({
-						Key:   string | fn.Fn
-						Value: string | fn.Fn
+						Key:   string | fn.#Fn
+						Value: string | fn.#Fn
 					})] | fn.If
 					Transition?: close({
-						StorageClass:      string | fn.Fn
-						TransitionDate?:   time.Time | fn.Fn
-						TransitionInDays?: int | fn.Fn
+						StorageClass:      string | fn.#Fn
+						TransitionDate?:   time.Time | fn.#Fn
+						TransitionInDays?: int | fn.#Fn
 					}) | fn.If
 					Transitions?: [...close({
-						StorageClass:      string | fn.Fn
-						TransitionDate?:   time.Time | fn.Fn
-						TransitionInDays?: int | fn.Fn
+						StorageClass:      string | fn.#Fn
+						TransitionDate?:   time.Time | fn.#Fn
+						TransitionInDays?: int | fn.#Fn
 					})] | fn.If
 				})] | fn.If
 			}) | fn.If
 			LoggingConfiguration?: close({
-				DestinationBucketName?: string | fn.Fn
-				LogFilePrefix?:         string | fn.Fn
+				DestinationBucketName?: string | fn.#Fn
+				LogFilePrefix?:         string | fn.#Fn
 			}) | fn.If
 			MetricsConfigurations?: [...close({
-				Id:          string | fn.Fn
-				Prefix?:     string | fn.Fn
+				Id:          string | fn.#Fn
+				Prefix?:     string | fn.#Fn
 				TagFilters?: [...close({
-					Key:   string | fn.Fn
-					Value: string | fn.Fn
+					Key:   string | fn.#Fn
+					Value: string | fn.#Fn
 				})] | fn.If
 			})] | fn.If
 			NotificationConfiguration?: close({
 				LambdaConfigurations?: [...close({
-					Event:   string | fn.Fn
+					Event:   string | fn.#Fn
 					Filter?: close({
 						S3Key: close({
 							Rules: [...close({
-								Name:  string | fn.Fn
-								Value: string | fn.Fn
+								Name:  string | fn.#Fn
+								Value: string | fn.#Fn
 							})] | fn.If
 						}) | fn.If
 					}) | fn.If
-					Function: string | fn.Fn
+					Function: string | fn.#Fn
 				})] | fn.If
 				QueueConfigurations?: [...close({
-					Event:   string | fn.Fn
+					Event:   string | fn.#Fn
 					Filter?: close({
 						S3Key: close({
 							Rules: [...close({
-								Name:  string | fn.Fn
-								Value: string | fn.Fn
+								Name:  string | fn.#Fn
+								Value: string | fn.#Fn
 							})] | fn.If
 						}) | fn.If
 					}) | fn.If
-					Queue: string | fn.Fn
+					Queue: string | fn.#Fn
 				})] | fn.If
 				TopicConfigurations?: [...close({
-					Event:   ("s3:ObjectCreated:*" | "s3:ObjectCreated:CompleteMultipartUpload" | "s3:ObjectCreated:Copy" | "s3:ObjectCreated:Post" | "s3:ObjectCreated:Put" | "s3:ObjectRemoved:*" | "s3:ObjectRemoved:Delete" | "s3:ObjectRemoved:DeleteMarkerCreated" | "s3:ObjectRestore:Completed" | "s3:ObjectRestore:Post" | "s3:ReducedRedundancyLostObject" | "s3:Replication:OperationFailedReplication" | "s3:Replication:OperationMissedThreshold" | "s3:Replication:OperationReplicatedAfterThreshold" | "s3:Replication:OperationNotTracked") | fn.Fn
+					Event:   ("s3:ObjectCreated:*" | "s3:ObjectCreated:CompleteMultipartUpload" | "s3:ObjectCreated:Copy" | "s3:ObjectCreated:Post" | "s3:ObjectCreated:Put" | "s3:ObjectRemoved:*" | "s3:ObjectRemoved:Delete" | "s3:ObjectRemoved:DeleteMarkerCreated" | "s3:ObjectRestore:Completed" | "s3:ObjectRestore:Post" | "s3:ReducedRedundancyLostObject" | "s3:Replication:OperationFailedReplication" | "s3:Replication:OperationMissedThreshold" | "s3:Replication:OperationReplicatedAfterThreshold" | "s3:Replication:OperationNotTracked") | fn.#Fn
 					Filter?: close({
 						S3Key: close({
 							Rules: [...close({
-								Name:  string | fn.Fn
-								Value: string | fn.Fn
+								Name:  string | fn.#Fn
+								Value: string | fn.#Fn
 							})] | fn.If
 						}) | fn.If
 					}) | fn.If
-					Topic: string | fn.Fn
+					Topic: string | fn.#Fn
 				})] | fn.If
 			}) | fn.If
 			ObjectLockConfiguration?: close({
-				ObjectLockEnabled?: string | fn.Fn
+				ObjectLockEnabled?: string | fn.#Fn
 				Rule?:              close({
 					DefaultRetention?: close({
-						Days?:  int | fn.Fn
-						Mode?:  string | fn.Fn
-						Years?: int | fn.Fn
+						Days?:  int | fn.#Fn
+						Mode?:  string | fn.#Fn
+						Years?: int | fn.#Fn
 					}) | fn.If
 				}) | fn.If
 			}) | fn.If
-			ObjectLockEnabled?:              bool | fn.Fn
+			ObjectLockEnabled?:              bool | fn.#Fn
 			PublicAccessBlockConfiguration?: close({
-				BlockPublicAcls?:       bool | fn.Fn
-				BlockPublicPolicy?:     bool | fn.Fn
-				IgnorePublicAcls?:      bool | fn.Fn
-				RestrictPublicBuckets?: bool | fn.Fn
+				BlockPublicAcls?:       bool | fn.#Fn
+				BlockPublicPolicy?:     bool | fn.#Fn
+				IgnorePublicAcls?:      bool | fn.#Fn
+				RestrictPublicBuckets?: bool | fn.#Fn
 			}) | fn.If
 			ReplicationConfiguration?: close({
-				Role:  (=~#"arn:(aws[a-zA-Z-]*)?:iam::\d{12}:role/[a-zA-Z_0-9+=,.@\-_/]+"#) | fn.Fn
+				Role:  (=~#"arn:(aws[a-zA-Z-]*)?:iam::\d{12}:role/[a-zA-Z_0-9+=,.@\-_/]+"#) | fn.#Fn
 				Rules: [...close({
 					DeleteMarkerReplication?: close({
-						Status?: string | fn.Fn
+						Status?: string | fn.#Fn
 					}) | fn.If
 					Destination: close({
 						AccessControlTranslation?: close({
-							Owner: string | fn.Fn
+							Owner: string | fn.#Fn
 						}) | fn.If
-						Account?:                 string | fn.Fn
-						Bucket:                   string | fn.Fn
+						Account?:                 string | fn.#Fn
+						Bucket:                   string | fn.#Fn
 						EncryptionConfiguration?: close({
-							ReplicaKmsKeyID: string | fn.Fn
+							ReplicaKmsKeyID: string | fn.#Fn
 						}) | fn.If
 						Metrics?: close({
 							EventThreshold: close({
-								Minutes: int | fn.Fn
+								Minutes: int | fn.#Fn
 							}) | fn.If
-							Status: string | fn.Fn
+							Status: string | fn.#Fn
 						}) | fn.If
 						ReplicationTime?: close({
-							Status: string | fn.Fn
+							Status: string | fn.#Fn
 							Time:   close({
-								Minutes: int | fn.Fn
+								Minutes: int | fn.#Fn
 							}) | fn.If
 						}) | fn.If
-						StorageClass?: string | fn.Fn
+						StorageClass?: string | fn.#Fn
 					}) | fn.If
 					Filter?: close({
 						And?: close({
-							Prefix?:     string | fn.Fn
+							Prefix?:     string | fn.#Fn
 							TagFilters?: [...close({
-								Key:   string | fn.Fn
-								Value: string | fn.Fn
+								Key:   string | fn.#Fn
+								Value: string | fn.#Fn
 							})] | fn.If
 						}) | fn.If
-						Prefix?:    string | fn.Fn
+						Prefix?:    string | fn.#Fn
 						TagFilter?: close({
-							Key:   string | fn.Fn
-							Value: string | fn.Fn
+							Key:   string | fn.#Fn
+							Value: string | fn.#Fn
 						}) | fn.If
 					}) | fn.If
-					Id?:                      string | fn.Fn
-					Prefix?:                  string | fn.Fn
-					Priority?:                int | fn.Fn
+					Id?:                      string | fn.#Fn
+					Prefix?:                  string | fn.#Fn
+					Priority?:                int | fn.#Fn
 					SourceSelectionCriteria?: close({
 						SseKmsEncryptedObjects: close({
-							Status: string | fn.Fn
+							Status: string | fn.#Fn
 						}) | fn.If
 					}) | fn.If
-					Status: string | fn.Fn
+					Status: string | fn.#Fn
 				})] | fn.If
 			}) | fn.If
 			Tags?: [...close({
-				Key:   string | fn.Fn
-				Value: string | fn.Fn
+				Key:   string | fn.#Fn
+				Value: string | fn.#Fn
 			})] | fn.If
 			VersioningConfiguration?: close({
-				Status: ("Enabled" | "Suspended") | fn.Fn
+				Status: ("Enabled" | "Suspended") | fn.#Fn
 			}) | fn.If
 			WebsiteConfiguration?: close({
-				ErrorDocument?:         string | fn.Fn
-				IndexDocument?:         string | fn.Fn
+				ErrorDocument?:         string | fn.#Fn
+				IndexDocument?:         string | fn.#Fn
 				RedirectAllRequestsTo?: close({
-					HostName:  string | fn.Fn
-					Protocol?: ("http" | "https") | fn.Fn
+					HostName:  string | fn.#Fn
+					Protocol?: ("http" | "https") | fn.#Fn
 				}) | fn.If
 				RoutingRules?: [...close({
 					RedirectRule: close({
-						HostName?:             string | fn.Fn
-						HttpRedirectCode?:     string | fn.Fn
-						Protocol?:             string | fn.Fn
-						ReplaceKeyPrefixWith?: string | fn.Fn
-						ReplaceKeyWith?:       string | fn.Fn
+						HostName?:             string | fn.#Fn
+						HttpRedirectCode?:     string | fn.#Fn
+						Protocol?:             string | fn.#Fn
+						ReplaceKeyPrefixWith?: string | fn.#Fn
+						ReplaceKeyWith?:       string | fn.#Fn
 					}) | fn.If
 					RoutingRuleCondition?: close({
-						HttpErrorCodeReturnedEquals?: string | fn.Fn
-						KeyPrefixEquals?:             string | fn.Fn
+						HttpErrorCodeReturnedEquals?: string | fn.#Fn
+						KeyPrefixEquals?:             string | fn.#Fn
 					}) | fn.If
 				})] | fn.If
 			}) | fn.If
@@ -286,14 +286,16 @@ S3 :: {
 		Metadata?: [string]: _
 		Condition?: string
 	}
-	BucketPolicy :: {
+	#BucketPolicy: {
 		Type:       "AWS::S3::BucketPolicy"
 		Properties: close({
-			Bucket:         string | fn.Fn
+			Bucket:         string | fn.#Fn
 			PolicyDocument: {
-				[string]: _
-				Version:  string | *"2012-10-17"
-			} | fn.Fn
+				{
+					[string]: _
+				}
+				Version: string | *"2012-10-17"
+			} | fn.#Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

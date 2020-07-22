@@ -2,14 +2,14 @@ package uswest2
 
 import "github.com/TangoGroup/aws/fn"
 
-RoboMaker :: {
-	Fleet :: {
+#RoboMaker: {
+	#Fleet: {
 		Type:       "AWS::RoboMaker::Fleet"
 		Properties: close({
-			Name?: string | fn.Fn
+			Name?: string | fn.#Fn
 			Tags?: {
 				[string]: _
-			} | fn.Fn
+			} | fn.#Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -17,16 +17,16 @@ RoboMaker :: {
 		Metadata?: [string]: _
 		Condition?: string
 	}
-	Robot :: {
+	#Robot: {
 		Type:       "AWS::RoboMaker::Robot"
 		Properties: close({
-			Architecture:      string | fn.Fn
-			Fleet?:            string | fn.Fn
-			GreengrassGroupId: string | fn.Fn
-			Name?:             string | fn.Fn
+			Architecture:      string | fn.#Fn
+			Fleet?:            string | fn.#Fn
+			GreengrassGroupId: string | fn.#Fn
+			Name?:             string | fn.#Fn
 			Tags?:             {
 				[string]: _
-			} | fn.Fn
+			} | fn.#Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -34,23 +34,23 @@ RoboMaker :: {
 		Metadata?: [string]: _
 		Condition?: string
 	}
-	RobotApplication :: {
+	#RobotApplication: {
 		Type:       "AWS::RoboMaker::RobotApplication"
 		Properties: close({
-			CurrentRevisionId?: string | fn.Fn
-			Name?:              string | fn.Fn
+			CurrentRevisionId?: string | fn.#Fn
+			Name?:              string | fn.#Fn
 			RobotSoftwareSuite: close({
-				Name:    string | fn.Fn
-				Version: string | fn.Fn
+				Name:    string | fn.#Fn
+				Version: string | fn.#Fn
 			}) | fn.If
 			Sources: [...close({
-				Architecture: string | fn.Fn
-				S3Bucket:     string | fn.Fn
-				S3Key:        string | fn.Fn
+				Architecture: string | fn.#Fn
+				S3Bucket:     string | fn.#Fn
+				S3Key:        string | fn.#Fn
 			})] | fn.If
 			Tags?: {
 				[string]: _
-			} | fn.Fn
+			} | fn.#Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -58,11 +58,11 @@ RoboMaker :: {
 		Metadata?: [string]: _
 		Condition?: string
 	}
-	RobotApplicationVersion :: {
+	#RobotApplicationVersion: {
 		Type:       "AWS::RoboMaker::RobotApplicationVersion"
 		Properties: close({
-			Application:        string | fn.Fn
-			CurrentRevisionId?: string | fn.Fn
+			Application:        string | fn.#Fn
+			CurrentRevisionId?: string | fn.#Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -70,31 +70,31 @@ RoboMaker :: {
 		Metadata?: [string]: _
 		Condition?: string
 	}
-	SimulationApplication :: {
+	#SimulationApplication: {
 		Type:       "AWS::RoboMaker::SimulationApplication"
 		Properties: close({
-			CurrentRevisionId?: string | fn.Fn
-			Name?:              string | fn.Fn
+			CurrentRevisionId?: string | fn.#Fn
+			Name?:              string | fn.#Fn
 			RenderingEngine:    close({
-				Name:    string | fn.Fn
-				Version: string | fn.Fn
+				Name:    string | fn.#Fn
+				Version: string | fn.#Fn
 			}) | fn.If
 			RobotSoftwareSuite: close({
-				Name:    string | fn.Fn
-				Version: string | fn.Fn
+				Name:    string | fn.#Fn
+				Version: string | fn.#Fn
 			}) | fn.If
 			SimulationSoftwareSuite: close({
-				Name:    string | fn.Fn
-				Version: string | fn.Fn
+				Name:    string | fn.#Fn
+				Version: string | fn.#Fn
 			}) | fn.If
 			Sources: [...close({
-				Architecture: string | fn.Fn
-				S3Bucket:     string | fn.Fn
-				S3Key:        string | fn.Fn
+				Architecture: string | fn.#Fn
+				S3Bucket:     string | fn.#Fn
+				S3Key:        string | fn.#Fn
 			})] | fn.If
 			Tags?: {
 				[string]: _
-			} | fn.Fn
+			} | fn.#Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -102,11 +102,11 @@ RoboMaker :: {
 		Metadata?: [string]: _
 		Condition?: string
 	}
-	SimulationApplicationVersion :: {
+	#SimulationApplicationVersion: {
 		Type:       "AWS::RoboMaker::SimulationApplicationVersion"
 		Properties: close({
-			Application:        string | fn.Fn
-			CurrentRevisionId?: string | fn.Fn
+			Application:        string | fn.#Fn
+			CurrentRevisionId?: string | fn.#Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

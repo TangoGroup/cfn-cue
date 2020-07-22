@@ -2,15 +2,15 @@ package eunorth1
 
 import "github.com/TangoGroup/aws/fn"
 
-CodeGuruProfiler :: {
-	ProfilingGroup :: {
+#CodeGuruProfiler: {
+	#ProfilingGroup: {
 		Type:       "AWS::CodeGuruProfiler::ProfilingGroup"
 		Properties: close({
 			AgentPermissions?: {
 				[string]: _
-			} | fn.Fn
-			ComputePlatform?:   string | fn.Fn
-			ProfilingGroupName: string | fn.Fn
+			} | fn.#Fn
+			ComputePlatform?:   string | fn.#Fn
+			ProfilingGroupName: string | fn.#Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

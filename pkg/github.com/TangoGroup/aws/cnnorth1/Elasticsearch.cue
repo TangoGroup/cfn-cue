@@ -2,77 +2,77 @@ package cnnorth1
 
 import "github.com/TangoGroup/aws/fn"
 
-Elasticsearch :: {
-	Domain :: {
+#Elasticsearch: {
+	#Domain: {
 		Type:       "AWS::Elasticsearch::Domain"
 		Properties: close({
 			AccessPolicies?: {
 				[string]: _
-			} | fn.Fn
+			} | fn.#Fn
 			AdvancedOptions?: {
-				[string]: string | fn.Fn
+				[string]: string | fn.#Fn
 			} | fn.If
 			AdvancedSecurityOptions?: close({
-				Enabled?:                     bool | fn.Fn
-				InternalUserDatabaseEnabled?: bool | fn.Fn
+				Enabled?:                     bool | fn.#Fn
+				InternalUserDatabaseEnabled?: bool | fn.#Fn
 				MasterUserOptions?:           close({
-					MasterUserARN?:      string | fn.Fn
-					MasterUserName?:     string | fn.Fn
-					MasterUserPassword?: string | fn.Fn
+					MasterUserARN?:      string | fn.#Fn
+					MasterUserName?:     string | fn.#Fn
+					MasterUserPassword?: string | fn.#Fn
 				}) | fn.If
 			}) | fn.If
 			CognitoOptions?: close({
-				Enabled?:        bool | fn.Fn
-				IdentityPoolId?: string | fn.Fn
-				RoleArn?:        string | fn.Fn
-				UserPoolId?:     string | fn.Fn
+				Enabled?:        bool | fn.#Fn
+				IdentityPoolId?: string | fn.#Fn
+				RoleArn?:        string | fn.#Fn
+				UserPoolId?:     string | fn.#Fn
 			}) | fn.If
 			DomainEndpointOptions?: close({
-				EnforceHTTPS?:      bool | fn.Fn
-				TLSSecurityPolicy?: string | fn.Fn
+				EnforceHTTPS?:      bool | fn.#Fn
+				TLSSecurityPolicy?: string | fn.#Fn
 			}) | fn.If
-			DomainName?: string | fn.Fn
+			DomainName?: string | fn.#Fn
 			EBSOptions?: close({
-				EBSEnabled?: bool | fn.Fn
-				Iops?:       int | fn.Fn
-				VolumeSize?: int | fn.Fn
-				VolumeType?: string | fn.Fn
+				EBSEnabled?: bool | fn.#Fn
+				Iops?:       int | fn.#Fn
+				VolumeSize?: int | fn.#Fn
+				VolumeType?: string | fn.#Fn
 			}) | fn.If
 			ElasticsearchClusterConfig?: close({
-				DedicatedMasterCount?:   int | fn.Fn
-				DedicatedMasterEnabled?: bool | fn.Fn
-				DedicatedMasterType?:    string | fn.Fn
-				InstanceCount?:          int | fn.Fn
-				InstanceType?:           string | fn.Fn
+				DedicatedMasterCount?:   int | fn.#Fn
+				DedicatedMasterEnabled?: bool | fn.#Fn
+				DedicatedMasterType?:    string | fn.#Fn
+				InstanceCount?:          int | fn.#Fn
+				InstanceType?:           string | fn.#Fn
 				ZoneAwarenessConfig?:    close({
-					AvailabilityZoneCount?: int | fn.Fn
+					AvailabilityZoneCount?: int | fn.#Fn
 				}) | fn.If
-				ZoneAwarenessEnabled?: bool | fn.Fn
+				ZoneAwarenessEnabled?: bool | fn.#Fn
 			}) | fn.If
-			ElasticsearchVersion?:    string | fn.Fn
+			ElasticsearchVersion?:    string | fn.#Fn
 			EncryptionAtRestOptions?: close({
-				Enabled?:  bool | fn.Fn
-				KmsKeyId?: string | fn.Fn
+				Enabled?:  bool | fn.#Fn
+				KmsKeyId?: string | fn.#Fn
 			}) | fn.If
 			LogPublishingOptions?: {
 				[string]: close({
-					CloudWatchLogsLogGroupArn?: string | fn.Fn
-					Enabled?:                   bool | fn.Fn
+					CloudWatchLogsLogGroupArn?: string | fn.#Fn
+					Enabled?:                   bool | fn.#Fn
 				})
 			} | fn.If
 			NodeToNodeEncryptionOptions?: close({
-				Enabled?: bool | fn.Fn
+				Enabled?: bool | fn.#Fn
 			}) | fn.If
 			SnapshotOptions?: close({
-				AutomatedSnapshotStartHour?: int | fn.Fn
+				AutomatedSnapshotStartHour?: int | fn.#Fn
 			}) | fn.If
 			Tags?: [...close({
-				Key:   string | fn.Fn
-				Value: string | fn.Fn
+				Key:   string | fn.#Fn
+				Value: string | fn.#Fn
 			})] | fn.If
 			VPCOptions?: close({
-				SecurityGroupIds?: [...(string | fn.Fn)] | (string | fn.Fn)
-				SubnetIds?:        [...(string | fn.Fn)] | (string | fn.Fn)
+				SecurityGroupIds?: [...(string | fn.#Fn)] | (string | fn.#Fn)
+				SubnetIds?:        [...(string | fn.#Fn)] | (string | fn.#Fn)
 			}) | fn.If
 		})
 		DependsOn?:           string | [...string]

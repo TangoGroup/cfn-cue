@@ -2,27 +2,27 @@ package useast1
 
 import "github.com/TangoGroup/aws/fn"
 
-DAX :: {
-	Cluster :: {
+#DAX: {
+	#Cluster: {
 		Type:       "AWS::DAX::Cluster"
 		Properties: close({
-			AvailabilityZones?:          [...(string | fn.Fn)] | (string | fn.Fn)
-			ClusterName?:                string | fn.Fn
-			Description?:                string | fn.Fn
-			IAMRoleARN:                  string | fn.Fn
-			NodeType:                    ("dax.r3.2xlarge" | "dax.r3.4xlarge" | "dax.r3.8xlarge" | "dax.r3.large" | "dax.r3.xlarge" | "dax.r4.16xlarge" | "dax.r4.2xlarge" | "dax.r4.4xlarge" | "dax.r4.8xlarge" | "dax.r4.large" | "dax.r4.xlarge" | "dax.t2.medium" | "dax.t2.small") | fn.Fn
-			NotificationTopicARN?:       string | fn.Fn
-			ParameterGroupName?:         string | fn.Fn
-			PreferredMaintenanceWindow?: string | fn.Fn
-			ReplicationFactor:           int | fn.Fn
+			AvailabilityZones?:          [...(string | fn.#Fn)] | (string | fn.#Fn)
+			ClusterName?:                string | fn.#Fn
+			Description?:                string | fn.#Fn
+			IAMRoleARN:                  string | fn.#Fn
+			NodeType:                    ("dax.r3.2xlarge" | "dax.r3.4xlarge" | "dax.r3.8xlarge" | "dax.r3.large" | "dax.r3.xlarge" | "dax.r4.16xlarge" | "dax.r4.2xlarge" | "dax.r4.4xlarge" | "dax.r4.8xlarge" | "dax.r4.large" | "dax.r4.xlarge" | "dax.t2.medium" | "dax.t2.small") | fn.#Fn
+			NotificationTopicARN?:       string | fn.#Fn
+			ParameterGroupName?:         string | fn.#Fn
+			PreferredMaintenanceWindow?: string | fn.#Fn
+			ReplicationFactor:           int | fn.#Fn
 			SSESpecification?:           close({
-				SSEEnabled?: bool | fn.Fn
+				SSEEnabled?: bool | fn.#Fn
 			}) | fn.If
-			SecurityGroupIds?: [...(string | fn.Fn)] | (string | fn.Fn)
-			SubnetGroupName?:  string | fn.Fn
+			SecurityGroupIds?: [...(string | fn.#Fn)] | (string | fn.#Fn)
+			SubnetGroupName?:  string | fn.#Fn
 			Tags?:             {
 				[string]: _
-			} | fn.Fn
+			} | fn.#Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -30,14 +30,14 @@ DAX :: {
 		Metadata?: [string]: _
 		Condition?: string
 	}
-	ParameterGroup :: {
+	#ParameterGroup: {
 		Type:       "AWS::DAX::ParameterGroup"
 		Properties: close({
-			Description?:         string | fn.Fn
-			ParameterGroupName?:  string | fn.Fn
+			Description?:         string | fn.#Fn
+			ParameterGroupName?:  string | fn.#Fn
 			ParameterNameValues?: {
 				[string]: _
-			} | fn.Fn
+			} | fn.#Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -45,12 +45,12 @@ DAX :: {
 		Metadata?: [string]: _
 		Condition?: string
 	}
-	SubnetGroup :: {
+	#SubnetGroup: {
 		Type:       "AWS::DAX::SubnetGroup"
 		Properties: close({
-			Description?:     string | fn.Fn
-			SubnetGroupName?: string | fn.Fn
-			SubnetIds:        [...(string | fn.Fn)] | (string | fn.Fn)
+			Description?:     string | fn.#Fn
+			SubnetGroupName?: string | fn.#Fn
+			SubnetIds:        [...(string | fn.#Fn)] | (string | fn.#Fn)
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

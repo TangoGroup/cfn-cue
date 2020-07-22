@@ -2,21 +2,21 @@ package apnortheast2
 
 import "github.com/TangoGroup/aws/fn"
 
-Lambda :: {
-	Alias :: {
+#Lambda: {
+	#Alias: {
 		Type:       "AWS::Lambda::Alias"
 		Properties: close({
-			Description?:                  string | fn.Fn
-			FunctionName:                  string | fn.Fn
-			FunctionVersion:               string | fn.Fn
-			Name:                          string | fn.Fn
+			Description?:                  string | fn.#Fn
+			FunctionName:                  string | fn.#Fn
+			FunctionVersion:               string | fn.#Fn
+			Name:                          string | fn.#Fn
 			ProvisionedConcurrencyConfig?: close({
-				ProvisionedConcurrentExecutions: int | fn.Fn
+				ProvisionedConcurrentExecutions: int | fn.#Fn
 			}) | fn.If
 			RoutingConfig?: close({
 				AdditionalVersionWeights: [...close({
-					FunctionVersion: string | fn.Fn
-					FunctionWeight:  number | fn.Fn
+					FunctionVersion: string | fn.#Fn
+					FunctionWeight:  number | fn.#Fn
 				})] | fn.If
 			}) | fn.If
 		})
@@ -27,21 +27,21 @@ Lambda :: {
 		Metadata?: [string]:     _
 		Condition?: string
 	}
-	EventInvokeConfig :: {
+	#EventInvokeConfig: {
 		Type:       "AWS::Lambda::EventInvokeConfig"
 		Properties: close({
 			DestinationConfig?: close({
 				OnFailure?: close({
-					Destination: string | fn.Fn
+					Destination: string | fn.#Fn
 				}) | fn.If
 				OnSuccess?: close({
-					Destination: string | fn.Fn
+					Destination: string | fn.#Fn
 				}) | fn.If
 			}) | fn.If
-			FunctionName:              string | fn.Fn
-			MaximumEventAgeInSeconds?: int | fn.Fn
-			MaximumRetryAttempts?:     int | fn.Fn
-			Qualifier:                 string | fn.Fn
+			FunctionName:              string | fn.#Fn
+			MaximumEventAgeInSeconds?: int | fn.#Fn
+			MaximumRetryAttempts?:     int | fn.#Fn
+			Qualifier:                 string | fn.#Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -49,24 +49,24 @@ Lambda :: {
 		Metadata?: [string]: _
 		Condition?: string
 	}
-	EventSourceMapping :: {
+	#EventSourceMapping: {
 		Type:       "AWS::Lambda::EventSourceMapping"
 		Properties: close({
-			BatchSize?:                  (>=1 & <=10000) | fn.Fn
-			BisectBatchOnFunctionError?: bool | fn.Fn
+			BatchSize?:                  (>=1 & <=10000) | fn.#Fn
+			BisectBatchOnFunctionError?: bool | fn.#Fn
 			DestinationConfig?:          close({
 				OnFailure: close({
-					Destination: string | fn.Fn
+					Destination: string | fn.#Fn
 				}) | fn.If
 			}) | fn.If
-			Enabled?:                        bool | fn.Fn
-			EventSourceArn:                  string | fn.Fn
-			FunctionName:                    string | fn.Fn
-			MaximumBatchingWindowInSeconds?: int | fn.Fn
-			MaximumRecordAgeInSeconds?:      int | fn.Fn
-			MaximumRetryAttempts?:           int | fn.Fn
-			ParallelizationFactor?:          int | fn.Fn
-			StartingPosition?:               string | fn.Fn
+			Enabled?:                        bool | fn.#Fn
+			EventSourceArn:                  string | fn.#Fn
+			FunctionName:                    string | fn.#Fn
+			MaximumBatchingWindowInSeconds?: int | fn.#Fn
+			MaximumRecordAgeInSeconds?:      int | fn.#Fn
+			MaximumRetryAttempts?:           int | fn.#Fn
+			ParallelizationFactor?:          int | fn.#Fn
+			StartingPosition?:               string | fn.#Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -74,47 +74,47 @@ Lambda :: {
 		Metadata?: [string]: _
 		Condition?: string
 	}
-	Function :: {
+	#Function: {
 		Type:       "AWS::Lambda::Function"
 		Properties: close({
 			Code: close({
-				S3Bucket?:        string | fn.Fn
-				S3Key?:           string | fn.Fn
-				S3ObjectVersion?: string | fn.Fn
-				ZipFile?:         string | fn.Fn
+				S3Bucket?:        string | fn.#Fn
+				S3Key?:           string | fn.#Fn
+				S3ObjectVersion?: string | fn.#Fn
+				ZipFile?:         string | fn.#Fn
 			}) | fn.If
 			DeadLetterConfig?: close({
-				TargetArn?: string | fn.Fn
+				TargetArn?: string | fn.#Fn
 			}) | fn.If
-			Description?: string | fn.Fn
+			Description?: string | fn.#Fn
 			Environment?: close({
 				Variables?: {
-					[string]: string | fn.Fn
+					[string]: string | fn.#Fn
 				} | fn.If
 			}) | fn.If
 			FileSystemConfigs?: [...close({
-				Arn:            string | fn.Fn
-				LocalMountPath: string | fn.Fn
+				Arn:            string | fn.#Fn
+				LocalMountPath: string | fn.#Fn
 			})] | fn.If
-			FunctionName?:                 string | fn.Fn
-			Handler:                       string | fn.Fn
-			KmsKeyArn?:                    string | fn.Fn
-			Layers?:                       [...(string | fn.Fn)] | (string | fn.Fn)
-			MemorySize?:                   (>=128 & <=3008) | fn.Fn
-			ReservedConcurrentExecutions?: int | fn.Fn
-			Role:                          (=~#"arn:(aws[a-zA-Z-]*)?:iam::\d{12}:role/[a-zA-Z_0-9+=,.@\-_/]+"#) | fn.Fn
-			Runtime:                       ("dotnetcore1.0" | "dotnetcore2.0" | "dotnetcore2.1" | "dotnetcore3.1" | "go1.x" | "java8" | "java11" | "nodejs" | "nodejs4.3-edge" | "nodejs4.3" | "nodejs6.10" | "nodejs8.10" | "nodejs10.x" | "nodejs12.x" | "provided" | "python2.7" | "python3.6" | "python3.7" | "python3.8" | "ruby2.5" | "ruby2.7") | fn.Fn
+			FunctionName?:                 string | fn.#Fn
+			Handler:                       string | fn.#Fn
+			KmsKeyArn?:                    string | fn.#Fn
+			Layers?:                       [...(string | fn.#Fn)] | (string | fn.#Fn)
+			MemorySize?:                   (>=128 & <=3008) | fn.#Fn
+			ReservedConcurrentExecutions?: int | fn.#Fn
+			Role:                          (=~#"arn:(aws[a-zA-Z-]*)?:iam::\d{12}:role/[a-zA-Z_0-9+=,.@\-_/]+"#) | fn.#Fn
+			Runtime:                       ("dotnetcore1.0" | "dotnetcore2.0" | "dotnetcore2.1" | "dotnetcore3.1" | "go1.x" | "java8" | "java11" | "nodejs" | "nodejs4.3-edge" | "nodejs4.3" | "nodejs6.10" | "nodejs8.10" | "nodejs10.x" | "nodejs12.x" | "provided" | "python2.7" | "python3.6" | "python3.7" | "python3.8" | "ruby2.5" | "ruby2.7") | fn.#Fn
 			Tags?:                         [...close({
-				Key:   string | fn.Fn
-				Value: string | fn.Fn
+				Key:   string | fn.#Fn
+				Value: string | fn.#Fn
 			})] | fn.If
-			Timeout?:       (>=1 & <=900) | fn.Fn
+			Timeout?:       (>=1 & <=900) | fn.#Fn
 			TracingConfig?: close({
-				Mode?: string | fn.Fn
+				Mode?: string | fn.#Fn
 			}) | fn.If
 			VpcConfig?: close({
-				SecurityGroupIds: [...(string | fn.Fn)] | (string | fn.Fn)
-				SubnetIds:        [...(string | fn.Fn)] | (string | fn.Fn)
+				SecurityGroupIds: [...(string | fn.#Fn)] | (string | fn.#Fn)
+				SubnetIds:        [...(string | fn.#Fn)] | (string | fn.#Fn)
 			}) | fn.If
 		})
 		DependsOn?:           string | [...string]
@@ -123,18 +123,18 @@ Lambda :: {
 		Metadata?: [string]: _
 		Condition?: string
 	}
-	LayerVersion :: {
+	#LayerVersion: {
 		Type:       "AWS::Lambda::LayerVersion"
 		Properties: close({
-			CompatibleRuntimes?: [...(string | fn.Fn)] | (string | fn.Fn)
+			CompatibleRuntimes?: [...(string | fn.#Fn)] | (string | fn.#Fn)
 			Content:             close({
-				S3Bucket:         string | fn.Fn
-				S3Key:            string | fn.Fn
-				S3ObjectVersion?: string | fn.Fn
+				S3Bucket:         string | fn.#Fn
+				S3Key:            string | fn.#Fn
+				S3ObjectVersion?: string | fn.#Fn
 			}) | fn.If
-			Description?: string | fn.Fn
-			LayerName?:   string | fn.Fn
-			LicenseInfo?: string | fn.Fn
+			Description?: string | fn.#Fn
+			LayerName?:   string | fn.#Fn
+			LicenseInfo?: string | fn.#Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -142,13 +142,13 @@ Lambda :: {
 		Metadata?: [string]: _
 		Condition?: string
 	}
-	LayerVersionPermission :: {
+	#LayerVersionPermission: {
 		Type:       "AWS::Lambda::LayerVersionPermission"
 		Properties: close({
-			Action:          string | fn.Fn
-			LayerVersionArn: string | fn.Fn
-			OrganizationId?: string | fn.Fn
-			Principal:       string | fn.Fn
+			Action:          string | fn.#Fn
+			LayerVersionArn: string | fn.#Fn
+			OrganizationId?: string | fn.#Fn
+			Principal:       string | fn.#Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -156,15 +156,15 @@ Lambda :: {
 		Metadata?: [string]: _
 		Condition?: string
 	}
-	Permission :: {
+	#Permission: {
 		Type:       "AWS::Lambda::Permission"
 		Properties: close({
-			Action:            string | fn.Fn
-			EventSourceToken?: string | fn.Fn
-			FunctionName:      string | fn.Fn
-			Principal:         string | fn.Fn
-			SourceAccount?:    string | fn.Fn
-			SourceArn?:        string | fn.Fn
+			Action:            string | fn.#Fn
+			EventSourceToken?: string | fn.#Fn
+			FunctionName:      string | fn.#Fn
+			Principal:         string | fn.#Fn
+			SourceAccount?:    string | fn.#Fn
+			SourceArn?:        string | fn.#Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -172,14 +172,14 @@ Lambda :: {
 		Metadata?: [string]: _
 		Condition?: string
 	}
-	Version :: {
+	#Version: {
 		Type:       "AWS::Lambda::Version"
 		Properties: close({
-			CodeSha256?:                   string | fn.Fn
-			Description?:                  string | fn.Fn
-			FunctionName:                  string | fn.Fn
+			CodeSha256?:                   string | fn.#Fn
+			Description?:                  string | fn.#Fn
+			FunctionName:                  string | fn.#Fn
 			ProvisionedConcurrencyConfig?: close({
-				ProvisionedConcurrentExecutions: int | fn.Fn
+				ProvisionedConcurrentExecutions: int | fn.#Fn
 			}) | fn.If
 		})
 		DependsOn?:           string | [...string]

@@ -2,21 +2,21 @@ package apeast1
 
 import "github.com/TangoGroup/aws/fn"
 
-WAF :: {
-	ByteMatchSet :: {
+#WAF: {
+	#ByteMatchSet: {
 		Type:       "AWS::WAF::ByteMatchSet"
 		Properties: close({
 			ByteMatchTuples?: [...close({
 				FieldToMatch: close({
-					Data?: string | fn.Fn
-					Type:  string | fn.Fn
+					Data?: string | fn.#Fn
+					Type:  string | fn.#Fn
 				}) | fn.If
-				PositionalConstraint: string | fn.Fn
-				TargetString?:        string | fn.Fn
-				TargetStringBase64?:  string | fn.Fn
-				TextTransformation:   string | fn.Fn
+				PositionalConstraint: string | fn.#Fn
+				TargetString?:        string | fn.#Fn
+				TargetStringBase64?:  string | fn.#Fn
+				TextTransformation:   string | fn.#Fn
 			})] | fn.If
-			Name: string | fn.Fn
+			Name: string | fn.#Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -24,14 +24,14 @@ WAF :: {
 		Metadata?: [string]: _
 		Condition?: string
 	}
-	IPSet :: {
+	#IPSet: {
 		Type:       "AWS::WAF::IPSet"
 		Properties: close({
 			IPSetDescriptors?: [...close({
-				Type:  string | fn.Fn
-				Value: string | fn.Fn
+				Type:  string | fn.#Fn
+				Value: string | fn.#Fn
 			})] | fn.If
-			Name: string | fn.Fn
+			Name: string | fn.#Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -39,15 +39,15 @@ WAF :: {
 		Metadata?: [string]: _
 		Condition?: string
 	}
-	Rule :: {
+	#Rule: {
 		Type:       "AWS::WAF::Rule"
 		Properties: close({
-			MetricName:  string | fn.Fn
-			Name:        string | fn.Fn
+			MetricName:  string | fn.#Fn
+			Name:        string | fn.#Fn
 			Predicates?: [...close({
-				DataId:  string | fn.Fn
-				Negated: bool | fn.Fn
-				Type:    ("ByteMatch" | "GeoMatch" | "IPMatch" | "RegexMatch" | "SizeConstraint" | "SqlInjectionMatch" | "XssMatch") | fn.Fn
+				DataId:  string | fn.#Fn
+				Negated: bool | fn.#Fn
+				Type:    ("ByteMatch" | "GeoMatch" | "IPMatch" | "RegexMatch" | "SizeConstraint" | "SqlInjectionMatch" | "XssMatch") | fn.#Fn
 			})] | fn.If
 		})
 		DependsOn?:           string | [...string]
@@ -56,18 +56,18 @@ WAF :: {
 		Metadata?: [string]: _
 		Condition?: string
 	}
-	SizeConstraintSet :: {
+	#SizeConstraintSet: {
 		Type:       "AWS::WAF::SizeConstraintSet"
 		Properties: close({
-			Name:            string | fn.Fn
+			Name:            string | fn.#Fn
 			SizeConstraints: [...close({
-				ComparisonOperator: string | fn.Fn
+				ComparisonOperator: string | fn.#Fn
 				FieldToMatch:       close({
-					Data?: string | fn.Fn
-					Type:  string | fn.Fn
+					Data?: string | fn.#Fn
+					Type:  string | fn.#Fn
 				}) | fn.If
-				Size:               int | fn.Fn
-				TextTransformation: string | fn.Fn
+				Size:               int | fn.#Fn
+				TextTransformation: string | fn.#Fn
 			})] | fn.If
 		})
 		DependsOn?:           string | [...string]
@@ -76,16 +76,16 @@ WAF :: {
 		Metadata?: [string]: _
 		Condition?: string
 	}
-	SqlInjectionMatchSet :: {
+	#SqlInjectionMatchSet: {
 		Type:       "AWS::WAF::SqlInjectionMatchSet"
 		Properties: close({
-			Name:                     string | fn.Fn
+			Name:                     string | fn.#Fn
 			SqlInjectionMatchTuples?: [...close({
 				FieldToMatch: close({
-					Data?: string | fn.Fn
-					Type:  string | fn.Fn
+					Data?: string | fn.#Fn
+					Type:  string | fn.#Fn
 				}) | fn.If
-				TextTransformation: string | fn.Fn
+				TextTransformation: string | fn.#Fn
 			})] | fn.If
 		})
 		DependsOn?:           string | [...string]
@@ -94,20 +94,20 @@ WAF :: {
 		Metadata?: [string]: _
 		Condition?: string
 	}
-	WebACL :: {
+	#WebACL: {
 		Type:       "AWS::WAF::WebACL"
 		Properties: close({
 			DefaultAction: close({
-				Type: string | fn.Fn
+				Type: string | fn.#Fn
 			}) | fn.If
-			MetricName: string | fn.Fn
-			Name:       string | fn.Fn
+			MetricName: string | fn.#Fn
+			Name:       string | fn.#Fn
 			Rules?:     [...close({
 				Action?: close({
-					Type: string | fn.Fn
+					Type: string | fn.#Fn
 				}) | fn.If
-				Priority: int | fn.Fn
-				RuleId:   string | fn.Fn
+				Priority: int | fn.#Fn
+				RuleId:   string | fn.#Fn
 			})] | fn.If
 		})
 		DependsOn?:           string | [...string]
@@ -116,16 +116,16 @@ WAF :: {
 		Metadata?: [string]: _
 		Condition?: string
 	}
-	XssMatchSet :: {
+	#XssMatchSet: {
 		Type:       "AWS::WAF::XssMatchSet"
 		Properties: close({
-			Name:           string | fn.Fn
+			Name:           string | fn.#Fn
 			XssMatchTuples: [...close({
 				FieldToMatch: close({
-					Data?: string | fn.Fn
-					Type:  string | fn.Fn
+					Data?: string | fn.#Fn
+					Type:  string | fn.#Fn
 				}) | fn.If
-				TextTransformation: string | fn.Fn
+				TextTransformation: string | fn.#Fn
 			})] | fn.If
 		})
 		DependsOn?:           string | [...string]

@@ -2,11 +2,11 @@ package saeast1
 
 import "github.com/TangoGroup/aws/fn"
 
-SES :: {
-	ConfigurationSet :: {
+#SES: {
+	#ConfigurationSet: {
 		Type:       "AWS::SES::ConfigurationSet"
 		Properties: close({
-			Name?: string | fn.Fn
+			Name?: string | fn.#Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -14,10 +14,10 @@ SES :: {
 		Metadata?: [string]: _
 		Condition?: string
 	}
-	ConfigurationSetEventDestination :: {
+	#ConfigurationSetEventDestination: {
 		Type:       "AWS::SES::ConfigurationSetEventDestination"
 		Properties: close({
-			ConfigurationSetName: string | fn.Fn
+			ConfigurationSetName: string | fn.#Fn
 			EventDestination:     close({}) | fn.If
 		})
 		DependsOn?:           string | [...string]
@@ -26,7 +26,7 @@ SES :: {
 		Metadata?: [string]: _
 		Condition?: string
 	}
-	ReceiptFilter :: {
+	#ReceiptFilter: {
 		Type:       "AWS::SES::ReceiptFilter"
 		Properties: close({
 			Filter: close({}) | fn.If
@@ -37,12 +37,12 @@ SES :: {
 		Metadata?: [string]: _
 		Condition?: string
 	}
-	ReceiptRule :: {
+	#ReceiptRule: {
 		Type:       "AWS::SES::ReceiptRule"
 		Properties: close({
-			After?:      string | fn.Fn
+			After?:      string | fn.#Fn
 			Rule:        close({}) | fn.If
-			RuleSetName: string | fn.Fn
+			RuleSetName: string | fn.#Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -50,10 +50,10 @@ SES :: {
 		Metadata?: [string]: _
 		Condition?: string
 	}
-	ReceiptRuleSet :: {
+	#ReceiptRuleSet: {
 		Type:       "AWS::SES::ReceiptRuleSet"
 		Properties: close({
-			RuleSetName?: string | fn.Fn
+			RuleSetName?: string | fn.#Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -61,7 +61,7 @@ SES :: {
 		Metadata?: [string]: _
 		Condition?: string
 	}
-	Template :: {
+	#Template: {
 		Type:       "AWS::SES::Template"
 		Properties: close({
 			Template?: close({}) | fn.If

@@ -35,7 +35,7 @@ FindInMap : close({
 
 // GetAZs: https://docs.aws.amazon.com/en_pv/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-getavailabilityzones.html
 GetAZs : close({
-	"Fn::GetAZs": regions.Regions | "" | (Ref & close({"Ref": "AWS::Region"}))
+	"Fn::GetAZs": regions.#Regions | "" | (Ref & close({"Ref": "AWS::Region"}))
 })
 
 // GetAtt: https://docs.aws.amazon.com/en_pv/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-getatt.html
@@ -137,11 +137,11 @@ Or : close({
 	"Fn::Or": [...(close({Condition: string}) | And | Equals | Not | Or)]
 })
 
-LogicFn :: And | Equals | Not | Or
+#LogicFn: And | Equals | Not | Or
 
-ConditionFn :: LogicFn | If
+#ConditionFn: #LogicFn | If
 
 // Fn :: close(Base64 | Cidr | FindInMap | GetAZs | GetAtt | ImportValue | Join | Select | Split | Sub | Transform | Ref | And | Equals | If | Not | Or)
-Fn :: Base64 | Cidr | FindInMap | GetAZs | GetAtt | ImportValue | Join | Select | Split | Sub | Ref | And | Equals | If | Not | Or
+#Fn: Base64 | Cidr | FindInMap | GetAZs | GetAtt | ImportValue | Join | Select | Split | Sub | Ref | And | Equals | If | Not | Or
 // Fn :: Sub | Ref
 // Fn : Sub

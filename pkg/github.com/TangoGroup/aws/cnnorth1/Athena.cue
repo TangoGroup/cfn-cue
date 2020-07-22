@@ -2,21 +2,21 @@ package cnnorth1
 
 import "github.com/TangoGroup/aws/fn"
 
-Athena :: {
-	DataCatalog :: {
+#Athena: {
+	#DataCatalog: {
 		Type:       "AWS::Athena::DataCatalog"
 		Properties: close({
-			Description?: string | fn.Fn
-			Name:         string | fn.Fn
+			Description?: string | fn.#Fn
+			Name:         string | fn.#Fn
 			Parameters?:  {
-				[string]: string | fn.Fn
+				[string]: string | fn.#Fn
 			} | fn.If
 			Tags?: close({
 				Tags?: [...close({
 					[string]: _
 				})] | fn.If
 			}) | fn.If
-			Type: string | fn.Fn
+			Type: string | fn.#Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

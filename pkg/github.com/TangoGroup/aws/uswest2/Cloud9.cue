@@ -2,24 +2,24 @@ package uswest2
 
 import "github.com/TangoGroup/aws/fn"
 
-Cloud9 :: {
-	EnvironmentEC2 :: {
+#Cloud9: {
+	#EnvironmentEC2: {
 		Type:       "AWS::Cloud9::EnvironmentEC2"
 		Properties: close({
-			AutomaticStopTimeMinutes?: (>=0 & <=20160) | fn.Fn
-			ConnectionType?:           string | fn.Fn
-			Description?:              string | fn.Fn
-			InstanceType:              string | fn.Fn
-			Name?:                     string | fn.Fn
-			OwnerArn?:                 string | fn.Fn
+			AutomaticStopTimeMinutes?: (>=0 & <=20160) | fn.#Fn
+			ConnectionType?:           string | fn.#Fn
+			Description?:              string | fn.#Fn
+			InstanceType:              string | fn.#Fn
+			Name?:                     string | fn.#Fn
+			OwnerArn?:                 string | fn.#Fn
 			Repositories?:             [...close({
-				PathComponent: string | fn.Fn
-				RepositoryUrl: string | fn.Fn
+				PathComponent: string | fn.#Fn
+				RepositoryUrl: string | fn.#Fn
 			})] | fn.If
-			SubnetId?: string | fn.Fn
+			SubnetId?: string | fn.#Fn
 			Tags?:     [...close({
-				Key:   string | fn.Fn
-				Value: string | fn.Fn
+				Key:   string | fn.#Fn
+				Value: string | fn.#Fn
 			})] | fn.If
 		})
 		DependsOn?:           string | [...string]

@@ -2,14 +2,14 @@ package uswest1
 
 import "github.com/TangoGroup/aws/fn"
 
-NetworkManager :: {
-	CustomerGatewayAssociation :: {
+#NetworkManager: {
+	#CustomerGatewayAssociation: {
 		Type:       "AWS::NetworkManager::CustomerGatewayAssociation"
 		Properties: close({
-			CustomerGatewayArn: string | fn.Fn
-			DeviceId:           string | fn.Fn
-			GlobalNetworkId:    string | fn.Fn
-			LinkId?:            string | fn.Fn
+			CustomerGatewayArn: string | fn.#Fn
+			DeviceId:           string | fn.#Fn
+			GlobalNetworkId:    string | fn.#Fn
+			LinkId?:            string | fn.#Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -17,25 +17,25 @@ NetworkManager :: {
 		Metadata?: [string]: _
 		Condition?: string
 	}
-	Device :: {
+	#Device: {
 		Type:       "AWS::NetworkManager::Device"
 		Properties: close({
-			Description?:    string | fn.Fn
-			GlobalNetworkId: string | fn.Fn
+			Description?:    string | fn.#Fn
+			GlobalNetworkId: string | fn.#Fn
 			Location?:       close({
-				Address?:   string | fn.Fn
-				Latitude?:  string | fn.Fn
-				Longitude?: string | fn.Fn
+				Address?:   string | fn.#Fn
+				Latitude?:  string | fn.#Fn
+				Longitude?: string | fn.#Fn
 			}) | fn.If
-			Model?:        string | fn.Fn
-			SerialNumber?: string | fn.Fn
-			SiteId?:       string | fn.Fn
+			Model?:        string | fn.#Fn
+			SerialNumber?: string | fn.#Fn
+			SiteId?:       string | fn.#Fn
 			Tags?:         [...close({
-				Key:   string | fn.Fn
-				Value: string | fn.Fn
+				Key:   string | fn.#Fn
+				Value: string | fn.#Fn
 			})] | fn.If
-			Type?:   string | fn.Fn
-			Vendor?: string | fn.Fn
+			Type?:   string | fn.#Fn
+			Vendor?: string | fn.#Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -43,13 +43,13 @@ NetworkManager :: {
 		Metadata?: [string]: _
 		Condition?: string
 	}
-	GlobalNetwork :: {
+	#GlobalNetwork: {
 		Type:       "AWS::NetworkManager::GlobalNetwork"
 		Properties: close({
-			Description?: string | fn.Fn
+			Description?: string | fn.#Fn
 			Tags?:        [...close({
-				Key:   string | fn.Fn
-				Value: string | fn.Fn
+				Key:   string | fn.#Fn
+				Value: string | fn.#Fn
 			})] | fn.If
 		})
 		DependsOn?:           string | [...string]
@@ -58,22 +58,22 @@ NetworkManager :: {
 		Metadata?: [string]: _
 		Condition?: string
 	}
-	Link :: {
+	#Link: {
 		Type:       "AWS::NetworkManager::Link"
 		Properties: close({
 			Bandwidth: close({
-				DownloadSpeed?: int | fn.Fn
-				UploadSpeed?:   int | fn.Fn
+				DownloadSpeed?: int | fn.#Fn
+				UploadSpeed?:   int | fn.#Fn
 			}) | fn.If
-			Description?:    string | fn.Fn
-			GlobalNetworkId: string | fn.Fn
-			Provider?:       string | fn.Fn
-			SiteId:          string | fn.Fn
+			Description?:    string | fn.#Fn
+			GlobalNetworkId: string | fn.#Fn
+			Provider?:       string | fn.#Fn
+			SiteId:          string | fn.#Fn
 			Tags?:           [...close({
-				Key:   string | fn.Fn
-				Value: string | fn.Fn
+				Key:   string | fn.#Fn
+				Value: string | fn.#Fn
 			})] | fn.If
-			Type?: string | fn.Fn
+			Type?: string | fn.#Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -81,12 +81,12 @@ NetworkManager :: {
 		Metadata?: [string]: _
 		Condition?: string
 	}
-	LinkAssociation :: {
+	#LinkAssociation: {
 		Type:       "AWS::NetworkManager::LinkAssociation"
 		Properties: close({
-			DeviceId:        string | fn.Fn
-			GlobalNetworkId: string | fn.Fn
-			LinkId:          string | fn.Fn
+			DeviceId:        string | fn.#Fn
+			GlobalNetworkId: string | fn.#Fn
+			LinkId:          string | fn.#Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -94,19 +94,19 @@ NetworkManager :: {
 		Metadata?: [string]: _
 		Condition?: string
 	}
-	Site :: {
+	#Site: {
 		Type:       "AWS::NetworkManager::Site"
 		Properties: close({
-			Description?:    string | fn.Fn
-			GlobalNetworkId: string | fn.Fn
+			Description?:    string | fn.#Fn
+			GlobalNetworkId: string | fn.#Fn
 			Location?:       close({
-				Address?:   string | fn.Fn
-				Latitude?:  string | fn.Fn
-				Longitude?: string | fn.Fn
+				Address?:   string | fn.#Fn
+				Latitude?:  string | fn.#Fn
+				Longitude?: string | fn.#Fn
 			}) | fn.If
 			Tags?: [...close({
-				Key:   string | fn.Fn
-				Value: string | fn.Fn
+				Key:   string | fn.#Fn
+				Value: string | fn.#Fn
 			})] | fn.If
 		})
 		DependsOn?:           string | [...string]
@@ -115,11 +115,11 @@ NetworkManager :: {
 		Metadata?: [string]: _
 		Condition?: string
 	}
-	TransitGatewayRegistration :: {
+	#TransitGatewayRegistration: {
 		Type:       "AWS::NetworkManager::TransitGatewayRegistration"
 		Properties: close({
-			GlobalNetworkId:   string | fn.Fn
-			TransitGatewayArn: string | fn.Fn
+			GlobalNetworkId:   string | fn.#Fn
+			TransitGatewayArn: string | fn.#Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

@@ -2,11 +2,11 @@ package apsouth1
 
 import "github.com/TangoGroup/aws/fn"
 
-SES :: {
-	ConfigurationSet :: {
+#SES: {
+	#ConfigurationSet: {
 		Type:       "AWS::SES::ConfigurationSet"
 		Properties: close({
-			Name?: string | fn.Fn
+			Name?: string | fn.#Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

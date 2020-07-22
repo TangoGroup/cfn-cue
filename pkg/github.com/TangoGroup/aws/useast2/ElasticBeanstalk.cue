@@ -2,24 +2,24 @@ package useast2
 
 import "github.com/TangoGroup/aws/fn"
 
-ElasticBeanstalk :: {
-	Application :: {
+#ElasticBeanstalk: {
+	#Application: {
 		Type:       "AWS::ElasticBeanstalk::Application"
 		Properties: close({
-			ApplicationName?:         string | fn.Fn
-			Description?:             string | fn.Fn
+			ApplicationName?:         string | fn.#Fn
+			Description?:             string | fn.#Fn
 			ResourceLifecycleConfig?: close({
-				ServiceRole?:            (=~#"arn:(aws[a-zA-Z-]*)?:iam::\d{12}:role/[a-zA-Z_0-9+=,.@\-_/]+"#) | fn.Fn
+				ServiceRole?:            (=~#"arn:(aws[a-zA-Z-]*)?:iam::\d{12}:role/[a-zA-Z_0-9+=,.@\-_/]+"#) | fn.#Fn
 				VersionLifecycleConfig?: close({
 					MaxAgeRule?: close({
-						DeleteSourceFromS3?: bool | fn.Fn
-						Enabled?:            bool | fn.Fn
-						MaxAgeInDays?:       int | fn.Fn
+						DeleteSourceFromS3?: bool | fn.#Fn
+						Enabled?:            bool | fn.#Fn
+						MaxAgeInDays?:       int | fn.#Fn
 					}) | fn.If
 					MaxCountRule?: close({
-						DeleteSourceFromS3?: bool | fn.Fn
-						Enabled?:            bool | fn.Fn
-						MaxCount?:           int | fn.Fn
+						DeleteSourceFromS3?: bool | fn.#Fn
+						Enabled?:            bool | fn.#Fn
+						MaxCount?:           int | fn.#Fn
 					}) | fn.If
 				}) | fn.If
 			}) | fn.If
@@ -30,14 +30,14 @@ ElasticBeanstalk :: {
 		Metadata?: [string]: _
 		Condition?: string
 	}
-	ApplicationVersion :: {
+	#ApplicationVersion: {
 		Type:       "AWS::ElasticBeanstalk::ApplicationVersion"
 		Properties: close({
-			ApplicationName: string | fn.Fn
-			Description?:    string | fn.Fn
+			ApplicationName: string | fn.#Fn
+			Description?:    string | fn.#Fn
 			SourceBundle:    close({
-				S3Bucket: string | fn.Fn
-				S3Key:    string | fn.Fn
+				S3Bucket: string | fn.#Fn
+				S3Key:    string | fn.#Fn
 			}) | fn.If
 		})
 		DependsOn?:           string | [...string]
@@ -46,23 +46,23 @@ ElasticBeanstalk :: {
 		Metadata?: [string]: _
 		Condition?: string
 	}
-	ConfigurationTemplate :: {
+	#ConfigurationTemplate: {
 		Type:       "AWS::ElasticBeanstalk::ConfigurationTemplate"
 		Properties: close({
-			ApplicationName: string | fn.Fn
-			Description?:    string | fn.Fn
-			EnvironmentId?:  string | fn.Fn
+			ApplicationName: string | fn.#Fn
+			Description?:    string | fn.#Fn
+			EnvironmentId?:  string | fn.#Fn
 			OptionSettings?: [...close({
-				Namespace:     string | fn.Fn
-				OptionName:    string | fn.Fn
-				ResourceName?: string | fn.Fn
-				Value?:        string | fn.Fn
+				Namespace:     string | fn.#Fn
+				OptionName:    string | fn.#Fn
+				ResourceName?: string | fn.#Fn
+				Value?:        string | fn.#Fn
 			})] | fn.If
-			PlatformArn?:         string | fn.Fn
-			SolutionStackName?:   string | fn.Fn
+			PlatformArn?:         string | fn.#Fn
+			SolutionStackName?:   string | fn.#Fn
 			SourceConfiguration?: close({
-				ApplicationName: string | fn.Fn
-				TemplateName:    string | fn.Fn
+				ApplicationName: string | fn.#Fn
+				TemplateName:    string | fn.#Fn
 			}) | fn.If
 		})
 		DependsOn?:           string | [...string]
@@ -71,32 +71,32 @@ ElasticBeanstalk :: {
 		Metadata?: [string]: _
 		Condition?: string
 	}
-	Environment :: {
+	#Environment: {
 		Type:       "AWS::ElasticBeanstalk::Environment"
 		Properties: close({
-			ApplicationName:  string | fn.Fn
-			CNAMEPrefix?:     string | fn.Fn
-			Description?:     string | fn.Fn
-			EnvironmentName?: string | fn.Fn
+			ApplicationName:  string | fn.#Fn
+			CNAMEPrefix?:     string | fn.#Fn
+			Description?:     string | fn.#Fn
+			EnvironmentName?: string | fn.#Fn
 			OptionSettings?:  [...close({
-				Namespace:     string | fn.Fn
-				OptionName:    string | fn.Fn
-				ResourceName?: string | fn.Fn
-				Value?:        string | fn.Fn
+				Namespace:     string | fn.#Fn
+				OptionName:    string | fn.#Fn
+				ResourceName?: string | fn.#Fn
+				Value?:        string | fn.#Fn
 			})] | fn.If
-			PlatformArn?:       string | fn.Fn
-			SolutionStackName?: string | fn.Fn
+			PlatformArn?:       string | fn.#Fn
+			SolutionStackName?: string | fn.#Fn
 			Tags?:              [...close({
-				Key:   string | fn.Fn
-				Value: string | fn.Fn
+				Key:   string | fn.#Fn
+				Value: string | fn.#Fn
 			})] | fn.If
-			TemplateName?: string | fn.Fn
+			TemplateName?: string | fn.#Fn
 			Tier?:         close({
-				Name?:    string | fn.Fn
-				Type?:    string | fn.Fn
-				Version?: string | fn.Fn
+				Name?:    string | fn.#Fn
+				Type?:    string | fn.#Fn
+				Version?: string | fn.#Fn
 			}) | fn.If
-			VersionLabel?: string | fn.Fn
+			VersionLabel?: string | fn.#Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

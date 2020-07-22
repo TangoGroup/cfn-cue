@@ -2,34 +2,34 @@ package apsoutheast1
 
 import "github.com/TangoGroup/aws/fn"
 
-Neptune :: {
-	DBCluster :: {
+#Neptune: {
+	#DBCluster: {
 		Type:       "AWS::Neptune::DBCluster"
 		Properties: close({
-			AvailabilityZones?:           [...(string | fn.Fn)] | (string | fn.Fn)
-			BackupRetentionPeriod?:       int | fn.Fn
-			DBClusterIdentifier?:         string | fn.Fn
-			DBClusterParameterGroupName?: string | fn.Fn
-			DBSubnetGroupName?:           string | fn.Fn
-			DeletionProtection?:          bool | fn.Fn
-			EnableCloudwatchLogsExports?: [...(string | fn.Fn)] | (string | fn.Fn)
-			EngineVersion?:               string | fn.Fn
-			IamAuthEnabled?:              bool | fn.Fn
-			KmsKeyId?:                    string | fn.Fn
-			Port?:                        int | fn.Fn
-			PreferredBackupWindow?:       string | fn.Fn
-			PreferredMaintenanceWindow?:  string | fn.Fn
-			RestoreToTime?:               string | fn.Fn
-			RestoreType?:                 string | fn.Fn
-			SnapshotIdentifier?:          string | fn.Fn
-			SourceDBClusterIdentifier?:   string | fn.Fn
-			StorageEncrypted?:            bool | fn.Fn
+			AvailabilityZones?:           [...(string | fn.#Fn)] | (string | fn.#Fn)
+			BackupRetentionPeriod?:       int | fn.#Fn
+			DBClusterIdentifier?:         string | fn.#Fn
+			DBClusterParameterGroupName?: string | fn.#Fn
+			DBSubnetGroupName?:           string | fn.#Fn
+			DeletionProtection?:          bool | fn.#Fn
+			EnableCloudwatchLogsExports?: [...(string | fn.#Fn)] | (string | fn.#Fn)
+			EngineVersion?:               string | fn.#Fn
+			IamAuthEnabled?:              bool | fn.#Fn
+			KmsKeyId?:                    string | fn.#Fn
+			Port?:                        int | fn.#Fn
+			PreferredBackupWindow?:       string | fn.#Fn
+			PreferredMaintenanceWindow?:  string | fn.#Fn
+			RestoreToTime?:               string | fn.#Fn
+			RestoreType?:                 string | fn.#Fn
+			SnapshotIdentifier?:          string | fn.#Fn
+			SourceDBClusterIdentifier?:   string | fn.#Fn
+			StorageEncrypted?:            bool | fn.#Fn
 			Tags?:                        [...close({
-				Key:   string | fn.Fn
-				Value: string | fn.Fn
+				Key:   string | fn.#Fn
+				Value: string | fn.#Fn
 			})] | fn.If
-			UseLatestRestorableTime?: bool | fn.Fn
-			VpcSecurityGroupIds?:     [...(string | fn.Fn)] | (string | fn.Fn)
+			UseLatestRestorableTime?: bool | fn.#Fn
+			VpcSecurityGroupIds?:     [...(string | fn.#Fn)] | (string | fn.#Fn)
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain" | "Snapshot"

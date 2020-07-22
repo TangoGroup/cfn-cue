@@ -2,12 +2,12 @@ package apeast1
 
 import "github.com/TangoGroup/aws/fn"
 
-IoT :: {
-	Certificate :: {
+#IoT: {
+	#Certificate: {
 		Type:       "AWS::IoT::Certificate"
 		Properties: close({
-			CertificateSigningRequest: string | fn.Fn
-			Status:                    string | fn.Fn
+			CertificateSigningRequest: string | fn.#Fn
+			Status:                    string | fn.#Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -15,14 +15,16 @@ IoT :: {
 		Metadata?: [string]: _
 		Condition?: string
 	}
-	Policy :: {
+	#Policy: {
 		Type:       "AWS::IoT::Policy"
 		Properties: close({
 			PolicyDocument: {
-				[string]: _
-				Version:  string | *"2012-10-17"
-			} | fn.Fn
-			PolicyName?: string | fn.Fn
+				{
+					[string]: _
+				}
+				Version: string | *"2012-10-17"
+			} | fn.#Fn
+			PolicyName?: string | fn.#Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -30,11 +32,11 @@ IoT :: {
 		Metadata?: [string]: _
 		Condition?: string
 	}
-	PolicyPrincipalAttachment :: {
+	#PolicyPrincipalAttachment: {
 		Type:       "AWS::IoT::PolicyPrincipalAttachment"
 		Properties: close({
-			PolicyName: string | fn.Fn
-			Principal:  string | fn.Fn
+			PolicyName: string | fn.#Fn
+			Principal:  string | fn.#Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -42,22 +44,22 @@ IoT :: {
 		Metadata?: [string]: _
 		Condition?: string
 	}
-	ProvisioningTemplate :: {
+	#ProvisioningTemplate: {
 		Type:       "AWS::IoT::ProvisioningTemplate"
 		Properties: close({
-			Description?:         string | fn.Fn
-			Enabled?:             bool | fn.Fn
+			Description?:         string | fn.#Fn
+			Enabled?:             bool | fn.#Fn
 			PreProvisioningHook?: close({
-				PayloadVersion?: string | fn.Fn
-				TargetArn?:      string | fn.Fn
+				PayloadVersion?: string | fn.#Fn
+				TargetArn?:      string | fn.#Fn
 			}) | fn.If
-			ProvisioningRoleArn: string | fn.Fn
+			ProvisioningRoleArn: string | fn.#Fn
 			Tags?:               [...close({
-				Key:   string | fn.Fn
-				Value: string | fn.Fn
+				Key:   string | fn.#Fn
+				Value: string | fn.#Fn
 			})] | fn.If
-			TemplateBody:  string | fn.Fn
-			TemplateName?: string | fn.Fn
+			TemplateBody:  string | fn.#Fn
+			TemplateName?: string | fn.#Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -65,15 +67,15 @@ IoT :: {
 		Metadata?: [string]: _
 		Condition?: string
 	}
-	Thing :: {
+	#Thing: {
 		Type:       "AWS::IoT::Thing"
 		Properties: close({
 			AttributePayload?: close({
 				Attributes?: {
-					[string]: string | fn.Fn
+					[string]: string | fn.#Fn
 				} | fn.If
 			}) | fn.If
-			ThingName?: string | fn.Fn
+			ThingName?: string | fn.#Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -81,11 +83,11 @@ IoT :: {
 		Metadata?: [string]: _
 		Condition?: string
 	}
-	ThingPrincipalAttachment :: {
+	#ThingPrincipalAttachment: {
 		Type:       "AWS::IoT::ThingPrincipalAttachment"
 		Properties: close({
-			Principal: string | fn.Fn
-			ThingName: string | fn.Fn
+			Principal: string | fn.#Fn
+			ThingName: string | fn.#Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -93,263 +95,263 @@ IoT :: {
 		Metadata?: [string]: _
 		Condition?: string
 	}
-	TopicRule :: {
+	#TopicRule: {
 		Type:       "AWS::IoT::TopicRule"
 		Properties: close({
-			RuleName?:        string | fn.Fn
+			RuleName?:        string | fn.#Fn
 			TopicRulePayload: close({
 				Actions: [...close({
 					CloudwatchAlarm?: close({
-						AlarmName:   string | fn.Fn
-						RoleArn:     string | fn.Fn
-						StateReason: string | fn.Fn
-						StateValue:  string | fn.Fn
+						AlarmName:   string | fn.#Fn
+						RoleArn:     string | fn.#Fn
+						StateReason: string | fn.#Fn
+						StateValue:  string | fn.#Fn
 					}) | fn.If
 					CloudwatchMetric?: close({
-						MetricName:       string | fn.Fn
-						MetricNamespace:  string | fn.Fn
-						MetricTimestamp?: string | fn.Fn
-						MetricUnit:       string | fn.Fn
-						MetricValue:      string | fn.Fn
-						RoleArn:          string | fn.Fn
+						MetricName:       string | fn.#Fn
+						MetricNamespace:  string | fn.#Fn
+						MetricTimestamp?: string | fn.#Fn
+						MetricUnit:       string | fn.#Fn
+						MetricValue:      string | fn.#Fn
+						RoleArn:          string | fn.#Fn
 					}) | fn.If
 					DynamoDB?: close({
-						HashKeyField:   string | fn.Fn
-						HashKeyType?:   string | fn.Fn
-						HashKeyValue:   string | fn.Fn
-						PayloadField?:  string | fn.Fn
-						RangeKeyField?: string | fn.Fn
-						RangeKeyType?:  string | fn.Fn
-						RangeKeyValue?: string | fn.Fn
-						RoleArn:        string | fn.Fn
-						TableName:      string | fn.Fn
+						HashKeyField:   string | fn.#Fn
+						HashKeyType?:   string | fn.#Fn
+						HashKeyValue:   string | fn.#Fn
+						PayloadField?:  string | fn.#Fn
+						RangeKeyField?: string | fn.#Fn
+						RangeKeyType?:  string | fn.#Fn
+						RangeKeyValue?: string | fn.#Fn
+						RoleArn:        string | fn.#Fn
+						TableName:      string | fn.#Fn
 					}) | fn.If
 					DynamoDBv2?: close({
 						PutItem?: close({
-							TableName: string | fn.Fn
+							TableName: string | fn.#Fn
 						}) | fn.If
-						RoleArn?: string | fn.Fn
+						RoleArn?: string | fn.#Fn
 					}) | fn.If
 					Elasticsearch?: close({
-						Endpoint: string | fn.Fn
-						Id:       string | fn.Fn
-						Index:    string | fn.Fn
-						RoleArn:  string | fn.Fn
-						Type:     string | fn.Fn
+						Endpoint: string | fn.#Fn
+						Id:       string | fn.#Fn
+						Index:    string | fn.#Fn
+						RoleArn:  string | fn.#Fn
+						Type:     string | fn.#Fn
 					}) | fn.If
 					Firehose?: close({
-						DeliveryStreamName: string | fn.Fn
-						RoleArn:            string | fn.Fn
-						Separator?:         string | fn.Fn
+						DeliveryStreamName: string | fn.#Fn
+						RoleArn:            string | fn.#Fn
+						Separator?:         string | fn.#Fn
 					}) | fn.If
 					Http?: close({
 						Auth?: close({
 							Sigv4?: close({
-								RoleArn:       string | fn.Fn
-								ServiceName:   string | fn.Fn
-								SigningRegion: string | fn.Fn
+								RoleArn:       string | fn.#Fn
+								ServiceName:   string | fn.#Fn
+								SigningRegion: string | fn.#Fn
 							}) | fn.If
 						}) | fn.If
-						ConfirmationUrl?: string | fn.Fn
+						ConfirmationUrl?: string | fn.#Fn
 						Headers?:         [...close({
-							Key:   string | fn.Fn
-							Value: string | fn.Fn
+							Key:   string | fn.#Fn
+							Value: string | fn.#Fn
 						})] | fn.If
-						Url: string | fn.Fn
+						Url: string | fn.#Fn
 					}) | fn.If
 					IotAnalytics?: close({
-						ChannelName: string | fn.Fn
-						RoleArn:     string | fn.Fn
+						ChannelName: string | fn.#Fn
+						RoleArn:     string | fn.#Fn
 					}) | fn.If
 					IotEvents?: close({
-						InputName:  string | fn.Fn
-						MessageId?: string | fn.Fn
-						RoleArn:    string | fn.Fn
+						InputName:  string | fn.#Fn
+						MessageId?: string | fn.#Fn
+						RoleArn:    string | fn.#Fn
 					}) | fn.If
 					IotSiteWise?: close({
 						PutAssetPropertyValueEntries: [...close({
-							AssetId?:       string | fn.Fn
-							EntryId?:       string | fn.Fn
-							PropertyAlias?: string | fn.Fn
-							PropertyId?:    string | fn.Fn
+							AssetId?:       string | fn.#Fn
+							EntryId?:       string | fn.#Fn
+							PropertyAlias?: string | fn.#Fn
+							PropertyId?:    string | fn.#Fn
 							PropertyValues: [...close({
-								Quality?:  string | fn.Fn
+								Quality?:  string | fn.#Fn
 								Timestamp: close({
-									OffsetInNanos?: string | fn.Fn
-									TimeInSeconds:  string | fn.Fn
+									OffsetInNanos?: string | fn.#Fn
+									TimeInSeconds:  string | fn.#Fn
 								}) | fn.If
 								Value: close({
-									BooleanValue?: string | fn.Fn
-									DoubleValue?:  string | fn.Fn
-									IntegerValue?: string | fn.Fn
-									StringValue?:  string | fn.Fn
+									BooleanValue?: string | fn.#Fn
+									DoubleValue?:  string | fn.#Fn
+									IntegerValue?: string | fn.#Fn
+									StringValue?:  string | fn.#Fn
 								}) | fn.If
 							})] | fn.If
 						})] | fn.If
-						RoleArn: string | fn.Fn
+						RoleArn: string | fn.#Fn
 					}) | fn.If
 					Kinesis?: close({
-						PartitionKey?: string | fn.Fn
-						RoleArn:       string | fn.Fn
-						StreamName:    string | fn.Fn
+						PartitionKey?: string | fn.#Fn
+						RoleArn:       string | fn.#Fn
+						StreamName:    string | fn.#Fn
 					}) | fn.If
 					Lambda?: close({
-						FunctionArn?: string | fn.Fn
+						FunctionArn?: string | fn.#Fn
 					}) | fn.If
 					Republish?: close({
-						Qos?:    int | fn.Fn
-						RoleArn: string | fn.Fn
-						Topic:   string | fn.Fn
+						Qos?:    int | fn.#Fn
+						RoleArn: string | fn.#Fn
+						Topic:   string | fn.#Fn
 					}) | fn.If
 					S3?: close({
-						BucketName: string | fn.Fn
-						Key:        string | fn.Fn
-						RoleArn:    string | fn.Fn
+						BucketName: string | fn.#Fn
+						Key:        string | fn.#Fn
+						RoleArn:    string | fn.#Fn
 					}) | fn.If
 					Sns?: close({
-						MessageFormat?: string | fn.Fn
-						RoleArn:        string | fn.Fn
-						TargetArn:      string | fn.Fn
+						MessageFormat?: string | fn.#Fn
+						RoleArn:        string | fn.#Fn
+						TargetArn:      string | fn.#Fn
 					}) | fn.If
 					Sqs?: close({
-						QueueUrl:   string | fn.Fn
-						RoleArn:    string | fn.Fn
-						UseBase64?: bool | fn.Fn
+						QueueUrl:   string | fn.#Fn
+						RoleArn:    string | fn.#Fn
+						UseBase64?: bool | fn.#Fn
 					}) | fn.If
 					StepFunctions?: close({
-						ExecutionNamePrefix?: string | fn.Fn
-						RoleArn:              string | fn.Fn
-						StateMachineName:     string | fn.Fn
+						ExecutionNamePrefix?: string | fn.#Fn
+						RoleArn:              string | fn.#Fn
+						StateMachineName:     string | fn.#Fn
 					}) | fn.If
 				})] | fn.If
-				AwsIotSqlVersion?: string | fn.Fn
-				Description?:      string | fn.Fn
+				AwsIotSqlVersion?: string | fn.#Fn
+				Description?:      string | fn.#Fn
 				ErrorAction?:      close({
 					CloudwatchAlarm?: close({
-						AlarmName:   string | fn.Fn
-						RoleArn:     string | fn.Fn
-						StateReason: string | fn.Fn
-						StateValue:  string | fn.Fn
+						AlarmName:   string | fn.#Fn
+						RoleArn:     string | fn.#Fn
+						StateReason: string | fn.#Fn
+						StateValue:  string | fn.#Fn
 					}) | fn.If
 					CloudwatchMetric?: close({
-						MetricName:       string | fn.Fn
-						MetricNamespace:  string | fn.Fn
-						MetricTimestamp?: string | fn.Fn
-						MetricUnit:       string | fn.Fn
-						MetricValue:      string | fn.Fn
-						RoleArn:          string | fn.Fn
+						MetricName:       string | fn.#Fn
+						MetricNamespace:  string | fn.#Fn
+						MetricTimestamp?: string | fn.#Fn
+						MetricUnit:       string | fn.#Fn
+						MetricValue:      string | fn.#Fn
+						RoleArn:          string | fn.#Fn
 					}) | fn.If
 					DynamoDB?: close({
-						HashKeyField:   string | fn.Fn
-						HashKeyType?:   string | fn.Fn
-						HashKeyValue:   string | fn.Fn
-						PayloadField?:  string | fn.Fn
-						RangeKeyField?: string | fn.Fn
-						RangeKeyType?:  string | fn.Fn
-						RangeKeyValue?: string | fn.Fn
-						RoleArn:        string | fn.Fn
-						TableName:      string | fn.Fn
+						HashKeyField:   string | fn.#Fn
+						HashKeyType?:   string | fn.#Fn
+						HashKeyValue:   string | fn.#Fn
+						PayloadField?:  string | fn.#Fn
+						RangeKeyField?: string | fn.#Fn
+						RangeKeyType?:  string | fn.#Fn
+						RangeKeyValue?: string | fn.#Fn
+						RoleArn:        string | fn.#Fn
+						TableName:      string | fn.#Fn
 					}) | fn.If
 					DynamoDBv2?: close({
 						PutItem?: close({
-							TableName: string | fn.Fn
+							TableName: string | fn.#Fn
 						}) | fn.If
-						RoleArn?: string | fn.Fn
+						RoleArn?: string | fn.#Fn
 					}) | fn.If
 					Elasticsearch?: close({
-						Endpoint: string | fn.Fn
-						Id:       string | fn.Fn
-						Index:    string | fn.Fn
-						RoleArn:  string | fn.Fn
-						Type:     string | fn.Fn
+						Endpoint: string | fn.#Fn
+						Id:       string | fn.#Fn
+						Index:    string | fn.#Fn
+						RoleArn:  string | fn.#Fn
+						Type:     string | fn.#Fn
 					}) | fn.If
 					Firehose?: close({
-						DeliveryStreamName: string | fn.Fn
-						RoleArn:            string | fn.Fn
-						Separator?:         string | fn.Fn
+						DeliveryStreamName: string | fn.#Fn
+						RoleArn:            string | fn.#Fn
+						Separator?:         string | fn.#Fn
 					}) | fn.If
 					Http?: close({
 						Auth?: close({
 							Sigv4?: close({
-								RoleArn:       string | fn.Fn
-								ServiceName:   string | fn.Fn
-								SigningRegion: string | fn.Fn
+								RoleArn:       string | fn.#Fn
+								ServiceName:   string | fn.#Fn
+								SigningRegion: string | fn.#Fn
 							}) | fn.If
 						}) | fn.If
-						ConfirmationUrl?: string | fn.Fn
+						ConfirmationUrl?: string | fn.#Fn
 						Headers?:         [...close({
-							Key:   string | fn.Fn
-							Value: string | fn.Fn
+							Key:   string | fn.#Fn
+							Value: string | fn.#Fn
 						})] | fn.If
-						Url: string | fn.Fn
+						Url: string | fn.#Fn
 					}) | fn.If
 					IotAnalytics?: close({
-						ChannelName: string | fn.Fn
-						RoleArn:     string | fn.Fn
+						ChannelName: string | fn.#Fn
+						RoleArn:     string | fn.#Fn
 					}) | fn.If
 					IotEvents?: close({
-						InputName:  string | fn.Fn
-						MessageId?: string | fn.Fn
-						RoleArn:    string | fn.Fn
+						InputName:  string | fn.#Fn
+						MessageId?: string | fn.#Fn
+						RoleArn:    string | fn.#Fn
 					}) | fn.If
 					IotSiteWise?: close({
 						PutAssetPropertyValueEntries: [...close({
-							AssetId?:       string | fn.Fn
-							EntryId?:       string | fn.Fn
-							PropertyAlias?: string | fn.Fn
-							PropertyId?:    string | fn.Fn
+							AssetId?:       string | fn.#Fn
+							EntryId?:       string | fn.#Fn
+							PropertyAlias?: string | fn.#Fn
+							PropertyId?:    string | fn.#Fn
 							PropertyValues: [...close({
-								Quality?:  string | fn.Fn
+								Quality?:  string | fn.#Fn
 								Timestamp: close({
-									OffsetInNanos?: string | fn.Fn
-									TimeInSeconds:  string | fn.Fn
+									OffsetInNanos?: string | fn.#Fn
+									TimeInSeconds:  string | fn.#Fn
 								}) | fn.If
 								Value: close({
-									BooleanValue?: string | fn.Fn
-									DoubleValue?:  string | fn.Fn
-									IntegerValue?: string | fn.Fn
-									StringValue?:  string | fn.Fn
+									BooleanValue?: string | fn.#Fn
+									DoubleValue?:  string | fn.#Fn
+									IntegerValue?: string | fn.#Fn
+									StringValue?:  string | fn.#Fn
 								}) | fn.If
 							})] | fn.If
 						})] | fn.If
-						RoleArn: string | fn.Fn
+						RoleArn: string | fn.#Fn
 					}) | fn.If
 					Kinesis?: close({
-						PartitionKey?: string | fn.Fn
-						RoleArn:       string | fn.Fn
-						StreamName:    string | fn.Fn
+						PartitionKey?: string | fn.#Fn
+						RoleArn:       string | fn.#Fn
+						StreamName:    string | fn.#Fn
 					}) | fn.If
 					Lambda?: close({
-						FunctionArn?: string | fn.Fn
+						FunctionArn?: string | fn.#Fn
 					}) | fn.If
 					Republish?: close({
-						Qos?:    int | fn.Fn
-						RoleArn: string | fn.Fn
-						Topic:   string | fn.Fn
+						Qos?:    int | fn.#Fn
+						RoleArn: string | fn.#Fn
+						Topic:   string | fn.#Fn
 					}) | fn.If
 					S3?: close({
-						BucketName: string | fn.Fn
-						Key:        string | fn.Fn
-						RoleArn:    string | fn.Fn
+						BucketName: string | fn.#Fn
+						Key:        string | fn.#Fn
+						RoleArn:    string | fn.#Fn
 					}) | fn.If
 					Sns?: close({
-						MessageFormat?: string | fn.Fn
-						RoleArn:        string | fn.Fn
-						TargetArn:      string | fn.Fn
+						MessageFormat?: string | fn.#Fn
+						RoleArn:        string | fn.#Fn
+						TargetArn:      string | fn.#Fn
 					}) | fn.If
 					Sqs?: close({
-						QueueUrl:   string | fn.Fn
-						RoleArn:    string | fn.Fn
-						UseBase64?: bool | fn.Fn
+						QueueUrl:   string | fn.#Fn
+						RoleArn:    string | fn.#Fn
+						UseBase64?: bool | fn.#Fn
 					}) | fn.If
 					StepFunctions?: close({
-						ExecutionNamePrefix?: string | fn.Fn
-						RoleArn:              string | fn.Fn
-						StateMachineName:     string | fn.Fn
+						ExecutionNamePrefix?: string | fn.#Fn
+						RoleArn:              string | fn.#Fn
+						StateMachineName:     string | fn.#Fn
 					}) | fn.If
 				}) | fn.If
-				RuleDisabled: bool | fn.Fn
-				Sql:          string | fn.Fn
+				RuleDisabled: bool | fn.#Fn
+				Sql:          string | fn.#Fn
 			}) | fn.If
 		})
 		DependsOn?:           string | [...string]

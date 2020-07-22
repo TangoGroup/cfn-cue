@@ -2,8 +2,8 @@ package euwest3
 
 import "github.com/TangoGroup/aws/fn"
 
-Budgets :: {
-	Budget :: {
+#Budgets: {
+	#Budget: {
 		Type:       "AWS::Budgets::Budget"
 		Properties: close({
 			Budget:                        close({}) | fn.If

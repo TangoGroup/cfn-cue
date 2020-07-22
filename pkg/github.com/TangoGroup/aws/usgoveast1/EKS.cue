@@ -2,15 +2,15 @@ package usgoveast1
 
 import "github.com/TangoGroup/aws/fn"
 
-EKS :: {
-	Cluster :: {
+#EKS: {
+	#Cluster: {
 		Type:       "AWS::EKS::Cluster"
 		Properties: close({
 			EncryptionConfig?:  [...close({})] | fn.If
-			Name?:              string | fn.Fn
+			Name?:              string | fn.#Fn
 			ResourcesVpcConfig: close({}) | fn.If
-			RoleArn:            string | fn.Fn
-			Version?:           string | fn.Fn
+			RoleArn:            string | fn.#Fn
+			Version?:           string | fn.#Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -18,27 +18,27 @@ EKS :: {
 		Metadata?: [string]: _
 		Condition?: string
 	}
-	Nodegroup :: {
+	#Nodegroup: {
 		Type:       "AWS::EKS::Nodegroup"
 		Properties: close({
-			AmiType?:            string | fn.Fn
-			ClusterName:         string | fn.Fn
-			DiskSize?:           number | fn.Fn
-			ForceUpdateEnabled?: bool | fn.Fn
-			InstanceTypes?:      [...(string | fn.Fn)] | (string | fn.Fn)
+			AmiType?:            string | fn.#Fn
+			ClusterName:         string | fn.#Fn
+			DiskSize?:           number | fn.#Fn
+			ForceUpdateEnabled?: bool | fn.#Fn
+			InstanceTypes?:      [...(string | fn.#Fn)] | (string | fn.#Fn)
 			Labels?:             {
 				[string]: _
-			} | fn.Fn
-			NodeRole:        string | fn.Fn
-			NodegroupName?:  string | fn.Fn
-			ReleaseVersion?: string | fn.Fn
+			} | fn.#Fn
+			NodeRole:        string | fn.#Fn
+			NodegroupName?:  string | fn.#Fn
+			ReleaseVersion?: string | fn.#Fn
 			RemoteAccess?:   close({}) | fn.If
 			ScalingConfig?:  close({}) | fn.If
-			Subnets:         [...(string | fn.Fn)] | (string | fn.Fn)
+			Subnets:         [...(string | fn.#Fn)] | (string | fn.#Fn)
 			Tags?:           {
 				[string]: _
-			} | fn.Fn
-			Version?: string | fn.Fn
+			} | fn.#Fn
+			Version?: string | fn.#Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

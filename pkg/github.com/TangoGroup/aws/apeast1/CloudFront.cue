@@ -2,8 +2,8 @@ package apeast1
 
 import "github.com/TangoGroup/aws/fn"
 
-CloudFront :: {
-	CloudFrontOriginAccessIdentity :: {
+#CloudFront: {
+	#CloudFrontOriginAccessIdentity: {
 		Type:       "AWS::CloudFront::CloudFrontOriginAccessIdentity"
 		Properties: close({
 			CloudFrontOriginAccessIdentityConfig: close({}) | fn.If
@@ -14,13 +14,13 @@ CloudFront :: {
 		Metadata?: [string]: _
 		Condition?: string
 	}
-	Distribution :: {
+	#Distribution: {
 		Type:       "AWS::CloudFront::Distribution"
 		Properties: close({
 			DistributionConfig: close({}) | fn.If
 			Tags?:              [...close({
-				Key:   string | fn.Fn
-				Value: string | fn.Fn
+				Key:   string | fn.#Fn
+				Value: string | fn.#Fn
 			})] | fn.If
 		})
 		DependsOn?:           string | [...string]
@@ -29,13 +29,13 @@ CloudFront :: {
 		Metadata?: [string]: _
 		Condition?: string
 	}
-	StreamingDistribution :: {
+	#StreamingDistribution: {
 		Type:       "AWS::CloudFront::StreamingDistribution"
 		Properties: close({
 			StreamingDistributionConfig: close({}) | fn.If
 			Tags:                        [...close({
-				Key:   string | fn.Fn
-				Value: string | fn.Fn
+				Key:   string | fn.#Fn
+				Value: string | fn.#Fn
 			})] | fn.If
 		})
 		DependsOn?:           string | [...string]

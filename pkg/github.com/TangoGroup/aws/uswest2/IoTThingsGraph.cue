@@ -2,14 +2,14 @@ package uswest2
 
 import "github.com/TangoGroup/aws/fn"
 
-IoTThingsGraph :: {
-	FlowTemplate :: {
+#IoTThingsGraph: {
+	#FlowTemplate: {
 		Type:       "AWS::IoTThingsGraph::FlowTemplate"
 		Properties: close({
-			CompatibleNamespaceVersion?: number | fn.Fn
+			CompatibleNamespaceVersion?: number | fn.#Fn
 			Definition:                  close({
-				Language: string | fn.Fn
-				Text:     string | fn.Fn
+				Language: string | fn.#Fn
+				Text:     string | fn.#Fn
 			}) | fn.If
 		})
 		DependsOn?:           string | [...string]

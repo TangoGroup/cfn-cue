@@ -2,17 +2,17 @@ package apnortheast1
 
 import "github.com/TangoGroup/aws/fn"
 
-RAM :: {
-	ResourceShare :: {
+#RAM: {
+	#ResourceShare: {
 		Type:       "AWS::RAM::ResourceShare"
 		Properties: close({
-			AllowExternalPrincipals?: bool | fn.Fn
-			Name:                     string | fn.Fn
-			Principals?:              [...(string | fn.Fn)] | (string | fn.Fn)
-			ResourceArns?:            [...(string | fn.Fn)] | (string | fn.Fn)
+			AllowExternalPrincipals?: bool | fn.#Fn
+			Name:                     string | fn.#Fn
+			Principals?:              [...(string | fn.#Fn)] | (string | fn.#Fn)
+			ResourceArns?:            [...(string | fn.#Fn)] | (string | fn.#Fn)
 			Tags?:                    [...close({
-				Key:   string | fn.Fn
-				Value: string | fn.Fn
+				Key:   string | fn.#Fn
+				Value: string | fn.#Fn
 			})] | fn.If
 		})
 		DependsOn?:           string | [...string]

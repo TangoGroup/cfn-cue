@@ -2,14 +2,14 @@ package apnortheast1
 
 import "github.com/TangoGroup/aws/fn"
 
-SecretsManager :: {
-	ResourcePolicy :: {
+#SecretsManager: {
+	#ResourcePolicy: {
 		Type:       "AWS::SecretsManager::ResourcePolicy"
 		Properties: close({
 			ResourcePolicy: {
 				[string]: _
-			} | fn.Fn
-			SecretId: string | fn.Fn
+			} | fn.#Fn
+			SecretId: string | fn.#Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -17,14 +17,14 @@ SecretsManager :: {
 		Metadata?: [string]: _
 		Condition?: string
 	}
-	RotationSchedule :: {
+	#RotationSchedule: {
 		Type:       "AWS::SecretsManager::RotationSchedule"
 		Properties: close({
-			RotationLambdaARN?: string | fn.Fn
+			RotationLambdaARN?: string | fn.#Fn
 			RotationRules?:     close({
-				AutomaticallyAfterDays?: int | fn.Fn
+				AutomaticallyAfterDays?: int | fn.#Fn
 			}) | fn.If
-			SecretId: string | fn.Fn
+			SecretId: string | fn.#Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -32,28 +32,28 @@ SecretsManager :: {
 		Metadata?: [string]: _
 		Condition?: string
 	}
-	Secret :: {
+	#Secret: {
 		Type:       "AWS::SecretsManager::Secret"
 		Properties: close({
-			Description?:          string | fn.Fn
+			Description?:          string | fn.#Fn
 			GenerateSecretString?: close({
-				ExcludeCharacters?:       string | fn.Fn
-				ExcludeLowercase?:        bool | fn.Fn
-				ExcludeNumbers?:          bool | fn.Fn
-				ExcludePunctuation?:      bool | fn.Fn
-				ExcludeUppercase?:        bool | fn.Fn
-				GenerateStringKey?:       string | fn.Fn
-				IncludeSpace?:            bool | fn.Fn
-				PasswordLength?:          int | fn.Fn
-				RequireEachIncludedType?: bool | fn.Fn
-				SecretStringTemplate?:    string | fn.Fn
+				ExcludeCharacters?:       string | fn.#Fn
+				ExcludeLowercase?:        bool | fn.#Fn
+				ExcludeNumbers?:          bool | fn.#Fn
+				ExcludePunctuation?:      bool | fn.#Fn
+				ExcludeUppercase?:        bool | fn.#Fn
+				GenerateStringKey?:       string | fn.#Fn
+				IncludeSpace?:            bool | fn.#Fn
+				PasswordLength?:          int | fn.#Fn
+				RequireEachIncludedType?: bool | fn.#Fn
+				SecretStringTemplate?:    string | fn.#Fn
 			}) | fn.If
-			KmsKeyId?:     string | fn.Fn
-			Name?:         string | fn.Fn
-			SecretString?: string | fn.Fn
+			KmsKeyId?:     string | fn.#Fn
+			Name?:         string | fn.#Fn
+			SecretString?: string | fn.#Fn
 			Tags?:         [...close({
-				Key:   string | fn.Fn
-				Value: string | fn.Fn
+				Key:   string | fn.#Fn
+				Value: string | fn.#Fn
 			})] | fn.If
 		})
 		DependsOn?:           string | [...string]
@@ -62,12 +62,12 @@ SecretsManager :: {
 		Metadata?: [string]: _
 		Condition?: string
 	}
-	SecretTargetAttachment :: {
+	#SecretTargetAttachment: {
 		Type:       "AWS::SecretsManager::SecretTargetAttachment"
 		Properties: close({
-			SecretId:   string | fn.Fn
-			TargetId:   string | fn.Fn
-			TargetType: ("AWS::DocDB::DBCluster" | "AWS::DocDB::DBInstance" | "AWS::RDS::DBCluster" | "AWS::RDS::DBInstance" | "AWS::Redshift::Cluster") | fn.Fn
+			SecretId:   string | fn.#Fn
+			TargetId:   string | fn.#Fn
+			TargetType: ("AWS::DocDB::DBCluster" | "AWS::DocDB::DBInstance" | "AWS::RDS::DBCluster" | "AWS::RDS::DBInstance" | "AWS::Redshift::Cluster") | fn.#Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

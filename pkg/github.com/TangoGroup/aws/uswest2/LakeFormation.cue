@@ -2,12 +2,12 @@ package uswest2
 
 import "github.com/TangoGroup/aws/fn"
 
-LakeFormation :: {
-	DataLakeSettings :: {
+#LakeFormation: {
+	#DataLakeSettings: {
 		Type:       "AWS::LakeFormation::DataLakeSettings"
 		Properties: close({
 			Admins?: [...close({
-				DataLakePrincipalIdentifier?: string | fn.Fn
+				DataLakePrincipalIdentifier?: string | fn.#Fn
 			})] | fn.If
 		})
 		DependsOn?:           string | [...string]
@@ -16,32 +16,32 @@ LakeFormation :: {
 		Metadata?: [string]: _
 		Condition?: string
 	}
-	Permissions :: {
+	#Permissions: {
 		Type:       "AWS::LakeFormation::Permissions"
 		Properties: close({
 			DataLakePrincipal: close({
-				DataLakePrincipalIdentifier?: string | fn.Fn
+				DataLakePrincipalIdentifier?: string | fn.#Fn
 			}) | fn.If
-			Permissions?:                [...(string | fn.Fn)] | (string | fn.Fn)
-			PermissionsWithGrantOption?: [...(string | fn.Fn)] | (string | fn.Fn)
+			Permissions?:                [...(string | fn.#Fn)] | (string | fn.#Fn)
+			PermissionsWithGrantOption?: [...(string | fn.#Fn)] | (string | fn.#Fn)
 			Resource:                    close({
 				DataLocationResource?: close({
-					S3Resource?: string | fn.Fn
+					S3Resource?: string | fn.#Fn
 				}) | fn.If
 				DatabaseResource?: close({
-					Name?: string | fn.Fn
+					Name?: string | fn.#Fn
 				}) | fn.If
 				TableResource?: close({
-					DatabaseName?: string | fn.Fn
-					Name?:         string | fn.Fn
+					DatabaseName?: string | fn.#Fn
+					Name?:         string | fn.#Fn
 				}) | fn.If
 				TableWithColumnsResource?: close({
-					ColumnNames?:    [...(string | fn.Fn)] | (string | fn.Fn)
+					ColumnNames?:    [...(string | fn.#Fn)] | (string | fn.#Fn)
 					ColumnWildcard?: close({
-						ExcludedColumnNames?: [...(string | fn.Fn)] | (string | fn.Fn)
+						ExcludedColumnNames?: [...(string | fn.#Fn)] | (string | fn.#Fn)
 					}) | fn.If
-					DatabaseName?: string | fn.Fn
-					Name?:         string | fn.Fn
+					DatabaseName?: string | fn.#Fn
+					Name?:         string | fn.#Fn
 				}) | fn.If
 			}) | fn.If
 		})
@@ -51,12 +51,12 @@ LakeFormation :: {
 		Metadata?: [string]: _
 		Condition?: string
 	}
-	Resource :: {
+	#Resource: {
 		Type:       "AWS::LakeFormation::Resource"
 		Properties: close({
-			ResourceArn:          string | fn.Fn
-			RoleArn?:             string | fn.Fn
-			UseServiceLinkedRole: bool | fn.Fn
+			ResourceArn:          string | fn.#Fn
+			RoleArn?:             string | fn.#Fn
+			UseServiceLinkedRole: bool | fn.#Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

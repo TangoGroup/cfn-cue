@@ -2,16 +2,16 @@ package uswest1
 
 import "github.com/TangoGroup/aws/fn"
 
-Macie :: {
-	CustomDataIdentifier :: {
+#Macie: {
+	#CustomDataIdentifier: {
 		Type:       "AWS::Macie::CustomDataIdentifier"
 		Properties: close({
-			Description?:          string | fn.Fn
-			IgnoreWords?:          [...(string | fn.Fn)] | (string | fn.Fn)
-			Keywords?:             [...(string | fn.Fn)] | (string | fn.Fn)
-			MaximumMatchDistance?: int | fn.Fn
-			Name:                  string | fn.Fn
-			Regex:                 string | fn.Fn
+			Description?:          string | fn.#Fn
+			IgnoreWords?:          [...(string | fn.#Fn)] | (string | fn.#Fn)
+			Keywords?:             [...(string | fn.#Fn)] | (string | fn.#Fn)
+			MaximumMatchDistance?: int | fn.#Fn
+			Name:                  string | fn.#Fn
+			Regex:                 string | fn.#Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -19,16 +19,16 @@ Macie :: {
 		Metadata?: [string]: _
 		Condition?: string
 	}
-	FindingsFilter :: {
+	#FindingsFilter: {
 		Type:       "AWS::Macie::FindingsFilter"
 		Properties: close({
-			Action?:         string | fn.Fn
-			Description?:    string | fn.Fn
+			Action?:         string | fn.#Fn
+			Description?:    string | fn.#Fn
 			FindingCriteria: close({
 				Criterion?: close({}) | fn.If
 			}) | fn.If
-			Name:      string | fn.Fn
-			Position?: int | fn.Fn
+			Name:      string | fn.#Fn
+			Position?: int | fn.#Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -36,11 +36,11 @@ Macie :: {
 		Metadata?: [string]: _
 		Condition?: string
 	}
-	Session :: {
+	#Session: {
 		Type:       "AWS::Macie::Session"
 		Properties: close({
-			FindingPublishingFrequency?: string | fn.Fn
-			Status?:                     string | fn.Fn
+			FindingPublishingFrequency?: string | fn.#Fn
+			Status?:                     string | fn.#Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

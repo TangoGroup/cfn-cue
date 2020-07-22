@@ -2,37 +2,37 @@ package cnnorthwest1
 
 import "github.com/TangoGroup/aws/fn"
 
-Backup :: {
-	BackupPlan :: {
+#Backup: {
+	#BackupPlan: {
 		Type:       "AWS::Backup::BackupPlan"
 		Properties: close({
 			BackupPlan: close({
-				BackupPlanName: string | fn.Fn
+				BackupPlanName: string | fn.#Fn
 				BackupPlanRule: [...close({
-					CompletionWindowMinutes?: int | fn.Fn
+					CompletionWindowMinutes?: int | fn.#Fn
 					CopyActions?:             [...close({
-						DestinationBackupVaultArn: string | fn.Fn
+						DestinationBackupVaultArn: string | fn.#Fn
 						Lifecycle?:                close({
-							DeleteAfterDays?:            int | fn.Fn
-							MoveToColdStorageAfterDays?: int | fn.Fn
+							DeleteAfterDays?:            int | fn.#Fn
+							MoveToColdStorageAfterDays?: int | fn.#Fn
 						}) | fn.If
 					})] | fn.If
 					Lifecycle?: close({
-						DeleteAfterDays?:            int | fn.Fn
-						MoveToColdStorageAfterDays?: int | fn.Fn
+						DeleteAfterDays?:            int | fn.#Fn
+						MoveToColdStorageAfterDays?: int | fn.#Fn
 					}) | fn.If
 					RecoveryPointTags?: {
 						[string]: _
-					} | fn.Fn
-					RuleName:            string | fn.Fn
-					ScheduleExpression?: string | fn.Fn
-					StartWindowMinutes?: int | fn.Fn
-					TargetBackupVault:   string | fn.Fn
+					} | fn.#Fn
+					RuleName:            string | fn.#Fn
+					ScheduleExpression?: string | fn.#Fn
+					StartWindowMinutes?: int | fn.#Fn
+					TargetBackupVault:   string | fn.#Fn
 				})] | fn.If
 			}) | fn.If
 			BackupPlanTags?: {
 				[string]: _
-			} | fn.Fn
+			} | fn.#Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
