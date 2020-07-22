@@ -112,12 +112,12 @@ RDS :: {
 			MasterUserPassword?:                 string | fn.Fn
 			MasterUsername?:                     string | fn.Fn
 			MaxAllocatedStorage?:                int | fn.Fn
-			MonitoringInterval?:                 int | fn.Fn
+			MonitoringInterval?:                 (0 | 1 | 5 | 10 | 15 | 30 | 60) | fn.Fn
 			MonitoringRoleArn?:                  string | fn.Fn
 			MultiAZ?:                            bool | fn.Fn
 			OptionGroupName?:                    string | fn.Fn
 			PerformanceInsightsKMSKeyId?:        string | fn.Fn
-			PerformanceInsightsRetentionPeriod?: int | fn.Fn
+			PerformanceInsightsRetentionPeriod?: (7 | 731) | fn.Fn
 			Port?:                               string | fn.Fn
 			PreferredBackupWindow?:              string | fn.Fn
 			PreferredMaintenanceWindow?:         string | fn.Fn
@@ -206,6 +206,7 @@ RDS :: {
 			DBClusterIdentifiers?:  [...(string | fn.Fn)] | (string | fn.Fn)
 			DBInstanceIdentifiers?: [...(string | fn.Fn)] | (string | fn.Fn)
 			DBProxyName:            string | fn.Fn
+			TargetGroupName:        string | fn.Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

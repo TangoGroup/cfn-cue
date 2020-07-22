@@ -3,10 +3,9 @@ package cnnorth1
 import "github.com/TangoGroup/aws/fn"
 
 Athena :: {
-	NamedQuery :: {
-		Type:       "AWS::Athena::NamedQuery"
+	DataCatalog :: {
+		Type:       "AWS::Athena::DataCatalog"
 		Properties: close({
-			Database:     string | fn.Fn
 			Description?: string | fn.Fn
 			Name?:        string | fn.Fn
 			QueryString:  string | fn.Fn
@@ -27,6 +26,16 @@ Athena :: {
 			Tags?:                          close({}) | fn.If
 			WorkGroupConfiguration?:        close({}) | fn.If
 			WorkGroupConfigurationUpdates?: close({}) | fn.If
+			Name:         string | fn.Fn
+			Parameters?:  {
+				[string]: string | fn.Fn
+			} | fn.If
+			Tags?: close({
+				Tags?: [...close({
+					[string]: _
+				})] | fn.If
+			}) | fn.If
+			Type: string | fn.Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

@@ -6,7 +6,7 @@ ECS :: {
 	CapacityProvider :: {
 		Type:       "AWS::ECS::CapacityProvider"
 		Properties: close({
-			AutoScalingGroupProvider?: close({
+			AutoScalingGroupProvider: close({
 				AutoScalingGroupArn: string | fn.Fn
 				ManagedScaling?:     close({
 					MaximumScalingStepSize?: int | fn.Fn

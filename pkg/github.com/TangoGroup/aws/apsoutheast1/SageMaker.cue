@@ -27,9 +27,10 @@ SageMaker :: {
 				Environment?:       {
 					[string]: _
 				} | fn.Fn
-				Image:         string | fn.Fn
-				Mode?:         string | fn.Fn
-				ModelDataUrl?: string | fn.Fn
+				Image?:            string | fn.Fn
+				Mode?:             string | fn.Fn
+				ModelDataUrl?:     string | fn.Fn
+				ModelPackageName?: string | fn.Fn
 			})] | fn.If
 			ExecutionRoleArn:  string | fn.Fn
 			ModelName?:        string | fn.Fn
@@ -38,9 +39,10 @@ SageMaker :: {
 				Environment?:       {
 					[string]: _
 				} | fn.Fn
-				Image:         string | fn.Fn
-				Mode?:         string | fn.Fn
-				ModelDataUrl?: string | fn.Fn
+				Image?:            string | fn.Fn
+				Mode?:             string | fn.Fn
+				ModelDataUrl?:     string | fn.Fn
+				ModelPackageName?: string | fn.Fn
 			}) | fn.If
 			Tags?: [...close({
 				Key:   string | fn.Fn

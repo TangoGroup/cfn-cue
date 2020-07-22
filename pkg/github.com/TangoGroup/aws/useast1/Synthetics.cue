@@ -17,13 +17,14 @@ Synthetics :: {
 			ExecutionRoleArn:        string | fn.Fn
 			FailureRetentionPeriod?: int | fn.Fn
 			Name:                    string | fn.Fn
-			RunConfig:               close({
+			RunConfig?:              close({
+				MemoryInMB?:      int | fn.Fn
 				TimeoutInSeconds: int | fn.Fn
 			}) | fn.If
 			RuntimeVersion: string | fn.Fn
 			Schedule:       close({
-				DurationInSeconds: string | fn.Fn
-				Expression:        string | fn.Fn
+				DurationInSeconds?: string | fn.Fn
+				Expression:         string | fn.Fn
 			}) | fn.If
 			StartCanaryAfterCreation: bool | fn.Fn
 			SuccessRetentionPeriod?:  int | fn.Fn

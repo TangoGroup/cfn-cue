@@ -7,6 +7,35 @@ import (
 )
 
 S3 :: {
+	AccessPoint :: {
+		Type:       "AWS::S3::AccessPoint"
+		Properties: close({
+			Bucket:         string | fn.Fn
+			CreationDate?:  string | fn.Fn
+			Name?:          string | fn.Fn
+			NetworkOrigin?: string | fn.Fn
+			Policy?:        {
+				[string]: _
+			} | fn.Fn
+			PolicyStatus?: {
+				[string]: _
+			} | fn.Fn
+			PublicAccessBlockConfiguration?: close({
+				BlockPublicAcls?:       bool | fn.Fn
+				BlockPublicPolicy?:     bool | fn.Fn
+				IgnorePublicAcls?:      bool | fn.Fn
+				RestrictPublicBuckets?: bool | fn.Fn
+			}) | fn.If
+			VpcConfiguration?: close({
+				VpcId?: string | fn.Fn
+			}) | fn.If
+		})
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+		Condition?: string
+	}
 	Bucket :: {
 		Type:       "AWS::S3::Bucket"
 		Properties: close({
@@ -139,7 +168,7 @@ S3 :: {
 					Queue: string | fn.Fn
 				})] | fn.If
 				TopicConfigurations?: [...close({
-					Event:   ("s3:ObjectCreated:*" | "s3:ObjectCreated:CompleteMultipartUpload" | "s3:ObjectCreated:Copy" | "s3:ObjectCreated:Post" | "s3:ObjectCreated:Put" | "s3:ObjectRemoved:*" | "s3:ObjectRemoved:Delete" | "s3:ObjectRemoved:DeleteMarkerCreated" | "s3:ObjectRestore:Completed" | "s3:ObjectRestore:Post" | "s3:ReducedRedundancyLostObject") | fn.Fn
+					Event:   ("s3:ObjectCreated:*" | "s3:ObjectCreated:CompleteMultipartUpload" | "s3:ObjectCreated:Copy" | "s3:ObjectCreated:Post" | "s3:ObjectCreated:Put" | "s3:ObjectRemoved:*" | "s3:ObjectRemoved:Delete" | "s3:ObjectRemoved:DeleteMarkerCreated" | "s3:ObjectRestore:Completed" | "s3:ObjectRestore:Post" | "s3:ReducedRedundancyLostObject" | "s3:Replication:OperationFailedReplication" | "s3:Replication:OperationMissedThreshold" | "s3:Replication:OperationReplicatedAfterThreshold" | "s3:Replication:OperationNotTracked") | fn.Fn
 					Filter?: close({
 						S3Key: close({
 							Rules: [...close({

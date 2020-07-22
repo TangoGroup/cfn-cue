@@ -608,6 +608,27 @@ EC2 :: {
 		Metadata?: [string]: _
 		Condition?: string
 	}
+	PrefixList :: {
+		Type:       "AWS::EC2::PrefixList"
+		Properties: close({
+			AddressFamily: string | fn.Fn
+			Entries?:      [...close({
+				Cidr:         string | fn.Fn
+				Description?: string | fn.Fn
+			})] | fn.If
+			MaxEntries:     int | fn.Fn
+			PrefixListName: string | fn.Fn
+			Tags?:          [...close({
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
+			})] | fn.If
+		})
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+		Condition?: string
+	}
 	Route :: {
 		Type:       "AWS::EC2::Route"
 		Properties: close({

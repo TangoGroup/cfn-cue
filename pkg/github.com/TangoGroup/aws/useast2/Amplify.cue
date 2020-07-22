@@ -37,8 +37,9 @@ Amplify :: {
 				Status?:    string | fn.Fn
 				Target:     string | fn.Fn
 			})] | fn.If
-			Description?:          string | fn.Fn
-			EnvironmentVariables?: [...close({
+			Description?:              string | fn.Fn
+			EnableBranchAutoDeletion?: bool | fn.Fn
+			EnvironmentVariables?:     [...close({
 				Name:  string | fn.Fn
 				Value: string | fn.Fn
 			})] | fn.If
@@ -91,9 +92,12 @@ Amplify :: {
 	Domain :: {
 		Type:       "AWS::Amplify::Domain"
 		Properties: close({
-			AppId:             string | fn.Fn
-			DomainName:        string | fn.Fn
-			SubDomainSettings: [...close({
+			AppId:                          string | fn.Fn
+			AutoSubDomainCreationPatterns?: [...(string | fn.Fn)] | (string | fn.Fn)
+			AutoSubDomainIAMRole?:          string | fn.Fn
+			DomainName:                     string | fn.Fn
+			EnableAutoSubDomain?:           bool | fn.Fn
+			SubDomainSettings:              [...close({
 				BranchName: string | fn.Fn
 				Prefix:     string | fn.Fn
 			})] | fn.If

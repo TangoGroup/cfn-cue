@@ -42,6 +42,19 @@ SageMaker :: {
 	EndpointConfig :: {
 		Type:       "AWS::SageMaker::EndpointConfig"
 		Properties: close({
+			DataCaptureConfig?: close({
+				CaptureContentTypeHeader?: close({
+					CsvContentTypes?:  [...(string | fn.Fn)] | (string | fn.Fn)
+					JsonContentTypes?: [...(string | fn.Fn)] | (string | fn.Fn)
+				}) | fn.If
+				CaptureOptions: [...close({
+					CaptureMode: string | fn.Fn
+				})] | fn.If
+				DestinationS3Uri:          string | fn.Fn
+				EnableCapture?:            bool | fn.Fn
+				InitialSamplingPercentage: int | fn.Fn
+				KmsKeyId?:                 string | fn.Fn
+			}) | fn.If
 			EndpointConfigName?: string | fn.Fn
 			KmsKeyId?:           string | fn.Fn
 			ProductionVariants:  [...close({
@@ -71,9 +84,10 @@ SageMaker :: {
 				Environment?:       {
 					[string]: _
 				} | fn.Fn
-				Image:         string | fn.Fn
-				Mode?:         string | fn.Fn
-				ModelDataUrl?: string | fn.Fn
+				Image?:            string | fn.Fn
+				Mode?:             string | fn.Fn
+				ModelDataUrl?:     string | fn.Fn
+				ModelPackageName?: string | fn.Fn
 			})] | fn.If
 			ExecutionRoleArn:  string | fn.Fn
 			ModelName?:        string | fn.Fn
@@ -82,9 +96,10 @@ SageMaker :: {
 				Environment?:       {
 					[string]: _
 				} | fn.Fn
-				Image:         string | fn.Fn
-				Mode?:         string | fn.Fn
-				ModelDataUrl?: string | fn.Fn
+				Image?:            string | fn.Fn
+				Mode?:             string | fn.Fn
+				ModelDataUrl?:     string | fn.Fn
+				ModelPackageName?: string | fn.Fn
 			}) | fn.If
 			Tags?: [...close({
 				Key:   string | fn.Fn

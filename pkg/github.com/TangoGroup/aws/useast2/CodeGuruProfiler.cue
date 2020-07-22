@@ -9,6 +9,7 @@ CodeGuruProfiler :: {
 			AgentPermissions?: {
 				[string]: _
 			} | fn.Fn
+			ComputePlatform?:   string | fn.Fn
 			ProfilingGroupName: string | fn.Fn
 		})
 		DependsOn?:           string | [...string]

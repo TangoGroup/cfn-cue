@@ -3545,10 +3545,19 @@ WAFv2 :: {
 										})] | fn.If
 									}) | fn.If
 									GeoMatchStatement?: close({
-										CountryCodes?: [...(string | fn.Fn)] | (string | fn.Fn)
+										CountryCodes?:      [...(string | fn.Fn)] | (string | fn.Fn)
+										ForwardedIPConfig?: close({
+											FallbackBehavior: string | fn.Fn
+											HeaderName:       string | fn.Fn
+										}) | fn.If
 									}) | fn.If
 									IPSetReferenceStatement?: close({
-										Arn: string | fn.Fn
+										Arn:                     string | fn.Fn
+										IPSetForwardedIPConfig?: close({
+											FallbackBehavior: string | fn.Fn
+											HeaderName:       string | fn.Fn
+											Position:         string | fn.Fn
+										}) | fn.If
 									}) | fn.If
 									ManagedRuleGroupStatement?: close({
 										ExcludedRules?: [...close({
@@ -3717,10 +3726,19 @@ WAFv2 :: {
 								})] | fn.If
 							}) | fn.If
 							GeoMatchStatement?: close({
-								CountryCodes?: [...(string | fn.Fn)] | (string | fn.Fn)
+								CountryCodes?:      [...(string | fn.Fn)] | (string | fn.Fn)
+								ForwardedIPConfig?: close({
+									FallbackBehavior: string | fn.Fn
+									HeaderName:       string | fn.Fn
+								}) | fn.If
 							}) | fn.If
 							IPSetReferenceStatement?: close({
-								Arn: string | fn.Fn
+								Arn:                     string | fn.Fn
+								IPSetForwardedIPConfig?: close({
+									FallbackBehavior: string | fn.Fn
+									HeaderName:       string | fn.Fn
+									Position:         string | fn.Fn
+								}) | fn.If
 							}) | fn.If
 							ManagedRuleGroupStatement?: close({
 								ExcludedRules?: [...close({
@@ -3764,10 +3782,19 @@ WAFv2 :: {
 										})] | fn.If
 									}) | fn.If
 									GeoMatchStatement?: close({
-										CountryCodes?: [...(string | fn.Fn)] | (string | fn.Fn)
+										CountryCodes?:      [...(string | fn.Fn)] | (string | fn.Fn)
+										ForwardedIPConfig?: close({
+											FallbackBehavior: string | fn.Fn
+											HeaderName:       string | fn.Fn
+										}) | fn.If
 									}) | fn.If
 									IPSetReferenceStatement?: close({
-										Arn: string | fn.Fn
+										Arn:                     string | fn.Fn
+										IPSetForwardedIPConfig?: close({
+											FallbackBehavior: string | fn.Fn
+											HeaderName:       string | fn.Fn
+											Position:         string | fn.Fn
+										}) | fn.If
 									}) | fn.If
 									ManagedRuleGroupStatement?: close({
 										ExcludedRules?: [...close({
@@ -3938,10 +3965,19 @@ WAFv2 :: {
 										})] | fn.If
 									}) | fn.If
 									GeoMatchStatement?: close({
-										CountryCodes?: [...(string | fn.Fn)] | (string | fn.Fn)
+										CountryCodes?:      [...(string | fn.Fn)] | (string | fn.Fn)
+										ForwardedIPConfig?: close({
+											FallbackBehavior: string | fn.Fn
+											HeaderName:       string | fn.Fn
+										}) | fn.If
 									}) | fn.If
 									IPSetReferenceStatement?: close({
-										Arn: string | fn.Fn
+										Arn:                     string | fn.Fn
+										IPSetForwardedIPConfig?: close({
+											FallbackBehavior: string | fn.Fn
+											HeaderName:       string | fn.Fn
+											Position:         string | fn.Fn
+										}) | fn.If
 									}) | fn.If
 									ManagedRuleGroupStatement?: close({
 										ExcludedRules?: [...close({
@@ -4078,7 +4114,11 @@ WAFv2 :: {
 								})] | fn.If
 							}) | fn.If
 							RateBasedStatement?: close({
-								AggregateKeyType:    ("IP") | fn.Fn
+								AggregateKeyType:   ("IP") | fn.Fn
+								ForwardedIPConfig?: close({
+									FallbackBehavior: string | fn.Fn
+									HeaderName:       string | fn.Fn
+								}) | fn.If
 								Limit:               (>=100 & <=20000000) | fn.Fn
 								ScopeDownStatement?: close({
 									ByteMatchStatement?: close({
@@ -4114,10 +4154,19 @@ WAFv2 :: {
 										})] | fn.If
 									}) | fn.If
 									GeoMatchStatement?: close({
-										CountryCodes?: [...(string | fn.Fn)] | (string | fn.Fn)
+										CountryCodes?:      [...(string | fn.Fn)] | (string | fn.Fn)
+										ForwardedIPConfig?: close({
+											FallbackBehavior: string | fn.Fn
+											HeaderName:       string | fn.Fn
+										}) | fn.If
 									}) | fn.If
 									IPSetReferenceStatement?: close({
-										Arn: string | fn.Fn
+										Arn:                     string | fn.Fn
+										IPSetForwardedIPConfig?: close({
+											FallbackBehavior: string | fn.Fn
+											HeaderName:       string | fn.Fn
+											Position:         string | fn.Fn
+										}) | fn.If
 									}) | fn.If
 									ManagedRuleGroupStatement?: close({
 										ExcludedRules?: [...close({
@@ -4413,10 +4462,19 @@ WAFv2 :: {
 						})] | fn.If
 					}) | fn.If
 					GeoMatchStatement?: close({
-						CountryCodes?: [...(string | fn.Fn)] | (string | fn.Fn)
+						CountryCodes?:      [...(string | fn.Fn)] | (string | fn.Fn)
+						ForwardedIPConfig?: close({
+							FallbackBehavior: string | fn.Fn
+							HeaderName:       string | fn.Fn
+						}) | fn.If
 					}) | fn.If
 					IPSetReferenceStatement?: close({
-						Arn: string | fn.Fn
+						Arn:                     string | fn.Fn
+						IPSetForwardedIPConfig?: close({
+							FallbackBehavior: string | fn.Fn
+							HeaderName:       string | fn.Fn
+							Position:         string | fn.Fn
+						}) | fn.If
 					}) | fn.If
 					ManagedRuleGroupStatement?: close({
 						ExcludedRules?: [...close({
@@ -4462,10 +4520,19 @@ WAFv2 :: {
 										})] | fn.If
 									}) | fn.If
 									GeoMatchStatement?: close({
-										CountryCodes?: [...(string | fn.Fn)] | (string | fn.Fn)
+										CountryCodes?:      [...(string | fn.Fn)] | (string | fn.Fn)
+										ForwardedIPConfig?: close({
+											FallbackBehavior: string | fn.Fn
+											HeaderName:       string | fn.Fn
+										}) | fn.If
 									}) | fn.If
 									IPSetReferenceStatement?: close({
-										Arn: string | fn.Fn
+										Arn:                     string | fn.Fn
+										IPSetForwardedIPConfig?: close({
+											FallbackBehavior: string | fn.Fn
+											HeaderName:       string | fn.Fn
+											Position:         string | fn.Fn
+										}) | fn.If
 									}) | fn.If
 									ManagedRuleGroupStatement?: close({
 										ExcludedRules?: [...close({
@@ -4634,10 +4701,19 @@ WAFv2 :: {
 								})] | fn.If
 							}) | fn.If
 							GeoMatchStatement?: close({
-								CountryCodes?: [...(string | fn.Fn)] | (string | fn.Fn)
+								CountryCodes?:      [...(string | fn.Fn)] | (string | fn.Fn)
+								ForwardedIPConfig?: close({
+									FallbackBehavior: string | fn.Fn
+									HeaderName:       string | fn.Fn
+								}) | fn.If
 							}) | fn.If
 							IPSetReferenceStatement?: close({
-								Arn: string | fn.Fn
+								Arn:                     string | fn.Fn
+								IPSetForwardedIPConfig?: close({
+									FallbackBehavior: string | fn.Fn
+									HeaderName:       string | fn.Fn
+									Position:         string | fn.Fn
+								}) | fn.If
 							}) | fn.If
 							ManagedRuleGroupStatement?: close({
 								ExcludedRules?: [...close({
@@ -4681,10 +4757,19 @@ WAFv2 :: {
 										})] | fn.If
 									}) | fn.If
 									GeoMatchStatement?: close({
-										CountryCodes?: [...(string | fn.Fn)] | (string | fn.Fn)
+										CountryCodes?:      [...(string | fn.Fn)] | (string | fn.Fn)
+										ForwardedIPConfig?: close({
+											FallbackBehavior: string | fn.Fn
+											HeaderName:       string | fn.Fn
+										}) | fn.If
 									}) | fn.If
 									IPSetReferenceStatement?: close({
-										Arn: string | fn.Fn
+										Arn:                     string | fn.Fn
+										IPSetForwardedIPConfig?: close({
+											FallbackBehavior: string | fn.Fn
+											HeaderName:       string | fn.Fn
+											Position:         string | fn.Fn
+										}) | fn.If
 									}) | fn.If
 									ManagedRuleGroupStatement?: close({
 										ExcludedRules?: [...close({
@@ -4855,10 +4940,19 @@ WAFv2 :: {
 										})] | fn.If
 									}) | fn.If
 									GeoMatchStatement?: close({
-										CountryCodes?: [...(string | fn.Fn)] | (string | fn.Fn)
+										CountryCodes?:      [...(string | fn.Fn)] | (string | fn.Fn)
+										ForwardedIPConfig?: close({
+											FallbackBehavior: string | fn.Fn
+											HeaderName:       string | fn.Fn
+										}) | fn.If
 									}) | fn.If
 									IPSetReferenceStatement?: close({
-										Arn: string | fn.Fn
+										Arn:                     string | fn.Fn
+										IPSetForwardedIPConfig?: close({
+											FallbackBehavior: string | fn.Fn
+											HeaderName:       string | fn.Fn
+											Position:         string | fn.Fn
+										}) | fn.If
 									}) | fn.If
 									ManagedRuleGroupStatement?: close({
 										ExcludedRules?: [...close({
@@ -4995,7 +5089,11 @@ WAFv2 :: {
 								})] | fn.If
 							}) | fn.If
 							RateBasedStatement?: close({
-								AggregateKeyType:    ("IP") | fn.Fn
+								AggregateKeyType:   ("IP") | fn.Fn
+								ForwardedIPConfig?: close({
+									FallbackBehavior: string | fn.Fn
+									HeaderName:       string | fn.Fn
+								}) | fn.If
 								Limit:               (>=100 & <=20000000) | fn.Fn
 								ScopeDownStatement?: close({
 									ByteMatchStatement?: close({
@@ -5031,10 +5129,19 @@ WAFv2 :: {
 										})] | fn.If
 									}) | fn.If
 									GeoMatchStatement?: close({
-										CountryCodes?: [...(string | fn.Fn)] | (string | fn.Fn)
+										CountryCodes?:      [...(string | fn.Fn)] | (string | fn.Fn)
+										ForwardedIPConfig?: close({
+											FallbackBehavior: string | fn.Fn
+											HeaderName:       string | fn.Fn
+										}) | fn.If
 									}) | fn.If
 									IPSetReferenceStatement?: close({
-										Arn: string | fn.Fn
+										Arn:                     string | fn.Fn
+										IPSetForwardedIPConfig?: close({
+											FallbackBehavior: string | fn.Fn
+											HeaderName:       string | fn.Fn
+											Position:         string | fn.Fn
+										}) | fn.If
 									}) | fn.If
 									ManagedRuleGroupStatement?: close({
 										ExcludedRules?: [...close({
@@ -5334,10 +5441,19 @@ WAFv2 :: {
 										})] | fn.If
 									}) | fn.If
 									GeoMatchStatement?: close({
-										CountryCodes?: [...(string | fn.Fn)] | (string | fn.Fn)
+										CountryCodes?:      [...(string | fn.Fn)] | (string | fn.Fn)
+										ForwardedIPConfig?: close({
+											FallbackBehavior: string | fn.Fn
+											HeaderName:       string | fn.Fn
+										}) | fn.If
 									}) | fn.If
 									IPSetReferenceStatement?: close({
-										Arn: string | fn.Fn
+										Arn:                     string | fn.Fn
+										IPSetForwardedIPConfig?: close({
+											FallbackBehavior: string | fn.Fn
+											HeaderName:       string | fn.Fn
+											Position:         string | fn.Fn
+										}) | fn.If
 									}) | fn.If
 									ManagedRuleGroupStatement?: close({
 										ExcludedRules?: [...close({
@@ -5506,10 +5622,19 @@ WAFv2 :: {
 								})] | fn.If
 							}) | fn.If
 							GeoMatchStatement?: close({
-								CountryCodes?: [...(string | fn.Fn)] | (string | fn.Fn)
+								CountryCodes?:      [...(string | fn.Fn)] | (string | fn.Fn)
+								ForwardedIPConfig?: close({
+									FallbackBehavior: string | fn.Fn
+									HeaderName:       string | fn.Fn
+								}) | fn.If
 							}) | fn.If
 							IPSetReferenceStatement?: close({
-								Arn: string | fn.Fn
+								Arn:                     string | fn.Fn
+								IPSetForwardedIPConfig?: close({
+									FallbackBehavior: string | fn.Fn
+									HeaderName:       string | fn.Fn
+									Position:         string | fn.Fn
+								}) | fn.If
 							}) | fn.If
 							ManagedRuleGroupStatement?: close({
 								ExcludedRules?: [...close({
@@ -5553,10 +5678,19 @@ WAFv2 :: {
 										})] | fn.If
 									}) | fn.If
 									GeoMatchStatement?: close({
-										CountryCodes?: [...(string | fn.Fn)] | (string | fn.Fn)
+										CountryCodes?:      [...(string | fn.Fn)] | (string | fn.Fn)
+										ForwardedIPConfig?: close({
+											FallbackBehavior: string | fn.Fn
+											HeaderName:       string | fn.Fn
+										}) | fn.If
 									}) | fn.If
 									IPSetReferenceStatement?: close({
-										Arn: string | fn.Fn
+										Arn:                     string | fn.Fn
+										IPSetForwardedIPConfig?: close({
+											FallbackBehavior: string | fn.Fn
+											HeaderName:       string | fn.Fn
+											Position:         string | fn.Fn
+										}) | fn.If
 									}) | fn.If
 									ManagedRuleGroupStatement?: close({
 										ExcludedRules?: [...close({
@@ -5727,10 +5861,19 @@ WAFv2 :: {
 										})] | fn.If
 									}) | fn.If
 									GeoMatchStatement?: close({
-										CountryCodes?: [...(string | fn.Fn)] | (string | fn.Fn)
+										CountryCodes?:      [...(string | fn.Fn)] | (string | fn.Fn)
+										ForwardedIPConfig?: close({
+											FallbackBehavior: string | fn.Fn
+											HeaderName:       string | fn.Fn
+										}) | fn.If
 									}) | fn.If
 									IPSetReferenceStatement?: close({
-										Arn: string | fn.Fn
+										Arn:                     string | fn.Fn
+										IPSetForwardedIPConfig?: close({
+											FallbackBehavior: string | fn.Fn
+											HeaderName:       string | fn.Fn
+											Position:         string | fn.Fn
+										}) | fn.If
 									}) | fn.If
 									ManagedRuleGroupStatement?: close({
 										ExcludedRules?: [...close({
@@ -5867,7 +6010,11 @@ WAFv2 :: {
 								})] | fn.If
 							}) | fn.If
 							RateBasedStatement?: close({
-								AggregateKeyType:    ("IP") | fn.Fn
+								AggregateKeyType:   ("IP") | fn.Fn
+								ForwardedIPConfig?: close({
+									FallbackBehavior: string | fn.Fn
+									HeaderName:       string | fn.Fn
+								}) | fn.If
 								Limit:               (>=100 & <=20000000) | fn.Fn
 								ScopeDownStatement?: close({
 									ByteMatchStatement?: close({
@@ -5903,10 +6050,19 @@ WAFv2 :: {
 										})] | fn.If
 									}) | fn.If
 									GeoMatchStatement?: close({
-										CountryCodes?: [...(string | fn.Fn)] | (string | fn.Fn)
+										CountryCodes?:      [...(string | fn.Fn)] | (string | fn.Fn)
+										ForwardedIPConfig?: close({
+											FallbackBehavior: string | fn.Fn
+											HeaderName:       string | fn.Fn
+										}) | fn.If
 									}) | fn.If
 									IPSetReferenceStatement?: close({
-										Arn: string | fn.Fn
+										Arn:                     string | fn.Fn
+										IPSetForwardedIPConfig?: close({
+											FallbackBehavior: string | fn.Fn
+											HeaderName:       string | fn.Fn
+											Position:         string | fn.Fn
+										}) | fn.If
 									}) | fn.If
 									ManagedRuleGroupStatement?: close({
 										ExcludedRules?: [...close({
@@ -6170,7 +6326,11 @@ WAFv2 :: {
 						})] | fn.If
 					}) | fn.If
 					RateBasedStatement?: close({
-						AggregateKeyType:    ("IP") | fn.Fn
+						AggregateKeyType:   ("IP") | fn.Fn
+						ForwardedIPConfig?: close({
+							FallbackBehavior: string | fn.Fn
+							HeaderName:       string | fn.Fn
+						}) | fn.If
 						Limit:               (>=100 & <=20000000) | fn.Fn
 						ScopeDownStatement?: close({
 							AndStatement?: close({
@@ -6208,10 +6368,19 @@ WAFv2 :: {
 										})] | fn.If
 									}) | fn.If
 									GeoMatchStatement?: close({
-										CountryCodes?: [...(string | fn.Fn)] | (string | fn.Fn)
+										CountryCodes?:      [...(string | fn.Fn)] | (string | fn.Fn)
+										ForwardedIPConfig?: close({
+											FallbackBehavior: string | fn.Fn
+											HeaderName:       string | fn.Fn
+										}) | fn.If
 									}) | fn.If
 									IPSetReferenceStatement?: close({
-										Arn: string | fn.Fn
+										Arn:                     string | fn.Fn
+										IPSetForwardedIPConfig?: close({
+											FallbackBehavior: string | fn.Fn
+											HeaderName:       string | fn.Fn
+											Position:         string | fn.Fn
+										}) | fn.If
 									}) | fn.If
 									ManagedRuleGroupStatement?: close({
 										ExcludedRules?: [...close({
@@ -6380,10 +6549,19 @@ WAFv2 :: {
 								})] | fn.If
 							}) | fn.If
 							GeoMatchStatement?: close({
-								CountryCodes?: [...(string | fn.Fn)] | (string | fn.Fn)
+								CountryCodes?:      [...(string | fn.Fn)] | (string | fn.Fn)
+								ForwardedIPConfig?: close({
+									FallbackBehavior: string | fn.Fn
+									HeaderName:       string | fn.Fn
+								}) | fn.If
 							}) | fn.If
 							IPSetReferenceStatement?: close({
-								Arn: string | fn.Fn
+								Arn:                     string | fn.Fn
+								IPSetForwardedIPConfig?: close({
+									FallbackBehavior: string | fn.Fn
+									HeaderName:       string | fn.Fn
+									Position:         string | fn.Fn
+								}) | fn.If
 							}) | fn.If
 							ManagedRuleGroupStatement?: close({
 								ExcludedRules?: [...close({
@@ -6427,10 +6605,19 @@ WAFv2 :: {
 										})] | fn.If
 									}) | fn.If
 									GeoMatchStatement?: close({
-										CountryCodes?: [...(string | fn.Fn)] | (string | fn.Fn)
+										CountryCodes?:      [...(string | fn.Fn)] | (string | fn.Fn)
+										ForwardedIPConfig?: close({
+											FallbackBehavior: string | fn.Fn
+											HeaderName:       string | fn.Fn
+										}) | fn.If
 									}) | fn.If
 									IPSetReferenceStatement?: close({
-										Arn: string | fn.Fn
+										Arn:                     string | fn.Fn
+										IPSetForwardedIPConfig?: close({
+											FallbackBehavior: string | fn.Fn
+											HeaderName:       string | fn.Fn
+											Position:         string | fn.Fn
+										}) | fn.If
 									}) | fn.If
 									ManagedRuleGroupStatement?: close({
 										ExcludedRules?: [...close({
@@ -6601,10 +6788,19 @@ WAFv2 :: {
 										})] | fn.If
 									}) | fn.If
 									GeoMatchStatement?: close({
-										CountryCodes?: [...(string | fn.Fn)] | (string | fn.Fn)
+										CountryCodes?:      [...(string | fn.Fn)] | (string | fn.Fn)
+										ForwardedIPConfig?: close({
+											FallbackBehavior: string | fn.Fn
+											HeaderName:       string | fn.Fn
+										}) | fn.If
 									}) | fn.If
 									IPSetReferenceStatement?: close({
-										Arn: string | fn.Fn
+										Arn:                     string | fn.Fn
+										IPSetForwardedIPConfig?: close({
+											FallbackBehavior: string | fn.Fn
+											HeaderName:       string | fn.Fn
+											Position:         string | fn.Fn
+										}) | fn.If
 									}) | fn.If
 									ManagedRuleGroupStatement?: close({
 										ExcludedRules?: [...close({
@@ -6741,7 +6937,11 @@ WAFv2 :: {
 								})] | fn.If
 							}) | fn.If
 							RateBasedStatement?: close({
-								AggregateKeyType:    ("IP") | fn.Fn
+								AggregateKeyType:   ("IP") | fn.Fn
+								ForwardedIPConfig?: close({
+									FallbackBehavior: string | fn.Fn
+									HeaderName:       string | fn.Fn
+								}) | fn.If
 								Limit:               (>=100 & <=20000000) | fn.Fn
 								ScopeDownStatement?: close({
 									ByteMatchStatement?: close({
@@ -6777,10 +6977,19 @@ WAFv2 :: {
 										})] | fn.If
 									}) | fn.If
 									GeoMatchStatement?: close({
-										CountryCodes?: [...(string | fn.Fn)] | (string | fn.Fn)
+										CountryCodes?:      [...(string | fn.Fn)] | (string | fn.Fn)
+										ForwardedIPConfig?: close({
+											FallbackBehavior: string | fn.Fn
+											HeaderName:       string | fn.Fn
+										}) | fn.If
 									}) | fn.If
 									IPSetReferenceStatement?: close({
-										Arn: string | fn.Fn
+										Arn:                     string | fn.Fn
+										IPSetForwardedIPConfig?: close({
+											FallbackBehavior: string | fn.Fn
+											HeaderName:       string | fn.Fn
+											Position:         string | fn.Fn
+										}) | fn.If
 									}) | fn.If
 									ManagedRuleGroupStatement?: close({
 										ExcludedRules?: [...close({

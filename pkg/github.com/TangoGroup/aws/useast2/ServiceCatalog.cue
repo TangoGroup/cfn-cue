@@ -58,8 +58,8 @@ ServiceCatalog :: {
 			ProvisioningArtifactId?:   string | fn.Fn
 			ProvisioningArtifactName?: string | fn.Fn
 			ProvisioningParameters?:   [...close({
-				Key?:   string | fn.Fn
-				Value?: string | fn.Fn
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
 			})] | fn.If
 			ProvisioningPreferences?: close({
 				StackSetAccounts?:                   [...(string | fn.Fn)] | (string | fn.Fn)

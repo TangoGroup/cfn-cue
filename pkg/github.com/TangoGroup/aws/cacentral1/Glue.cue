@@ -426,7 +426,7 @@ Glue :: {
 					LogicalOperator?: ("EQUALS") | fn.Fn
 					State?:           ("SUCCEEDED") | fn.Fn
 				})] | fn.If
-				Logical?: ("AND") | fn.Fn
+				Logical?: ("AND" | "ANY") | fn.Fn
 			}) | fn.If
 			Schedule?:        string | fn.Fn
 			StartOnCreation?: bool | fn.Fn

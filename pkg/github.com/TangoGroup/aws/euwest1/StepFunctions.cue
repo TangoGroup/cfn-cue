@@ -44,6 +44,9 @@ StepFunctions :: {
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			})] | fn.If
+			TracingConfiguration?: close({
+				Enabled: bool | fn.Fn
+			}) | fn.If
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
