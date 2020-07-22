@@ -3,42 +3,6 @@ package usgoveast1
 import "github.com/TangoGroup/aws/fn"
 
 ServiceCatalog :: {
-	AcceptedPortfolioShare :: {
-		Type:       "AWS::ServiceCatalog::AcceptedPortfolioShare"
-		Properties: close({
-			AcceptLanguage?: string | fn.Fn
-			PortfolioId:     string | fn.Fn
-		})
-		DependsOn?:           string | [...string]
-		DeletionPolicy?:      "Delete" | "Retain"
-		UpdateReplacePolicy?: "Delete" | "Retain"
-		Metadata?: [string]: _
-		Condition?: string
-	}
-	CloudFormationProduct :: {
-		Type:       "AWS::ServiceCatalog::CloudFormationProduct"
-		Properties: close({
-			AcceptLanguage?:                string | fn.Fn
-			Description?:                   string | fn.Fn
-			Distributor?:                   string | fn.Fn
-			Name:                           string | fn.Fn
-			Owner:                          string | fn.Fn
-			ProvisioningArtifactParameters: [...close({})] | fn.If
-			ReplaceProvisioningArtifacts?:  bool | fn.Fn
-			SupportDescription?:            string | fn.Fn
-			SupportEmail?:                  string | fn.Fn
-			SupportUrl?:                    string | fn.Fn
-			Tags?:                          [...close({
-				Key:   string | fn.Fn
-				Value: string | fn.Fn
-			})] | fn.If
-		})
-		DependsOn?:           string | [...string]
-		DeletionPolicy?:      "Delete" | "Retain"
-		UpdateReplacePolicy?: "Delete" | "Retain"
-		Metadata?: [string]: _
-		Condition?: string
-	}
 	CloudFormationProvisionedProduct :: {
 		Type:       "AWS::ServiceCatalog::CloudFormationProvisionedProduct"
 		Properties: close({

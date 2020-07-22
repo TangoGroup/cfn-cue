@@ -36,8 +36,7 @@ SageMaker :: {
 	EndpointConfig :: {
 		Type:       "AWS::SageMaker::EndpointConfig"
 		Properties: close({
-			DataCaptureConfig?: close({
-			}) | fn.If
+			DataCaptureConfig?:  close({}) | fn.If
 			EndpointConfigName?: string | fn.Fn
 			KmsKeyId?:           string | fn.Fn
 			ProductionVariants:  [...close({})] | fn.If

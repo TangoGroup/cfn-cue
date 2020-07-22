@@ -3,7 +3,7 @@ module github.com/TangoGroup/cfn-cue
 go 1.12
 
 require (
-	cuelang.org/go v0.2.1
+	cuelang.org/go v0.2.2
 	github.com/davecgh/go-spew v1.1.1
 	github.com/google/go-cmp v0.5.0 // indirect
 	github.com/lib/pq v1.7.0 // indirect
