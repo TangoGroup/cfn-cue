@@ -53,7 +53,7 @@ Logs :: {
 				DefaultValue?:   number | fn.Fn
 				MetricName:      string | fn.Fn
 				MetricNamespace: string | fn.Fn
-				MetricValue:     string | fn.Fn
+				MetricValue:     (=~#"^(([0-9]*)|(\$.*))$"#) | fn.Fn
 			})] | fn.If
 		})
 		DependsOn?:           string | [...string]

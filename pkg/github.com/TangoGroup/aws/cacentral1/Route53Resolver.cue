@@ -22,6 +22,30 @@ Route53Resolver :: {
 		Metadata?: [string]: _
 		Condition?: string
 	}
+	ResolverQueryLoggingConfig :: {
+		Type:       "AWS::Route53Resolver::ResolverQueryLoggingConfig"
+		Properties: close({
+			DestinationArn?: string | fn.Fn
+			Name?:           string | fn.Fn
+		})
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+		Condition?: string
+	}
+	ResolverQueryLoggingConfigAssociation :: {
+		Type:       "AWS::Route53Resolver::ResolverQueryLoggingConfigAssociation"
+		Properties: close({
+			ResolverQueryLogConfigId?: string | fn.Fn
+			ResourceId?:               string | fn.Fn
+		})
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+		Condition?: string
+	}
 	ResolverRule :: {
 		Type:       "AWS::Route53Resolver::ResolverRule"
 		Properties: close({

@@ -10,11 +10,12 @@ CloudFront :: {
 				Aliases?:        [...(string | fn.Fn)] | (string | fn.Fn)
 				CacheBehaviors?: [...close({
 					AllowedMethods?:         [...(string | fn.Fn)] | (string | fn.Fn)
+					CachePolicyId?:          string | fn.Fn
 					CachedMethods?:          [...(string | fn.Fn)] | (string | fn.Fn)
 					Compress?:               bool | fn.Fn
 					DefaultTTL?:             number | fn.Fn
 					FieldLevelEncryptionId?: string | fn.Fn
-					ForwardedValues:         close({
+					ForwardedValues?:        close({
 						Cookies?: close({
 							Forward:           string | fn.Fn
 							WhitelistedNames?: [...(string | fn.Fn)] | (string | fn.Fn)
@@ -28,13 +29,14 @@ CloudFront :: {
 						IncludeBody?:      bool | fn.Fn
 						LambdaFunctionARN: string | fn.Fn
 					})] | fn.If
-					MaxTTL?:              number | fn.Fn
-					MinTTL?:              number | fn.Fn
-					PathPattern:          string | fn.Fn
-					SmoothStreaming?:     bool | fn.Fn
-					TargetOriginId:       string | fn.Fn
-					TrustedSigners?:      [...(string | fn.Fn)] | (string | fn.Fn)
-					ViewerProtocolPolicy: ("allow-all" | "https-only" | "redirect-to-https") | fn.Fn
+					MaxTTL?:                number | fn.Fn
+					MinTTL?:                number | fn.Fn
+					OriginRequestPolicyId?: string | fn.Fn
+					PathPattern:            string | fn.Fn
+					SmoothStreaming?:       bool | fn.Fn
+					TargetOriginId:         string | fn.Fn
+					TrustedSigners?:        [...(string | fn.Fn)] | (string | fn.Fn)
+					ViewerProtocolPolicy:   ("allow-all" | "https-only" | "redirect-to-https") | fn.Fn
 				})] | fn.If
 				Comment?:              string | fn.Fn
 				CustomErrorResponses?: [...close({
@@ -45,11 +47,12 @@ CloudFront :: {
 				})] | fn.If
 				DefaultCacheBehavior: close({
 					AllowedMethods?:         [...(string | fn.Fn)] | (string | fn.Fn)
+					CachePolicyId?:          string | fn.Fn
 					CachedMethods?:          [...(string | fn.Fn)] | (string | fn.Fn)
 					Compress?:               bool | fn.Fn
 					DefaultTTL?:             number | fn.Fn
 					FieldLevelEncryptionId?: string | fn.Fn
-					ForwardedValues:         close({
+					ForwardedValues?:        close({
 						Cookies?: close({
 							Forward:           string | fn.Fn
 							WhitelistedNames?: [...(string | fn.Fn)] | (string | fn.Fn)
@@ -63,12 +66,13 @@ CloudFront :: {
 						IncludeBody?:      bool | fn.Fn
 						LambdaFunctionARN: string | fn.Fn
 					})] | fn.If
-					MaxTTL?:              number | fn.Fn
-					MinTTL?:              number | fn.Fn
-					SmoothStreaming?:     bool | fn.Fn
-					TargetOriginId:       string | fn.Fn
-					TrustedSigners?:      [...(string | fn.Fn)] | (string | fn.Fn)
-					ViewerProtocolPolicy: ("allow-all" | "https-only" | "redirect-to-https") | fn.Fn
+					MaxTTL?:                number | fn.Fn
+					MinTTL?:                number | fn.Fn
+					OriginRequestPolicyId?: string | fn.Fn
+					SmoothStreaming?:       bool | fn.Fn
+					TargetOriginId:         string | fn.Fn
+					TrustedSigners?:        [...(string | fn.Fn)] | (string | fn.Fn)
+					ViewerProtocolPolicy:   ("allow-all" | "https-only" | "redirect-to-https") | fn.Fn
 				}) | fn.If
 				DefaultRootObject?: string | fn.Fn
 				Enabled:            bool | fn.Fn
@@ -130,7 +134,7 @@ CloudFront :: {
 					AcmCertificateArn?:            string | fn.Fn
 					CloudFrontDefaultCertificate?: bool | fn.Fn
 					IamCertificateId?:             string | fn.Fn
-					MinimumProtocolVersion?:       ("SSLv3" | "TLSv1" | "TLSv1_2016" | "TLSv1.1_2016" | "TLSv1.2_2018") | fn.Fn
+					MinimumProtocolVersion?:       ("SSLv3" | "TLSv1" | "TLSv1_2016" | "TLSv1.1_2016" | "TLSv1.2_2018" | "TLSv1.2_2019") | fn.Fn
 					SslSupportMethod?:             ("sni-only" | "vip") | fn.Fn
 				}) | fn.If
 				WebACLId?: string | fn.Fn

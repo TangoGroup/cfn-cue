@@ -164,10 +164,16 @@ EC2 :: {
 			DeliverLogsPermissionArn?: string | fn.Fn
 			LogDestination?:           string | fn.Fn
 			LogDestinationType?:       ("cloud-watch-logs" | "s3") | fn.Fn
+			LogFormat?:                string | fn.Fn
 			LogGroupName?:             string | fn.Fn
+			MaxAggregationInterval?:   int | fn.Fn
 			ResourceId:                string | fn.Fn
 			ResourceType:              ("NetworkInterface" | "Subnet" | "VPC") | fn.Fn
-			TrafficType:               ("ACCEPT" | "ALL" | "REJECT") | fn.Fn
+			Tags?:                     [...close({
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
+			})] | fn.If
+			TrafficType: ("ACCEPT" | "ALL" | "REJECT") | fn.Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

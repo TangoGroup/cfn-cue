@@ -32,7 +32,7 @@ StepFunctions :: {
 			LoggingConfiguration?: close({
 				Destinations?: [...close({
 					CloudWatchLogsLogGroup?: close({
-						LogGroupArn: string | fn.Fn
+						LogGroupArn?: string | fn.Fn
 					}) | fn.If
 				})] | fn.If
 				IncludeExecutionData?: bool | fn.Fn
@@ -45,6 +45,9 @@ StepFunctions :: {
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			})] | fn.If
+			TracingConfiguration?: close({
+				Enabled?: bool | fn.Fn
+			}) | fn.If
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

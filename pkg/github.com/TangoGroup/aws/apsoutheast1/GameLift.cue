@@ -11,7 +11,7 @@ GameLift :: {
 			RoutingStrategy: close({
 				FleetId?: string | fn.Fn
 				Message?: string | fn.Fn
-				Type:     string | fn.Fn
+				Type?:    string | fn.Fn
 			}) | fn.If
 		})
 		DependsOn?:           string | [...string]

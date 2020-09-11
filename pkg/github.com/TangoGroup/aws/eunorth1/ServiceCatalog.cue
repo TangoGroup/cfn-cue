@@ -40,6 +40,7 @@ ServiceCatalog :: {
 			AcceptLanguage?:           string | fn.Fn
 			NotificationArns?:         [...(string | fn.Fn)] | (string | fn.Fn)
 			PathId?:                   string | fn.Fn
+			PathName?:                 string | fn.Fn
 			ProductId?:                string | fn.Fn
 			ProductName?:              string | fn.Fn
 			ProvisionedProductName?:   string | fn.Fn

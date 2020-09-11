@@ -31,6 +31,8 @@ EKS :: {
 			Labels?:             {
 				[string]: _
 			} | fn.Fn
+			LaunchTemplate?: close({
+			}) | fn.If
 			NodeRole:        string | fn.Fn
 			NodegroupName?:  string | fn.Fn
 			ReleaseVersion?: string | fn.Fn

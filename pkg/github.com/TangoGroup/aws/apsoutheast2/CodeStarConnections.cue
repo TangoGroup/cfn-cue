@@ -7,7 +7,8 @@ CodeStarConnections :: {
 		Type:       "AWS::CodeStarConnections::Connection"
 		Properties: close({
 			ConnectionName: string | fn.Fn
-			ProviderType:   string | fn.Fn
+			HostArn?:       string | fn.Fn
+			ProviderType?:  string | fn.Fn
 			Tags?:          [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn

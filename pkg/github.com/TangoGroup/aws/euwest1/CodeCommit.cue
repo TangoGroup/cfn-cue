@@ -10,7 +10,8 @@ CodeCommit :: {
 		Type:       "AWS::CodeCommit::Repository"
 		Properties: close({
 			Code?: close({
-				S3: close({
+				BranchName?: string | fn.Fn
+				S3:          close({
 					Bucket:         string | fn.Fn
 					Key:            string | fn.Fn
 					ObjectVersion?: string | fn.Fn

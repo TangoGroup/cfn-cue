@@ -20,6 +20,8 @@ SecretsManager :: {
 	RotationSchedule :: {
 		Type:       "AWS::SecretsManager::RotationSchedule"
 		Properties: close({
+			HostedRotationLambda?: close({
+			}) | fn.If
 			RotationLambdaARN?: string | fn.Fn
 			RotationRules?:     close({
 			}) | fn.If

@@ -6,6 +6,7 @@ AmazonMQ :: {
 	Broker :: {
 		Type:       "AWS::AmazonMQ::Broker"
 		Properties: close({
+			AuthenticationStrategy?: string | fn.Fn
 			AutoMinorVersionUpgrade: bool | fn.Fn
 			BrokerName:              string | fn.Fn
 			Configuration?:          close({
@@ -19,8 +20,40 @@ AmazonMQ :: {
 			}) | fn.If
 			EngineType:       ("ACTIVEMQ") | fn.Fn
 			EngineVersion:    ("5.15.0" | "5.15.6" | "5.15.8" | "5.15.9") | fn.Fn
-			HostInstanceType: ("mq.m5.2xlarge" | "mq.m5.4xlarge" | "mq.m5.large" | "mq.m5.xlarge" | "mq.t2.micro") | fn.Fn
-			Logs?:            close({
+			HostInstanceType: ("mq.m5.2xlarge" | "mq.m5.4xlarge" | "mq.m5.large" | "mq.m5.xlarge" | "mq.t2.micro" | "mq.t3.micro") | fn.Fn
+			LdapMetadata?:    close({
+				InterBrokerCreds?: [...close({
+					Password: string | fn.Fn
+					Username: string | fn.Fn
+				})] | fn.If
+				ServerMetadata: close({
+					Hosts:                  [...(string | fn.Fn)] | (string | fn.Fn)
+					RoleBase:               string | fn.Fn
+					RoleName?:              string | fn.Fn
+					RoleSearchMatching:     string | fn.Fn
+					RoleSearchSubtree?:     bool | fn.Fn
+					ServiceAccountPassword: string | fn.Fn
+					ServiceAccountUsername: string | fn.Fn
+					UserBase:               string | fn.Fn
+					UserRoleName?:          string | fn.Fn
+					UserSearchMatching:     string | fn.Fn
+					UserSearchSubtree?:     bool | fn.Fn
+				}) | fn.If
+			}) | fn.If
+			LdapServerMetadata?: close({
+				Hosts:                  [...(string | fn.Fn)] | (string | fn.Fn)
+				RoleBase:               string | fn.Fn
+				RoleName?:              string | fn.Fn
+				RoleSearchMatching:     string | fn.Fn
+				RoleSearchSubtree?:     bool | fn.Fn
+				ServiceAccountPassword: string | fn.Fn
+				ServiceAccountUsername: string | fn.Fn
+				UserBase:               string | fn.Fn
+				UserRoleName?:          string | fn.Fn
+				UserSearchMatching:     string | fn.Fn
+				UserSearchSubtree?:     bool | fn.Fn
+			}) | fn.If
+			Logs?: close({
 				Audit?:   bool | fn.Fn
 				General?: bool | fn.Fn
 			}) | fn.If

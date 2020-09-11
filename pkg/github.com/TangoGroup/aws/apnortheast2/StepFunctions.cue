@@ -31,6 +31,8 @@ StepFunctions :: {
 			StateMachineType?: string | fn.Fn
 			Tags?:             [...close({
 			})] | fn.If
+			TracingConfiguration?: close({
+			}) | fn.If
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

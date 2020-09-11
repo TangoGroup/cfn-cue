@@ -45,7 +45,7 @@ Glue :: {
 				ConnectionProperties: {
 					[string]: _
 				} | fn.Fn
-				ConnectionType:                  ("JDBC" | "SFTP") | fn.Fn
+				ConnectionType:                  ("JDBC" | "KAFKA" | "MONGODB" | "SFTP") | fn.Fn
 				Description?:                    string | fn.Fn
 				MatchCriteria?:                  [...(string | fn.Fn)] | (string | fn.Fn)
 				Name?:                           string | fn.Fn

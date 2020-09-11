@@ -50,7 +50,7 @@ ManagedBlockchain :: {
 			NetworkId:         string | fn.Fn
 			NodeConfiguration: close({
 				AvailabilityZone: string | fn.Fn
-				InstanceType:     string | fn.Fn
+				InstanceType:     ("bc.c5.2xlarge" | "bc.c5.4xlarge" | "bc.c5.large" | "bc.c5.xlarge" | "bc.m5.2xlarge" | "bc.m5.4xlarge" | "bc.m5.large" | "bc.m5.xlarge" | "bc.t3.large" | "bc.t3.medium" | "bc.t3.small" | "bc.t3.xlarge") | fn.Fn
 			}) | fn.If
 		})
 		DependsOn?:           string | [...string]

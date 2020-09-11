@@ -22,7 +22,8 @@ Transfer :: {
 			LoggingRole?:          string | fn.Fn
 			Protocols?:            [...close({
 			})] | fn.If
-			Tags?: [...close({
+			SecurityPolicyName?: string | fn.Fn
+			Tags?:               [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			})] | fn.If

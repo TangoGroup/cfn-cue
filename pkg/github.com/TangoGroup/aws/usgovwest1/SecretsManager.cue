@@ -20,6 +20,15 @@ SecretsManager :: {
 	RotationSchedule :: {
 		Type:       "AWS::SecretsManager::RotationSchedule"
 		Properties: close({
+			HostedRotationLambda?: close({
+				KmsKeyArn?:             string | fn.Fn
+				MasterSecretArn?:       string | fn.Fn
+				MasterSecretKmsKeyArn?: string | fn.Fn
+				RotationLambdaName?:    string | fn.Fn
+				RotationType:           string | fn.Fn
+				VpcSecurityGroupIds?:   string | fn.Fn
+				VpcSubnetIds?:          string | fn.Fn
+			}) | fn.If
 			RotationLambdaARN?: string | fn.Fn
 			RotationRules?:     close({
 				AutomaticallyAfterDays?: int | fn.Fn

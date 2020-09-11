@@ -189,7 +189,7 @@ ApiGateway :: {
 		Type:       "AWS::ApiGateway::DomainName"
 		Properties: close({
 			CertificateArn?:        string | fn.Fn
-			DomainName:             string | fn.Fn
+			DomainName?:            string | fn.Fn
 			EndpointConfiguration?: close({
 				Types?: [...(string | fn.Fn)] | (string | fn.Fn)
 			}) | fn.If

@@ -24,6 +24,20 @@ Athena :: {
 		Metadata?: [string]: _
 		Condition?: string
 	}
+	NamedQuery :: {
+		Type:       "AWS::Athena::NamedQuery"
+		Properties: close({
+			Database:     string | fn.Fn
+			Description?: string | fn.Fn
+			Name?:        string | fn.Fn
+			QueryString:  string | fn.Fn
+		})
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+		Condition?: string
+	}
 	WorkGroup :: {
 		Type:       "AWS::Athena::WorkGroup"
 		Properties: close({

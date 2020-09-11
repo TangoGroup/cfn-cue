@@ -12,7 +12,7 @@ Budgets :: {
 					Unit:   string | fn.Fn
 				}) | fn.If
 				BudgetName?:  string | fn.Fn
-				BudgetType:   ("COST" | "RI_COVERAGE" | "RI_UTILIZATION" | "USAGE") | fn.Fn
+				BudgetType:   ("COST" | "RI_COVERAGE" | "RI_UTILIZATION" | "SAVINGS_PLANS_COVERAGE" | "SAVINGS_PLANS_UTILIZATION" | "USAGE") | fn.Fn
 				CostFilters?: {
 					[string]: _
 				} | fn.Fn

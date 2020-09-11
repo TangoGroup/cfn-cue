@@ -45,6 +45,51 @@ ApiGatewayV2 :: {
 		Metadata?: [string]: _
 		Condition?: string
 	}
+	ApiGatewayManagedOverrides :: {
+		Type:       "AWS::ApiGatewayV2::ApiGatewayManagedOverrides"
+		Properties: close({
+			ApiId:        string | fn.Fn
+			Integration?: close({
+				Description?:          string | fn.Fn
+				IntegrationMethod?:    string | fn.Fn
+				PayloadFormatVersion?: string | fn.Fn
+				TimeoutInMillis?:      int | fn.Fn
+			}) | fn.If
+			Route?: close({
+				AuthorizationScopes?: [...(string | fn.Fn)] | (string | fn.Fn)
+				AuthorizationType?:   string | fn.Fn
+				AuthorizerId?:        string | fn.Fn
+				OperationName?:       string | fn.Fn
+				Target?:              string | fn.Fn
+			}) | fn.If
+			Stage?: close({
+				AccessLogSettings?: close({
+					DestinationArn?: string | fn.Fn
+					Format?:         string | fn.Fn
+				}) | fn.If
+				AutoDeploy?:           bool | fn.Fn
+				DefaultRouteSettings?: close({
+					DataTraceEnabled?:       bool | fn.Fn
+					DetailedMetricsEnabled?: bool | fn.Fn
+					LoggingLevel?:           string | fn.Fn
+					ThrottlingBurstLimit?:   int | fn.Fn
+					ThrottlingRateLimit?:    number | fn.Fn
+				}) | fn.If
+				Description?:   string | fn.Fn
+				RouteSettings?: {
+					[string]: _
+				} | fn.Fn
+				StageVariables?: {
+					[string]: _
+				} | fn.Fn
+			}) | fn.If
+		})
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+		Condition?: string
+	}
 	ApiMapping :: {
 		Type:       "AWS::ApiGatewayV2::ApiMapping"
 		Properties: close({
@@ -123,6 +168,7 @@ ApiGatewayV2 :: {
 			CredentialsArn?:          string | fn.Fn
 			Description?:             string | fn.Fn
 			IntegrationMethod?:       string | fn.Fn
+			IntegrationSubtype?:      string | fn.Fn
 			IntegrationType:          string | fn.Fn
 			IntegrationUri?:          string | fn.Fn
 			PassthroughBehavior?:     string | fn.Fn
@@ -256,6 +302,22 @@ ApiGatewayV2 :: {
 				[string]: _
 			} | fn.Fn
 			Tags?: {
+				[string]: _
+			} | fn.Fn
+		})
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+		Condition?: string
+	}
+	VpcLink :: {
+		Type:       "AWS::ApiGatewayV2::VpcLink"
+		Properties: close({
+			Name:              string | fn.Fn
+			SecurityGroupIds?: [...(string | fn.Fn)] | (string | fn.Fn)
+			SubnetIds:         [...(string | fn.Fn)] | (string | fn.Fn)
+			Tags?:             {
 				[string]: _
 			} | fn.Fn
 		})

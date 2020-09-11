@@ -163,6 +163,7 @@ Cognito :: {
 	UserPoolClient :: {
 		Type:       "AWS::Cognito::UserPoolClient"
 		Properties: close({
+			AccessTokenValidity?:             int | fn.Fn
 			AllowedOAuthFlows?:               [...(string | fn.Fn)] | (string | fn.Fn)
 			AllowedOAuthFlowsUserPoolClient?: bool | fn.Fn
 			AllowedOAuthScopes?:              [...(string | fn.Fn)] | (string | fn.Fn)
@@ -177,13 +178,19 @@ Cognito :: {
 			DefaultRedirectURI?:         string | fn.Fn
 			ExplicitAuthFlows?:          [...(("ADMIN_NO_SRP_AUTH" | "CUSTOM_AUTH_FLOW_ONLY" | "USER_PASSWORD_AUTH" | "ALLOW_ADMIN_USER_PASSWORD_AUTH" | "ALLOW_CUSTOM_AUTH" | "ALLOW_USER_PASSWORD_AUTH" | "ALLOW_USER_SRP_AUTH" | "ALLOW_REFRESH_TOKEN_AUTH") | fn.Fn)] | (("ADMIN_NO_SRP_AUTH" | "CUSTOM_AUTH_FLOW_ONLY" | "USER_PASSWORD_AUTH" | "ALLOW_ADMIN_USER_PASSWORD_AUTH" | "ALLOW_CUSTOM_AUTH" | "ALLOW_USER_PASSWORD_AUTH" | "ALLOW_USER_SRP_AUTH" | "ALLOW_REFRESH_TOKEN_AUTH") | fn.Fn)
 			GenerateSecret?:             bool | fn.Fn
+			IdTokenValidity?:            int | fn.Fn
 			LogoutURLs?:                 [...(string | fn.Fn)] | (string | fn.Fn)
 			PreventUserExistenceErrors?: string | fn.Fn
 			ReadAttributes?:             [...(string | fn.Fn)] | (string | fn.Fn)
 			RefreshTokenValidity?:       (>=0 & <=3650) | fn.Fn
 			SupportedIdentityProviders?: [...(string | fn.Fn)] | (string | fn.Fn)
-			UserPoolId:                  string | fn.Fn
-			WriteAttributes?:            [...(string | fn.Fn)] | (string | fn.Fn)
+			TokenValidityUnits?:         close({
+				AccessToken?:  string | fn.Fn
+				IdToken?:      string | fn.Fn
+				RefreshToken?: string | fn.Fn
+			}) | fn.If
+			UserPoolId:       string | fn.Fn
+			WriteAttributes?: [...(string | fn.Fn)] | (string | fn.Fn)
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

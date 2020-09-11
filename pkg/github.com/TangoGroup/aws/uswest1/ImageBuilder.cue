@@ -34,7 +34,7 @@ ImageBuilder :: {
 					[string]: _
 				} | fn.Fn
 				LicenseConfigurationArns?: [...(string | fn.Fn)] | (string | fn.Fn)
-				Region?:                   string | fn.Fn
+				Region:                    string | fn.Fn
 			})] | fn.If
 			Name:  string | fn.Fn
 			Tags?: {
@@ -141,7 +141,10 @@ ImageBuilder :: {
 			Logging?:            {
 				[string]: _
 			} | fn.Fn
-			Name:              string | fn.Fn
+			Name:          string | fn.Fn
+			ResourceTags?: {
+				[string]: string | fn.Fn
+			} | fn.If
 			SecurityGroupIds?: [...(string | fn.Fn)] | (string | fn.Fn)
 			SnsTopicArn?:      string | fn.Fn
 			SubnetId?:         string | fn.Fn

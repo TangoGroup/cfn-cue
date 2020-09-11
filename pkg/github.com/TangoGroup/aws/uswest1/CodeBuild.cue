@@ -17,8 +17,17 @@ CodeBuild :: {
 				Path?:                 string | fn.Fn
 				Type:                  ("CODEPIPELINE" | "NO_ARTIFACTS" | "S3") | fn.Fn
 			}) | fn.If
-			BadgeEnabled?: bool | fn.Fn
-			Cache?:        close({
+			BadgeEnabled?:     bool | fn.Fn
+			BuildBatchConfig?: close({
+				CombineArtifacts?: bool | fn.Fn
+				Restrictions?:     close({
+					ComputeTypesAllowed?:  [...(string | fn.Fn)] | (string | fn.Fn)
+					MaximumBuildsAllowed?: int | fn.Fn
+				}) | fn.If
+				ServiceRole?:   string | fn.Fn
+				TimeoutInMins?: int | fn.Fn
+			}) | fn.If
+			Cache?: close({
 				Location?: string | fn.Fn
 				Modes?:    [...(string | fn.Fn)] | (string | fn.Fn)
 				Type:      ("LOCAL" | "NO_CACHE" | "S3") | fn.Fn

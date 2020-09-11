@@ -6,6 +6,8 @@ GuardDuty :: {
 	Detector :: {
 		Type:       "AWS::GuardDuty::Detector"
 		Properties: close({
+			DataSources?: close({
+			}) | fn.If
 			Enable:                      bool | fn.Fn
 			FindingPublishingFrequency?: string | fn.Fn
 		})

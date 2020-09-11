@@ -6,6 +6,7 @@ AmazonMQ :: {
 	Broker :: {
 		Type:       "AWS::AmazonMQ::Broker"
 		Properties: close({
+			AuthenticationStrategy?: string | fn.Fn
 			AutoMinorVersionUpgrade: bool | fn.Fn
 			BrokerName:              string | fn.Fn
 			Configuration?:          close({
@@ -16,7 +17,11 @@ AmazonMQ :: {
 			EngineType:       string | fn.Fn
 			EngineVersion:    string | fn.Fn
 			HostInstanceType: string | fn.Fn
-			Logs?:            close({
+			LdapMetadata?:    close({
+			}) | fn.If
+			LdapServerMetadata?: close({
+			}) | fn.If
+			Logs?: close({
 			}) | fn.If
 			MaintenanceWindowStartTime?: close({
 			}) | fn.If

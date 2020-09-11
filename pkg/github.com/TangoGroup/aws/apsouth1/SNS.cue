@@ -32,7 +32,6 @@ SNS :: {
 		Properties: close({
 			ContentBasedDeduplication?: bool | fn.Fn
 			DisplayName?:               string | fn.Fn
-			FifoTopic?:                 bool | fn.Fn
 			KmsMasterKeyId?:            string | fn.Fn
 			Subscription?:              [...close({
 				Endpoint: string | fn.Fn

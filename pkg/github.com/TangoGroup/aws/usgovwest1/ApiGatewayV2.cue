@@ -123,6 +123,7 @@ ApiGatewayV2 :: {
 			CredentialsArn?:          string | fn.Fn
 			Description?:             string | fn.Fn
 			IntegrationMethod?:       string | fn.Fn
+			IntegrationSubtype?:      string | fn.Fn
 			IntegrationType:          string | fn.Fn
 			IntegrationUri?:          string | fn.Fn
 			PassthroughBehavior?:     string | fn.Fn

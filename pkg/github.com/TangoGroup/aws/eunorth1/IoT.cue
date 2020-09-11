@@ -6,8 +6,11 @@ IoT :: {
 	Certificate :: {
 		Type:       "AWS::IoT::Certificate"
 		Properties: close({
-			CertificateSigningRequest: string | fn.Fn
-			Status:                    string | fn.Fn
+			CACertificatePem?:          string | fn.Fn
+			CertificateMode?:           string | fn.Fn
+			CertificatePem?:            string | fn.Fn
+			CertificateSigningRequest?: string | fn.Fn
+			Status:                     string | fn.Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

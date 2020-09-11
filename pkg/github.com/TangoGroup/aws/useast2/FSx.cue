@@ -10,10 +10,12 @@ FSx :: {
 			FileSystemType:       string | fn.Fn
 			KmsKeyId?:            string | fn.Fn
 			LustreConfiguration?: close({
+				AutoImportPolicy?:              string | fn.Fn
 				AutomaticBackupRetentionDays?:  int | fn.Fn
 				CopyTagsToBackups?:             bool | fn.Fn
 				DailyAutomaticBackupStartTime?: string | fn.Fn
 				DeploymentType?:                string | fn.Fn
+				DriveCacheType?:                string | fn.Fn
 				ExportPath?:                    string | fn.Fn
 				ImportPath?:                    string | fn.Fn
 				ImportedFileChunkSize?:         int | fn.Fn

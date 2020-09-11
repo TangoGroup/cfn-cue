@@ -55,8 +55,8 @@ Lambda :: {
 			BatchSize?:                  (>=1 & <=10000) | fn.Fn
 			BisectBatchOnFunctionError?: bool | fn.Fn
 			DestinationConfig?:          close({
-				OnFailure: close({
-					Destination: string | fn.Fn
+				OnFailure?: close({
+					Destination?: string | fn.Fn
 				}) | fn.If
 			}) | fn.If
 			Enabled?:                        bool | fn.Fn
@@ -67,6 +67,7 @@ Lambda :: {
 			MaximumRetryAttempts?:           int | fn.Fn
 			ParallelizationFactor?:          int | fn.Fn
 			StartingPosition?:               string | fn.Fn
+			Topics?:                         [...(string | fn.Fn)] | (string | fn.Fn)
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -103,7 +104,7 @@ Lambda :: {
 			MemorySize?:                   (>=128 & <=3008) | fn.Fn
 			ReservedConcurrentExecutions?: int | fn.Fn
 			Role:                          (=~#"arn:(aws[a-zA-Z-]*)?:iam::\d{12}:role/[a-zA-Z_0-9+=,.@\-_/]+"#) | fn.Fn
-			Runtime:                       ("dotnetcore1.0" | "dotnetcore2.0" | "dotnetcore2.1" | "dotnetcore3.1" | "go1.x" | "java8" | "java11" | "nodejs" | "nodejs4.3-edge" | "nodejs4.3" | "nodejs6.10" | "nodejs8.10" | "nodejs10.x" | "nodejs12.x" | "provided" | "python2.7" | "python3.6" | "python3.7" | "python3.8" | "ruby2.5" | "ruby2.7") | fn.Fn
+			Runtime:                       ("dotnetcore1.0" | "dotnetcore2.0" | "dotnetcore2.1" | "dotnetcore3.1" | "go1.x" | "java8" | "java8.al2" | "java11" | "nodejs" | "nodejs4.3-edge" | "nodejs4.3" | "nodejs6.10" | "nodejs8.10" | "nodejs10.x" | "nodejs12.x" | "provided" | "provided.al2" | "python2.7" | "python3.6" | "python3.7" | "python3.8" | "ruby2.5" | "ruby2.7") | fn.Fn
 			Tags?:                         [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn

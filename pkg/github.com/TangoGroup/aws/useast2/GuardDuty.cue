@@ -6,6 +6,11 @@ GuardDuty :: {
 	Detector :: {
 		Type:       "AWS::GuardDuty::Detector"
 		Properties: close({
+			DataSources?: close({
+				S3Logs?: close({
+					Enable?: bool | fn.Fn
+				}) | fn.If
+			}) | fn.If
 			Enable:                      bool | fn.Fn
 			FindingPublishingFrequency?: ("FIFTEEN_MINUTES" | "ONE_HOUR" | "SIX_HOURS") | fn.Fn
 		})

@@ -132,8 +132,8 @@ ECS :: {
 				Command?:   [...(string | fn.Fn)] | (string | fn.Fn)
 				Cpu?:       int | fn.Fn
 				DependsOn?: [...close({
-					Condition:     string | fn.Fn
-					ContainerName: string | fn.Fn
+					Condition?:     string | fn.Fn
+					ContainerName?: string | fn.Fn
 				})] | fn.If
 				DisableNetworking?: bool | fn.Fn
 				DnsSearchDomains?:  [...(string | fn.Fn)] | (string | fn.Fn)
@@ -147,19 +147,23 @@ ECS :: {
 					Name?:  string | fn.Fn
 					Value?: string | fn.Fn
 				})] | fn.If
+				EnvironmentFiles?: [...close({
+					Type?:  string | fn.Fn
+					Value?: string | fn.Fn
+				})] | fn.If
 				Essential?:  bool | fn.Fn
 				ExtraHosts?: [...close({
-					Hostname:  string | fn.Fn
-					IpAddress: string | fn.Fn
+					Hostname?:  string | fn.Fn
+					IpAddress?: string | fn.Fn
 				})] | fn.If
 				FirelensConfiguration?: close({
 					Options?: {
 						[string]: string | fn.Fn
 					} | fn.If
-					Type: string | fn.Fn
+					Type?: string | fn.Fn
 				}) | fn.If
 				HealthCheck?: close({
-					Command:      [...(string | fn.Fn)] | (string | fn.Fn)
+					Command?:     [...(string | fn.Fn)] | (string | fn.Fn)
 					Interval?:    int | fn.Fn
 					Retries?:     int | fn.Fn
 					StartPeriod?: int | fn.Fn
@@ -176,7 +180,7 @@ ECS :: {
 					}) | fn.If
 					Devices?: [...close({
 						ContainerPath?: string | fn.Fn
-						HostPath:       string | fn.Fn
+						HostPath?:      string | fn.Fn
 						Permissions?:   [...(string | fn.Fn)] | (string | fn.Fn)
 					})] | fn.If
 					InitProcessEnabled?: bool | fn.Fn
@@ -229,8 +233,8 @@ ECS :: {
 				StartTimeout?:   int | fn.Fn
 				StopTimeout?:    int | fn.Fn
 				SystemControls?: [...close({
-					Namespace: string | fn.Fn
-					Value:     string | fn.Fn
+					Namespace?: string | fn.Fn
+					Value?:     string | fn.Fn
 				})] | fn.If
 				Ulimits?: [...close({
 					HardLimit: int | fn.Fn
@@ -284,6 +288,15 @@ ECS :: {
 						[string]: string | fn.Fn
 					} | fn.If
 					Scope?: string | fn.Fn
+				}) | fn.If
+				EFSVolumeConfiguration?: close({
+					AuthorizationConfig?: {
+						[string]: _
+					} | fn.Fn
+					FilesystemId:           string | fn.Fn
+					RootDirectory?:         string | fn.Fn
+					TransitEncryption?:     string | fn.Fn
+					TransitEncryptionPort?: int | fn.Fn
 				}) | fn.If
 				Host?: close({
 					SourcePath?: string | fn.Fn
