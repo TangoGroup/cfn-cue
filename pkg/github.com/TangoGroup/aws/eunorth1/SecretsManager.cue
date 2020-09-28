@@ -21,9 +21,17 @@ SecretsManager :: {
 		Type:       "AWS::SecretsManager::RotationSchedule"
 		Properties: close({
 			HostedRotationLambda?: close({
+				KmsKeyArn?:             string | fn.Fn
+				MasterSecretArn?:       string | fn.Fn
+				MasterSecretKmsKeyArn?: string | fn.Fn
+				RotationLambdaName?:    string | fn.Fn
+				RotationType:           string | fn.Fn
+				VpcSecurityGroupIds?:   string | fn.Fn
+				VpcSubnetIds?:          string | fn.Fn
 			}) | fn.If
 			RotationLambdaARN?: string | fn.Fn
 			RotationRules?:     close({
+				AutomaticallyAfterDays?: int | fn.Fn
 			}) | fn.If
 			SecretId: string | fn.Fn
 		})
@@ -38,6 +46,16 @@ SecretsManager :: {
 		Properties: close({
 			Description?:          string | fn.Fn
 			GenerateSecretString?: close({
+				ExcludeCharacters?:       string | fn.Fn
+				ExcludeLowercase?:        bool | fn.Fn
+				ExcludeNumbers?:          bool | fn.Fn
+				ExcludePunctuation?:      bool | fn.Fn
+				ExcludeUppercase?:        bool | fn.Fn
+				GenerateStringKey?:       string | fn.Fn
+				IncludeSpace?:            bool | fn.Fn
+				PasswordLength?:          int | fn.Fn
+				RequireEachIncludedType?: bool | fn.Fn
+				SecretStringTemplate?:    string | fn.Fn
 			}) | fn.If
 			KmsKeyId?:     string | fn.Fn
 			Name?:         string | fn.Fn

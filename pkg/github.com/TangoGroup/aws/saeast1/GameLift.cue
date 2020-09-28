@@ -88,6 +88,47 @@ GameLift :: {
 		Metadata?: [string]: _
 		Condition?: string
 	}
+	GameServerGroup :: {
+		Type:       "AWS::GameLift::GameServerGroup"
+		Properties: close({
+			AutoScalingPolicy?: close({
+				EstimatedInstanceWarmup?:    number | fn.Fn
+				TargetTrackingConfiguration: close({
+					TargetValue: number | fn.Fn
+				}) | fn.If
+			}) | fn.If
+			BalancingStrategy?:          string | fn.Fn
+			DeleteOption?:               string | fn.Fn
+			GameServerGroupName:         string | fn.Fn
+			GameServerProtectionPolicy?: string | fn.Fn
+			InstanceDefinitions:         close({
+				InstanceDefinitions?: [...close({
+					[string]: _
+				})] | fn.If
+			}) | fn.If
+			LaunchTemplate: close({
+				LaunchTemplateId?:   string | fn.Fn
+				LaunchTemplateName?: string | fn.Fn
+				Version?:            string | fn.Fn
+			}) | fn.If
+			MaxSize?: number | fn.Fn
+			MinSize?: number | fn.Fn
+			RoleArn:  string | fn.Fn
+			Tags?:    close({
+				Tags?: [...close({
+					[string]: _
+				})] | fn.If
+			}) | fn.If
+			VpcSubnets?: close({
+				VpcSubnets?: [...(string | fn.Fn)] | (string | fn.Fn)
+			}) | fn.If
+		})
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+		Condition?: string
+	}
 	GameSessionQueue :: {
 		Type:       "AWS::GameLift::GameSessionQueue"
 		Properties: close({

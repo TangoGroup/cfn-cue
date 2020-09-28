@@ -13,6 +13,8 @@ Cloud9 :: {
 			Name?:                     string | fn.Fn
 			OwnerArn?:                 string | fn.Fn
 			Repositories?:             [...close({
+				PathComponent: string | fn.Fn
+				RepositoryUrl: string | fn.Fn
 			})] | fn.If
 			SubnetId?: string | fn.Fn
 			Tags?:     [...close({

@@ -65,12 +65,12 @@ ApplicationAutoScaling :: {
 					})] | fn.If
 					MetricName: string | fn.Fn
 					Namespace:  string | fn.Fn
-					Statistic:  ("Average" | "Minimum" | "Maximum" | "SampleCount" | "Sum") | fn.Fn
+					Statistic:  ("Average" | "Maximum" | "Minimum" | "SampleCount" | "Sum") | fn.Fn
 					Unit?:      string | fn.Fn
 				}) | fn.If
 				DisableScaleIn?:                bool | fn.Fn
 				PredefinedMetricSpecification?: close({
-					PredefinedMetricType: ("ALBRequestCountPerTarget" | "AppStreamAverageCapacityUtilization" | "CassandraReadCapacityUtilization" | "CassandraWriteCapacityUtilization" | "ComprehendInferenceUtilization" | "DynamoDBReadCapacityUtilization" | "DynamoDBWriteCapacityUtilization" | "EC2SpotFleetRequestAverageCPUUtilization" | "EC2SpotFleetRequestAverageNetworkIn" | "EC2SpotFleetRequestAverageNetworkOut" | "ECSServiceAverageCPUUtilization" | "ECSServiceAverageMemoryUtilization" | "RDSReaderAverageCPUUtilization" | "RDSReaderAverageDatabaseConnections" | "SageMakerVariantInvocationsPerInstance" | "LambdaProvisionedConcurrencyUtilization") | fn.Fn
+					PredefinedMetricType: ("ALBRequestCountPerTarget" | "AppStreamAverageCapacityUtilization" | "CassandraReadCapacityUtilization" | "CassandraWriteCapacityUtilization" | "ComprehendInferenceUtilization" | "DynamoDBReadCapacityUtilization" | "DynamoDBWriteCapacityUtilization" | "EC2SpotFleetRequestAverageCPUUtilization" | "EC2SpotFleetRequestAverageNetworkIn" | "EC2SpotFleetRequestAverageNetworkOut" | "ECSServiceAverageCPUUtilization" | "ECSServiceAverageMemoryUtilization" | "LambdaProvisionedConcurrencyUtilization" | "RDSReaderAverageCPUUtilization" | "RDSReaderAverageDatabaseConnections" | "SageMakerVariantInvocationsPerInstance") | fn.Fn
 					ResourceLabel?:       string | fn.Fn
 				}) | fn.If
 				ScaleInCooldown?:  int | fn.Fn

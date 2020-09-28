@@ -99,7 +99,7 @@ AutoScaling :: {
 					Iops?:                int | fn.Fn
 					SnapshotId?:          string | fn.Fn
 					VolumeSize?:          int | fn.Fn
-					VolumeType?:          ("gp2" | "io1" | "sc1" | "st1" | "standard") | fn.Fn
+					VolumeType?:          ("gp2" | "io1" | "io2" | "sc1" | "st1" | "standard") | fn.Fn
 				}) | fn.If
 				NoDevice?:    bool | fn.Fn
 				VirtualName?: string | fn.Fn
@@ -169,7 +169,7 @@ AutoScaling :: {
 					})] | fn.If
 					MetricName: string | fn.Fn
 					Namespace:  string | fn.Fn
-					Statistic:  ("Average" | "Minimum" | "Maximum" | "SampleCount" | "Sum") | fn.Fn
+					Statistic:  ("Average" | "Maximum" | "Minimum" | "SampleCount" | "Sum") | fn.Fn
 					Unit?:      string | fn.Fn
 				}) | fn.If
 				DisableScaleIn?:                bool | fn.Fn

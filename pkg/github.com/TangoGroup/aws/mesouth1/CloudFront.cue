@@ -3,10 +3,30 @@ package mesouth1
 import "github.com/TangoGroup/aws/fn"
 
 CloudFront :: {
-	CloudFrontOriginAccessIdentity :: {
-		Type:       "AWS::CloudFront::CloudFrontOriginAccessIdentity"
+	CachePolicy :: {
+		Type:       "AWS::CloudFront::CachePolicy"
 		Properties: close({
-			CloudFrontOriginAccessIdentityConfig: close({
+			CachePolicyConfig: close({
+				Comment?:                                 string | fn.Fn
+				DefaultTTL:                               number | fn.Fn
+				MaxTTL:                                   number | fn.Fn
+				MinTTL:                                   number | fn.Fn
+				Name:                                     string | fn.Fn
+				ParametersInCacheKeyAndForwardedToOrigin: close({
+					CookiesConfig: close({
+						CookieBehavior: string | fn.Fn
+						Cookies?:       [...(string | fn.Fn)] | (string | fn.Fn)
+					}) | fn.If
+					EnableAcceptEncodingGzip: bool | fn.Fn
+					HeadersConfig:            close({
+						HeaderBehavior: string | fn.Fn
+						Headers?:       [...(string | fn.Fn)] | (string | fn.Fn)
+					}) | fn.If
+					QueryStringsConfig: close({
+						QueryStringBehavior: string | fn.Fn
+						QueryStrings?:       [...(string | fn.Fn)] | (string | fn.Fn)
+					}) | fn.If
+				}) | fn.If
 			}) | fn.If
 		})
 		DependsOn?:           string | [...string]
@@ -15,15 +35,25 @@ CloudFront :: {
 		Metadata?: [string]: _
 		Condition?: string
 	}
-	Distribution :: {
-		Type:       "AWS::CloudFront::Distribution"
+	OriginRequestPolicy :: {
+		Type:       "AWS::CloudFront::OriginRequestPolicy"
 		Properties: close({
-			DistributionConfig: close({
+			OriginRequestPolicyConfig: close({
+				Comment?:      string | fn.Fn
+				CookiesConfig: close({
+					CookieBehavior: string | fn.Fn
+					Cookies?:       [...(string | fn.Fn)] | (string | fn.Fn)
+				}) | fn.If
+				HeadersConfig: close({
+					HeaderBehavior: string | fn.Fn
+					Headers?:       [...(string | fn.Fn)] | (string | fn.Fn)
+				}) | fn.If
+				Name:               string | fn.Fn
+				QueryStringsConfig: close({
+					QueryStringBehavior: string | fn.Fn
+					QueryStrings?:       [...(string | fn.Fn)] | (string | fn.Fn)
+				}) | fn.If
 			}) | fn.If
-			Tags?: [...close({
-				Key:   string | fn.Fn
-				Value: string | fn.Fn
-			})] | fn.If
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -31,15 +61,19 @@ CloudFront :: {
 		Metadata?: [string]: _
 		Condition?: string
 	}
-	StreamingDistribution :: {
-		Type:       "AWS::CloudFront::StreamingDistribution"
+	RealtimeLogConfig :: {
+		Type:       "AWS::CloudFront::RealtimeLogConfig"
 		Properties: close({
-			StreamingDistributionConfig: close({
-			}) | fn.If
-			Tags: [...close({
-				Key:   string | fn.Fn
-				Value: string | fn.Fn
+			EndPoints: [...close({
+				KinesisStreamConfig: close({
+					RoleArn:   string | fn.Fn
+					StreamArn: string | fn.Fn
+				}) | fn.If
+				StreamType: string | fn.Fn
 			})] | fn.If
+			Fields:       [...(string | fn.Fn)] | (string | fn.Fn)
+			Name:         string | fn.Fn
+			SamplingRate: number | fn.Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

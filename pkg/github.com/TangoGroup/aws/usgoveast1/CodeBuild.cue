@@ -36,7 +36,7 @@ CodeBuild :: {
 			EncryptionKey?: string | fn.Fn
 			Environment:    close({
 				Certificate?:          string | fn.Fn
-				ComputeType:           ("BUILD_GENERAL1_LARGE" | "BUILD_GENERAL1_MEDIUM" | "BUILD_GENERAL1_SMALL") | fn.Fn
+				ComputeType:           ("BUILD_GENERAL1_2XLARGE" | "BUILD_GENERAL1_LARGE" | "BUILD_GENERAL1_MEDIUM" | "BUILD_GENERAL1_SMALL") | fn.Fn
 				EnvironmentVariables?: [...close({
 					Name:  string | fn.Fn
 					Type?: string | fn.Fn
@@ -49,7 +49,7 @@ CodeBuild :: {
 					Credential:         string | fn.Fn
 					CredentialProvider: string | fn.Fn
 				}) | fn.If
-				Type: ("ARM_CONTAINER" | "LINUX_CONTAINER" | "LINUX_GPU_CONTAINER" | "WINDOWS_CONTAINER") | fn.Fn
+				Type: ("ARM_CONTAINER" | "LINUX_CONTAINER" | "LINUX_GPU_CONTAINER" | "WINDOWS_CONTAINER" | "WINDOWS_SERVER_2019_CONTAINER") | fn.Fn
 			}) | fn.If
 			FileSystemLocations?: [...close({
 				Identifier:    string | fn.Fn

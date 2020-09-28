@@ -140,7 +140,7 @@ Cognito :: {
 			CallbackURLs?:               [...(string | fn.Fn)] | (string | fn.Fn)
 			ClientName?:                 string | fn.Fn
 			DefaultRedirectURI?:         string | fn.Fn
-			ExplicitAuthFlows?:          [...(("ADMIN_NO_SRP_AUTH" | "CUSTOM_AUTH_FLOW_ONLY" | "USER_PASSWORD_AUTH" | "ALLOW_ADMIN_USER_PASSWORD_AUTH" | "ALLOW_CUSTOM_AUTH" | "ALLOW_USER_PASSWORD_AUTH" | "ALLOW_USER_SRP_AUTH" | "ALLOW_REFRESH_TOKEN_AUTH") | fn.Fn)] | (("ADMIN_NO_SRP_AUTH" | "CUSTOM_AUTH_FLOW_ONLY" | "USER_PASSWORD_AUTH" | "ALLOW_ADMIN_USER_PASSWORD_AUTH" | "ALLOW_CUSTOM_AUTH" | "ALLOW_USER_PASSWORD_AUTH" | "ALLOW_USER_SRP_AUTH" | "ALLOW_REFRESH_TOKEN_AUTH") | fn.Fn)
+			ExplicitAuthFlows?:          [...(("ADMIN_NO_SRP_AUTH" | "ALLOW_ADMIN_USER_PASSWORD_AUTH" | "ALLOW_CUSTOM_AUTH" | "ALLOW_REFRESH_TOKEN_AUTH" | "ALLOW_USER_PASSWORD_AUTH" | "ALLOW_USER_SRP_AUTH" | "CUSTOM_AUTH_FLOW_ONLY" | "USER_PASSWORD_AUTH") | fn.Fn)] | (("ADMIN_NO_SRP_AUTH" | "ALLOW_ADMIN_USER_PASSWORD_AUTH" | "ALLOW_CUSTOM_AUTH" | "ALLOW_REFRESH_TOKEN_AUTH" | "ALLOW_USER_PASSWORD_AUTH" | "ALLOW_USER_SRP_AUTH" | "CUSTOM_AUTH_FLOW_ONLY" | "USER_PASSWORD_AUTH") | fn.Fn)
 			GenerateSecret?:             bool | fn.Fn
 			IdTokenValidity?:            int | fn.Fn
 			LogoutURLs?:                 [...(string | fn.Fn)] | (string | fn.Fn)

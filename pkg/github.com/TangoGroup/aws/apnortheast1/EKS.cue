@@ -12,6 +12,9 @@ EKS :: {
 				}) | fn.If
 				Resources?: [...(string | fn.Fn)] | (string | fn.Fn)
 			})] | fn.If
+			KubernetesNetworkConfig?: close({
+				ServiceIpv4Cidr?: string | fn.Fn
+			}) | fn.If
 			Name?:              string | fn.Fn
 			ResourcesVpcConfig: close({
 				SecurityGroupIds?: [...(string | fn.Fn)] | (string | fn.Fn)
@@ -19,6 +22,31 @@ EKS :: {
 			}) | fn.If
 			RoleArn:  string | fn.Fn
 			Version?: string | fn.Fn
+		})
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+		Condition?: string
+	}
+	FargateProfile :: {
+		Type:       "AWS::EKS::FargateProfile"
+		Properties: close({
+			ClusterName:         string | fn.Fn
+			FargateProfileName?: string | fn.Fn
+			PodExecutionRoleArn: string | fn.Fn
+			Selectors:           [...close({
+				Labels?: [...close({
+					Key:   string | fn.Fn
+					Value: string | fn.Fn
+				})] | fn.If
+				Namespace: string | fn.Fn
+			})] | fn.If
+			Subnets?: [...(string | fn.Fn)] | (string | fn.Fn)
+			Tags?:    [...close({
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
+			})] | fn.If
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

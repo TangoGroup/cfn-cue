@@ -69,6 +69,11 @@ ECS :: {
 	Service :: {
 		Type:       "AWS::ECS::Service"
 		Properties: close({
+			CapacityProviderStrategy?: [...close({
+				Base?:             int | fn.Fn
+				CapacityProvider?: string | fn.Fn
+				Weight?:           int | fn.Fn
+			})] | fn.If
 			Cluster?:                 string | fn.Fn
 			DeploymentConfiguration?: close({
 				MaximumPercent?:        int | fn.Fn
@@ -83,15 +88,15 @@ ECS :: {
 			LaunchType?:                    ("EC2" | "FARGATE") | fn.Fn
 			LoadBalancers?:                 [...close({
 				ContainerName?:    string | fn.Fn
-				ContainerPort:     int | fn.Fn
+				ContainerPort?:    int | fn.Fn
 				LoadBalancerName?: string | fn.Fn
 				TargetGroupArn?:   string | fn.Fn
 			})] | fn.If
 			NetworkConfiguration?: close({
-				AwsvpcConfiguration?: close({
+				AwsVpcConfiguration?: close({
 					AssignPublicIp?: string | fn.Fn
 					SecurityGroups?: [...(string | fn.Fn)] | (string | fn.Fn)
-					Subnets:         [...(string | fn.Fn)] | (string | fn.Fn)
+					Subnets?:        [...(string | fn.Fn)] | (string | fn.Fn)
 				}) | fn.If
 			}) | fn.If
 			PlacementConstraints?: [...close({
@@ -106,6 +111,7 @@ ECS :: {
 			PropagateTags?:      string | fn.Fn
 			Role?:               string | fn.Fn
 			SchedulingStrategy?: ("DAEMON" | "REPLICA") | fn.Fn
+			ServiceArn?:         string | fn.Fn
 			ServiceName?:        string | fn.Fn
 			ServiceRegistries?:  [...close({
 				ContainerName?: string | fn.Fn

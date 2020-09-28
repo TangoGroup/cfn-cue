@@ -6,7 +6,11 @@ ECR :: {
 	Repository :: {
 		Type:       "AWS::ECR::Repository"
 		Properties: close({
-			LifecyclePolicy?: close({
+			ImageScanningConfiguration?: {
+				[string]: _
+			} | fn.Fn
+			ImageTagMutability?: string | fn.Fn
+			LifecyclePolicy?:    close({
 				LifecyclePolicyText?: string | fn.Fn
 				RegistryId?:          string | fn.Fn
 			}) | fn.If

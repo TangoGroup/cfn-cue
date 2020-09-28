@@ -26,16 +26,22 @@ LakeFormation :: {
 			PermissionsWithGrantOption?: [...(string | fn.Fn)] | (string | fn.Fn)
 			Resource:                    close({
 				DataLocationResource?: close({
+					CatalogId?:  string | fn.Fn
 					S3Resource?: string | fn.Fn
 				}) | fn.If
 				DatabaseResource?: close({
-					Name?: string | fn.Fn
+					CatalogId?: string | fn.Fn
+					Name?:      string | fn.Fn
 				}) | fn.If
 				TableResource?: close({
-					DatabaseName?: string | fn.Fn
-					Name?:         string | fn.Fn
+					CatalogId?:     string | fn.Fn
+					DatabaseName?:  string | fn.Fn
+					Name?:          string | fn.Fn
+					TableWildcard?: close({
+					}) | fn.If
 				}) | fn.If
 				TableWithColumnsResource?: close({
+					CatalogId?:      string | fn.Fn
 					ColumnNames?:    [...(string | fn.Fn)] | (string | fn.Fn)
 					ColumnWildcard?: close({
 						ExcludedColumnNames?: [...(string | fn.Fn)] | (string | fn.Fn)

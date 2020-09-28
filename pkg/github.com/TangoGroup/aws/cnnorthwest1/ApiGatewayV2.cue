@@ -25,7 +25,12 @@ ApiGatewayV2 :: {
 				CertificateArn?:  string | fn.Fn
 				CertificateName?: string | fn.Fn
 				EndpointType?:    string | fn.Fn
+				SecurityPolicy?:  string | fn.Fn
 			})] | fn.If
+			MutualTlsAuthentication?: close({
+				TruststoreUri?:     string | fn.Fn
+				TruststoreVersion?: string | fn.Fn
+			}) | fn.If
 			Tags?: {
 				[string]: _
 			} | fn.Fn

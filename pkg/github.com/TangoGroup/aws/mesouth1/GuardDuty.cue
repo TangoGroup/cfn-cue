@@ -7,6 +7,9 @@ GuardDuty :: {
 		Type:       "AWS::GuardDuty::Detector"
 		Properties: close({
 			DataSources?: close({
+				S3Logs?: close({
+					Enable?: bool | fn.Fn
+				}) | fn.If
 			}) | fn.If
 			Enable:                      bool | fn.Fn
 			FindingPublishingFrequency?: string | fn.Fn
@@ -24,6 +27,16 @@ GuardDuty :: {
 			Description:     string | fn.Fn
 			DetectorId:      string | fn.Fn
 			FindingCriteria: close({
+				Criterion?: {
+					[string]: _
+				} | fn.Fn
+				ItemType?: close({
+					Eq?:  [...(string | fn.Fn)] | (string | fn.Fn)
+					Gte?: int | fn.Fn
+					Lt?:  int | fn.Fn
+					Lte?: int | fn.Fn
+					Neq?: [...(string | fn.Fn)] | (string | fn.Fn)
+				}) | fn.If
 			}) | fn.If
 			Name: string | fn.Fn
 			Rank: int | fn.Fn

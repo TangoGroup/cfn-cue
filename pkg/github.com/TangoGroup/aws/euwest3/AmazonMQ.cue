@@ -19,7 +19,7 @@ AmazonMQ :: {
 				UseAwsOwnedKey: bool | fn.Fn
 			}) | fn.If
 			EngineType:       ("ACTIVEMQ") | fn.Fn
-			EngineVersion:    ("5.15.0" | "5.15.6" | "5.15.8" | "5.15.9") | fn.Fn
+			EngineVersion:    ("5.15.0" | "5.15.6" | "5.15.8" | "5.15.9" | "5.15.10" | "5.15.12") | fn.Fn
 			HostInstanceType: ("mq.m5.2xlarge" | "mq.m5.4xlarge" | "mq.m5.large" | "mq.m5.xlarge" | "mq.t2.micro" | "mq.t3.micro") | fn.Fn
 			LdapMetadata?:    close({
 				InterBrokerCreds?: [...close({
@@ -89,7 +89,7 @@ AmazonMQ :: {
 			Data:          string | fn.Fn
 			Description?:  string | fn.Fn
 			EngineType:    ("ACTIVEMQ") | fn.Fn
-			EngineVersion: ("5.15.0" | "5.15.6" | "5.15.8" | "5.15.9") | fn.Fn
+			EngineVersion: ("5.15.0" | "5.15.6" | "5.15.8" | "5.15.9" | "5.15.10" | "5.15.12") | fn.Fn
 			Name:          string | fn.Fn
 			Tags?:         [...close({
 				Key:   string | fn.Fn

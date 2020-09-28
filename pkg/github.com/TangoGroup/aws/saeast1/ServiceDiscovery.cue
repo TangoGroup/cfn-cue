@@ -72,10 +72,20 @@ ServiceDiscovery :: {
 		Properties: close({
 			Description?: string | fn.Fn
 			DnsConfig?:   close({
+				DnsRecords: [...close({
+					TTL:  number | fn.Fn
+					Type: string | fn.Fn
+				})] | fn.If
+				NamespaceId?:   string | fn.Fn
+				RoutingPolicy?: string | fn.Fn
 			}) | fn.If
 			HealthCheckConfig?: close({
+				FailureThreshold?: number | fn.Fn
+				ResourcePath?:     string | fn.Fn
+				Type:              string | fn.Fn
 			}) | fn.If
 			HealthCheckCustomConfig?: close({
+				FailureThreshold?: number | fn.Fn
 			}) | fn.If
 			Name?:        string | fn.Fn
 			NamespaceId?: string | fn.Fn

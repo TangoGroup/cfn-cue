@@ -25,7 +25,7 @@ Route53 :: {
 				RequestInterval?:              int | fn.Fn
 				ResourcePath?:                 string | fn.Fn
 				SearchString?:                 string | fn.Fn
-				Type:                          ("CALCULATED" | "CLOUDWATCH_METRIC" | "HTTP_STR_MATCH" | "HTTP" | "HTTPS_STR_MATCH" | "HTTPS" | "TCP") | fn.Fn
+				Type:                          ("CALCULATED" | "CLOUDWATCH_METRIC" | "HTTP" | "HTTPS" | "HTTPS_STR_MATCH" | "HTTP_STR_MATCH" | "TCP") | fn.Fn
 			}) | fn.If
 			HealthCheckTags?: [...close({
 				Key:   string | fn.Fn

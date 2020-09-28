@@ -17,6 +17,7 @@ Amplify :: {
 				BuildSpec?:                string | fn.Fn
 				EnableAutoBranchCreation?: bool | fn.Fn
 				EnableAutoBuild?:          bool | fn.Fn
+				EnablePerformanceMode?:    bool | fn.Fn
 				EnablePullRequestPreview?: bool | fn.Fn
 				EnvironmentVariables?:     [...close({
 					Name:  string | fn.Fn
@@ -71,6 +72,7 @@ Amplify :: {
 			BuildSpec?:                string | fn.Fn
 			Description?:              string | fn.Fn
 			EnableAutoBuild?:          bool | fn.Fn
+			EnablePerformanceMode?:    bool | fn.Fn
 			EnablePullRequestPreview?: bool | fn.Fn
 			EnvironmentVariables?:     [...close({
 				Name:  string | fn.Fn

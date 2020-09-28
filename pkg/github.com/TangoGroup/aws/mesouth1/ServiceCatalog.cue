@@ -24,6 +24,12 @@ ServiceCatalog :: {
 			Name:                           string | fn.Fn
 			Owner:                          string | fn.Fn
 			ProvisioningArtifactParameters: [...close({
+				Description?:               string | fn.Fn
+				DisableTemplateValidation?: bool | fn.Fn
+				Info:                       {
+					[string]: _
+				} | fn.Fn
+				Name?: string | fn.Fn
 			})] | fn.If
 			ReplaceProvisioningArtifacts?: bool | fn.Fn
 			SupportDescription?:           string | fn.Fn
@@ -53,8 +59,17 @@ ServiceCatalog :: {
 			ProvisioningArtifactId?:   string | fn.Fn
 			ProvisioningArtifactName?: string | fn.Fn
 			ProvisioningParameters?:   [...close({
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
 			})] | fn.If
 			ProvisioningPreferences?: close({
+				StackSetAccounts?:                   [...(string | fn.Fn)] | (string | fn.Fn)
+				StackSetFailureToleranceCount?:      int | fn.Fn
+				StackSetFailureTolerancePercentage?: int | fn.Fn
+				StackSetMaxConcurrencyCount?:        int | fn.Fn
+				StackSetMaxConcurrencyPercentage?:   int | fn.Fn
+				StackSetOperationType?:              string | fn.Fn
+				StackSetRegions?:                    [...(string | fn.Fn)] | (string | fn.Fn)
 			}) | fn.If
 			Tags?: [...close({
 				Key:   string | fn.Fn

@@ -18,6 +18,11 @@ MSK :: {
 				}) | fn.If
 			}) | fn.If
 			ClientAuthentication?: close({
+				Sasl?: close({
+					Scram: close({
+						Enabled: bool | fn.Fn
+					}) | fn.If
+				}) | fn.If
 				Tls?: close({
 					CertificateAuthorityArnList?: [...(string | fn.Fn)] | (string | fn.Fn)
 				}) | fn.If

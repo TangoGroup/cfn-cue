@@ -3,6 +3,38 @@ package euwest2
 import "github.com/TangoGroup/aws/fn"
 
 CloudFront :: {
+	CachePolicy :: {
+		Type:       "AWS::CloudFront::CachePolicy"
+		Properties: close({
+			CachePolicyConfig: close({
+				Comment?:                                 string | fn.Fn
+				DefaultTTL:                               number | fn.Fn
+				MaxTTL:                                   number | fn.Fn
+				MinTTL:                                   number | fn.Fn
+				Name:                                     string | fn.Fn
+				ParametersInCacheKeyAndForwardedToOrigin: close({
+					CookiesConfig: close({
+						CookieBehavior: string | fn.Fn
+						Cookies?:       [...(string | fn.Fn)] | (string | fn.Fn)
+					}) | fn.If
+					EnableAcceptEncodingGzip: bool | fn.Fn
+					HeadersConfig:            close({
+						HeaderBehavior: string | fn.Fn
+						Headers?:       [...(string | fn.Fn)] | (string | fn.Fn)
+					}) | fn.If
+					QueryStringsConfig: close({
+						QueryStringBehavior: string | fn.Fn
+						QueryStrings?:       [...(string | fn.Fn)] | (string | fn.Fn)
+					}) | fn.If
+				}) | fn.If
+			}) | fn.If
+		})
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+		Condition?: string
+	}
 	CloudFrontOriginAccessIdentity :: {
 		Type:       "AWS::CloudFront::CloudFrontOriginAccessIdentity"
 		Properties: close({
@@ -46,6 +78,7 @@ CloudFront :: {
 					MinTTL?:                number | fn.Fn
 					OriginRequestPolicyId?: string | fn.Fn
 					PathPattern:            string | fn.Fn
+					RealtimeLogConfigArn?:  string | fn.Fn
 					SmoothStreaming?:       bool | fn.Fn
 					TargetOriginId:         string | fn.Fn
 					TrustedSigners?:        [...(string | fn.Fn)] | (string | fn.Fn)
@@ -82,6 +115,7 @@ CloudFront :: {
 					MaxTTL?:                number | fn.Fn
 					MinTTL?:                number | fn.Fn
 					OriginRequestPolicyId?: string | fn.Fn
+					RealtimeLogConfigArn?:  string | fn.Fn
 					SmoothStreaming?:       bool | fn.Fn
 					TargetOriginId:         string | fn.Fn
 					TrustedSigners?:        [...(string | fn.Fn)] | (string | fn.Fn)
@@ -123,7 +157,7 @@ CloudFront :: {
 						OriginKeepaliveTimeout?: int | fn.Fn
 						OriginProtocolPolicy:    ("http-only" | "https-only" | "match-viewer") | fn.Fn
 						OriginReadTimeout?:      int | fn.Fn
-						OriginSSLProtocols?:     [...(("SSLv3" | "TLSv1.1" | "TLSv1.2" | "TLSv1") | fn.Fn)] | (("SSLv3" | "TLSv1.1" | "TLSv1.2" | "TLSv1") | fn.Fn)
+						OriginSSLProtocols?:     [...(("SSLv3" | "TLSv1" | "TLSv1.1" | "TLSv1.2") | fn.Fn)] | (("SSLv3" | "TLSv1" | "TLSv1.1" | "TLSv1.2") | fn.Fn)
 					}) | fn.If
 					DomainName:           string | fn.Fn
 					Id:                   string | fn.Fn
@@ -147,8 +181,8 @@ CloudFront :: {
 					AcmCertificateArn?:            string | fn.Fn
 					CloudFrontDefaultCertificate?: bool | fn.Fn
 					IamCertificateId?:             string | fn.Fn
-					MinimumProtocolVersion?:       ("SSLv3" | "TLSv1" | "TLSv1_2016" | "TLSv1.1_2016" | "TLSv1.2_2018" | "TLSv1.2_2019") | fn.Fn
-					SslSupportMethod?:             ("sni-only" | "vip") | fn.Fn
+					MinimumProtocolVersion?:       ("SSLv3" | "TLSv1" | "TLSv1.1_2016" | "TLSv1.2_2018" | "TLSv1.2_2019" | "TLSv1_2016") | fn.Fn
+					SslSupportMethod?:             ("sni-only" | "static-ip" | "vip") | fn.Fn
 				}) | fn.If
 				WebACLId?: string | fn.Fn
 			}) | fn.If
@@ -156,6 +190,52 @@ CloudFront :: {
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			})] | fn.If
+		})
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+		Condition?: string
+	}
+	OriginRequestPolicy :: {
+		Type:       "AWS::CloudFront::OriginRequestPolicy"
+		Properties: close({
+			OriginRequestPolicyConfig: close({
+				Comment?:      string | fn.Fn
+				CookiesConfig: close({
+					CookieBehavior: string | fn.Fn
+					Cookies?:       [...(string | fn.Fn)] | (string | fn.Fn)
+				}) | fn.If
+				HeadersConfig: close({
+					HeaderBehavior: string | fn.Fn
+					Headers?:       [...(string | fn.Fn)] | (string | fn.Fn)
+				}) | fn.If
+				Name:               string | fn.Fn
+				QueryStringsConfig: close({
+					QueryStringBehavior: string | fn.Fn
+					QueryStrings?:       [...(string | fn.Fn)] | (string | fn.Fn)
+				}) | fn.If
+			}) | fn.If
+		})
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+		Condition?: string
+	}
+	RealtimeLogConfig :: {
+		Type:       "AWS::CloudFront::RealtimeLogConfig"
+		Properties: close({
+			EndPoints: [...close({
+				KinesisStreamConfig: close({
+					RoleArn:   string | fn.Fn
+					StreamArn: string | fn.Fn
+				}) | fn.If
+				StreamType: string | fn.Fn
+			})] | fn.If
+			Fields:       [...(string | fn.Fn)] | (string | fn.Fn)
+			Name:         string | fn.Fn
+			SamplingRate: number | fn.Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

@@ -60,8 +60,8 @@ Route53Resolver :: {
 				Value: string | fn.Fn
 			})] | fn.If
 			TargetIps?: [...close({
-				Ip:   string | fn.Fn
-				Port: string | fn.Fn
+				Ip:    string | fn.Fn
+				Port?: string | fn.Fn
 			})] | fn.If
 		})
 		DependsOn?:           string | [...string]

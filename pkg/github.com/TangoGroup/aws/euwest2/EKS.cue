@@ -12,6 +12,9 @@ EKS :: {
 				}) | fn.If
 				Resources?: [...(string | fn.Fn)] | (string | fn.Fn)
 			})] | fn.If
+			KubernetesNetworkConfig?: close({
+				ServiceIpv4Cidr?: string | fn.Fn
+			}) | fn.If
 			Name?:              string | fn.Fn
 			ResourcesVpcConfig: close({
 				SecurityGroupIds?: [...(string | fn.Fn)] | (string | fn.Fn)

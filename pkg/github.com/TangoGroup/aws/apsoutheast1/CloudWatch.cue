@@ -13,7 +13,7 @@ CloudWatch :: {
 			AlarmActions?:      [...((strings.MinRunes(1) & strings.MaxRunes(1024)) | fn.Fn)] | ((strings.MinRunes(1) & strings.MaxRunes(1024)) | fn.Fn)
 			AlarmDescription?:  string | fn.Fn
 			AlarmName?:         string | fn.Fn
-			ComparisonOperator: ("GreaterThanOrEqualToThreshold" | "GreaterThanThreshold" | "LessThanThreshold" | "LessThanOrEqualToThreshold" | "LessThanLowerOrGreaterThanUpperThreshold" | "LessThanLowerThreshold" | "GreaterThanUpperThreshold") | fn.Fn
+			ComparisonOperator: ("GreaterThanOrEqualToThreshold" | "GreaterThanThreshold" | "GreaterThanUpperThreshold" | "LessThanLowerOrGreaterThanUpperThreshold" | "LessThanLowerThreshold" | "LessThanOrEqualToThreshold" | "LessThanThreshold") | fn.Fn
 			DatapointsToAlarm?: int | fn.Fn
 			Dimensions?:        [...close({
 				Name:  string | fn.Fn

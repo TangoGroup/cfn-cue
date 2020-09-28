@@ -8,6 +8,8 @@ Route53Resolver :: {
 		Properties: close({
 			Direction:   string | fn.Fn
 			IpAddresses: [...close({
+				Ip?:      string | fn.Fn
+				SubnetId: string | fn.Fn
 			})] | fn.If
 			Name?:            string | fn.Fn
 			SecurityGroupIds: [...(string | fn.Fn)] | (string | fn.Fn)
@@ -58,6 +60,8 @@ Route53Resolver :: {
 				Value: string | fn.Fn
 			})] | fn.If
 			TargetIps?: [...close({
+				Ip:    string | fn.Fn
+				Port?: string | fn.Fn
 			})] | fn.If
 		})
 		DependsOn?:           string | [...string]

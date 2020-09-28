@@ -6,7 +6,7 @@ StepFunctions :: {
 	Activity :: {
 		Type:       "AWS::StepFunctions::Activity"
 		Properties: close({
-			Name:  string | fn.Fn
+			Arn?:  string | fn.Fn
 			Tags?: [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn

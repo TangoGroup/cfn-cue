@@ -52,7 +52,7 @@ GuardDuty :: {
 		Properties: close({
 			Activate:   bool | fn.Fn
 			DetectorId: string | fn.Fn
-			Format:     ("OTX_CSV" | "STIX" | "TXT") | fn.Fn
+			Format:     ("ALIEN_VAULT" | "FIRE_EYE" | "OTX_CSV" | "PROOF_POINT" | "STIX" | "TXT") | fn.Fn
 			Location:   string | fn.Fn
 			Name?:      string | fn.Fn
 		})

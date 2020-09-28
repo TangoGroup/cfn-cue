@@ -25,15 +25,16 @@ ApiGatewayV2 :: {
 				ExposeHeaders?:    [...(string | fn.Fn)] | (string | fn.Fn)
 				MaxAge?:           int | fn.Fn
 			}) | fn.If
-			CredentialsArn?:           string | fn.Fn
-			Description?:              string | fn.Fn
-			DisableSchemaValidation?:  bool | fn.Fn
-			FailOnWarnings?:           bool | fn.Fn
-			Name?:                     string | fn.Fn
-			ProtocolType?:             string | fn.Fn
-			RouteKey?:                 string | fn.Fn
-			RouteSelectionExpression?: string | fn.Fn
-			Tags?:                     {
+			CredentialsArn?:            string | fn.Fn
+			Description?:               string | fn.Fn
+			DisableExecuteApiEndpoint?: bool | fn.Fn
+			DisableSchemaValidation?:   bool | fn.Fn
+			FailOnWarnings?:            bool | fn.Fn
+			Name?:                      string | fn.Fn
+			ProtocolType?:              string | fn.Fn
+			RouteKey?:                  string | fn.Fn
+			RouteSelectionExpression?:  string | fn.Fn
+			Tags?:                      {
 				[string]: _
 			} | fn.Fn
 			Target?:  string | fn.Fn
@@ -62,14 +63,16 @@ ApiGatewayV2 :: {
 	Authorizer :: {
 		Type:       "AWS::ApiGatewayV2::Authorizer"
 		Properties: close({
-			ApiId:                         string | fn.Fn
-			AuthorizerCredentialsArn?:     string | fn.Fn
-			AuthorizerResultTtlInSeconds?: int | fn.Fn
-			AuthorizerType:                string | fn.Fn
-			AuthorizerUri?:                string | fn.Fn
-			IdentitySource:                [...(string | fn.Fn)] | (string | fn.Fn)
-			IdentityValidationExpression?: string | fn.Fn
-			JwtConfiguration?:             close({
+			ApiId:                           string | fn.Fn
+			AuthorizerCredentialsArn?:       string | fn.Fn
+			AuthorizerPayloadFormatVersion?: string | fn.Fn
+			AuthorizerResultTtlInSeconds?:   int | fn.Fn
+			AuthorizerType:                  string | fn.Fn
+			AuthorizerUri?:                  string | fn.Fn
+			EnableSimpleResponses?:          bool | fn.Fn
+			IdentitySource:                  [...(string | fn.Fn)] | (string | fn.Fn)
+			IdentityValidationExpression?:   string | fn.Fn
+			JwtConfiguration?:               close({
 				Audience?: [...(string | fn.Fn)] | (string | fn.Fn)
 				Issuer?:   string | fn.Fn
 			}) | fn.If
@@ -102,7 +105,12 @@ ApiGatewayV2 :: {
 				CertificateArn?:  string | fn.Fn
 				CertificateName?: string | fn.Fn
 				EndpointType?:    string | fn.Fn
+				SecurityPolicy?:  string | fn.Fn
 			})] | fn.If
+			MutualTlsAuthentication?: close({
+				TruststoreUri?:     string | fn.Fn
+				TruststoreVersion?: string | fn.Fn
+			}) | fn.If
 			Tags?: {
 				[string]: _
 			} | fn.Fn

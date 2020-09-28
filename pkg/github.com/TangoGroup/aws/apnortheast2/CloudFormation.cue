@@ -50,6 +50,54 @@ CloudFormation :: {
 		Metadata?: [string]: _
 		Condition?: string
 	}
+	StackSet :: {
+		Type:       "AWS::CloudFormation::StackSet"
+		Properties: close({
+			AdministrationRoleARN?: string | fn.Fn
+			AutoDeployment?:        close({
+				Enabled?:                      bool | fn.Fn
+				RetainStacksOnAccountRemoval?: bool | fn.Fn
+			}) | fn.If
+			Capabilities?:         [...(string | fn.Fn)] | (string | fn.Fn)
+			Description?:          string | fn.Fn
+			ExecutionRoleName?:    string | fn.Fn
+			OperationPreferences?: close({
+				FailureToleranceCount?:      int | fn.Fn
+				FailureTolerancePercentage?: int | fn.Fn
+				MaxConcurrentCount?:         int | fn.Fn
+				MaxConcurrentPercentage?:    int | fn.Fn
+				RegionOrder?:                [...(string | fn.Fn)] | (string | fn.Fn)
+			}) | fn.If
+			Parameters?: [...close({
+				ParameterKey:   string | fn.Fn
+				ParameterValue: string | fn.Fn
+			})] | fn.If
+			PermissionModel?:     string | fn.Fn
+			StackInstancesGroup?: [...close({
+				DeploymentTargets: close({
+					Accounts?:              [...(string | fn.Fn)] | (string | fn.Fn)
+					OrganizationalUnitIds?: [...(string | fn.Fn)] | (string | fn.Fn)
+				}) | fn.If
+				ParameterOverrides?: [...close({
+					ParameterKey:   string | fn.Fn
+					ParameterValue: string | fn.Fn
+				})] | fn.If
+				Regions: [...(string | fn.Fn)] | (string | fn.Fn)
+			})] | fn.If
+			StackSetName?: string | fn.Fn
+			Tags?:         [...close({
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
+			})] | fn.If
+			TemplateBody?: string | fn.Fn
+			TemplateURL?:  string | fn.Fn
+		})
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+		Condition?: string
+	}
 	WaitCondition :: {
 		Type:       "AWS::CloudFormation::WaitCondition"
 		Properties: close({

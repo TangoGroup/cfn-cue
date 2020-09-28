@@ -50,14 +50,34 @@ Batch :: {
 					Name?:  string | fn.Fn
 					Value?: string | fn.Fn
 				})] | fn.If
-				Image:            string | fn.Fn
-				InstanceType?:    string | fn.Fn
-				JobRoleArn?:      string | fn.Fn
-				LinuxParameters?: close({
+				ExecutionRoleArn?: string | fn.Fn
+				Image:             string | fn.Fn
+				InstanceType?:     string | fn.Fn
+				JobRoleArn?:       string | fn.Fn
+				LinuxParameters?:  close({
 					Devices?: [...close({
 						ContainerPath?: string | fn.Fn
 						HostPath?:      string | fn.Fn
 						Permissions?:   [...(string | fn.Fn)] | (string | fn.Fn)
+					})] | fn.If
+					InitProcessEnabled?: bool | fn.Fn
+					MaxSwap?:            int | fn.Fn
+					SharedMemorySize?:   int | fn.Fn
+					Swappiness?:         int | fn.Fn
+					Tmpfs?:              [...close({
+						ContainerPath: string | fn.Fn
+						MountOptions?: [...(string | fn.Fn)] | (string | fn.Fn)
+						Size:          int | fn.Fn
+					})] | fn.If
+				}) | fn.If
+				LogConfiguration?: close({
+					LogDriver: string | fn.Fn
+					Options?:  {
+						[string]: _
+					} | fn.Fn
+					SecretOptions?: [...close({
+						Name:      string | fn.Fn
+						ValueFrom: string | fn.Fn
 					})] | fn.If
 				}) | fn.If
 				Memory?:      int | fn.Fn
@@ -71,6 +91,10 @@ Batch :: {
 				ResourceRequirements?:   [...close({
 					Type?:  string | fn.Fn
 					Value?: string | fn.Fn
+				})] | fn.If
+				Secrets?: [...close({
+					Name:      string | fn.Fn
+					ValueFrom: string | fn.Fn
 				})] | fn.If
 				Ulimits?: [...close({
 					HardLimit: int | fn.Fn
@@ -96,14 +120,34 @@ Batch :: {
 							Name?:  string | fn.Fn
 							Value?: string | fn.Fn
 						})] | fn.If
-						Image:            string | fn.Fn
-						InstanceType?:    string | fn.Fn
-						JobRoleArn?:      string | fn.Fn
-						LinuxParameters?: close({
+						ExecutionRoleArn?: string | fn.Fn
+						Image:             string | fn.Fn
+						InstanceType?:     string | fn.Fn
+						JobRoleArn?:       string | fn.Fn
+						LinuxParameters?:  close({
 							Devices?: [...close({
 								ContainerPath?: string | fn.Fn
 								HostPath?:      string | fn.Fn
 								Permissions?:   [...(string | fn.Fn)] | (string | fn.Fn)
+							})] | fn.If
+							InitProcessEnabled?: bool | fn.Fn
+							MaxSwap?:            int | fn.Fn
+							SharedMemorySize?:   int | fn.Fn
+							Swappiness?:         int | fn.Fn
+							Tmpfs?:              [...close({
+								ContainerPath: string | fn.Fn
+								MountOptions?: [...(string | fn.Fn)] | (string | fn.Fn)
+								Size:          int | fn.Fn
+							})] | fn.If
+						}) | fn.If
+						LogConfiguration?: close({
+							LogDriver: string | fn.Fn
+							Options?:  {
+								[string]: _
+							} | fn.Fn
+							SecretOptions?: [...close({
+								Name:      string | fn.Fn
+								ValueFrom: string | fn.Fn
 							})] | fn.If
 						}) | fn.If
 						Memory?:      int | fn.Fn
@@ -117,6 +161,10 @@ Batch :: {
 						ResourceRequirements?:   [...close({
 							Type?:  string | fn.Fn
 							Value?: string | fn.Fn
+						})] | fn.If
+						Secrets?: [...close({
+							Name:      string | fn.Fn
+							ValueFrom: string | fn.Fn
 						})] | fn.If
 						Ulimits?: [...close({
 							HardLimit: int | fn.Fn

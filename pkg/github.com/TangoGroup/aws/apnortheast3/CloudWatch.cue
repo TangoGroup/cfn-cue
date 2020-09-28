@@ -13,7 +13,7 @@ CloudWatch :: {
 			AlarmActions?:      [...((strings.MinRunes(1) & strings.MaxRunes(1024)) | fn.Fn)] | ((strings.MinRunes(1) & strings.MaxRunes(1024)) | fn.Fn)
 			AlarmDescription?:  string | fn.Fn
 			AlarmName?:         string | fn.Fn
-			ComparisonOperator: ("GreaterThanOrEqualToThreshold" | "GreaterThanThreshold" | "LessThanThreshold" | "LessThanOrEqualToThreshold" | "LessThanLowerOrGreaterThanUpperThreshold" | "LessThanLowerThreshold" | "GreaterThanUpperThreshold") | fn.Fn
+			ComparisonOperator: ("GreaterThanOrEqualToThreshold" | "GreaterThanThreshold" | "GreaterThanUpperThreshold" | "LessThanLowerOrGreaterThanUpperThreshold" | "LessThanLowerThreshold" | "LessThanOrEqualToThreshold" | "LessThanThreshold") | fn.Fn
 			DatapointsToAlarm?: int | fn.Fn
 			Dimensions?:        [...close({
 				Name:  string | fn.Fn
@@ -76,6 +76,23 @@ CloudWatch :: {
 			MetricName: string | fn.Fn
 			Namespace:  string | fn.Fn
 			Stat:       string | fn.Fn
+		})
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+		Condition?: string
+	}
+	CompositeAlarm :: {
+		Type:       "AWS::CloudWatch::CompositeAlarm"
+		Properties: close({
+			ActionsEnabled?:          bool | fn.Fn
+			AlarmActions?:            [...(string | fn.Fn)] | (string | fn.Fn)
+			AlarmDescription?:        string | fn.Fn
+			AlarmName:                string | fn.Fn
+			AlarmRule:                string | fn.Fn
+			InsufficientDataActions?: [...(string | fn.Fn)] | (string | fn.Fn)
+			OKActions?:               [...(string | fn.Fn)] | (string | fn.Fn)
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

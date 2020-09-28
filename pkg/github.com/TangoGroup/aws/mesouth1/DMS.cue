@@ -22,25 +22,60 @@ DMS :: {
 			CertificateArn?:   string | fn.Fn
 			DatabaseName?:     string | fn.Fn
 			DynamoDbSettings?: close({
+				ServiceAccessRoleArn?: string | fn.Fn
 			}) | fn.If
 			ElasticsearchSettings?: close({
+				EndpointUri?:             string | fn.Fn
+				ErrorRetryDuration?:      int | fn.Fn
+				FullLoadErrorPercentage?: int | fn.Fn
+				ServiceAccessRoleArn?:    string | fn.Fn
 			}) | fn.If
 			EndpointIdentifier?:        string | fn.Fn
 			EndpointType:               string | fn.Fn
 			EngineName:                 string | fn.Fn
 			ExtraConnectionAttributes?: string | fn.Fn
 			KafkaSettings?:             close({
+				Broker?: string | fn.Fn
+				Topic?:  string | fn.Fn
 			}) | fn.If
 			KinesisSettings?: close({
+				MessageFormat?:        string | fn.Fn
+				ServiceAccessRoleArn?: string | fn.Fn
+				StreamArn?:            string | fn.Fn
 			}) | fn.If
 			KmsKeyId?:        string | fn.Fn
 			MongoDbSettings?: close({
+				AuthMechanism?:     string | fn.Fn
+				AuthSource?:        string | fn.Fn
+				AuthType?:          string | fn.Fn
+				DatabaseName?:      string | fn.Fn
+				DocsToInvestigate?: string | fn.Fn
+				ExtractDocId?:      string | fn.Fn
+				NestingLevel?:      string | fn.Fn
+				Password?:          string | fn.Fn
+				Port?:              int | fn.Fn
+				ServerName?:        string | fn.Fn
+				Username?:          string | fn.Fn
 			}) | fn.If
 			NeptuneSettings?: close({
+				ErrorRetryDuration?:   int | fn.Fn
+				IamAuthEnabled?:       bool | fn.Fn
+				MaxFileSize?:          int | fn.Fn
+				MaxRetryCount?:        int | fn.Fn
+				S3BucketFolder?:       string | fn.Fn
+				S3BucketName?:         string | fn.Fn
+				ServiceAccessRoleArn?: string | fn.Fn
 			}) | fn.If
 			Password?:   string | fn.Fn
 			Port?:       int | fn.Fn
 			S3Settings?: close({
+				BucketFolder?:            string | fn.Fn
+				BucketName?:              string | fn.Fn
+				CompressionType?:         string | fn.Fn
+				CsvDelimiter?:            string | fn.Fn
+				CsvRowDelimiter?:         string | fn.Fn
+				ExternalTableDefinition?: string | fn.Fn
+				ServiceAccessRoleArn?:    string | fn.Fn
 			}) | fn.If
 			ServerName?: string | fn.Fn
 			SslMode?:    string | fn.Fn

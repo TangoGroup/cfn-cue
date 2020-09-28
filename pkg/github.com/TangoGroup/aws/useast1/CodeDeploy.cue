@@ -67,7 +67,7 @@ CodeDeploy :: {
 			DeploymentConfigName?: string | fn.Fn
 			DeploymentGroupName?:  string | fn.Fn
 			DeploymentStyle?:      close({
-				DeploymentOption?: ("WITH_TRAFFIC_CONTROL" | "WITHOUT_TRAFFIC_CONTROL") | fn.Fn
+				DeploymentOption?: ("WITHOUT_TRAFFIC_CONTROL" | "WITH_TRAFFIC_CONTROL") | fn.Fn
 				DeploymentType?:   ("BLUE_GREEN" | "IN_PLACE") | fn.Fn
 			}) | fn.If
 			Ec2TagFilters?: [...close({

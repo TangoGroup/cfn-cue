@@ -34,12 +34,14 @@ AppStream :: {
 			}) | fn.If
 			EnableDefaultInternetAccess?:    bool | fn.Fn
 			FleetType?:                      string | fn.Fn
+			IamRoleArn?:                     string | fn.Fn
 			IdleDisconnectTimeoutInSeconds?: (>=0 & <=3600) | fn.Fn
 			ImageArn?:                       string | fn.Fn
 			ImageName?:                      string | fn.Fn
 			InstanceType:                    ("stream.compute.2xlarge" | "stream.compute.4xlarge" | "stream.compute.8xlarge" | "stream.compute.large" | "stream.compute.xlarge" | "stream.graphics-desktop.2xlarge" | "stream.graphics.g4dn.12xlarge" | "stream.graphics.g4dn.16xlarge" | "stream.graphics.g4dn.2xlarge" | "stream.graphics.g4dn.4xlarge" | "stream.graphics.g4dn.8xlarge" | "stream.graphics.g4dn.xlarge" | "stream.memory.2xlarge" | "stream.memory.4xlarge" | "stream.memory.8xlarge" | "stream.memory.large" | "stream.memory.xlarge" | "stream.memory.z1d.12xlarge" | "stream.memory.z1d.2xlarge" | "stream.memory.z1d.3xlarge" | "stream.memory.z1d.6xlarge" | "stream.memory.z1d.large" | "stream.memory.z1d.xlarge" | "stream.standard.large" | "stream.standard.medium") | fn.Fn
 			MaxUserDurationInSeconds?:       (>=600 & <=360000) | fn.Fn
 			Name:                            string | fn.Fn
+			StreamView?:                     string | fn.Fn
 			Tags?:                           [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
@@ -70,6 +72,7 @@ AppStream :: {
 				OrganizationalUnitDistinguishedName?: string | fn.Fn
 			}) | fn.If
 			EnableDefaultInternetAccess?: bool | fn.Fn
+			IamRoleArn?:                  string | fn.Fn
 			ImageArn?:                    string | fn.Fn
 			ImageName?:                   string | fn.Fn
 			InstanceType:                 ("stream.compute.2xlarge" | "stream.compute.4xlarge" | "stream.compute.8xlarge" | "stream.compute.large" | "stream.compute.xlarge" | "stream.graphics-desktop.2xlarge" | "stream.graphics.g4dn.12xlarge" | "stream.graphics.g4dn.16xlarge" | "stream.graphics.g4dn.2xlarge" | "stream.graphics.g4dn.4xlarge" | "stream.graphics.g4dn.8xlarge" | "stream.graphics.g4dn.xlarge" | "stream.memory.2xlarge" | "stream.memory.4xlarge" | "stream.memory.8xlarge" | "stream.memory.large" | "stream.memory.xlarge" | "stream.memory.z1d.12xlarge" | "stream.memory.z1d.2xlarge" | "stream.memory.z1d.3xlarge" | "stream.memory.z1d.6xlarge" | "stream.memory.z1d.large" | "stream.memory.z1d.xlarge" | "stream.standard.large" | "stream.standard.medium") | fn.Fn

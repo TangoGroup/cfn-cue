@@ -6,6 +6,10 @@ Neptune :: {
 	DBCluster :: {
 		Type:       "AWS::Neptune::DBCluster"
 		Properties: close({
+			AssociatedRoles?: [...close({
+				FeatureName?: string | fn.Fn
+				RoleArn:      string | fn.Fn
+			})] | fn.If
 			AvailabilityZones?:           [...(string | fn.Fn)] | (string | fn.Fn)
 			BackupRetentionPeriod?:       int | fn.Fn
 			DBClusterIdentifier?:         string | fn.Fn

@@ -193,6 +193,10 @@ ApiGateway :: {
 			EndpointConfiguration?: close({
 				Types?: [...(string | fn.Fn)] | (string | fn.Fn)
 			}) | fn.If
+			MutualTlsAuthentication?: close({
+				TruststoreUri?:     string | fn.Fn
+				TruststoreVersion?: string | fn.Fn
+			}) | fn.If
 			RegionalCertificateArn?: string | fn.Fn
 			SecurityPolicy?:         string | fn.Fn
 			Tags?:                   [...close({
@@ -215,7 +219,7 @@ ApiGateway :: {
 			ResponseTemplates?: {
 				[string]: string | fn.Fn
 			} | fn.If
-			ResponseType: ("ACCESS_DENIED" | "API_CONFIGURATION_ERROR" | "AUTHORIZER_FAILURE" | "AUTHORIZER_CONFIGURATION_ERROR" | "BAD_REQUEST_PARAMETERS" | "BAD_REQUEST_BODY" | "DEFAULT_4XX" | "DEFAULT_5XX" | "EXPIRED_TOKEN" | "INVALID_SIGNATURE" | "INTEGRATION_FAILURE" | "INTEGRATION_TIMEOUT" | "INVALID_API_KEY" | "MISSING_AUTHENTICATION_TOKEN" | "QUOTA_EXCEEDED" | "REQUEST_TOO_LARGE" | "RESOURCE_NOT_FOUND" | "THROTTLED" | "UNAUTHORIZED" | "UNSUPPORTED_MEDIA_TYPE") | fn.Fn
+			ResponseType: ("ACCESS_DENIED" | "API_CONFIGURATION_ERROR" | "AUTHORIZER_CONFIGURATION_ERROR" | "AUTHORIZER_FAILURE" | "BAD_REQUEST_BODY" | "BAD_REQUEST_PARAMETERS" | "DEFAULT_4XX" | "DEFAULT_5XX" | "EXPIRED_TOKEN" | "INTEGRATION_FAILURE" | "INTEGRATION_TIMEOUT" | "INVALID_API_KEY" | "INVALID_SIGNATURE" | "MISSING_AUTHENTICATION_TOKEN" | "QUOTA_EXCEEDED" | "REQUEST_TOO_LARGE" | "RESOURCE_NOT_FOUND" | "THROTTLED" | "UNAUTHORIZED" | "UNSUPPORTED_MEDIA_TYPE") | fn.Fn
 			RestApiId:    string | fn.Fn
 			StatusCode?:  string | fn.Fn
 		})

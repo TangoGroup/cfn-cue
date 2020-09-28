@@ -3,6 +3,27 @@ package apnortheast1
 import "github.com/TangoGroup/aws/fn"
 
 IoT :: {
+	Authorizer :: {
+		Type:       "AWS::IoT::Authorizer"
+		Properties: close({
+			AuthorizerFunctionArn: string | fn.Fn
+			AuthorizerName?:       string | fn.Fn
+			SigningDisabled?:      bool | fn.Fn
+			Status?:               string | fn.Fn
+			Tags?:                 [...close({
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
+			})] | fn.If
+			TokenKeyName?:           string | fn.Fn
+			TokenSigningPublicKeys?: close({
+			}) | fn.If
+		})
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+		Condition?: string
+	}
 	Certificate :: {
 		Type:       "AWS::IoT::Certificate"
 		Properties: close({

@@ -45,7 +45,7 @@ Glue :: {
 				ConnectionProperties: {
 					[string]: _
 				} | fn.Fn
-				ConnectionType:                  ("JDBC" | "KAFKA" | "MONGODB" | "SFTP") | fn.Fn
+				ConnectionType:                  ("JDBC" | "KAFKA" | "MONGODB" | "NETWORK" | "SFTP") | fn.Fn
 				Description?:                    string | fn.Fn
 				MatchCriteria?:                  [...(string | fn.Fn)] | (string | fn.Fn)
 				Name?:                           string | fn.Fn
@@ -385,7 +385,7 @@ Glue :: {
 					CrawlerName?:     string | fn.Fn
 					JobName?:         string | fn.Fn
 					LogicalOperator?: ("EQUALS") | fn.Fn
-					State?:           ("SUCCEEDED") | fn.Fn
+					State?:           ("SUCCEEDED" | "STOPPED" | "TIMEOUT" | "FAILED") | fn.Fn
 				})] | fn.If
 				Logical?: ("AND" | "ANY") | fn.Fn
 			}) | fn.If

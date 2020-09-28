@@ -13,7 +13,7 @@ CloudWatch :: {
 			AlarmActions?:      [...((strings.MinRunes(1) & strings.MaxRunes(1024)) | fn.Fn)] | ((strings.MinRunes(1) & strings.MaxRunes(1024)) | fn.Fn)
 			AlarmDescription?:  string | fn.Fn
 			AlarmName?:         string | fn.Fn
-			ComparisonOperator: ("GreaterThanOrEqualToThreshold" | "GreaterThanThreshold" | "LessThanThreshold" | "LessThanOrEqualToThreshold" | "LessThanLowerOrGreaterThanUpperThreshold" | "LessThanLowerThreshold" | "GreaterThanUpperThreshold") | fn.Fn
+			ComparisonOperator: ("GreaterThanOrEqualToThreshold" | "GreaterThanThreshold" | "GreaterThanUpperThreshold" | "LessThanLowerOrGreaterThanUpperThreshold" | "LessThanLowerThreshold" | "LessThanOrEqualToThreshold" | "LessThanThreshold") | fn.Fn
 			DatapointsToAlarm?: int | fn.Fn
 			Dimensions?:        [...close({
 				Name:  string | fn.Fn
@@ -105,6 +105,21 @@ CloudWatch :: {
 		Properties: close({
 			DashboardBody:  string | fn.Fn
 			DashboardName?: string | fn.Fn
+		})
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+		Condition?: string
+	}
+	InsightRule :: {
+		Type:       "AWS::CloudWatch::InsightRule"
+		Properties: close({
+			RuleBody:  string | fn.Fn
+			RuleName:  string | fn.Fn
+			RuleState: string | fn.Fn
+			Tags?:     close({
+			}) | fn.If
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

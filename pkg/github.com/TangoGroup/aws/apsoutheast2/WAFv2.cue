@@ -621,7 +621,7 @@ WAFv2 :: {
 								})] | fn.If
 							}) | fn.If
 							RateBasedStatement?: close({
-								AggregateKeyType:   ("IP") | fn.Fn
+								AggregateKeyType:   ("FORWARDED_IP" | "IP") | fn.Fn
 								ForwardedIPConfig?: close({
 									FallbackBehavior: string | fn.Fn
 									HeaderName:       string | fn.Fn
@@ -1524,7 +1524,7 @@ WAFv2 :: {
 								})] | fn.If
 							}) | fn.If
 							RateBasedStatement?: close({
-								AggregateKeyType:   ("IP") | fn.Fn
+								AggregateKeyType:   ("FORWARDED_IP" | "IP") | fn.Fn
 								ForwardedIPConfig?: close({
 									FallbackBehavior: string | fn.Fn
 									HeaderName:       string | fn.Fn
@@ -2380,7 +2380,7 @@ WAFv2 :: {
 								})] | fn.If
 							}) | fn.If
 							RateBasedStatement?: close({
-								AggregateKeyType:   ("IP") | fn.Fn
+								AggregateKeyType:   ("FORWARDED_IP" | "IP") | fn.Fn
 								ForwardedIPConfig?: close({
 									FallbackBehavior: string | fn.Fn
 									HeaderName:       string | fn.Fn
@@ -2677,7 +2677,7 @@ WAFv2 :: {
 						})] | fn.If
 					}) | fn.If
 					RateBasedStatement?: close({
-						AggregateKeyType:   ("IP") | fn.Fn
+						AggregateKeyType:   ("FORWARDED_IP" | "IP") | fn.Fn
 						ForwardedIPConfig?: close({
 							FallbackBehavior: string | fn.Fn
 							HeaderName:       string | fn.Fn
@@ -3242,7 +3242,7 @@ WAFv2 :: {
 								})] | fn.If
 							}) | fn.If
 							RateBasedStatement?: close({
-								AggregateKeyType:   ("IP") | fn.Fn
+								AggregateKeyType:   ("FORWARDED_IP" | "IP") | fn.Fn
 								ForwardedIPConfig?: close({
 									FallbackBehavior: string | fn.Fn
 									HeaderName:       string | fn.Fn
@@ -4323,7 +4323,7 @@ WAFv2 :: {
 								})] | fn.If
 							}) | fn.If
 							RateBasedStatement?: close({
-								AggregateKeyType:   ("IP") | fn.Fn
+								AggregateKeyType:   ("FORWARDED_IP" | "IP") | fn.Fn
 								ForwardedIPConfig?: close({
 									FallbackBehavior: string | fn.Fn
 									HeaderName:       string | fn.Fn
@@ -5298,7 +5298,7 @@ WAFv2 :: {
 								})] | fn.If
 							}) | fn.If
 							RateBasedStatement?: close({
-								AggregateKeyType:   ("IP") | fn.Fn
+								AggregateKeyType:   ("FORWARDED_IP" | "IP") | fn.Fn
 								ForwardedIPConfig?: close({
 									FallbackBehavior: string | fn.Fn
 									HeaderName:       string | fn.Fn
@@ -6219,7 +6219,7 @@ WAFv2 :: {
 								})] | fn.If
 							}) | fn.If
 							RateBasedStatement?: close({
-								AggregateKeyType:   ("IP") | fn.Fn
+								AggregateKeyType:   ("FORWARDED_IP" | "IP") | fn.Fn
 								ForwardedIPConfig?: close({
 									FallbackBehavior: string | fn.Fn
 									HeaderName:       string | fn.Fn
@@ -6535,7 +6535,7 @@ WAFv2 :: {
 						})] | fn.If
 					}) | fn.If
 					RateBasedStatement?: close({
-						AggregateKeyType:   ("IP") | fn.Fn
+						AggregateKeyType:   ("FORWARDED_IP" | "IP") | fn.Fn
 						ForwardedIPConfig?: close({
 							FallbackBehavior: string | fn.Fn
 							HeaderName:       string | fn.Fn
@@ -7146,7 +7146,7 @@ WAFv2 :: {
 								})] | fn.If
 							}) | fn.If
 							RateBasedStatement?: close({
-								AggregateKeyType:   ("IP") | fn.Fn
+								AggregateKeyType:   ("FORWARDED_IP" | "IP") | fn.Fn
 								ForwardedIPConfig?: close({
 									FallbackBehavior: string | fn.Fn
 									HeaderName:       string | fn.Fn

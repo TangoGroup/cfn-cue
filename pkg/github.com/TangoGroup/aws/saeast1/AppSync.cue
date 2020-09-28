@@ -38,15 +38,43 @@ AppSync :: {
 			ApiId:           string | fn.Fn
 			Description?:    string | fn.Fn
 			DynamoDBConfig?: close({
+				AwsRegion:        string | fn.Fn
+				DeltaSyncConfig?: close({
+					BaseTableTTL:       string | fn.Fn
+					DeltaSyncTableName: string | fn.Fn
+					DeltaSyncTableTTL:  string | fn.Fn
+				}) | fn.If
+				TableName:             string | fn.Fn
+				UseCallerCredentials?: bool | fn.Fn
+				Versioned?:            bool | fn.Fn
 			}) | fn.If
 			ElasticsearchConfig?: close({
+				AwsRegion: string | fn.Fn
+				Endpoint:  string | fn.Fn
 			}) | fn.If
 			HttpConfig?: close({
+				AuthorizationConfig?: close({
+					AuthorizationType: string | fn.Fn
+					AwsIamConfig?:     close({
+						SigningRegion?:      string | fn.Fn
+						SigningServiceName?: string | fn.Fn
+					}) | fn.If
+				}) | fn.If
+				Endpoint: string | fn.Fn
 			}) | fn.If
 			LambdaConfig?: close({
+				LambdaFunctionArn: string | fn.Fn
 			}) | fn.If
 			Name:                      string | fn.Fn
 			RelationalDatabaseConfig?: close({
+				RdsHttpEndpointConfig?: close({
+					AwsRegion:           string | fn.Fn
+					AwsSecretStoreArn:   string | fn.Fn
+					DatabaseName?:       string | fn.Fn
+					DbClusterIdentifier: string | fn.Fn
+					Schema?:             string | fn.Fn
+				}) | fn.If
+				RelationalDatabaseSourceType: string | fn.Fn
 			}) | fn.If
 			ServiceRoleArn?: string | fn.Fn
 			Type:            string | fn.Fn
@@ -80,18 +108,41 @@ AppSync :: {
 		Type:       "AWS::AppSync::GraphQLApi"
 		Properties: close({
 			AdditionalAuthenticationProviders?: [...close({
+				AuthenticationType:   string | fn.Fn
+				OpenIDConnectConfig?: close({
+					AuthTTL?:  number | fn.Fn
+					ClientId?: string | fn.Fn
+					IatTTL?:   number | fn.Fn
+					Issuer?:   string | fn.Fn
+				}) | fn.If
+				UserPoolConfig?: close({
+					AppIdClientRegex?: string | fn.Fn
+					AwsRegion?:        string | fn.Fn
+					UserPoolId?:       string | fn.Fn
+				}) | fn.If
 			})] | fn.If
 			AuthenticationType: string | fn.Fn
 			LogConfig?:         close({
+				CloudWatchLogsRoleArn?: string | fn.Fn
+				ExcludeVerboseContent?: bool | fn.Fn
+				FieldLogLevel?:         string | fn.Fn
 			}) | fn.If
 			Name:                 string | fn.Fn
 			OpenIDConnectConfig?: close({
+				AuthTTL?:  number | fn.Fn
+				ClientId?: string | fn.Fn
+				IatTTL?:   number | fn.Fn
+				Issuer?:   string | fn.Fn
 			}) | fn.If
 			Tags?: [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			})] | fn.If
 			UserPoolConfig?: close({
+				AppIdClientRegex?: string | fn.Fn
+				AwsRegion?:        string | fn.Fn
+				DefaultAction?:    string | fn.Fn
+				UserPoolId?:       string | fn.Fn
 			}) | fn.If
 			XrayEnabled?: bool | fn.Fn
 		})
@@ -119,17 +170,25 @@ AppSync :: {
 		Properties: close({
 			ApiId:          string | fn.Fn
 			CachingConfig?: close({
+				CachingKeys?: [...(string | fn.Fn)] | (string | fn.Fn)
+				Ttl?:         number | fn.Fn
 			}) | fn.If
 			DataSourceName?: string | fn.Fn
 			FieldName:       string | fn.Fn
 			Kind?:           string | fn.Fn
 			PipelineConfig?: close({
+				Functions?: [...(string | fn.Fn)] | (string | fn.Fn)
 			}) | fn.If
 			RequestMappingTemplate?:            string | fn.Fn
 			RequestMappingTemplateS3Location?:  string | fn.Fn
 			ResponseMappingTemplate?:           string | fn.Fn
 			ResponseMappingTemplateS3Location?: string | fn.Fn
 			SyncConfig?:                        close({
+				ConflictDetection:            string | fn.Fn
+				ConflictHandler?:             string | fn.Fn
+				LambdaConflictHandlerConfig?: close({
+					LambdaConflictHandlerArn?: string | fn.Fn
+				}) | fn.If
 			}) | fn.If
 			TypeName: string | fn.Fn
 		})
