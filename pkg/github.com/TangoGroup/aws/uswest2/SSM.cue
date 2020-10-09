@@ -44,27 +44,15 @@ SSM :: {
 	Document :: {
 		Type:       "AWS::SSM::Document"
 		Properties: close({
-			Attachments?: [...close({
-				Key?:    string | fn.Fn
-				Name?:   string | fn.Fn
-				Values?: [...(string | fn.Fn)] | (string | fn.Fn)
-			})] | fn.If
-			Content?: close({
+			Content: {
 				[string]: _
-			}) | fn.If
-			DocumentFormat?: string | fn.Fn
-			DocumentType?:   string | fn.Fn
-			Name?:           string | fn.Fn
-			Requires?:       [...close({
-				Name?:    string | fn.Fn
-				Version?: string | fn.Fn
-			})] | fn.If
-			Tags?: [...close({
+			} | fn.Fn
+			DocumentType?: string | fn.Fn
+			Name?:         string | fn.Fn
+			Tags?:         [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			})] | fn.If
-			TargetType?:  string | fn.Fn
-			VersionName?: string | fn.Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

@@ -103,7 +103,7 @@ Config :: {
 				ParameterValue: string | fn.Fn
 			})] | fn.If
 			ConformancePackName:  string | fn.Fn
-			DeliveryS3Bucket:     string | fn.Fn
+			DeliveryS3Bucket?:    string | fn.Fn
 			DeliveryS3KeyPrefix?: string | fn.Fn
 			TemplateBody?:        string | fn.Fn
 			TemplateS3Uri?:       string | fn.Fn
@@ -171,7 +171,7 @@ Config :: {
 				ParameterName:  string | fn.Fn
 				ParameterValue: string | fn.Fn
 			})] | fn.If
-			DeliveryS3Bucket:                string | fn.Fn
+			DeliveryS3Bucket?:               string | fn.Fn
 			DeliveryS3KeyPrefix?:            string | fn.Fn
 			ExcludedAccounts?:               [...(string | fn.Fn)] | (string | fn.Fn)
 			OrganizationConformancePackName: string | fn.Fn

@@ -93,7 +93,7 @@ ECS :: {
 				TargetGroupArn?:   string | fn.Fn
 			})] | fn.If
 			NetworkConfiguration?: close({
-				AwsVpcConfiguration?: close({
+				AwsvpcConfiguration?: close({
 					AssignPublicIp?: string | fn.Fn
 					SecurityGroups?: [...(string | fn.Fn)] | (string | fn.Fn)
 					Subnets?:        [...(string | fn.Fn)] | (string | fn.Fn)

@@ -135,6 +135,7 @@ CodeBuild :: {
 			})] | fn.If
 			TimeoutInMinutes?: (>=5 & <=480) | fn.Fn
 			Triggers?:         close({
+				BuildType?:    string | fn.Fn
 				FilterGroups?: [...[...{
 					ExcludeMatchedPattern?: bool | fn.Fn
 					Pattern:                string | fn.Fn

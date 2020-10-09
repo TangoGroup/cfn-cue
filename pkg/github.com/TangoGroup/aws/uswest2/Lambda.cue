@@ -99,7 +99,6 @@ Lambda :: {
 			})] | fn.If
 			FunctionName?:                 string | fn.Fn
 			Handler:                       string | fn.Fn
-			Id?:                           string | fn.Fn
 			KmsKeyArn?:                    string | fn.Fn
 			Layers?:                       [...(string | fn.Fn)] | (string | fn.Fn)
 			MemorySize?:                   (>=128 & <=3008) | fn.Fn
@@ -115,8 +114,8 @@ Lambda :: {
 				Mode?: string | fn.Fn
 			}) | fn.If
 			VpcConfig?: close({
-				SecurityGroupIds?: [...(string | fn.Fn)] | (string | fn.Fn)
-				SubnetIds?:        [...(string | fn.Fn)] | (string | fn.Fn)
+				SecurityGroupIds: [...(string | fn.Fn)] | (string | fn.Fn)
+				SubnetIds:        [...(string | fn.Fn)] | (string | fn.Fn)
 			}) | fn.If
 		})
 		DependsOn?:           string | [...string]

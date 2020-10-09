@@ -3,6 +3,21 @@ package euwest1
 import "github.com/TangoGroup/aws/fn"
 
 WorkSpaces :: {
+	ConnectionAlias :: {
+		Type:       "AWS::WorkSpaces::ConnectionAlias"
+		Properties: close({
+			ConnectionString: string | fn.Fn
+			Tags?:            [...close({
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
+			})] | fn.If
+		})
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+		Condition?: string
+	}
 	Workspace :: {
 		Type:       "AWS::WorkSpaces::Workspace"
 		Properties: close({

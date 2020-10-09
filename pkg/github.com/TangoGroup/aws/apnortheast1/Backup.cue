@@ -7,6 +7,12 @@ Backup :: {
 		Type:       "AWS::Backup::BackupPlan"
 		Properties: close({
 			BackupPlan: close({
+				AdvancedBackupSettings?: [...close({
+					BackupOptions: {
+						[string]: _
+					} | fn.Fn
+					ResourceType: string | fn.Fn
+				})] | fn.If
 				BackupPlanName: string | fn.Fn
 				BackupPlanRule: [...close({
 					CompletionWindowMinutes?: int | fn.Fn

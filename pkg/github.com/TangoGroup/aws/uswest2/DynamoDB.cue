@@ -10,8 +10,14 @@ DynamoDB :: {
 				AttributeName: string | fn.Fn
 				AttributeType: ("B" | "N" | "S") | fn.Fn
 			})] | fn.If
-			BillingMode?:            ("PAY_PER_REQUEST" | "PROVISIONED") | fn.Fn
+			BillingMode?:                      ("PAY_PER_REQUEST" | "PROVISIONED") | fn.Fn
+			ContributorInsightsSpecification?: close({
+				Enabled: bool | fn.Fn
+			}) | fn.If
 			GlobalSecondaryIndexes?: [...close({
+				ContributorInsightsSpecification?: close({
+					Enabled: bool | fn.Fn
+				}) | fn.If
 				IndexName: string | fn.Fn
 				KeySchema: [...close({
 					AttributeName: string | fn.Fn

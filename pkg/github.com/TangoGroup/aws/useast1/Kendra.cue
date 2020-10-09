@@ -252,6 +252,7 @@ Kendra :: {
 		Type:       "AWS::Kendra::Faq"
 		Properties: close({
 			Description?: string | fn.Fn
+			FileFormat?:  string | fn.Fn
 			IndexId:      string | fn.Fn
 			Name:         string | fn.Fn
 			RoleArn:      string | fn.Fn

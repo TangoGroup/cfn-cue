@@ -17,8 +17,9 @@ CloudFront :: {
 						CookieBehavior: string | fn.Fn
 						Cookies?:       [...(string | fn.Fn)] | (string | fn.Fn)
 					}) | fn.If
-					EnableAcceptEncodingGzip: bool | fn.Fn
-					HeadersConfig:            close({
+					EnableAcceptEncodingBrotli?: bool | fn.Fn
+					EnableAcceptEncodingGzip:    bool | fn.Fn
+					HeadersConfig:               close({
 						HeaderBehavior: string | fn.Fn
 						Headers?:       [...(string | fn.Fn)] | (string | fn.Fn)
 					}) | fn.If
