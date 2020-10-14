@@ -3,11 +3,35 @@ package usgoveast1
 import "github.com/TangoGroup/aws/fn"
 
 IoT :: {
+	Authorizer :: {
+		Type:       "AWS::IoT::Authorizer"
+		Properties: close({
+			AuthorizerFunctionArn: string | fn.Fn
+			AuthorizerName?:       string | fn.Fn
+			SigningDisabled?:      bool | fn.Fn
+			Status?:               string | fn.Fn
+			Tags?:                 [...close({
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
+			})] | fn.If
+			TokenKeyName?:           string | fn.Fn
+			TokenSigningPublicKeys?: close({
+			}) | fn.If
+		})
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+		Condition?: string
+	}
 	Certificate :: {
 		Type:       "AWS::IoT::Certificate"
 		Properties: close({
-			CertificateSigningRequest: string | fn.Fn
-			Status:                    string | fn.Fn
+			CACertificatePem?:          string | fn.Fn
+			CertificateMode?:           string | fn.Fn
+			CertificatePem?:            string | fn.Fn
+			CertificateSigningRequest?: string | fn.Fn
+			Status:                     string | fn.Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -35,6 +59,29 @@ IoT :: {
 		Properties: close({
 			PolicyName: string | fn.Fn
 			Principal:  string | fn.Fn
+		})
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+		Condition?: string
+	}
+	ProvisioningTemplate :: {
+		Type:       "AWS::IoT::ProvisioningTemplate"
+		Properties: close({
+			Description?:         string | fn.Fn
+			Enabled?:             bool | fn.Fn
+			PreProvisioningHook?: close({
+				PayloadVersion?: string | fn.Fn
+				TargetArn?:      string | fn.Fn
+			}) | fn.If
+			ProvisioningRoleArn: string | fn.Fn
+			Tags?:               [...close({
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
+			})] | fn.If
+			TemplateBody:  string | fn.Fn
+			TemplateName?: string | fn.Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
