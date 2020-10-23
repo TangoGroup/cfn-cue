@@ -34,4 +34,4 @@ jobs:
         run: git diff
       
       - name: get ResourceSpecificationVersion
-        run: cat pkg/github.com/TangoGroup/aws/uswest2/uswest2.cue | grep ResourceSpecificationVersion | cut -f 3 -d ':' | tr -d '"'
+        run: cat pkg/github.com/TangoGroup/aws/uswest2/uswest2.cue | grep ResourceSpecificationVersion | cut -f 3 -d ':' | tr -d '"' | cat <(echo -n "v") -
