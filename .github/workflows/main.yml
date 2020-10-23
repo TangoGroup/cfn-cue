@@ -33,8 +33,13 @@ jobs:
       - name: git diff
         run: git diff
       
+      - name: gskkdjfal
+        run: echo "ResourceSpecificationVersion=$(cat pkg/github.com/TangoGroup/aws/uswest2/uswest2.cue | grep ResourceSpecificationVersion)" >> $GITHUB_ENV 
+      
       - name: get ResourceSpecificationVersion
-        run: echo "CFN_VERSION=$(cat pkg/github.com/TangoGroup/aws/uswest2/uswest2.cue | grep ResourceSpecificationVersion | cut -f 3 -d ':' | tr -d '"')" >> $GITHUB_ENV
+        run: echo "CFN_VERSION=$(echo $ResourceSpecificationVersion | cut -f 3 -d ':' | tr -d '"')" >> $GITHUB_ENV
       
       - name: echo
-        run: echo $CFN_VERSION
+        run: echo "v$CFN_VERSION"
+
+
