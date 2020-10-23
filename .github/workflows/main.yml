@@ -29,4 +29,6 @@ jobs:
       # Runs a single command using the runners shell
       - name: Run a one-line script
         run: go run . && git diff
-
+      
+      - name: git diff
+        run: echo $(git diff)
