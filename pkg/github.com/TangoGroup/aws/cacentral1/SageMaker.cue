@@ -27,7 +27,10 @@ SageMaker :: {
 				Environment?:       {
 					[string]: _
 				} | fn.Fn
-				Image?:            string | fn.Fn
+				Image?:       string | fn.Fn
+				ImageConfig?: close({
+					RepositoryAccessMode: string | fn.Fn
+				}) | fn.If
 				Mode?:             string | fn.Fn
 				ModelDataUrl?:     string | fn.Fn
 				ModelPackageName?: string | fn.Fn
@@ -40,7 +43,10 @@ SageMaker :: {
 				Environment?:       {
 					[string]: _
 				} | fn.Fn
-				Image?:            string | fn.Fn
+				Image?:       string | fn.Fn
+				ImageConfig?: close({
+					RepositoryAccessMode: string | fn.Fn
+				}) | fn.If
 				Mode?:             string | fn.Fn
 				ModelDataUrl?:     string | fn.Fn
 				ModelPackageName?: string | fn.Fn

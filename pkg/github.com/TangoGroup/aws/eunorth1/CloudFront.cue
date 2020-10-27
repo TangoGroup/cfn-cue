@@ -153,7 +153,11 @@ CloudFront :: {
 						HeaderName:  string | fn.Fn
 						HeaderValue: string | fn.Fn
 					})] | fn.If
-					OriginPath?:     string | fn.Fn
+					OriginPath?:   string | fn.Fn
+					OriginShield?: close({
+						Enabled:             bool | fn.Fn
+						OriginShieldRegion?: string | fn.Fn
+					}) | fn.If
 					S3OriginConfig?: close({
 						OriginAccessIdentity?: string | fn.Fn
 					}) | fn.If

@@ -66,8 +66,8 @@ ElasticLoadBalancingV2 :: {
 				Type:            string | fn.Fn
 			})] | fn.If
 			LoadBalancerArn: string | fn.Fn
-			Port:            (>=1 & <=65535) | fn.Fn
-			Protocol:        string | fn.Fn
+			Port?:           (>=1 & <=65535) | fn.Fn
+			Protocol?:       string | fn.Fn
 			SslPolicy?:      string | fn.Fn
 		})
 		DependsOn?:           string | [...string]
@@ -196,6 +196,7 @@ ElasticLoadBalancingV2 :: {
 			SecurityGroups?: [...(string | fn.Fn)] | (string | fn.Fn)
 			SubnetMappings?: [...close({
 				AllocationId?:       string | fn.Fn
+				IPv6Address?:        string | fn.Fn
 				PrivateIPv4Address?: string | fn.Fn
 				SubnetId:            string | fn.Fn
 			})] | fn.If
@@ -223,7 +224,7 @@ ElasticLoadBalancingV2 :: {
 			HealthCheckTimeoutSeconds?:  (>=2 & <=120) | fn.Fn
 			HealthyThresholdCount?:      (>=2 & <=10) | fn.Fn
 			Matcher?:                    close({
-				HttpCode: string | fn.Fn
+				HttpCode?: string | fn.Fn
 			}) | fn.If
 			Name?:     string | fn.Fn
 			Port?:     int | fn.Fn

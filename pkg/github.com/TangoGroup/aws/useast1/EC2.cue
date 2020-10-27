@@ -765,15 +765,18 @@ EC2 :: {
 	Route :: {
 		Type:       "AWS::EC2::Route"
 		Properties: close({
+			CarrierGatewayId?:            string | fn.Fn
 			DestinationCidrBlock?:        string | fn.Fn
 			DestinationIpv6CidrBlock?:    string | fn.Fn
 			EgressOnlyInternetGatewayId?: string | fn.Fn
 			GatewayId?:                   string | fn.Fn
 			InstanceId?:                  string | fn.Fn
+			LocalGatewayId?:              string | fn.Fn
 			NatGatewayId?:                string | fn.Fn
 			NetworkInterfaceId?:          string | fn.Fn
 			RouteTableId:                 string | fn.Fn
 			TransitGatewayId?:            string | fn.Fn
+			VpcEndpointId?:               string | fn.Fn
 			VpcPeeringConnectionId?:      string | fn.Fn
 		})
 		DependsOn?:           string | [...string]
@@ -998,6 +1001,7 @@ EC2 :: {
 			CidrBlock:                    string | fn.Fn
 			Ipv6CidrBlock?:               string | fn.Fn
 			MapPublicIpOnLaunch?:         bool | fn.Fn
+			OutpostArn?:                  string | fn.Fn
 			Tags?:                        [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn

@@ -45,6 +45,9 @@ Events :: {
 						Attempts?: int | fn.Fn
 					}) | fn.If
 				}) | fn.If
+				DeadLetterConfig?: close({
+					Arn?: string | fn.Fn
+				}) | fn.If
 				EcsParameters?: close({
 					Group?:                string | fn.Fn
 					LaunchType?:           string | fn.Fn
@@ -79,6 +82,18 @@ Events :: {
 				}) | fn.If
 				KinesisParameters?: close({
 					PartitionKeyPath: string | fn.Fn
+				}) | fn.If
+				RedshiftDataParameters?: close({
+					Database:          string | fn.Fn
+					DbUser?:           string | fn.Fn
+					SecretManagerArn?: string | fn.Fn
+					Sql:               string | fn.Fn
+					StatementName?:    string | fn.Fn
+					WithEvent?:        bool | fn.Fn
+				}) | fn.If
+				RetryPolicy?: close({
+					MaximumEventAgeInSeconds?: int | fn.Fn
+					MaximumRetryAttempts?:     int | fn.Fn
 				}) | fn.If
 				RoleArn?:              string | fn.Fn
 				RunCommandParameters?: close({

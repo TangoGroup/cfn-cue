@@ -8,6 +8,7 @@ AutoScaling :: {
 		Properties: close({
 			AutoScalingGroupName?:    string | fn.Fn
 			AvailabilityZones?:       [...(string | fn.Fn)] | (string | fn.Fn)
+			CapacityRebalance?:       bool | fn.Fn
 			Cooldown?:                string | fn.Fn
 			DesiredCapacity?:         string | fn.Fn
 			HealthCheckGracePeriod?:  int | fn.Fn
@@ -52,7 +53,12 @@ AutoScaling :: {
 						Version:             string | fn.Fn
 					}) | fn.If
 					Overrides?: [...close({
-						InstanceType?:     string | fn.Fn
+						InstanceType?:                string | fn.Fn
+						LaunchTemplateSpecification?: close({
+							LaunchTemplateId?:   string | fn.Fn
+							LaunchTemplateName?: string | fn.Fn
+							Version:             string | fn.Fn
+						}) | fn.If
 						WeightedCapacity?: string | fn.Fn
 					})] | fn.If
 				}) | fn.If
@@ -115,11 +121,16 @@ AutoScaling :: {
 			KernelId?:                     string | fn.Fn
 			KeyName?:                      string | fn.Fn
 			LaunchConfigurationName?:      string | fn.Fn
-			PlacementTenancy?:             ("dedicated" | "default") | fn.Fn
-			RamDiskId?:                    string | fn.Fn
-			SecurityGroups?:               [...(string | fn.Fn)] | (string | fn.Fn)
-			SpotPrice?:                    string | fn.Fn
-			UserData?:                     string | fn.Fn
+			MetadataOptions?:              close({
+				HttpEndpoint?:            string | fn.Fn
+				HttpPutResponseHopLimit?: int | fn.Fn
+				HttpTokens?:              string | fn.Fn
+			}) | fn.If
+			PlacementTenancy?: ("dedicated" | "default") | fn.Fn
+			RamDiskId?:        string | fn.Fn
+			SecurityGroups?:   [...(string | fn.Fn)] | (string | fn.Fn)
+			SpotPrice?:        string | fn.Fn
+			UserData?:         string | fn.Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

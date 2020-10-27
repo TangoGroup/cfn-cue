@@ -24,6 +24,7 @@ RDS :: {
 			Engine:                           string | fn.Fn
 			EngineMode?:                      string | fn.Fn
 			EngineVersion?:                   string | fn.Fn
+			GlobalClusterIdentifier?:         string | fn.Fn
 			KmsKeyId?:                        string | fn.Fn
 			MasterUserPassword?:              string | fn.Fn
 			MasterUsername?:                  string | fn.Fn

@@ -27,6 +27,23 @@ Lambda :: {
 		Metadata?: [string]:     _
 		Condition?: string
 	}
+	CodeSigningConfig :: {
+		Type:       "AWS::Lambda::CodeSigningConfig"
+		Properties: close({
+			AllowedPublishers: close({
+				SigningProfileVersionArns: [...(string | fn.Fn)] | (string | fn.Fn)
+			}) | fn.If
+			CodeSigningPolicies?: close({
+				UntrustedArtifactOnDeployment: string | fn.Fn
+			}) | fn.If
+			Description?: string | fn.Fn
+		})
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+		Condition?: string
+	}
 	EventInvokeConfig :: {
 		Type:       "AWS::Lambda::EventInvokeConfig"
 		Properties: close({
@@ -66,8 +83,13 @@ Lambda :: {
 			MaximumRecordAgeInSeconds?:      int | fn.Fn
 			MaximumRetryAttempts?:           int | fn.Fn
 			ParallelizationFactor?:          int | fn.Fn
-			StartingPosition?:               string | fn.Fn
-			Topics?:                         [...(string | fn.Fn)] | (string | fn.Fn)
+			Queues?:                         [...(string | fn.Fn)] | (string | fn.Fn)
+			SourceAccessConfigurations?:     [...close({
+				Type?: string | fn.Fn
+				URI?:  string | fn.Fn
+			})] | fn.If
+			StartingPosition?: string | fn.Fn
+			Topics?:           [...(string | fn.Fn)] | (string | fn.Fn)
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

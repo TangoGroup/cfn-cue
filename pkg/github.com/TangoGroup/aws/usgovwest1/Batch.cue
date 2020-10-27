@@ -33,7 +33,10 @@ Batch :: {
 			}) | fn.If
 			ServiceRole: string | fn.Fn
 			State?:      string | fn.Fn
-			Type:        string | fn.Fn
+			Tags?:       {
+				[string]: _
+			} | fn.Fn
+			Type: string | fn.Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -190,6 +193,9 @@ Batch :: {
 			RetryStrategy?: close({
 				Attempts?: int | fn.Fn
 			}) | fn.If
+			Tags?: {
+				[string]: _
+			} | fn.Fn
 			Timeout?: close({
 				AttemptDurationSeconds?: int | fn.Fn
 			}) | fn.If
@@ -211,6 +217,9 @@ Batch :: {
 			JobQueueName?: string | fn.Fn
 			Priority:      int | fn.Fn
 			State?:        string | fn.Fn
+			Tags?:         {
+				[string]: _
+			} | fn.Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

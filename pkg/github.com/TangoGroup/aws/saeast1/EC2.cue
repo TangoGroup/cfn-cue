@@ -6,6 +6,92 @@ import (
 )
 
 EC2 :: {
+	ClientVpnAuthorizationRule :: {
+		Type:       "AWS::EC2::ClientVpnAuthorizationRule"
+		Properties: close({
+			AccessGroupId?:      string | fn.Fn
+			AuthorizeAllGroups?: bool | fn.Fn
+			ClientVpnEndpointId: string | fn.Fn
+			Description?:        string | fn.Fn
+			TargetNetworkCidr:   string | fn.Fn
+		})
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+		Condition?: string
+	}
+	ClientVpnEndpoint :: {
+		Type:       "AWS::EC2::ClientVpnEndpoint"
+		Properties: close({
+			AuthenticationOptions: [...close({
+				ActiveDirectory?: close({
+					DirectoryId: string | fn.Fn
+				}) | fn.If
+				FederatedAuthentication?: close({
+					SAMLProviderArn:             string | fn.Fn
+					SelfServiceSAMLProviderArn?: string | fn.Fn
+				}) | fn.If
+				MutualAuthentication?: close({
+					ClientRootCertificateChainArn: string | fn.Fn
+				}) | fn.If
+				Type: string | fn.Fn
+			})] | fn.If
+			ClientCidrBlock:      string | fn.Fn
+			ConnectionLogOptions: close({
+				CloudwatchLogGroup?:  string | fn.Fn
+				CloudwatchLogStream?: string | fn.Fn
+				Enabled:              bool | fn.Fn
+			}) | fn.If
+			Description?:         string | fn.Fn
+			DnsServers?:          [...(string | fn.Fn)] | (string | fn.Fn)
+			SecurityGroupIds?:    [...(string | fn.Fn)] | (string | fn.Fn)
+			SelfServicePortal?:   string | fn.Fn
+			ServerCertificateArn: string | fn.Fn
+			SplitTunnel?:         bool | fn.Fn
+			TagSpecifications?:   [...close({
+				ResourceType: string | fn.Fn
+				Tags:         [...close({
+					Key:   string | fn.Fn
+					Value: string | fn.Fn
+				})] | fn.If
+			})] | fn.If
+			TransportProtocol?: string | fn.Fn
+			VpcId?:             string | fn.Fn
+			VpnPort?:           int | fn.Fn
+		})
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+		Condition?: string
+	}
+	ClientVpnRoute :: {
+		Type:       "AWS::EC2::ClientVpnRoute"
+		Properties: close({
+			ClientVpnEndpointId:  string | fn.Fn
+			Description?:         string | fn.Fn
+			DestinationCidrBlock: string | fn.Fn
+			TargetVpcSubnetId:    string | fn.Fn
+		})
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+		Condition?: string
+	}
+	ClientVpnTargetNetworkAssociation :: {
+		Type:       "AWS::EC2::ClientVpnTargetNetworkAssociation"
+		Properties: close({
+			ClientVpnEndpointId: string | fn.Fn
+			SubnetId:            string | fn.Fn
+		})
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+		Condition?: string
+	}
 	CustomerGateway :: {
 		Type:       "AWS::EC2::CustomerGateway"
 		Properties: close({
@@ -638,15 +724,18 @@ EC2 :: {
 	Route :: {
 		Type:       "AWS::EC2::Route"
 		Properties: close({
+			CarrierGatewayId?:            string | fn.Fn
 			DestinationCidrBlock?:        string | fn.Fn
 			DestinationIpv6CidrBlock?:    string | fn.Fn
 			EgressOnlyInternetGatewayId?: string | fn.Fn
 			GatewayId?:                   string | fn.Fn
 			InstanceId?:                  string | fn.Fn
+			LocalGatewayId?:              string | fn.Fn
 			NatGatewayId?:                string | fn.Fn
 			NetworkInterfaceId?:          string | fn.Fn
 			RouteTableId:                 string | fn.Fn
 			TransitGatewayId?:            string | fn.Fn
+			VpcEndpointId?:               string | fn.Fn
 			VpcPeeringConnectionId?:      string | fn.Fn
 		})
 		DependsOn?:           string | [...string]
@@ -871,6 +960,7 @@ EC2 :: {
 			CidrBlock:                    string | fn.Fn
 			Ipv6CidrBlock?:               string | fn.Fn
 			MapPublicIpOnLaunch?:         bool | fn.Fn
+			OutpostArn?:                  string | fn.Fn
 			Tags?:                        [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
@@ -1158,9 +1248,8 @@ EC2 :: {
 	VPCEndpointService :: {
 		Type:       "AWS::EC2::VPCEndpointService"
 		Properties: close({
-			AcceptanceRequired?:        bool | fn.Fn
-			ApplianceLoadBalancerArns?: [...(string | fn.Fn)] | (string | fn.Fn)
-			NetworkLoadBalancerArns?:   [...(string | fn.Fn)] | (string | fn.Fn)
+			AcceptanceRequired?:      bool | fn.Fn
+			NetworkLoadBalancerArns?: [...(string | fn.Fn)] | (string | fn.Fn)
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

@@ -67,7 +67,11 @@ EMR :: {
 						WeightedCapacity?: int | fn.Fn
 					})] | fn.If
 					LaunchSpecifications?: close({
-						SpotSpecification: close({
+						OnDemandSpecification?: close({
+							AllocationStrategy: string | fn.Fn
+						}) | fn.If
+						SpotSpecification?: close({
+							AllocationStrategy?:    string | fn.Fn
 							BlockDurationMinutes?:  int | fn.Fn
 							TimeoutAction:          string | fn.Fn
 							TimeoutDurationMinutes: int | fn.Fn
@@ -173,7 +177,11 @@ EMR :: {
 						WeightedCapacity?: int | fn.Fn
 					})] | fn.If
 					LaunchSpecifications?: close({
-						SpotSpecification: close({
+						OnDemandSpecification?: close({
+							AllocationStrategy: string | fn.Fn
+						}) | fn.If
+						SpotSpecification?: close({
+							AllocationStrategy?:    string | fn.Fn
 							BlockDurationMinutes?:  int | fn.Fn
 							TimeoutAction:          string | fn.Fn
 							TimeoutDurationMinutes: int | fn.Fn
@@ -258,12 +266,23 @@ EMR :: {
 				KdcAdminPassword:                  string | fn.Fn
 				Realm:                             string | fn.Fn
 			}) | fn.If
+			LogEncryptionKmsKeyId?: string | fn.Fn
 			LogUri?:                string | fn.Fn
+			ManagedScalingPolicy?:  close({
+				ComputeLimits?: close({
+					MaximumCapacityUnits:          int | fn.Fn
+					MaximumCoreCapacityUnits?:     int | fn.Fn
+					MaximumOnDemandCapacityUnits?: int | fn.Fn
+					MinimumCapacityUnits:          int | fn.Fn
+					UnitType:                      string | fn.Fn
+				}) | fn.If
+			}) | fn.If
 			Name:                   string | fn.Fn
 			ReleaseLabel?:          string | fn.Fn
 			ScaleDownBehavior?:     string | fn.Fn
 			SecurityConfiguration?: string | fn.Fn
 			ServiceRole:            string | fn.Fn
+			StepConcurrencyLevel?:  int | fn.Fn
 			Steps?:                 [...close({
 				ActionOnFailure?: string | fn.Fn
 				HadoopJarStep:    close({
@@ -321,7 +340,11 @@ EMR :: {
 				WeightedCapacity?: int | fn.Fn
 			})] | fn.If
 			LaunchSpecifications?: close({
-				SpotSpecification: close({
+				OnDemandSpecification?: close({
+					AllocationStrategy: string | fn.Fn
+				}) | fn.If
+				SpotSpecification?: close({
+					AllocationStrategy?:    string | fn.Fn
 					BlockDurationMinutes?:  int | fn.Fn
 					TimeoutAction:          string | fn.Fn
 					TimeoutDurationMinutes: int | fn.Fn

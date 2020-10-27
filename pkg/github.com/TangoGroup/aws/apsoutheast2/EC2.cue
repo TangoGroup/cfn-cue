@@ -56,7 +56,8 @@ EC2 :: {
 					DirectoryId: string | fn.Fn
 				}) | fn.If
 				FederatedAuthentication?: close({
-					SAMLProviderArn: string | fn.Fn
+					SAMLProviderArn:             string | fn.Fn
+					SelfServiceSAMLProviderArn?: string | fn.Fn
 				}) | fn.If
 				MutualAuthentication?: close({
 					ClientRootCertificateChainArn: string | fn.Fn
@@ -72,6 +73,7 @@ EC2 :: {
 			Description?:         string | fn.Fn
 			DnsServers?:          [...(string | fn.Fn)] | (string | fn.Fn)
 			SecurityGroupIds?:    [...(string | fn.Fn)] | (string | fn.Fn)
+			SelfServicePortal?:   string | fn.Fn
 			ServerCertificateArn: string | fn.Fn
 			SplitTunnel?:         bool | fn.Fn
 			TagSpecifications?:   [...close({
@@ -749,15 +751,18 @@ EC2 :: {
 	Route :: {
 		Type:       "AWS::EC2::Route"
 		Properties: close({
+			CarrierGatewayId?:            string | fn.Fn
 			DestinationCidrBlock?:        string | fn.Fn
 			DestinationIpv6CidrBlock?:    string | fn.Fn
 			EgressOnlyInternetGatewayId?: string | fn.Fn
 			GatewayId?:                   string | fn.Fn
 			InstanceId?:                  string | fn.Fn
+			LocalGatewayId?:              string | fn.Fn
 			NatGatewayId?:                string | fn.Fn
 			NetworkInterfaceId?:          string | fn.Fn
 			RouteTableId:                 string | fn.Fn
 			TransitGatewayId?:            string | fn.Fn
+			VpcEndpointId?:               string | fn.Fn
 			VpcPeeringConnectionId?:      string | fn.Fn
 		})
 		DependsOn?:           string | [...string]
@@ -982,6 +987,7 @@ EC2 :: {
 			CidrBlock:                    string | fn.Fn
 			Ipv6CidrBlock?:               string | fn.Fn
 			MapPublicIpOnLaunch?:         bool | fn.Fn
+			OutpostArn?:                  string | fn.Fn
 			Tags?:                        [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn

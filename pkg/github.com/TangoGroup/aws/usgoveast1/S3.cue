@@ -213,7 +213,7 @@ S3 :: {
 							ReplicaKmsKeyID: string | fn.Fn
 						}) | fn.If
 						Metrics?: close({
-							EventThreshold: close({
+							EventThreshold?: close({
 								Minutes: int | fn.Fn
 							}) | fn.If
 							Status: string | fn.Fn
@@ -244,7 +244,10 @@ S3 :: {
 					Prefix?:                  string | fn.Fn
 					Priority?:                int | fn.Fn
 					SourceSelectionCriteria?: close({
-						SseKmsEncryptedObjects: close({
+						ReplicaModifications?: close({
+							Status: string | fn.Fn
+						}) | fn.If
+						SseKmsEncryptedObjects?: close({
 							Status: string | fn.Fn
 						}) | fn.If
 					}) | fn.If
