@@ -63,10 +63,10 @@ Lambda :: {
 			EventSourceArn:                  string | fn.Fn
 			FunctionName:                    string | fn.Fn
 			MaximumBatchingWindowInSeconds?: int | fn.Fn
-			MaximumRecordAgeInSeconds?:      int | fn.Fn
-			MaximumRetryAttempts?:           int | fn.Fn
-			ParallelizationFactor?:          int | fn.Fn
-			StartingPosition?:               string | fn.Fn
+			MaximumRecordAgeInSeconds?:      (>=60 & <=604800) | fn.Fn
+			MaximumRetryAttempts?:           (>=0 & <=10000) | fn.Fn
+			ParallelizationFactor?:          (>=1 & <=10) | fn.Fn
+			StartingPosition?:               ("AT_TIMESTAMP" | "LATEST" | "TRIM_HORIZON") | fn.Fn
 			Topics?:                         [...(string | fn.Fn)] | (string | fn.Fn)
 		})
 		DependsOn?:           string | [...string]
