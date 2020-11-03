@@ -62,10 +62,8 @@ MediaPackage :: {
 					}) | fn.If
 				}) | fn.If
 				HlsManifests?: [...close({
-					AdMarkers?:  string | fn.Fn
-					AdTriggers?: close({
-						AdTriggers?: [...(string | fn.Fn)] | (string | fn.Fn)
-					}) | fn.If
+					AdMarkers?:                      string | fn.Fn
+					AdTriggers?:                     [...(string | fn.Fn)] | (string | fn.Fn)
 					AdsOnDeliveryRestrictions?:      string | fn.Fn
 					Id:                              string | fn.Fn
 					IncludeIframeOnlyStream?:        bool | fn.Fn
@@ -84,9 +82,7 @@ MediaPackage :: {
 				}) | fn.If
 			}) | fn.If
 			DashPackage?: close({
-				AdTriggers?: close({
-					AdTriggers?: [...(string | fn.Fn)] | (string | fn.Fn)
-				}) | fn.If
+				AdTriggers?:                [...(string | fn.Fn)] | (string | fn.Fn)
 				AdsOnDeliveryRestrictions?: string | fn.Fn
 				Encryption?:                close({
 					KeyRotationIntervalSeconds?: int | fn.Fn
@@ -115,10 +111,8 @@ MediaPackage :: {
 			}) | fn.If
 			Description?: string | fn.Fn
 			HlsPackage?:  close({
-				AdMarkers?:  string | fn.Fn
-				AdTriggers?: close({
-					AdTriggers?: [...(string | fn.Fn)] | (string | fn.Fn)
-				}) | fn.If
+				AdMarkers?:                 string | fn.Fn
+				AdTriggers?:                [...(string | fn.Fn)] | (string | fn.Fn)
 				AdsOnDeliveryRestrictions?: string | fn.Fn
 				Encryption?:                close({
 					ConstantInitializationVector?: string | fn.Fn

@@ -2,7 +2,7 @@ package apsouth1
 
 import "github.com/TangoGroup/aws/fn"
 
-ResourceSpecificationVersion :: "19.0.0"
+ResourceSpecificationVersion :: "20.0.0"
 Template :: {
 	AWSTemplateFormatVersion?: "2010-09-09"
 	Description?:              string

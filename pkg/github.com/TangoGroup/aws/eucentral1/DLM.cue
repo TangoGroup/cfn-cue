@@ -11,6 +11,7 @@ DLM :: {
 			PolicyDetails?:   close({
 				Parameters?: close({
 					ExcludeBootVolume?: bool | fn.Fn
+					NoReboot?:          bool | fn.Fn
 				}) | fn.If
 				PolicyType?:   string | fn.Fn
 				ResourceTypes: [...(("INSTANCE" | "VOLUME") | fn.Fn)] | (("INSTANCE" | "VOLUME") | fn.Fn)

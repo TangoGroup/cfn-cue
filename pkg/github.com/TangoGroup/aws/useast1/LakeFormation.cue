@@ -9,6 +9,7 @@ LakeFormation :: {
 			Admins?: [...close({
 				DataLakePrincipalIdentifier?: string | fn.Fn
 			})] | fn.If
+			TrustedResourceOwners?: [...(string | fn.Fn)] | (string | fn.Fn)
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

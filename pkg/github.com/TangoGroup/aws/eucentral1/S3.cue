@@ -244,9 +244,6 @@ S3 :: {
 					Prefix?:                  string | fn.Fn
 					Priority?:                int | fn.Fn
 					SourceSelectionCriteria?: close({
-						ReplicaModifications?: close({
-							Status: string | fn.Fn
-						}) | fn.If
 						SseKmsEncryptedObjects?: close({
 							Status: string | fn.Fn
 						}) | fn.If

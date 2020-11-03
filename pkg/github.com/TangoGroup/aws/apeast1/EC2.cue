@@ -1084,9 +1084,8 @@ EC2 :: {
 	VPCEndpointService :: {
 		Type:       "AWS::EC2::VPCEndpointService"
 		Properties: close({
-			AcceptanceRequired?:        bool | fn.Fn
-			ApplianceLoadBalancerArns?: [...(string | fn.Fn)] | (string | fn.Fn)
-			NetworkLoadBalancerArns?:   [...(string | fn.Fn)] | (string | fn.Fn)
+			AcceptanceRequired?:      bool | fn.Fn
+			NetworkLoadBalancerArns?: [...(string | fn.Fn)] | (string | fn.Fn)
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

@@ -80,8 +80,8 @@ Lambda :: {
 			EventSourceArn:                  string | fn.Fn
 			FunctionName:                    string | fn.Fn
 			MaximumBatchingWindowInSeconds?: int | fn.Fn
-			MaximumRecordAgeInSeconds?:      (>=60 & <=604800) | fn.Fn
-			MaximumRetryAttempts?:           (>=0 & <=10000) | fn.Fn
+			MaximumRecordAgeInSeconds?:      (>=-1 & <=604800) | fn.Fn
+			MaximumRetryAttempts?:           (>=-1 & <=10000) | fn.Fn
 			ParallelizationFactor?:          (>=1 & <=10) | fn.Fn
 			Queues?:                         [...(string | fn.Fn)] | (string | fn.Fn)
 			SourceAccessConfigurations?:     [...close({

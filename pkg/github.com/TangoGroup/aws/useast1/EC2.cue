@@ -72,7 +72,8 @@ EC2 :: {
 					DirectoryId: string | fn.Fn
 				}) | fn.If
 				FederatedAuthentication?: close({
-					SAMLProviderArn: string | fn.Fn
+					SAMLProviderArn:             string | fn.Fn
+					SelfServiceSAMLProviderArn?: string | fn.Fn
 				}) | fn.If
 				MutualAuthentication?: close({
 					ClientRootCertificateChainArn: string | fn.Fn
@@ -88,6 +89,7 @@ EC2 :: {
 			Description?:         string | fn.Fn
 			DnsServers?:          [...(string | fn.Fn)] | (string | fn.Fn)
 			SecurityGroupIds?:    [...(string | fn.Fn)] | (string | fn.Fn)
+			SelfServicePortal?:   string | fn.Fn
 			ServerCertificateArn: string | fn.Fn
 			SplitTunnel?:         bool | fn.Fn
 			TagSpecifications?:   [...close({
@@ -1303,9 +1305,8 @@ EC2 :: {
 	VPCEndpointService :: {
 		Type:       "AWS::EC2::VPCEndpointService"
 		Properties: close({
-			AcceptanceRequired?:        bool | fn.Fn
-			ApplianceLoadBalancerArns?: [...(string | fn.Fn)] | (string | fn.Fn)
-			NetworkLoadBalancerArns?:   [...(string | fn.Fn)] | (string | fn.Fn)
+			AcceptanceRequired?:      bool | fn.Fn
+			NetworkLoadBalancerArns?: [...(string | fn.Fn)] | (string | fn.Fn)
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
