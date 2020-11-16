@@ -191,7 +191,13 @@ Batch :: {
 				[string]: _
 			} | fn.Fn
 			RetryStrategy?: close({
-				Attempts?: int | fn.Fn
+				Attempts?:       int | fn.Fn
+				EvaluateOnExit?: [...close({
+					Action:          string | fn.Fn
+					OnExitCode?:     string | fn.Fn
+					OnReason?:       string | fn.Fn
+					OnStatusReason?: string | fn.Fn
+				})] | fn.If
 			}) | fn.If
 			Tags?: {
 				[string]: _

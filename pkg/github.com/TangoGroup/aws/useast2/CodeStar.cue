@@ -13,9 +13,10 @@ CodeStar :: {
 					ObjectVersion?: string | fn.Fn
 				}) | fn.If
 			}) | fn.If
+			ConnectionArn?:         string | fn.Fn
 			EnableIssues?:          bool | fn.Fn
 			IsPrivate?:             bool | fn.Fn
-			RepositoryAccessToken:  string | fn.Fn
+			RepositoryAccessToken?: string | fn.Fn
 			RepositoryDescription?: string | fn.Fn
 			RepositoryName:         string | fn.Fn
 			RepositoryOwner:        string | fn.Fn

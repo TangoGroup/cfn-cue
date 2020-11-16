@@ -45,6 +45,11 @@ DLM :: {
 						Interval?:     int | fn.Fn
 						IntervalUnit?: string | fn.Fn
 					}) | fn.If
+					ShareRules?: [...close({
+						TargetAccounts?:      [...(string | fn.Fn)] | (string | fn.Fn)
+						UnshareInterval?:     int | fn.Fn
+						UnshareIntervalUnit?: string | fn.Fn
+					})] | fn.If
 					TagsToAdd?: [...close({
 						Key:   string | fn.Fn
 						Value: string | fn.Fn

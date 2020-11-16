@@ -18,7 +18,7 @@ ElasticLoadBalancingV2 :: {
 					OnUnauthenticatedRequest?: string | fn.Fn
 					Scope?:                    string | fn.Fn
 					SessionCookieName?:        string | fn.Fn
-					SessionTimeout?:           int | fn.Fn
+					SessionTimeout?:           string | fn.Fn
 					UserPoolArn:               string | fn.Fn
 					UserPoolClientId:          string | fn.Fn
 					UserPoolDomain:            string | fn.Fn
@@ -34,7 +34,7 @@ ElasticLoadBalancingV2 :: {
 					OnUnauthenticatedRequest?: string | fn.Fn
 					Scope?:                    string | fn.Fn
 					SessionCookieName?:        string | fn.Fn
-					SessionTimeout?:           int | fn.Fn
+					SessionTimeout?:           string | fn.Fn
 					TokenEndpoint:             string | fn.Fn
 					UserInfoEndpoint:          string | fn.Fn
 				}) | fn.If

@@ -359,7 +359,8 @@ EC2 :: {
 				CapacityReservationSpecification?: close({
 					CapacityReservationPreference?: string | fn.Fn
 					CapacityReservationTarget?:     close({
-						CapacityReservationId?: string | fn.Fn
+						CapacityReservationId?:               string | fn.Fn
+						CapacityReservationResourceGroupArn?: string | fn.Fn
 					}) | fn.If
 				}) | fn.If
 				CpuOptions?: close({
@@ -378,6 +379,9 @@ EC2 :: {
 					Count?: int | fn.Fn
 					Type?:  string | fn.Fn
 				})] | fn.If
+				EnclaveOptions?: close({
+					Enabled?: bool | fn.Fn
+				}) | fn.If
 				HibernationOptions?: close({
 					Configured?: bool | fn.Fn
 				}) | fn.If
@@ -412,16 +416,18 @@ EC2 :: {
 					Enabled?: bool | fn.Fn
 				}) | fn.If
 				NetworkInterfaces?: [...close({
-					AssociatePublicIpAddress?: bool | fn.Fn
-					DeleteOnTermination?:      bool | fn.Fn
-					Description?:              string | fn.Fn
-					DeviceIndex?:              int | fn.Fn
-					Groups?:                   [...(string | fn.Fn)] | (string | fn.Fn)
-					InterfaceType?:            string | fn.Fn
-					Ipv6AddressCount?:         int | fn.Fn
-					Ipv6Addresses?:            [...close({
+					AssociateCarrierIpAddress?: bool | fn.Fn
+					AssociatePublicIpAddress?:  bool | fn.Fn
+					DeleteOnTermination?:       bool | fn.Fn
+					Description?:               string | fn.Fn
+					DeviceIndex?:               int | fn.Fn
+					Groups?:                    [...(string | fn.Fn)] | (string | fn.Fn)
+					InterfaceType?:             string | fn.Fn
+					Ipv6AddressCount?:          int | fn.Fn
+					Ipv6Addresses?:             [...close({
 						Ipv6Address?: string | fn.Fn
 					})] | fn.If
+					NetworkCardIndex?:   int | fn.Fn
 					NetworkInterfaceId?: string | fn.Fn
 					PrivateIpAddress?:   string | fn.Fn
 					PrivateIpAddresses?: [...close({
@@ -927,7 +933,7 @@ EC2 :: {
 			SecurityGroupIds?:  [...(string | fn.Fn)] | (string | fn.Fn)
 			ServiceName:        string | fn.Fn
 			SubnetIds?:         [...(string | fn.Fn)] | (string | fn.Fn)
-			VpcEndpointType?:   ("Gateway" | "Interface") | fn.Fn
+			VpcEndpointType?:   ("Gateway" | "GatewayLoadBalancer" | "Interface") | fn.Fn
 			VpcId:              string | fn.Fn
 		})
 		DependsOn?:           string | [...string]
@@ -954,6 +960,7 @@ EC2 :: {
 		Type:       "AWS::EC2::VPCEndpointService"
 		Properties: close({
 			AcceptanceRequired?:      bool | fn.Fn
+			GatewayLoadBalancerArns?: [...(string | fn.Fn)] | (string | fn.Fn)
 			NetworkLoadBalancerArns?: [...(string | fn.Fn)] | (string | fn.Fn)
 		})
 		DependsOn?:           string | [...string]

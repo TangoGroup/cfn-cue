@@ -6,7 +6,7 @@ Kendra :: {
 	DataSource :: {
 		Type:       "AWS::Kendra::DataSource"
 		Properties: close({
-			DataSourceConfiguration: close({
+			DataSourceConfiguration?: close({
 				DatabaseConfiguration?: close({
 					AclConfiguration?: close({
 						AllowedGroupsColumnName: string | fn.Fn
@@ -77,6 +77,9 @@ Kendra :: {
 						S3Prefix?: string | fn.Fn
 					}) | fn.If
 					ExclusionPatterns?: close({
+						DataSourceInclusionsExclusionsStrings?: [...(string | fn.Fn)] | (string | fn.Fn)
+					}) | fn.If
+					InclusionPatterns?: close({
 						DataSourceInclusionsExclusionsStrings?: [...(string | fn.Fn)] | (string | fn.Fn)
 					}) | fn.If
 					InclusionPrefixes?: close({
@@ -232,7 +235,7 @@ Kendra :: {
 			Description?: string | fn.Fn
 			IndexId:      string | fn.Fn
 			Name:         string | fn.Fn
-			RoleArn:      string | fn.Fn
+			RoleArn?:     string | fn.Fn
 			Schedule?:    string | fn.Fn
 			Tags?:        close({
 				TagList?: [...close({

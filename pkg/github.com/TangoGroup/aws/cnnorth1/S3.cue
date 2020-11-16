@@ -81,6 +81,19 @@ S3 :: {
 					MaxAge?:         int | fn.Fn
 				})] | fn.If
 			}) | fn.If
+			IntelligentTieringConfigurations?: [...close({
+				Id:          string | fn.Fn
+				Prefix?:     string | fn.Fn
+				Status:      string | fn.Fn
+				TagFilters?: [...close({
+					Key:   string | fn.Fn
+					Value: string | fn.Fn
+				})] | fn.If
+				Tierings: [...close({
+					AccessTier: string | fn.Fn
+					Days:       int | fn.Fn
+				})] | fn.If
+			})] | fn.If
 			InventoryConfigurations?: [...close({
 				Destination: close({
 					BucketAccountId?: string | fn.Fn
@@ -190,7 +203,12 @@ S3 :: {
 					}) | fn.If
 				}) | fn.If
 			}) | fn.If
-			ObjectLockEnabled?:              bool | fn.Fn
+			ObjectLockEnabled?: bool | fn.Fn
+			OwnershipControls?: close({
+				Rules: [...close({
+					ObjectOwnership?: string | fn.Fn
+				})] | fn.If
+			}) | fn.If
 			PublicAccessBlockConfiguration?: close({
 				BlockPublicAcls?:       bool | fn.Fn
 				BlockPublicPolicy?:     bool | fn.Fn

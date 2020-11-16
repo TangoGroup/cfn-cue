@@ -91,6 +91,9 @@ SageMaker :: {
 				Mode?:             string | fn.Fn
 				ModelDataUrl?:     string | fn.Fn
 				ModelPackageName?: string | fn.Fn
+				MultiModelConfig?: close({
+					ModelCacheSetting?: string | fn.Fn
+				}) | fn.If
 			})] | fn.If
 			EnableNetworkIsolation?: bool | fn.Fn
 			ExecutionRoleArn:        string | fn.Fn
@@ -107,6 +110,9 @@ SageMaker :: {
 				Mode?:             string | fn.Fn
 				ModelDataUrl?:     string | fn.Fn
 				ModelPackageName?: string | fn.Fn
+				MultiModelConfig?: close({
+					ModelCacheSetting?: string | fn.Fn
+				}) | fn.If
 			}) | fn.If
 			Tags?: [...close({
 				Key:   string | fn.Fn

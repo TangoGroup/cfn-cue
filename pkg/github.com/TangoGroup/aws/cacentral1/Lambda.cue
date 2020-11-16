@@ -83,13 +83,15 @@ Lambda :: {
 			MaximumRecordAgeInSeconds?:      (>=-1 & <=604800) | fn.Fn
 			MaximumRetryAttempts?:           (>=-1 & <=10000) | fn.Fn
 			ParallelizationFactor?:          (>=1 & <=10) | fn.Fn
+			PartialBatchResponse?:           bool | fn.Fn
 			Queues?:                         [...(string | fn.Fn)] | (string | fn.Fn)
 			SourceAccessConfigurations?:     [...close({
 				Type?: string | fn.Fn
 				URI?:  string | fn.Fn
 			})] | fn.If
-			StartingPosition?: ("AT_TIMESTAMP" | "LATEST" | "TRIM_HORIZON") | fn.Fn
-			Topics?:           [...(string | fn.Fn)] | (string | fn.Fn)
+			StartingPosition?:        ("AT_TIMESTAMP" | "LATEST" | "TRIM_HORIZON") | fn.Fn
+			Topics?:                  [...(string | fn.Fn)] | (string | fn.Fn)
+			TumblingWindowInSeconds?: int | fn.Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

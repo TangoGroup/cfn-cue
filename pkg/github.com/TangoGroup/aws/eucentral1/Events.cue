@@ -3,6 +3,22 @@ package eucentral1
 import "github.com/TangoGroup/aws/fn"
 
 Events :: {
+	Archive :: {
+		Type:       "AWS::Events::Archive"
+		Properties: close({
+			Description?:  string | fn.Fn
+			EventPattern?: {
+				[string]: _
+			} | fn.Fn
+			RetentionDays?: int | fn.Fn
+			SourceArn:      string | fn.Fn
+		})
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+		Condition?: string
+	}
 	EventBus :: {
 		Type:       "AWS::Events::EventBus"
 		Properties: close({

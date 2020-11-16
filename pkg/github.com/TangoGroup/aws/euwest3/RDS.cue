@@ -234,6 +234,22 @@ RDS :: {
 		Metadata?: [string]: _
 		Condition?: string
 	}
+	GlobalCluster :: {
+		Type:       "AWS::RDS::GlobalCluster"
+		Properties: close({
+			DeletionProtection?:        bool | fn.Fn
+			Engine?:                    string | fn.Fn
+			EngineVersion?:             string | fn.Fn
+			GlobalClusterIdentifier?:   string | fn.Fn
+			SourceDBClusterIdentifier?: string | fn.Fn
+			StorageEncrypted?:          bool | fn.Fn
+		})
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+		Condition?: string
+	}
 	OptionGroup :: {
 		Type:       "AWS::RDS::OptionGroup"
 		Properties: close({

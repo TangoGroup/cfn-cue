@@ -56,14 +56,19 @@ EC2 :: {
 					DirectoryId: string | fn.Fn
 				}) | fn.If
 				FederatedAuthentication?: close({
-					SAMLProviderArn: string | fn.Fn
+					SAMLProviderArn:             string | fn.Fn
+					SelfServiceSAMLProviderArn?: string | fn.Fn
 				}) | fn.If
 				MutualAuthentication?: close({
 					ClientRootCertificateChainArn: string | fn.Fn
 				}) | fn.If
 				Type: string | fn.Fn
 			})] | fn.If
-			ClientCidrBlock:      (=~#"^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]).){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/([0-9]|[1-2][0-9]|3[0-2]))$"#) | fn.Fn
+			ClientCidrBlock:       (=~#"^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]).){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/([0-9]|[1-2][0-9]|3[0-2]))$"#) | fn.Fn
+			ClientConnectOptions?: close({
+				Enabled:            bool | fn.Fn
+				LambdaFunctionArn?: string | fn.Fn
+			}) | fn.If
 			ConnectionLogOptions: close({
 				CloudwatchLogGroup?:  string | fn.Fn
 				CloudwatchLogStream?: string | fn.Fn
@@ -72,6 +77,7 @@ EC2 :: {
 			Description?:         string | fn.Fn
 			DnsServers?:          [...(string | fn.Fn)] | (string | fn.Fn)
 			SecurityGroupIds?:    [...(string | fn.Fn)] | (string | fn.Fn)
+			SelfServicePortal?:   string | fn.Fn
 			ServerCertificateArn: string | fn.Fn
 			SplitTunnel?:         bool | fn.Fn
 			TagSpecifications?:   [...close({
@@ -470,7 +476,8 @@ EC2 :: {
 				CapacityReservationSpecification?: close({
 					CapacityReservationPreference?: string | fn.Fn
 					CapacityReservationTarget?:     close({
-						CapacityReservationId?: string | fn.Fn
+						CapacityReservationId?:               string | fn.Fn
+						CapacityReservationResourceGroupArn?: string | fn.Fn
 					}) | fn.If
 				}) | fn.If
 				CpuOptions?: close({
@@ -523,16 +530,18 @@ EC2 :: {
 					Enabled?: bool | fn.Fn
 				}) | fn.If
 				NetworkInterfaces?: [...close({
-					AssociatePublicIpAddress?: bool | fn.Fn
-					DeleteOnTermination?:      bool | fn.Fn
-					Description?:              string | fn.Fn
-					DeviceIndex?:              int | fn.Fn
-					Groups?:                   [...(string | fn.Fn)] | (string | fn.Fn)
-					InterfaceType?:            string | fn.Fn
-					Ipv6AddressCount?:         int | fn.Fn
-					Ipv6Addresses?:            [...close({
+					AssociateCarrierIpAddress?: bool | fn.Fn
+					AssociatePublicIpAddress?:  bool | fn.Fn
+					DeleteOnTermination?:       bool | fn.Fn
+					Description?:               string | fn.Fn
+					DeviceIndex?:               int | fn.Fn
+					Groups?:                    [...(string | fn.Fn)] | (string | fn.Fn)
+					InterfaceType?:             string | fn.Fn
+					Ipv6AddressCount?:          int | fn.Fn
+					Ipv6Addresses?:             [...close({
 						Ipv6Address?: string | fn.Fn
 					})] | fn.If
+					NetworkCardIndex?:   int | fn.Fn
 					NetworkInterfaceId?: string | fn.Fn
 					PrivateIpAddress?:   string | fn.Fn
 					PrivateIpAddresses?: [...close({
@@ -1261,7 +1270,7 @@ EC2 :: {
 			SecurityGroupIds?:  [...(string | fn.Fn)] | (string | fn.Fn)
 			ServiceName:        string | fn.Fn
 			SubnetIds?:         [...(string | fn.Fn)] | (string | fn.Fn)
-			VpcEndpointType?:   ("Gateway" | "Interface") | fn.Fn
+			VpcEndpointType?:   ("Gateway" | "GatewayLoadBalancer" | "Interface") | fn.Fn
 			VpcId:              string | fn.Fn
 		})
 		DependsOn?:           string | [...string]
@@ -1274,6 +1283,7 @@ EC2 :: {
 		Type:       "AWS::EC2::VPCEndpointService"
 		Properties: close({
 			AcceptanceRequired?:      bool | fn.Fn
+			GatewayLoadBalancerArns?: [...(string | fn.Fn)] | (string | fn.Fn)
 			NetworkLoadBalancerArns?: [...(string | fn.Fn)] | (string | fn.Fn)
 		})
 		DependsOn?:           string | [...string]
