@@ -101,9 +101,22 @@ import "github.com/TangoGroup/aws/fn"
 	#GraphQLApi: {
 		Type: "AWS::AppSync::GraphQLApi"
 		Properties: {
-			AdditionalAuthenticationProviders?: {} | fn.If
-			AuthenticationType:                 ("AMAZON_COGNITO_USER_POOLS" | "API_KEY" | "AWS_IAM" | "OPENID_CONNECT") | fn.#Fn
-			LogConfig?:                         {
+			AdditionalAuthenticationProviders?: [...{
+				AuthenticationType:   string | fn.#Fn
+				OpenIDConnectConfig?: {
+					AuthTTL?:  number | fn.#Fn
+					ClientId?: string | fn.#Fn
+					IatTTL?:   number | fn.#Fn
+					Issuer?:   string | fn.#Fn
+				} | fn.If
+				UserPoolConfig?: {
+					AppIdClientRegex?: string | fn.#Fn
+					AwsRegion?:        string | fn.#Fn
+					UserPoolId?:       string | fn.#Fn
+				} | fn.If
+			}] | fn.If
+			AuthenticationType: ("AMAZON_COGNITO_USER_POOLS" | "API_KEY" | "AWS_IAM" | "OPENID_CONNECT") | fn.#Fn
+			LogConfig?:         {
 				CloudWatchLogsRoleArn?: string | fn.#Fn
 				ExcludeVerboseContent?: bool | fn.#Fn
 				FieldLogLevel?:         string | fn.#Fn
