@@ -4,8 +4,12 @@ import "github.com/TangoGroup/aws/fn"
 
 #Neptune: {
 	#DBCluster: {
-		Type:       "AWS::Neptune::DBCluster"
-		Properties: close({
+		Type: "AWS::Neptune::DBCluster"
+		Properties: {
+			AssociatedRoles?: [...{
+				FeatureName?: string | fn.#Fn
+				RoleArn:      string | fn.#Fn
+			}] | fn.If
 			AvailabilityZones?:           [...(string | fn.#Fn)] | (string | fn.#Fn)
 			BackupRetentionPeriod?:       int | fn.#Fn
 			DBClusterIdentifier?:         string | fn.#Fn
@@ -24,13 +28,13 @@ import "github.com/TangoGroup/aws/fn"
 			SnapshotIdentifier?:          string | fn.#Fn
 			SourceDBClusterIdentifier?:   string | fn.#Fn
 			StorageEncrypted?:            bool | fn.#Fn
-			Tags?:                        [...close({
+			Tags?:                        [...{
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			})] | fn.If
+			}] | fn.If
 			UseLatestRestorableTime?: bool | fn.#Fn
 			VpcSecurityGroupIds?:     [...(string | fn.#Fn)] | (string | fn.#Fn)
-		})
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain" | "Snapshot"
 		UpdateReplacePolicy?: "Delete" | "Retain" | "Snapshot"

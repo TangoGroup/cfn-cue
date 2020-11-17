@@ -4,11 +4,11 @@ import "github.com/TangoGroup/aws/fn"
 
 #CodeDeploy: {
 	#Application: {
-		Type:       "AWS::CodeDeploy::Application"
-		Properties: close({
+		Type: "AWS::CodeDeploy::Application"
+		Properties: {
 			ApplicationName?: string | fn.#Fn
 			ComputePlatform?: ("ECS" | "Lambda" | "Server") | fn.#Fn
-		})
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -16,14 +16,14 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#DeploymentConfig: {
-		Type:       "AWS::CodeDeploy::DeploymentConfig"
-		Properties: close({
+		Type: "AWS::CodeDeploy::DeploymentConfig"
+		Properties: {
 			DeploymentConfigName?: string | fn.#Fn
-			MinimumHealthyHosts?:  close({
+			MinimumHealthyHosts?:  {
 				Type:  ("FLEET_PERCENT" | "HOST_COUNT") | fn.#Fn
 				Value: int | fn.#Fn
-			}) | fn.If
-		})
+			} | fn.If
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -31,88 +31,88 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#DeploymentGroup: {
-		Type:       "AWS::CodeDeploy::DeploymentGroup"
-		Properties: close({
-			AlarmConfiguration?: close({
-				Alarms?: [...close({
+		Type: "AWS::CodeDeploy::DeploymentGroup"
+		Properties: {
+			AlarmConfiguration?: {
+				Alarms?: [...{
 					Name?: string | fn.#Fn
-				})] | fn.If
+				}] | fn.If
 				Enabled?:                bool | fn.#Fn
 				IgnorePollAlarmFailure?: bool | fn.#Fn
-			}) | fn.If
+			} | fn.If
 			ApplicationName:            string | fn.#Fn
-			AutoRollbackConfiguration?: close({
+			AutoRollbackConfiguration?: {
 				Enabled?: bool | fn.#Fn
 				Events?:  [...(("DEPLOYMENT_FAILURE" | "DEPLOYMENT_STOP_ON_ALARM" | "DEPLOYMENT_STOP_ON_REQUEST") | fn.#Fn)] | (("DEPLOYMENT_FAILURE" | "DEPLOYMENT_STOP_ON_ALARM" | "DEPLOYMENT_STOP_ON_REQUEST") | fn.#Fn)
-			}) | fn.If
+			} | fn.If
 			AutoScalingGroups?: [...(string | fn.#Fn)] | (string | fn.#Fn)
-			Deployment?:        close({
+			Deployment?:        {
 				Description?:                   string | fn.#Fn
 				IgnoreApplicationStopFailures?: bool | fn.#Fn
-				Revision:                       close({
-					GitHubLocation?: close({
+				Revision:                       {
+					GitHubLocation?: {
 						CommitId:   string | fn.#Fn
 						Repository: string | fn.#Fn
-					}) | fn.If
+					} | fn.If
 					RevisionType?: string | fn.#Fn
-					S3Location?:   close({
+					S3Location?:   {
 						Bucket:      string | fn.#Fn
 						BundleType?: string | fn.#Fn
 						ETag?:       string | fn.#Fn
 						Key:         string | fn.#Fn
 						Version?:    string | fn.#Fn
-					}) | fn.If
-				}) | fn.If
-			}) | fn.If
+					} | fn.If
+				} | fn.If
+			} | fn.If
 			DeploymentConfigName?: string | fn.#Fn
 			DeploymentGroupName?:  string | fn.#Fn
-			DeploymentStyle?:      close({
-				DeploymentOption?: ("WITH_TRAFFIC_CONTROL" | "WITHOUT_TRAFFIC_CONTROL") | fn.#Fn
+			DeploymentStyle?:      {
+				DeploymentOption?: ("WITHOUT_TRAFFIC_CONTROL" | "WITH_TRAFFIC_CONTROL") | fn.#Fn
 				DeploymentType?:   ("BLUE_GREEN" | "IN_PLACE") | fn.#Fn
-			}) | fn.If
-			Ec2TagFilters?: [...close({
+			} | fn.If
+			Ec2TagFilters?: [...{
 				Key?:   string | fn.#Fn
 				Type?:  string | fn.#Fn
 				Value?: string | fn.#Fn
-			})] | fn.If
-			Ec2TagSet?: close({
-				Ec2TagSetList?: [...close({
-					Ec2TagGroup?: [...close({
+			}] | fn.If
+			Ec2TagSet?: {
+				Ec2TagSetList?: [...{
+					Ec2TagGroup?: [...{
 						Key?:   string | fn.#Fn
 						Type?:  string | fn.#Fn
 						Value?: string | fn.#Fn
-					})] | fn.If
-				})] | fn.If
-			}) | fn.If
-			LoadBalancerInfo?: close({
-				ElbInfoList?: [...close({
+					}] | fn.If
+				}] | fn.If
+			} | fn.If
+			LoadBalancerInfo?: {
+				ElbInfoList?: [...{
 					Name?: string | fn.#Fn
-				})] | fn.If
-				TargetGroupInfoList?: [...close({
+				}] | fn.If
+				TargetGroupInfoList?: [...{
 					Name?: string | fn.#Fn
-				})] | fn.If
-			}) | fn.If
-			OnPremisesInstanceTagFilters?: [...close({
+				}] | fn.If
+			} | fn.If
+			OnPremisesInstanceTagFilters?: [...{
 				Key?:   string | fn.#Fn
 				Type?:  string | fn.#Fn
 				Value?: string | fn.#Fn
-			})] | fn.If
-			OnPremisesTagSet?: close({
-				OnPremisesTagSetList?: [...close({
-					OnPremisesTagGroup?: [...close({
+			}] | fn.If
+			OnPremisesTagSet?: {
+				OnPremisesTagSetList?: [...{
+					OnPremisesTagGroup?: [...{
 						Key?:   string | fn.#Fn
 						Type?:  string | fn.#Fn
 						Value?: string | fn.#Fn
-					})] | fn.If
-				})] | fn.If
-			}) | fn.If
+					}] | fn.If
+				}] | fn.If
+			} | fn.If
 			ServiceRoleArn:         string | fn.#Fn
-			TriggerConfigurations?: [...close({
+			TriggerConfigurations?: [...{
 				TriggerEvents?:    [...(("DeploymentFailure" | "DeploymentReady" | "DeploymentRollback" | "DeploymentStart" | "DeploymentStop" | "DeploymentSuccess" | "InstanceFailure" | "InstanceReady" | "InstanceStart" | "InstanceSuccess") | fn.#Fn)] | (("DeploymentFailure" | "DeploymentReady" | "DeploymentRollback" | "DeploymentStart" | "DeploymentStop" | "DeploymentSuccess" | "InstanceFailure" | "InstanceReady" | "InstanceStart" | "InstanceSuccess") | fn.#Fn)
 				TriggerName?:      string | fn.#Fn
 				TriggerTargetArn?: string | fn.#Fn
-			})] | fn.If
-		})
+			}] | fn.If
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

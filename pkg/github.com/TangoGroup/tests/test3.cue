@@ -4,7 +4,7 @@ package fn
 
 import aws "github.com/TangoGroup/aws/uswest2"
 
-template: aws.Template
+template: aws.#Template
 template: {
 	// Resources: S3Bucket1: aws.S3.Bucket
 	Resources: S3Bucket1: {
@@ -22,7 +22,7 @@ template: {
 			ImageId: Ref:      "LatestAmiId"
 		}
 	}
-	for resourceName, resource in Resources {
-		Resources: "\(resourceName)": aws.ResourceTypesMap[resource.Type]
-	}
+	// for resourceName, resource in Resources {
+	// 	Resources: "\(resourceName)": aws.ResourceTypesMap[resource.Type]
+	// }
 }

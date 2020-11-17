@@ -4,15 +4,15 @@ import "github.com/TangoGroup/aws/fn"
 
 #SageMaker: {
 	#CodeRepository: {
-		Type:       "AWS::SageMaker::CodeRepository"
-		Properties: close({
+		Type: "AWS::SageMaker::CodeRepository"
+		Properties: {
 			CodeRepositoryName?: string | fn.#Fn
-			GitConfig:           close({
+			GitConfig:           {
 				Branch?:       string | fn.#Fn
 				RepositoryUrl: string | fn.#Fn
 				SecretArn?:    string | fn.#Fn
-			}) | fn.If
-		})
+			} | fn.If
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -20,39 +20,135 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#Model: {
-		Type:       "AWS::SageMaker::Model"
-		Properties: close({
-			Containers?: [...close({
+		Type: "AWS::SageMaker::Model"
+		Properties: {
+			Containers?: [...{
 				ContainerHostname?: string | fn.#Fn
 				Environment?:       {
 					[string]: _
 				} | fn.#Fn
-				Image?:            string | fn.#Fn
+				Image?:       string | fn.#Fn
+				ImageConfig?: {
+					RepositoryAccessMode: string | fn.#Fn
+				} | fn.If
 				Mode?:             string | fn.#Fn
 				ModelDataUrl?:     string | fn.#Fn
 				ModelPackageName?: string | fn.#Fn
-			})] | fn.If
-			ExecutionRoleArn:  string | fn.#Fn
-			ModelName?:        string | fn.#Fn
-			PrimaryContainer?: close({
+			}] | fn.If
+			EnableNetworkIsolation?: bool | fn.#Fn
+			ExecutionRoleArn:        string | fn.#Fn
+			ModelName?:              string | fn.#Fn
+			PrimaryContainer?:       {
 				ContainerHostname?: string | fn.#Fn
 				Environment?:       {
 					[string]: _
 				} | fn.#Fn
-				Image?:            string | fn.#Fn
+				Image?:       string | fn.#Fn
+				ImageConfig?: {
+					RepositoryAccessMode: string | fn.#Fn
+				} | fn.If
 				Mode?:             string | fn.#Fn
 				ModelDataUrl?:     string | fn.#Fn
 				ModelPackageName?: string | fn.#Fn
-			}) | fn.If
-			Tags?: [...close({
+			} | fn.If
+			Tags?: [...{
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			})] | fn.If
-			VpcConfig?: close({
+			}] | fn.If
+			VpcConfig?: {
 				SecurityGroupIds: [...(string | fn.#Fn)] | (string | fn.#Fn)
 				Subnets:          [...(string | fn.#Fn)] | (string | fn.#Fn)
-			}) | fn.If
-		})
+			} | fn.If
+		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+		Condition?: string
+	}
+	#MonitoringSchedule: {
+		Type: "AWS::SageMaker::MonitoringSchedule"
+		Properties: {
+			CreationTime?:                   string | fn.#Fn
+			EndpointName?:                   string | fn.#Fn
+			FailureReason?:                  string | fn.#Fn
+			LastModifiedTime?:               string | fn.#Fn
+			LastMonitoringExecutionSummary?: {
+				CreationTime:              string | fn.#Fn
+				EndpointName?:             string | fn.#Fn
+				FailureReason?:            string | fn.#Fn
+				LastModifiedTime:          string | fn.#Fn
+				MonitoringExecutionStatus: string | fn.#Fn
+				MonitoringScheduleName:    string | fn.#Fn
+				ProcessingJobArn?:         string | fn.#Fn
+				ScheduledTime:             string | fn.#Fn
+			} | fn.If
+			MonitoringScheduleArn?:   string | fn.#Fn
+			MonitoringScheduleConfig: {
+				MonitoringJobDefinition: {
+					BaselineConfig?: {
+						ConstraintsResource?: {
+							S3Uri?: string | fn.#Fn
+						} | fn.If
+						StatisticsResource?: {
+							S3Uri?: string | fn.#Fn
+						} | fn.If
+					} | fn.If
+					Environment?:               {} | fn.If
+					MonitoringAppSpecification: {
+						ContainerArguments?:              [...(string | fn.#Fn)] | (string | fn.#Fn)
+						ContainerEntrypoint?:             [...(string | fn.#Fn)] | (string | fn.#Fn)
+						ImageUri:                         string | fn.#Fn
+						PostAnalyticsProcessorSourceUri?: string | fn.#Fn
+						RecordPreprocessorSourceUri?:     string | fn.#Fn
+					} | fn.If
+					MonitoringInputs: {
+						MonitoringInputs?: [...{
+							[string]: _
+						}] | fn.If
+					} | fn.If
+					MonitoringOutputConfig: {
+						KmsKeyId?:         string | fn.#Fn
+						MonitoringOutputs: [...{
+							S3Output: {
+								LocalPath:     string | fn.#Fn
+								S3UploadMode?: string | fn.#Fn
+								S3Uri:         string | fn.#Fn
+							} | fn.If
+						}] | fn.If
+					} | fn.If
+					MonitoringResources: {
+						ClusterConfig: {
+							InstanceCount:   int | fn.#Fn
+							InstanceType:    string | fn.#Fn
+							VolumeKmsKeyId?: string | fn.#Fn
+							VolumeSizeInGB:  int | fn.#Fn
+						} | fn.If
+					} | fn.If
+					NetworkConfig?: {
+						EnableInterContainerTrafficEncryption?: bool | fn.#Fn
+						EnableNetworkIsolation?:                bool | fn.#Fn
+						VpcConfig?:                             {
+							SecurityGroupIds: [...(string | fn.#Fn)] | (string | fn.#Fn)
+							Subnets:          [...(string | fn.#Fn)] | (string | fn.#Fn)
+						} | fn.If
+					} | fn.If
+					RoleArn:            string | fn.#Fn
+					StoppingCondition?: {
+						MaxRuntimeInSeconds: int | fn.#Fn
+					} | fn.If
+				} | fn.If
+				ScheduleConfig?: {
+					ScheduleExpression: string | fn.#Fn
+				} | fn.If
+			} | fn.If
+			MonitoringScheduleName:    string | fn.#Fn
+			MonitoringScheduleStatus?: string | fn.#Fn
+			Tags?:                     [...{
+				Key:   string | fn.#Fn
+				Value: string | fn.#Fn
+			}] | fn.If
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -60,8 +156,8 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#NotebookInstance: {
-		Type:       "AWS::SageMaker::NotebookInstance"
-		Properties: close({
+		Type: "AWS::SageMaker::NotebookInstance"
+		Properties: {
 			AcceleratorTypes?:           [...(string | fn.#Fn)] | (string | fn.#Fn)
 			AdditionalCodeRepositories?: [...(string | fn.#Fn)] | (string | fn.#Fn)
 			DefaultCodeRepository?:      string | fn.#Fn
@@ -74,12 +170,12 @@ import "github.com/TangoGroup/aws/fn"
 			RootAccess?:                 string | fn.#Fn
 			SecurityGroupIds?:           [...(string | fn.#Fn)] | (string | fn.#Fn)
 			SubnetId?:                   string | fn.#Fn
-			Tags?:                       [...close({
+			Tags?:                       [...{
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			})] | fn.If
+			}] | fn.If
 			VolumeSizeInGB?: (>=5 & <=16384) | fn.#Fn
-		})
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

@@ -2,142 +2,56 @@ package eunorth1
 
 import "github.com/TangoGroup/aws/fn"
 
-AppMesh :: {
-	Mesh :: {
-		Type: "AWS::AppMesh::Mesh"
+#AppMesh: {
+	#GatewayRoute: {
+		Type: "AWS::AppMesh::GatewayRoute"
 		Properties: {
-			MeshName: string | fn.Fn
-			Spec?: EgressFilter?: Type: string | fn.Fn
-			Tags?: [...{
-				Key:   string | fn.Fn
-				Value: string | fn.Fn
-			}]
-		}
-		DependsOn?:           string | [...string]
-		DeletionPolicy?:      "Delete" | "Retain"
-		UpdateReplacePolicy?: "Delete" | "Retain"
-		Metadata?: [string]: _
-		Condition?: string
-	}
-	Route :: {
-		Type: "AWS::AppMesh::Route"
-		Properties: {
-			MeshName:  string | fn.Fn
-			RouteName: string | fn.Fn
-			Spec: {
+			GatewayRouteName: string | fn.#Fn
+			MeshName:         string | fn.#Fn
+			MeshOwner?:       string | fn.#Fn
+			Spec:             {
 				GrpcRoute?: {
-					Action: WeightedTargets: [...{
-						VirtualNode: string | fn.Fn
-						Weight:      int | fn.Fn
-					}]
+					Action: {
+						Target: {
+							VirtualService: {
+								VirtualServiceName: string | fn.#Fn
+							} | fn.If
+						} | fn.If
+					} | fn.If
 					Match: {
-						Metadata?: [...{
-							Invert?: bool | fn.Fn
-							Match?: {
-								Exact?:  string | fn.Fn
-								Prefix?: string | fn.Fn
-								Range?: {
-									End:   int | fn.Fn
-									Start: int | fn.Fn
-								}
-								Regex?:  string | fn.Fn
-								Suffix?: string | fn.Fn
-							}
-							Name: string | fn.Fn
-						}]
-						MethodName?:  string | fn.Fn
-						ServiceName?: string | fn.Fn
-					}
-					RetryPolicy?: {
-						GrpcRetryEvents?: [...(string | fn.Fn)] | (string | fn.Fn)
-						HttpRetryEvents?: [...(string | fn.Fn)] | (string | fn.Fn)
-						MaxRetries:       int | fn.Fn
-						PerRetryTimeout: {
-							Unit:  string | fn.Fn
-							Value: int | fn.Fn
-						}
-						TcpRetryEvents?: [...(string | fn.Fn)] | (string | fn.Fn)
-					}
-				}
+						ServiceName?: string | fn.#Fn
+					} | fn.If
+				} | fn.If
 				Http2Route?: {
-					Action: WeightedTargets: [...{
-						VirtualNode: string | fn.Fn
-						Weight:      int | fn.Fn
-					}]
+					Action: {
+						Target: {
+							VirtualService: {
+								VirtualServiceName: string | fn.#Fn
+							} | fn.If
+						} | fn.If
+					} | fn.If
 					Match: {
-						Headers?: [...{
-							Invert?: bool | fn.Fn
-							Match?: {
-								Exact?:  string | fn.Fn
-								Prefix?: string | fn.Fn
-								Range?: {
-									End:   int | fn.Fn
-									Start: int | fn.Fn
-								}
-								Regex?:  string | fn.Fn
-								Suffix?: string | fn.Fn
-							}
-							Name: string | fn.Fn
-						}]
-						Method?: string | fn.Fn
-						Prefix:  string | fn.Fn
-						Scheme?: string | fn.Fn
-					}
-					RetryPolicy?: {
-						HttpRetryEvents?: [...(string | fn.Fn)] | (string | fn.Fn)
-						MaxRetries:       int | fn.Fn
-						PerRetryTimeout: {
-							Unit:  string | fn.Fn
-							Value: int | fn.Fn
-						}
-						TcpRetryEvents?: [...(string | fn.Fn)] | (string | fn.Fn)
-					}
-				}
+						Prefix: string | fn.#Fn
+					} | fn.If
+				} | fn.If
 				HttpRoute?: {
-					Action: WeightedTargets: [...{
-						VirtualNode: string | fn.Fn
-						Weight:      int | fn.Fn
-					}]
+					Action: {
+						Target: {
+							VirtualService: {
+								VirtualServiceName: string | fn.#Fn
+							} | fn.If
+						} | fn.If
+					} | fn.If
 					Match: {
-						Headers?: [...{
-							Invert?: bool | fn.Fn
-							Match?: {
-								Exact?:  string | fn.Fn
-								Prefix?: string | fn.Fn
-								Range?: {
-									End:   int | fn.Fn
-									Start: int | fn.Fn
-								}
-								Regex?:  string | fn.Fn
-								Suffix?: string | fn.Fn
-							}
-							Name: string | fn.Fn
-						}]
-						Method?: string | fn.Fn
-						Prefix:  string | fn.Fn
-						Scheme?: string | fn.Fn
-					}
-					RetryPolicy?: {
-						HttpRetryEvents?: [...(string | fn.Fn)] | (string | fn.Fn)
-						MaxRetries:       int | fn.Fn
-						PerRetryTimeout: {
-							Unit:  string | fn.Fn
-							Value: int | fn.Fn
-						}
-						TcpRetryEvents?: [...(string | fn.Fn)] | (string | fn.Fn)
-					}
-				}
-				Priority?: int | fn.Fn
-				TcpRoute?: Action: WeightedTargets: [...{
-					VirtualNode: string | fn.Fn
-					Weight:      int | fn.Fn
-				}]
-			}
+						Prefix: string | fn.#Fn
+					} | fn.If
+				} | fn.If
+			} | fn.If
 			Tags?: [...{
-				Key:   string | fn.Fn
-				Value: string | fn.Fn
-			}]
-			VirtualRouterName: string | fn.Fn
+				Key:   string | fn.#Fn
+				Value: string | fn.#Fn
+			}] | fn.If
+			VirtualGatewayName: string | fn.#Fn
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -145,89 +59,82 @@ AppMesh :: {
 		Metadata?: [string]: _
 		Condition?: string
 	}
-	VirtualNode :: {
-		Type: "AWS::AppMesh::VirtualNode"
+	#VirtualGateway: {
+		Type: "AWS::AppMesh::VirtualGateway"
 		Properties: {
-			MeshName: string | fn.Fn
-			Spec: {
-				Backends?: [...{
-					VirtualService?: VirtualServiceName: string | fn.Fn
-				}]
-				Listeners?: [...{
+			MeshName:   string | fn.#Fn
+			MeshOwner?: string | fn.#Fn
+			Spec:       {
+				BackendDefaults?: {
+					ClientPolicy?: {
+						TLS?: {
+							Enforce?:   bool | fn.#Fn
+							Ports?:     [...(int | fn.#Fn)] | (int | fn.#Fn)
+							Validation: {
+								Trust: {
+									ACM?: {
+										CertificateAuthorityArns: [...(string | fn.#Fn)] | (string | fn.#Fn)
+									} | fn.If
+									File?: {
+										CertificateChain: string | fn.#Fn
+									} | fn.If
+								} | fn.If
+							} | fn.If
+						} | fn.If
+					} | fn.If
+				} | fn.If
+				Listeners: [...{
+					ConnectionPool?: {
+						GRPC?: {
+							MaxRequests: int | fn.#Fn
+						} | fn.If
+						HTTP?: {
+							MaxConnections:      int | fn.#Fn
+							MaxPendingRequests?: int | fn.#Fn
+						} | fn.If
+						HTTP2?: {
+							MaxRequests: int | fn.#Fn
+						} | fn.If
+					} | fn.If
 					HealthCheck?: {
-						HealthyThreshold:   int | fn.Fn
-						IntervalMillis:     int | fn.Fn
-						Path?:              string | fn.Fn
-						Port?:              int | fn.Fn
-						Protocol:           string | fn.Fn
-						TimeoutMillis:      int | fn.Fn
-						UnhealthyThreshold: int | fn.Fn
-					}
+						HealthyThreshold:   int | fn.#Fn
+						IntervalMillis:     int | fn.#Fn
+						Path?:              string | fn.#Fn
+						Port?:              int | fn.#Fn
+						Protocol:           string | fn.#Fn
+						TimeoutMillis:      int | fn.#Fn
+						UnhealthyThreshold: int | fn.#Fn
+					} | fn.If
 					PortMapping: {
-						Port:     int | fn.Fn
-						Protocol: string | fn.Fn
-					}
-				}]
-				Logging?: AccessLog?: File?: Path: string | fn.Fn
-				ServiceDiscovery?: {
-					AWSCloudMap?: {
-						Attributes?: [...{
-							Key:   string | fn.Fn
-							Value: string | fn.Fn
-						}]
-						NamespaceName: string | fn.Fn
-						ServiceName:   string | fn.Fn
-					}
-					DNS?: Hostname: string | fn.Fn
-				}
-			}
+						Port:     int | fn.#Fn
+						Protocol: string | fn.#Fn
+					} | fn.If
+					TLS?: {
+						Certificate: {
+							ACM?: {
+								CertificateArn: string | fn.#Fn
+							} | fn.If
+							File?: {
+								CertificateChain: string | fn.#Fn
+								PrivateKey:       string | fn.#Fn
+							} | fn.If
+						} | fn.If
+						Mode: string | fn.#Fn
+					} | fn.If
+				}] | fn.If
+				Logging?: {
+					AccessLog?: {
+						File?: {
+							Path: string | fn.#Fn
+						} | fn.If
+					} | fn.If
+				} | fn.If
+			} | fn.If
 			Tags?: [...{
-				Key:   string | fn.Fn
-				Value: string | fn.Fn
-			}]
-			VirtualNodeName: string | fn.Fn
-		}
-		DependsOn?:           string | [...string]
-		DeletionPolicy?:      "Delete" | "Retain"
-		UpdateReplacePolicy?: "Delete" | "Retain"
-		Metadata?: [string]: _
-		Condition?: string
-	}
-	VirtualRouter :: {
-		Type: "AWS::AppMesh::VirtualRouter"
-		Properties: {
-			MeshName: string | fn.Fn
-			Spec: Listeners: [...{
-				PortMapping: {
-					Port:     int | fn.Fn
-					Protocol: string | fn.Fn
-				}
-			}]
-			Tags?: [...{
-				Key:   string | fn.Fn
-				Value: string | fn.Fn
-			}]
-			VirtualRouterName: string | fn.Fn
-		}
-		DependsOn?:           string | [...string]
-		DeletionPolicy?:      "Delete" | "Retain"
-		UpdateReplacePolicy?: "Delete" | "Retain"
-		Metadata?: [string]: _
-		Condition?: string
-	}
-	VirtualService :: {
-		Type: "AWS::AppMesh::VirtualService"
-		Properties: {
-			MeshName: string | fn.Fn
-			Spec: Provider?: {
-				VirtualNode?: VirtualNodeName:     string | fn.Fn
-				VirtualRouter?: VirtualRouterName: string | fn.Fn
-			}
-			Tags?: [...{
-				Key:   string | fn.Fn
-				Value: string | fn.Fn
-			}]
-			VirtualServiceName: string | fn.Fn
+				Key:   string | fn.#Fn
+				Value: string | fn.#Fn
+			}] | fn.If
+			VirtualGatewayName: string | fn.#Fn
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

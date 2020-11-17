@@ -4,14 +4,14 @@ import "github.com/TangoGroup/aws/fn"
 
 #IoTThingsGraph: {
 	#FlowTemplate: {
-		Type:       "AWS::IoTThingsGraph::FlowTemplate"
-		Properties: close({
+		Type: "AWS::IoTThingsGraph::FlowTemplate"
+		Properties: {
 			CompatibleNamespaceVersion?: number | fn.#Fn
-			Definition:                  close({
+			Definition:                  {
 				Language: string | fn.#Fn
 				Text:     string | fn.#Fn
-			}) | fn.If
-		})
+			} | fn.If
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

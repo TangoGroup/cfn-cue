@@ -4,8 +4,8 @@ import "github.com/TangoGroup/aws/fn"
 
 #OpsWorksCM: {
 	#Server: {
-		Type:       "AWS::OpsWorksCM::Server"
-		Properties: close({
+		Type: "AWS::OpsWorksCM::Server"
+		Properties: {
 			AssociatePublicIpAddress?: bool | fn.#Fn
 			BackupId?:                 string | fn.#Fn
 			BackupRetentionCount?:     int | fn.#Fn
@@ -14,10 +14,10 @@ import "github.com/TangoGroup/aws/fn"
 			CustomPrivateKey?:         string | fn.#Fn
 			DisableAutomatedBackup?:   bool | fn.#Fn
 			Engine?:                   string | fn.#Fn
-			EngineAttributes?:         [...close({
+			EngineAttributes?:         [...{
 				Name?:  string | fn.#Fn
 				Value?: string | fn.#Fn
-			})] | fn.If
+			}] | fn.If
 			EngineModel?:                string | fn.#Fn
 			EngineVersion?:              string | fn.#Fn
 			InstanceProfileArn:          string | fn.#Fn
@@ -29,11 +29,11 @@ import "github.com/TangoGroup/aws/fn"
 			ServerName?:                 string | fn.#Fn
 			ServiceRoleArn:              string | fn.#Fn
 			SubnetIds?:                  [...(string | fn.#Fn)] | (string | fn.#Fn)
-			Tags?:                       [...close({
+			Tags?:                       [...{
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			})] | fn.If
-		})
+			}] | fn.If
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

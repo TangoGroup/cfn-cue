@@ -4,14 +4,14 @@ import "github.com/TangoGroup/aws/fn"
 
 #ServiceDiscovery: {
 	#Instance: {
-		Type:       "AWS::ServiceDiscovery::Instance"
-		Properties: close({
+		Type: "AWS::ServiceDiscovery::Instance"
+		Properties: {
 			InstanceAttributes: {
 				[string]: string | fn.#Fn
 			} | fn.If
 			InstanceId?: string | fn.#Fn
 			ServiceId:   string | fn.#Fn
-		})
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -19,16 +19,16 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#PrivateDnsNamespace: {
-		Type:       "AWS::ServiceDiscovery::PrivateDnsNamespace"
-		Properties: close({
+		Type: "AWS::ServiceDiscovery::PrivateDnsNamespace"
+		Properties: {
 			Description?: string | fn.#Fn
 			Name:         string | fn.#Fn
-			Tags?:        [...close({
+			Tags?:        [...{
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			})] | fn.If
+			}] | fn.If
 			Vpc: string | fn.#Fn
-		})
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -36,15 +36,15 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#PublicDnsNamespace: {
-		Type:       "AWS::ServiceDiscovery::PublicDnsNamespace"
-		Properties: close({
+		Type: "AWS::ServiceDiscovery::PublicDnsNamespace"
+		Properties: {
 			Description?: string | fn.#Fn
 			Name:         string | fn.#Fn
-			Tags?:        [...close({
+			Tags?:        [...{
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			})] | fn.If
-		})
+			}] | fn.If
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -52,32 +52,32 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#Service: {
-		Type:       "AWS::ServiceDiscovery::Service"
-		Properties: close({
+		Type: "AWS::ServiceDiscovery::Service"
+		Properties: {
 			Description?: string | fn.#Fn
-			DnsConfig?:   close({
-				DnsRecords: [...close({
+			DnsConfig?:   {
+				DnsRecords: [...{
 					TTL:  number | fn.#Fn
-					Type: ("A" | "AAAA" | "SRV" | "CNAME") | fn.#Fn
-				})] | fn.If
+					Type: ("A" | "AAAA" | "CNAME" | "SRV") | fn.#Fn
+				}] | fn.If
 				NamespaceId?:   string | fn.#Fn
 				RoutingPolicy?: string | fn.#Fn
-			}) | fn.If
-			HealthCheckConfig?: close({
+			} | fn.If
+			HealthCheckConfig?: {
 				FailureThreshold?: number | fn.#Fn
 				ResourcePath?:     string | fn.#Fn
 				Type:              ("HTTP" | "HTTPS" | "TCP") | fn.#Fn
-			}) | fn.If
-			HealthCheckCustomConfig?: close({
+			} | fn.If
+			HealthCheckCustomConfig?: {
 				FailureThreshold?: number | fn.#Fn
-			}) | fn.If
+			} | fn.If
 			Name?:        string | fn.#Fn
 			NamespaceId?: string | fn.#Fn
-			Tags?:        [...close({
+			Tags?:        [...{
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			})] | fn.If
-		})
+			}] | fn.If
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

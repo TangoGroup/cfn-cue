@@ -4,21 +4,25 @@ import "github.com/TangoGroup/aws/fn"
 
 #ECR: {
 	#Repository: {
-		Type:       "AWS::ECR::Repository"
-		Properties: close({
-			LifecyclePolicy?: close({
+		Type: "AWS::ECR::Repository"
+		Properties: {
+			ImageScanningConfiguration?: {
+				[string]: _
+			} | fn.#Fn
+			ImageTagMutability?: string | fn.#Fn
+			LifecyclePolicy?:    {
 				LifecyclePolicyText?: string | fn.#Fn
 				RegistryId?:          string | fn.#Fn
-			}) | fn.If
+			} | fn.If
 			RepositoryName?:       string | fn.#Fn
 			RepositoryPolicyText?: {
 				[string]: _
 			} | fn.#Fn
-			Tags?: [...close({
+			Tags?: [...{
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			})] | fn.If
-		})
+			}] | fn.If
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

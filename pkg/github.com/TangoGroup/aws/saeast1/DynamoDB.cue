@@ -4,68 +4,68 @@ import "github.com/TangoGroup/aws/fn"
 
 #DynamoDB: {
 	#Table: {
-		Type:       "AWS::DynamoDB::Table"
-		Properties: close({
-			AttributeDefinitions: [...close({
+		Type: "AWS::DynamoDB::Table"
+		Properties: {
+			AttributeDefinitions: [...{
 				AttributeName: string | fn.#Fn
 				AttributeType: ("B" | "N" | "S") | fn.#Fn
-			})] | fn.If
+			}] | fn.If
 			BillingMode?:            ("PAY_PER_REQUEST" | "PROVISIONED") | fn.#Fn
-			GlobalSecondaryIndexes?: [...close({
+			GlobalSecondaryIndexes?: [...{
 				IndexName: string | fn.#Fn
-				KeySchema: [...close({
+				KeySchema: [...{
 					AttributeName: string | fn.#Fn
 					KeyType:       ("HASH" | "RANGE") | fn.#Fn
-				})] | fn.If
-				Projection: close({
+				}] | fn.If
+				Projection: {
 					NonKeyAttributes?: [...(string | fn.#Fn)] | (string | fn.#Fn)
 					ProjectionType?:   ("ALL" | "INCLUDE" | "KEYS_ONLY") | fn.#Fn
-				}) | fn.If
-				ProvisionedThroughput?: close({
+				} | fn.If
+				ProvisionedThroughput?: {
 					ReadCapacityUnits:  int | fn.#Fn
 					WriteCapacityUnits: int | fn.#Fn
-				}) | fn.If
-			})] | fn.If
-			KeySchema: [...close({
+				} | fn.If
+			}] | fn.If
+			KeySchema: [...{
 				AttributeName: string | fn.#Fn
 				KeyType:       ("HASH" | "RANGE") | fn.#Fn
-			})] | fn.If
-			LocalSecondaryIndexes?: [...close({
+			}] | fn.If
+			LocalSecondaryIndexes?: [...{
 				IndexName: string | fn.#Fn
-				KeySchema: [...close({
+				KeySchema: [...{
 					AttributeName: string | fn.#Fn
 					KeyType:       ("HASH" | "RANGE") | fn.#Fn
-				})] | fn.If
-				Projection: close({
+				}] | fn.If
+				Projection: {
 					NonKeyAttributes?: [...(string | fn.#Fn)] | (string | fn.#Fn)
 					ProjectionType?:   ("ALL" | "INCLUDE" | "KEYS_ONLY") | fn.#Fn
-				}) | fn.If
-			})] | fn.If
-			PointInTimeRecoverySpecification?: close({
+				} | fn.If
+			}] | fn.If
+			PointInTimeRecoverySpecification?: {
 				PointInTimeRecoveryEnabled?: bool | fn.#Fn
-			}) | fn.If
-			ProvisionedThroughput?: close({
+			} | fn.If
+			ProvisionedThroughput?: {
 				ReadCapacityUnits:  int | fn.#Fn
 				WriteCapacityUnits: int | fn.#Fn
-			}) | fn.If
-			SSESpecification?: close({
+			} | fn.If
+			SSESpecification?: {
 				KMSMasterKeyId?: string | fn.#Fn
 				SSEEnabled:      bool | fn.#Fn
 				SSEType?:        string | fn.#Fn
-			}) | fn.If
-			StreamSpecification?: close({
+			} | fn.If
+			StreamSpecification?: {
 				StreamViewType: ("KEYS_ONLY" | "NEW_AND_OLD_IMAGES" | "NEW_IMAGE" | "OLD_IMAGE") | fn.#Fn
-			}) | fn.If
+			} | fn.If
 			TableName?: string | fn.#Fn
-			Tags?:      [...close({
+			Tags?:      [...{
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			})] | fn.If
-			TimeToLiveSpecification?: close({
+			}] | fn.If
+			TimeToLiveSpecification?: {
 				AttributeName: string | fn.#Fn
 				Enabled:       bool | fn.#Fn
-			}) | fn.If
-		})
+			} | fn.If
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

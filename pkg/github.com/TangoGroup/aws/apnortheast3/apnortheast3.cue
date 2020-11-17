@@ -2,7 +2,7 @@ package apnortheast3
 
 import "github.com/TangoGroup/aws/fn"
 
-#ResourceSpecificationVersion: "16.1.0"
+#ResourceSpecificationVersion: "20.3.0"
 #Template: {
 	AWSTemplateFormatVersion?: "2010-09-09"
 	Description?:              string
@@ -24,7 +24,7 @@ import "github.com/TangoGroup/aws/fn"
 	}
 	Resources: [=~"[a-zA-Z0-9]"]: {
 		Description?: string
-		Type:         "AWS::ApiGateway::Account" | "AWS::ApiGateway::ApiKey" | "AWS::ApiGateway::Authorizer" | "AWS::ApiGateway::BasePathMapping" | "AWS::ApiGateway::ClientCertificate" | "AWS::ApiGateway::Deployment" | "AWS::ApiGateway::DocumentationPart" | "AWS::ApiGateway::DocumentationVersion" | "AWS::ApiGateway::DomainName" | "AWS::ApiGateway::GatewayResponse" | "AWS::ApiGateway::Method" | "AWS::ApiGateway::Model" | "AWS::ApiGateway::RequestValidator" | "AWS::ApiGateway::Resource" | "AWS::ApiGateway::RestApi" | "AWS::ApiGateway::Stage" | "AWS::ApiGateway::UsagePlan" | "AWS::ApiGateway::UsagePlanKey" | "AWS::ApplicationAutoScaling::ScalableTarget" | "AWS::ApplicationAutoScaling::ScalingPolicy" | "AWS::AutoScaling::AutoScalingGroup" | "AWS::AutoScaling::LaunchConfiguration" | "AWS::AutoScaling::LifecycleHook" | "AWS::AutoScaling::ScalingPolicy" | "AWS::AutoScaling::ScheduledAction" | "AWS::CDK::Metadata" | "AWS::CertificateManager::Certificate" | "AWS::CloudFormation::CustomResource" | "AWS::CloudFormation::Macro" | "AWS::CloudFormation::Stack" | "AWS::CloudFormation::WaitCondition" | "AWS::CloudFormation::WaitConditionHandle" | "AWS::CloudTrail::Trail" | "AWS::CloudWatch::Alarm" | "AWS::CloudWatch::AnomalyDetector" | "AWS::CloudWatch::Dashboard" | "AWS::CodeDeploy::Application" | "AWS::CodeDeploy::DeploymentConfig" | "AWS::CodeDeploy::DeploymentGroup" | "AWS::CodePipeline::CustomActionType" | "AWS::CodePipeline::Pipeline" | "AWS::Config::ConfigRule" | "AWS::Config::ConfigurationRecorder" | "AWS::Config::DeliveryChannel" | "AWS::DataPipeline::Pipeline" | "AWS::DirectoryService::MicrosoftAD" | "AWS::DirectoryService::SimpleAD" | "AWS::DynamoDB::Table" | "AWS::EC2::CustomerGateway" | "AWS::EC2::DHCPOptions" | "AWS::EC2::EC2Fleet" | "AWS::EC2::EIP" | "AWS::EC2::EIPAssociation" | "AWS::EC2::EgressOnlyInternetGateway" | "AWS::EC2::FlowLog" | "AWS::EC2::GatewayRouteTableAssociation" | "AWS::EC2::Host" | "AWS::EC2::Instance" | "AWS::EC2::InternetGateway" | "AWS::EC2::LaunchTemplate" | "AWS::EC2::NatGateway" | "AWS::EC2::NetworkAcl" | "AWS::EC2::NetworkAclEntry" | "AWS::EC2::NetworkInterface" | "AWS::EC2::NetworkInterfaceAttachment" | "AWS::EC2::NetworkInterfacePermission" | "AWS::EC2::PlacementGroup" | "AWS::EC2::Route" | "AWS::EC2::RouteTable" | "AWS::EC2::SecurityGroup" | "AWS::EC2::SecurityGroupEgress" | "AWS::EC2::SecurityGroupIngress" | "AWS::EC2::SpotFleet" | "AWS::EC2::Subnet" | "AWS::EC2::SubnetCidrBlock" | "AWS::EC2::SubnetNetworkAclAssociation" | "AWS::EC2::SubnetRouteTableAssociation" | "AWS::EC2::VPC" | "AWS::EC2::VPCCidrBlock" | "AWS::EC2::VPCDHCPOptionsAssociation" | "AWS::EC2::VPCEndpoint" | "AWS::EC2::VPCEndpointConnectionNotification" | "AWS::EC2::VPCEndpointService" | "AWS::EC2::VPCEndpointServicePermissions" | "AWS::EC2::VPCGatewayAttachment" | "AWS::EC2::VPCPeeringConnection" | "AWS::EC2::VPNConnection" | "AWS::EC2::VPNConnectionRoute" | "AWS::EC2::VPNGateway" | "AWS::EC2::VPNGatewayRoutePropagation" | "AWS::EC2::Volume" | "AWS::EC2::VolumeAttachment" | "AWS::ECR::Repository" | "AWS::ECS::Cluster" | "AWS::ECS::Service" | "AWS::ECS::TaskDefinition" | "AWS::EFS::FileSystem" | "AWS::EFS::MountTarget" | "AWS::EMR::Cluster" | "AWS::EMR::InstanceFleetConfig" | "AWS::EMR::InstanceGroupConfig" | "AWS::EMR::SecurityConfiguration" | "AWS::EMR::Step" | "AWS::ElastiCache::CacheCluster" | "AWS::ElastiCache::ParameterGroup" | "AWS::ElastiCache::ReplicationGroup" | "AWS::ElastiCache::SecurityGroup" | "AWS::ElastiCache::SecurityGroupIngress" | "AWS::ElastiCache::SubnetGroup" | "AWS::ElasticBeanstalk::Application" | "AWS::ElasticBeanstalk::ApplicationVersion" | "AWS::ElasticBeanstalk::ConfigurationTemplate" | "AWS::ElasticBeanstalk::Environment" | "AWS::ElasticLoadBalancing::LoadBalancer" | "AWS::ElasticLoadBalancingV2::Listener" | "AWS::ElasticLoadBalancingV2::ListenerCertificate" | "AWS::ElasticLoadBalancingV2::ListenerRule" | "AWS::ElasticLoadBalancingV2::LoadBalancer" | "AWS::ElasticLoadBalancingV2::TargetGroup" | "AWS::Elasticsearch::Domain" | "AWS::Events::Rule" | "AWS::GameLift::Alias" | "AWS::GameLift::Build" | "AWS::GameLift::Fleet" | "AWS::IAM::AccessKey" | "AWS::IAM::Group" | "AWS::IAM::InstanceProfile" | "AWS::IAM::ManagedPolicy" | "AWS::IAM::Policy" | "AWS::IAM::Role" | "AWS::IAM::User" | "AWS::IAM::UserToGroupAddition" | "AWS::IoT::Certificate" | "AWS::IoT::Policy" | "AWS::IoT::PolicyPrincipalAttachment" | "AWS::IoT::Thing" | "AWS::IoT::ThingPrincipalAttachment" | "AWS::IoT::TopicRule" | "AWS::KMS::Alias" | "AWS::KMS::Key" | "AWS::Kinesis::Stream" | "AWS::Kinesis::StreamConsumer" | "AWS::KinesisFirehose::DeliveryStream" | "AWS::Lambda::Alias" | "AWS::Lambda::EventInvokeConfig" | "AWS::Lambda::EventSourceMapping" | "AWS::Lambda::Function" | "AWS::Lambda::Permission" | "AWS::Lambda::Version" | "AWS::Logs::Destination" | "AWS::Logs::LogGroup" | "AWS::Logs::LogStream" | "AWS::Logs::MetricFilter" | "AWS::Logs::SubscriptionFilter" | "AWS::OpsWorks::App" | "AWS::OpsWorks::ElasticLoadBalancerAttachment" | "AWS::OpsWorks::Instance" | "AWS::OpsWorks::Layer" | "AWS::OpsWorks::Stack" | "AWS::OpsWorks::UserProfile" | "AWS::OpsWorks::Volume" | "AWS::RDS::DBCluster" | "AWS::RDS::DBClusterParameterGroup" | "AWS::RDS::DBInstance" | "AWS::RDS::DBParameterGroup" | "AWS::RDS::DBSecurityGroup" | "AWS::RDS::DBSecurityGroupIngress" | "AWS::RDS::DBSubnetGroup" | "AWS::RDS::EventSubscription" | "AWS::RDS::OptionGroup" | "AWS::Redshift::Cluster" | "AWS::Redshift::ClusterParameterGroup" | "AWS::Redshift::ClusterSecurityGroup" | "AWS::Redshift::ClusterSecurityGroupIngress" | "AWS::Redshift::ClusterSubnetGroup" | "AWS::ResourceGroups::Group" | "AWS::Route53::HealthCheck" | "AWS::Route53::HostedZone" | "AWS::Route53::RecordSet" | "AWS::Route53::RecordSetGroup" | "AWS::S3::AccessPoint" | "AWS::S3::Bucket" | "AWS::S3::BucketPolicy" | "AWS::SDB::Domain" | "AWS::SNS::Subscription" | "AWS::SNS::Topic" | "AWS::SNS::TopicPolicy" | "AWS::SQS::Queue" | "AWS::SQS::QueuePolicy" | "AWS::SSM::Association" | "AWS::SSM::Document" | "AWS::WAF::ByteMatchSet" | "AWS::WAF::IPSet" | "AWS::WAF::Rule" | "AWS::WAF::SizeConstraintSet" | "AWS::WAF::SqlInjectionMatchSet" | "AWS::WAF::WebACL" | "AWS::WAF::XssMatchSet" | "AWS::WorkSpaces::Workspace" | =~#"^Custom::[a-zA-Z0-9_@-]{1,60}$"#
+		Type:         "AWS::ApplicationAutoScaling::ScalableTarget" | "AWS::ApplicationAutoScaling::ScalingPolicy" | "AWS::AutoScaling::AutoScalingGroup" | "AWS::AutoScaling::LaunchConfiguration" | "AWS::AutoScaling::LifecycleHook" | "AWS::AutoScaling::ScalingPolicy" | "AWS::AutoScaling::ScheduledAction" | "AWS::CDK::Metadata" | "AWS::CertificateManager::Certificate" | "AWS::CloudFormation::CustomResource" | "AWS::CloudFormation::Macro" | "AWS::CloudFormation::Stack" | "AWS::CloudFormation::WaitCondition" | "AWS::CloudFormation::WaitConditionHandle" | "AWS::CloudFront::CachePolicy" | "AWS::CloudFront::OriginRequestPolicy" | "AWS::CloudFront::RealtimeLogConfig" | "AWS::CloudTrail::Trail" | "AWS::CloudWatch::Alarm" | "AWS::CloudWatch::AnomalyDetector" | "AWS::CloudWatch::CompositeAlarm" | "AWS::CloudWatch::Dashboard" | "AWS::CodeDeploy::Application" | "AWS::CodeDeploy::DeploymentConfig" | "AWS::CodeDeploy::DeploymentGroup" | "AWS::DynamoDB::Table" | "AWS::EC2::CustomerGateway" | "AWS::EC2::DHCPOptions" | "AWS::EC2::EC2Fleet" | "AWS::EC2::EIP" | "AWS::EC2::EIPAssociation" | "AWS::EC2::EgressOnlyInternetGateway" | "AWS::EC2::FlowLog" | "AWS::EC2::GatewayRouteTableAssociation" | "AWS::EC2::Host" | "AWS::EC2::Instance" | "AWS::EC2::InternetGateway" | "AWS::EC2::LaunchTemplate" | "AWS::EC2::NatGateway" | "AWS::EC2::NetworkAcl" | "AWS::EC2::NetworkAclEntry" | "AWS::EC2::NetworkInterface" | "AWS::EC2::NetworkInterfaceAttachment" | "AWS::EC2::NetworkInterfacePermission" | "AWS::EC2::PlacementGroup" | "AWS::EC2::Route" | "AWS::EC2::RouteTable" | "AWS::EC2::SecurityGroup" | "AWS::EC2::SecurityGroupEgress" | "AWS::EC2::SecurityGroupIngress" | "AWS::EC2::SpotFleet" | "AWS::EC2::Subnet" | "AWS::EC2::SubnetCidrBlock" | "AWS::EC2::SubnetNetworkAclAssociation" | "AWS::EC2::SubnetRouteTableAssociation" | "AWS::EC2::VPC" | "AWS::EC2::VPCCidrBlock" | "AWS::EC2::VPCDHCPOptionsAssociation" | "AWS::EC2::VPCEndpoint" | "AWS::EC2::VPCEndpointConnectionNotification" | "AWS::EC2::VPCEndpointService" | "AWS::EC2::VPCEndpointServicePermissions" | "AWS::EC2::VPCGatewayAttachment" | "AWS::EC2::VPCPeeringConnection" | "AWS::EC2::VPNConnection" | "AWS::EC2::VPNConnectionRoute" | "AWS::EC2::VPNGateway" | "AWS::EC2::VPNGatewayRoutePropagation" | "AWS::EC2::Volume" | "AWS::EC2::VolumeAttachment" | "AWS::EMR::Cluster" | "AWS::EMR::InstanceFleetConfig" | "AWS::EMR::InstanceGroupConfig" | "AWS::EMR::SecurityConfiguration" | "AWS::EMR::Step" | "AWS::ElastiCache::CacheCluster" | "AWS::ElastiCache::ParameterGroup" | "AWS::ElastiCache::ReplicationGroup" | "AWS::ElastiCache::SecurityGroup" | "AWS::ElastiCache::SecurityGroupIngress" | "AWS::ElastiCache::SubnetGroup" | "AWS::ElasticBeanstalk::Application" | "AWS::ElasticBeanstalk::ApplicationVersion" | "AWS::ElasticBeanstalk::ConfigurationTemplate" | "AWS::ElasticBeanstalk::Environment" | "AWS::ElasticLoadBalancing::LoadBalancer" | "AWS::ElasticLoadBalancingV2::Listener" | "AWS::ElasticLoadBalancingV2::ListenerCertificate" | "AWS::ElasticLoadBalancingV2::ListenerRule" | "AWS::ElasticLoadBalancingV2::LoadBalancer" | "AWS::ElasticLoadBalancingV2::TargetGroup" | "AWS::Events::Rule" | "AWS::IAM::AccessKey" | "AWS::IAM::Group" | "AWS::IAM::InstanceProfile" | "AWS::IAM::ManagedPolicy" | "AWS::IAM::Policy" | "AWS::IAM::Role" | "AWS::IAM::User" | "AWS::IAM::UserToGroupAddition" | "AWS::KMS::Alias" | "AWS::KMS::Key" | "AWS::Kinesis::Stream" | "AWS::Kinesis::StreamConsumer" | "AWS::Logs::Destination" | "AWS::Logs::LogGroup" | "AWS::Logs::LogStream" | "AWS::Logs::MetricFilter" | "AWS::Logs::SubscriptionFilter" | "AWS::RDS::DBCluster" | "AWS::RDS::DBClusterParameterGroup" | "AWS::RDS::DBInstance" | "AWS::RDS::DBParameterGroup" | "AWS::RDS::DBSecurityGroup" | "AWS::RDS::DBSecurityGroupIngress" | "AWS::RDS::DBSubnetGroup" | "AWS::RDS::EventSubscription" | "AWS::RDS::OptionGroup" | "AWS::Redshift::Cluster" | "AWS::Redshift::ClusterParameterGroup" | "AWS::Redshift::ClusterSecurityGroup" | "AWS::Redshift::ClusterSecurityGroupIngress" | "AWS::Redshift::ClusterSubnetGroup" | "AWS::ResourceGroups::Group" | "AWS::Route53::HealthCheck" | "AWS::Route53::HostedZone" | "AWS::Route53::RecordSet" | "AWS::Route53::RecordSetGroup" | "AWS::S3::AccessPoint" | "AWS::S3::Bucket" | "AWS::S3::BucketPolicy" | "AWS::SNS::Subscription" | "AWS::SNS::Topic" | "AWS::SNS::TopicPolicy" | "AWS::SQS::Queue" | "AWS::SQS::QueuePolicy" | "AWS::StepFunctions::StateMachine" | "AWS::WAF::ByteMatchSet" | "AWS::WAF::IPSet" | "AWS::WAF::Rule" | "AWS::WAF::SizeConstraintSet" | "AWS::WAF::SqlInjectionMatchSet" | "AWS::WAF::WebACL" | "AWS::WAF::XssMatchSet" | =~#"^Custom::[a-zA-Z0-9_@-]{1,60}$"#
 		Properties: [string]: _
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain" | "Snapshot"
@@ -42,24 +42,6 @@ import "github.com/TangoGroup/aws/fn"
 	}
 }
 ResourceTypesMap: {
-	"AWS::ApiGateway::Account":                         #ApiGateway.#Account
-	"AWS::ApiGateway::ApiKey":                          #ApiGateway.#ApiKey
-	"AWS::ApiGateway::Authorizer":                      #ApiGateway.#Authorizer
-	"AWS::ApiGateway::BasePathMapping":                 #ApiGateway.#BasePathMapping
-	"AWS::ApiGateway::ClientCertificate":               #ApiGateway.#ClientCertificate
-	"AWS::ApiGateway::Deployment":                      #ApiGateway.#Deployment
-	"AWS::ApiGateway::DocumentationPart":               #ApiGateway.#DocumentationPart
-	"AWS::ApiGateway::DocumentationVersion":            #ApiGateway.#DocumentationVersion
-	"AWS::ApiGateway::DomainName":                      #ApiGateway.#DomainName
-	"AWS::ApiGateway::GatewayResponse":                 #ApiGateway.#GatewayResponse
-	"AWS::ApiGateway::Method":                          #ApiGateway.#Method
-	"AWS::ApiGateway::Model":                           #ApiGateway.#Model
-	"AWS::ApiGateway::RequestValidator":                #ApiGateway.#RequestValidator
-	"AWS::ApiGateway::Resource":                        #ApiGateway.#Resource
-	"AWS::ApiGateway::RestApi":                         #ApiGateway.#RestApi
-	"AWS::ApiGateway::Stage":                           #ApiGateway.#Stage
-	"AWS::ApiGateway::UsagePlan":                       #ApiGateway.#UsagePlan
-	"AWS::ApiGateway::UsagePlanKey":                    #ApiGateway.#UsagePlanKey
 	"AWS::ApplicationAutoScaling::ScalableTarget":      #ApplicationAutoScaling.#ScalableTarget
 	"AWS::ApplicationAutoScaling::ScalingPolicy":       #ApplicationAutoScaling.#ScalingPolicy
 	"AWS::AutoScaling::AutoScalingGroup":               #AutoScaling.#AutoScalingGroup
@@ -74,21 +56,17 @@ ResourceTypesMap: {
 	"AWS::CloudFormation::Stack":                       #CloudFormation.#Stack
 	"AWS::CloudFormation::WaitCondition":               #CloudFormation.#WaitCondition
 	"AWS::CloudFormation::WaitConditionHandle":         #CloudFormation.#WaitConditionHandle
+	"AWS::CloudFront::CachePolicy":                     #CloudFront.#CachePolicy
+	"AWS::CloudFront::OriginRequestPolicy":             #CloudFront.#OriginRequestPolicy
+	"AWS::CloudFront::RealtimeLogConfig":               #CloudFront.#RealtimeLogConfig
 	"AWS::CloudTrail::Trail":                           #CloudTrail.#Trail
 	"AWS::CloudWatch::Alarm":                           #CloudWatch.#Alarm
 	"AWS::CloudWatch::AnomalyDetector":                 #CloudWatch.#AnomalyDetector
+	"AWS::CloudWatch::CompositeAlarm":                  #CloudWatch.#CompositeAlarm
 	"AWS::CloudWatch::Dashboard":                       #CloudWatch.#Dashboard
 	"AWS::CodeDeploy::Application":                     #CodeDeploy.#Application
 	"AWS::CodeDeploy::DeploymentConfig":                #CodeDeploy.#DeploymentConfig
 	"AWS::CodeDeploy::DeploymentGroup":                 #CodeDeploy.#DeploymentGroup
-	"AWS::CodePipeline::CustomActionType":              #CodePipeline.#CustomActionType
-	"AWS::CodePipeline::Pipeline":                      #CodePipeline.#Pipeline
-	"AWS::Config::ConfigRule":                          #Config.#ConfigRule
-	"AWS::Config::ConfigurationRecorder":               #Config.#ConfigurationRecorder
-	"AWS::Config::DeliveryChannel":                     #Config.#DeliveryChannel
-	"AWS::DataPipeline::Pipeline":                      #DataPipeline.#Pipeline
-	"AWS::DirectoryService::MicrosoftAD":               #DirectoryService.#MicrosoftAD
-	"AWS::DirectoryService::SimpleAD":                  #DirectoryService.#SimpleAD
 	"AWS::DynamoDB::Table":                             #DynamoDB.#Table
 	"AWS::EC2::CustomerGateway":                        #EC2.#CustomerGateway
 	"AWS::EC2::DHCPOptions":                            #EC2.#DHCPOptions
@@ -134,12 +112,6 @@ ResourceTypesMap: {
 	"AWS::EC2::VPNGatewayRoutePropagation":             #EC2.#VPNGatewayRoutePropagation
 	"AWS::EC2::Volume":                                 #EC2.#Volume
 	"AWS::EC2::VolumeAttachment":                       #EC2.#VolumeAttachment
-	"AWS::ECR::Repository":                             #ECR.#Repository
-	"AWS::ECS::Cluster":                                #ECS.#Cluster
-	"AWS::ECS::Service":                                #ECS.#Service
-	"AWS::ECS::TaskDefinition":                         #ECS.#TaskDefinition
-	"AWS::EFS::FileSystem":                             #EFS.#FileSystem
-	"AWS::EFS::MountTarget":                            #EFS.#MountTarget
 	"AWS::EMR::Cluster":                                #EMR.#Cluster
 	"AWS::EMR::InstanceFleetConfig":                    #EMR.#InstanceFleetConfig
 	"AWS::EMR::InstanceGroupConfig":                    #EMR.#InstanceGroupConfig
@@ -161,11 +133,7 @@ ResourceTypesMap: {
 	"AWS::ElasticLoadBalancingV2::ListenerRule":        #ElasticLoadBalancingV2.#ListenerRule
 	"AWS::ElasticLoadBalancingV2::LoadBalancer":        #ElasticLoadBalancingV2.#LoadBalancer
 	"AWS::ElasticLoadBalancingV2::TargetGroup":         #ElasticLoadBalancingV2.#TargetGroup
-	"AWS::Elasticsearch::Domain":                       #Elasticsearch.#Domain
 	"AWS::Events::Rule":                                #Events.#Rule
-	"AWS::GameLift::Alias":                             #GameLift.#Alias
-	"AWS::GameLift::Build":                             #GameLift.#Build
-	"AWS::GameLift::Fleet":                             #GameLift.#Fleet
 	"AWS::IAM::AccessKey":                              #IAM.#AccessKey
 	"AWS::IAM::Group":                                  #IAM.#Group
 	"AWS::IAM::InstanceProfile":                        #IAM.#InstanceProfile
@@ -174,35 +142,15 @@ ResourceTypesMap: {
 	"AWS::IAM::Role":                                   #IAM.#Role
 	"AWS::IAM::User":                                   #IAM.#User
 	"AWS::IAM::UserToGroupAddition":                    #IAM.#UserToGroupAddition
-	"AWS::IoT::Certificate":                            #IoT.#Certificate
-	"AWS::IoT::Policy":                                 #IoT.#Policy
-	"AWS::IoT::PolicyPrincipalAttachment":              #IoT.#PolicyPrincipalAttachment
-	"AWS::IoT::Thing":                                  #IoT.#Thing
-	"AWS::IoT::ThingPrincipalAttachment":               #IoT.#ThingPrincipalAttachment
-	"AWS::IoT::TopicRule":                              #IoT.#TopicRule
 	"AWS::KMS::Alias":                                  #KMS.#Alias
 	"AWS::KMS::Key":                                    #KMS.#Key
 	"AWS::Kinesis::Stream":                             #Kinesis.#Stream
 	"AWS::Kinesis::StreamConsumer":                     #Kinesis.#StreamConsumer
-	"AWS::KinesisFirehose::DeliveryStream":             #KinesisFirehose.#DeliveryStream
-	"AWS::Lambda::Alias":                               #Lambda.#Alias
-	"AWS::Lambda::EventInvokeConfig":                   #Lambda.#EventInvokeConfig
-	"AWS::Lambda::EventSourceMapping":                  #Lambda.#EventSourceMapping
-	"AWS::Lambda::Function":                            #Lambda.#Function
-	"AWS::Lambda::Permission":                          #Lambda.#Permission
-	"AWS::Lambda::Version":                             #Lambda.#Version
 	"AWS::Logs::Destination":                           #Logs.#Destination
 	"AWS::Logs::LogGroup":                              #Logs.#LogGroup
 	"AWS::Logs::LogStream":                             #Logs.#LogStream
 	"AWS::Logs::MetricFilter":                          #Logs.#MetricFilter
 	"AWS::Logs::SubscriptionFilter":                    #Logs.#SubscriptionFilter
-	"AWS::OpsWorks::App":                               #OpsWorks.#App
-	"AWS::OpsWorks::ElasticLoadBalancerAttachment":     #OpsWorks.#ElasticLoadBalancerAttachment
-	"AWS::OpsWorks::Instance":                          #OpsWorks.#Instance
-	"AWS::OpsWorks::Layer":                             #OpsWorks.#Layer
-	"AWS::OpsWorks::Stack":                             #OpsWorks.#Stack
-	"AWS::OpsWorks::UserProfile":                       #OpsWorks.#UserProfile
-	"AWS::OpsWorks::Volume":                            #OpsWorks.#Volume
 	"AWS::RDS::DBCluster":                              #RDS.#DBCluster
 	"AWS::RDS::DBClusterParameterGroup":                #RDS.#DBClusterParameterGroup
 	"AWS::RDS::DBInstance":                             #RDS.#DBInstance
@@ -225,14 +173,12 @@ ResourceTypesMap: {
 	"AWS::S3::AccessPoint":                             #S3.#AccessPoint
 	"AWS::S3::Bucket":                                  #S3.#Bucket
 	"AWS::S3::BucketPolicy":                            #S3.#BucketPolicy
-	"AWS::SDB::Domain":                                 #SDB.#Domain
 	"AWS::SNS::Subscription":                           #SNS.#Subscription
 	"AWS::SNS::Topic":                                  #SNS.#Topic
 	"AWS::SNS::TopicPolicy":                            #SNS.#TopicPolicy
 	"AWS::SQS::Queue":                                  #SQS.#Queue
 	"AWS::SQS::QueuePolicy":                            #SQS.#QueuePolicy
-	"AWS::SSM::Association":                            #SSM.#Association
-	"AWS::SSM::Document":                               #SSM.#Document
+	"AWS::StepFunctions::StateMachine":                 #StepFunctions.#StateMachine
 	"AWS::WAF::ByteMatchSet":                           #WAF.#ByteMatchSet
 	"AWS::WAF::IPSet":                                  #WAF.#IPSet
 	"AWS::WAF::Rule":                                   #WAF.#Rule
@@ -240,5 +186,4 @@ ResourceTypesMap: {
 	"AWS::WAF::SqlInjectionMatchSet":                   #WAF.#SqlInjectionMatchSet
 	"AWS::WAF::WebACL":                                 #WAF.#WebACL
 	"AWS::WAF::XssMatchSet":                            #WAF.#XssMatchSet
-	"AWS::WorkSpaces::Workspace":                       #WorkSpaces.#Workspace
 }

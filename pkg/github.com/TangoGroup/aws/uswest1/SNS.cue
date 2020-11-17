@@ -4,8 +4,8 @@ import "github.com/TangoGroup/aws/fn"
 
 #SNS: {
 	#Subscription: {
-		Type:       "AWS::SNS::Subscription"
-		Properties: close({
+		Type: "AWS::SNS::Subscription"
+		Properties: {
 			DeliveryPolicy?: {
 				[string]: _
 			} | fn.#Fn
@@ -18,9 +18,10 @@ import "github.com/TangoGroup/aws/fn"
 			RedrivePolicy?:      {
 				[string]: _
 			} | fn.#Fn
-			Region?:  string | fn.#Fn
-			TopicArn: string | fn.#Fn
-		})
+			Region?:              string | fn.#Fn
+			SubscriptionRoleArn?: string | fn.#Fn
+			TopicArn:             string | fn.#Fn
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -28,22 +29,22 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#Topic: {
-		Type:       "AWS::SNS::Topic"
-		Properties: close({
+		Type: "AWS::SNS::Topic"
+		Properties: {
 			ContentBasedDeduplication?: bool | fn.#Fn
 			DisplayName?:               string | fn.#Fn
 			FifoTopic?:                 bool | fn.#Fn
 			KmsMasterKeyId?:            string | fn.#Fn
-			Subscription?:              [...close({
+			Subscription?:              [...{
 				Endpoint: string | fn.#Fn
 				Protocol: string | fn.#Fn
-			})] | fn.If
-			Tags?: [...close({
+			}] | fn.If
+			Tags?: [...{
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			})] | fn.If
+			}] | fn.If
 			TopicName?: string | fn.#Fn
-		})
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -51,8 +52,8 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#TopicPolicy: {
-		Type:       "AWS::SNS::TopicPolicy"
-		Properties: close({
+		Type: "AWS::SNS::TopicPolicy"
+		Properties: {
 			PolicyDocument: {
 				{
 					[string]: _
@@ -60,7 +61,7 @@ import "github.com/TangoGroup/aws/fn"
 				Version: string | *"2012-10-17"
 			} | fn.#Fn
 			Topics: [...(string | fn.#Fn)] | (string | fn.#Fn)
-		})
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

@@ -4,26 +4,26 @@ import "github.com/TangoGroup/aws/fn"
 
 #IoTAnalytics: {
 	#Channel: {
-		Type:       "AWS::IoTAnalytics::Channel"
-		Properties: close({
+		Type: "AWS::IoTAnalytics::Channel"
+		Properties: {
 			ChannelName?:    string | fn.#Fn
-			ChannelStorage?: close({
-				CustomerManagedS3?: close({
+			ChannelStorage?: {
+				CustomerManagedS3?: {
 					Bucket:     string | fn.#Fn
 					KeyPrefix?: string | fn.#Fn
 					RoleArn:    string | fn.#Fn
-				}) | fn.If
-				ServiceManagedS3?: close({}) | fn.If
-			}) | fn.If
-			RetentionPeriod?: close({
+				} | fn.If
+				ServiceManagedS3?: {} | fn.If
+			} | fn.If
+			RetentionPeriod?: {
 				NumberOfDays?: int | fn.#Fn
 				Unlimited?:    bool | fn.#Fn
-			}) | fn.If
-			Tags?: [...close({
+			} | fn.If
+			Tags?: [...{
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			})] | fn.If
-		})
+			}] | fn.If
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -31,79 +31,79 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#Dataset: {
-		Type:       "AWS::IoTAnalytics::Dataset"
-		Properties: close({
-			Actions: [...close({
+		Type: "AWS::IoTAnalytics::Dataset"
+		Properties: {
+			Actions: [...{
 				ActionName:       string | fn.#Fn
-				ContainerAction?: close({
+				ContainerAction?: {
 					ExecutionRoleArn:      string | fn.#Fn
 					Image:                 string | fn.#Fn
-					ResourceConfiguration: close({
+					ResourceConfiguration: {
 						ComputeType:    string | fn.#Fn
 						VolumeSizeInGB: int | fn.#Fn
-					}) | fn.If
-					Variables?: [...close({
-						DatasetContentVersionValue?: close({
+					} | fn.If
+					Variables?: [...{
+						DatasetContentVersionValue?: {
 							DatasetName?: string | fn.#Fn
-						}) | fn.If
+						} | fn.If
 						DoubleValue?:        number | fn.#Fn
-						OutputFileUriValue?: close({
+						OutputFileUriValue?: {
 							FileName?: string | fn.#Fn
-						}) | fn.If
+						} | fn.If
 						StringValue?: string | fn.#Fn
 						VariableName: string | fn.#Fn
-					})] | fn.If
-				}) | fn.If
-				QueryAction?: close({
-					Filters?: [...close({
-						DeltaTime?: close({
+					}] | fn.If
+				} | fn.If
+				QueryAction?: {
+					Filters?: [...{
+						DeltaTime?: {
 							OffsetSeconds:  int | fn.#Fn
 							TimeExpression: string | fn.#Fn
-						}) | fn.If
-					})] | fn.If
+						} | fn.If
+					}] | fn.If
 					SqlQuery: string | fn.#Fn
-				}) | fn.If
-			})] | fn.If
-			ContentDeliveryRules?: [...close({
-				Destination: close({
-					IotEventsDestinationConfiguration?: close({
+				} | fn.If
+			}] | fn.If
+			ContentDeliveryRules?: [...{
+				Destination: {
+					IotEventsDestinationConfiguration?: {
 						InputName: string | fn.#Fn
 						RoleArn:   string | fn.#Fn
-					}) | fn.If
-					S3DestinationConfiguration?: close({
+					} | fn.If
+					S3DestinationConfiguration?: {
 						Bucket:             string | fn.#Fn
-						GlueConfiguration?: close({
+						GlueConfiguration?: {
 							DatabaseName: string | fn.#Fn
 							TableName:    string | fn.#Fn
-						}) | fn.If
+						} | fn.If
 						Key:     string | fn.#Fn
 						RoleArn: string | fn.#Fn
-					}) | fn.If
-				}) | fn.If
+					} | fn.If
+				} | fn.If
 				EntryName?: string | fn.#Fn
-			})] | fn.If
+			}] | fn.If
 			DatasetName?:     string | fn.#Fn
-			RetentionPeriod?: close({
+			RetentionPeriod?: {
 				NumberOfDays: int | fn.#Fn
 				Unlimited:    bool | fn.#Fn
-			}) | fn.If
-			Tags?: [...close({
+			} | fn.If
+			Tags?: [...{
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			})] | fn.If
-			Triggers?: [...close({
-				Schedule?: close({
+			}] | fn.If
+			Triggers?: [...{
+				Schedule?: {
 					ScheduleExpression: string | fn.#Fn
-				}) | fn.If
-				TriggeringDataset?: close({
+				} | fn.If
+				TriggeringDataset?: {
 					DatasetName: string | fn.#Fn
-				}) | fn.If
-			})] | fn.If
-			VersioningConfiguration?: close({
+				} | fn.If
+			}] | fn.If
+			VersioningConfiguration?: {
 				MaxVersions?: int | fn.#Fn
 				Unlimited?:   bool | fn.#Fn
-			}) | fn.If
-		})
+			} | fn.If
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -111,26 +111,26 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#Datastore: {
-		Type:       "AWS::IoTAnalytics::Datastore"
-		Properties: close({
+		Type: "AWS::IoTAnalytics::Datastore"
+		Properties: {
 			DatastoreName?:    string | fn.#Fn
-			DatastoreStorage?: close({
-				CustomerManagedS3?: close({
+			DatastoreStorage?: {
+				CustomerManagedS3?: {
 					Bucket:     string | fn.#Fn
 					KeyPrefix?: string | fn.#Fn
 					RoleArn:    string | fn.#Fn
-				}) | fn.If
-				ServiceManagedS3?: close({}) | fn.If
-			}) | fn.If
-			RetentionPeriod?: close({
+				} | fn.If
+				ServiceManagedS3?: {} | fn.If
+			} | fn.If
+			RetentionPeriod?: {
 				NumberOfDays?: int | fn.#Fn
 				Unlimited?:    bool | fn.#Fn
-			}) | fn.If
-			Tags?: [...close({
+			} | fn.If
+			Tags?: [...{
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			})] | fn.If
-		})
+			}] | fn.If
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -138,73 +138,73 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#Pipeline: {
-		Type:       "AWS::IoTAnalytics::Pipeline"
-		Properties: close({
-			PipelineActivities: [...close({
-				AddAttributes?: close({
+		Type: "AWS::IoTAnalytics::Pipeline"
+		Properties: {
+			PipelineActivities: [...{
+				AddAttributes?: {
 					Attributes?: {
 						[string]: _
 					} | fn.#Fn
 					Name?: string | fn.#Fn
 					Next?: string | fn.#Fn
-				}) | fn.If
-				Channel?: close({
+				} | fn.If
+				Channel?: {
 					ChannelName?: string | fn.#Fn
 					Name?:        string | fn.#Fn
 					Next?:        string | fn.#Fn
-				}) | fn.If
-				Datastore?: close({
+				} | fn.If
+				Datastore?: {
 					DatastoreName?: string | fn.#Fn
 					Name?:          string | fn.#Fn
-				}) | fn.If
-				DeviceRegistryEnrich?: close({
+				} | fn.If
+				DeviceRegistryEnrich?: {
 					Attribute?: string | fn.#Fn
 					Name?:      string | fn.#Fn
 					Next?:      string | fn.#Fn
 					RoleArn?:   string | fn.#Fn
 					ThingName?: string | fn.#Fn
-				}) | fn.If
-				DeviceShadowEnrich?: close({
+				} | fn.If
+				DeviceShadowEnrich?: {
 					Attribute?: string | fn.#Fn
 					Name?:      string | fn.#Fn
 					Next?:      string | fn.#Fn
 					RoleArn?:   string | fn.#Fn
 					ThingName?: string | fn.#Fn
-				}) | fn.If
-				Filter?: close({
+				} | fn.If
+				Filter?: {
 					Filter?: string | fn.#Fn
 					Name?:   string | fn.#Fn
 					Next?:   string | fn.#Fn
-				}) | fn.If
-				Lambda?: close({
+				} | fn.If
+				Lambda?: {
 					BatchSize?:  int | fn.#Fn
 					LambdaName?: string | fn.#Fn
 					Name?:       string | fn.#Fn
 					Next?:       string | fn.#Fn
-				}) | fn.If
-				Math?: close({
+				} | fn.If
+				Math?: {
 					Attribute?: string | fn.#Fn
 					Math?:      string | fn.#Fn
 					Name?:      string | fn.#Fn
 					Next?:      string | fn.#Fn
-				}) | fn.If
-				RemoveAttributes?: close({
+				} | fn.If
+				RemoveAttributes?: {
 					Attributes?: [...(string | fn.#Fn)] | (string | fn.#Fn)
 					Name?:       string | fn.#Fn
 					Next?:       string | fn.#Fn
-				}) | fn.If
-				SelectAttributes?: close({
+				} | fn.If
+				SelectAttributes?: {
 					Attributes?: [...(string | fn.#Fn)] | (string | fn.#Fn)
 					Name?:       string | fn.#Fn
 					Next?:       string | fn.#Fn
-				}) | fn.If
-			})] | fn.If
+				} | fn.If
+			}] | fn.If
 			PipelineName?: string | fn.#Fn
-			Tags?:         [...close({
+			Tags?:         [...{
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			})] | fn.If
-		})
+			}] | fn.If
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

@@ -4,8 +4,8 @@ import "github.com/TangoGroup/aws/fn"
 
 #Redshift: {
 	#Cluster: {
-		Type:       "AWS::Redshift::Cluster"
-		Properties: close({
+		Type: "AWS::Redshift::Cluster"
+		Properties: {
 			AllowVersionUpgrade?:              bool | fn.#Fn
 			AutomatedSnapshotRetentionPeriod?: int | fn.#Fn
 			AvailabilityZone?:                 string | fn.#Fn
@@ -22,10 +22,10 @@ import "github.com/TangoGroup/aws/fn"
 			HsmConfigurationIdentifier?:       string | fn.#Fn
 			IamRoles?:                         [...(string | fn.#Fn)] | (string | fn.#Fn)
 			KmsKeyId?:                         string | fn.#Fn
-			LoggingProperties?:                close({
+			LoggingProperties?:                {
 				BucketName:   string | fn.#Fn
 				S3KeyPrefix?: string | fn.#Fn
-			}) | fn.If
+			} | fn.If
 			MasterUserPassword:          string | fn.#Fn
 			MasterUsername:              string | fn.#Fn
 			NodeType:                    ("dc1.8xlarge" | "dc1.large" | "dc2.8xlarge" | "dc2.large" | "ds1.8xlarge" | "ds1.xlarge" | "ds2.8xlarge" | "ds2.xlarge" | "ra3.16xlarge" | "ra3.4xlarge") | fn.#Fn
@@ -36,12 +36,12 @@ import "github.com/TangoGroup/aws/fn"
 			PubliclyAccessible?:         bool | fn.#Fn
 			SnapshotClusterIdentifier?:  string | fn.#Fn
 			SnapshotIdentifier?:         string | fn.#Fn
-			Tags?:                       [...close({
+			Tags?:                       [...{
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			})] | fn.If
+			}] | fn.If
 			VpcSecurityGroupIds?: [...(string | fn.#Fn)] | (string | fn.#Fn)
-		})
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain" | "Snapshot"
 		UpdateReplacePolicy?: "Delete" | "Retain" | "Snapshot"
@@ -49,19 +49,19 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#ClusterParameterGroup: {
-		Type:       "AWS::Redshift::ClusterParameterGroup"
-		Properties: close({
+		Type: "AWS::Redshift::ClusterParameterGroup"
+		Properties: {
 			Description:          string | fn.#Fn
 			ParameterGroupFamily: string | fn.#Fn
-			Parameters?:          [...close({
+			Parameters?:          [...{
 				ParameterName:  string | fn.#Fn
 				ParameterValue: string | fn.#Fn
-			})] | fn.If
-			Tags?: [...close({
+			}] | fn.If
+			Tags?: [...{
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			})] | fn.If
-		})
+			}] | fn.If
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -69,14 +69,14 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#ClusterSecurityGroup: {
-		Type:       "AWS::Redshift::ClusterSecurityGroup"
-		Properties: close({
+		Type: "AWS::Redshift::ClusterSecurityGroup"
+		Properties: {
 			Description: string | fn.#Fn
-			Tags?:       [...close({
+			Tags?:       [...{
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			})] | fn.If
-		})
+			}] | fn.If
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -84,13 +84,13 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#ClusterSecurityGroupIngress: {
-		Type:       "AWS::Redshift::ClusterSecurityGroupIngress"
-		Properties: close({
-			CIDRIP?:                  string | fn.#Fn
+		Type: "AWS::Redshift::ClusterSecurityGroupIngress"
+		Properties: {
+			CIDRIP?:                  (=~#"^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]).){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/([0-9]|[1-2][0-9]|3[0-2]))$"#) | fn.#Fn
 			ClusterSecurityGroupName: string | fn.#Fn
 			EC2SecurityGroupName?:    string | fn.#Fn
 			EC2SecurityGroupOwnerId?: string | fn.#Fn
-		})
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -98,15 +98,15 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#ClusterSubnetGroup: {
-		Type:       "AWS::Redshift::ClusterSubnetGroup"
-		Properties: close({
+		Type: "AWS::Redshift::ClusterSubnetGroup"
+		Properties: {
 			Description: string | fn.#Fn
 			SubnetIds:   [...(string | fn.#Fn)] | (string | fn.#Fn)
-			Tags?:       [...close({
+			Tags?:       [...{
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			})] | fn.If
-		})
+			}] | fn.If
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

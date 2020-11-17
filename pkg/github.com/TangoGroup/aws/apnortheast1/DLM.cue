@@ -4,62 +4,63 @@ import "github.com/TangoGroup/aws/fn"
 
 #DLM: {
 	#LifecyclePolicy: {
-		Type:       "AWS::DLM::LifecyclePolicy"
-		Properties: close({
+		Type: "AWS::DLM::LifecyclePolicy"
+		Properties: {
 			Description?:     string | fn.#Fn
 			ExecutionRoleArn: string | fn.#Fn
-			PolicyDetails?:   close({
-				Parameters?: close({
+			PolicyDetails?:   {
+				Parameters?: {
 					ExcludeBootVolume?: bool | fn.#Fn
-				}) | fn.If
+					NoReboot?:          bool | fn.#Fn
+				} | fn.If
 				PolicyType?:   string | fn.#Fn
 				ResourceTypes: [...(("INSTANCE" | "VOLUME") | fn.#Fn)] | (("INSTANCE" | "VOLUME") | fn.#Fn)
-				Schedules:     [...close({
+				Schedules:     [...{
 					CopyTags?:   bool | fn.#Fn
-					CreateRule?: close({
+					CreateRule?: {
 						CronExpression?: string | fn.#Fn
 						Interval?:       int | fn.#Fn
 						IntervalUnit?:   string | fn.#Fn
 						Times?:          [...(string | fn.#Fn)] | (string | fn.#Fn)
-					}) | fn.If
-					CrossRegionCopyRules?: [...close({
+					} | fn.If
+					CrossRegionCopyRules?: [...{
 						CmkArn?:     string | fn.#Fn
 						CopyTags?:   bool | fn.#Fn
 						Encrypted:   bool | fn.#Fn
-						RetainRule?: close({
+						RetainRule?: {
 							Interval:     int | fn.#Fn
 							IntervalUnit: string | fn.#Fn
-						}) | fn.If
+						} | fn.If
 						TargetRegion: string | fn.#Fn
-					})] | fn.If
-					FastRestoreRule?: close({
+					}] | fn.If
+					FastRestoreRule?: {
 						AvailabilityZones?: [...(string | fn.#Fn)] | (string | fn.#Fn)
 						Count?:             int | fn.#Fn
 						Interval?:          int | fn.#Fn
 						IntervalUnit?:      string | fn.#Fn
-					}) | fn.If
+					} | fn.If
 					Name?:       string | fn.#Fn
-					RetainRule?: close({
+					RetainRule?: {
 						Count?:        int | fn.#Fn
 						Interval?:     int | fn.#Fn
 						IntervalUnit?: string | fn.#Fn
-					}) | fn.If
-					TagsToAdd?: [...close({
+					} | fn.If
+					TagsToAdd?: [...{
 						Key:   string | fn.#Fn
 						Value: string | fn.#Fn
-					})] | fn.If
-					VariableTags?: [...close({
+					}] | fn.If
+					VariableTags?: [...{
 						Key:   string | fn.#Fn
 						Value: string | fn.#Fn
-					})] | fn.If
-				})] | fn.If
-				TargetTags: [...close({
+					}] | fn.If
+				}] | fn.If
+				TargetTags: [...{
 					Key:   string | fn.#Fn
 					Value: string | fn.#Fn
-				})] | fn.If
-			}) | fn.If
+				}] | fn.If
+			} | fn.If
 			State: ("DISABLED" | "ENABLED") | fn.#Fn
-		})
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

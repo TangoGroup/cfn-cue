@@ -4,17 +4,17 @@ import "github.com/TangoGroup/aws/fn"
 
 #RAM: {
 	#ResourceShare: {
-		Type:       "AWS::RAM::ResourceShare"
-		Properties: close({
+		Type: "AWS::RAM::ResourceShare"
+		Properties: {
 			AllowExternalPrincipals?: bool | fn.#Fn
 			Name:                     string | fn.#Fn
 			Principals?:              [...(string | fn.#Fn)] | (string | fn.#Fn)
 			ResourceArns?:            [...(string | fn.#Fn)] | (string | fn.#Fn)
-			Tags?:                    [...close({
+			Tags?:                    [...{
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			})] | fn.If
-		})
+			}] | fn.If
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

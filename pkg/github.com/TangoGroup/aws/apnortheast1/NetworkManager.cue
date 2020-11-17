@@ -4,13 +4,13 @@ import "github.com/TangoGroup/aws/fn"
 
 #NetworkManager: {
 	#CustomerGatewayAssociation: {
-		Type:       "AWS::NetworkManager::CustomerGatewayAssociation"
-		Properties: close({
+		Type: "AWS::NetworkManager::CustomerGatewayAssociation"
+		Properties: {
 			CustomerGatewayArn: string | fn.#Fn
 			DeviceId:           string | fn.#Fn
 			GlobalNetworkId:    string | fn.#Fn
 			LinkId?:            string | fn.#Fn
-		})
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -18,25 +18,25 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#Device: {
-		Type:       "AWS::NetworkManager::Device"
-		Properties: close({
+		Type: "AWS::NetworkManager::Device"
+		Properties: {
 			Description?:    string | fn.#Fn
 			GlobalNetworkId: string | fn.#Fn
-			Location?:       close({
+			Location?:       {
 				Address?:   string | fn.#Fn
 				Latitude?:  string | fn.#Fn
 				Longitude?: string | fn.#Fn
-			}) | fn.If
+			} | fn.If
 			Model?:        string | fn.#Fn
 			SerialNumber?: string | fn.#Fn
 			SiteId?:       string | fn.#Fn
-			Tags?:         [...close({
+			Tags?:         [...{
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			})] | fn.If
+			}] | fn.If
 			Type?:   string | fn.#Fn
 			Vendor?: string | fn.#Fn
-		})
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -44,14 +44,14 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#GlobalNetwork: {
-		Type:       "AWS::NetworkManager::GlobalNetwork"
-		Properties: close({
+		Type: "AWS::NetworkManager::GlobalNetwork"
+		Properties: {
 			Description?: string | fn.#Fn
-			Tags?:        [...close({
+			Tags?:        [...{
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			})] | fn.If
-		})
+			}] | fn.If
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -59,22 +59,22 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#Link: {
-		Type:       "AWS::NetworkManager::Link"
-		Properties: close({
-			Bandwidth: close({
+		Type: "AWS::NetworkManager::Link"
+		Properties: {
+			Bandwidth: {
 				DownloadSpeed?: int | fn.#Fn
 				UploadSpeed?:   int | fn.#Fn
-			}) | fn.If
+			} | fn.If
 			Description?:    string | fn.#Fn
 			GlobalNetworkId: string | fn.#Fn
 			Provider?:       string | fn.#Fn
 			SiteId:          string | fn.#Fn
-			Tags?:           [...close({
+			Tags?:           [...{
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			})] | fn.If
+			}] | fn.If
 			Type?: string | fn.#Fn
-		})
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -82,12 +82,12 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#LinkAssociation: {
-		Type:       "AWS::NetworkManager::LinkAssociation"
-		Properties: close({
+		Type: "AWS::NetworkManager::LinkAssociation"
+		Properties: {
 			DeviceId:        string | fn.#Fn
 			GlobalNetworkId: string | fn.#Fn
 			LinkId:          string | fn.#Fn
-		})
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -95,20 +95,20 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#Site: {
-		Type:       "AWS::NetworkManager::Site"
-		Properties: close({
+		Type: "AWS::NetworkManager::Site"
+		Properties: {
 			Description?:    string | fn.#Fn
 			GlobalNetworkId: string | fn.#Fn
-			Location?:       close({
+			Location?:       {
 				Address?:   string | fn.#Fn
 				Latitude?:  string | fn.#Fn
 				Longitude?: string | fn.#Fn
-			}) | fn.If
-			Tags?: [...close({
+			} | fn.If
+			Tags?: [...{
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			})] | fn.If
-		})
+			}] | fn.If
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -116,11 +116,11 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#TransitGatewayRegistration: {
-		Type:       "AWS::NetworkManager::TransitGatewayRegistration"
-		Properties: close({
+		Type: "AWS::NetworkManager::TransitGatewayRegistration"
+		Properties: {
 			GlobalNetworkId:   string | fn.#Fn
 			TransitGatewayArn: string | fn.#Fn
-		})
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

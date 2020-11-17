@@ -143,9 +143,9 @@ func createFieldFromProperty(name string, prop Property, resourceSubproperties m
 	var value2 ast.Expr
 	custom := false
 
-	if parentName == "AWS::AppSync::GraphQLApi" && name == "AdditionalAuthenticationProviders" {
-		prop = Property{ItemType: "AdditionalAuthenticationProvider", Type: "List", Required: false}
-	}
+	// if parentName == "AWS::AppSync::GraphQLApi" && name == "AdditionalAuthenticationProviders" {
+	// 	prop = Property{ItemType: "AdditionalAuthenticationProvider", Type: "List", Required: false}
+	// }
 	if parentName == "AWS::AppSync::GraphQLApi" && name == "Tags" {
 		prop = Property{ItemType: "Tag", Type: "List", Required: false}
 	}
@@ -261,7 +261,7 @@ func createFieldFromProperty(name string, prop Property, resourceSubproperties m
 			v, imports = createStructFromResource(name, resourceSubproperties[typeName], resourceSubproperties, valueTypes)
 			value = &v
 		}
-		value = ast.NewCall(ast.NewIdent("close"), value)
+		// value = ast.NewCall(ast.NewIdent("close"), value)
 	}
 
 	if prop.IsList() {
@@ -990,7 +990,8 @@ func main() {
 				importStrings = mergeMaps(importStrings, resourceImports)
 				propertiesStruct := &ast.Field{
 					Label: ast.NewIdent("Properties"),
-					Value: ast.NewCall(ast.NewIdent("close"), &properties),
+					// Value: ast.NewCall(ast.NewIdent("close"), &properties),
+					Value: &properties,
 				}
 				resourceType := resourceType(resourceName)
 				resourceElts := []ast.Decl{

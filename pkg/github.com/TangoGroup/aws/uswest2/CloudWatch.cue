@@ -7,43 +7,43 @@ import (
 
 #CloudWatch: {
 	#Alarm: {
-		Type:       "AWS::CloudWatch::Alarm"
-		Properties: close({
+		Type: "AWS::CloudWatch::Alarm"
+		Properties: {
 			ActionsEnabled?:    bool | fn.#Fn
 			AlarmActions?:      [...((strings.MinRunes(1) & strings.MaxRunes(1024)) | fn.#Fn)] | ((strings.MinRunes(1) & strings.MaxRunes(1024)) | fn.#Fn)
 			AlarmDescription?:  string | fn.#Fn
 			AlarmName?:         string | fn.#Fn
-			ComparisonOperator: ("GreaterThanOrEqualToThreshold" | "GreaterThanThreshold" | "LessThanThreshold" | "LessThanOrEqualToThreshold" | "LessThanLowerOrGreaterThanUpperThreshold" | "LessThanLowerThreshold" | "GreaterThanUpperThreshold") | fn.#Fn
+			ComparisonOperator: ("GreaterThanOrEqualToThreshold" | "GreaterThanThreshold" | "GreaterThanUpperThreshold" | "LessThanLowerOrGreaterThanUpperThreshold" | "LessThanLowerThreshold" | "LessThanOrEqualToThreshold" | "LessThanThreshold") | fn.#Fn
 			DatapointsToAlarm?: int | fn.#Fn
-			Dimensions?:        [...close({
+			Dimensions?:        [...{
 				Name:  string | fn.#Fn
 				Value: string | fn.#Fn
-			})] | fn.If
+			}] | fn.If
 			EvaluateLowSampleCountPercentile?: string | fn.#Fn
 			EvaluationPeriods:                 int | fn.#Fn
 			ExtendedStatistic?:                string | fn.#Fn
 			InsufficientDataActions?:          [...(string | fn.#Fn)] | (string | fn.#Fn)
 			MetricName?:                       string | fn.#Fn
-			Metrics?:                          [...close({
+			Metrics?:                          [...{
 				Expression?: string | fn.#Fn
 				Id:          string | fn.#Fn
 				Label?:      string | fn.#Fn
-				MetricStat?: close({
-					Metric: close({
-						Dimensions?: [...close({
+				MetricStat?: {
+					Metric: {
+						Dimensions?: [...{
 							Name:  string | fn.#Fn
 							Value: string | fn.#Fn
-						})] | fn.If
+						}] | fn.If
 						MetricName?: string | fn.#Fn
 						Namespace?:  string | fn.#Fn
-					}) | fn.If
+					} | fn.If
 					Period: int | fn.#Fn
 					Stat:   string | fn.#Fn
 					Unit?:  string | fn.#Fn
-				}) | fn.If
+				} | fn.If
 				Period?:     int | fn.#Fn
 				ReturnData?: bool | fn.#Fn
-			})] | fn.If
+			}] | fn.If
 			Namespace?:         string | fn.#Fn
 			OKActions?:         [...(string | fn.#Fn)] | (string | fn.#Fn)
 			Period?:            int | fn.#Fn
@@ -52,7 +52,7 @@ import (
 			ThresholdMetricId?: string | fn.#Fn
 			TreatMissingData?:  ("breaching" | "ignore" | "missing" | "notBreaching") | fn.#Fn
 			Unit?:              ("Bits" | "Bits/Second" | "Bytes" | "Bytes/Second" | "Count" | "Count/Second" | "Gigabits" | "Gigabits/Second" | "Gigabytes" | "Gigabytes/Second" | "Kilobits" | "Kilobits/Second" | "Kilobytes" | "Kilobytes/Second" | "Megabits" | "Megabits/Second" | "Megabytes" | "Megabytes/Second" | "Microseconds" | "Milliseconds" | "None" | "Percent" | "Seconds" | "Terabits" | "Terabits/Second" | "Terabytes" | "Terabytes/Second") | fn.#Fn
-		})
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -60,23 +60,23 @@ import (
 		Condition?: string
 	}
 	#AnomalyDetector: {
-		Type:       "AWS::CloudWatch::AnomalyDetector"
-		Properties: close({
-			Configuration?: close({
-				ExcludedTimeRanges?: [...close({
+		Type: "AWS::CloudWatch::AnomalyDetector"
+		Properties: {
+			Configuration?: {
+				ExcludedTimeRanges?: [...{
 					EndTime:   string | fn.#Fn
 					StartTime: string | fn.#Fn
-				})] | fn.If
+				}] | fn.If
 				MetricTimeZone?: string | fn.#Fn
-			}) | fn.If
-			Dimensions?: [...close({
+			} | fn.If
+			Dimensions?: [...{
 				Name:  string | fn.#Fn
 				Value: string | fn.#Fn
-			})] | fn.If
+			}] | fn.If
 			MetricName: string | fn.#Fn
 			Namespace:  string | fn.#Fn
 			Stat:       string | fn.#Fn
-		})
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -84,8 +84,8 @@ import (
 		Condition?: string
 	}
 	#CompositeAlarm: {
-		Type:       "AWS::CloudWatch::CompositeAlarm"
-		Properties: close({
+		Type: "AWS::CloudWatch::CompositeAlarm"
+		Properties: {
 			ActionsEnabled?:          bool | fn.#Fn
 			AlarmActions?:            [...(string | fn.#Fn)] | (string | fn.#Fn)
 			AlarmDescription?:        string | fn.#Fn
@@ -93,7 +93,7 @@ import (
 			AlarmRule:                string | fn.#Fn
 			InsufficientDataActions?: [...(string | fn.#Fn)] | (string | fn.#Fn)
 			OKActions?:               [...(string | fn.#Fn)] | (string | fn.#Fn)
-		})
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -101,11 +101,11 @@ import (
 		Condition?: string
 	}
 	#Dashboard: {
-		Type:       "AWS::CloudWatch::Dashboard"
-		Properties: close({
+		Type: "AWS::CloudWatch::Dashboard"
+		Properties: {
 			DashboardBody:  string | fn.#Fn
 			DashboardName?: string | fn.#Fn
-		})
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -113,13 +113,13 @@ import (
 		Condition?: string
 	}
 	#InsightRule: {
-		Type:       "AWS::CloudWatch::InsightRule"
-		Properties: close({
+		Type: "AWS::CloudWatch::InsightRule"
+		Properties: {
 			RuleBody:  string | fn.#Fn
 			RuleName:  string | fn.#Fn
 			RuleState: string | fn.#Fn
-			Tags?:     close({}) | fn.If
-		})
+			Tags?:     {} | fn.If
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

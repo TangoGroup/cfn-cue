@@ -4,8 +4,8 @@ import "github.com/TangoGroup/aws/fn"
 
 #DAX: {
 	#Cluster: {
-		Type:       "AWS::DAX::Cluster"
-		Properties: close({
+		Type: "AWS::DAX::Cluster"
+		Properties: {
 			AvailabilityZones?:          [...(string | fn.#Fn)] | (string | fn.#Fn)
 			ClusterName?:                string | fn.#Fn
 			Description?:                string | fn.#Fn
@@ -15,13 +15,15 @@ import "github.com/TangoGroup/aws/fn"
 			ParameterGroupName?:         string | fn.#Fn
 			PreferredMaintenanceWindow?: string | fn.#Fn
 			ReplicationFactor:           int | fn.#Fn
-			SSESpecification?:           close({}) | fn.If
-			SecurityGroupIds?:           [...(string | fn.#Fn)] | (string | fn.#Fn)
-			SubnetGroupName?:            string | fn.#Fn
-			Tags?:                       {
+			SSESpecification?:           {
+				SSEEnabled?: bool | fn.#Fn
+			} | fn.If
+			SecurityGroupIds?: [...(string | fn.#Fn)] | (string | fn.#Fn)
+			SubnetGroupName?:  string | fn.#Fn
+			Tags?:             {
 				[string]: _
 			} | fn.#Fn
-		})
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -29,14 +31,14 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#ParameterGroup: {
-		Type:       "AWS::DAX::ParameterGroup"
-		Properties: close({
+		Type: "AWS::DAX::ParameterGroup"
+		Properties: {
 			Description?:         string | fn.#Fn
 			ParameterGroupName?:  string | fn.#Fn
 			ParameterNameValues?: {
 				[string]: _
 			} | fn.#Fn
-		})
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -44,12 +46,12 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#SubnetGroup: {
-		Type:       "AWS::DAX::SubnetGroup"
-		Properties: close({
+		Type: "AWS::DAX::SubnetGroup"
+		Properties: {
 			Description?:     string | fn.#Fn
 			SubnetGroupName?: string | fn.#Fn
 			SubnetIds:        [...(string | fn.#Fn)] | (string | fn.#Fn)
-		})
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

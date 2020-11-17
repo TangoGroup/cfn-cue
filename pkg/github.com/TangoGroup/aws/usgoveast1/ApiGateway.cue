@@ -4,10 +4,8 @@ import "github.com/TangoGroup/aws/fn"
 
 #ApiGateway: {
 	#Account: {
-		Type:       "AWS::ApiGateway::Account"
-		Properties: close({
-			CloudWatchRoleArn?: string | fn.#Fn
-		})
+		Type: "AWS::ApiGateway::Account"
+		Properties: CloudWatchRoleArn?: string | fn.#Fn
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -15,23 +13,23 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#ApiKey: {
-		Type:       "AWS::ApiGateway::ApiKey"
-		Properties: close({
+		Type: "AWS::ApiGateway::ApiKey"
+		Properties: {
 			CustomerId?:         string | fn.#Fn
 			Description?:        string | fn.#Fn
 			Enabled?:            bool | fn.#Fn
 			GenerateDistinctId?: bool | fn.#Fn
 			Name?:               string | fn.#Fn
-			StageKeys?:          [...close({
+			StageKeys?:          [...{
 				RestApiId?: string | fn.#Fn
 				StageName?: string | fn.#Fn
-			})] | fn.If
-			Tags?: [...close({
+			}] | fn.If
+			Tags?: [...{
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			})] | fn.If
+			}] | fn.If
 			Value?: string | fn.#Fn
-		})
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -39,8 +37,8 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#Authorizer: {
-		Type:       "AWS::ApiGateway::Authorizer"
-		Properties: close({
+		Type: "AWS::ApiGateway::Authorizer"
+		Properties: {
 			AuthType?:                     string | fn.#Fn
 			AuthorizerCredentials?:        string | fn.#Fn
 			AuthorizerResultTtlInSeconds?: (>=0 & <=3600) | fn.#Fn
@@ -51,7 +49,7 @@ import "github.com/TangoGroup/aws/fn"
 			ProviderARNs?:                 [...(string | fn.#Fn)] | (string | fn.#Fn)
 			RestApiId:                     string | fn.#Fn
 			Type:                          ("COGNITO_USER_POOLS" | "REQUEST" | "TOKEN") | fn.#Fn
-		})
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -59,13 +57,13 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#BasePathMapping: {
-		Type:       "AWS::ApiGateway::BasePathMapping"
-		Properties: close({
+		Type: "AWS::ApiGateway::BasePathMapping"
+		Properties: {
 			BasePath?:  string | fn.#Fn
 			DomainName: string | fn.#Fn
 			RestApiId?: string | fn.#Fn
 			Stage?:     string | fn.#Fn
-		})
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -73,14 +71,14 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#ClientCertificate: {
-		Type:       "AWS::ApiGateway::ClientCertificate"
-		Properties: close({
+		Type: "AWS::ApiGateway::ClientCertificate"
+		Properties: {
 			Description?: string | fn.#Fn
-			Tags?:        [...close({
+			Tags?:        [...{
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			})] | fn.If
-		})
+			}] | fn.If
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -88,40 +86,40 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#Deployment: {
-		Type:       "AWS::ApiGateway::Deployment"
-		Properties: close({
-			DeploymentCanarySettings?: close({
+		Type: "AWS::ApiGateway::Deployment"
+		Properties: {
+			DeploymentCanarySettings?: {
 				PercentTraffic?:         number | fn.#Fn
 				StageVariableOverrides?: {
 					[string]: string | fn.#Fn
 				} | fn.If
 				UseStageCache?: bool | fn.#Fn
-			}) | fn.If
+			} | fn.If
 			Description?:      string | fn.#Fn
 			RestApiId:         string | fn.#Fn
-			StageDescription?: close({
-				AccessLogSetting?: close({
+			StageDescription?: {
+				AccessLogSetting?: {
 					DestinationArn?: string | fn.#Fn
 					Format?:         string | fn.#Fn
-				}) | fn.If
+				} | fn.If
 				CacheClusterEnabled?: bool | fn.#Fn
 				CacheClusterSize?:    string | fn.#Fn
 				CacheDataEncrypted?:  bool | fn.#Fn
 				CacheTtlInSeconds?:   int | fn.#Fn
 				CachingEnabled?:      bool | fn.#Fn
-				CanarySetting?:       close({
+				CanarySetting?:       {
 					PercentTraffic?:         number | fn.#Fn
 					StageVariableOverrides?: {
 						[string]: string | fn.#Fn
 					} | fn.If
 					UseStageCache?: bool | fn.#Fn
-				}) | fn.If
+				} | fn.If
 				ClientCertificateId?:  string | fn.#Fn
 				DataTraceEnabled?:     bool | fn.#Fn
 				Description?:          string | fn.#Fn
 				DocumentationVersion?: string | fn.#Fn
 				LoggingLevel?:         string | fn.#Fn
-				MethodSettings?:       [...close({
+				MethodSettings?:       [...{
 					CacheDataEncrypted?:   bool | fn.#Fn
 					CacheTtlInSeconds?:    int | fn.#Fn
 					CachingEnabled?:       bool | fn.#Fn
@@ -132,21 +130,21 @@ import "github.com/TangoGroup/aws/fn"
 					ResourcePath?:         string | fn.#Fn
 					ThrottlingBurstLimit?: int | fn.#Fn
 					ThrottlingRateLimit?:  number | fn.#Fn
-				})] | fn.If
+				}] | fn.If
 				MetricsEnabled?: bool | fn.#Fn
-				Tags?:           [...close({
+				Tags?:           [...{
 					Key:   string | fn.#Fn
 					Value: string | fn.#Fn
-				})] | fn.If
+				}] | fn.If
 				ThrottlingBurstLimit?: int | fn.#Fn
 				ThrottlingRateLimit?:  number | fn.#Fn
 				TracingEnabled?:       bool | fn.#Fn
 				Variables?:            {
 					[string]: string | fn.#Fn
 				} | fn.If
-			}) | fn.If
+			} | fn.If
 			StageName?: string | fn.#Fn
-		})
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -154,18 +152,18 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#DocumentationPart: {
-		Type:       "AWS::ApiGateway::DocumentationPart"
-		Properties: close({
-			Location: close({
+		Type: "AWS::ApiGateway::DocumentationPart"
+		Properties: {
+			Location: {
 				Method?:     string | fn.#Fn
 				Name?:       string | fn.#Fn
 				Path?:       string | fn.#Fn
 				StatusCode?: string | fn.#Fn
 				Type?:       string | fn.#Fn
-			}) | fn.If
+			} | fn.If
 			Properties: string | fn.#Fn
 			RestApiId:  string | fn.#Fn
-		})
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -173,12 +171,12 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#DocumentationVersion: {
-		Type:       "AWS::ApiGateway::DocumentationVersion"
-		Properties: close({
+		Type: "AWS::ApiGateway::DocumentationVersion"
+		Properties: {
 			Description?:         string | fn.#Fn
 			DocumentationVersion: string | fn.#Fn
 			RestApiId:            string | fn.#Fn
-		})
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -186,20 +184,24 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#DomainName: {
-		Type:       "AWS::ApiGateway::DomainName"
-		Properties: close({
+		Type: "AWS::ApiGateway::DomainName"
+		Properties: {
 			CertificateArn?:        string | fn.#Fn
-			DomainName:             string | fn.#Fn
-			EndpointConfiguration?: close({
+			DomainName?:            string | fn.#Fn
+			EndpointConfiguration?: {
 				Types?: [...(string | fn.#Fn)] | (string | fn.#Fn)
-			}) | fn.If
+			} | fn.If
+			MutualTlsAuthentication?: {
+				TruststoreUri?:     string | fn.#Fn
+				TruststoreVersion?: string | fn.#Fn
+			} | fn.If
 			RegionalCertificateArn?: string | fn.#Fn
 			SecurityPolicy?:         string | fn.#Fn
-			Tags?:                   [...close({
+			Tags?:                   [...{
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			})] | fn.If
-		})
+			}] | fn.If
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -207,18 +209,18 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#GatewayResponse: {
-		Type:       "AWS::ApiGateway::GatewayResponse"
-		Properties: close({
+		Type: "AWS::ApiGateway::GatewayResponse"
+		Properties: {
 			ResponseParameters?: {
 				[string]: string | fn.#Fn
 			} | fn.If
 			ResponseTemplates?: {
 				[string]: string | fn.#Fn
 			} | fn.If
-			ResponseType: ("ACCESS_DENIED" | "API_CONFIGURATION_ERROR" | "AUTHORIZER_FAILURE" | "AUTHORIZER_CONFIGURATION_ERROR" | "BAD_REQUEST_PARAMETERS" | "BAD_REQUEST_BODY" | "DEFAULT_4XX" | "DEFAULT_5XX" | "EXPIRED_TOKEN" | "INVALID_SIGNATURE" | "INTEGRATION_FAILURE" | "INTEGRATION_TIMEOUT" | "INVALID_API_KEY" | "MISSING_AUTHENTICATION_TOKEN" | "QUOTA_EXCEEDED" | "REQUEST_TOO_LARGE" | "RESOURCE_NOT_FOUND" | "THROTTLED" | "UNAUTHORIZED" | "UNSUPPORTED_MEDIA_TYPE") | fn.#Fn
+			ResponseType: ("ACCESS_DENIED" | "API_CONFIGURATION_ERROR" | "AUTHORIZER_CONFIGURATION_ERROR" | "AUTHORIZER_FAILURE" | "BAD_REQUEST_BODY" | "BAD_REQUEST_PARAMETERS" | "DEFAULT_4XX" | "DEFAULT_5XX" | "EXPIRED_TOKEN" | "INTEGRATION_FAILURE" | "INTEGRATION_TIMEOUT" | "INVALID_API_KEY" | "INVALID_SIGNATURE" | "MISSING_AUTHENTICATION_TOKEN" | "QUOTA_EXCEEDED" | "REQUEST_TOO_LARGE" | "RESOURCE_NOT_FOUND" | "THROTTLED" | "UNAUTHORIZED" | "UNSUPPORTED_MEDIA_TYPE") | fn.#Fn
 			RestApiId:    string | fn.#Fn
 			StatusCode?:  string | fn.#Fn
-		})
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -226,14 +228,14 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#Method: {
-		Type:       "AWS::ApiGateway::Method"
-		Properties: close({
+		Type: "AWS::ApiGateway::Method"
+		Properties: {
 			ApiKeyRequired?:      bool | fn.#Fn
 			AuthorizationScopes?: [...(string | fn.#Fn)] | (string | fn.#Fn)
 			AuthorizationType?:   string | fn.#Fn
 			AuthorizerId?:        string | fn.#Fn
 			HttpMethod:           string | fn.#Fn
-			Integration?:         close({
+			Integration?:         {
 				CacheKeyParameters?:    [...(string | fn.#Fn)] | (string | fn.#Fn)
 				CacheNamespace?:        string | fn.#Fn
 				ConnectionId?:          string | fn.#Fn
@@ -241,7 +243,7 @@ import "github.com/TangoGroup/aws/fn"
 				ContentHandling?:       string | fn.#Fn
 				Credentials?:           string | fn.#Fn
 				IntegrationHttpMethod?: string | fn.#Fn
-				IntegrationResponses?:  [...close({
+				IntegrationResponses?:  [...{
 					ContentHandling?:    string | fn.#Fn
 					ResponseParameters?: {
 						[string]: string | fn.#Fn
@@ -251,7 +253,7 @@ import "github.com/TangoGroup/aws/fn"
 					} | fn.If
 					SelectionPattern?: string | fn.#Fn
 					StatusCode:        string | fn.#Fn
-				})] | fn.If
+				}] | fn.If
 				PassthroughBehavior?: string | fn.#Fn
 				RequestParameters?:   {
 					[string]: string | fn.#Fn
@@ -262,8 +264,8 @@ import "github.com/TangoGroup/aws/fn"
 				TimeoutInMillis?: int | fn.#Fn
 				Type?:            string | fn.#Fn
 				Uri?:             string | fn.#Fn
-			}) | fn.If
-			MethodResponses?: [...close({
+			} | fn.If
+			MethodResponses?: [...{
 				ResponseModels?: {
 					[string]: string | fn.#Fn
 				} | fn.If
@@ -271,7 +273,7 @@ import "github.com/TangoGroup/aws/fn"
 					[string]: bool | fn.#Fn
 				} | fn.If
 				StatusCode: string | fn.#Fn
-			})] | fn.If
+			}] | fn.If
 			OperationName?: string | fn.#Fn
 			RequestModels?: {
 				[string]: string | fn.#Fn
@@ -282,7 +284,7 @@ import "github.com/TangoGroup/aws/fn"
 			RequestValidatorId?: string | fn.#Fn
 			ResourceId:          string | fn.#Fn
 			RestApiId:           string | fn.#Fn
-		})
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -290,8 +292,8 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#Model: {
-		Type:       "AWS::ApiGateway::Model"
-		Properties: close({
+		Type: "AWS::ApiGateway::Model"
+		Properties: {
 			ContentType?: string | fn.#Fn
 			Description?: string | fn.#Fn
 			Name?:        string | fn.#Fn
@@ -299,7 +301,7 @@ import "github.com/TangoGroup/aws/fn"
 			Schema?:      {
 				[string]: _
 			} | fn.#Fn
-		})
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -307,13 +309,13 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#RequestValidator: {
-		Type:       "AWS::ApiGateway::RequestValidator"
-		Properties: close({
+		Type: "AWS::ApiGateway::RequestValidator"
+		Properties: {
 			Name?:                      string | fn.#Fn
 			RestApiId:                  string | fn.#Fn
 			ValidateRequestBody?:       bool | fn.#Fn
 			ValidateRequestParameters?: bool | fn.#Fn
-		})
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -321,12 +323,12 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#Resource: {
-		Type:       "AWS::ApiGateway::Resource"
-		Properties: close({
+		Type: "AWS::ApiGateway::Resource"
+		Properties: {
 			ParentId:  string | fn.#Fn
 			PathPart:  string | fn.#Fn
 			RestApiId: string | fn.#Fn
-		})
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -334,25 +336,25 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#RestApi: {
-		Type:       "AWS::ApiGateway::RestApi"
-		Properties: close({
+		Type: "AWS::ApiGateway::RestApi"
+		Properties: {
 			ApiKeySourceType?: ("AUTHORIZER" | "HEADER") | fn.#Fn
 			BinaryMediaTypes?: [...(string | fn.#Fn)] | (string | fn.#Fn)
 			Body?:             {
 				[string]: _
 			} | fn.#Fn
-			BodyS3Location?: close({
+			BodyS3Location?: {
 				Bucket?:  string | fn.#Fn
 				ETag?:    string | fn.#Fn
 				Key?:     string | fn.#Fn
 				Version?: string | fn.#Fn
-			}) | fn.If
+			} | fn.If
 			CloneFrom?:             string | fn.#Fn
 			Description?:           string | fn.#Fn
-			EndpointConfiguration?: close({
+			EndpointConfiguration?: {
 				Types?:          [...(string | fn.#Fn)] | (string | fn.#Fn)
 				VpcEndpointIds?: [...(string | fn.#Fn)] | (string | fn.#Fn)
-			}) | fn.If
+			} | fn.If
 			FailOnWarnings?:         bool | fn.#Fn
 			MinimumCompressionSize?: int | fn.#Fn
 			Name?:                   string | fn.#Fn
@@ -362,11 +364,11 @@ import "github.com/TangoGroup/aws/fn"
 			Policy?: {
 				[string]: _
 			} | fn.#Fn
-			Tags?: [...close({
+			Tags?: [...{
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			})] | fn.If
-		})
+			}] | fn.If
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -374,27 +376,27 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#Stage: {
-		Type:       "AWS::ApiGateway::Stage"
-		Properties: close({
-			AccessLogSetting?: close({
+		Type: "AWS::ApiGateway::Stage"
+		Properties: {
+			AccessLogSetting?: {
 				DestinationArn?: string | fn.#Fn
 				Format?:         string | fn.#Fn
-			}) | fn.If
+			} | fn.If
 			CacheClusterEnabled?: bool | fn.#Fn
 			CacheClusterSize?:    string | fn.#Fn
-			CanarySetting?:       close({
+			CanarySetting?:       {
 				DeploymentId?:           string | fn.#Fn
 				PercentTraffic?:         number | fn.#Fn
 				StageVariableOverrides?: {
 					[string]: string | fn.#Fn
 				} | fn.If
 				UseStageCache?: bool | fn.#Fn
-			}) | fn.If
+			} | fn.If
 			ClientCertificateId?:  string | fn.#Fn
 			DeploymentId?:         string | fn.#Fn
 			Description?:          string | fn.#Fn
 			DocumentationVersion?: string | fn.#Fn
-			MethodSettings?:       [...close({
+			MethodSettings?:       [...{
 				CacheDataEncrypted?:   bool | fn.#Fn
 				CacheTtlInSeconds?:    int | fn.#Fn
 				CachingEnabled?:       bool | fn.#Fn
@@ -405,18 +407,18 @@ import "github.com/TangoGroup/aws/fn"
 				ResourcePath?:         string | fn.#Fn
 				ThrottlingBurstLimit?: int | fn.#Fn
 				ThrottlingRateLimit?:  number | fn.#Fn
-			})] | fn.If
+			}] | fn.If
 			RestApiId:  string | fn.#Fn
 			StageName?: string | fn.#Fn
-			Tags?:      [...close({
+			Tags?:      [...{
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			})] | fn.If
+			}] | fn.If
 			TracingEnabled?: bool | fn.#Fn
 			Variables?:      {
 				[string]: string | fn.#Fn
 			} | fn.If
-		})
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -424,34 +426,34 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#UsagePlan: {
-		Type:       "AWS::ApiGateway::UsagePlan"
-		Properties: close({
-			ApiStages?: [...close({
+		Type: "AWS::ApiGateway::UsagePlan"
+		Properties: {
+			ApiStages?: [...{
 				ApiId?:    string | fn.#Fn
 				Stage?:    string | fn.#Fn
 				Throttle?: {
-					[string]: close({
+					[string]: {
 						BurstLimit?: int | fn.#Fn
 						RateLimit?:  number | fn.#Fn
-					})
+					}
 				} | fn.If
-			})] | fn.If
+			}] | fn.If
 			Description?: string | fn.#Fn
-			Quota?:       close({
+			Quota?:       {
 				Limit?:  int | fn.#Fn
 				Offset?: int | fn.#Fn
 				Period?: string | fn.#Fn
-			}) | fn.If
-			Tags?: [...close({
+			} | fn.If
+			Tags?: [...{
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			})] | fn.If
-			Throttle?: close({
+			}] | fn.If
+			Throttle?: {
 				BurstLimit?: int | fn.#Fn
 				RateLimit?:  number | fn.#Fn
-			}) | fn.If
+			} | fn.If
 			UsagePlanName?: string | fn.#Fn
-		})
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -459,12 +461,12 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#UsagePlanKey: {
-		Type:       "AWS::ApiGateway::UsagePlanKey"
-		Properties: close({
+		Type: "AWS::ApiGateway::UsagePlanKey"
+		Properties: {
 			KeyId:       string | fn.#Fn
 			KeyType:     ("API_KEY") | fn.#Fn
 			UsagePlanId: string | fn.#Fn
-		})
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

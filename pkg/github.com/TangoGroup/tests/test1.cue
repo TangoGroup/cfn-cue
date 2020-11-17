@@ -6,18 +6,18 @@ import aws "github.com/TangoGroup/aws/uswest2"
 
 // Types:: [ resource.Type for resource in aws.ResourceTypes ] + [=~ "^Custom::[a-zA-Z0-9_@-]{1,60}$"]
 
-template: aws.Template
+template: aws.#Template
 template: {
 	Description: "This is a template"
-	for resourceName, resource in Resources {
-		// Resources: "\(resourceName)": aws.ResourceTypesMap[resource.Type] // | aws.CloudFormation.CustomResource
-		if (resource.Type =~ "^Custom::[a-zA-Z0-9_@-]{1,60}$") {
-			Resources: "\(resourceName)": aws.CloudFormation.CustomResource
-		}
-		if (resource.Type !~ "^Custom::[a-zA-Z0-9_@-]{1,60}$") {
-			Resources: "\(resourceName)": aws.ResourceTypesMap[resource.Type]
-		}
-	}
+	// for resourceName, resource in Resources {
+	// 	// Resources: "\(resourceName)": aws.ResourceTypesMap[resource.Type] // | aws.CloudFormation.CustomResource
+	// 	if (resource.Type =~ "^Custom::[a-zA-Z0-9_@-]{1,60}$") {
+	// 		Resources: "\(resourceName)": aws.CloudFormation.CustomResource
+	// 	}
+	// 	if (resource.Type !~ "^Custom::[a-zA-Z0-9_@-]{1,60}$") {
+	// 		Resources: "\(resourceName)": aws.ResourceTypesMap[resource.Type]
+	// 	}
+	// }
 	// for resourceName, resource in Resources {if (resource.Type =~ "^Custom::[a-zA-Z0-9_@-]{1,60}$") { Resources: "\(resourceName)": aws.CloudFormation.CustomResource}, if (resource.Type !~ "^Custom::[a-zA-Z0-9_@-]{1,60}$") {Resources: "\(resourceName)": aws.ResourceTypesMap[resource.Type]}}
 	// Resources: S3Bucket1: aws.S3.Bucket
 	Resources: S3Bucket1: {
@@ -44,7 +44,7 @@ template: {
 		}
 	}
 
-	Resources: EmrCluster: aws.EMR.Cluster
+	Resources: EmrCluster: aws.#EMR.#Cluster
 	Resources: EmrCluster: {
 		Properties: {
 			Name:         "DataBeamEmr"
@@ -95,7 +95,7 @@ template: {
 			VisibleToAllUsers: true
 		}
 	}
-	Resources: InstanceSecurityGroup: aws.EC2.SecurityGroup
+	Resources: InstanceSecurityGroup: aws.#EC2.#SecurityGroup
 	Resources: InstanceSecurityGroup: {
 		Properties : {
 			GroupDescription : "Allow http to client host"

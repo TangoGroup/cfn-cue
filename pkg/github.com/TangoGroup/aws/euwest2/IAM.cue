@@ -7,12 +7,12 @@ import (
 
 #IAM: {
 	#AccessKey: {
-		Type:       "AWS::IAM::AccessKey"
-		Properties: close({
+		Type: "AWS::IAM::AccessKey"
+		Properties: {
 			Serial?:  int | fn.#Fn
 			Status?:  ("Active" | "Inactive") | fn.#Fn
 			UserName: string | fn.#Fn
-		})
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -20,12 +20,12 @@ import (
 		Condition?: string
 	}
 	#Group: {
-		Type:       "AWS::IAM::Group"
-		Properties: close({
+		Type: "AWS::IAM::Group"
+		Properties: {
 			GroupName?:         string | fn.#Fn
 			ManagedPolicyArns?: [...((=~#"arn:(aws[a-zA-Z-]*)?:iam::(\d{12}|aws):policy/[a-zA-Z_0-9+=,.@\-_/]+"#) | fn.#Fn)] | ((=~#"arn:(aws[a-zA-Z-]*)?:iam::(\d{12}|aws):policy/[a-zA-Z_0-9+=,.@\-_/]+"#) | fn.#Fn)
 			Path?:              (=~#"^/(.+/)*$"#) | fn.#Fn
-			Policies?:          [...close({
+			Policies?:          [...{
 				PolicyDocument: {
 					{
 						[string]: _
@@ -33,8 +33,8 @@ import (
 					Version: string | *"2012-10-17"
 				} | fn.#Fn
 				PolicyName: (strings.MinRunes(1) & strings.MaxRunes(128) & (=~#"^[a-zA-Z0-9+=,.@\-_]+$"#)) | fn.#Fn
-			})] | fn.If
-		})
+			}] | fn.If
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -42,12 +42,12 @@ import (
 		Condition?: string
 	}
 	#InstanceProfile: {
-		Type:       "AWS::IAM::InstanceProfile"
-		Properties: close({
+		Type: "AWS::IAM::InstanceProfile"
+		Properties: {
 			InstanceProfileName?: string | fn.#Fn
 			Path?:                (=~#"^/(.+/)*$"#) | fn.#Fn
 			Roles:                [...(string | fn.#Fn)] | (string | fn.#Fn)
-		})
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -55,8 +55,8 @@ import (
 		Condition?: string
 	}
 	#ManagedPolicy: {
-		Type:       "AWS::IAM::ManagedPolicy"
-		Properties: close({
+		Type: "AWS::IAM::ManagedPolicy"
+		Properties: {
 			Description?:       string | fn.#Fn
 			Groups?:            [...(string | fn.#Fn)] | (string | fn.#Fn)
 			ManagedPolicyName?: string | fn.#Fn
@@ -69,7 +69,7 @@ import (
 			} | fn.#Fn
 			Roles?: [...(string | fn.#Fn)] | (string | fn.#Fn)
 			Users?: [...(string | fn.#Fn)] | (string | fn.#Fn)
-		})
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -77,8 +77,8 @@ import (
 		Condition?: string
 	}
 	#Policy: {
-		Type:       "AWS::IAM::Policy"
-		Properties: close({
+		Type: "AWS::IAM::Policy"
+		Properties: {
 			Groups?:        [...(string | fn.#Fn)] | (string | fn.#Fn)
 			PolicyDocument: {
 				{
@@ -89,7 +89,7 @@ import (
 			PolicyName: (strings.MinRunes(1) & strings.MaxRunes(128) & (=~#"^[a-zA-Z0-9+=,.@\-_]+$"#)) | fn.#Fn
 			Roles?:     [...(string | fn.#Fn)] | (string | fn.#Fn)
 			Users?:     [...(string | fn.#Fn)] | (string | fn.#Fn)
-		})
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -97,8 +97,8 @@ import (
 		Condition?: string
 	}
 	#Role: {
-		Type:       "AWS::IAM::Role"
-		Properties: close({
+		Type: "AWS::IAM::Role"
+		Properties: {
 			AssumeRolePolicyDocument: {
 				{
 					[string]: _
@@ -110,7 +110,7 @@ import (
 			MaxSessionDuration?:  (>=3600 & <=43200) | fn.#Fn
 			Path?:                (=~#"^/(.+/)*$"#) | fn.#Fn
 			PermissionsBoundary?: string | fn.#Fn
-			Policies?:            [...close({
+			Policies?:            [...{
 				PolicyDocument: {
 					{
 						[string]: _
@@ -118,13 +118,13 @@ import (
 					Version: string | *"2012-10-17"
 				} | fn.#Fn
 				PolicyName: (strings.MinRunes(1) & strings.MaxRunes(128) & (=~#"^[a-zA-Z0-9+=,.@\-_]+$"#)) | fn.#Fn
-			})] | fn.If
+			}] | fn.If
 			RoleName?: string | fn.#Fn
-			Tags?:     [...close({
+			Tags?:     [...{
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			})] | fn.If
-		})
+			}] | fn.If
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -132,12 +132,12 @@ import (
 		Condition?: string
 	}
 	#ServiceLinkedRole: {
-		Type:       "AWS::IAM::ServiceLinkedRole"
-		Properties: close({
+		Type: "AWS::IAM::ServiceLinkedRole"
+		Properties: {
 			AWSServiceName: string | fn.#Fn
 			CustomSuffix?:  string | fn.#Fn
 			Description?:   string | fn.#Fn
-		})
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -145,17 +145,17 @@ import (
 		Condition?: string
 	}
 	#User: {
-		Type:       "AWS::IAM::User"
-		Properties: close({
+		Type: "AWS::IAM::User"
+		Properties: {
 			Groups?:       [...(string | fn.#Fn)] | (string | fn.#Fn)
-			LoginProfile?: close({
+			LoginProfile?: {
 				Password:               string | fn.#Fn
 				PasswordResetRequired?: bool | fn.#Fn
-			}) | fn.If
+			} | fn.If
 			ManagedPolicyArns?:   [...((=~#"arn:(aws[a-zA-Z-]*)?:iam::(\d{12}|aws):policy/[a-zA-Z_0-9+=,.@\-_/]+"#) | fn.#Fn)] | ((=~#"arn:(aws[a-zA-Z-]*)?:iam::(\d{12}|aws):policy/[a-zA-Z_0-9+=,.@\-_/]+"#) | fn.#Fn)
 			Path?:                (=~#"^/(.+/)*$"#) | fn.#Fn
 			PermissionsBoundary?: string | fn.#Fn
-			Policies?:            [...close({
+			Policies?:            [...{
 				PolicyDocument: {
 					{
 						[string]: _
@@ -163,13 +163,13 @@ import (
 					Version: string | *"2012-10-17"
 				} | fn.#Fn
 				PolicyName: (strings.MinRunes(1) & strings.MaxRunes(128) & (=~#"^[a-zA-Z0-9+=,.@\-_]+$"#)) | fn.#Fn
-			})] | fn.If
-			Tags?: [...close({
+			}] | fn.If
+			Tags?: [...{
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			})] | fn.If
+			}] | fn.If
 			UserName?: string | fn.#Fn
-		})
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -177,11 +177,11 @@ import (
 		Condition?: string
 	}
 	#UserToGroupAddition: {
-		Type:       "AWS::IAM::UserToGroupAddition"
-		Properties: close({
+		Type: "AWS::IAM::UserToGroupAddition"
+		Properties: {
 			GroupName: string | fn.#Fn
 			Users:     [...(string | fn.#Fn)] | (string | fn.#Fn)
-		})
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

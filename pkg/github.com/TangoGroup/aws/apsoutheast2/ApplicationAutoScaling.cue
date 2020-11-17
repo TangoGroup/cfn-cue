@@ -7,30 +7,30 @@ import (
 
 #ApplicationAutoScaling: {
 	#ScalableTarget: {
-		Type:       "AWS::ApplicationAutoScaling::ScalableTarget"
-		Properties: close({
+		Type: "AWS::ApplicationAutoScaling::ScalableTarget"
+		Properties: {
 			MaxCapacity:       int | fn.#Fn
 			MinCapacity:       int | fn.#Fn
 			ResourceId:        string | fn.#Fn
 			RoleARN:           string | fn.#Fn
 			ScalableDimension: string | fn.#Fn
-			ScheduledActions?: [...close({
+			ScheduledActions?: [...{
 				EndTime?:              time.Time | fn.#Fn
-				ScalableTargetAction?: close({
+				ScalableTargetAction?: {
 					MaxCapacity?: int | fn.#Fn
 					MinCapacity?: int | fn.#Fn
-				}) | fn.If
+				} | fn.If
 				Schedule:            string | fn.#Fn
 				ScheduledActionName: string | fn.#Fn
 				StartTime?:          time.Time | fn.#Fn
-			})] | fn.If
+			}] | fn.If
 			ServiceNamespace: string | fn.#Fn
-			SuspendedState?:  close({
+			SuspendedState?:  {
 				DynamicScalingInSuspended?:  bool | fn.#Fn
 				DynamicScalingOutSuspended?: bool | fn.#Fn
 				ScheduledScalingSuspended?:  bool | fn.#Fn
-			}) | fn.If
-		})
+			} | fn.If
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -38,46 +38,46 @@ import (
 		Condition?: string
 	}
 	#ScalingPolicy: {
-		Type:       "AWS::ApplicationAutoScaling::ScalingPolicy"
-		Properties: close({
+		Type: "AWS::ApplicationAutoScaling::ScalingPolicy"
+		Properties: {
 			PolicyName:                      string | fn.#Fn
 			PolicyType:                      ("StepScaling" | "TargetTrackingScaling") | fn.#Fn
 			ResourceId?:                     string | fn.#Fn
 			ScalableDimension?:              string | fn.#Fn
 			ScalingTargetId?:                string | fn.#Fn
 			ServiceNamespace?:               string | fn.#Fn
-			StepScalingPolicyConfiguration?: close({
+			StepScalingPolicyConfiguration?: {
 				AdjustmentType?:         string | fn.#Fn
 				Cooldown?:               int | fn.#Fn
 				MetricAggregationType?:  string | fn.#Fn
 				MinAdjustmentMagnitude?: int | fn.#Fn
-				StepAdjustments?:        [...close({
+				StepAdjustments?:        [...{
 					MetricIntervalLowerBound?: number | fn.#Fn
 					MetricIntervalUpperBound?: number | fn.#Fn
 					ScalingAdjustment:         int | fn.#Fn
-				})] | fn.If
-			}) | fn.If
-			TargetTrackingScalingPolicyConfiguration?: close({
-				CustomizedMetricSpecification?: close({
-					Dimensions?: [...close({
+				}] | fn.If
+			} | fn.If
+			TargetTrackingScalingPolicyConfiguration?: {
+				CustomizedMetricSpecification?: {
+					Dimensions?: [...{
 						Name:  string | fn.#Fn
 						Value: string | fn.#Fn
-					})] | fn.If
+					}] | fn.If
 					MetricName: string | fn.#Fn
 					Namespace:  string | fn.#Fn
-					Statistic:  ("Average" | "Minimum" | "Maximum" | "SampleCount" | "Sum") | fn.#Fn
+					Statistic:  ("Average" | "Maximum" | "Minimum" | "SampleCount" | "Sum") | fn.#Fn
 					Unit?:      string | fn.#Fn
-				}) | fn.If
+				} | fn.If
 				DisableScaleIn?:                bool | fn.#Fn
-				PredefinedMetricSpecification?: close({
-					PredefinedMetricType: ("ALBRequestCountPerTarget" | "ASGAverageCPUUtilization" | "ASGAverageNetworkIn" | "ASGAverageNetworkOut" | "DynamoDBReadCapacityUtilization" | "DynamoDBWriteCapacityUtilization" | "EC2SpotFleetRequestAverageCPUUtilization" | "EC2SpotFleetRequestAverageNetworkIn" | "EC2SpotFleetRequestAverageNetworkOut" | "ECSServiceAverageCPUUtilization" | "ECSServiceAverageMemoryUtilization" | "RDSReaderAverageCPUUtilization" | "RDSReaderAverageDatabaseConnections" | "SageMakerVariantInvocationsPerInstance" | "LambdaProvisionedConcurrencyUtilization") | fn.#Fn
+				PredefinedMetricSpecification?: {
+					PredefinedMetricType: ("ALBRequestCountPerTarget" | "AppStreamAverageCapacityUtilization" | "CassandraReadCapacityUtilization" | "CassandraWriteCapacityUtilization" | "ComprehendInferenceUtilization" | "DynamoDBReadCapacityUtilization" | "DynamoDBWriteCapacityUtilization" | "EC2SpotFleetRequestAverageCPUUtilization" | "EC2SpotFleetRequestAverageNetworkIn" | "EC2SpotFleetRequestAverageNetworkOut" | "ECSServiceAverageCPUUtilization" | "ECSServiceAverageMemoryUtilization" | "KafkaBrokerStorageUtilization" | "LambdaProvisionedConcurrencyUtilization" | "RDSReaderAverageCPUUtilization" | "RDSReaderAverageDatabaseConnections" | "SageMakerVariantInvocationsPerInstance") | fn.#Fn
 					ResourceLabel?:       string | fn.#Fn
-				}) | fn.If
+				} | fn.If
 				ScaleInCooldown?:  int | fn.#Fn
 				ScaleOutCooldown?: int | fn.#Fn
 				TargetValue:       number | fn.#Fn
-			}) | fn.If
-		})
+			} | fn.If
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
