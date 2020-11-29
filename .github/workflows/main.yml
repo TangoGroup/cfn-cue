@@ -38,7 +38,7 @@ jobs:
         run: echo "::set-output name=num-files::$(git diff --name-only | wc -l)"
         shell: bash
 
-      - name: Get info
+      - name: Get info 
         run: |
           CommitMessage=$(cat pkg/github.com/TangoGroup/aws/uswest2/uswest2.cue | grep ResourceSpecificationVersion)
           CFN_VERSION=v$(echo $CommitMessage | cut -f 3 -d ':' | tr -d ' ' | tr -d '"')
