@@ -47,8 +47,8 @@ jobs:
       
       - name: git push
         run: |
-          git config --global user.name 'Your Name'
-          git config --global user.email 'your-username@users.noreply.github.com'
+          git config user.name github-actions
+          git config user.email github-actions@github.com
           git add -A
           git commit -m "$CommitMessage"
           git tag "$CUE_VERSION-$CFN_VERSION"
