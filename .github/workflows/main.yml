@@ -28,8 +28,10 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Generate cfn-cue specs
+        run: go run .
+
+      - name: Get info
         run: |
-          go run .
           CommitMessage=$(cat pkg/github.com/TangoGroup/aws/uswest2/uswest2.cue | grep ResourceSpecificationVersion)
           CFN_VERSION=$(echo $CommitMessage | cut -f 3 -d ':' | tr -d ' ' | tr -d '"')
           CUE_VERSION=$(cat go.mod | grep "cuelang.org/go" | sed 's/cuelang.org\/go//' | sed 's/[[:blank:]]*//')
