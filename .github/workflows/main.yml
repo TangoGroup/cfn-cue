@@ -60,12 +60,13 @@ jobs:
         run: echo "CommitMessage=$CommitMessage" && echo "CFN_VERSION=$CFN_VERSION" && echo "CUE_VERSION=$CUE_VERSION"
         if: steps.fileschanged.outputs.numfiles > 0
       
-#       - name: git push
-#         run: |
-#           git config user.name github-actions
-#           git config user.email github-actions@github.com
-#           git add -A
-#           git commit -m "$CommitMessage"
-#           git tag "$CUE_VERSION-$CFN_VERSION"
-#           git push
-#           git push --tags
+      - name: git push
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add -A
+          git commit -m "$CommitMessage"
+          git tag "$CUE_VERSION-$CFN_VERSION"
+          git push
+          git push --tags
+        if: steps.fileschanged.outputs.numfiles > 0
