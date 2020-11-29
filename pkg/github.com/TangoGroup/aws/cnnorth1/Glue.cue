@@ -42,7 +42,7 @@ Glue :: {
 		Properties: close({
 			CatalogId:       string | fn.Fn
 			ConnectionInput: close({
-				ConnectionProperties?: {
+				ConnectionProperties: {
 					[string]: _
 				} | fn.Fn
 				ConnectionType:                  string | fn.Fn
@@ -97,9 +97,8 @@ Glue :: {
 					Path?:           string | fn.Fn
 				})] | fn.If
 				S3Targets?: [...close({
-					ConnectionName?: string | fn.Fn
-					Exclusions?:     [...(string | fn.Fn)] | (string | fn.Fn)
-					Path?:           string | fn.Fn
+					Exclusions?: [...(string | fn.Fn)] | (string | fn.Fn)
+					Path?:       string | fn.Fn
 				})] | fn.If
 			}) | fn.If
 		})
@@ -135,22 +134,12 @@ Glue :: {
 		Properties: close({
 			CatalogId:     string | fn.Fn
 			DatabaseInput: close({
-				CreateTableDefaultPermissions?: [...close({
-					Permissions?: [...(string | fn.Fn)] | (string | fn.Fn)
-					Principal?:   close({
-						DataLakePrincipalIdentifier?: string | fn.Fn
-					}) | fn.If
-				})] | fn.If
 				Description?: string | fn.Fn
 				LocationUri?: string | fn.Fn
 				Name?:        string | fn.Fn
 				Parameters?:  {
 					[string]: _
 				} | fn.Fn
-				TargetDatabase?: close({
-					CatalogId?:    string | fn.Fn
-					DatabaseName?: string | fn.Fn
-				}) | fn.If
 			}) | fn.If
 		})
 		DependsOn?:           string | [...string]
@@ -251,14 +240,7 @@ Glue :: {
 			Tags?:            {
 				[string]: _
 			} | fn.Fn
-			Timeout?:             int | fn.Fn
-			TransformEncryption?: close({
-				MLUserDataEncryption?: close({
-					KmsKeyId?:                string | fn.Fn
-					MLUserDataEncryptionMode: string | fn.Fn
-				}) | fn.If
-				TaskRunSecurityConfigurationName?: string | fn.Fn
-			}) | fn.If
+			Timeout?:            int | fn.Fn
 			TransformParameters: close({
 				FindMatchesParameters?: close({
 					AccuracyCostTradeoff?:    number | fn.Fn
@@ -323,78 +305,6 @@ Glue :: {
 				Values: [...(string | fn.Fn)] | (string | fn.Fn)
 			}) | fn.If
 			TableName: string | fn.Fn
-		})
-		DependsOn?:           string | [...string]
-		DeletionPolicy?:      "Delete" | "Retain"
-		UpdateReplacePolicy?: "Delete" | "Retain"
-		Metadata?: [string]: _
-		Condition?: string
-	}
-	Registry :: {
-		Type:       "AWS::Glue::Registry"
-		Properties: close({
-			Description?: string | fn.Fn
-			Name:         string | fn.Fn
-			Tags?:        [...close({
-				Key:   string | fn.Fn
-				Value: string | fn.Fn
-			})] | fn.If
-		})
-		DependsOn?:           string | [...string]
-		DeletionPolicy?:      "Delete" | "Retain"
-		UpdateReplacePolicy?: "Delete" | "Retain"
-		Metadata?: [string]: _
-		Condition?: string
-	}
-	Schema :: {
-		Type:       "AWS::Glue::Schema"
-		Properties: close({
-			CheckpointVersion?: close({
-				IsLatest?:      bool | fn.Fn
-				VersionNumber?: int | fn.Fn
-			}) | fn.If
-			Compatibility: string | fn.Fn
-			DataFormat:    string | fn.Fn
-			Description?:  string | fn.Fn
-			Name:          string | fn.Fn
-			Registry?:     close({
-				Arn?:  string | fn.Fn
-				Name?: string | fn.Fn
-			}) | fn.If
-			SchemaDefinition: string | fn.Fn
-			Tags?:            [...close({
-				Key:   string | fn.Fn
-				Value: string | fn.Fn
-			})] | fn.If
-		})
-		DependsOn?:           string | [...string]
-		DeletionPolicy?:      "Delete" | "Retain"
-		UpdateReplacePolicy?: "Delete" | "Retain"
-		Metadata?: [string]: _
-		Condition?: string
-	}
-	SchemaVersion :: {
-		Type:       "AWS::Glue::SchemaVersion"
-		Properties: close({
-			Schema: close({
-				RegistryName?: string | fn.Fn
-				SchemaArn?:    string | fn.Fn
-				SchemaName?:   string | fn.Fn
-			}) | fn.If
-			SchemaDefinition: string | fn.Fn
-		})
-		DependsOn?:           string | [...string]
-		DeletionPolicy?:      "Delete" | "Retain"
-		UpdateReplacePolicy?: "Delete" | "Retain"
-		Metadata?: [string]: _
-		Condition?: string
-	}
-	SchemaVersionMetadata :: {
-		Type:       "AWS::Glue::SchemaVersionMetadata"
-		Properties: close({
-			Key:             string | fn.Fn
-			SchemaVersionId: string | fn.Fn
-			Value:           string | fn.Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -480,12 +390,7 @@ Glue :: {
 					})] | fn.If
 					StoredAsSubDirectories?: bool | fn.Fn
 				}) | fn.If
-				TableType?:   string | fn.Fn
-				TargetTable?: close({
-					CatalogId?:    string | fn.Fn
-					DatabaseName?: string | fn.Fn
-					Name?:         string | fn.Fn
-				}) | fn.If
+				TableType?:        string | fn.Fn
 				ViewExpandedText?: string | fn.Fn
 				ViewOriginalText?: string | fn.Fn
 			}) | fn.If

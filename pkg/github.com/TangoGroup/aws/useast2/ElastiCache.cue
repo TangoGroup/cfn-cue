@@ -65,7 +65,6 @@ ElastiCache :: {
 			CacheSubnetGroupName?:     string | fn.Fn
 			Engine?:                   string | fn.Fn
 			EngineVersion?:            string | fn.Fn
-			GlobalReplicationGroupId?: string | fn.Fn
 			KmsKeyId?:                 string | fn.Fn
 			MultiAZEnabled?:           bool | fn.Fn
 			NodeGroupConfiguration?:   [...close({

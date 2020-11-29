@@ -51,7 +51,6 @@ AppFlow :: {
 					}) | fn.If
 					Salesforce?: close({
 						AccessToken?:           string | fn.Fn
-						ClientCredentialsArn?:  string | fn.Fn
 						ConnectorOAuthRequest?: close({
 							AuthCode?:    string | fn.Fn
 							RedirectUri?: string | fn.Fn

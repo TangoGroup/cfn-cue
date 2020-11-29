@@ -6,8 +6,7 @@ SecretsManager :: {
 	ResourcePolicy :: {
 		Type:       "AWS::SecretsManager::ResourcePolicy"
 		Properties: close({
-			BlockPublicPolicy?: bool | fn.Fn
-			ResourcePolicy:     {
+			ResourcePolicy: {
 				[string]: _
 			} | fn.Fn
 			SecretId: string | fn.Fn

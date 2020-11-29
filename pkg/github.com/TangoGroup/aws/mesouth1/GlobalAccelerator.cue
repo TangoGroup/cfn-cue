@@ -35,12 +35,8 @@ GlobalAccelerator :: {
 			HealthCheckPort?:            int | fn.Fn
 			HealthCheckProtocol?:        string | fn.Fn
 			ListenerArn:                 string | fn.Fn
-			PortOverrides?:              [...close({
-				EndpointPort: int | fn.Fn
-				ListenerPort: int | fn.Fn
-			})] | fn.If
-			ThresholdCount?:        int | fn.Fn
-			TrafficDialPercentage?: number | fn.Fn
+			ThresholdCount?:             int | fn.Fn
+			TrafficDialPercentage?:      number | fn.Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

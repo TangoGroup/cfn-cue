@@ -31,7 +31,6 @@ Athena :: {
 			Description?: string | fn.Fn
 			Name?:        string | fn.Fn
 			QueryString:  string | fn.Fn
-			WorkGroup?:   string | fn.Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

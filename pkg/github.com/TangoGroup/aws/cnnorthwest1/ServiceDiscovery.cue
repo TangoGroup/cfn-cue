@@ -23,8 +23,8 @@ ServiceDiscovery :: {
 		Type:       "AWS::ServiceDiscovery::Instance"
 		Properties: close({
 			InstanceAttributes: {
-				[string]: string | fn.Fn
-			} | fn.If
+				[string]: _
+			} | fn.Fn
 			InstanceId?: string | fn.Fn
 			ServiceId:   string | fn.Fn
 		})
@@ -74,7 +74,7 @@ ServiceDiscovery :: {
 			DnsConfig?:   close({
 				DnsRecords: [...close({
 					TTL:  number | fn.Fn
-					Type: ("A" | "AAAA" | "CNAME" | "SRV") | fn.Fn
+					Type: string | fn.Fn
 				})] | fn.If
 				NamespaceId?:   string | fn.Fn
 				RoutingPolicy?: string | fn.Fn
@@ -82,7 +82,7 @@ ServiceDiscovery :: {
 			HealthCheckConfig?: close({
 				FailureThreshold?: number | fn.Fn
 				ResourcePath?:     string | fn.Fn
-				Type:              ("HTTP" | "HTTPS" | "TCP") | fn.Fn
+				Type:              string | fn.Fn
 			}) | fn.If
 			HealthCheckCustomConfig?: close({
 				FailureThreshold?: number | fn.Fn

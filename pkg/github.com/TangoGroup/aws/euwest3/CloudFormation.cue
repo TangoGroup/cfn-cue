@@ -72,7 +72,7 @@ CloudFormation :: {
 				ParameterKey:   string | fn.Fn
 				ParameterValue: string | fn.Fn
 			})] | fn.If
-			PermissionModel?:     ("SELF_MANAGED" | "SERVICE_MANAGED") | fn.Fn
+			PermissionModel?:     string | fn.Fn
 			StackInstancesGroup?: [...close({
 				DeploymentTargets: close({
 					Accounts?:              [...(string | fn.Fn)] | (string | fn.Fn)

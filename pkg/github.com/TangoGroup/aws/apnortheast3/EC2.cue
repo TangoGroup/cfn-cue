@@ -197,7 +197,7 @@ EC2 :: {
 		Type:       "AWS::EC2::Host"
 		Properties: close({
 			AutoPlacement?:   ("off" | "on") | fn.Fn
-			AvailabilityZone: ("af-south-1a" | "af-south-1b" | "af-south-1c" | "ap-east-1a" | "ap-east-1b" | "ap-east-1c" | "ap-northeast-1a" | "ap-northeast-1b" | "ap-northeast-1c" | "ap-northeast-1d" | "ap-northeast-2a" | "ap-northeast-2b" | "ap-northeast-2c" | "ap-northeast-2d" | "ap-northeast-3a" | "ap-south-1a" | "ap-south-1b" | "ap-south-1c" | "ap-southeast-1a" | "ap-southeast-1b" | "ap-southeast-1c" | "ap-southeast-2a" | "ap-southeast-2b" | "ap-southeast-2c" | "ca-central-1a" | "ca-central-1b" | "ca-central-1d" | "cn-north-1a" | "cn-north-1b" | "cn-northwest-1a" | "cn-northwest-1b" | "cn-northwest-1c" | "eu-central-1a" | "eu-central-1b" | "eu-central-1c" | "eu-north-1a" | "eu-north-1b" | "eu-north-1c" | "eu-south-1a" | "eu-south-1b" | "eu-south-1c" | "eu-west-1a" | "eu-west-1b" | "eu-west-1c" | "eu-west-2a" | "eu-west-2b" | "eu-west-2c" | "eu-west-3a" | "eu-west-3b" | "eu-west-3c" | "me-south-1a" | "me-south-1b" | "me-south-1c" | "sa-east-1a" | "sa-east-1b" | "sa-east-1c" | "us-east-1a" | "us-east-1b" | "us-east-1c" | "us-east-1d" | "us-east-1e" | "us-east-1f" | "us-east-2a" | "us-east-2b" | "us-east-2c" | "us-gov-east-1a" | "us-gov-east-1b" | "us-gov-east-1c" | "us-gov-west-1a" | "us-gov-west-1b" | "us-gov-west-1c" | "us-west-1a" | "us-west-1b" | "us-west-1c" | "us-west-2a" | "us-west-2b" | "us-west-2c" | "us-west-2d" | "us-west-2-lax-1a" | "us-west-2-lax-1b") | fn.Fn
+			AvailabilityZone: string | fn.Fn
 			HostRecovery?:    string | fn.Fn
 			InstanceType:     string | fn.Fn
 		})
@@ -212,7 +212,7 @@ EC2 :: {
 		Properties: close({
 			AdditionalInfo?:      string | fn.Fn
 			Affinity?:            ("default" | "host") | fn.Fn
-			AvailabilityZone?:    ("af-south-1a" | "af-south-1b" | "af-south-1c" | "ap-east-1a" | "ap-east-1b" | "ap-east-1c" | "ap-northeast-1a" | "ap-northeast-1b" | "ap-northeast-1c" | "ap-northeast-1d" | "ap-northeast-2a" | "ap-northeast-2b" | "ap-northeast-2c" | "ap-northeast-2d" | "ap-northeast-3a" | "ap-south-1a" | "ap-south-1b" | "ap-south-1c" | "ap-southeast-1a" | "ap-southeast-1b" | "ap-southeast-1c" | "ap-southeast-2a" | "ap-southeast-2b" | "ap-southeast-2c" | "ca-central-1a" | "ca-central-1b" | "ca-central-1d" | "cn-north-1a" | "cn-north-1b" | "cn-northwest-1a" | "cn-northwest-1b" | "cn-northwest-1c" | "eu-central-1a" | "eu-central-1b" | "eu-central-1c" | "eu-north-1a" | "eu-north-1b" | "eu-north-1c" | "eu-south-1a" | "eu-south-1b" | "eu-south-1c" | "eu-west-1a" | "eu-west-1b" | "eu-west-1c" | "eu-west-2a" | "eu-west-2b" | "eu-west-2c" | "eu-west-3a" | "eu-west-3b" | "eu-west-3c" | "me-south-1a" | "me-south-1b" | "me-south-1c" | "sa-east-1a" | "sa-east-1b" | "sa-east-1c" | "us-east-1a" | "us-east-1b" | "us-east-1c" | "us-east-1d" | "us-east-1e" | "us-east-1f" | "us-east-2a" | "us-east-2b" | "us-east-2c" | "us-gov-east-1a" | "us-gov-east-1b" | "us-gov-east-1c" | "us-gov-west-1a" | "us-gov-west-1b" | "us-gov-west-1c" | "us-west-1a" | "us-west-1b" | "us-west-1c" | "us-west-2a" | "us-west-2b" | "us-west-2c" | "us-west-2d" | "us-west-2-lax-1a" | "us-west-2-lax-1b") | fn.Fn
+			AvailabilityZone?:    string | fn.Fn
 			BlockDeviceMappings?: [...close({
 				DeviceName: string | fn.Fn
 				Ebs?:       close({
@@ -359,8 +359,7 @@ EC2 :: {
 				CapacityReservationSpecification?: close({
 					CapacityReservationPreference?: string | fn.Fn
 					CapacityReservationTarget?:     close({
-						CapacityReservationId?:               string | fn.Fn
-						CapacityReservationResourceGroupArn?: string | fn.Fn
+						CapacityReservationId?: string | fn.Fn
 					}) | fn.If
 				}) | fn.If
 				CpuOptions?: close({
@@ -379,9 +378,6 @@ EC2 :: {
 					Count?: int | fn.Fn
 					Type?:  string | fn.Fn
 				})] | fn.If
-				EnclaveOptions?: close({
-					Enabled?: bool | fn.Fn
-				}) | fn.If
 				HibernationOptions?: close({
 					Configured?: bool | fn.Fn
 				}) | fn.If
@@ -416,18 +412,16 @@ EC2 :: {
 					Enabled?: bool | fn.Fn
 				}) | fn.If
 				NetworkInterfaces?: [...close({
-					AssociateCarrierIpAddress?: bool | fn.Fn
-					AssociatePublicIpAddress?:  bool | fn.Fn
-					DeleteOnTermination?:       bool | fn.Fn
-					Description?:               string | fn.Fn
-					DeviceIndex?:               int | fn.Fn
-					Groups?:                    [...(string | fn.Fn)] | (string | fn.Fn)
-					InterfaceType?:             string | fn.Fn
-					Ipv6AddressCount?:          int | fn.Fn
-					Ipv6Addresses?:             [...close({
+					AssociatePublicIpAddress?: bool | fn.Fn
+					DeleteOnTermination?:      bool | fn.Fn
+					Description?:              string | fn.Fn
+					DeviceIndex?:              int | fn.Fn
+					Groups?:                   [...(string | fn.Fn)] | (string | fn.Fn)
+					InterfaceType?:            string | fn.Fn
+					Ipv6AddressCount?:         int | fn.Fn
+					Ipv6Addresses?:            [...close({
 						Ipv6Address?: string | fn.Fn
 					})] | fn.If
-					NetworkCardIndex?:   int | fn.Fn
 					NetworkInterfaceId?: string | fn.Fn
 					PrivateIpAddress?:   string | fn.Fn
 					PrivateIpAddresses?: [...close({
@@ -439,7 +433,7 @@ EC2 :: {
 				})] | fn.If
 				Placement?: close({
 					Affinity?:             string | fn.Fn
-					AvailabilityZone?:     ("af-south-1a" | "af-south-1b" | "af-south-1c" | "ap-east-1a" | "ap-east-1b" | "ap-east-1c" | "ap-northeast-1a" | "ap-northeast-1b" | "ap-northeast-1c" | "ap-northeast-1d" | "ap-northeast-2a" | "ap-northeast-2b" | "ap-northeast-2c" | "ap-northeast-2d" | "ap-northeast-3a" | "ap-south-1a" | "ap-south-1b" | "ap-south-1c" | "ap-southeast-1a" | "ap-southeast-1b" | "ap-southeast-1c" | "ap-southeast-2a" | "ap-southeast-2b" | "ap-southeast-2c" | "ca-central-1a" | "ca-central-1b" | "ca-central-1d" | "cn-north-1a" | "cn-north-1b" | "cn-northwest-1a" | "cn-northwest-1b" | "cn-northwest-1c" | "eu-central-1a" | "eu-central-1b" | "eu-central-1c" | "eu-north-1a" | "eu-north-1b" | "eu-north-1c" | "eu-south-1a" | "eu-south-1b" | "eu-south-1c" | "eu-west-1a" | "eu-west-1b" | "eu-west-1c" | "eu-west-2a" | "eu-west-2b" | "eu-west-2c" | "eu-west-3a" | "eu-west-3b" | "eu-west-3c" | "me-south-1a" | "me-south-1b" | "me-south-1c" | "sa-east-1a" | "sa-east-1b" | "sa-east-1c" | "us-east-1a" | "us-east-1b" | "us-east-1c" | "us-east-1d" | "us-east-1e" | "us-east-1f" | "us-east-2a" | "us-east-2b" | "us-east-2c" | "us-gov-east-1a" | "us-gov-east-1b" | "us-gov-east-1c" | "us-gov-west-1a" | "us-gov-west-1b" | "us-gov-west-1c" | "us-west-1a" | "us-west-1b" | "us-west-1c" | "us-west-2a" | "us-west-2b" | "us-west-2c" | "us-west-2d" | "us-west-2-lax-1a" | "us-west-2-lax-1b") | fn.Fn
+					AvailabilityZone?:     string | fn.Fn
 					GroupName?:            string | fn.Fn
 					HostId?:               string | fn.Fn
 					HostResourceGroupArn?: string | fn.Fn
@@ -501,7 +495,7 @@ EC2 :: {
 	NetworkAclEntry :: {
 		Type:       "AWS::EC2::NetworkAclEntry"
 		Properties: close({
-			CidrBlock?: (=~#"^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]).){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/([0-9]|[1-2][0-9]|3[0-2]))$"#) | fn.Fn
+			CidrBlock?: (=~#"^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(/([0-9]|[1-2][0-9]|3[0-2]))$"#) | fn.Fn
 			Egress?:    bool | fn.Fn
 			Icmp?:      close({
 				Code?: int | fn.Fn
@@ -593,18 +587,15 @@ EC2 :: {
 	Route :: {
 		Type:       "AWS::EC2::Route"
 		Properties: close({
-			CarrierGatewayId?:            string | fn.Fn
-			DestinationCidrBlock?:        (=~#"^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]).){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/([0-9]|[1-2][0-9]|3[0-2]))$"#) | fn.Fn
+			DestinationCidrBlock?:        string | fn.Fn
 			DestinationIpv6CidrBlock?:    string | fn.Fn
 			EgressOnlyInternetGatewayId?: string | fn.Fn
 			GatewayId?:                   string | fn.Fn
 			InstanceId?:                  string | fn.Fn
-			LocalGatewayId?:              string | fn.Fn
 			NatGatewayId?:                string | fn.Fn
 			NetworkInterfaceId?:          string | fn.Fn
 			RouteTableId:                 string | fn.Fn
 			TransitGatewayId?:            string | fn.Fn
-			VpcEndpointId?:               string | fn.Fn
 			VpcPeeringConnectionId?:      string | fn.Fn
 		})
 		DependsOn?:           string | [...string]
@@ -634,7 +625,7 @@ EC2 :: {
 			GroupDescription:     (strings.MinRunes(0) & strings.MaxRunes(255) & (=~#"^([a-z,A-Z,0-9,. _\-:/()#,@[\]+=&;\{\}!$*])*$"#)) | fn.Fn
 			GroupName?:           string | fn.Fn
 			SecurityGroupEgress?: [...close({
-				CidrIp?:                     (=~#"^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]).){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/([0-9]|[1-2][0-9]|3[0-2]))$"#) | fn.Fn
+				CidrIp?:                     (=~#"^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(/([0-9]|[1-2][0-9]|3[0-2]))$"#) | fn.Fn
 				CidrIpv6?:                   string | fn.Fn
 				Description?:                (strings.MinRunes(0) & strings.MaxRunes(255) & (=~#"^([a-z,A-Z,0-9,. _\-:/()#,@[\]+=&;\{\}!$*])*$"#)) | fn.Fn
 				DestinationPrefixListId?:    string | fn.Fn
@@ -644,7 +635,7 @@ EC2 :: {
 				ToPort?:                     int | fn.Fn
 			})] | fn.If
 			SecurityGroupIngress?: [...close({
-				CidrIp?:                     (=~#"^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]).){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/([0-9]|[1-2][0-9]|3[0-2]))$"#) | fn.Fn
+				CidrIp?:                     (=~#"^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(/([0-9]|[1-2][0-9]|3[0-2]))$"#) | fn.Fn
 				CidrIpv6?:                   string | fn.Fn
 				Description?:                (strings.MinRunes(0) & strings.MaxRunes(255) & (=~#"^([a-z,A-Z,0-9,. _\-:/()#,@[\]+=&;\{\}!$*])*$"#)) | fn.Fn
 				FromPort?:                   int | fn.Fn
@@ -670,7 +661,7 @@ EC2 :: {
 	SecurityGroupEgress :: {
 		Type:       "AWS::EC2::SecurityGroupEgress"
 		Properties: close({
-			CidrIp?:                     (=~#"^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]).){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/([0-9]|[1-2][0-9]|3[0-2]))$"#) | fn.Fn
+			CidrIp?:                     (=~#"^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(/([0-9]|[1-2][0-9]|3[0-2]))$"#) | fn.Fn
 			CidrIpv6?:                   string | fn.Fn
 			Description?:                string | fn.Fn
 			DestinationPrefixListId?:    string | fn.Fn
@@ -689,7 +680,7 @@ EC2 :: {
 	SecurityGroupIngress :: {
 		Type:       "AWS::EC2::SecurityGroupIngress"
 		Properties: close({
-			CidrIp?:                     (=~#"^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]).){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/([0-9]|[1-2][0-9]|3[0-2]))$"#) | fn.Fn
+			CidrIp?:                     (=~#"^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(/([0-9]|[1-2][0-9]|3[0-2]))$"#) | fn.Fn
 			CidrIpv6?:                   string | fn.Fn
 			Description?:                string | fn.Fn
 			FromPort?:                   int | fn.Fn
@@ -760,7 +751,7 @@ EC2 :: {
 						SubnetId?:                       string | fn.Fn
 					})] | fn.If
 					Placement?: close({
-						AvailabilityZone?: ("af-south-1a" | "af-south-1b" | "af-south-1c" | "ap-east-1a" | "ap-east-1b" | "ap-east-1c" | "ap-northeast-1a" | "ap-northeast-1b" | "ap-northeast-1c" | "ap-northeast-1d" | "ap-northeast-2a" | "ap-northeast-2b" | "ap-northeast-2c" | "ap-northeast-2d" | "ap-northeast-3a" | "ap-south-1a" | "ap-south-1b" | "ap-south-1c" | "ap-southeast-1a" | "ap-southeast-1b" | "ap-southeast-1c" | "ap-southeast-2a" | "ap-southeast-2b" | "ap-southeast-2c" | "ca-central-1a" | "ca-central-1b" | "ca-central-1d" | "cn-north-1a" | "cn-north-1b" | "cn-northwest-1a" | "cn-northwest-1b" | "cn-northwest-1c" | "eu-central-1a" | "eu-central-1b" | "eu-central-1c" | "eu-north-1a" | "eu-north-1b" | "eu-north-1c" | "eu-south-1a" | "eu-south-1b" | "eu-south-1c" | "eu-west-1a" | "eu-west-1b" | "eu-west-1c" | "eu-west-2a" | "eu-west-2b" | "eu-west-2c" | "eu-west-3a" | "eu-west-3b" | "eu-west-3c" | "me-south-1a" | "me-south-1b" | "me-south-1c" | "sa-east-1a" | "sa-east-1b" | "sa-east-1c" | "us-east-1a" | "us-east-1b" | "us-east-1c" | "us-east-1d" | "us-east-1e" | "us-east-1f" | "us-east-2a" | "us-east-2b" | "us-east-2c" | "us-gov-east-1a" | "us-gov-east-1b" | "us-gov-east-1c" | "us-gov-west-1a" | "us-gov-west-1b" | "us-gov-west-1c" | "us-west-1a" | "us-west-1b" | "us-west-1c" | "us-west-2a" | "us-west-2b" | "us-west-2c" | "us-west-2d" | "us-west-2-lax-1a" | "us-west-2-lax-1b") | fn.Fn
+						AvailabilityZone?: string | fn.Fn
 						GroupName?:        string | fn.Fn
 						Tenancy?:          string | fn.Fn
 					}) | fn.If
@@ -787,7 +778,7 @@ EC2 :: {
 						Version:             string | fn.Fn
 					}) | fn.If
 					Overrides?: [...close({
-						AvailabilityZone?: ("af-south-1a" | "af-south-1b" | "af-south-1c" | "ap-east-1a" | "ap-east-1b" | "ap-east-1c" | "ap-northeast-1a" | "ap-northeast-1b" | "ap-northeast-1c" | "ap-northeast-1d" | "ap-northeast-2a" | "ap-northeast-2b" | "ap-northeast-2c" | "ap-northeast-2d" | "ap-northeast-3a" | "ap-south-1a" | "ap-south-1b" | "ap-south-1c" | "ap-southeast-1a" | "ap-southeast-1b" | "ap-southeast-1c" | "ap-southeast-2a" | "ap-southeast-2b" | "ap-southeast-2c" | "ca-central-1a" | "ca-central-1b" | "ca-central-1d" | "cn-north-1a" | "cn-north-1b" | "cn-northwest-1a" | "cn-northwest-1b" | "cn-northwest-1c" | "eu-central-1a" | "eu-central-1b" | "eu-central-1c" | "eu-north-1a" | "eu-north-1b" | "eu-north-1c" | "eu-south-1a" | "eu-south-1b" | "eu-south-1c" | "eu-west-1a" | "eu-west-1b" | "eu-west-1c" | "eu-west-2a" | "eu-west-2b" | "eu-west-2c" | "eu-west-3a" | "eu-west-3b" | "eu-west-3c" | "me-south-1a" | "me-south-1b" | "me-south-1c" | "sa-east-1a" | "sa-east-1b" | "sa-east-1c" | "us-east-1a" | "us-east-1b" | "us-east-1c" | "us-east-1d" | "us-east-1e" | "us-east-1f" | "us-east-2a" | "us-east-2b" | "us-east-2c" | "us-gov-east-1a" | "us-gov-east-1b" | "us-gov-east-1c" | "us-gov-west-1a" | "us-gov-west-1b" | "us-gov-west-1c" | "us-west-1a" | "us-west-1b" | "us-west-1c" | "us-west-2a" | "us-west-2b" | "us-west-2c" | "us-west-2d" | "us-west-2-lax-1a" | "us-west-2-lax-1b") | fn.Fn
+						AvailabilityZone?: string | fn.Fn
 						InstanceType?:     string | fn.Fn
 						SpotPrice?:        string | fn.Fn
 						SubnetId?:         string | fn.Fn
@@ -825,11 +816,10 @@ EC2 :: {
 		Type:       "AWS::EC2::Subnet"
 		Properties: close({
 			AssignIpv6AddressOnCreation?: bool | fn.Fn
-			AvailabilityZone?:            ("af-south-1a" | "af-south-1b" | "af-south-1c" | "ap-east-1a" | "ap-east-1b" | "ap-east-1c" | "ap-northeast-1a" | "ap-northeast-1b" | "ap-northeast-1c" | "ap-northeast-1d" | "ap-northeast-2a" | "ap-northeast-2b" | "ap-northeast-2c" | "ap-northeast-2d" | "ap-northeast-3a" | "ap-south-1a" | "ap-south-1b" | "ap-south-1c" | "ap-southeast-1a" | "ap-southeast-1b" | "ap-southeast-1c" | "ap-southeast-2a" | "ap-southeast-2b" | "ap-southeast-2c" | "ca-central-1a" | "ca-central-1b" | "ca-central-1d" | "cn-north-1a" | "cn-north-1b" | "cn-northwest-1a" | "cn-northwest-1b" | "cn-northwest-1c" | "eu-central-1a" | "eu-central-1b" | "eu-central-1c" | "eu-north-1a" | "eu-north-1b" | "eu-north-1c" | "eu-south-1a" | "eu-south-1b" | "eu-south-1c" | "eu-west-1a" | "eu-west-1b" | "eu-west-1c" | "eu-west-2a" | "eu-west-2b" | "eu-west-2c" | "eu-west-3a" | "eu-west-3b" | "eu-west-3c" | "me-south-1a" | "me-south-1b" | "me-south-1c" | "sa-east-1a" | "sa-east-1b" | "sa-east-1c" | "us-east-1a" | "us-east-1b" | "us-east-1c" | "us-east-1d" | "us-east-1e" | "us-east-1f" | "us-east-2a" | "us-east-2b" | "us-east-2c" | "us-gov-east-1a" | "us-gov-east-1b" | "us-gov-east-1c" | "us-gov-west-1a" | "us-gov-west-1b" | "us-gov-west-1c" | "us-west-1a" | "us-west-1b" | "us-west-1c" | "us-west-2a" | "us-west-2b" | "us-west-2c" | "us-west-2d" | "us-west-2-lax-1a" | "us-west-2-lax-1b") | fn.Fn
-			CidrBlock:                    (=~#"^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]).){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/(1[6-9]|2[0-8]))$"#) | fn.Fn
+			AvailabilityZone?:            string | fn.Fn
+			CidrBlock:                    string | fn.Fn
 			Ipv6CidrBlock?:               string | fn.Fn
 			MapPublicIpOnLaunch?:         bool | fn.Fn
-			OutpostArn?:                  string | fn.Fn
 			Tags?:                        [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
@@ -881,7 +871,7 @@ EC2 :: {
 	VPC :: {
 		Type:       "AWS::EC2::VPC"
 		Properties: close({
-			CidrBlock:           (=~#"^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]).){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/(1[6-9]|2[0-8]))$"#) | fn.Fn
+			CidrBlock:           string | fn.Fn
 			EnableDnsHostnames?: bool | fn.Fn
 			EnableDnsSupport?:   bool | fn.Fn
 			InstanceTenancy?:    ("dedicated" | "default") | fn.Fn
@@ -900,7 +890,7 @@ EC2 :: {
 		Type:       "AWS::EC2::VPCCidrBlock"
 		Properties: close({
 			AmazonProvidedIpv6CidrBlock?: bool | fn.Fn
-			CidrBlock?:                   (=~#"^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]).){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/(1[6-9]|2[0-8]))$"#) | fn.Fn
+			CidrBlock?:                   string | fn.Fn
 			VpcId:                        string | fn.Fn
 		})
 		DependsOn?:           string | [...string]
@@ -933,7 +923,7 @@ EC2 :: {
 			SecurityGroupIds?:  [...(string | fn.Fn)] | (string | fn.Fn)
 			ServiceName:        string | fn.Fn
 			SubnetIds?:         [...(string | fn.Fn)] | (string | fn.Fn)
-			VpcEndpointType?:   ("Gateway" | "GatewayLoadBalancer" | "Interface") | fn.Fn
+			VpcEndpointType?:   ("Gateway" | "Interface") | fn.Fn
 			VpcId:              string | fn.Fn
 		})
 		DependsOn?:           string | [...string]
@@ -1027,7 +1017,7 @@ EC2 :: {
 			VpnGatewayId?:                   string | fn.Fn
 			VpnTunnelOptionsSpecifications?: [...close({
 				PreSharedKey?:     string | fn.Fn
-				TunnelInsideCidr?: (=~#"^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]).){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/([0-9]|[1-2][0-9]|3[0-2]))$"#) | fn.Fn
+				TunnelInsideCidr?: string | fn.Fn
 			})] | fn.If
 		})
 		DependsOn?:           string | [...string]
@@ -1039,7 +1029,7 @@ EC2 :: {
 	VPNConnectionRoute :: {
 		Type:       "AWS::EC2::VPNConnectionRoute"
 		Properties: close({
-			DestinationCidrBlock: (=~#"^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]).){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/([0-9]|[1-2][0-9]|3[0-2]))$"#) | fn.Fn
+			DestinationCidrBlock: string | fn.Fn
 			VpnConnectionId:      string | fn.Fn
 		})
 		DependsOn?:           string | [...string]

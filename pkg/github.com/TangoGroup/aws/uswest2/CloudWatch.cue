@@ -127,27 +127,4 @@ CloudWatch :: {
 		Metadata?: [string]: _
 		Condition?: string
 	}
-	MetricStream :: {
-		Type:       "AWS::CloudWatch::MetricStream"
-		Properties: close({
-			ExcludeFilters?: [...close({
-				Namespace: string | fn.Fn
-			})] | fn.If
-			FirehoseArn:     string | fn.Fn
-			IncludeFilters?: [...close({
-				Namespace: string | fn.Fn
-			})] | fn.If
-			Name?:   string | fn.Fn
-			RoleArn: string | fn.Fn
-			Tags?:   [...close({
-				Key:   string | fn.Fn
-				Value: string | fn.Fn
-			})] | fn.If
-		})
-		DependsOn?:           string | [...string]
-		DeletionPolicy?:      "Delete" | "Retain"
-		UpdateReplacePolicy?: "Delete" | "Retain"
-		Metadata?: [string]: _
-		Condition?: string
-	}
 }

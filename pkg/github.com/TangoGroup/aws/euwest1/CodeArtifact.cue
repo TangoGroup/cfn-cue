@@ -10,10 +10,6 @@ CodeArtifact :: {
 			PermissionsPolicyDocument?: {
 				[string]: _
 			} | fn.Fn
-			Tags?: [...close({
-				Key:   string | fn.Fn
-				Value: string | fn.Fn
-			})] | fn.If
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -30,11 +26,7 @@ CodeArtifact :: {
 				[string]: _
 			} | fn.Fn
 			RepositoryName: string | fn.Fn
-			Tags?:          [...close({
-				Key:   string | fn.Fn
-				Value: string | fn.Fn
-			})] | fn.If
-			Upstreams?: [...(string | fn.Fn)] | (string | fn.Fn)
+			Upstreams?:     [...(string | fn.Fn)] | (string | fn.Fn)
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

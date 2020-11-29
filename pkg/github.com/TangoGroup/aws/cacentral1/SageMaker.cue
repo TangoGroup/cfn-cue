@@ -27,16 +27,10 @@ SageMaker :: {
 				Environment?:       {
 					[string]: _
 				} | fn.Fn
-				Image?:       string | fn.Fn
-				ImageConfig?: close({
-					RepositoryAccessMode: string | fn.Fn
-				}) | fn.If
+				Image?:            string | fn.Fn
 				Mode?:             string | fn.Fn
 				ModelDataUrl?:     string | fn.Fn
 				ModelPackageName?: string | fn.Fn
-				MultiModelConfig?: close({
-					ModelCacheSetting?: string | fn.Fn
-				}) | fn.If
 			})] | fn.If
 			EnableNetworkIsolation?: bool | fn.Fn
 			ExecutionRoleArn:        string | fn.Fn
@@ -46,16 +40,10 @@ SageMaker :: {
 				Environment?:       {
 					[string]: _
 				} | fn.Fn
-				Image?:       string | fn.Fn
-				ImageConfig?: close({
-					RepositoryAccessMode: string | fn.Fn
-				}) | fn.If
+				Image?:            string | fn.Fn
 				Mode?:             string | fn.Fn
 				ModelDataUrl?:     string | fn.Fn
 				ModelPackageName?: string | fn.Fn
-				MultiModelConfig?: close({
-					ModelCacheSetting?: string | fn.Fn
-				}) | fn.If
 			}) | fn.If
 			Tags?: [...close({
 				Key:   string | fn.Fn
@@ -75,8 +63,10 @@ SageMaker :: {
 	MonitoringSchedule :: {
 		Type:       "AWS::SageMaker::MonitoringSchedule"
 		Properties: close({
+			CreationTime?:                   string | fn.Fn
 			EndpointName?:                   string | fn.Fn
 			FailureReason?:                  string | fn.Fn
+			LastModifiedTime?:               string | fn.Fn
 			LastMonitoringExecutionSummary?: close({
 				CreationTime:              string | fn.Fn
 				EndpointName?:             string | fn.Fn

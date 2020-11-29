@@ -81,19 +81,6 @@ S3 :: {
 					MaxAge?:         int | fn.Fn
 				})] | fn.If
 			}) | fn.If
-			IntelligentTieringConfigurations?: [...close({
-				Id:          string | fn.Fn
-				Prefix?:     string | fn.Fn
-				Status:      string | fn.Fn
-				TagFilters?: [...close({
-					Key:   string | fn.Fn
-					Value: string | fn.Fn
-				})] | fn.If
-				Tierings: [...close({
-					AccessTier: string | fn.Fn
-					Days:       int | fn.Fn
-				})] | fn.If
-			})] | fn.If
 			InventoryConfigurations?: [...close({
 				Destination: close({
 					BucketAccountId?: string | fn.Fn
@@ -203,12 +190,7 @@ S3 :: {
 					}) | fn.If
 				}) | fn.If
 			}) | fn.If
-			ObjectLockEnabled?: bool | fn.Fn
-			OwnershipControls?: close({
-				Rules: [...close({
-					ObjectOwnership?: string | fn.Fn
-				})] | fn.If
-			}) | fn.If
+			ObjectLockEnabled?:              bool | fn.Fn
 			PublicAccessBlockConfiguration?: close({
 				BlockPublicAcls?:       bool | fn.Fn
 				BlockPublicPolicy?:     bool | fn.Fn
@@ -231,7 +213,7 @@ S3 :: {
 							ReplicaKmsKeyID: string | fn.Fn
 						}) | fn.If
 						Metrics?: close({
-							EventThreshold?: close({
+							EventThreshold: close({
 								Minutes: int | fn.Fn
 							}) | fn.If
 							Status: string | fn.Fn
@@ -262,7 +244,7 @@ S3 :: {
 					Prefix?:                  string | fn.Fn
 					Priority?:                int | fn.Fn
 					SourceSelectionCriteria?: close({
-						SseKmsEncryptedObjects?: close({
+						SseKmsEncryptedObjects: close({
 							Status: string | fn.Fn
 						}) | fn.If
 					}) | fn.If
@@ -312,67 +294,6 @@ S3 :: {
 				[string]: _
 				Version:  string | *"2012-10-17"
 			} | fn.Fn
-		})
-		DependsOn?:           string | [...string]
-		DeletionPolicy?:      "Delete" | "Retain"
-		UpdateReplacePolicy?: "Delete" | "Retain"
-		Metadata?: [string]: _
-		Condition?: string
-	}
-	StorageLens :: {
-		Type:       "AWS::S3::StorageLens"
-		Properties: close({
-			StorageLensConfiguration: close({
-				AccountLevel: close({
-					ActivityMetrics?: close({
-						IsEnabled?: bool | fn.Fn
-					}) | fn.If
-					BucketLevel: close({
-						ActivityMetrics?: close({
-							IsEnabled?: bool | fn.Fn
-						}) | fn.If
-						PrefixLevel?: close({
-							StorageMetrics: close({
-								IsEnabled?:         bool | fn.Fn
-								SelectionCriteria?: close({
-									Delimiter?:                 string | fn.Fn
-									MaxDepth?:                  int | fn.Fn
-									MinStorageBytesPercentage?: number | fn.Fn
-								}) | fn.If
-							}) | fn.If
-						}) | fn.If
-					}) | fn.If
-				}) | fn.If
-				AwsOrg?: close({
-					Arn: string | fn.Fn
-				}) | fn.If
-				DataExport?: close({
-					S3BucketDestination: close({
-						AccountId:   string | fn.Fn
-						Arn:         string | fn.Fn
-						Encryption?: close({
-						}) | fn.If
-						Format:              string | fn.Fn
-						OutputSchemaVersion: string | fn.Fn
-						Prefix?:             string | fn.Fn
-					}) | fn.If
-				}) | fn.If
-				Exclude?: close({
-					Buckets?: [...(string | fn.Fn)] | (string | fn.Fn)
-					Regions?: [...(string | fn.Fn)] | (string | fn.Fn)
-				}) | fn.If
-				Id:       string | fn.Fn
-				Include?: close({
-					Buckets?: [...(string | fn.Fn)] | (string | fn.Fn)
-					Regions?: [...(string | fn.Fn)] | (string | fn.Fn)
-				}) | fn.If
-				IsEnabled:       bool | fn.Fn
-				StorageLensArn?: string | fn.Fn
-			}) | fn.If
-			Tags?: [...close({
-				Key:   string | fn.Fn
-				Value: string | fn.Fn
-			})] | fn.If
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

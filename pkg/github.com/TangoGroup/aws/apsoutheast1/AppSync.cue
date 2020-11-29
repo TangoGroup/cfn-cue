@@ -84,13 +84,6 @@ AppSync :: {
 			RequestMappingTemplateS3Location?:  string | fn.Fn
 			ResponseMappingTemplate?:           string | fn.Fn
 			ResponseMappingTemplateS3Location?: string | fn.Fn
-			SyncConfig?:                        close({
-				ConflictDetection:            string | fn.Fn
-				ConflictHandler?:             string | fn.Fn
-				LambdaConflictHandlerConfig?: close({
-					LambdaConflictHandlerArn?: string | fn.Fn
-				}) | fn.If
-			}) | fn.If
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

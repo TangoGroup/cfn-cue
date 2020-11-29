@@ -382,18 +382,4 @@ IoT :: {
 		Metadata?: [string]: _
 		Condition?: string
 	}
-	TopicRuleDestination :: {
-		Type:       "AWS::IoT::TopicRuleDestination"
-		Properties: close({
-			HttpUrlProperties?: close({
-				ConfirmationUrl?: string | fn.Fn
-			}) | fn.If
-			Status?: string | fn.Fn
-		})
-		DependsOn?:           string | [...string]
-		DeletionPolicy?:      "Delete" | "Retain"
-		UpdateReplacePolicy?: "Delete" | "Retain"
-		Metadata?: [string]: _
-		Condition?: string
-	}
 }

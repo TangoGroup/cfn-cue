@@ -10,10 +10,9 @@ ECR :: {
 				[string]: _
 			} | fn.Fn
 			ImageTagMutability?: string | fn.Fn
-			LifecyclePolicy?:    close({
-				LifecyclePolicyText?: string | fn.Fn
-				RegistryId?:          string | fn.Fn
-			}) | fn.If
+			LifecyclePolicy?:    {
+				[string]: _
+			} | fn.Fn
 			RepositoryName?:       string | fn.Fn
 			RepositoryPolicyText?: {
 				[string]: _

@@ -84,18 +84,6 @@ AppMesh :: {
 					}) | fn.If
 				}) | fn.If
 				Listeners: [...close({
-					ConnectionPool?: close({
-						GRPC?: close({
-							MaxRequests: int | fn.Fn
-						}) | fn.If
-						HTTP?: close({
-							MaxConnections:      int | fn.Fn
-							MaxPendingRequests?: int | fn.Fn
-						}) | fn.If
-						HTTP2?: close({
-							MaxRequests: int | fn.Fn
-						}) | fn.If
-					}) | fn.If
 					HealthCheck?: close({
 						HealthyThreshold:   int | fn.Fn
 						IntervalMillis:     int | fn.Fn

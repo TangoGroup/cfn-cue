@@ -6,67 +6,7 @@ Kendra :: {
 	DataSource :: {
 		Type:       "AWS::Kendra::DataSource"
 		Properties: close({
-			DataSourceConfiguration?: close({
-				ConfluenceConfiguration?: close({
-					AttachmentConfiguration?: close({
-						AttachmentFieldMappings?: close({
-							ConfluenceAttachmentFieldMappingsList?: [...close({
-								DataSourceFieldName: string | fn.Fn
-								DateFieldFormat?:    string | fn.Fn
-								IndexFieldName:      string | fn.Fn
-							})] | fn.If
-						}) | fn.If
-						CrawlAttachments?: bool | fn.Fn
-					}) | fn.If
-					BlogConfiguration?: close({
-						BlogFieldMappings?: close({
-							ConfluenceBlogFieldMappingsList?: [...close({
-								DataSourceFieldName: string | fn.Fn
-								DateFieldFormat?:    string | fn.Fn
-								IndexFieldName:      string | fn.Fn
-							})] | fn.If
-						}) | fn.If
-					}) | fn.If
-					ExclusionPatterns?: close({
-						DataSourceInclusionsExclusionsStrings?: [...(string | fn.Fn)] | (string | fn.Fn)
-					}) | fn.If
-					InclusionPatterns?: close({
-						DataSourceInclusionsExclusionsStrings?: [...(string | fn.Fn)] | (string | fn.Fn)
-					}) | fn.If
-					PageConfiguration?: close({
-						PageFieldMappings?: close({
-							ConfluencePageFieldMappingsList?: [...close({
-								DataSourceFieldName: string | fn.Fn
-								DateFieldFormat?:    string | fn.Fn
-								IndexFieldName:      string | fn.Fn
-							})] | fn.If
-						}) | fn.If
-					}) | fn.If
-					SecretArn:           string | fn.Fn
-					ServerUrl:           string | fn.Fn
-					SpaceConfiguration?: close({
-						CrawlArchivedSpaces?: bool | fn.Fn
-						CrawlPersonalSpaces?: bool | fn.Fn
-						ExcludeSpaces?:       close({
-							ConfluenceSpaceList?: [...(string | fn.Fn)] | (string | fn.Fn)
-						}) | fn.If
-						IncludeSpaces?: close({
-							ConfluenceSpaceList?: [...(string | fn.Fn)] | (string | fn.Fn)
-						}) | fn.If
-						SpaceFieldMappings?: close({
-							ConfluenceSpaceFieldMappingsList?: [...close({
-								DataSourceFieldName: string | fn.Fn
-								DateFieldFormat?:    string | fn.Fn
-								IndexFieldName:      string | fn.Fn
-							})] | fn.If
-						}) | fn.If
-					}) | fn.If
-					Version:           string | fn.Fn
-					VpcConfiguration?: close({
-						SecurityGroupIds: [...(string | fn.Fn)] | (string | fn.Fn)
-						SubnetIds:        [...(string | fn.Fn)] | (string | fn.Fn)
-					}) | fn.If
-				}) | fn.If
+			DataSourceConfiguration: close({
 				DatabaseConfiguration?: close({
 					AclConfiguration?: close({
 						AllowedGroupsColumnName: string | fn.Fn
@@ -103,8 +43,7 @@ Kendra :: {
 					}) | fn.If
 				}) | fn.If
 				OneDriveConfiguration?: close({
-					DisableLocalGroups?: bool | fn.Fn
-					ExclusionPatterns?:  close({
+					ExclusionPatterns?: close({
 						DataSourceInclusionsExclusionsStrings?: [...(string | fn.Fn)] | (string | fn.Fn)
 					}) | fn.If
 					FieldMappings?: close({
@@ -138,9 +77,6 @@ Kendra :: {
 						S3Prefix?: string | fn.Fn
 					}) | fn.If
 					ExclusionPatterns?: close({
-						DataSourceInclusionsExclusionsStrings?: [...(string | fn.Fn)] | (string | fn.Fn)
-					}) | fn.If
-					InclusionPatterns?: close({
 						DataSourceInclusionsExclusionsStrings?: [...(string | fn.Fn)] | (string | fn.Fn)
 					}) | fn.If
 					InclusionPrefixes?: close({
@@ -269,7 +205,6 @@ Kendra :: {
 				}) | fn.If
 				SharePointConfiguration?: close({
 					CrawlAttachments?:       bool | fn.Fn
-					DisableLocalGroups?:     bool | fn.Fn
 					DocumentTitleFieldName?: string | fn.Fn
 					ExclusionPatterns?:      close({
 						DataSourceInclusionsExclusionsStrings?: [...(string | fn.Fn)] | (string | fn.Fn)
@@ -297,7 +232,7 @@ Kendra :: {
 			Description?: string | fn.Fn
 			IndexId:      string | fn.Fn
 			Name:         string | fn.Fn
-			RoleArn?:     string | fn.Fn
+			RoleArn:      string | fn.Fn
 			Schedule?:    string | fn.Fn
 			Tags?:        close({
 				TagList?: [...close({
@@ -379,24 +314,6 @@ Kendra :: {
 				TagList?: [...close({
 					Key:   string | fn.Fn
 					Value: string | fn.Fn
-				})] | fn.If
-			}) | fn.If
-			UserContextPolicy?:       string | fn.Fn
-			UserTokenConfigurations?: close({
-				UserTokenConfigurationList?: [...close({
-					JsonTokenTypeConfiguration?: close({
-						GroupAttributeField:    string | fn.Fn
-						UserNameAttributeField: string | fn.Fn
-					}) | fn.If
-					JwtTokenTypeConfiguration?: close({
-						ClaimRegex?:             string | fn.Fn
-						GroupAttributeField?:    string | fn.Fn
-						Issuer?:                 string | fn.Fn
-						KeyLocation:             string | fn.Fn
-						SecretManagerArn?:       string | fn.Fn
-						URL?:                    string | fn.Fn
-						UserNameAttributeField?: string | fn.Fn
-					}) | fn.If
 				})] | fn.If
 			}) | fn.If
 		})
