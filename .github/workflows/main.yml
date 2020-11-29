@@ -38,7 +38,7 @@ jobs:
         run: |
           git diff --name-only
           git diff --name-only | wc -l
-          echo "::set-output name=num-files::$(git diff --name-only | wc -l)"
+          echo ::set-output name=num-files::$(git diff --name-only | wc -l)
         shell: bash
 
       - name: Get info 
