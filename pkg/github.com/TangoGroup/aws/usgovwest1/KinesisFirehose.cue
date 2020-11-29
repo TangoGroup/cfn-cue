@@ -6,6 +6,10 @@ KinesisFirehose :: {
 	DeliveryStream :: {
 		Type:       "AWS::KinesisFirehose::DeliveryStream"
 		Properties: close({
+			DeliveryStreamEncryptionConfigurationInput?: close({
+				KeyARN?: string | fn.Fn
+				KeyType: string | fn.Fn
+			}) | fn.If
 			DeliveryStreamName?:                    string | fn.Fn
 			DeliveryStreamType?:                    string | fn.Fn
 			ElasticsearchDestinationConfiguration?: close({
@@ -170,6 +174,66 @@ KinesisFirehose :: {
 				}) | fn.If
 				S3BackupMode?: string | fn.Fn
 			}) | fn.If
+			HttpEndpointDestinationConfiguration?: close({
+				BufferingHints?: close({
+					IntervalInSeconds?: int | fn.Fn
+					SizeInMBs?:         int | fn.Fn
+				}) | fn.If
+				CloudWatchLoggingOptions?: close({
+					Enabled?:       bool | fn.Fn
+					LogGroupName?:  string | fn.Fn
+					LogStreamName?: string | fn.Fn
+				}) | fn.If
+				EndpointConfiguration: close({
+					AccessKey?: string | fn.Fn
+					Name?:      string | fn.Fn
+					Url:        string | fn.Fn
+				}) | fn.If
+				ProcessingConfiguration?: close({
+					Enabled?:    bool | fn.Fn
+					Processors?: [...close({
+						Parameters?: [...close({
+							ParameterName:  string | fn.Fn
+							ParameterValue: string | fn.Fn
+						})] | fn.If
+						Type: string | fn.Fn
+					})] | fn.If
+				}) | fn.If
+				RequestConfiguration?: close({
+					CommonAttributes?: [...close({
+						AttributeName:  string | fn.Fn
+						AttributeValue: string | fn.Fn
+					})] | fn.If
+					ContentEncoding?: string | fn.Fn
+				}) | fn.If
+				RetryOptions?: close({
+					DurationInSeconds?: int | fn.Fn
+				}) | fn.If
+				RoleARN?:        string | fn.Fn
+				S3BackupMode?:   string | fn.Fn
+				S3Configuration: close({
+					BucketARN:       string | fn.Fn
+					BufferingHints?: close({
+						IntervalInSeconds?: int | fn.Fn
+						SizeInMBs?:         int | fn.Fn
+					}) | fn.If
+					CloudWatchLoggingOptions?: close({
+						Enabled?:       bool | fn.Fn
+						LogGroupName?:  string | fn.Fn
+						LogStreamName?: string | fn.Fn
+					}) | fn.If
+					CompressionFormat?:       string | fn.Fn
+					EncryptionConfiguration?: close({
+						KMSEncryptionConfig?: close({
+							AWSKMSKeyARN: string | fn.Fn
+						}) | fn.If
+						NoEncryptionConfig?: string | fn.Fn
+					}) | fn.If
+					ErrorOutputPrefix?: string | fn.Fn
+					Prefix?:            string | fn.Fn
+					RoleARN:            string | fn.Fn
+				}) | fn.If
+			}) | fn.If
 			KinesisStreamSourceConfiguration?: close({
 				KinesisStreamARN: string | fn.Fn
 				RoleARN:          string | fn.Fn
@@ -317,6 +381,10 @@ KinesisFirehose :: {
 					RoleARN:            string | fn.Fn
 				}) | fn.If
 			}) | fn.If
+			Tags?: [...close({
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
+			})] | fn.If
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

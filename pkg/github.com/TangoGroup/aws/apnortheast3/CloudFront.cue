@@ -36,6 +36,21 @@ CloudFront :: {
 		Metadata?: [string]: _
 		Condition?: string
 	}
+	KeyGroup :: {
+		Type:       "AWS::CloudFront::KeyGroup"
+		Properties: close({
+			KeyGroupConfig: close({
+				Comment?: string | fn.Fn
+				Items:    [...(string | fn.Fn)] | (string | fn.Fn)
+				Name:     string | fn.Fn
+			}) | fn.If
+		})
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+		Condition?: string
+	}
 	OriginRequestPolicy :: {
 		Type:       "AWS::CloudFront::OriginRequestPolicy"
 		Properties: close({
@@ -54,6 +69,22 @@ CloudFront :: {
 					QueryStringBehavior: string | fn.Fn
 					QueryStrings?:       [...(string | fn.Fn)] | (string | fn.Fn)
 				}) | fn.If
+			}) | fn.If
+		})
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+		Condition?: string
+	}
+	PublicKey :: {
+		Type:       "AWS::CloudFront::PublicKey"
+		Properties: close({
+			PublicKeyConfig: close({
+				CallerReference: string | fn.Fn
+				Comment?:        string | fn.Fn
+				EncodedKey:      string | fn.Fn
+				Name:            string | fn.Fn
 			}) | fn.If
 		})
 		DependsOn?:           string | [...string]

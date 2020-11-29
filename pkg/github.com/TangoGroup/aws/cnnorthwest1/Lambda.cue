@@ -63,11 +63,18 @@ Lambda :: {
 			EventSourceArn:                  string | fn.Fn
 			FunctionName:                    string | fn.Fn
 			MaximumBatchingWindowInSeconds?: int | fn.Fn
-			MaximumRecordAgeInSeconds?:      int | fn.Fn
-			MaximumRetryAttempts?:           int | fn.Fn
-			ParallelizationFactor?:          int | fn.Fn
-			StartingPosition?:               string | fn.Fn
-			Topics?:                         [...(string | fn.Fn)] | (string | fn.Fn)
+			MaximumRecordAgeInSeconds?:      (>=-1 & <=604800) | fn.Fn
+			MaximumRetryAttempts?:           (>=-1 & <=10000) | fn.Fn
+			ParallelizationFactor?:          (>=1 & <=10) | fn.Fn
+			PartialBatchResponse?:           bool | fn.Fn
+			Queues?:                         [...(string | fn.Fn)] | (string | fn.Fn)
+			SourceAccessConfigurations?:     [...close({
+				Type?: string | fn.Fn
+				URI?:  string | fn.Fn
+			})] | fn.If
+			StartingPosition?:        ("AT_TIMESTAMP" | "LATEST" | "TRIM_HORIZON") | fn.Fn
+			Topics?:                  [...(string | fn.Fn)] | (string | fn.Fn)
+			TumblingWindowInSeconds?: int | fn.Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -84,7 +91,8 @@ Lambda :: {
 				S3ObjectVersion?: string | fn.Fn
 				ZipFile?:         string | fn.Fn
 			}) | fn.If
-			DeadLetterConfig?: close({
+			CodeSigningConfigArn?: string | fn.Fn
+			DeadLetterConfig?:     close({
 				TargetArn?: string | fn.Fn
 			}) | fn.If
 			Description?: string | fn.Fn
@@ -101,7 +109,7 @@ Lambda :: {
 			Handler:                       string | fn.Fn
 			KmsKeyArn?:                    string | fn.Fn
 			Layers?:                       [...(string | fn.Fn)] | (string | fn.Fn)
-			MemorySize?:                   (>=128 & <=3008) | fn.Fn
+			MemorySize?:                   (128 | 192 | 256 | 320 | 384 | 448 | 512 | 576 | 640 | 704 | 768 | 832 | 896 | 960 | 1024 | 1088 | 1152 | 1216 | 1280 | 1344 | 1408 | 1472 | 1536 | 1600 | 1664 | 1728 | 1792 | 1856 | 1920 | 1984 | 2048 | 2112 | 2176 | 2240 | 2304 | 2368 | 2432 | 2496 | 2560 | 2624 | 2688 | 2752 | 2816 | 2880 | 2944 | 3008) | fn.Fn
 			ReservedConcurrentExecutions?: int | fn.Fn
 			Role:                          (=~#"arn:(aws[a-zA-Z-]*)?:iam::\d{12}:role/[a-zA-Z_0-9+=,.@\-_/]+"#) | fn.Fn
 			Runtime:                       ("dotnetcore1.0" | "dotnetcore2.0" | "dotnetcore2.1" | "dotnetcore3.1" | "go1.x" | "java11" | "java8" | "java8.al2" | "nodejs" | "nodejs10.x" | "nodejs12.x" | "nodejs4.3" | "nodejs4.3-edge" | "nodejs6.10" | "nodejs8.10" | "provided" | "provided.al2" | "python2.7" | "python3.6" | "python3.7" | "python3.8" | "ruby2.5" | "ruby2.7") | fn.Fn

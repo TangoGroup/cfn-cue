@@ -18,8 +18,9 @@ SNS :: {
 			RedrivePolicy?:      {
 				[string]: _
 			} | fn.Fn
-			Region?:  string | fn.Fn
-			TopicArn: string | fn.Fn
+			Region?:              string | fn.Fn
+			SubscriptionRoleArn?: string | fn.Fn
+			TopicArn:             string | fn.Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -32,6 +33,7 @@ SNS :: {
 		Properties: close({
 			ContentBasedDeduplication?: bool | fn.Fn
 			DisplayName?:               string | fn.Fn
+			FifoTopic?:                 bool | fn.Fn
 			KmsMasterKeyId?:            string | fn.Fn
 			Subscription?:              [...close({
 				Endpoint: string | fn.Fn

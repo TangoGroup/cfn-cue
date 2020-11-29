@@ -277,6 +277,18 @@ AppMesh :: {
 					}) | fn.If
 				}) | fn.If
 				Listeners: [...close({
+					ConnectionPool?: close({
+						GRPC?: close({
+							MaxRequests: int | fn.Fn
+						}) | fn.If
+						HTTP?: close({
+							MaxConnections:      int | fn.Fn
+							MaxPendingRequests?: int | fn.Fn
+						}) | fn.If
+						HTTP2?: close({
+							MaxRequests: int | fn.Fn
+						}) | fn.If
+					}) | fn.If
 					HealthCheck?: close({
 						HealthyThreshold:   int | fn.Fn
 						IntervalMillis:     int | fn.Fn
@@ -369,6 +381,21 @@ AppMesh :: {
 					}) | fn.If
 				})] | fn.If
 				Listeners?: [...close({
+					ConnectionPool?: close({
+						GRPC?: close({
+							MaxRequests: int | fn.Fn
+						}) | fn.If
+						HTTP?: close({
+							MaxConnections:      int | fn.Fn
+							MaxPendingRequests?: int | fn.Fn
+						}) | fn.If
+						HTTP2?: close({
+							MaxRequests: int | fn.Fn
+						}) | fn.If
+						TCP?: close({
+							MaxConnections: int | fn.Fn
+						}) | fn.If
+					}) | fn.If
 					HealthCheck?: close({
 						HealthyThreshold:   int | fn.Fn
 						IntervalMillis:     int | fn.Fn
@@ -377,6 +404,18 @@ AppMesh :: {
 						Protocol:           string | fn.Fn
 						TimeoutMillis:      int | fn.Fn
 						UnhealthyThreshold: int | fn.Fn
+					}) | fn.If
+					OutlierDetection?: close({
+						BaseEjectionDuration: close({
+							Unit:  string | fn.Fn
+							Value: int | fn.Fn
+						}) | fn.If
+						Interval: close({
+							Unit:  string | fn.Fn
+							Value: int | fn.Fn
+						}) | fn.If
+						MaxEjectionPercent: int | fn.Fn
+						MaxServerErrors:    int | fn.Fn
 					}) | fn.If
 					PortMapping: close({
 						Port:     int | fn.Fn
