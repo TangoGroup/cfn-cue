@@ -50,11 +50,11 @@ jobs:
           echo "CommitMessage=$CommitMessage" >> $GITHUB_ENV
           echo "CFN_VERSION=$CFN_VERSION" >> $GITHUB_ENV
           echo "CUE_VERSION=$CUE_VERSION" >> $GITHUB_ENV
-        if: ${{ steps.files-changed.outputs.num-files > 0 }}
+        if: steps.files-changed.outputs.num-files > 0
       
       - name: print
         run: echo "CommitMessage=$CommitMessage" && echo "CFN_VERSION=$CFN_VERSION" && echo "CUE_VERSION=$CUE_VERSION"
-        if: ${{ steps.files-changed.outputs.num-files > 0 }}
+        if: steps.files-changed.outputs.num-files > 0
       
 #       - name: git push
 #         run: |
