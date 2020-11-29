@@ -40,5 +40,5 @@ jobs:
           echo "CFN_VERSION=$CFN_VERSION" >> $GITHUB_ENV
           echo "CUE_VERSION=$CUE_VERSION" >> $GITHUB_ENV
       
-      - name: Generate cfn-cue specs
+      - name: print
         run: echo "CommitMessage=$CommitMessage" && echo "CFN_VERSION=$CFN_VERSION" && echo "CUE_VERSION=$CUE_VERSION"
