@@ -33,6 +33,10 @@ jobs:
       # Runs a single command using the runners shell
       - name: Generate cfn-cue specs
         run: go run .
+      
+      - name: files-changed
+        run: echo "::set-output name=num-files::$(git diff --name-only | wc -l)"
+        shell: bash
 
       - name: Get info
         run: |
@@ -43,16 +47,18 @@ jobs:
           echo "CommitMessage=$CommitMessage" >> $GITHUB_ENV
           echo "CFN_VERSION=$CFN_VERSION" >> $GITHUB_ENV
           echo "CUE_VERSION=$CUE_VERSION" >> $GITHUB_ENV
+        if: ${{ steps.files-changed.outputs.num-files > 0 }}
       
       - name: print
         run: echo "CommitMessage=$CommitMessage" && echo "CFN_VERSION=$CFN_VERSION" && echo "CUE_VERSION=$CUE_VERSION"
+        if: ${{ steps.files-changed.outputs.num-files > 0 }}
       
-      - name: git push
-        run: |
-          git config user.name github-actions
-          git config user.email github-actions@github.com
-          git add -A
-          git commit -m "$CommitMessage"
-          git tag "$CUE_VERSION-$CFN_VERSION"
-          git push
-          git push --tags
+#       - name: git push
+#         run: |
+#           git config user.name github-actions
+#           git config user.email github-actions@github.com
+#           git add -A
+#           git commit -m "$CommitMessage"
+#           git tag "$CUE_VERSION-$CFN_VERSION"
+#           git push
+#           git push --tags
