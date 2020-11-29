@@ -35,7 +35,9 @@ jobs:
         run: go run .
       
       - name: files-changed
-        run: echo "::set-output name=num-files::$(git diff --name-only | wc -l)"
+        run: |
+          git diff --name-only
+          echo "::set-output name=num-files::$(git diff --name-only | wc -l)"
         shell: bash
 
       - name: Get info 
