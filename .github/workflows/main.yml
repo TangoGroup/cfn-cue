@@ -36,3 +36,6 @@ jobs:
           CFN_VERSION=$(echo $CommitMessage | cut -f 3 -d ':' | tr -d ' ' | tr -d '"')
           CUE_VERSION=$(cat go.mod | grep "cuelang.org/go" | sed 's/cuelang.org\/go//' | sed 's/[[:blank:]]*//')
           echo "CommitMessage=$CommitMessage" && echo "CFN_VERSION=v$CFN_VERSION" && echo "CUE_VERSION=$CUE_VERSION"
+      
+      - name: Generate cfn-cue specs
+        run: echo "CommitMessage=$CommitMessage" && echo "CFN_VERSION=v$CFN_VERSION" && echo "CUE_VERSION=$CUE_VERSION"
