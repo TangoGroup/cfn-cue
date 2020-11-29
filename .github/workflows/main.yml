@@ -29,8 +29,6 @@ jobs:
         with:
           fetch-depth: 0
           ref: ${{ github.head_ref }}
-      
-      - run: git checkout ${{ github.head_ref }}
 
       # Runs a single command using the runners shell
       - name: Generate cfn-cue specs
@@ -56,5 +54,5 @@ jobs:
           git add -A
           git commit -m "$CommitMessage"
           git tag "$CUE_VERSION-$CFN_VERSION"
-          git push HEAD:${{ github.head_ref }}
+          git push
           git push --tags
