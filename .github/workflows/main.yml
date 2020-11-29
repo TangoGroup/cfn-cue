@@ -28,21 +28,9 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Generate cfn-cue specs
-        run: go run .
-      
-#       - name: git diff
-#         run: git diff
-      
-      - name: gskkdjfal
-        run: echo "ResourceSpecificationVersion=$(cat pkg/github.com/TangoGroup/aws/uswest2/uswest2.cue | grep ResourceSpecificationVersion)" >> $GITHUB_ENV 
-      
-      - name: get ResourceSpecificationVersion
-        run: echo "CFN_VERSION=$(echo $ResourceSpecificationVersion | cut -f 3 -d ':' | tr -d ' ' | tr -d '"')" >> $GITHUB_ENV
-      
-      - name: echo
-        run: echo "v$CFN_VERSION"
-      
-      - name: echo2
-        run: echo "ResourceSpecificationVersion=$ResourceSpecificationVersion" && echo "CFN_VERSION=v$CFN_VERSION"
-
-
+        run: |
+          go run .
+          CommitMessage=$(cat pkg/github.com/TangoGroup/aws/uswest2/uswest2.cue | grep ResourceSpecificationVersion)
+          CFN_VERSION=$(echo $ResourceSpecificationVersion | cut -f 3 -d ':' | tr -d ' ' | tr -d '"')
+          CUE_VERSION=$(cat go.mod | grep "cuelang.org/go" | sed 's/cuelang.org\/go//' | sed 's/[[:blank:]]*//')
+          echo "ResourceSpecificationVersion=$ResourceSpecificationVersion" && echo "CFN_VERSION=v$CFN_VERSION"
