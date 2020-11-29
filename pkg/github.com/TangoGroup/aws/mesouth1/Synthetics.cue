@@ -18,7 +18,10 @@ Synthetics :: {
 			FailureRetentionPeriod?: int | fn.Fn
 			Name:                    string | fn.Fn
 			RunConfig?:              close({
-				ActiveTracing?:   bool | fn.Fn
+				ActiveTracing?:        bool | fn.Fn
+				EnvironmentVariables?: {
+					[string]: string | fn.Fn
+				} | fn.If
 				MemoryInMB?:      int | fn.Fn
 				TimeoutInSeconds: int | fn.Fn
 			}) | fn.If

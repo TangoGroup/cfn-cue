@@ -23,6 +23,7 @@ Logs :: {
 	LogGroup :: {
 		Type:       "AWS::Logs::LogGroup"
 		Properties: close({
+			KmsKeyId?:        string | fn.Fn
 			LogGroupName?:    (strings.MinRunes(1) & strings.MaxRunes(512)) | fn.Fn
 			RetentionInDays?: (1 | 3 | 5 | 7 | 14 | 30 | 60 | 90 | 120 | 150 | 180 | 365 | 400 | 545 | 731 | 1827 | 3653) | fn.Fn
 		})

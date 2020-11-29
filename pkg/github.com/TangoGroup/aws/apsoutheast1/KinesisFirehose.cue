@@ -6,6 +6,10 @@ KinesisFirehose :: {
 	DeliveryStream :: {
 		Type:       "AWS::KinesisFirehose::DeliveryStream"
 		Properties: close({
+			DeliveryStreamEncryptionConfigurationInput?: close({
+				KeyARN?: string | fn.Fn
+				KeyType: string | fn.Fn
+			}) | fn.If
 			DeliveryStreamName?:                    string | fn.Fn
 			DeliveryStreamType?:                    string | fn.Fn
 			ElasticsearchDestinationConfiguration?: close({
@@ -377,6 +381,10 @@ KinesisFirehose :: {
 					RoleARN:            string | fn.Fn
 				}) | fn.If
 			}) | fn.If
+			Tags?: [...close({
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
+			})] | fn.If
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

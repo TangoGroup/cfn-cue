@@ -3,6 +3,22 @@ package useast2
 import "github.com/TangoGroup/aws/fn"
 
 Events :: {
+	Archive :: {
+		Type:       "AWS::Events::Archive"
+		Properties: close({
+			Description?:  string | fn.Fn
+			EventPattern?: {
+				[string]: _
+			} | fn.Fn
+			RetentionDays?: int | fn.Fn
+			SourceArn:      string | fn.Fn
+		})
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+		Condition?: string
+	}
 	EventBus :: {
 		Type:       "AWS::Events::EventBus"
 		Properties: close({
@@ -18,15 +34,18 @@ Events :: {
 	EventBusPolicy :: {
 		Type:       "AWS::Events::EventBusPolicy"
 		Properties: close({
-			Action:     ("events:PutEvents") | fn.Fn
+			Action?:    ("events:PutEvents") | fn.Fn
 			Condition?: close({
 				Key?:   ("aws:PrincipalOrgID") | fn.Fn
 				Type?:  ("StringEquals") | fn.Fn
 				Value?: string | fn.Fn
 			}) | fn.If
 			EventBusName?: string | fn.Fn
-			Principal:     string | fn.Fn
-			StatementId:   string | fn.Fn
+			Principal?:    string | fn.Fn
+			Statement?:    {
+				[string]: _
+			} | fn.Fn
+			StatementId: string | fn.Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -57,6 +76,9 @@ Events :: {
 					RetryStrategy?: close({
 						Attempts?: int | fn.Fn
 					}) | fn.If
+				}) | fn.If
+				DeadLetterConfig?: close({
+					Arn?: string | fn.Fn
 				}) | fn.If
 				EcsParameters?: close({
 					Group?:                string | fn.Fn
@@ -92,6 +114,18 @@ Events :: {
 				}) | fn.If
 				KinesisParameters?: close({
 					PartitionKeyPath: string | fn.Fn
+				}) | fn.If
+				RedshiftDataParameters?: close({
+					Database:          string | fn.Fn
+					DbUser?:           string | fn.Fn
+					SecretManagerArn?: string | fn.Fn
+					Sql:               string | fn.Fn
+					StatementName?:    string | fn.Fn
+					WithEvent?:        bool | fn.Fn
+				}) | fn.If
+				RetryPolicy?: close({
+					MaximumEventAgeInSeconds?: int | fn.Fn
+					MaximumRetryAttempts?:     int | fn.Fn
 				}) | fn.If
 				RoleArn?:              string | fn.Fn
 				RunCommandParameters?: close({

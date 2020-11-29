@@ -11,11 +11,15 @@ Batch :: {
 				AllocationStrategy?: string | fn.Fn
 				BidPercentage?:      int | fn.Fn
 				DesiredvCpus?:       int | fn.Fn
-				Ec2KeyPair?:         string | fn.Fn
-				ImageId?:            string | fn.Fn
-				InstanceRole:        string | fn.Fn
-				InstanceTypes:       [...(string | fn.Fn)] | (string | fn.Fn)
-				LaunchTemplate?:     close({
+				Ec2Configuration?:   [...close({
+					ImageIdOverride?: string | fn.Fn
+					ImageType:        string | fn.Fn
+				})] | fn.If
+				Ec2KeyPair?:     string | fn.Fn
+				ImageId?:        string | fn.Fn
+				InstanceRole:    string | fn.Fn
+				InstanceTypes:   [...(string | fn.Fn)] | (string | fn.Fn)
+				LaunchTemplate?: close({
 					LaunchTemplateId?:   string | fn.Fn
 					LaunchTemplateName?: string | fn.Fn
 					Version?:            string | fn.Fn
@@ -33,7 +37,10 @@ Batch :: {
 			}) | fn.If
 			ServiceRole: string | fn.Fn
 			State?:      string | fn.Fn
-			Type:        string | fn.Fn
+			Tags?:       {
+				[string]: _
+			} | fn.Fn
+			Type: string | fn.Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -188,8 +195,17 @@ Batch :: {
 				[string]: _
 			} | fn.Fn
 			RetryStrategy?: close({
-				Attempts?: int | fn.Fn
+				Attempts?:       int | fn.Fn
+				EvaluateOnExit?: [...close({
+					Action:          string | fn.Fn
+					OnExitCode?:     string | fn.Fn
+					OnReason?:       string | fn.Fn
+					OnStatusReason?: string | fn.Fn
+				})] | fn.If
 			}) | fn.If
+			Tags?: {
+				[string]: _
+			} | fn.Fn
 			Timeout?: close({
 				AttemptDurationSeconds?: int | fn.Fn
 			}) | fn.If
@@ -211,6 +227,9 @@ Batch :: {
 			JobQueueName?: string | fn.Fn
 			Priority:      int | fn.Fn
 			State?:        string | fn.Fn
+			Tags?:         {
+				[string]: _
+			} | fn.Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

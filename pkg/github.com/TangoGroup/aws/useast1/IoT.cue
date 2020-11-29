@@ -39,6 +39,30 @@ IoT :: {
 		Metadata?: [string]: _
 		Condition?: string
 	}
+	DomainConfiguration :: {
+		Type:       "AWS::IoT::DomainConfiguration"
+		Properties: close({
+			AuthorizerConfig?: close({
+				AllowAuthorizerOverride?: bool | fn.Fn
+				DefaultAuthorizerName?:   string | fn.Fn
+			}) | fn.If
+			DomainConfigurationName?:   string | fn.Fn
+			DomainConfigurationStatus?: string | fn.Fn
+			DomainName?:                string | fn.Fn
+			ServerCertificateArns?:     [...(string | fn.Fn)] | (string | fn.Fn)
+			ServiceType?:               string | fn.Fn
+			Tags?:                      close({
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
+			}) | fn.If
+			ValidationCertificateArn?: string | fn.Fn
+		})
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+		Condition?: string
+	}
 	Policy :: {
 		Type:       "AWS::IoT::Policy"
 		Properties: close({
@@ -375,6 +399,20 @@ IoT :: {
 				RuleDisabled: bool | fn.Fn
 				Sql:          string | fn.Fn
 			}) | fn.If
+		})
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+		Condition?: string
+	}
+	TopicRuleDestination :: {
+		Type:       "AWS::IoT::TopicRuleDestination"
+		Properties: close({
+			HttpUrlProperties?: close({
+				ConfirmationUrl?: string | fn.Fn
+			}) | fn.If
+			Status?: string | fn.Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

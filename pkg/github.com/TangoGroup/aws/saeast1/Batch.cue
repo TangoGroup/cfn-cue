@@ -33,7 +33,10 @@ Batch :: {
 			}) | fn.If
 			ServiceRole: (=~#"arn:(aws[a-zA-Z-]*)?:iam::\d{12}:role/[a-zA-Z_0-9+=,.@\-_/]+"#) | fn.Fn
 			State?:      string | fn.Fn
-			Type:        string | fn.Fn
+			Tags?:       {
+				[string]: _
+			} | fn.Fn
+			Type: string | fn.Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -188,8 +191,17 @@ Batch :: {
 				[string]: _
 			} | fn.Fn
 			RetryStrategy?: close({
-				Attempts?: int | fn.Fn
+				Attempts?:       int | fn.Fn
+				EvaluateOnExit?: [...close({
+					Action:          string | fn.Fn
+					OnExitCode?:     string | fn.Fn
+					OnReason?:       string | fn.Fn
+					OnStatusReason?: string | fn.Fn
+				})] | fn.If
 			}) | fn.If
+			Tags?: {
+				[string]: _
+			} | fn.Fn
 			Timeout?: close({
 				AttemptDurationSeconds?: int | fn.Fn
 			}) | fn.If

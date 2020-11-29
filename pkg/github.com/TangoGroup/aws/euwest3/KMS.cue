@@ -24,6 +24,7 @@ KMS :: {
 			KeyPolicy:          {
 				[string]: _
 			} | fn.Fn
+			KeySpec?:             string | fn.Fn
 			KeyUsage?:            string | fn.Fn
 			PendingWindowInDays?: (>=7 & <=30) | fn.Fn
 			Tags?:                [...close({
