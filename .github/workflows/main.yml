@@ -22,6 +22,7 @@ jobs:
         uses: actions/setup-go@v2
         with:
           go-version: ^1.12
+          ref: ${{ github.head_ref }}
 
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
@@ -52,5 +53,5 @@ jobs:
           git add -A
           git commit -m "$CommitMessage"
           git tag "$CUE_VERSION-$CFN_VERSION"
-          git push HEAD:${{ github.head_ref }}
+          git push
           git push --tags
