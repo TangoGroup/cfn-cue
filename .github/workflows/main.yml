@@ -53,5 +53,5 @@ jobs:
           git add -A
           git commit -m "$CommitMessage"
           git tag "$CUE_VERSION-$CFN_VERSION"
-          git push
+          git push HEAD:${{ github.head_ref }}
           git push --tags
