@@ -37,9 +37,8 @@ EC2 :: {
 		Type:       "AWS::EC2::CarrierGateway"
 		Properties: close({
 			Tags?: close({
-				Tags?: [...close({
-					[string]: _
-				})] | fn.If
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
 			}) | fn.If
 			VpcId: string | fn.Fn
 		})
@@ -512,6 +511,9 @@ EC2 :: {
 					Count?: int | fn.Fn
 					Type?:  string | fn.Fn
 				})] | fn.If
+				EnclaveOptions?: close({
+					Enabled?: bool | fn.Fn
+				}) | fn.If
 				HibernationOptions?: close({
 					Configured?: bool | fn.Fn
 				}) | fn.If

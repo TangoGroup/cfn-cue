@@ -31,8 +31,9 @@ Amplify :: {
 				Password?:        string | fn.Fn
 				Username?:        string | fn.Fn
 			}) | fn.If
-			BuildSpec?:   string | fn.Fn
-			CustomRules?: [...close({
+			BuildSpec?:     string | fn.Fn
+			CustomHeaders?: string | fn.Fn
+			CustomRules?:   [...close({
 				Condition?: string | fn.Fn
 				Source:     string | fn.Fn
 				Status?:    string | fn.Fn

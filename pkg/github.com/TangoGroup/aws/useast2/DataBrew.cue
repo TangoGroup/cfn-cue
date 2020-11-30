@@ -91,11 +91,11 @@ DataBrew :: {
 		Properties: close({
 			Description?: string | fn.Fn
 			Name:         string | fn.Fn
-			ProjectName?: string | fn.Fn
 			Steps:        [...close({
-				Action: {
-					[string]: _
-				} | fn.Fn
+				Action: close({
+					Operation:   string | fn.Fn
+					Parameters?: string | fn.Fn
+				}) | fn.If
 				ConditionExpressions?: [...close({
 					Condition:    string | fn.Fn
 					TargetColumn: string | fn.Fn
@@ -106,7 +106,6 @@ DataBrew :: {
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			})] | fn.If
-			Version?: string | fn.Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

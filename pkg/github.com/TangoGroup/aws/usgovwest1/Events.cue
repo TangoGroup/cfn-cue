@@ -6,13 +6,17 @@ Events :: {
 	EventBusPolicy :: {
 		Type:       "AWS::Events::EventBusPolicy"
 		Properties: close({
-			Action:     ("events:PutEvents") | fn.Fn
+			Action?:    ("events:PutEvents") | fn.Fn
 			Condition?: close({
 				Key?:   ("aws:PrincipalOrgID") | fn.Fn
 				Type?:  ("StringEquals") | fn.Fn
 				Value?: string | fn.Fn
 			}) | fn.If
-			Principal:   string | fn.Fn
+			EventBusName?: string | fn.Fn
+			Principal?:    string | fn.Fn
+			Statement?:    {
+				[string]: _
+			} | fn.Fn
 			StatementId: string | fn.Fn
 		})
 		DependsOn?:           string | [...string]

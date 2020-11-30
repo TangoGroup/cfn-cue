@@ -1,0 +1,74 @@
+# This is a basic workflow to help you get started with Actions
+name: CI
+
+# Controls when the action will run. Triggers the workflow on push or pull request
+# events but only for the master branch
+on:
+  schedule:
+    - cron: '0 */6 * * *'
+    
+#   push:
+#     branches: [ master ]
+#   pull_request:
+#     branches: [ master ]
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      - name: Set up Go 1.x
+        uses: actions/setup-go@v2
+        with:
+          go-version: ^1.12
+          
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          ref: ${{ github.head_ref }}
+
+      # Runs a single command using the runners shell
+      - name: Generate cfn-cue specs
+        run: go run .
+      
+      - name: files-changed
+        id: fileschanged
+        run: |
+          git diff --name-only
+          git diff --name-only | wc -l
+          echo ::set-output name=numfiles::$(git diff --name-only | wc -l)
+        shell: bash
+      
+      - name: print files changed
+        run: echo ${{ steps.fileschanged.outputs.numfiles }}
+
+      - name: Get info 
+        run: |
+          CommitMessage=$(cat pkg/github.com/TangoGroup/aws/uswest2/uswest2.cue | grep ResourceSpecificationVersion)
+          CFN_VERSION=v$(echo $CommitMessage | cut -f 3 -d ':' | tr -d ' ' | tr -d '"')
+          CUE_VERSION=$(cat go.mod | grep "cuelang.org/go" | sed 's/cuelang.org\/go//' | sed 's/[[:blank:]]*//')
+          echo "CommitMessage=$CommitMessage" && echo "CFN_VERSION=$CFN_VERSION" && echo "CUE_VERSION=$CUE_VERSION"
+          echo "CommitMessage=$CommitMessage" >> $GITHUB_ENV
+          echo "CFN_VERSION=$CFN_VERSION" >> $GITHUB_ENV
+          echo "CUE_VERSION=$CUE_VERSION" >> $GITHUB_ENV
+        if: steps.fileschanged.outputs.numfiles > 0
+      
+      - name: print
+        run: echo "CommitMessage=$CommitMessage" && echo "CFN_VERSION=$CFN_VERSION" && echo "CUE_VERSION=$CUE_VERSION"
+        if: steps.fileschanged.outputs.numfiles > 0
+      
+      - name: git push
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add -A
+          git commit -m "$CommitMessage"
+          git tag "$CUE_VERSION-$CFN_VERSION"
+          git push
+          git push --tags
+        if: steps.fileschanged.outputs.numfiles > 0

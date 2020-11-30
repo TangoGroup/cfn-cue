@@ -132,10 +132,8 @@ SageMaker :: {
 	MonitoringSchedule :: {
 		Type:       "AWS::SageMaker::MonitoringSchedule"
 		Properties: close({
-			CreationTime?:                   string | fn.Fn
 			EndpointName?:                   string | fn.Fn
 			FailureReason?:                  string | fn.Fn
-			LastModifiedTime?:               string | fn.Fn
 			LastMonitoringExecutionSummary?: close({
 				CreationTime:              string | fn.Fn
 				EndpointName?:             string | fn.Fn

@@ -496,6 +496,9 @@ EC2 :: {
 					Count?: int | fn.Fn
 					Type?:  string | fn.Fn
 				})] | fn.If
+				EnclaveOptions?: close({
+					Enabled?: bool | fn.Fn
+				}) | fn.If
 				HibernationOptions?: close({
 					Configured?: bool | fn.Fn
 				}) | fn.If

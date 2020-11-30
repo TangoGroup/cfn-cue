@@ -108,7 +108,8 @@ Lambda :: {
 				S3ObjectVersion?: string | fn.Fn
 				ZipFile?:         string | fn.Fn
 			}) | fn.If
-			DeadLetterConfig?: close({
+			CodeSigningConfigArn?: string | fn.Fn
+			DeadLetterConfig?:     close({
 				TargetArn?: string | fn.Fn
 			}) | fn.If
 			Description?: string | fn.Fn

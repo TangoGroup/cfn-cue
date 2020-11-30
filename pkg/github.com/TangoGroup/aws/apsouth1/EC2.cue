@@ -496,6 +496,9 @@ EC2 :: {
 					Count?: int | fn.Fn
 					Type?:  string | fn.Fn
 				})] | fn.If
+				EnclaveOptions?: close({
+					Enabled?: bool | fn.Fn
+				}) | fn.If
 				HibernationOptions?: close({
 					Configured?: bool | fn.Fn
 				}) | fn.If
@@ -1283,6 +1286,7 @@ EC2 :: {
 		Type:       "AWS::EC2::VPCEndpointService"
 		Properties: close({
 			AcceptanceRequired?:      bool | fn.Fn
+			GatewayLoadBalancerArns?: [...(string | fn.Fn)] | (string | fn.Fn)
 			NetworkLoadBalancerArns?: [...(string | fn.Fn)] | (string | fn.Fn)
 		})
 		DependsOn?:           string | [...string]

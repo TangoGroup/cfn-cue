@@ -11,11 +11,15 @@ Batch :: {
 				AllocationStrategy?: string | fn.Fn
 				BidPercentage?:      int | fn.Fn
 				DesiredvCpus?:       int | fn.Fn
-				Ec2KeyPair?:         string | fn.Fn
-				ImageId?:            string | fn.Fn
-				InstanceRole:        string | fn.Fn
-				InstanceTypes:       [...(string | fn.Fn)] | (string | fn.Fn)
-				LaunchTemplate?:     close({
+				Ec2Configuration?:   [...close({
+					ImageIdOverride?: string | fn.Fn
+					ImageType:        string | fn.Fn
+				})] | fn.If
+				Ec2KeyPair?:     string | fn.Fn
+				ImageId?:        string | fn.Fn
+				InstanceRole:    string | fn.Fn
+				InstanceTypes:   [...(string | fn.Fn)] | (string | fn.Fn)
+				LaunchTemplate?: close({
 					LaunchTemplateId?:   string | fn.Fn
 					LaunchTemplateName?: string | fn.Fn
 					Version?:            string | fn.Fn

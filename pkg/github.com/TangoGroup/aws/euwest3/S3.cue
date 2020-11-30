@@ -319,4 +319,65 @@ S3 :: {
 		Metadata?: [string]: _
 		Condition?: string
 	}
+	StorageLens :: {
+		Type:       "AWS::S3::StorageLens"
+		Properties: close({
+			StorageLensConfiguration: close({
+				AccountLevel: close({
+					ActivityMetrics?: close({
+						IsEnabled?: bool | fn.Fn
+					}) | fn.If
+					BucketLevel: close({
+						ActivityMetrics?: close({
+							IsEnabled?: bool | fn.Fn
+						}) | fn.If
+						PrefixLevel?: close({
+							StorageMetrics: close({
+								IsEnabled?:         bool | fn.Fn
+								SelectionCriteria?: close({
+									Delimiter?:                 string | fn.Fn
+									MaxDepth?:                  int | fn.Fn
+									MinStorageBytesPercentage?: number | fn.Fn
+								}) | fn.If
+							}) | fn.If
+						}) | fn.If
+					}) | fn.If
+				}) | fn.If
+				AwsOrg?: close({
+					Arn: string | fn.Fn
+				}) | fn.If
+				DataExport?: close({
+					S3BucketDestination: close({
+						AccountId:   string | fn.Fn
+						Arn:         string | fn.Fn
+						Encryption?: close({
+						}) | fn.If
+						Format:              string | fn.Fn
+						OutputSchemaVersion: string | fn.Fn
+						Prefix?:             string | fn.Fn
+					}) | fn.If
+				}) | fn.If
+				Exclude?: close({
+					Buckets?: [...(string | fn.Fn)] | (string | fn.Fn)
+					Regions?: [...(string | fn.Fn)] | (string | fn.Fn)
+				}) | fn.If
+				Id:       string | fn.Fn
+				Include?: close({
+					Buckets?: [...(string | fn.Fn)] | (string | fn.Fn)
+					Regions?: [...(string | fn.Fn)] | (string | fn.Fn)
+				}) | fn.If
+				IsEnabled:       bool | fn.Fn
+				StorageLensArn?: string | fn.Fn
+			}) | fn.If
+			Tags?: [...close({
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
+			})] | fn.If
+		})
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+		Condition?: string
+	}
 }

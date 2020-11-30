@@ -27,6 +27,23 @@ Lambda :: {
 		Metadata?: [string]:     _
 		Condition?: string
 	}
+	CodeSigningConfig :: {
+		Type:       "AWS::Lambda::CodeSigningConfig"
+		Properties: close({
+			AllowedPublishers: close({
+				SigningProfileVersionArns: [...(string | fn.Fn)] | (string | fn.Fn)
+			}) | fn.If
+			CodeSigningPolicies?: close({
+				UntrustedArtifactOnDeployment: string | fn.Fn
+			}) | fn.If
+			Description?: string | fn.Fn
+		})
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+		Condition?: string
+	}
 	EventInvokeConfig :: {
 		Type:       "AWS::Lambda::EventInvokeConfig"
 		Properties: close({
@@ -91,7 +108,8 @@ Lambda :: {
 				S3ObjectVersion?: string | fn.Fn
 				ZipFile?:         string | fn.Fn
 			}) | fn.If
-			DeadLetterConfig?: close({
+			CodeSigningConfigArn?: string | fn.Fn
+			DeadLetterConfig?:     close({
 				TargetArn?: string | fn.Fn
 			}) | fn.If
 			Description?: string | fn.Fn
