@@ -222,7 +222,7 @@ EC2 :: {
 					KmsKeyId?:            string | fn.Fn
 					SnapshotId?:          string | fn.Fn
 					VolumeSize?:          int | fn.Fn
-					VolumeType?:          ("gp2" | "io1" | "io2" | "sc1" | "st1" | "standard") | fn.Fn
+					VolumeType?:          ("gp2" | "gp3" | "io1" | "io2" | "sc1" | "st1" | "standard") | fn.Fn
 				}) | fn.If
 				NoDevice?:    string | fn.Fn
 				VirtualName?: string | fn.Fn
@@ -351,7 +351,7 @@ EC2 :: {
 						KmsKeyId?:            string | fn.Fn
 						SnapshotId?:          string | fn.Fn
 						VolumeSize?:          int | fn.Fn
-						VolumeType?:          ("gp2" | "io1" | "io2" | "sc1" | "st1" | "standard") | fn.Fn
+						VolumeType?:          ("gp2" | "gp3" | "io1" | "io2" | "sc1" | "st1" | "standard") | fn.Fn
 					}) | fn.If
 					NoDevice?:    string | fn.Fn
 					VirtualName?: string | fn.Fn
@@ -451,7 +451,7 @@ EC2 :: {
 				SecurityGroupIds?:  [...(string | fn.Fn)] | (string | fn.Fn)
 				SecurityGroups?:    [...(string | fn.Fn)] | (string | fn.Fn)
 				TagSpecifications?: [...close({
-					ResourceType: ("client-vpn-endpoint" | "customer-gateway" | "dedicated-host" | "dhcp-options" | "egress-only-internet-gateway" | "elastic-gpu" | "elastic-ip" | "export-image-task" | "export-instance-task" | "fleet" | "fpga-image" | "host-reservation" | "image" | "import-image-task" | "import-snapshot-task" | "instance" | "internet-gateway" | "key-pair" | "launch-template" | "local-gateway-route-table-vpc-association" | "natgateway" | "network-acl" | "network-interface" | "placement-group" | "reserved-instances" | "route-table" | "security-group" | "snapshot" | "spot-fleet-request" | "spot-instances-request" | "subnet" | "traffic-mirror-filter" | "traffic-mirror-session" | "traffic-mirror-target" | "transit-gateway" | "transit-gateway-attachment" | "transit-gateway-multicast-domain" | "transit-gateway-route-table" | "volume" | "vpc" | "vpc-flow-log" | "vpc-peering-connection" | "vpn-connection" | "vpn-gateway") | fn.Fn
+					ResourceType: ("client-vpn-endpoint" | "customer-gateway" | "dedicated-host" | "dhcp-options" | "egress-only-internet-gateway" | "elastic-gpu" | "elastic-ip" | "export-image-task" | "export-instance-task" | "fleet" | "fpga-image" | "host-reservation" | "image" | "import-image-task" | "import-snapshot-task" | "instance" | "internet-gateway" | "key-pair" | "launch-template" | "local-gateway-route-table-vpc-association" | "natgateway" | "network-acl" | "network-insights-analysis" | "network-insights-path" | "network-interface" | "placement-group" | "reserved-instances" | "route-table" | "security-group" | "snapshot" | "spot-fleet-request" | "spot-instances-request" | "subnet" | "traffic-mirror-filter" | "traffic-mirror-session" | "traffic-mirror-target" | "transit-gateway" | "transit-gateway-attachment" | "transit-gateway-connect-peer" | "transit-gateway-multicast-domain" | "transit-gateway-route-table" | "volume" | "vpc" | "vpc-flow-log" | "vpc-peering-connection" | "vpn-connection" | "vpn-gateway") | fn.Fn
 					Tags:         [...close({
 						Key:   string | fn.Fn
 						Value: string | fn.Fn
@@ -755,7 +755,7 @@ EC2 :: {
 							Iops?:                int | fn.Fn
 							SnapshotId?:          string | fn.Fn
 							VolumeSize?:          int | fn.Fn
-							VolumeType?:          ("gp2" | "io1" | "io2" | "sc1" | "st1" | "standard") | fn.Fn
+							VolumeType?:          ("gp2" | "gp3" | "io1" | "io2" | "sc1" | "st1" | "standard") | fn.Fn
 						}) | fn.If
 						NoDevice?:    string | fn.Fn
 						VirtualName?: string | fn.Fn
@@ -1266,7 +1266,7 @@ EC2 :: {
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			})] | fn.If
-			VolumeType?: ("gp2" | "io1" | "io2" | "sc1" | "st1" | "standard") | fn.Fn
+			VolumeType?: ("gp2" | "gp3" | "io1" | "io2" | "sc1" | "st1" | "standard") | fn.Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain" | "Snapshot"

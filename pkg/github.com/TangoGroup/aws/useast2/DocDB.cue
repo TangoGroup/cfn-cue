@@ -13,7 +13,7 @@ DocDB :: {
 			DBSubnetGroupName?:           string | fn.Fn
 			DeletionProtection?:          bool | fn.Fn
 			EnableCloudwatchLogsExports?: [...(string | fn.Fn)] | (string | fn.Fn)
-			EngineVersion?:               ("3.6.0") | fn.Fn
+			EngineVersion?:               ("3.6.0" | "4.0" | "4.0.0") | fn.Fn
 			KmsKeyId?:                    string | fn.Fn
 			MasterUserPassword:           string | fn.Fn
 			MasterUsername:               string | fn.Fn
