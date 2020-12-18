@@ -4,8 +4,8 @@ import "github.com/TangoGroup/aws/fn"
 
 #Cognito: {
 	#IdentityPoolRoleAttachment: {
-		Type: "AWS::Cognito::IdentityPoolRoleAttachment"
-		Properties: {
+		Type:       "AWS::Cognito::IdentityPoolRoleAttachment"
+		Properties: close({
 			IdentityPoolId: string | fn.#Fn
 			RoleMappings?:  {
 				[string]: _
@@ -13,7 +13,7 @@ import "github.com/TangoGroup/aws/fn"
 			Roles?: {
 				[string]: _
 			} | fn.#Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -21,40 +21,40 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#UserPool: {
-		Type: "AWS::Cognito::UserPool"
-		Properties: {
-			AccountRecoverySetting?: {
-				RecoveryMechanisms?: [...{
+		Type:       "AWS::Cognito::UserPool"
+		Properties: close({
+			AccountRecoverySetting?: close({
+				RecoveryMechanisms?: [...close({
 					Name?:     string | fn.#Fn
 					Priority?: int | fn.#Fn
-				}] | fn.If
-			} | fn.If
-			AdminCreateUserConfig?: {
+				})] | fn.If
+			}) | fn.If
+			AdminCreateUserConfig?: close({
 				AllowAdminCreateUserOnly?: bool | fn.#Fn
-				InviteMessageTemplate?:    {
+				InviteMessageTemplate?:    close({
 					EmailMessage?: string | fn.#Fn
 					EmailSubject?: string | fn.#Fn
 					SMSMessage?:   string | fn.#Fn
-				} | fn.If
+				}) | fn.If
 				UnusedAccountValidityDays?: int | fn.#Fn
-			} | fn.If
+			}) | fn.If
 			AliasAttributes?:        [...(("email" | "phone_number" | "preferred_username") | fn.#Fn)] | (("email" | "phone_number" | "preferred_username") | fn.#Fn)
 			AutoVerifiedAttributes?: [...(("email" | "phone_number") | fn.#Fn)] | (("email" | "phone_number") | fn.#Fn)
-			DeviceConfiguration?:    {
+			DeviceConfiguration?:    close({
 				ChallengeRequiredOnNewDevice?:     bool | fn.#Fn
 				DeviceOnlyRememberedOnUserPrompt?: bool | fn.#Fn
-			} | fn.If
-			EmailConfiguration?: {
+			}) | fn.If
+			EmailConfiguration?: close({
 				ConfigurationSet?:    string | fn.#Fn
 				EmailSendingAccount?: string | fn.#Fn
 				From?:                string | fn.#Fn
 				ReplyToEmailAddress?: string | fn.#Fn
 				SourceArn?:           string | fn.#Fn
-			} | fn.If
+			}) | fn.If
 			EmailVerificationMessage?: string | fn.#Fn
 			EmailVerificationSubject?: string | fn.#Fn
 			EnabledMfas?:              [...(string | fn.#Fn)] | (string | fn.#Fn)
-			LambdaConfig?:             {
+			LambdaConfig?:             close({
 				CreateAuthChallenge?:         string | fn.#Fn
 				CustomMessage?:               string | fn.#Fn
 				DefineAuthChallenge?:         string | fn.#Fn
@@ -65,59 +65,59 @@ import "github.com/TangoGroup/aws/fn"
 				PreTokenGeneration?:          string | fn.#Fn
 				UserMigration?:               string | fn.#Fn
 				VerifyAuthChallengeResponse?: string | fn.#Fn
-			} | fn.If
+			}) | fn.If
 			MfaConfiguration?: ("OFF" | "ON" | "OPTIONAL") | fn.#Fn
-			Policies?:         {
-				PasswordPolicy?: {
+			Policies?:         close({
+				PasswordPolicy?: close({
 					MinimumLength?:                 int | fn.#Fn
 					RequireLowercase?:              bool | fn.#Fn
 					RequireNumbers?:                bool | fn.#Fn
 					RequireSymbols?:                bool | fn.#Fn
 					RequireUppercase?:              bool | fn.#Fn
 					TemporaryPasswordValidityDays?: int | fn.#Fn
-				} | fn.If
-			} | fn.If
-			Schema?: [...{
+				}) | fn.If
+			}) | fn.If
+			Schema?: [...close({
 				AttributeDataType?:          ("Boolean" | "DateTime" | "Number" | "String") | fn.#Fn
 				DeveloperOnlyAttribute?:     bool | fn.#Fn
 				Mutable?:                    bool | fn.#Fn
 				Name?:                       string | fn.#Fn
-				NumberAttributeConstraints?: {
+				NumberAttributeConstraints?: close({
 					MaxValue?: string | fn.#Fn
 					MinValue?: string | fn.#Fn
-				} | fn.If
+				}) | fn.If
 				Required?:                   bool | fn.#Fn
-				StringAttributeConstraints?: {
+				StringAttributeConstraints?: close({
 					MaxLength?: string | fn.#Fn
 					MinLength?: string | fn.#Fn
-				} | fn.If
-			}] | fn.If
+				}) | fn.If
+			})] | fn.If
 			SmsAuthenticationMessage?: string | fn.#Fn
-			SmsConfiguration?:         {
+			SmsConfiguration?:         close({
 				ExternalId:    string | fn.#Fn
 				SnsCallerArn?: string | fn.#Fn
-			} | fn.If
+			}) | fn.If
 			SmsVerificationMessage?: string | fn.#Fn
-			UserPoolAddOns?:         {
+			UserPoolAddOns?:         close({
 				AdvancedSecurityMode?: string | fn.#Fn
-			} | fn.If
+			}) | fn.If
 			UserPoolName?: string | fn.#Fn
 			UserPoolTags?: {
 				[string]: _
 			} | fn.#Fn
 			UsernameAttributes?:    [...(("email" | "phone_number") | fn.#Fn)] | (("email" | "phone_number") | fn.#Fn)
-			UsernameConfiguration?: {
+			UsernameConfiguration?: close({
 				CaseSensitive?: bool | fn.#Fn
-			} | fn.If
-			VerificationMessageTemplate?: {
+			}) | fn.If
+			VerificationMessageTemplate?: close({
 				DefaultEmailOption?: string | fn.#Fn
 				EmailMessage?:       string | fn.#Fn
 				EmailMessageByLink?: string | fn.#Fn
 				EmailSubject?:       string | fn.#Fn
 				EmailSubjectByLink?: string | fn.#Fn
 				SmsMessage?:         string | fn.#Fn
-			} | fn.If
-		}
+			}) | fn.If
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -125,18 +125,18 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#UserPoolClient: {
-		Type: "AWS::Cognito::UserPoolClient"
-		Properties: {
+		Type:       "AWS::Cognito::UserPoolClient"
+		Properties: close({
 			AccessTokenValidity?:             int | fn.#Fn
 			AllowedOAuthFlows?:               [...(string | fn.#Fn)] | (string | fn.#Fn)
 			AllowedOAuthFlowsUserPoolClient?: bool | fn.#Fn
 			AllowedOAuthScopes?:              [...(string | fn.#Fn)] | (string | fn.#Fn)
-			AnalyticsConfiguration?:          {
+			AnalyticsConfiguration?:          close({
 				ApplicationId?:  string | fn.#Fn
 				ExternalId?:     string | fn.#Fn
 				RoleArn?:        string | fn.#Fn
 				UserDataShared?: bool | fn.#Fn
-			} | fn.If
+			}) | fn.If
 			CallbackURLs?:               [...(string | fn.#Fn)] | (string | fn.#Fn)
 			ClientName?:                 string | fn.#Fn
 			DefaultRedirectURI?:         string | fn.#Fn
@@ -148,14 +148,14 @@ import "github.com/TangoGroup/aws/fn"
 			ReadAttributes?:             [...(string | fn.#Fn)] | (string | fn.#Fn)
 			RefreshTokenValidity?:       (>=0 & <=3650) | fn.#Fn
 			SupportedIdentityProviders?: [...(string | fn.#Fn)] | (string | fn.#Fn)
-			TokenValidityUnits?:         {
+			TokenValidityUnits?:         close({
 				AccessToken?:  string | fn.#Fn
 				IdToken?:      string | fn.#Fn
 				RefreshToken?: string | fn.#Fn
-			} | fn.If
+			}) | fn.If
 			UserPoolId:       string | fn.#Fn
 			WriteAttributes?: [...(string | fn.#Fn)] | (string | fn.#Fn)
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -163,14 +163,14 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#UserPoolDomain: {
-		Type: "AWS::Cognito::UserPoolDomain"
-		Properties: {
-			CustomDomainConfig?: {
+		Type:       "AWS::Cognito::UserPoolDomain"
+		Properties: close({
+			CustomDomainConfig?: close({
 				CertificateArn?: string | fn.#Fn
-			} | fn.If
+			}) | fn.If
 			Domain:     string | fn.#Fn
 			UserPoolId: string | fn.#Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -178,8 +178,8 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#UserPoolIdentityProvider: {
-		Type: "AWS::Cognito::UserPoolIdentityProvider"
-		Properties: {
+		Type:       "AWS::Cognito::UserPoolIdentityProvider"
+		Properties: close({
 			AttributeMapping?: {
 				[string]: _
 			} | fn.#Fn
@@ -190,7 +190,7 @@ import "github.com/TangoGroup/aws/fn"
 			ProviderName: string | fn.#Fn
 			ProviderType: string | fn.#Fn
 			UserPoolId:   string | fn.#Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -198,16 +198,16 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#UserPoolResourceServer: {
-		Type: "AWS::Cognito::UserPoolResourceServer"
-		Properties: {
+		Type:       "AWS::Cognito::UserPoolResourceServer"
+		Properties: close({
 			Identifier: string | fn.#Fn
 			Name:       string | fn.#Fn
-			Scopes?:    [...{
+			Scopes?:    [...close({
 				ScopeDescription: string | fn.#Fn
 				ScopeName:        string | fn.#Fn
-			}] | fn.If
+			})] | fn.If
 			UserPoolId: string | fn.#Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -215,57 +215,57 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#UserPoolRiskConfigurationAttachment: {
-		Type: "AWS::Cognito::UserPoolRiskConfigurationAttachment"
-		Properties: {
-			AccountTakeoverRiskConfiguration?: {
-				Actions: {
-					HighAction?: {
+		Type:       "AWS::Cognito::UserPoolRiskConfigurationAttachment"
+		Properties: close({
+			AccountTakeoverRiskConfiguration?: close({
+				Actions: close({
+					HighAction?: close({
 						EventAction: string | fn.#Fn
 						Notify:      bool | fn.#Fn
-					} | fn.If
-					LowAction?: {
+					}) | fn.If
+					LowAction?: close({
 						EventAction: string | fn.#Fn
 						Notify:      bool | fn.#Fn
-					} | fn.If
-					MediumAction?: {
+					}) | fn.If
+					MediumAction?: close({
 						EventAction: string | fn.#Fn
 						Notify:      bool | fn.#Fn
-					} | fn.If
-				} | fn.If
-				NotifyConfiguration?: {
-					BlockEmail?: {
+					}) | fn.If
+				}) | fn.If
+				NotifyConfiguration?: close({
+					BlockEmail?: close({
 						HtmlBody?: string | fn.#Fn
 						Subject:   string | fn.#Fn
 						TextBody?: string | fn.#Fn
-					} | fn.If
+					}) | fn.If
 					From?:     string | fn.#Fn
-					MfaEmail?: {
+					MfaEmail?: close({
 						HtmlBody?: string | fn.#Fn
 						Subject:   string | fn.#Fn
 						TextBody?: string | fn.#Fn
-					} | fn.If
-					NoActionEmail?: {
+					}) | fn.If
+					NoActionEmail?: close({
 						HtmlBody?: string | fn.#Fn
 						Subject:   string | fn.#Fn
 						TextBody?: string | fn.#Fn
-					} | fn.If
+					}) | fn.If
 					ReplyTo?:  string | fn.#Fn
 					SourceArn: string | fn.#Fn
-				} | fn.If
-			} | fn.If
+				}) | fn.If
+			}) | fn.If
 			ClientId:                                 string | fn.#Fn
-			CompromisedCredentialsRiskConfiguration?: {
-				Actions: {
+			CompromisedCredentialsRiskConfiguration?: close({
+				Actions: close({
 					EventAction: string | fn.#Fn
-				} | fn.If
+				}) | fn.If
 				EventFilter?: [...(string | fn.#Fn)] | (string | fn.#Fn)
-			} | fn.If
-			RiskExceptionConfiguration?: {
+			}) | fn.If
+			RiskExceptionConfiguration?: close({
 				BlockedIPRangeList?: [...(string | fn.#Fn)] | (string | fn.#Fn)
 				SkippedIPRangeList?: [...(string | fn.#Fn)] | (string | fn.#Fn)
-			} | fn.If
+			}) | fn.If
 			UserPoolId: string | fn.#Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -273,12 +273,12 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#UserPoolUICustomizationAttachment: {
-		Type: "AWS::Cognito::UserPoolUICustomizationAttachment"
-		Properties: {
+		Type:       "AWS::Cognito::UserPoolUICustomizationAttachment"
+		Properties: close({
 			CSS?:       string | fn.#Fn
 			ClientId:   string | fn.#Fn
 			UserPoolId: string | fn.#Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

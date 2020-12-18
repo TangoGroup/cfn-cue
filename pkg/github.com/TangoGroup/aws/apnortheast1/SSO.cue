@@ -4,15 +4,15 @@ import "github.com/TangoGroup/aws/fn"
 
 #SSO: {
 	#Assignment: {
-		Type: "AWS::SSO::Assignment"
-		Properties: {
+		Type:       "AWS::SSO::Assignment"
+		Properties: close({
 			InstanceArn:      string | fn.#Fn
 			PermissionSetArn: string | fn.#Fn
 			PrincipalId:      string | fn.#Fn
 			PrincipalType:    string | fn.#Fn
 			TargetId:         string | fn.#Fn
 			TargetType:       string | fn.#Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -20,8 +20,8 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#PermissionSet: {
-		Type: "AWS::SSO::PermissionSet"
-		Properties: {
+		Type:       "AWS::SSO::PermissionSet"
+		Properties: close({
 			Description?:     string | fn.#Fn
 			InlinePolicy?:    string | fn.#Fn
 			InstanceArn:      string | fn.#Fn
@@ -29,11 +29,11 @@ import "github.com/TangoGroup/aws/fn"
 			Name:             string | fn.#Fn
 			RelayStateType?:  string | fn.#Fn
 			SessionDuration?: string | fn.#Fn
-			Tags?:            [...{
+			Tags?:            [...close({
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			}] | fn.If
-		}
+			})] | fn.If
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

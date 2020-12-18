@@ -4,30 +4,30 @@ import "github.com/TangoGroup/aws/fn"
 
 #Transfer: {
 	#Server: {
-		Type: "AWS::Transfer::Server"
-		Properties: {
+		Type:       "AWS::Transfer::Server"
+		Properties: close({
 			Certificate?:     string | fn.#Fn
-			EndpointDetails?: {
+			EndpointDetails?: close({
 				AddressAllocationIds?: [...(string | fn.#Fn)] | (string | fn.#Fn)
-				SecurityGroupIds?:     [...{}] | fn.If
+				SecurityGroupIds?:     [...close({})] | fn.If
 				SubnetIds?:            [...(string | fn.#Fn)] | (string | fn.#Fn)
 				VpcEndpointId?:        string | fn.#Fn
 				VpcId?:                string | fn.#Fn
-			} | fn.If
+			}) | fn.If
 			EndpointType?:            string | fn.#Fn
-			IdentityProviderDetails?: {
+			IdentityProviderDetails?: close({
 				InvocationRole: string | fn.#Fn
 				Url:            string | fn.#Fn
-			} | fn.If
+			}) | fn.If
 			IdentityProviderType?: string | fn.#Fn
 			LoggingRole?:          string | fn.#Fn
-			Protocols?:            [...{}] | fn.If
+			Protocols?:            [...close({})] | fn.If
 			SecurityPolicyName?:   string | fn.#Fn
-			Tags?:                 [...{
+			Tags?:                 [...close({
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			}] | fn.If
-		}
+			})] | fn.If
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -35,24 +35,24 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#User: {
-		Type: "AWS::Transfer::User"
-		Properties: {
+		Type:       "AWS::Transfer::User"
+		Properties: close({
 			HomeDirectory?:         string | fn.#Fn
-			HomeDirectoryMappings?: [...{
+			HomeDirectoryMappings?: [...close({
 				Entry:  string | fn.#Fn
 				Target: string | fn.#Fn
-			}] | fn.If
+			})] | fn.If
 			HomeDirectoryType?: string | fn.#Fn
 			Policy?:            string | fn.#Fn
 			Role:               string | fn.#Fn
 			ServerId:           string | fn.#Fn
 			SshPublicKeys?:     [...(string | fn.#Fn)] | (string | fn.#Fn)
-			Tags?:              [...{
+			Tags?:              [...close({
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			}] | fn.If
+			})] | fn.If
 			UserName: string | fn.#Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

@@ -4,17 +4,17 @@ import "github.com/TangoGroup/aws/fn"
 
 #CodeArtifact: {
 	#Domain: {
-		Type: "AWS::CodeArtifact::Domain"
-		Properties: {
+		Type:       "AWS::CodeArtifact::Domain"
+		Properties: close({
 			DomainName:                 string | fn.#Fn
 			PermissionsPolicyDocument?: {
 				[string]: _
 			} | fn.#Fn
-			Tags?: [...{
+			Tags?: [...close({
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			}] | fn.If
-		}
+			})] | fn.If
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -22,20 +22,20 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#Repository: {
-		Type: "AWS::CodeArtifact::Repository"
-		Properties: {
+		Type:       "AWS::CodeArtifact::Repository"
+		Properties: close({
 			Description?:               string | fn.#Fn
 			ExternalConnections?:       [...(string | fn.#Fn)] | (string | fn.#Fn)
 			PermissionsPolicyDocument?: {
 				[string]: _
 			} | fn.#Fn
 			RepositoryName: string | fn.#Fn
-			Tags?:          [...{
+			Tags?:          [...close({
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			}] | fn.If
+			})] | fn.If
 			Upstreams?: [...(string | fn.#Fn)] | (string | fn.#Fn)
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

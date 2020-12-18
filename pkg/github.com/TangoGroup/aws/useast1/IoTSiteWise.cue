@@ -4,24 +4,24 @@ import "github.com/TangoGroup/aws/fn"
 
 #IoTSiteWise: {
 	#Asset: {
-		Type: "AWS::IoTSiteWise::Asset"
-		Properties: {
-			AssetHierarchies?: [...{
+		Type:       "AWS::IoTSiteWise::Asset"
+		Properties: close({
+			AssetHierarchies?: [...close({
 				ChildAssetId: string | fn.#Fn
 				LogicalId:    string | fn.#Fn
-			}] | fn.If
+			})] | fn.If
 			AssetModelId:     string | fn.#Fn
 			AssetName:        string | fn.#Fn
-			AssetProperties?: [...{
+			AssetProperties?: [...close({
 				Alias?:             string | fn.#Fn
 				LogicalId:          string | fn.#Fn
 				NotificationState?: string | fn.#Fn
-			}] | fn.If
-			Tags?: [...{
+			})] | fn.If
+			Tags?: [...close({
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			}] | fn.If
-		}
+			})] | fn.If
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -29,57 +29,57 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#AssetModel: {
-		Type: "AWS::IoTSiteWise::AssetModel"
-		Properties: {
+		Type:       "AWS::IoTSiteWise::AssetModel"
+		Properties: close({
 			AssetModelDescription?: string | fn.#Fn
-			AssetModelHierarchies?: [...{
+			AssetModelHierarchies?: [...close({
 				ChildAssetModelId: string | fn.#Fn
 				LogicalId:         string | fn.#Fn
 				Name:              string | fn.#Fn
-			}] | fn.If
+			})] | fn.If
 			AssetModelName:        string | fn.#Fn
-			AssetModelProperties?: [...{
+			AssetModelProperties?: [...close({
 				DataType:  string | fn.#Fn
 				LogicalId: string | fn.#Fn
 				Name:      string | fn.#Fn
-				Type:      {
-					Attribute?: {
+				Type:      close({
+					Attribute?: close({
 						DefaultValue?: string | fn.#Fn
-					} | fn.If
-					Metric?: {
+					}) | fn.If
+					Metric?: close({
 						Expression: string | fn.#Fn
-						Variables:  [...{
+						Variables:  [...close({
 							Name:  string | fn.#Fn
-							Value: {
+							Value: close({
 								HierarchyLogicalId?: string | fn.#Fn
 								PropertyLogicalId:   string | fn.#Fn
-							} | fn.If
-						}] | fn.If
-						Window: {
-							Tumbling?: {
+							}) | fn.If
+						})] | fn.If
+						Window: close({
+							Tumbling?: close({
 								Interval: string | fn.#Fn
-							} | fn.If
-						} | fn.If
-					} | fn.If
-					Transform?: {
+							}) | fn.If
+						}) | fn.If
+					}) | fn.If
+					Transform?: close({
 						Expression: string | fn.#Fn
-						Variables:  [...{
+						Variables:  [...close({
 							Name:  string | fn.#Fn
-							Value: {
+							Value: close({
 								HierarchyLogicalId?: string | fn.#Fn
 								PropertyLogicalId:   string | fn.#Fn
-							} | fn.If
-						}] | fn.If
-					} | fn.If
+							}) | fn.If
+						})] | fn.If
+					}) | fn.If
 					TypeName: string | fn.#Fn
-				} | fn.If
+				}) | fn.If
 				Unit?: string | fn.#Fn
-			}] | fn.If
-			Tags?: [...{
+			})] | fn.If
+			Tags?: [...close({
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			}] | fn.If
-		}
+			})] | fn.If
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -87,23 +87,23 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#Gateway: {
-		Type: "AWS::IoTSiteWise::Gateway"
-		Properties: {
-			GatewayCapabilitySummaries?: [...{
+		Type:       "AWS::IoTSiteWise::Gateway"
+		Properties: close({
+			GatewayCapabilitySummaries?: [...close({
 				CapabilityConfiguration?: string | fn.#Fn
 				CapabilityNamespace:      string | fn.#Fn
-			}] | fn.If
+			})] | fn.If
 			GatewayName:     string | fn.#Fn
-			GatewayPlatform: {
-				Greengrass: {
+			GatewayPlatform: close({
+				Greengrass: close({
 					GroupArn: string | fn.#Fn
-				} | fn.If
-			} | fn.If
-			Tags?: [...{
+				}) | fn.If
+			}) | fn.If
+			Tags?: [...close({
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			}] | fn.If
-		}
+			})] | fn.If
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

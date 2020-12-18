@@ -4,16 +4,16 @@ import "github.com/TangoGroup/aws/fn"
 
 #CodeStarConnections: {
 	#Connection: {
-		Type: "AWS::CodeStarConnections::Connection"
-		Properties: {
+		Type:       "AWS::CodeStarConnections::Connection"
+		Properties: close({
 			ConnectionName: string | fn.#Fn
 			HostArn?:       string | fn.#Fn
 			ProviderType?:  string | fn.#Fn
-			Tags?:          [...{
+			Tags?:          [...close({
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			}] | fn.If
-		}
+			})] | fn.If
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

@@ -4,8 +4,8 @@ import "github.com/TangoGroup/aws/fn"
 
 #ServiceCatalog: {
 	#CloudFormationProvisionedProduct: {
-		Type: "AWS::ServiceCatalog::CloudFormationProvisionedProduct"
-		Properties: {
+		Type:       "AWS::ServiceCatalog::CloudFormationProvisionedProduct"
+		Properties: close({
 			AcceptLanguage?:           string | fn.#Fn
 			NotificationArns?:         [...(string | fn.#Fn)] | (string | fn.#Fn)
 			PathId?:                   string | fn.#Fn
@@ -15,11 +15,11 @@ import "github.com/TangoGroup/aws/fn"
 			ProvisionedProductName?:   string | fn.#Fn
 			ProvisioningArtifactId?:   string | fn.#Fn
 			ProvisioningArtifactName?: string | fn.#Fn
-			ProvisioningParameters?:   [...{
+			ProvisioningParameters?:   [...close({
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			}] | fn.If
-			ProvisioningPreferences?: {
+			})] | fn.If
+			ProvisioningPreferences?: close({
 				StackSetAccounts?:                   [...(string | fn.#Fn)] | (string | fn.#Fn)
 				StackSetFailureToleranceCount?:      int | fn.#Fn
 				StackSetFailureTolerancePercentage?: int | fn.#Fn
@@ -27,12 +27,12 @@ import "github.com/TangoGroup/aws/fn"
 				StackSetMaxConcurrencyPercentage?:   int | fn.#Fn
 				StackSetOperationType?:              string | fn.#Fn
 				StackSetRegions?:                    [...(string | fn.#Fn)] | (string | fn.#Fn)
-			} | fn.If
-			Tags?: [...{
+			}) | fn.If
+			Tags?: [...close({
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			}] | fn.If
-		}
+			})] | fn.If
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

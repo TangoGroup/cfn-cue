@@ -4,26 +4,26 @@ import "github.com/TangoGroup/aws/fn"
 
 #ElasticBeanstalk: {
 	#Application: {
-		Type: "AWS::ElasticBeanstalk::Application"
-		Properties: {
+		Type:       "AWS::ElasticBeanstalk::Application"
+		Properties: close({
 			ApplicationName?:         string | fn.#Fn
 			Description?:             string | fn.#Fn
-			ResourceLifecycleConfig?: {
+			ResourceLifecycleConfig?: close({
 				ServiceRole?:            (=~#"arn:(aws[a-zA-Z-]*)?:iam::\d{12}:role/[a-zA-Z_0-9+=,.@\-_/]+"#) | fn.#Fn
-				VersionLifecycleConfig?: {
-					MaxAgeRule?: {
+				VersionLifecycleConfig?: close({
+					MaxAgeRule?: close({
 						DeleteSourceFromS3?: bool | fn.#Fn
 						Enabled?:            bool | fn.#Fn
 						MaxAgeInDays?:       int | fn.#Fn
-					} | fn.If
-					MaxCountRule?: {
+					}) | fn.If
+					MaxCountRule?: close({
 						DeleteSourceFromS3?: bool | fn.#Fn
 						Enabled?:            bool | fn.#Fn
 						MaxCount?:           int | fn.#Fn
-					} | fn.If
-				} | fn.If
-			} | fn.If
-		}
+					}) | fn.If
+				}) | fn.If
+			}) | fn.If
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -31,15 +31,15 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#ApplicationVersion: {
-		Type: "AWS::ElasticBeanstalk::ApplicationVersion"
-		Properties: {
+		Type:       "AWS::ElasticBeanstalk::ApplicationVersion"
+		Properties: close({
 			ApplicationName: string | fn.#Fn
 			Description?:    string | fn.#Fn
-			SourceBundle:    {
+			SourceBundle:    close({
 				S3Bucket: string | fn.#Fn
 				S3Key:    string | fn.#Fn
-			} | fn.If
-		}
+			}) | fn.If
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -47,24 +47,24 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#ConfigurationTemplate: {
-		Type: "AWS::ElasticBeanstalk::ConfigurationTemplate"
-		Properties: {
+		Type:       "AWS::ElasticBeanstalk::ConfigurationTemplate"
+		Properties: close({
 			ApplicationName: string | fn.#Fn
 			Description?:    string | fn.#Fn
 			EnvironmentId?:  string | fn.#Fn
-			OptionSettings?: [...{
+			OptionSettings?: [...close({
 				Namespace:     string | fn.#Fn
 				OptionName:    string | fn.#Fn
 				ResourceName?: string | fn.#Fn
 				Value?:        string | fn.#Fn
-			}] | fn.If
+			})] | fn.If
 			PlatformArn?:         string | fn.#Fn
 			SolutionStackName?:   string | fn.#Fn
-			SourceConfiguration?: {
+			SourceConfiguration?: close({
 				ApplicationName: string | fn.#Fn
 				TemplateName:    string | fn.#Fn
-			} | fn.If
-		}
+			}) | fn.If
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -72,32 +72,32 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#Environment: {
-		Type: "AWS::ElasticBeanstalk::Environment"
-		Properties: {
+		Type:       "AWS::ElasticBeanstalk::Environment"
+		Properties: close({
 			ApplicationName:  string | fn.#Fn
 			CNAMEPrefix?:     string | fn.#Fn
 			Description?:     string | fn.#Fn
 			EnvironmentName?: string | fn.#Fn
-			OptionSettings?:  [...{
+			OptionSettings?:  [...close({
 				Namespace:     string | fn.#Fn
 				OptionName:    string | fn.#Fn
 				ResourceName?: string | fn.#Fn
 				Value?:        string | fn.#Fn
-			}] | fn.If
+			})] | fn.If
 			PlatformArn?:       string | fn.#Fn
 			SolutionStackName?: string | fn.#Fn
-			Tags?:              [...{
+			Tags?:              [...close({
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			}] | fn.If
+			})] | fn.If
 			TemplateName?: string | fn.#Fn
-			Tier?:         {
+			Tier?:         close({
 				Name?:    string | fn.#Fn
 				Type?:    string | fn.#Fn
 				Version?: string | fn.#Fn
-			} | fn.If
+			}) | fn.If
 			VersionLabel?: string | fn.#Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

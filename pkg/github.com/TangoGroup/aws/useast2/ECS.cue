@@ -4,24 +4,24 @@ import "github.com/TangoGroup/aws/fn"
 
 #ECS: {
 	#CapacityProvider: {
-		Type: "AWS::ECS::CapacityProvider"
-		Properties: {
-			AutoScalingGroupProvider: {
+		Type:       "AWS::ECS::CapacityProvider"
+		Properties: close({
+			AutoScalingGroupProvider: close({
 				AutoScalingGroupArn: string | fn.#Fn
-				ManagedScaling?:     {
+				ManagedScaling?:     close({
 					MaximumScalingStepSize?: int | fn.#Fn
 					MinimumScalingStepSize?: int | fn.#Fn
 					Status?:                 string | fn.#Fn
 					TargetCapacity?:         int | fn.#Fn
-				} | fn.If
+				}) | fn.If
 				ManagedTerminationProtection?: string | fn.#Fn
-			} | fn.If
+			}) | fn.If
 			Name?: string | fn.#Fn
-			Tags?: [...{
+			Tags?: [...close({
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			}] | fn.If
-		}
+			})] | fn.If
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -29,24 +29,24 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#Cluster: {
-		Type: "AWS::ECS::Cluster"
-		Properties: {
+		Type:       "AWS::ECS::Cluster"
+		Properties: close({
 			CapacityProviders?: [...(string | fn.#Fn)] | (string | fn.#Fn)
 			ClusterName?:       string | fn.#Fn
-			ClusterSettings?:   [...{
+			ClusterSettings?:   [...close({
 				Name?:  string | fn.#Fn
 				Value?: string | fn.#Fn
-			}] | fn.If
-			DefaultCapacityProviderStrategy?: [...{
+			})] | fn.If
+			DefaultCapacityProviderStrategy?: [...close({
 				Base?:             int | fn.#Fn
 				CapacityProvider?: string | fn.#Fn
 				Weight?:           int | fn.#Fn
-			}] | fn.If
-			Tags?: [...{
+			})] | fn.If
+			Tags?: [...close({
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			}] | fn.If
-		}
+			})] | fn.If
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -54,12 +54,12 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#PrimaryTaskSet: {
-		Type: "AWS::ECS::PrimaryTaskSet"
-		Properties: {
+		Type:       "AWS::ECS::PrimaryTaskSet"
+		Properties: close({
 			Cluster:   string | fn.#Fn
 			Service:   string | fn.#Fn
 			TaskSetId: string | fn.#Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -67,64 +67,64 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#Service: {
-		Type: "AWS::ECS::Service"
-		Properties: {
-			CapacityProviderStrategy?: [...{
+		Type:       "AWS::ECS::Service"
+		Properties: close({
+			CapacityProviderStrategy?: [...close({
 				Base?:             int | fn.#Fn
 				CapacityProvider?: string | fn.#Fn
 				Weight?:           int | fn.#Fn
-			}] | fn.If
+			})] | fn.If
 			Cluster?:                 string | fn.#Fn
-			DeploymentConfiguration?: {
+			DeploymentConfiguration?: close({
 				MaximumPercent?:        int | fn.#Fn
 				MinimumHealthyPercent?: int | fn.#Fn
-			} | fn.If
-			DeploymentController?: {
+			}) | fn.If
+			DeploymentController?: close({
 				Type?: string | fn.#Fn
-			} | fn.If
+			}) | fn.If
 			DesiredCount?:                  int | fn.#Fn
 			EnableECSManagedTags?:          bool | fn.#Fn
 			HealthCheckGracePeriodSeconds?: int | fn.#Fn
 			LaunchType?:                    ("EC2" | "FARGATE") | fn.#Fn
-			LoadBalancers?:                 [...{
+			LoadBalancers?:                 [...close({
 				ContainerName?:    string | fn.#Fn
 				ContainerPort?:    int | fn.#Fn
 				LoadBalancerName?: string | fn.#Fn
 				TargetGroupArn?:   string | fn.#Fn
-			}] | fn.If
-			NetworkConfiguration?: {
-				AwsvpcConfiguration?: {
+			})] | fn.If
+			NetworkConfiguration?: close({
+				AwsvpcConfiguration?: close({
 					AssignPublicIp?: string | fn.#Fn
 					SecurityGroups?: [...(string | fn.#Fn)] | (string | fn.#Fn)
 					Subnets?:        [...(string | fn.#Fn)] | (string | fn.#Fn)
-				} | fn.If
-			} | fn.If
-			PlacementConstraints?: [...{
+				}) | fn.If
+			}) | fn.If
+			PlacementConstraints?: [...close({
 				Expression?: string | fn.#Fn
 				Type:        string | fn.#Fn
-			}] | fn.If
-			PlacementStrategies?: [...{
+			})] | fn.If
+			PlacementStrategies?: [...close({
 				Field?: string | fn.#Fn
 				Type:   string | fn.#Fn
-			}] | fn.If
+			})] | fn.If
 			PlatformVersion?:    string | fn.#Fn
 			PropagateTags?:      string | fn.#Fn
 			Role?:               string | fn.#Fn
 			SchedulingStrategy?: ("DAEMON" | "REPLICA") | fn.#Fn
 			ServiceArn?:         string | fn.#Fn
 			ServiceName?:        string | fn.#Fn
-			ServiceRegistries?:  [...{
+			ServiceRegistries?:  [...close({
 				ContainerName?: string | fn.#Fn
 				ContainerPort?: int | fn.#Fn
 				Port?:          int | fn.#Fn
 				RegistryArn?:   string | fn.#Fn
-			}] | fn.If
-			Tags?: [...{
+			})] | fn.If
+			Tags?: [...close({
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			}] | fn.If
+			})] | fn.If
 			TaskDefinition?: string | fn.#Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -132,15 +132,15 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#TaskDefinition: {
-		Type: "AWS::ECS::TaskDefinition"
-		Properties: {
-			ContainerDefinitions?: [...{
+		Type:       "AWS::ECS::TaskDefinition"
+		Properties: close({
+			ContainerDefinitions?: [...close({
 				Command?:   [...(string | fn.#Fn)] | (string | fn.#Fn)
 				Cpu?:       int | fn.#Fn
-				DependsOn?: [...{
+				DependsOn?: [...close({
 					Condition?:     string | fn.#Fn
 					ContainerName?: string | fn.#Fn
-				}] | fn.If
+				})] | fn.If
 				DisableNetworking?: bool | fn.#Fn
 				DnsSearchDomains?:  [...(string | fn.#Fn)] | (string | fn.#Fn)
 				DnsServers?:        [...(string | fn.#Fn)] | (string | fn.#Fn)
@@ -149,142 +149,142 @@ import "github.com/TangoGroup/aws/fn"
 				} | fn.If
 				DockerSecurityOptions?: [...(string | fn.#Fn)] | (string | fn.#Fn)
 				EntryPoint?:            [...(string | fn.#Fn)] | (string | fn.#Fn)
-				Environment?:           [...{
+				Environment?:           [...close({
 					Name?:  string | fn.#Fn
 					Value?: string | fn.#Fn
-				}] | fn.If
-				EnvironmentFiles?: [...{
+				})] | fn.If
+				EnvironmentFiles?: [...close({
 					Type?:  string | fn.#Fn
 					Value?: string | fn.#Fn
-				}] | fn.If
+				})] | fn.If
 				Essential?:  bool | fn.#Fn
-				ExtraHosts?: [...{
+				ExtraHosts?: [...close({
 					Hostname?:  string | fn.#Fn
 					IpAddress?: string | fn.#Fn
-				}] | fn.If
-				FirelensConfiguration?: {
+				})] | fn.If
+				FirelensConfiguration?: close({
 					Options?: {
 						[string]: string | fn.#Fn
 					} | fn.If
 					Type?: string | fn.#Fn
-				} | fn.If
-				HealthCheck?: {
+				}) | fn.If
+				HealthCheck?: close({
 					Command?:     [...(string | fn.#Fn)] | (string | fn.#Fn)
 					Interval?:    int | fn.#Fn
 					Retries?:     int | fn.#Fn
 					StartPeriod?: int | fn.#Fn
 					Timeout?:     int | fn.#Fn
-				} | fn.If
+				}) | fn.If
 				Hostname?:        string | fn.#Fn
 				Image?:           string | fn.#Fn
 				Interactive?:     bool | fn.#Fn
 				Links?:           [...(string | fn.#Fn)] | (string | fn.#Fn)
-				LinuxParameters?: {
-					Capabilities?: {
+				LinuxParameters?: close({
+					Capabilities?: close({
 						Add?:  [...(string | fn.#Fn)] | (string | fn.#Fn)
 						Drop?: [...(string | fn.#Fn)] | (string | fn.#Fn)
-					} | fn.If
-					Devices?: [...{
+					}) | fn.If
+					Devices?: [...close({
 						ContainerPath?: string | fn.#Fn
 						HostPath?:      string | fn.#Fn
 						Permissions?:   [...(string | fn.#Fn)] | (string | fn.#Fn)
-					}] | fn.If
+					})] | fn.If
 					InitProcessEnabled?: bool | fn.#Fn
 					MaxSwap?:            int | fn.#Fn
 					SharedMemorySize?:   int | fn.#Fn
 					Swappiness?:         int | fn.#Fn
-					Tmpfs?:              [...{
+					Tmpfs?:              [...close({
 						ContainerPath?: string | fn.#Fn
 						MountOptions?:  [...(string | fn.#Fn)] | (string | fn.#Fn)
 						Size:           int | fn.#Fn
-					}] | fn.If
-				} | fn.If
-				LogConfiguration?: {
+					})] | fn.If
+				}) | fn.If
+				LogConfiguration?: close({
 					LogDriver: string | fn.#Fn
 					Options?:  {
 						[string]: string | fn.#Fn
 					} | fn.If
-					SecretOptions?: [...{
+					SecretOptions?: [...close({
 						Name:      string | fn.#Fn
 						ValueFrom: string | fn.#Fn
-					}] | fn.If
-				} | fn.If
+					})] | fn.If
+				}) | fn.If
 				Memory?:            int | fn.#Fn
 				MemoryReservation?: int | fn.#Fn
-				MountPoints?:       [...{
+				MountPoints?:       [...close({
 					ContainerPath?: string | fn.#Fn
 					ReadOnly?:      bool | fn.#Fn
 					SourceVolume?:  string | fn.#Fn
-				}] | fn.If
+				})] | fn.If
 				Name?:         string | fn.#Fn
-				PortMappings?: [...{
+				PortMappings?: [...close({
 					ContainerPort?: int | fn.#Fn
 					HostPort?:      int | fn.#Fn
 					Protocol?:      string | fn.#Fn
-				}] | fn.If
+				})] | fn.If
 				Privileged?:             bool | fn.#Fn
 				PseudoTerminal?:         bool | fn.#Fn
 				ReadonlyRootFilesystem?: bool | fn.#Fn
-				RepositoryCredentials?:  {
+				RepositoryCredentials?:  close({
 					CredentialsParameter?: string | fn.#Fn
-				} | fn.If
-				ResourceRequirements?: [...{
+				}) | fn.If
+				ResourceRequirements?: [...close({
 					Type:  string | fn.#Fn
 					Value: string | fn.#Fn
-				}] | fn.If
-				Secrets?: [...{
+				})] | fn.If
+				Secrets?: [...close({
 					Name:      string | fn.#Fn
 					ValueFrom: string | fn.#Fn
-				}] | fn.If
+				})] | fn.If
 				StartTimeout?:   int | fn.#Fn
 				StopTimeout?:    int | fn.#Fn
-				SystemControls?: [...{
+				SystemControls?: [...close({
 					Namespace?: string | fn.#Fn
 					Value?:     string | fn.#Fn
-				}] | fn.If
-				Ulimits?: [...{
+				})] | fn.If
+				Ulimits?: [...close({
 					HardLimit: int | fn.#Fn
 					Name:      string | fn.#Fn
 					SoftLimit: int | fn.#Fn
-				}] | fn.If
+				})] | fn.If
 				User?:        string | fn.#Fn
-				VolumesFrom?: [...{
+				VolumesFrom?: [...close({
 					ReadOnly?:        bool | fn.#Fn
 					SourceContainer?: string | fn.#Fn
-				}] | fn.If
+				})] | fn.If
 				WorkingDirectory?: string | fn.#Fn
-			}] | fn.If
+			})] | fn.If
 			Cpu?:                   string | fn.#Fn
 			ExecutionRoleArn?:      (=~#"arn:(aws[a-zA-Z-]*)?:iam::\d{12}:role/[a-zA-Z_0-9+=,.@\-_/]+"#) | fn.#Fn
 			Family?:                string | fn.#Fn
-			InferenceAccelerators?: [...{
+			InferenceAccelerators?: [...close({
 				DeviceName?: string | fn.#Fn
 				DeviceType?: string | fn.#Fn
-			}] | fn.If
+			})] | fn.If
 			IpcMode?:              string | fn.#Fn
 			Memory?:               string | fn.#Fn
 			NetworkMode?:          ("awsvpc" | "bridge" | "host" | "none") | fn.#Fn
 			PidMode?:              string | fn.#Fn
-			PlacementConstraints?: [...{
+			PlacementConstraints?: [...close({
 				Expression?: string | fn.#Fn
 				Type:        string | fn.#Fn
-			}] | fn.If
-			ProxyConfiguration?: {
+			})] | fn.If
+			ProxyConfiguration?: close({
 				ContainerName:                 string | fn.#Fn
-				ProxyConfigurationProperties?: [...{
+				ProxyConfigurationProperties?: [...close({
 					Name?:  string | fn.#Fn
 					Value?: string | fn.#Fn
-				}] | fn.If
+				})] | fn.If
 				Type?: ("APPMESH") | fn.#Fn
-			} | fn.If
+			}) | fn.If
 			RequiresCompatibilities?: [...(string | fn.#Fn)] | (string | fn.#Fn)
-			Tags?:                    [...{
+			Tags?:                    [...close({
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			}] | fn.If
+			})] | fn.If
 			TaskRoleArn?: string | fn.#Fn
-			Volumes?:     [...{
-				DockerVolumeConfiguration?: {
+			Volumes?:     [...close({
+				DockerVolumeConfiguration?: close({
 					Autoprovision?: bool | fn.#Fn
 					Driver?:        string | fn.#Fn
 					DriverOpts?:    {
@@ -294,8 +294,8 @@ import "github.com/TangoGroup/aws/fn"
 						[string]: string | fn.#Fn
 					} | fn.If
 					Scope?: string | fn.#Fn
-				} | fn.If
-				EFSVolumeConfiguration?: {
+				}) | fn.If
+				EFSVolumeConfiguration?: close({
 					AuthorizationConfig?: {
 						[string]: _
 					} | fn.#Fn
@@ -303,13 +303,13 @@ import "github.com/TangoGroup/aws/fn"
 					RootDirectory?:         string | fn.#Fn
 					TransitEncryption?:     string | fn.#Fn
 					TransitEncryptionPort?: int | fn.#Fn
-				} | fn.If
-				Host?: {
+				}) | fn.If
+				Host?: close({
 					SourcePath?: string | fn.#Fn
-				} | fn.If
+				}) | fn.If
 				Name?: string | fn.#Fn
-			}] | fn.If
-		}
+			})] | fn.If
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -317,38 +317,38 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#TaskSet: {
-		Type: "AWS::ECS::TaskSet"
-		Properties: {
+		Type:       "AWS::ECS::TaskSet"
+		Properties: close({
 			Cluster:        string | fn.#Fn
 			ExternalId?:    string | fn.#Fn
 			LaunchType?:    string | fn.#Fn
-			LoadBalancers?: [...{
+			LoadBalancers?: [...close({
 				ContainerName?:    string | fn.#Fn
 				ContainerPort?:    int | fn.#Fn
 				LoadBalancerName?: string | fn.#Fn
 				TargetGroupArn?:   string | fn.#Fn
-			}] | fn.If
-			NetworkConfiguration?: {
-				AwsVpcConfiguration?: {
+			})] | fn.If
+			NetworkConfiguration?: close({
+				AwsVpcConfiguration?: close({
 					AssignPublicIp?: string | fn.#Fn
 					SecurityGroups?: [...(string | fn.#Fn)] | (string | fn.#Fn)
 					Subnets:         [...(string | fn.#Fn)] | (string | fn.#Fn)
-				} | fn.If
-			} | fn.If
+				}) | fn.If
+			}) | fn.If
 			PlatformVersion?: string | fn.#Fn
-			Scale?:           {
+			Scale?:           close({
 				Unit?:  string | fn.#Fn
 				Value?: number | fn.#Fn
-			} | fn.If
+			}) | fn.If
 			Service:            string | fn.#Fn
-			ServiceRegistries?: [...{
+			ServiceRegistries?: [...close({
 				ContainerName?: string | fn.#Fn
 				ContainerPort?: int | fn.#Fn
 				Port?:          int | fn.#Fn
 				RegistryArn?:   string | fn.#Fn
-			}] | fn.If
+			})] | fn.If
 			TaskDefinition: string | fn.#Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

@@ -4,15 +4,15 @@ import "github.com/TangoGroup/aws/fn"
 
 #CodeStar: {
 	#GitHubRepository: {
-		Type: "AWS::CodeStar::GitHubRepository"
-		Properties: {
-			Code?: {
-				S3: {
+		Type:       "AWS::CodeStar::GitHubRepository"
+		Properties: close({
+			Code?: close({
+				S3: close({
 					Bucket:         string | fn.#Fn
 					Key:            string | fn.#Fn
 					ObjectVersion?: string | fn.#Fn
-				} | fn.If
-			} | fn.If
+				}) | fn.If
+			}) | fn.If
 			ConnectionArn?:         string | fn.#Fn
 			EnableIssues?:          bool | fn.#Fn
 			IsPrivate?:             bool | fn.#Fn
@@ -20,7 +20,7 @@ import "github.com/TangoGroup/aws/fn"
 			RepositoryDescription?: string | fn.#Fn
 			RepositoryName:         string | fn.#Fn
 			RepositoryOwner:        string | fn.#Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

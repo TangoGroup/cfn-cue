@@ -4,12 +4,12 @@ import "github.com/TangoGroup/aws/fn"
 
 #RDS: {
 	#DBCluster: {
-		Type: "AWS::RDS::DBCluster"
-		Properties: {
-			AssociatedRoles?: [...{
+		Type:       "AWS::RDS::DBCluster"
+		Properties: close({
+			AssociatedRoles?: [...close({
 				FeatureName?: string | fn.#Fn
 				RoleArn:      string | fn.#Fn
-			}] | fn.If
+			})] | fn.If
 			AvailabilityZones?:               [...(("af-south-1a" | "af-south-1b" | "af-south-1c" | "ap-east-1a" | "ap-east-1b" | "ap-east-1c" | "ap-northeast-1a" | "ap-northeast-1b" | "ap-northeast-1c" | "ap-northeast-1d" | "ap-northeast-2a" | "ap-northeast-2b" | "ap-northeast-2c" | "ap-northeast-2d" | "ap-northeast-3a" | "ap-south-1a" | "ap-south-1b" | "ap-south-1c" | "ap-southeast-1a" | "ap-southeast-1b" | "ap-southeast-1c" | "ap-southeast-2a" | "ap-southeast-2b" | "ap-southeast-2c" | "ca-central-1a" | "ca-central-1b" | "ca-central-1d" | "cn-north-1a" | "cn-north-1b" | "cn-northwest-1a" | "cn-northwest-1b" | "cn-northwest-1c" | "eu-central-1a" | "eu-central-1b" | "eu-central-1c" | "eu-north-1a" | "eu-north-1b" | "eu-north-1c" | "eu-south-1a" | "eu-south-1b" | "eu-south-1c" | "eu-west-1a" | "eu-west-1b" | "eu-west-1c" | "eu-west-2a" | "eu-west-2b" | "eu-west-2c" | "eu-west-3a" | "eu-west-3b" | "eu-west-3c" | "me-south-1a" | "me-south-1b" | "me-south-1c" | "sa-east-1a" | "sa-east-1b" | "sa-east-1c" | "us-east-1a" | "us-east-1b" | "us-east-1c" | "us-east-1d" | "us-east-1e" | "us-east-1f" | "us-east-2a" | "us-east-2b" | "us-east-2c" | "us-gov-east-1a" | "us-gov-east-1b" | "us-gov-east-1c" | "us-gov-west-1a" | "us-gov-west-1b" | "us-gov-west-1c" | "us-west-1a" | "us-west-1b" | "us-west-1c" | "us-west-2a" | "us-west-2b" | "us-west-2c" | "us-west-2d" | "us-west-2-lax-1a" | "us-west-2-lax-1b") | fn.#Fn)] | (("af-south-1a" | "af-south-1b" | "af-south-1c" | "ap-east-1a" | "ap-east-1b" | "ap-east-1c" | "ap-northeast-1a" | "ap-northeast-1b" | "ap-northeast-1c" | "ap-northeast-1d" | "ap-northeast-2a" | "ap-northeast-2b" | "ap-northeast-2c" | "ap-northeast-2d" | "ap-northeast-3a" | "ap-south-1a" | "ap-south-1b" | "ap-south-1c" | "ap-southeast-1a" | "ap-southeast-1b" | "ap-southeast-1c" | "ap-southeast-2a" | "ap-southeast-2b" | "ap-southeast-2c" | "ca-central-1a" | "ca-central-1b" | "ca-central-1d" | "cn-north-1a" | "cn-north-1b" | "cn-northwest-1a" | "cn-northwest-1b" | "cn-northwest-1c" | "eu-central-1a" | "eu-central-1b" | "eu-central-1c" | "eu-north-1a" | "eu-north-1b" | "eu-north-1c" | "eu-south-1a" | "eu-south-1b" | "eu-south-1c" | "eu-west-1a" | "eu-west-1b" | "eu-west-1c" | "eu-west-2a" | "eu-west-2b" | "eu-west-2c" | "eu-west-3a" | "eu-west-3b" | "eu-west-3c" | "me-south-1a" | "me-south-1b" | "me-south-1c" | "sa-east-1a" | "sa-east-1b" | "sa-east-1c" | "us-east-1a" | "us-east-1b" | "us-east-1c" | "us-east-1d" | "us-east-1e" | "us-east-1f" | "us-east-2a" | "us-east-2b" | "us-east-2c" | "us-gov-east-1a" | "us-gov-east-1b" | "us-gov-east-1c" | "us-gov-west-1a" | "us-gov-west-1b" | "us-gov-west-1c" | "us-west-1a" | "us-west-1b" | "us-west-1c" | "us-west-2a" | "us-west-2b" | "us-west-2c" | "us-west-2d" | "us-west-2-lax-1a" | "us-west-2-lax-1b") | fn.#Fn)
 			BacktrackWindow?:                 int | fn.#Fn
 			BackupRetentionPeriod?:           (>=1 & <=35) | fn.#Fn
@@ -33,23 +33,23 @@ import "github.com/TangoGroup/aws/fn"
 			PreferredMaintenanceWindow?:      string | fn.#Fn
 			ReplicationSourceIdentifier?:     string | fn.#Fn
 			RestoreType?:                     string | fn.#Fn
-			ScalingConfiguration?:            {
+			ScalingConfiguration?:            close({
 				AutoPause?:             bool | fn.#Fn
 				MaxCapacity?:           int | fn.#Fn
 				MinCapacity?:           int | fn.#Fn
 				SecondsUntilAutoPause?: int | fn.#Fn
-			} | fn.If
+			}) | fn.If
 			SnapshotIdentifier?:        string | fn.#Fn
 			SourceDBClusterIdentifier?: string | fn.#Fn
 			SourceRegion?:              string | fn.#Fn
 			StorageEncrypted?:          bool | fn.#Fn
-			Tags?:                      [...{
+			Tags?:                      [...close({
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			}] | fn.If
+			})] | fn.If
 			UseLatestRestorableTime?: bool | fn.#Fn
 			VpcSecurityGroupIds?:     [...(string | fn.#Fn)] | (string | fn.#Fn)
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain" | "Snapshot"
 		UpdateReplacePolicy?: "Delete" | "Retain" | "Snapshot"
@@ -57,18 +57,18 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#DBClusterParameterGroup: {
-		Type: "AWS::RDS::DBClusterParameterGroup"
-		Properties: {
+		Type:       "AWS::RDS::DBClusterParameterGroup"
+		Properties: close({
 			Description: string | fn.#Fn
 			Family:      string | fn.#Fn
 			Parameters:  {
 				[string]: _
 			} | fn.#Fn
-			Tags?: [...{
+			Tags?: [...close({
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			}] | fn.If
-		}
+			})] | fn.If
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -76,14 +76,14 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#DBInstance: {
-		Type: "AWS::RDS::DBInstance"
-		Properties: {
+		Type:       "AWS::RDS::DBInstance"
+		Properties: close({
 			AllocatedStorage?:         string | fn.#Fn
 			AllowMajorVersionUpgrade?: bool | fn.#Fn
-			AssociatedRoles?:          [...{
+			AssociatedRoles?:          [...close({
 				FeatureName: string | fn.#Fn
 				RoleArn:     string | fn.#Fn
-			}] | fn.If
+			})] | fn.If
 			AutoMinorVersionUpgrade?:            bool | fn.#Fn
 			AvailabilityZone?:                   ("af-south-1a" | "af-south-1b" | "af-south-1c" | "ap-east-1a" | "ap-east-1b" | "ap-east-1c" | "ap-northeast-1a" | "ap-northeast-1b" | "ap-northeast-1c" | "ap-northeast-1d" | "ap-northeast-2a" | "ap-northeast-2b" | "ap-northeast-2c" | "ap-northeast-2d" | "ap-northeast-3a" | "ap-south-1a" | "ap-south-1b" | "ap-south-1c" | "ap-southeast-1a" | "ap-southeast-1b" | "ap-southeast-1c" | "ap-southeast-2a" | "ap-southeast-2b" | "ap-southeast-2c" | "ca-central-1a" | "ca-central-1b" | "ca-central-1d" | "cn-north-1a" | "cn-north-1b" | "cn-northwest-1a" | "cn-northwest-1b" | "cn-northwest-1c" | "eu-central-1a" | "eu-central-1b" | "eu-central-1c" | "eu-north-1a" | "eu-north-1b" | "eu-north-1c" | "eu-south-1a" | "eu-south-1b" | "eu-south-1c" | "eu-west-1a" | "eu-west-1b" | "eu-west-1c" | "eu-west-2a" | "eu-west-2b" | "eu-west-2c" | "eu-west-3a" | "eu-west-3b" | "eu-west-3c" | "me-south-1a" | "me-south-1b" | "me-south-1c" | "sa-east-1a" | "sa-east-1b" | "sa-east-1c" | "us-east-1a" | "us-east-1b" | "us-east-1c" | "us-east-1d" | "us-east-1e" | "us-east-1f" | "us-east-2a" | "us-east-2b" | "us-east-2c" | "us-gov-east-1a" | "us-gov-east-1b" | "us-gov-east-1c" | "us-gov-west-1a" | "us-gov-west-1b" | "us-gov-west-1c" | "us-west-1a" | "us-west-1b" | "us-west-1c" | "us-west-2a" | "us-west-2b" | "us-west-2c" | "us-west-2d" | "us-west-2-lax-1a" | "us-west-2-lax-1b") | fn.#Fn
 			BackupRetentionPeriod?:              (>=0 & <=35) | fn.#Fn
@@ -122,24 +122,24 @@ import "github.com/TangoGroup/aws/fn"
 			Port?:                               string | fn.#Fn
 			PreferredBackupWindow?:              string | fn.#Fn
 			PreferredMaintenanceWindow?:         string | fn.#Fn
-			ProcessorFeatures?:                  [...{
+			ProcessorFeatures?:                  [...close({
 				Name?:  string | fn.#Fn
 				Value?: string | fn.#Fn
-			}] | fn.If
+			})] | fn.If
 			PromotionTier?:              (>=0 & <=15) | fn.#Fn
 			PubliclyAccessible?:         bool | fn.#Fn
 			SourceDBInstanceIdentifier?: string | fn.#Fn
 			SourceRegion?:               string | fn.#Fn
 			StorageEncrypted?:           bool | fn.#Fn
 			StorageType?:                string | fn.#Fn
-			Tags?:                       [...{
+			Tags?:                       [...close({
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			}] | fn.If
+			})] | fn.If
 			Timezone?:                    string | fn.#Fn
 			UseDefaultProcessorFeatures?: bool | fn.#Fn
 			VPCSecurityGroups?:           [...(string | fn.#Fn)] | (string | fn.#Fn)
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain" | "Snapshot"
 		UpdateReplacePolicy?: "Delete" | "Retain" | "Snapshot"
@@ -147,18 +147,18 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#DBParameterGroup: {
-		Type: "AWS::RDS::DBParameterGroup"
-		Properties: {
+		Type:       "AWS::RDS::DBParameterGroup"
+		Properties: close({
 			Description: string | fn.#Fn
 			Family:      string | fn.#Fn
 			Parameters?: {
 				[string]: string | fn.#Fn
 			} | fn.If
-			Tags?: [...{
+			Tags?: [...close({
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			}] | fn.If
-		}
+			})] | fn.If
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -166,28 +166,28 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#DBProxy: {
-		Type: "AWS::RDS::DBProxy"
-		Properties: {
-			Auth: [...{
+		Type:       "AWS::RDS::DBProxy"
+		Properties: close({
+			Auth: [...close({
 				AuthScheme?:  string | fn.#Fn
 				Description?: string | fn.#Fn
 				IAMAuth?:     string | fn.#Fn
 				SecretArn?:   string | fn.#Fn
 				UserName?:    string | fn.#Fn
-			}] | fn.If
+			})] | fn.If
 			DBProxyName:        string | fn.#Fn
 			DebugLogging?:      bool | fn.#Fn
 			EngineFamily:       string | fn.#Fn
 			IdleClientTimeout?: int | fn.#Fn
 			RequireTLS?:        bool | fn.#Fn
 			RoleArn:            string | fn.#Fn
-			Tags?:              [...{
+			Tags?:              [...close({
 				Key?:   string | fn.#Fn
 				Value?: string | fn.#Fn
-			}] | fn.If
+			})] | fn.If
 			VpcSecurityGroupIds?: [...(string | fn.#Fn)] | (string | fn.#Fn)
 			VpcSubnetIds:         [...(string | fn.#Fn)] | (string | fn.#Fn)
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -195,20 +195,20 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#DBProxyTargetGroup: {
-		Type: "AWS::RDS::DBProxyTargetGroup"
-		Properties: {
-			ConnectionPoolConfigurationInfo?: {
+		Type:       "AWS::RDS::DBProxyTargetGroup"
+		Properties: close({
+			ConnectionPoolConfigurationInfo?: close({
 				ConnectionBorrowTimeout?:   int | fn.#Fn
 				InitQuery?:                 string | fn.#Fn
 				MaxConnectionsPercent?:     int | fn.#Fn
 				MaxIdleConnectionsPercent?: int | fn.#Fn
 				SessionPinningFilters?:     [...(string | fn.#Fn)] | (string | fn.#Fn)
-			} | fn.If
+			}) | fn.If
 			DBClusterIdentifiers?:  [...(string | fn.#Fn)] | (string | fn.#Fn)
 			DBInstanceIdentifiers?: [...(string | fn.#Fn)] | (string | fn.#Fn)
 			DBProxyName:            string | fn.#Fn
 			TargetGroupName:        string | fn.#Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -216,21 +216,21 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#DBSecurityGroup: {
-		Type: "AWS::RDS::DBSecurityGroup"
-		Properties: {
-			DBSecurityGroupIngress: [...{
+		Type:       "AWS::RDS::DBSecurityGroup"
+		Properties: close({
+			DBSecurityGroupIngress: [...close({
 				CIDRIP?:                  (=~#"^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]).){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/([0-9]|[1-2][0-9]|3[0-2]))$"#) | fn.#Fn
 				EC2SecurityGroupId?:      string | fn.#Fn
 				EC2SecurityGroupName?:    string | fn.#Fn
 				EC2SecurityGroupOwnerId?: string | fn.#Fn
-			}] | fn.If
+			})] | fn.If
 			EC2VpcId?:        string | fn.#Fn
 			GroupDescription: string | fn.#Fn
-			Tags?:            [...{
+			Tags?:            [...close({
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			}] | fn.If
-		}
+			})] | fn.If
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -238,14 +238,14 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#DBSecurityGroupIngress: {
-		Type: "AWS::RDS::DBSecurityGroupIngress"
-		Properties: {
+		Type:       "AWS::RDS::DBSecurityGroupIngress"
+		Properties: close({
 			CIDRIP?:                  (=~#"^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]).){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/([0-9]|[1-2][0-9]|3[0-2]))$"#) | fn.#Fn
 			DBSecurityGroupName:      string | fn.#Fn
 			EC2SecurityGroupId?:      string | fn.#Fn
 			EC2SecurityGroupName?:    string | fn.#Fn
 			EC2SecurityGroupOwnerId?: string | fn.#Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -253,16 +253,16 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#DBSubnetGroup: {
-		Type: "AWS::RDS::DBSubnetGroup"
-		Properties: {
+		Type:       "AWS::RDS::DBSubnetGroup"
+		Properties: close({
 			DBSubnetGroupDescription: string | fn.#Fn
 			DBSubnetGroupName?:       string | fn.#Fn
 			SubnetIds:                [...(string | fn.#Fn)] | (string | fn.#Fn)
-			Tags?:                    [...{
+			Tags?:                    [...close({
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			}] | fn.If
-		}
+			})] | fn.If
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -270,14 +270,14 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#EventSubscription: {
-		Type: "AWS::RDS::EventSubscription"
-		Properties: {
+		Type:       "AWS::RDS::EventSubscription"
+		Properties: close({
 			Enabled?:         bool | fn.#Fn
 			EventCategories?: [...(string | fn.#Fn)] | (string | fn.#Fn)
 			SnsTopicArn:      string | fn.#Fn
 			SourceIds?:       [...(string | fn.#Fn)] | (string | fn.#Fn)
 			SourceType?:      string | fn.#Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -285,15 +285,15 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#GlobalCluster: {
-		Type: "AWS::RDS::GlobalCluster"
-		Properties: {
+		Type:       "AWS::RDS::GlobalCluster"
+		Properties: close({
 			DeletionProtection?:        bool | fn.#Fn
 			Engine?:                    string | fn.#Fn
 			EngineVersion?:             string | fn.#Fn
 			GlobalClusterIdentifier?:   string | fn.#Fn
 			SourceDBClusterIdentifier?: string | fn.#Fn
 			StorageEncrypted?:          bool | fn.#Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -301,27 +301,27 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#OptionGroup: {
-		Type: "AWS::RDS::OptionGroup"
-		Properties: {
+		Type:       "AWS::RDS::OptionGroup"
+		Properties: close({
 			EngineName:           string | fn.#Fn
 			MajorEngineVersion:   string | fn.#Fn
-			OptionConfigurations: [...{
+			OptionConfigurations: [...close({
 				DBSecurityGroupMemberships?: [...(string | fn.#Fn)] | (string | fn.#Fn)
 				OptionName:                  string | fn.#Fn
-				OptionSettings?:             [...{
+				OptionSettings?:             [...close({
 					Name?:  string | fn.#Fn
 					Value?: string | fn.#Fn
-				}] | fn.If
+				})] | fn.If
 				OptionVersion?:               string | fn.#Fn
 				Port?:                        int | fn.#Fn
 				VpcSecurityGroupMemberships?: [...(string | fn.#Fn)] | (string | fn.#Fn)
-			}] | fn.If
+			})] | fn.If
 			OptionGroupDescription: string | fn.#Fn
-			Tags?:                  [...{
+			Tags?:                  [...close({
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			}] | fn.If
-		}
+			})] | fn.If
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

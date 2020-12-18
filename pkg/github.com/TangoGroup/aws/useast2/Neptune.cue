@@ -4,12 +4,12 @@ import "github.com/TangoGroup/aws/fn"
 
 #Neptune: {
 	#DBCluster: {
-		Type: "AWS::Neptune::DBCluster"
-		Properties: {
-			AssociatedRoles?: [...{
+		Type:       "AWS::Neptune::DBCluster"
+		Properties: close({
+			AssociatedRoles?: [...close({
 				FeatureName?: string | fn.#Fn
 				RoleArn:      string | fn.#Fn
-			}] | fn.If
+			})] | fn.If
 			AvailabilityZones?:           [...(string | fn.#Fn)] | (string | fn.#Fn)
 			BackupRetentionPeriod?:       int | fn.#Fn
 			DBClusterIdentifier?:         string | fn.#Fn
@@ -28,13 +28,13 @@ import "github.com/TangoGroup/aws/fn"
 			SnapshotIdentifier?:          string | fn.#Fn
 			SourceDBClusterIdentifier?:   string | fn.#Fn
 			StorageEncrypted?:            bool | fn.#Fn
-			Tags?:                        [...{
+			Tags?:                        [...close({
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			}] | fn.If
+			})] | fn.If
 			UseLatestRestorableTime?: bool | fn.#Fn
 			VpcSecurityGroupIds?:     [...(string | fn.#Fn)] | (string | fn.#Fn)
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain" | "Snapshot"
 		UpdateReplacePolicy?: "Delete" | "Retain" | "Snapshot"
@@ -42,19 +42,19 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#DBClusterParameterGroup: {
-		Type: "AWS::Neptune::DBClusterParameterGroup"
-		Properties: {
+		Type:       "AWS::Neptune::DBClusterParameterGroup"
+		Properties: close({
 			Description: string | fn.#Fn
 			Family:      string | fn.#Fn
 			Name?:       string | fn.#Fn
 			Parameters:  {
 				[string]: _
 			} | fn.#Fn
-			Tags?: [...{
+			Tags?: [...close({
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			}] | fn.If
-		}
+			})] | fn.If
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -62,8 +62,8 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#DBInstance: {
-		Type: "AWS::Neptune::DBInstance"
-		Properties: {
+		Type:       "AWS::Neptune::DBInstance"
+		Properties: close({
 			AllowMajorVersionUpgrade?:   bool | fn.#Fn
 			AutoMinorVersionUpgrade?:    bool | fn.#Fn
 			AvailabilityZone?:           string | fn.#Fn
@@ -74,11 +74,11 @@ import "github.com/TangoGroup/aws/fn"
 			DBSnapshotIdentifier?:       string | fn.#Fn
 			DBSubnetGroupName?:          string | fn.#Fn
 			PreferredMaintenanceWindow?: string | fn.#Fn
-			Tags?:                       [...{
+			Tags?:                       [...close({
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			}] | fn.If
-		}
+			})] | fn.If
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -86,19 +86,19 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#DBParameterGroup: {
-		Type: "AWS::Neptune::DBParameterGroup"
-		Properties: {
+		Type:       "AWS::Neptune::DBParameterGroup"
+		Properties: close({
 			Description: string | fn.#Fn
 			Family:      string | fn.#Fn
 			Name?:       string | fn.#Fn
 			Parameters:  {
 				[string]: _
 			} | fn.#Fn
-			Tags?: [...{
+			Tags?: [...close({
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			}] | fn.If
-		}
+			})] | fn.If
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -106,16 +106,16 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#DBSubnetGroup: {
-		Type: "AWS::Neptune::DBSubnetGroup"
-		Properties: {
+		Type:       "AWS::Neptune::DBSubnetGroup"
+		Properties: close({
 			DBSubnetGroupDescription: string | fn.#Fn
 			DBSubnetGroupName?:       string | fn.#Fn
 			SubnetIds:                [...(string | fn.#Fn)] | (string | fn.#Fn)
-			Tags?:                    [...{
+			Tags?:                    [...close({
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			}] | fn.If
-		}
+			})] | fn.If
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

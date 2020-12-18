@@ -4,8 +4,8 @@ import "github.com/TangoGroup/aws/fn"
 
 #SQS: {
 	#Queue: {
-		Type: "AWS::SQS::Queue"
-		Properties: {
+		Type:       "AWS::SQS::Queue"
+		Properties: close({
 			ContentBasedDeduplication?:     bool | fn.#Fn
 			DelaySeconds?:                  (>=0 & <=900) | fn.#Fn
 			FifoQueue?:                     bool | fn.#Fn
@@ -18,12 +18,12 @@ import "github.com/TangoGroup/aws/fn"
 			RedrivePolicy?:                 {
 				[string]: _
 			} | fn.#Fn
-			Tags?: [...{
+			Tags?: [...close({
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			}] | fn.If
+			})] | fn.If
 			VisibilityTimeout?: (>=0 & <=43200) | fn.#Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -31,8 +31,8 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#QueuePolicy: {
-		Type: "AWS::SQS::QueuePolicy"
-		Properties: {
+		Type:       "AWS::SQS::QueuePolicy"
+		Properties: close({
 			PolicyDocument: {
 				{
 					[string]: _
@@ -40,7 +40,7 @@ import "github.com/TangoGroup/aws/fn"
 				Version: string | *"2012-10-17"
 			} | fn.#Fn
 			Queues: [...(string | fn.#Fn)] | (string | fn.#Fn)
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

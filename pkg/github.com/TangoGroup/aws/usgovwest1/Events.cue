@@ -4,17 +4,21 @@ import "github.com/TangoGroup/aws/fn"
 
 #Events: {
 	#EventBusPolicy: {
-		Type: "AWS::Events::EventBusPolicy"
-		Properties: {
-			Action:     ("events:PutEvents") | fn.#Fn
-			Condition?: {
+		Type:       "AWS::Events::EventBusPolicy"
+		Properties: close({
+			Action?:    ("events:PutEvents") | fn.#Fn
+			Condition?: close({
 				Key?:   ("aws:PrincipalOrgID") | fn.#Fn
 				Type?:  ("StringEquals") | fn.#Fn
 				Value?: string | fn.#Fn
-			} | fn.If
-			Principal:   string | fn.#Fn
+			}) | fn.If
+			EventBusName?: string | fn.#Fn
+			Principal?:    string | fn.#Fn
+			Statement?:    {
+				[string]: _
+			} | fn.#Fn
 			StatementId: string | fn.#Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -22,8 +26,8 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#Rule: {
-		Type: "AWS::Events::Rule"
-		Properties: {
+		Type:       "AWS::Events::Rule"
+		Properties: close({
 			Description?:  string | fn.#Fn
 			EventBusName?: string | fn.#Fn
 			EventPattern?: {
@@ -33,36 +37,36 @@ import "github.com/TangoGroup/aws/fn"
 			RoleArn?:            string | fn.#Fn
 			ScheduleExpression?: string | fn.#Fn
 			State?:              ("DISABLED" | "ENABLED") | fn.#Fn
-			Targets?:            [...{
+			Targets?:            [...close({
 				Arn:              string | fn.#Fn
-				BatchParameters?: {
-					ArrayProperties?: {
+				BatchParameters?: close({
+					ArrayProperties?: close({
 						Size?: int | fn.#Fn
-					} | fn.If
+					}) | fn.If
 					JobDefinition:  string | fn.#Fn
 					JobName:        string | fn.#Fn
-					RetryStrategy?: {
+					RetryStrategy?: close({
 						Attempts?: int | fn.#Fn
-					} | fn.If
-				} | fn.If
-				DeadLetterConfig?: {
+					}) | fn.If
+				}) | fn.If
+				DeadLetterConfig?: close({
 					Arn?: string | fn.#Fn
-				} | fn.If
-				EcsParameters?: {
+				}) | fn.If
+				EcsParameters?: close({
 					Group?:                string | fn.#Fn
 					LaunchType?:           string | fn.#Fn
-					NetworkConfiguration?: {
-						AwsVpcConfiguration?: {
+					NetworkConfiguration?: close({
+						AwsVpcConfiguration?: close({
 							AssignPublicIp?: string | fn.#Fn
 							SecurityGroups?: [...(string | fn.#Fn)] | (string | fn.#Fn)
 							Subnets:         [...(string | fn.#Fn)] | (string | fn.#Fn)
-						} | fn.If
-					} | fn.If
+						}) | fn.If
+					}) | fn.If
 					PlatformVersion?:  string | fn.#Fn
 					TaskCount?:        int | fn.#Fn
 					TaskDefinitionArn: string | fn.#Fn
-				} | fn.If
-				HttpParameters?: {
+				}) | fn.If
+				HttpParameters?: close({
 					HeaderParameters?: {
 						[string]: string | fn.#Fn
 					} | fn.If
@@ -70,43 +74,43 @@ import "github.com/TangoGroup/aws/fn"
 					QueryStringParameters?: {
 						[string]: string | fn.#Fn
 					} | fn.If
-				} | fn.If
+				}) | fn.If
 				Id:                string | fn.#Fn
 				Input?:            string | fn.#Fn
 				InputPath?:        string | fn.#Fn
-				InputTransformer?: {
+				InputTransformer?: close({
 					InputPathsMap?: {
 						[string]: string | fn.#Fn
 					} | fn.If
 					InputTemplate: string | fn.#Fn
-				} | fn.If
-				KinesisParameters?: {
+				}) | fn.If
+				KinesisParameters?: close({
 					PartitionKeyPath: string | fn.#Fn
-				} | fn.If
-				RedshiftDataParameters?: {
+				}) | fn.If
+				RedshiftDataParameters?: close({
 					Database:          string | fn.#Fn
 					DbUser?:           string | fn.#Fn
 					SecretManagerArn?: string | fn.#Fn
 					Sql:               string | fn.#Fn
 					StatementName?:    string | fn.#Fn
 					WithEvent?:        bool | fn.#Fn
-				} | fn.If
-				RetryPolicy?: {
+				}) | fn.If
+				RetryPolicy?: close({
 					MaximumEventAgeInSeconds?: int | fn.#Fn
 					MaximumRetryAttempts?:     int | fn.#Fn
-				} | fn.If
+				}) | fn.If
 				RoleArn?:              string | fn.#Fn
-				RunCommandParameters?: {
-					RunCommandTargets: [...{
+				RunCommandParameters?: close({
+					RunCommandTargets: [...close({
 						Key:    string | fn.#Fn
 						Values: [...(string | fn.#Fn)] | (string | fn.#Fn)
-					}] | fn.If
-				} | fn.If
-				SqsParameters?: {
+					})] | fn.If
+				}) | fn.If
+				SqsParameters?: close({
 					MessageGroupId: string | fn.#Fn
-				} | fn.If
-			}] | fn.If
-		}
+				}) | fn.If
+			})] | fn.If
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

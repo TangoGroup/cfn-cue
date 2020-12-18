@@ -4,17 +4,17 @@ import "github.com/TangoGroup/aws/fn"
 
 #ACMPCA: {
 	#Certificate: {
-		Type: "AWS::ACMPCA::Certificate"
-		Properties: {
+		Type:       "AWS::ACMPCA::Certificate"
+		Properties: close({
 			CertificateAuthorityArn:   string | fn.#Fn
 			CertificateSigningRequest: string | fn.#Fn
 			SigningAlgorithm:          string | fn.#Fn
 			TemplateArn?:              string | fn.#Fn
-			Validity:                  {
+			Validity:                  close({
 				Type:  string | fn.#Fn
 				Value: int | fn.#Fn
-			} | fn.If
-		}
+			}) | fn.If
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -22,19 +22,19 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#CertificateAuthority: {
-		Type: "AWS::ACMPCA::CertificateAuthority"
-		Properties: {
+		Type:       "AWS::ACMPCA::CertificateAuthority"
+		Properties: close({
 			KeyAlgorithm:             string | fn.#Fn
-			RevocationConfiguration?: {
-				CrlConfiguration?: {
+			RevocationConfiguration?: close({
+				CrlConfiguration?: close({
 					CustomCname?:      string | fn.#Fn
 					Enabled?:          bool | fn.#Fn
 					ExpirationInDays?: int | fn.#Fn
 					S3BucketName?:     string | fn.#Fn
-				} | fn.If
-			} | fn.If
+				}) | fn.If
+			}) | fn.If
 			SigningAlgorithm: string | fn.#Fn
-			Subject:          {
+			Subject:          close({
 				CommonName?:                 string | fn.#Fn
 				Country?:                    string | fn.#Fn
 				DistinguishedNameQualifier?: string | fn.#Fn
@@ -49,13 +49,13 @@ import "github.com/TangoGroup/aws/fn"
 				State?:                      string | fn.#Fn
 				Surname?:                    string | fn.#Fn
 				Title?:                      string | fn.#Fn
-			} | fn.If
-			Tags?: [...{
+			}) | fn.If
+			Tags?: [...close({
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			}] | fn.If
+			})] | fn.If
 			Type: string | fn.#Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -63,13 +63,13 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#CertificateAuthorityActivation: {
-		Type: "AWS::ACMPCA::CertificateAuthorityActivation"
-		Properties: {
+		Type:       "AWS::ACMPCA::CertificateAuthorityActivation"
+		Properties: close({
 			Certificate:             string | fn.#Fn
 			CertificateAuthorityArn: string | fn.#Fn
 			CertificateChain?:       string | fn.#Fn
 			Status?:                 string | fn.#Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

@@ -4,37 +4,37 @@ import "github.com/TangoGroup/aws/fn"
 
 #MediaLive: {
 	#Channel: {
-		Type: "AWS::MediaLive::Channel"
-		Properties: {
+		Type:       "AWS::MediaLive::Channel"
+		Properties: close({
 			ChannelClass?: string | fn.#Fn
-			Destinations?: [...{
+			Destinations?: [...close({
 				Id?:                   string | fn.#Fn
-				MediaPackageSettings?: [...{
+				MediaPackageSettings?: [...close({
 					ChannelId?: string | fn.#Fn
-				}] | fn.If
-				MultiplexSettings?: {
+				})] | fn.If
+				MultiplexSettings?: close({
 					MultiplexId?: string | fn.#Fn
 					ProgramName?: string | fn.#Fn
-				} | fn.If
-				Settings?: [...{
+				}) | fn.If
+				Settings?: [...close({
 					PasswordParam?: string | fn.#Fn
 					StreamName?:    string | fn.#Fn
 					Url?:           string | fn.#Fn
 					Username?:      string | fn.#Fn
-				}] | fn.If
-			}] | fn.If
-			EncoderSettings?: {
-				AudioDescriptions?: [...{
-					AudioNormalizationSettings?: {
+				})] | fn.If
+			})] | fn.If
+			EncoderSettings?: close({
+				AudioDescriptions?: [...close({
+					AudioNormalizationSettings?: close({
 						Algorithm?:        string | fn.#Fn
 						AlgorithmControl?: string | fn.#Fn
 						TargetLkfs?:       number | fn.#Fn
-					} | fn.If
+					}) | fn.If
 					AudioSelectorName?: string | fn.#Fn
 					AudioType?:         string | fn.#Fn
 					AudioTypeControl?:  string | fn.#Fn
-					CodecSettings?:     {
-						AacSettings?: {
+					CodecSettings?:     close({
+						AacSettings?: close({
 							Bitrate?:         number | fn.#Fn
 							CodingMode?:      string | fn.#Fn
 							InputType?:       string | fn.#Fn
@@ -44,8 +44,8 @@ import "github.com/TangoGroup/aws/fn"
 							SampleRate?:      number | fn.#Fn
 							Spec?:            string | fn.#Fn
 							VbrQuality?:      string | fn.#Fn
-						} | fn.If
-						Ac3Settings?: {
+						}) | fn.If
+						Ac3Settings?: close({
 							Bitrate?:         number | fn.#Fn
 							BitstreamMode?:   string | fn.#Fn
 							CodingMode?:      string | fn.#Fn
@@ -53,8 +53,8 @@ import "github.com/TangoGroup/aws/fn"
 							DrcProfile?:      string | fn.#Fn
 							LfeFilter?:       string | fn.#Fn
 							MetadataControl?: string | fn.#Fn
-						} | fn.If
-						Eac3Settings?: {
+						}) | fn.If
+						Eac3Settings?: close({
 							AttenuationControl?:   string | fn.#Fn
 							Bitrate?:              number | fn.#Fn
 							BitstreamMode?:        string | fn.#Fn
@@ -75,80 +75,80 @@ import "github.com/TangoGroup/aws/fn"
 							StereoDownmix?:        string | fn.#Fn
 							SurroundExMode?:       string | fn.#Fn
 							SurroundMode?:         string | fn.#Fn
-						} | fn.If
-						Mp2Settings?: {
+						}) | fn.If
+						Mp2Settings?: close({
 							Bitrate?:    number | fn.#Fn
 							CodingMode?: string | fn.#Fn
 							SampleRate?: number | fn.#Fn
-						} | fn.If
-						PassThroughSettings?: {} | fn.If
-					} | fn.If
+						}) | fn.If
+						PassThroughSettings?: close({}) | fn.If
+					}) | fn.If
 					LanguageCode?:        string | fn.#Fn
 					LanguageCodeControl?: string | fn.#Fn
 					Name?:                string | fn.#Fn
-					RemixSettings?:       {
-						ChannelMappings?: [...{
-							InputChannelLevels?: [...{
+					RemixSettings?:       close({
+						ChannelMappings?: [...close({
+							InputChannelLevels?: [...close({
 								Gain?:         int | fn.#Fn
 								InputChannel?: int | fn.#Fn
-							}] | fn.If
+							})] | fn.If
 							OutputChannel?: int | fn.#Fn
-						}] | fn.If
+						})] | fn.If
 						ChannelsIn?:  int | fn.#Fn
 						ChannelsOut?: int | fn.#Fn
-					} | fn.If
+					}) | fn.If
 					StreamName?: string | fn.#Fn
-				}] | fn.If
-				AvailBlanking?: {
-					AvailBlankingImage?: {
+				})] | fn.If
+				AvailBlanking?: close({
+					AvailBlankingImage?: close({
 						PasswordParam?: string | fn.#Fn
 						Uri?:           string | fn.#Fn
 						Username?:      string | fn.#Fn
-					} | fn.If
+					}) | fn.If
 					State?: string | fn.#Fn
-				} | fn.If
-				AvailConfiguration?: {
-					AvailSettings?: {
-						Scte35SpliceInsert?: {
+				}) | fn.If
+				AvailConfiguration?: close({
+					AvailSettings?: close({
+						Scte35SpliceInsert?: close({
 							AdAvailOffset?:          int | fn.#Fn
 							NoRegionalBlackoutFlag?: string | fn.#Fn
 							WebDeliveryAllowedFlag?: string | fn.#Fn
-						} | fn.If
-						Scte35TimeSignalApos?: {
+						}) | fn.If
+						Scte35TimeSignalApos?: close({
 							AdAvailOffset?:          int | fn.#Fn
 							NoRegionalBlackoutFlag?: string | fn.#Fn
 							WebDeliveryAllowedFlag?: string | fn.#Fn
-						} | fn.If
-					} | fn.If
-				} | fn.If
-				BlackoutSlate?: {
-					BlackoutSlateImage?: {
+						}) | fn.If
+					}) | fn.If
+				}) | fn.If
+				BlackoutSlate?: close({
+					BlackoutSlateImage?: close({
 						PasswordParam?: string | fn.#Fn
 						Uri?:           string | fn.#Fn
 						Username?:      string | fn.#Fn
-					} | fn.If
+					}) | fn.If
 					NetworkEndBlackout?:      string | fn.#Fn
-					NetworkEndBlackoutImage?: {
+					NetworkEndBlackoutImage?: close({
 						PasswordParam?: string | fn.#Fn
 						Uri?:           string | fn.#Fn
 						Username?:      string | fn.#Fn
-					} | fn.If
+					}) | fn.If
 					NetworkId?: string | fn.#Fn
 					State?:     string | fn.#Fn
-				} | fn.If
-				CaptionDescriptions?: [...{
+				}) | fn.If
+				CaptionDescriptions?: [...close({
 					CaptionSelectorName?: string | fn.#Fn
-					DestinationSettings?: {
-						AribDestinationSettings?:   {} | fn.If
-						BurnInDestinationSettings?: {
+					DestinationSettings?: close({
+						AribDestinationSettings?:   close({}) | fn.If
+						BurnInDestinationSettings?: close({
 							Alignment?:         string | fn.#Fn
 							BackgroundColor?:   string | fn.#Fn
 							BackgroundOpacity?: int | fn.#Fn
-							Font?:              {
+							Font?:              close({
 								PasswordParam?: string | fn.#Fn
 								Uri?:           string | fn.#Fn
 								Username?:      string | fn.#Fn
-							} | fn.If
+							}) | fn.If
 							FontColor?:           string | fn.#Fn
 							FontOpacity?:         int | fn.#Fn
 							FontResolution?:      int | fn.#Fn
@@ -162,16 +162,16 @@ import "github.com/TangoGroup/aws/fn"
 							TeletextGridControl?: string | fn.#Fn
 							XPosition?:           int | fn.#Fn
 							YPosition?:           int | fn.#Fn
-						} | fn.If
-						DvbSubDestinationSettings?: {
+						}) | fn.If
+						DvbSubDestinationSettings?: close({
 							Alignment?:         string | fn.#Fn
 							BackgroundColor?:   string | fn.#Fn
 							BackgroundOpacity?: int | fn.#Fn
-							Font?:              {
+							Font?:              close({
 								PasswordParam?: string | fn.#Fn
 								Uri?:           string | fn.#Fn
 								Username?:      string | fn.#Fn
-							} | fn.If
+							}) | fn.If
 							FontColor?:           string | fn.#Fn
 							FontOpacity?:         int | fn.#Fn
 							FontResolution?:      int | fn.#Fn
@@ -185,89 +185,89 @@ import "github.com/TangoGroup/aws/fn"
 							TeletextGridControl?: string | fn.#Fn
 							XPosition?:           int | fn.#Fn
 							YPosition?:           int | fn.#Fn
-						} | fn.If
-						EbuTtDDestinationSettings?: {
+						}) | fn.If
+						EbuTtDDestinationSettings?: close({
 							FillLineGap?:  string | fn.#Fn
 							FontFamily?:   string | fn.#Fn
 							StyleControl?: string | fn.#Fn
-						} | fn.If
-						EmbeddedDestinationSettings?:           {} | fn.If
-						EmbeddedPlusScte20DestinationSettings?: {} | fn.If
-						RtmpCaptionInfoDestinationSettings?:    {} | fn.If
-						Scte20PlusEmbeddedDestinationSettings?: {} | fn.If
-						Scte27DestinationSettings?:             {} | fn.If
-						SmpteTtDestinationSettings?:            {} | fn.If
-						TeletextDestinationSettings?:           {} | fn.If
-						TtmlDestinationSettings?:               {
+						}) | fn.If
+						EmbeddedDestinationSettings?:           close({}) | fn.If
+						EmbeddedPlusScte20DestinationSettings?: close({}) | fn.If
+						RtmpCaptionInfoDestinationSettings?:    close({}) | fn.If
+						Scte20PlusEmbeddedDestinationSettings?: close({}) | fn.If
+						Scte27DestinationSettings?:             close({}) | fn.If
+						SmpteTtDestinationSettings?:            close({}) | fn.If
+						TeletextDestinationSettings?:           close({}) | fn.If
+						TtmlDestinationSettings?:               close({
 							StyleControl?: string | fn.#Fn
-						} | fn.If
-						WebvttDestinationSettings?: {} | fn.If
-					} | fn.If
+						}) | fn.If
+						WebvttDestinationSettings?: close({}) | fn.If
+					}) | fn.If
 					LanguageCode?:        string | fn.#Fn
 					LanguageDescription?: string | fn.#Fn
 					Name?:                string | fn.#Fn
-				}] | fn.If
-				FeatureActivations?: {
+				})] | fn.If
+				FeatureActivations?: close({
 					InputPrepareScheduleActions?: string | fn.#Fn
-				} | fn.If
-				GlobalConfiguration?: {
+				}) | fn.If
+				GlobalConfiguration?: close({
 					InitialAudioGain?:  int | fn.#Fn
 					InputEndAction?:    string | fn.#Fn
-					InputLossBehavior?: {
+					InputLossBehavior?: close({
 						BlackFrameMsec?:      int | fn.#Fn
 						InputLossImageColor?: string | fn.#Fn
-						InputLossImageSlate?: {
+						InputLossImageSlate?: close({
 							PasswordParam?: string | fn.#Fn
 							Uri?:           string | fn.#Fn
 							Username?:      string | fn.#Fn
-						} | fn.If
+						}) | fn.If
 						InputLossImageType?: string | fn.#Fn
 						RepeatFrameMsec?:    int | fn.#Fn
-					} | fn.If
+					}) | fn.If
 					OutputLockingMode?:         string | fn.#Fn
 					OutputTimingSource?:        string | fn.#Fn
 					SupportLowFramerateInputs?: string | fn.#Fn
-				} | fn.If
-				NielsenConfiguration?: {
+				}) | fn.If
+				NielsenConfiguration?: close({
 					DistributorId?:          string | fn.#Fn
 					NielsenPcmToId3Tagging?: string | fn.#Fn
-				} | fn.If
-				OutputGroups?: [...{
+				}) | fn.If
+				OutputGroups?: [...close({
 					Name?:                string | fn.#Fn
-					OutputGroupSettings?: {
-						ArchiveGroupSettings?: {
-							Destination?: {
+					OutputGroupSettings?: close({
+						ArchiveGroupSettings?: close({
+							Destination?: close({
 								DestinationRefId?: string | fn.#Fn
-							} | fn.If
+							}) | fn.If
 							RolloverInterval?: int | fn.#Fn
-						} | fn.If
-						FrameCaptureGroupSettings?: {
-							Destination?: {
+						}) | fn.If
+						FrameCaptureGroupSettings?: close({
+							Destination?: close({
 								DestinationRefId?: string | fn.#Fn
-							} | fn.If
-						} | fn.If
-						HlsGroupSettings?: {
+							}) | fn.If
+						}) | fn.If
+						HlsGroupSettings?: close({
 							AdMarkers?:               [...(string | fn.#Fn)] | (string | fn.#Fn)
 							BaseUrlContent?:          string | fn.#Fn
 							BaseUrlContent1?:         string | fn.#Fn
 							BaseUrlManifest?:         string | fn.#Fn
 							BaseUrlManifest1?:        string | fn.#Fn
-							CaptionLanguageMappings?: [...{
+							CaptionLanguageMappings?: [...close({
 								CaptionChannel?:      int | fn.#Fn
 								LanguageCode?:        string | fn.#Fn
 								LanguageDescription?: string | fn.#Fn
-							}] | fn.If
+							})] | fn.If
 							CaptionLanguageSetting?: string | fn.#Fn
 							ClientCache?:            string | fn.#Fn
 							CodecSpecification?:     string | fn.#Fn
 							ConstantIv?:             string | fn.#Fn
-							Destination?:            {
+							Destination?:            close({
 								DestinationRefId?: string | fn.#Fn
-							} | fn.If
+							}) | fn.If
 							DirectoryStructure?: string | fn.#Fn
 							EncryptionType?:     string | fn.#Fn
-							HlsCdnSettings?:     {
-								HlsAkamaiSettings?: {
+							HlsCdnSettings?:     close({
+								HlsAkamaiSettings?: close({
 									ConnectionRetryInterval?: int | fn.#Fn
 									FilecacheDuration?:       int | fn.#Fn
 									HttpTransferMode?:        string | fn.#Fn
@@ -275,28 +275,28 @@ import "github.com/TangoGroup/aws/fn"
 									RestartDelay?:            int | fn.#Fn
 									Salt?:                    string | fn.#Fn
 									Token?:                   string | fn.#Fn
-								} | fn.If
-								HlsBasicPutSettings?: {
+								}) | fn.If
+								HlsBasicPutSettings?: close({
 									ConnectionRetryInterval?: int | fn.#Fn
 									FilecacheDuration?:       int | fn.#Fn
 									NumRetries?:              int | fn.#Fn
 									RestartDelay?:            int | fn.#Fn
-								} | fn.If
-								HlsMediaStoreSettings?: {
+								}) | fn.If
+								HlsMediaStoreSettings?: close({
 									ConnectionRetryInterval?: int | fn.#Fn
 									FilecacheDuration?:       int | fn.#Fn
 									MediaStoreStorageClass?:  string | fn.#Fn
 									NumRetries?:              int | fn.#Fn
 									RestartDelay?:            int | fn.#Fn
-								} | fn.If
-								HlsWebdavSettings?: {
+								}) | fn.If
+								HlsWebdavSettings?: close({
 									ConnectionRetryInterval?: int | fn.#Fn
 									FilecacheDuration?:       int | fn.#Fn
 									HttpTransferMode?:        string | fn.#Fn
 									NumRetries?:              int | fn.#Fn
 									RestartDelay?:            int | fn.#Fn
-								} | fn.If
-							} | fn.If
+								}) | fn.If
+							}) | fn.If
 							HlsId3SegmentTagging?: string | fn.#Fn
 							IFrameOnlyPlaylists?:  string | fn.#Fn
 							IndexNSegments?:       int | fn.#Fn
@@ -306,16 +306,16 @@ import "github.com/TangoGroup/aws/fn"
 							KeepSegments?:         int | fn.#Fn
 							KeyFormat?:            string | fn.#Fn
 							KeyFormatVersions?:    string | fn.#Fn
-							KeyProviderSettings?:  {
-								StaticKeySettings?: {
-									KeyProviderServer?: {
+							KeyProviderSettings?:  close({
+								StaticKeySettings?: close({
+									KeyProviderServer?: close({
 										PasswordParam?: string | fn.#Fn
 										Uri?:           string | fn.#Fn
 										Username?:      string | fn.#Fn
-									} | fn.If
+									}) | fn.If
 									StaticKeyValue?: string | fn.#Fn
-								} | fn.If
-							} | fn.If
+								}) | fn.If
+							}) | fn.If
 							ManifestCompression?:        string | fn.#Fn
 							ManifestDurationFormat?:     string | fn.#Fn
 							MinSegmentLength?:           int | fn.#Fn
@@ -332,20 +332,20 @@ import "github.com/TangoGroup/aws/fn"
 							TimedMetadataId3Period?:     int | fn.#Fn
 							TimestampDeltaMilliseconds?: int | fn.#Fn
 							TsFileMode?:                 string | fn.#Fn
-						} | fn.If
-						MediaPackageGroupSettings?: {
-							Destination?: {
+						}) | fn.If
+						MediaPackageGroupSettings?: close({
+							Destination?: close({
 								DestinationRefId?: string | fn.#Fn
-							} | fn.If
-						} | fn.If
-						MsSmoothGroupSettings?: {
+							}) | fn.If
+						}) | fn.If
+						MsSmoothGroupSettings?: close({
 							AcquisitionPointId?:       string | fn.#Fn
 							AudioOnlyTimecodeControl?: string | fn.#Fn
 							CertificateMode?:          string | fn.#Fn
 							ConnectionRetryInterval?:  int | fn.#Fn
-							Destination?:              {
+							Destination?:              close({
 								DestinationRefId?: string | fn.#Fn
-							} | fn.If
+							}) | fn.If
 							EventId?:                string | fn.#Fn
 							EventIdMode?:            string | fn.#Fn
 							EventStopBehavior?:      string | fn.#Fn
@@ -360,30 +360,30 @@ import "github.com/TangoGroup/aws/fn"
 							StreamManifestBehavior?: string | fn.#Fn
 							TimestampOffset?:        string | fn.#Fn
 							TimestampOffsetMode?:    string | fn.#Fn
-						} | fn.If
-						MultiplexGroupSettings?: {} | fn.If
-						RtmpGroupSettings?:      {
+						}) | fn.If
+						MultiplexGroupSettings?: close({}) | fn.If
+						RtmpGroupSettings?:      close({
 							AuthenticationScheme?: string | fn.#Fn
 							CacheFullBehavior?:    string | fn.#Fn
 							CacheLength?:          int | fn.#Fn
 							CaptionData?:          string | fn.#Fn
 							InputLossAction?:      string | fn.#Fn
 							RestartDelay?:         int | fn.#Fn
-						} | fn.If
-						UdpGroupSettings?: {
+						}) | fn.If
+						UdpGroupSettings?: close({
 							InputLossAction?:        string | fn.#Fn
 							TimedMetadataId3Frame?:  string | fn.#Fn
 							TimedMetadataId3Period?: int | fn.#Fn
-						} | fn.If
-					} | fn.If
-					Outputs?: [...{
+						}) | fn.If
+					}) | fn.If
+					Outputs?: [...close({
 						AudioDescriptionNames?:   [...(string | fn.#Fn)] | (string | fn.#Fn)
 						CaptionDescriptionNames?: [...(string | fn.#Fn)] | (string | fn.#Fn)
 						OutputName?:              string | fn.#Fn
-						OutputSettings?:          {
-							ArchiveOutputSettings?: {
-								ContainerSettings?: {
-									M2tsSettings?: {
+						OutputSettings?:          close({
+							ArchiveOutputSettings?: close({
+								ContainerSettings?: close({
+									M2tsSettings?: close({
 										AbsentInputAudioBehavior?: string | fn.#Fn
 										Arib?:                     string | fn.#Fn
 										AribCaptionsPid?:          string | fn.#Fn
@@ -395,21 +395,21 @@ import "github.com/TangoGroup/aws/fn"
 										Bitrate?:                  int | fn.#Fn
 										BufferModel?:              string | fn.#Fn
 										CcDescriptor?:             string | fn.#Fn
-										DvbNitSettings?:           {
+										DvbNitSettings?:           close({
 											NetworkId?:   int | fn.#Fn
 											NetworkName?: string | fn.#Fn
 											RepInterval?: int | fn.#Fn
-										} | fn.If
-										DvbSdtSettings?: {
+										}) | fn.If
+										DvbSdtSettings?: close({
 											OutputSdt?:           string | fn.#Fn
 											RepInterval?:         int | fn.#Fn
 											ServiceName?:         string | fn.#Fn
 											ServiceProviderName?: string | fn.#Fn
-										} | fn.If
+										}) | fn.If
 										DvbSubPids?:     string | fn.#Fn
-										DvbTdtSettings?: {
+										DvbTdtSettings?: close({
 											RepInterval?: int | fn.#Fn
-										} | fn.If
+										}) | fn.If
 										DvbTeletextPid?:        string | fn.#Fn
 										Ebif?:                  string | fn.#Fn
 										EbpAudioInterval?:      string | fn.#Fn
@@ -442,35 +442,35 @@ import "github.com/TangoGroup/aws/fn"
 										TimedMetadataPid?:      string | fn.#Fn
 										TransportStreamId?:     int | fn.#Fn
 										VideoPid?:              string | fn.#Fn
-									} | fn.If
-								} | fn.If
+									}) | fn.If
+								}) | fn.If
 								Extension?:    string | fn.#Fn
 								NameModifier?: string | fn.#Fn
-							} | fn.If
-							FrameCaptureOutputSettings?: {
+							}) | fn.If
+							FrameCaptureOutputSettings?: close({
 								NameModifier?: string | fn.#Fn
-							} | fn.If
-							HlsOutputSettings?: {
+							}) | fn.If
+							HlsOutputSettings?: close({
 								H265PackagingType?: string | fn.#Fn
-								HlsSettings?:       {
-									AudioOnlyHlsSettings?: {
+								HlsSettings?:       close({
+									AudioOnlyHlsSettings?: close({
 										AudioGroupId?:   string | fn.#Fn
-										AudioOnlyImage?: {
+										AudioOnlyImage?: close({
 											PasswordParam?: string | fn.#Fn
 											Uri?:           string | fn.#Fn
 											Username?:      string | fn.#Fn
-										} | fn.If
+										}) | fn.If
 										AudioTrackType?: string | fn.#Fn
 										SegmentType?:    string | fn.#Fn
-									} | fn.If
-									Fmp4HlsSettings?: {
+									}) | fn.If
+									Fmp4HlsSettings?: close({
 										AudioRenditionSets?:    string | fn.#Fn
 										NielsenId3Behavior?:    string | fn.#Fn
 										TimedMetadataBehavior?: string | fn.#Fn
-									} | fn.If
-									StandardHlsSettings?: {
+									}) | fn.If
+									StandardHlsSettings?: close({
 										AudioRenditionSets?: string | fn.#Fn
-										M3u8Settings?:       {
+										M3u8Settings?:       close({
 											AudioFramesPerPes?:     int | fn.#Fn
 											AudioPids?:             string | fn.#Fn
 											EcmPid?:                string | fn.#Fn
@@ -488,34 +488,34 @@ import "github.com/TangoGroup/aws/fn"
 											TimedMetadataPid?:      string | fn.#Fn
 											TransportStreamId?:     int | fn.#Fn
 											VideoPid?:              string | fn.#Fn
-										} | fn.If
-									} | fn.If
-								} | fn.If
+										}) | fn.If
+									}) | fn.If
+								}) | fn.If
 								NameModifier?:    string | fn.#Fn
 								SegmentModifier?: string | fn.#Fn
-							} | fn.If
-							MediaPackageOutputSettings?: {} | fn.If
-							MsSmoothOutputSettings?:     {
+							}) | fn.If
+							MediaPackageOutputSettings?: close({}) | fn.If
+							MsSmoothOutputSettings?:     close({
 								H265PackagingType?: string | fn.#Fn
 								NameModifier?:      string | fn.#Fn
-							} | fn.If
-							MultiplexOutputSettings?: {
-								Destination?: {
+							}) | fn.If
+							MultiplexOutputSettings?: close({
+								Destination?: close({
 									DestinationRefId?: string | fn.#Fn
-								} | fn.If
-							} | fn.If
-							RtmpOutputSettings?: {
+								}) | fn.If
+							}) | fn.If
+							RtmpOutputSettings?: close({
 								CertificateMode?:         string | fn.#Fn
 								ConnectionRetryInterval?: int | fn.#Fn
-								Destination?:             {
+								Destination?:             close({
 									DestinationRefId?: string | fn.#Fn
-								} | fn.If
+								}) | fn.If
 								NumRetries?: int | fn.#Fn
-							} | fn.If
-							UdpOutputSettings?: {
+							}) | fn.If
+							UdpOutputSettings?: close({
 								BufferMsec?:        int | fn.#Fn
-								ContainerSettings?: {
-									M2tsSettings?: {
+								ContainerSettings?: close({
+									M2tsSettings?: close({
 										AbsentInputAudioBehavior?: string | fn.#Fn
 										Arib?:                     string | fn.#Fn
 										AribCaptionsPid?:          string | fn.#Fn
@@ -527,21 +527,21 @@ import "github.com/TangoGroup/aws/fn"
 										Bitrate?:                  int | fn.#Fn
 										BufferModel?:              string | fn.#Fn
 										CcDescriptor?:             string | fn.#Fn
-										DvbNitSettings?:           {
+										DvbNitSettings?:           close({
 											NetworkId?:   int | fn.#Fn
 											NetworkName?: string | fn.#Fn
 											RepInterval?: int | fn.#Fn
-										} | fn.If
-										DvbSdtSettings?: {
+										}) | fn.If
+										DvbSdtSettings?: close({
 											OutputSdt?:           string | fn.#Fn
 											RepInterval?:         int | fn.#Fn
 											ServiceName?:         string | fn.#Fn
 											ServiceProviderName?: string | fn.#Fn
-										} | fn.If
+										}) | fn.If
 										DvbSubPids?:     string | fn.#Fn
-										DvbTdtSettings?: {
+										DvbTdtSettings?: close({
 											RepInterval?: int | fn.#Fn
-										} | fn.If
+										}) | fn.If
 										DvbTeletextPid?:        string | fn.#Fn
 										Ebif?:                  string | fn.#Fn
 										EbpAudioInterval?:      string | fn.#Fn
@@ -574,50 +574,50 @@ import "github.com/TangoGroup/aws/fn"
 										TimedMetadataPid?:      string | fn.#Fn
 										TransportStreamId?:     int | fn.#Fn
 										VideoPid?:              string | fn.#Fn
-									} | fn.If
-								} | fn.If
-								Destination?: {
+									}) | fn.If
+								}) | fn.If
+								Destination?: close({
 									DestinationRefId?: string | fn.#Fn
-								} | fn.If
-								FecOutputSettings?: {
+								}) | fn.If
+								FecOutputSettings?: close({
 									ColumnDepth?: int | fn.#Fn
 									IncludeFec?:  string | fn.#Fn
 									RowLength?:   int | fn.#Fn
-								} | fn.If
-							} | fn.If
-						} | fn.If
+								}) | fn.If
+							}) | fn.If
+						}) | fn.If
 						VideoDescriptionName?: string | fn.#Fn
-					}] | fn.If
-				}] | fn.If
-				TimecodeConfig?: {
+					})] | fn.If
+				})] | fn.If
+				TimecodeConfig?: close({
 					Source?:        string | fn.#Fn
 					SyncThreshold?: int | fn.#Fn
-				} | fn.If
-				VideoDescriptions?: [...{
-					CodecSettings?: {
-						FrameCaptureSettings?: {
+				}) | fn.If
+				VideoDescriptions?: [...close({
+					CodecSettings?: close({
+						FrameCaptureSettings?: close({
 							CaptureInterval?:      int | fn.#Fn
 							CaptureIntervalUnits?: string | fn.#Fn
-						} | fn.If
-						H264Settings?: {
+						}) | fn.If
+						H264Settings?: close({
 							AdaptiveQuantization?: string | fn.#Fn
 							AfdSignaling?:         string | fn.#Fn
 							Bitrate?:              int | fn.#Fn
 							BufFillPct?:           int | fn.#Fn
 							BufSize?:              int | fn.#Fn
 							ColorMetadata?:        string | fn.#Fn
-							ColorSpaceSettings?:   {
-								ColorSpacePassthroughSettings?: {} | fn.If
-								Rec601Settings?:                {} | fn.If
-								Rec709Settings?:                {} | fn.If
-							} | fn.If
+							ColorSpaceSettings?:   close({
+								ColorSpacePassthroughSettings?: close({}) | fn.If
+								Rec601Settings?:                close({}) | fn.If
+								Rec709Settings?:                close({}) | fn.If
+							}) | fn.If
 							EntropyEncoding?: string | fn.#Fn
-							FilterSettings?:  {
-								TemporalFilterSettings?: {
+							FilterSettings?:  close({
+								TemporalFilterSettings?: close({
 									PostFilterSharpening?: string | fn.#Fn
 									Strength?:             string | fn.#Fn
-								} | fn.If
-							} | fn.If
+								}) | fn.If
+							}) | fn.If
 							FixedAfd?:             string | fn.#Fn
 							FlickerAq?:            string | fn.#Fn
 							ForceFieldPictures?:   string | fn.#Fn
@@ -650,29 +650,29 @@ import "github.com/TangoGroup/aws/fn"
 							Syntax?:               string | fn.#Fn
 							TemporalAq?:           string | fn.#Fn
 							TimecodeInsertion?:    string | fn.#Fn
-						} | fn.If
-						H265Settings?: {
+						}) | fn.If
+						H265Settings?: close({
 							AdaptiveQuantization?:        string | fn.#Fn
 							AfdSignaling?:                string | fn.#Fn
 							AlternativeTransferFunction?: string | fn.#Fn
 							Bitrate?:                     int | fn.#Fn
 							BufSize?:                     int | fn.#Fn
 							ColorMetadata?:               string | fn.#Fn
-							ColorSpaceSettings?:          {
-								ColorSpacePassthroughSettings?: {} | fn.If
-								Hdr10Settings?:                 {
+							ColorSpaceSettings?:          close({
+								ColorSpacePassthroughSettings?: close({}) | fn.If
+								Hdr10Settings?:                 close({
 									MaxCll?:  int | fn.#Fn
 									MaxFall?: int | fn.#Fn
-								} | fn.If
-								Rec601Settings?: {} | fn.If
-								Rec709Settings?: {} | fn.If
-							} | fn.If
-							FilterSettings?: {
-								TemporalFilterSettings?: {
+								}) | fn.If
+								Rec601Settings?: close({}) | fn.If
+								Rec709Settings?: close({}) | fn.If
+							}) | fn.If
+							FilterSettings?: close({
+								TemporalFilterSettings?: close({
 									PostFilterSharpening?: string | fn.#Fn
 									Strength?:             string | fn.#Fn
-								} | fn.If
-							} | fn.If
+								}) | fn.If
+							}) | fn.If
 							FixedAfd?:             string | fn.#Fn
 							FlickerAq?:            string | fn.#Fn
 							FramerateDenominator?: int | fn.#Fn
@@ -694,108 +694,108 @@ import "github.com/TangoGroup/aws/fn"
 							Slices?:               int | fn.#Fn
 							Tier?:                 string | fn.#Fn
 							TimecodeInsertion?:    string | fn.#Fn
-						} | fn.If
-					} | fn.If
+						}) | fn.If
+					}) | fn.If
 					Height?:          int | fn.#Fn
 					Name?:            string | fn.#Fn
 					RespondToAfd?:    string | fn.#Fn
 					ScalingBehavior?: string | fn.#Fn
 					Sharpness?:       int | fn.#Fn
 					Width?:           int | fn.#Fn
-				}] | fn.If
-			} | fn.If
-			InputAttachments?: [...{
-				AutomaticInputFailoverSettings?: {
+				})] | fn.If
+			}) | fn.If
+			InputAttachments?: [...close({
+				AutomaticInputFailoverSettings?: close({
 					InputPreference?:  string | fn.#Fn
 					SecondaryInputId?: string | fn.#Fn
-				} | fn.If
+				}) | fn.If
 				InputAttachmentName?: string | fn.#Fn
 				InputId?:             string | fn.#Fn
-				InputSettings?:       {
-					AudioSelectors?: [...{
+				InputSettings?:       close({
+					AudioSelectors?: [...close({
 						Name?:             string | fn.#Fn
-						SelectorSettings?: {
-							AudioLanguageSelection?: {
+						SelectorSettings?: close({
+							AudioLanguageSelection?: close({
 								LanguageCode?:            string | fn.#Fn
 								LanguageSelectionPolicy?: string | fn.#Fn
-							} | fn.If
-							AudioPidSelection?: {
+							}) | fn.If
+							AudioPidSelection?: close({
 								Pid?: int | fn.#Fn
-							} | fn.If
-							AudioTrackSelection?: {
-								Tracks?: [...{
+							}) | fn.If
+							AudioTrackSelection?: close({
+								Tracks?: [...close({
 									Track?: int | fn.#Fn
-								}] | fn.If
-							} | fn.If
-						} | fn.If
-					}] | fn.If
-					CaptionSelectors?: [...{
+								})] | fn.If
+							}) | fn.If
+						}) | fn.If
+					})] | fn.If
+					CaptionSelectors?: [...close({
 						LanguageCode?:     string | fn.#Fn
 						Name?:             string | fn.#Fn
-						SelectorSettings?: {
-							AribSourceSettings?:   {} | fn.If
-							DvbSubSourceSettings?: {
+						SelectorSettings?: close({
+							AribSourceSettings?:   close({}) | fn.If
+							DvbSubSourceSettings?: close({
 								Pid?: int | fn.#Fn
-							} | fn.If
-							EmbeddedSourceSettings?: {
+							}) | fn.If
+							EmbeddedSourceSettings?: close({
 								Convert608To708?:        string | fn.#Fn
 								Scte20Detection?:        string | fn.#Fn
 								Source608ChannelNumber?: int | fn.#Fn
 								Source608TrackNumber?:   int | fn.#Fn
-							} | fn.If
-							Scte20SourceSettings?: {
+							}) | fn.If
+							Scte20SourceSettings?: close({
 								Convert608To708?:        string | fn.#Fn
 								Source608ChannelNumber?: int | fn.#Fn
-							} | fn.If
-							Scte27SourceSettings?: {
+							}) | fn.If
+							Scte27SourceSettings?: close({
 								Pid?: int | fn.#Fn
-							} | fn.If
-							TeletextSourceSettings?: {
+							}) | fn.If
+							TeletextSourceSettings?: close({
 								PageNumber?: string | fn.#Fn
-							} | fn.If
-						} | fn.If
-					}] | fn.If
+							}) | fn.If
+						}) | fn.If
+					})] | fn.If
 					DeblockFilter?:        string | fn.#Fn
 					DenoiseFilter?:        string | fn.#Fn
 					FilterStrength?:       int | fn.#Fn
 					InputFilter?:          string | fn.#Fn
-					NetworkInputSettings?: {
-						HlsInputSettings?: {
+					NetworkInputSettings?: close({
+						HlsInputSettings?: close({
 							Bandwidth?:      int | fn.#Fn
 							BufferSegments?: int | fn.#Fn
 							Retries?:        int | fn.#Fn
 							RetryInterval?:  int | fn.#Fn
-						} | fn.If
+						}) | fn.If
 						ServerValidation?: string | fn.#Fn
-					} | fn.If
+					}) | fn.If
 					Smpte2038DataPreference?: string | fn.#Fn
 					SourceEndBehavior?:       string | fn.#Fn
-					VideoSelector?:           {
+					VideoSelector?:           close({
 						ColorSpace?:       string | fn.#Fn
 						ColorSpaceUsage?:  string | fn.#Fn
-						SelectorSettings?: {
-							VideoSelectorPid?: {
+						SelectorSettings?: close({
+							VideoSelectorPid?: close({
 								Pid?: int | fn.#Fn
-							} | fn.If
-							VideoSelectorProgramId?: {
+							}) | fn.If
+							VideoSelectorProgramId?: close({
 								ProgramId?: int | fn.#Fn
-							} | fn.If
-						} | fn.If
-					} | fn.If
-				} | fn.If
-			}] | fn.If
-			InputSpecification?: {
+							}) | fn.If
+						}) | fn.If
+					}) | fn.If
+				}) | fn.If
+			})] | fn.If
+			InputSpecification?: close({
 				Codec?:          string | fn.#Fn
 				MaximumBitrate?: string | fn.#Fn
 				Resolution?:     string | fn.#Fn
-			} | fn.If
+			}) | fn.If
 			LogLevel?: string | fn.#Fn
 			Name?:     string | fn.#Fn
 			RoleArn?:  string | fn.#Fn
 			Tags?:     {
 				[string]: _
 			} | fn.#Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -803,34 +803,34 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#Input: {
-		Type: "AWS::MediaLive::Input"
-		Properties: {
-			Destinations?: [...{
+		Type:       "AWS::MediaLive::Input"
+		Properties: close({
+			Destinations?: [...close({
 				StreamName?: string | fn.#Fn
-			}] | fn.If
-			InputDevices?: [...{
+			})] | fn.If
+			InputDevices?: [...close({
 				Id?: string | fn.#Fn
-			}] | fn.If
+			})] | fn.If
 			InputSecurityGroups?: [...(string | fn.#Fn)] | (string | fn.#Fn)
-			MediaConnectFlows?:   [...{
+			MediaConnectFlows?:   [...close({
 				FlowArn?: string | fn.#Fn
-			}] | fn.If
+			})] | fn.If
 			Name?:    string | fn.#Fn
 			RoleArn?: string | fn.#Fn
-			Sources?: [...{
+			Sources?: [...close({
 				PasswordParam?: string | fn.#Fn
 				Url?:           string | fn.#Fn
 				Username?:      string | fn.#Fn
-			}] | fn.If
+			})] | fn.If
 			Tags?: {
 				[string]: _
 			} | fn.#Fn
 			Type?: string | fn.#Fn
-			Vpc?:  {
+			Vpc?:  close({
 				SecurityGroupIds?: [...(string | fn.#Fn)] | (string | fn.#Fn)
 				SubnetIds?:        [...(string | fn.#Fn)] | (string | fn.#Fn)
-			} | fn.If
-		}
+			}) | fn.If
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -838,15 +838,15 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#InputSecurityGroup: {
-		Type: "AWS::MediaLive::InputSecurityGroup"
-		Properties: {
+		Type:       "AWS::MediaLive::InputSecurityGroup"
+		Properties: close({
 			Tags?: {
 				[string]: _
 			} | fn.#Fn
-			WhitelistRules?: [...{
+			WhitelistRules?: [...close({
 				Cidr?: (=~#"^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]).){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/([0-9]|[1-2][0-9]|3[0-2]))$"#) | fn.#Fn
-			}] | fn.If
-		}
+			})] | fn.If
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

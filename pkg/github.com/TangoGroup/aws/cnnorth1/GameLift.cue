@@ -4,16 +4,16 @@ import "github.com/TangoGroup/aws/fn"
 
 #GameLift: {
 	#Alias: {
-		Type: "AWS::GameLift::Alias"
-		Properties: {
+		Type:       "AWS::GameLift::Alias"
+		Properties: close({
 			Description?:    string | fn.#Fn
 			Name:            string | fn.#Fn
-			RoutingStrategy: {
+			RoutingStrategy: close({
 				FleetId?: string | fn.#Fn
 				Message?: string | fn.#Fn
 				Type?:    string | fn.#Fn
-			} | fn.If
-		}
+			}) | fn.If
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -21,18 +21,18 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#Build: {
-		Type: "AWS::GameLift::Build"
-		Properties: {
+		Type:       "AWS::GameLift::Build"
+		Properties: close({
 			Name?:            string | fn.#Fn
 			OperatingSystem?: string | fn.#Fn
-			StorageLocation?: {
+			StorageLocation?: close({
 				Bucket:         string | fn.#Fn
 				Key:            string | fn.#Fn
 				ObjectVersion?: string | fn.#Fn
 				RoleArn:        string | fn.#Fn
-			} | fn.If
+			}) | fn.If
 			Version?: string | fn.#Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -40,20 +40,20 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#Fleet: {
-		Type: "AWS::GameLift::Fleet"
-		Properties: {
+		Type:       "AWS::GameLift::Fleet"
+		Properties: close({
 			BuildId?:                  string | fn.#Fn
-			CertificateConfiguration?: {
+			CertificateConfiguration?: close({
 				CertificateType: string | fn.#Fn
-			} | fn.If
+			}) | fn.If
 			Description?:           string | fn.#Fn
 			DesiredEC2Instances?:   int | fn.#Fn
-			EC2InboundPermissions?: [...{
+			EC2InboundPermissions?: [...close({
 				FromPort: int | fn.#Fn
 				IpRange:  string | fn.#Fn
 				Protocol: string | fn.#Fn
 				ToPort:   int | fn.#Fn
-			}] | fn.If
+			})] | fn.If
 			EC2InstanceType:                 ("c3.2xlarge" | "c3.4xlarge" | "c3.8xlarge" | "c3.large" | "c3.xlarge" | "c4.2xlarge" | "c4.4xlarge" | "c4.8xlarge" | "c4.large" | "c4.xlarge" | "c5.18xlarge" | "c5.2xlarge" | "c5.4xlarge" | "c5.9xlarge" | "c5.large" | "c5.xlarge" | "g4dn.12xlarge" | "g4dn.16xlarge" | "g4dn.2xlarge" | "g4dn.4xlarge" | "g4dn.8xlarge" | "g4dn.xlarge" | "m3.2xlarge" | "m3.large" | "m3.medium" | "m3.xlarge" | "m4.10xlarge" | "m4.2xlarge" | "m4.4xlarge" | "m4.large" | "m4.xlarge" | "m5.12xlarge" | "m5.16xlarge" | "m5.24xlarge" | "m5.2xlarge" | "m5.4xlarge" | "m5.8xlarge" | "m5.large" | "m5.xlarge" | "m5a.12xlarge" | "m5a.16xlarge" | "m5a.24xlarge" | "m5a.2xlarge" | "m5a.4xlarge" | "m5a.8xlarge" | "m5a.large" | "m5a.xlarge" | "r3.2xlarge" | "r3.4xlarge" | "r3.8xlarge" | "r3.large" | "r3.xlarge" | "r4.16xlarge" | "r4.2xlarge" | "r4.4xlarge" | "r4.8xlarge" | "r4.large" | "r4.xlarge" | "r5.12xlarge" | "r5.16xlarge" | "r5.24xlarge" | "r5.2xlarge" | "r5.4xlarge" | "r5.8xlarge" | "r5.large" | "r5.xlarge" | "r5a.12xlarge" | "r5a.16xlarge" | "r5a.24xlarge" | "r5a.2xlarge" | "r5a.4xlarge" | "r5a.8xlarge" | "r5a.large" | "r5a.xlarge") | fn.#Fn
 			FleetType?:                      string | fn.#Fn
 			InstanceRoleARN?:                string | fn.#Fn
@@ -65,23 +65,23 @@ import "github.com/TangoGroup/aws/fn"
 			NewGameSessionProtectionPolicy?: string | fn.#Fn
 			PeerVpcAwsAccountId?:            string | fn.#Fn
 			PeerVpcId?:                      string | fn.#Fn
-			ResourceCreationLimitPolicy?:    {
+			ResourceCreationLimitPolicy?:    close({
 				NewGameSessionsPerCreator?: int | fn.#Fn
 				PolicyPeriodInMinutes?:     int | fn.#Fn
-			} | fn.If
-			RuntimeConfiguration?: {
+			}) | fn.If
+			RuntimeConfiguration?: close({
 				GameSessionActivationTimeoutSeconds?: int | fn.#Fn
 				MaxConcurrentGameSessionActivations?: int | fn.#Fn
-				ServerProcesses?:                     [...{
+				ServerProcesses?:                     [...close({
 					ConcurrentExecutions: int | fn.#Fn
 					LaunchPath:           string | fn.#Fn
 					Parameters?:          string | fn.#Fn
-				}] | fn.If
-			} | fn.If
+				})] | fn.If
+			}) | fn.If
 			ScriptId?:               string | fn.#Fn
 			ServerLaunchParameters?: string | fn.#Fn
 			ServerLaunchPath?:       string | fn.#Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -89,40 +89,40 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#GameServerGroup: {
-		Type: "AWS::GameLift::GameServerGroup"
-		Properties: {
-			AutoScalingPolicy?: {
+		Type:       "AWS::GameLift::GameServerGroup"
+		Properties: close({
+			AutoScalingPolicy?: close({
 				EstimatedInstanceWarmup?:    number | fn.#Fn
-				TargetTrackingConfiguration: {
+				TargetTrackingConfiguration: close({
 					TargetValue: number | fn.#Fn
-				} | fn.If
-			} | fn.If
+				}) | fn.If
+			}) | fn.If
 			BalancingStrategy?:          string | fn.#Fn
 			DeleteOption?:               string | fn.#Fn
 			GameServerGroupName:         string | fn.#Fn
 			GameServerProtectionPolicy?: string | fn.#Fn
-			InstanceDefinitions:         {
-				InstanceDefinitions?: [...{
+			InstanceDefinitions:         close({
+				InstanceDefinitions?: [...close({
 					[string]: _
-				}] | fn.If
-			} | fn.If
-			LaunchTemplate: {
+				})] | fn.If
+			}) | fn.If
+			LaunchTemplate: close({
 				LaunchTemplateId?:   string | fn.#Fn
 				LaunchTemplateName?: string | fn.#Fn
 				Version?:            string | fn.#Fn
-			} | fn.If
+			}) | fn.If
 			MaxSize?: number | fn.#Fn
 			MinSize?: number | fn.#Fn
 			RoleArn:  string | fn.#Fn
-			Tags?:    {
-				Tags?: [...{
+			Tags?:    close({
+				Tags?: [...close({
 					[string]: _
-				}] | fn.If
-			} | fn.If
-			VpcSubnets?: {
+				})] | fn.If
+			}) | fn.If
+			VpcSubnets?: close({
 				VpcSubnets?: [...(string | fn.#Fn)] | (string | fn.#Fn)
-			} | fn.If
-		}
+			}) | fn.If
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -130,18 +130,18 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#GameSessionQueue: {
-		Type: "AWS::GameLift::GameSessionQueue"
-		Properties: {
-			Destinations?: [...{
+		Type:       "AWS::GameLift::GameSessionQueue"
+		Properties: close({
+			Destinations?: [...close({
 				DestinationArn?: string | fn.#Fn
-			}] | fn.If
+			})] | fn.If
 			Name:                   string | fn.#Fn
-			PlayerLatencyPolicies?: [...{
+			PlayerLatencyPolicies?: [...close({
 				MaximumIndividualPlayerLatencyMilliseconds?: int | fn.#Fn
 				PolicyDurationSeconds?:                      int | fn.#Fn
-			}] | fn.If
+			})] | fn.If
 			TimeoutInSeconds?: int | fn.#Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -149,8 +149,8 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#MatchmakingConfiguration: {
-		Type: "AWS::GameLift::MatchmakingConfiguration"
-		Properties: {
+		Type:       "AWS::GameLift::MatchmakingConfiguration"
+		Properties: close({
 			AcceptanceRequired:        bool | fn.#Fn
 			AcceptanceTimeoutSeconds?: int | fn.#Fn
 			AdditionalPlayerCount?:    int | fn.#Fn
@@ -158,17 +158,17 @@ import "github.com/TangoGroup/aws/fn"
 			CustomEventData?:          string | fn.#Fn
 			Description?:              string | fn.#Fn
 			FlexMatchMode?:            string | fn.#Fn
-			GameProperties?:           [...{
+			GameProperties?:           [...close({
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			}] | fn.If
+			})] | fn.If
 			GameSessionData?:      string | fn.#Fn
 			GameSessionQueueArns?: [...(string | fn.#Fn)] | (string | fn.#Fn)
 			Name:                  string | fn.#Fn
 			NotificationTarget?:   string | fn.#Fn
 			RequestTimeoutSeconds: int | fn.#Fn
 			RuleSetName:           string | fn.#Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -176,11 +176,11 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#MatchmakingRuleSet: {
-		Type: "AWS::GameLift::MatchmakingRuleSet"
-		Properties: {
+		Type:       "AWS::GameLift::MatchmakingRuleSet"
+		Properties: close({
 			Name:        string | fn.#Fn
 			RuleSetBody: string | fn.#Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -188,17 +188,17 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#Script: {
-		Type: "AWS::GameLift::Script"
-		Properties: {
+		Type:       "AWS::GameLift::Script"
+		Properties: close({
 			Name?:           string | fn.#Fn
-			StorageLocation: {
+			StorageLocation: close({
 				Bucket:         string | fn.#Fn
 				Key:            string | fn.#Fn
 				ObjectVersion?: string | fn.#Fn
 				RoleArn:        string | fn.#Fn
-			} | fn.If
+			}) | fn.If
 			Version?: string | fn.#Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

@@ -4,13 +4,13 @@ import "github.com/TangoGroup/aws/fn"
 
 #Pinpoint: {
 	#ADMChannel: {
-		Type: "AWS::Pinpoint::ADMChannel"
-		Properties: {
+		Type:       "AWS::Pinpoint::ADMChannel"
+		Properties: close({
 			ApplicationId: string | fn.#Fn
 			ClientId:      string | fn.#Fn
 			ClientSecret:  string | fn.#Fn
 			Enabled?:      bool | fn.#Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -18,8 +18,8 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#APNSChannel: {
-		Type: "AWS::Pinpoint::APNSChannel"
-		Properties: {
+		Type:       "AWS::Pinpoint::APNSChannel"
+		Properties: close({
 			ApplicationId:                string | fn.#Fn
 			BundleId?:                    string | fn.#Fn
 			Certificate?:                 string | fn.#Fn
@@ -29,7 +29,7 @@ import "github.com/TangoGroup/aws/fn"
 			TeamId?:                      string | fn.#Fn
 			TokenKey?:                    string | fn.#Fn
 			TokenKeyId?:                  string | fn.#Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -37,8 +37,8 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#APNSSandboxChannel: {
-		Type: "AWS::Pinpoint::APNSSandboxChannel"
-		Properties: {
+		Type:       "AWS::Pinpoint::APNSSandboxChannel"
+		Properties: close({
 			ApplicationId:                string | fn.#Fn
 			BundleId?:                    string | fn.#Fn
 			Certificate?:                 string | fn.#Fn
@@ -48,7 +48,7 @@ import "github.com/TangoGroup/aws/fn"
 			TeamId?:                      string | fn.#Fn
 			TokenKey?:                    string | fn.#Fn
 			TokenKeyId?:                  string | fn.#Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -56,8 +56,8 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#APNSVoipChannel: {
-		Type: "AWS::Pinpoint::APNSVoipChannel"
-		Properties: {
+		Type:       "AWS::Pinpoint::APNSVoipChannel"
+		Properties: close({
 			ApplicationId:                string | fn.#Fn
 			BundleId?:                    string | fn.#Fn
 			Certificate?:                 string | fn.#Fn
@@ -67,7 +67,7 @@ import "github.com/TangoGroup/aws/fn"
 			TeamId?:                      string | fn.#Fn
 			TokenKey?:                    string | fn.#Fn
 			TokenKeyId?:                  string | fn.#Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -75,8 +75,8 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#APNSVoipSandboxChannel: {
-		Type: "AWS::Pinpoint::APNSVoipSandboxChannel"
-		Properties: {
+		Type:       "AWS::Pinpoint::APNSVoipSandboxChannel"
+		Properties: close({
 			ApplicationId:                string | fn.#Fn
 			BundleId?:                    string | fn.#Fn
 			Certificate?:                 string | fn.#Fn
@@ -86,7 +86,7 @@ import "github.com/TangoGroup/aws/fn"
 			TeamId?:                      string | fn.#Fn
 			TokenKey?:                    string | fn.#Fn
 			TokenKeyId?:                  string | fn.#Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -94,13 +94,13 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#App: {
-		Type: "AWS::Pinpoint::App"
-		Properties: {
+		Type:       "AWS::Pinpoint::App"
+		Properties: close({
 			Name:  string | fn.#Fn
 			Tags?: {
 				[string]: _
 			} | fn.#Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -108,26 +108,26 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#ApplicationSettings: {
-		Type: "AWS::Pinpoint::ApplicationSettings"
-		Properties: {
+		Type:       "AWS::Pinpoint::ApplicationSettings"
+		Properties: close({
 			ApplicationId: string | fn.#Fn
-			CampaignHook?: {
+			CampaignHook?: close({
 				LambdaFunctionName?: string | fn.#Fn
 				Mode?:               string | fn.#Fn
 				WebUrl?:             string | fn.#Fn
-			} | fn.If
+			}) | fn.If
 			CloudWatchMetricsEnabled?: bool | fn.#Fn
-			Limits?:                   {
+			Limits?:                   close({
 				Daily?:             int | fn.#Fn
 				MaximumDuration?:   int | fn.#Fn
 				MessagesPerSecond?: int | fn.#Fn
 				Total?:             int | fn.#Fn
-			} | fn.If
-			QuietTime?: {
+			}) | fn.If
+			QuietTime?: close({
 				End:   string | fn.#Fn
 				Start: string | fn.#Fn
-			} | fn.If
-		}
+			}) | fn.If
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -135,13 +135,13 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#BaiduChannel: {
-		Type: "AWS::Pinpoint::BaiduChannel"
-		Properties: {
+		Type:       "AWS::Pinpoint::BaiduChannel"
+		Properties: close({
 			ApiKey:        string | fn.#Fn
 			ApplicationId: string | fn.#Fn
 			Enabled?:      bool | fn.#Fn
 			SecretKey:     string | fn.#Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -149,11 +149,11 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#Campaign: {
-		Type: "AWS::Pinpoint::Campaign"
-		Properties: {
-			AdditionalTreatments?: [...{
-				MessageConfiguration?: {
-					ADMMessage?: {
+		Type:       "AWS::Pinpoint::Campaign"
+		Properties: close({
+			AdditionalTreatments?: [...close({
+				MessageConfiguration?: close({
+					ADMMessage?: close({
 						Action?:            string | fn.#Fn
 						Body?:              string | fn.#Fn
 						ImageIconUrl?:      string | fn.#Fn
@@ -166,8 +166,8 @@ import "github.com/TangoGroup/aws/fn"
 						TimeToLive?:        int | fn.#Fn
 						Title?:             string | fn.#Fn
 						Url?:               string | fn.#Fn
-					} | fn.If
-					APNSMessage?: {
+					}) | fn.If
+					APNSMessage?: close({
 						Action?:            string | fn.#Fn
 						Body?:              string | fn.#Fn
 						ImageIconUrl?:      string | fn.#Fn
@@ -180,8 +180,8 @@ import "github.com/TangoGroup/aws/fn"
 						TimeToLive?:        int | fn.#Fn
 						Title?:             string | fn.#Fn
 						Url?:               string | fn.#Fn
-					} | fn.If
-					BaiduMessage?: {
+					}) | fn.If
+					BaiduMessage?: close({
 						Action?:            string | fn.#Fn
 						Body?:              string | fn.#Fn
 						ImageIconUrl?:      string | fn.#Fn
@@ -194,8 +194,8 @@ import "github.com/TangoGroup/aws/fn"
 						TimeToLive?:        int | fn.#Fn
 						Title?:             string | fn.#Fn
 						Url?:               string | fn.#Fn
-					} | fn.If
-					DefaultMessage?: {
+					}) | fn.If
+					DefaultMessage?: close({
 						Action?:            string | fn.#Fn
 						Body?:              string | fn.#Fn
 						ImageIconUrl?:      string | fn.#Fn
@@ -208,14 +208,14 @@ import "github.com/TangoGroup/aws/fn"
 						TimeToLive?:        int | fn.#Fn
 						Title?:             string | fn.#Fn
 						Url?:               string | fn.#Fn
-					} | fn.If
-					EmailMessage?: {
+					}) | fn.If
+					EmailMessage?: close({
 						Body?:        string | fn.#Fn
 						FromAddress?: string | fn.#Fn
 						HtmlBody?:    string | fn.#Fn
 						Title?:       string | fn.#Fn
-					} | fn.If
-					GCMMessage?: {
+					}) | fn.If
+					GCMMessage?: close({
 						Action?:            string | fn.#Fn
 						Body?:              string | fn.#Fn
 						ImageIconUrl?:      string | fn.#Fn
@@ -228,60 +228,60 @@ import "github.com/TangoGroup/aws/fn"
 						TimeToLive?:        int | fn.#Fn
 						Title?:             string | fn.#Fn
 						Url?:               string | fn.#Fn
-					} | fn.If
-					SMSMessage?: {
+					}) | fn.If
+					SMSMessage?: close({
 						Body?:        string | fn.#Fn
 						MessageType?: string | fn.#Fn
 						SenderId?:    string | fn.#Fn
-					} | fn.If
-				} | fn.If
-				Schedule?: {
+					}) | fn.If
+				}) | fn.If
+				Schedule?: close({
 					EndTime?:     string | fn.#Fn
-					EventFilter?: {
-						Dimensions?: {
+					EventFilter?: close({
+						Dimensions?: close({
 							Attributes?: {
 								[string]: _
 							} | fn.#Fn
-							EventType?: {
+							EventType?: close({
 								DimensionType?: string | fn.#Fn
 								Values?:        [...(string | fn.#Fn)] | (string | fn.#Fn)
-							} | fn.If
+							}) | fn.If
 							Metrics?: {
 								[string]: _
 							} | fn.#Fn
-						} | fn.If
+						}) | fn.If
 						FilterType?: string | fn.#Fn
-					} | fn.If
+					}) | fn.If
 					Frequency?:   string | fn.#Fn
 					IsLocalTime?: bool | fn.#Fn
-					QuietTime?:   {
+					QuietTime?:   close({
 						End:   string | fn.#Fn
 						Start: string | fn.#Fn
-					} | fn.If
+					}) | fn.If
 					StartTime?: string | fn.#Fn
 					TimeZone?:  string | fn.#Fn
-				} | fn.If
+				}) | fn.If
 				SizePercent?:          int | fn.#Fn
 				TreatmentDescription?: string | fn.#Fn
 				TreatmentName?:        string | fn.#Fn
-			}] | fn.If
+			})] | fn.If
 			ApplicationId: string | fn.#Fn
-			CampaignHook?: {
+			CampaignHook?: close({
 				LambdaFunctionName?: string | fn.#Fn
 				Mode?:               string | fn.#Fn
 				WebUrl?:             string | fn.#Fn
-			} | fn.If
+			}) | fn.If
 			Description?:    string | fn.#Fn
 			HoldoutPercent?: int | fn.#Fn
 			IsPaused?:       bool | fn.#Fn
-			Limits?:         {
+			Limits?:         close({
 				Daily?:             int | fn.#Fn
 				MaximumDuration?:   int | fn.#Fn
 				MessagesPerSecond?: int | fn.#Fn
 				Total?:             int | fn.#Fn
-			} | fn.If
-			MessageConfiguration: {
-				ADMMessage?: {
+			}) | fn.If
+			MessageConfiguration: close({
+				ADMMessage?: close({
 					Action?:            string | fn.#Fn
 					Body?:              string | fn.#Fn
 					ImageIconUrl?:      string | fn.#Fn
@@ -294,8 +294,8 @@ import "github.com/TangoGroup/aws/fn"
 					TimeToLive?:        int | fn.#Fn
 					Title?:             string | fn.#Fn
 					Url?:               string | fn.#Fn
-				} | fn.If
-				APNSMessage?: {
+				}) | fn.If
+				APNSMessage?: close({
 					Action?:            string | fn.#Fn
 					Body?:              string | fn.#Fn
 					ImageIconUrl?:      string | fn.#Fn
@@ -308,8 +308,8 @@ import "github.com/TangoGroup/aws/fn"
 					TimeToLive?:        int | fn.#Fn
 					Title?:             string | fn.#Fn
 					Url?:               string | fn.#Fn
-				} | fn.If
-				BaiduMessage?: {
+				}) | fn.If
+				BaiduMessage?: close({
 					Action?:            string | fn.#Fn
 					Body?:              string | fn.#Fn
 					ImageIconUrl?:      string | fn.#Fn
@@ -322,8 +322,8 @@ import "github.com/TangoGroup/aws/fn"
 					TimeToLive?:        int | fn.#Fn
 					Title?:             string | fn.#Fn
 					Url?:               string | fn.#Fn
-				} | fn.If
-				DefaultMessage?: {
+				}) | fn.If
+				DefaultMessage?: close({
 					Action?:            string | fn.#Fn
 					Body?:              string | fn.#Fn
 					ImageIconUrl?:      string | fn.#Fn
@@ -336,14 +336,14 @@ import "github.com/TangoGroup/aws/fn"
 					TimeToLive?:        int | fn.#Fn
 					Title?:             string | fn.#Fn
 					Url?:               string | fn.#Fn
-				} | fn.If
-				EmailMessage?: {
+				}) | fn.If
+				EmailMessage?: close({
 					Body?:        string | fn.#Fn
 					FromAddress?: string | fn.#Fn
 					HtmlBody?:    string | fn.#Fn
 					Title?:       string | fn.#Fn
-				} | fn.If
-				GCMMessage?: {
+				}) | fn.If
+				GCMMessage?: close({
 					Action?:            string | fn.#Fn
 					Body?:              string | fn.#Fn
 					ImageIconUrl?:      string | fn.#Fn
@@ -356,40 +356,40 @@ import "github.com/TangoGroup/aws/fn"
 					TimeToLive?:        int | fn.#Fn
 					Title?:             string | fn.#Fn
 					Url?:               string | fn.#Fn
-				} | fn.If
-				SMSMessage?: {
+				}) | fn.If
+				SMSMessage?: close({
 					Body?:        string | fn.#Fn
 					MessageType?: string | fn.#Fn
 					SenderId?:    string | fn.#Fn
-				} | fn.If
-			} | fn.If
+				}) | fn.If
+			}) | fn.If
 			Name:     string | fn.#Fn
-			Schedule: {
+			Schedule: close({
 				EndTime?:     string | fn.#Fn
-				EventFilter?: {
-					Dimensions?: {
+				EventFilter?: close({
+					Dimensions?: close({
 						Attributes?: {
 							[string]: _
 						} | fn.#Fn
-						EventType?: {
+						EventType?: close({
 							DimensionType?: string | fn.#Fn
 							Values?:        [...(string | fn.#Fn)] | (string | fn.#Fn)
-						} | fn.If
+						}) | fn.If
 						Metrics?: {
 							[string]: _
 						} | fn.#Fn
-					} | fn.If
+					}) | fn.If
 					FilterType?: string | fn.#Fn
-				} | fn.If
+				}) | fn.If
 				Frequency?:   string | fn.#Fn
 				IsLocalTime?: bool | fn.#Fn
-				QuietTime?:   {
+				QuietTime?:   close({
 					End:   string | fn.#Fn
 					Start: string | fn.#Fn
-				} | fn.If
+				}) | fn.If
 				StartTime?: string | fn.#Fn
 				TimeZone?:  string | fn.#Fn
-			} | fn.If
+			}) | fn.If
 			SegmentId:       string | fn.#Fn
 			SegmentVersion?: int | fn.#Fn
 			Tags?:           {
@@ -397,7 +397,7 @@ import "github.com/TangoGroup/aws/fn"
 			} | fn.#Fn
 			TreatmentDescription?: string | fn.#Fn
 			TreatmentName?:        string | fn.#Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -405,15 +405,15 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#EmailChannel: {
-		Type: "AWS::Pinpoint::EmailChannel"
-		Properties: {
+		Type:       "AWS::Pinpoint::EmailChannel"
+		Properties: close({
 			ApplicationId:     string | fn.#Fn
 			ConfigurationSet?: string | fn.#Fn
 			Enabled?:          bool | fn.#Fn
 			FromAddress:       string | fn.#Fn
 			Identity:          string | fn.#Fn
 			RoleArn?:          string | fn.#Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -421,8 +421,8 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#EmailTemplate: {
-		Type: "AWS::Pinpoint::EmailTemplate"
-		Properties: {
+		Type:       "AWS::Pinpoint::EmailTemplate"
+		Properties: close({
 			DefaultSubstitutions?: string | fn.#Fn
 			HtmlPart?:             string | fn.#Fn
 			Subject:               string | fn.#Fn
@@ -432,7 +432,7 @@ import "github.com/TangoGroup/aws/fn"
 			TemplateDescription?: string | fn.#Fn
 			TemplateName:         string | fn.#Fn
 			TextPart?:            string | fn.#Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -440,12 +440,12 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#EventStream: {
-		Type: "AWS::Pinpoint::EventStream"
-		Properties: {
+		Type:       "AWS::Pinpoint::EventStream"
+		Properties: close({
 			ApplicationId:        string | fn.#Fn
 			DestinationStreamArn: string | fn.#Fn
 			RoleArn:              string | fn.#Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -453,12 +453,12 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#GCMChannel: {
-		Type: "AWS::Pinpoint::GCMChannel"
-		Properties: {
+		Type:       "AWS::Pinpoint::GCMChannel"
+		Properties: close({
 			ApiKey:        string | fn.#Fn
 			ApplicationId: string | fn.#Fn
 			Enabled?:      bool | fn.#Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -466,9 +466,9 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#PushTemplate: {
-		Type: "AWS::Pinpoint::PushTemplate"
-		Properties: {
-			ADM?: {
+		Type:       "AWS::Pinpoint::PushTemplate"
+		Properties: close({
+			ADM?: close({
 				Action?:            string | fn.#Fn
 				Body?:              string | fn.#Fn
 				ImageIconUrl?:      string | fn.#Fn
@@ -477,16 +477,16 @@ import "github.com/TangoGroup/aws/fn"
 				Sound?:             string | fn.#Fn
 				Title?:             string | fn.#Fn
 				Url?:               string | fn.#Fn
-			} | fn.If
-			APNS?: {
+			}) | fn.If
+			APNS?: close({
 				Action?:   string | fn.#Fn
 				Body?:     string | fn.#Fn
 				MediaUrl?: string | fn.#Fn
 				Sound?:    string | fn.#Fn
 				Title?:    string | fn.#Fn
 				Url?:      string | fn.#Fn
-			} | fn.If
-			Baidu?: {
+			}) | fn.If
+			Baidu?: close({
 				Action?:            string | fn.#Fn
 				Body?:              string | fn.#Fn
 				ImageIconUrl?:      string | fn.#Fn
@@ -495,16 +495,16 @@ import "github.com/TangoGroup/aws/fn"
 				Sound?:             string | fn.#Fn
 				Title?:             string | fn.#Fn
 				Url?:               string | fn.#Fn
-			} | fn.If
-			Default?: {
+			}) | fn.If
+			Default?: close({
 				Action?: string | fn.#Fn
 				Body?:   string | fn.#Fn
 				Sound?:  string | fn.#Fn
 				Title?:  string | fn.#Fn
 				Url?:    string | fn.#Fn
-			} | fn.If
+			}) | fn.If
 			DefaultSubstitutions?: string | fn.#Fn
-			GCM?:                  {
+			GCM?:                  close({
 				Action?:            string | fn.#Fn
 				Body?:              string | fn.#Fn
 				ImageIconUrl?:      string | fn.#Fn
@@ -513,13 +513,13 @@ import "github.com/TangoGroup/aws/fn"
 				Sound?:             string | fn.#Fn
 				Title?:             string | fn.#Fn
 				Url?:               string | fn.#Fn
-			} | fn.If
+			}) | fn.If
 			Tags?: {
 				[string]: _
 			} | fn.#Fn
 			TemplateDescription?: string | fn.#Fn
 			TemplateName:         string | fn.#Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -527,13 +527,13 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#SMSChannel: {
-		Type: "AWS::Pinpoint::SMSChannel"
-		Properties: {
+		Type:       "AWS::Pinpoint::SMSChannel"
+		Properties: close({
 			ApplicationId: string | fn.#Fn
 			Enabled?:      bool | fn.#Fn
 			SenderId?:     string | fn.#Fn
 			ShortCode?:    string | fn.#Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -541,137 +541,137 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#Segment: {
-		Type: "AWS::Pinpoint::Segment"
-		Properties: {
+		Type:       "AWS::Pinpoint::Segment"
+		Properties: close({
 			ApplicationId: string | fn.#Fn
-			Dimensions?:   {
+			Dimensions?:   close({
 				Attributes?: {
 					[string]: _
 				} | fn.#Fn
-				Behavior?: {
-					Recency?: {
+				Behavior?: close({
+					Recency?: close({
 						Duration:    string | fn.#Fn
 						RecencyType: string | fn.#Fn
-					} | fn.If
-				} | fn.If
-				Demographic?: {
-					AppVersion?: {
+					}) | fn.If
+				}) | fn.If
+				Demographic?: close({
+					AppVersion?: close({
 						DimensionType?: string | fn.#Fn
 						Values?:        [...(string | fn.#Fn)] | (string | fn.#Fn)
-					} | fn.If
-					Channel?: {
+					}) | fn.If
+					Channel?: close({
 						DimensionType?: string | fn.#Fn
 						Values?:        [...(string | fn.#Fn)] | (string | fn.#Fn)
-					} | fn.If
-					DeviceType?: {
+					}) | fn.If
+					DeviceType?: close({
 						DimensionType?: string | fn.#Fn
 						Values?:        [...(string | fn.#Fn)] | (string | fn.#Fn)
-					} | fn.If
-					Make?: {
+					}) | fn.If
+					Make?: close({
 						DimensionType?: string | fn.#Fn
 						Values?:        [...(string | fn.#Fn)] | (string | fn.#Fn)
-					} | fn.If
-					Model?: {
+					}) | fn.If
+					Model?: close({
 						DimensionType?: string | fn.#Fn
 						Values?:        [...(string | fn.#Fn)] | (string | fn.#Fn)
-					} | fn.If
-					Platform?: {
+					}) | fn.If
+					Platform?: close({
 						DimensionType?: string | fn.#Fn
 						Values?:        [...(string | fn.#Fn)] | (string | fn.#Fn)
-					} | fn.If
-				} | fn.If
-				Location?: {
-					Country?: {
+					}) | fn.If
+				}) | fn.If
+				Location?: close({
+					Country?: close({
 						DimensionType?: string | fn.#Fn
 						Values?:        [...(string | fn.#Fn)] | (string | fn.#Fn)
-					} | fn.If
-					GPSPoint?: {
-						Coordinates: {
+					}) | fn.If
+					GPSPoint?: close({
+						Coordinates: close({
 							Latitude:  number | fn.#Fn
 							Longitude: number | fn.#Fn
-						} | fn.If
+						}) | fn.If
 						RangeInKilometers: number | fn.#Fn
-					} | fn.If
-				} | fn.If
+					}) | fn.If
+				}) | fn.If
 				Metrics?: {
 					[string]: _
 				} | fn.#Fn
 				UserAttributes?: {
 					[string]: _
 				} | fn.#Fn
-			} | fn.If
+			}) | fn.If
 			Name:           string | fn.#Fn
-			SegmentGroups?: {
-				Groups?: [...{
-					Dimensions?: [...{
+			SegmentGroups?: close({
+				Groups?: [...close({
+					Dimensions?: [...close({
 						Attributes?: {
 							[string]: _
 						} | fn.#Fn
-						Behavior?: {
-							Recency?: {
+						Behavior?: close({
+							Recency?: close({
 								Duration:    string | fn.#Fn
 								RecencyType: string | fn.#Fn
-							} | fn.If
-						} | fn.If
-						Demographic?: {
-							AppVersion?: {
+							}) | fn.If
+						}) | fn.If
+						Demographic?: close({
+							AppVersion?: close({
 								DimensionType?: string | fn.#Fn
 								Values?:        [...(string | fn.#Fn)] | (string | fn.#Fn)
-							} | fn.If
-							Channel?: {
+							}) | fn.If
+							Channel?: close({
 								DimensionType?: string | fn.#Fn
 								Values?:        [...(string | fn.#Fn)] | (string | fn.#Fn)
-							} | fn.If
-							DeviceType?: {
+							}) | fn.If
+							DeviceType?: close({
 								DimensionType?: string | fn.#Fn
 								Values?:        [...(string | fn.#Fn)] | (string | fn.#Fn)
-							} | fn.If
-							Make?: {
+							}) | fn.If
+							Make?: close({
 								DimensionType?: string | fn.#Fn
 								Values?:        [...(string | fn.#Fn)] | (string | fn.#Fn)
-							} | fn.If
-							Model?: {
+							}) | fn.If
+							Model?: close({
 								DimensionType?: string | fn.#Fn
 								Values?:        [...(string | fn.#Fn)] | (string | fn.#Fn)
-							} | fn.If
-							Platform?: {
+							}) | fn.If
+							Platform?: close({
 								DimensionType?: string | fn.#Fn
 								Values?:        [...(string | fn.#Fn)] | (string | fn.#Fn)
-							} | fn.If
-						} | fn.If
-						Location?: {
-							Country?: {
+							}) | fn.If
+						}) | fn.If
+						Location?: close({
+							Country?: close({
 								DimensionType?: string | fn.#Fn
 								Values?:        [...(string | fn.#Fn)] | (string | fn.#Fn)
-							} | fn.If
-							GPSPoint?: {
-								Coordinates: {
+							}) | fn.If
+							GPSPoint?: close({
+								Coordinates: close({
 									Latitude:  number | fn.#Fn
 									Longitude: number | fn.#Fn
-								} | fn.If
+								}) | fn.If
 								RangeInKilometers: number | fn.#Fn
-							} | fn.If
-						} | fn.If
+							}) | fn.If
+						}) | fn.If
 						Metrics?: {
 							[string]: _
 						} | fn.#Fn
 						UserAttributes?: {
 							[string]: _
 						} | fn.#Fn
-					}] | fn.If
-					SourceSegments?: [...{
+					})] | fn.If
+					SourceSegments?: [...close({
 						Id:       string | fn.#Fn
 						Version?: int | fn.#Fn
-					}] | fn.If
+					})] | fn.If
 					SourceType?: string | fn.#Fn
 					Type?:       string | fn.#Fn
-				}] | fn.If
+				})] | fn.If
 				Include?: string | fn.#Fn
-			} | fn.If
+			}) | fn.If
 			Tags?: {
 				[string]: _
 			} | fn.#Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -679,8 +679,8 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#SmsTemplate: {
-		Type: "AWS::Pinpoint::SmsTemplate"
-		Properties: {
+		Type:       "AWS::Pinpoint::SmsTemplate"
+		Properties: close({
 			Body:                  string | fn.#Fn
 			DefaultSubstitutions?: string | fn.#Fn
 			Tags?:                 {
@@ -688,7 +688,7 @@ import "github.com/TangoGroup/aws/fn"
 			} | fn.#Fn
 			TemplateDescription?: string | fn.#Fn
 			TemplateName:         string | fn.#Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -696,11 +696,11 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#VoiceChannel: {
-		Type: "AWS::Pinpoint::VoiceChannel"
-		Properties: {
+		Type:       "AWS::Pinpoint::VoiceChannel"
+		Properties: close({
 			ApplicationId: string | fn.#Fn
 			Enabled?:      bool | fn.#Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

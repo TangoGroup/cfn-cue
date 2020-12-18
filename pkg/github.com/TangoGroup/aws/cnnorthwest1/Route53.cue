@@ -4,13 +4,13 @@ import "github.com/TangoGroup/aws/fn"
 
 #Route53: {
 	#HealthCheck: {
-		Type: "AWS::Route53::HealthCheck"
-		Properties: {
-			HealthCheckConfig: {
-				AlarmIdentifier?: {
+		Type:       "AWS::Route53::HealthCheck"
+		Properties: close({
+			HealthCheckConfig: close({
+				AlarmIdentifier?: close({
 					Name:   string | fn.#Fn
 					Region: string | fn.#Fn
-				} | fn.If
+				}) | fn.If
 				ChildHealthChecks?:            [...(string | fn.#Fn)] | (string | fn.#Fn)
 				EnableSNI?:                    bool | fn.#Fn
 				FailureThreshold?:             int | fn.#Fn
@@ -26,12 +26,12 @@ import "github.com/TangoGroup/aws/fn"
 				ResourcePath?:                 string | fn.#Fn
 				SearchString?:                 string | fn.#Fn
 				Type:                          ("CALCULATED" | "CLOUDWATCH_METRIC" | "HTTP" | "HTTPS" | "HTTPS_STR_MATCH" | "HTTP_STR_MATCH" | "TCP") | fn.#Fn
-			} | fn.If
-			HealthCheckTags?: [...{
+			}) | fn.If
+			HealthCheckTags?: [...close({
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			}] | fn.If
-		}
+			})] | fn.If
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -39,24 +39,24 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#HostedZone: {
-		Type: "AWS::Route53::HostedZone"
-		Properties: {
-			HostedZoneConfig?: {
+		Type:       "AWS::Route53::HostedZone"
+		Properties: close({
+			HostedZoneConfig?: close({
 				Comment?: string | fn.#Fn
-			} | fn.If
-			HostedZoneTags?: [...{
+			}) | fn.If
+			HostedZoneTags?: [...close({
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			}] | fn.If
+			})] | fn.If
 			Name:                string | fn.#Fn
-			QueryLoggingConfig?: {
+			QueryLoggingConfig?: close({
 				CloudWatchLogsLogGroupArn: string | fn.#Fn
-			} | fn.If
-			VPCs?: [...{
+			}) | fn.If
+			VPCs?: [...close({
 				VPCId:     string | fn.#Fn
 				VPCRegion: string | fn.#Fn
-			}] | fn.If
-		}
+			})] | fn.If
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -64,20 +64,20 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#RecordSet: {
-		Type: "AWS::Route53::RecordSet"
-		Properties: {
-			AliasTarget?: {
+		Type:       "AWS::Route53::RecordSet"
+		Properties: close({
+			AliasTarget?: close({
 				DNSName:               string | fn.#Fn
 				EvaluateTargetHealth?: bool | fn.#Fn
 				HostedZoneId:          string | fn.#Fn
-			} | fn.If
+			}) | fn.If
 			Comment?:     string | fn.#Fn
 			Failover?:    ("PRIMARY" | "SECONDARY") | fn.#Fn
-			GeoLocation?: {
+			GeoLocation?: close({
 				ContinentCode?:   ("AF" | "AN" | "AS" | "EU" | "NA" | "OC" | "SA") | fn.#Fn
 				CountryCode?:     string | fn.#Fn
 				SubdivisionCode?: string | fn.#Fn
-			} | fn.If
+			}) | fn.If
 			HealthCheckId?:    string | fn.#Fn
 			HostedZoneId?:     string | fn.#Fn
 			HostedZoneName?:   string | fn.#Fn
@@ -89,7 +89,7 @@ import "github.com/TangoGroup/aws/fn"
 			TTL?:              int | fn.#Fn
 			Type:              ("A" | "AAAA" | "CAA" | "CNAME" | "MX" | "NAPTR" | "NS" | "PTR" | "SOA" | "SPF" | "SRV" | "TXT") | fn.#Fn
 			Weight?:           int | fn.#Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -97,24 +97,24 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#RecordSetGroup: {
-		Type: "AWS::Route53::RecordSetGroup"
-		Properties: {
+		Type:       "AWS::Route53::RecordSetGroup"
+		Properties: close({
 			Comment?:        string | fn.#Fn
 			HostedZoneId?:   string | fn.#Fn
 			HostedZoneName?: string | fn.#Fn
-			RecordSets?:     [...{
-				AliasTarget?: {
+			RecordSets?:     [...close({
+				AliasTarget?: close({
 					DNSName:               string | fn.#Fn
 					EvaluateTargetHealth?: bool | fn.#Fn
 					HostedZoneId:          string | fn.#Fn
-				} | fn.If
+				}) | fn.If
 				Comment?:     string | fn.#Fn
 				Failover?:    ("PRIMARY" | "SECONDARY") | fn.#Fn
-				GeoLocation?: {
+				GeoLocation?: close({
 					ContinentCode?:   ("AF" | "AN" | "AS" | "EU" | "NA" | "OC" | "SA") | fn.#Fn
 					CountryCode?:     string | fn.#Fn
 					SubdivisionCode?: string | fn.#Fn
-				} | fn.If
+				}) | fn.If
 				HealthCheckId?:    string | fn.#Fn
 				HostedZoneId?:     string | fn.#Fn
 				HostedZoneName?:   string | fn.#Fn
@@ -126,8 +126,8 @@ import "github.com/TangoGroup/aws/fn"
 				TTL?:              string | fn.#Fn
 				Type:              ("A" | "AAAA" | "CAA" | "CNAME" | "MX" | "NAPTR" | "NS" | "PTR" | "SOA" | "SPF" | "SRV" | "TXT") | fn.#Fn
 				Weight?:           int | fn.#Fn
-			}] | fn.If
-		}
+			})] | fn.If
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

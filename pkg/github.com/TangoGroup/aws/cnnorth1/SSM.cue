@@ -4,8 +4,8 @@ import "github.com/TangoGroup/aws/fn"
 
 #SSM: {
 	#Association: {
-		Type: "AWS::SSM::Association"
-		Properties: {
+		Type:       "AWS::SSM::Association"
+		Properties: close({
 			ApplyOnlyAtCronInterval?:       bool | fn.#Fn
 			AssociationName?:               string | fn.#Fn
 			AutomationTargetParameterName?: string | fn.#Fn
@@ -15,24 +15,26 @@ import "github.com/TangoGroup/aws/fn"
 			MaxConcurrency?:                string | fn.#Fn
 			MaxErrors?:                     string | fn.#Fn
 			Name:                           string | fn.#Fn
-			OutputLocation?:                {
-				S3Location?: {
+			OutputLocation?:                close({
+				S3Location?: close({
 					OutputS3BucketName?: string | fn.#Fn
 					OutputS3KeyPrefix?:  string | fn.#Fn
 					OutputS3Region?:     string | fn.#Fn
-				} | fn.If
-			} | fn.If
+				}) | fn.If
+			}) | fn.If
 			Parameters?: {
-				[string]: ParameterValues: [...(string | fn.#Fn)] | (string | fn.#Fn)
+				[string]: close({
+					ParameterValues: [...(string | fn.#Fn)] | (string | fn.#Fn)
+				})
 			} | fn.If
 			ScheduleExpression?: string | fn.#Fn
 			SyncCompliance?:     string | fn.#Fn
-			Targets?:            [...{
+			Targets?:            [...close({
 				Key:    string | fn.#Fn
 				Values: [...(string | fn.#Fn)] | (string | fn.#Fn)
-			}] | fn.If
+			})] | fn.If
 			WaitForSuccessTimeoutSeconds?: int | fn.#Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -40,18 +42,18 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#Document: {
-		Type: "AWS::SSM::Document"
-		Properties: {
+		Type:       "AWS::SSM::Document"
+		Properties: close({
 			Content: {
 				[string]: _
 			} | fn.#Fn
 			DocumentType?: string | fn.#Fn
 			Name?:         string | fn.#Fn
-			Tags?:         [...{
+			Tags?:         [...close({
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			}] | fn.If
-		}
+			})] | fn.If
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -59,8 +61,8 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#MaintenanceWindow: {
-		Type: "AWS::SSM::MaintenanceWindow"
-		Properties: {
+		Type:       "AWS::SSM::MaintenanceWindow"
+		Properties: close({
 			AllowUnassociatedTargets: bool | fn.#Fn
 			Cutoff:                   (>=0 & <=23) | fn.#Fn
 			Description?:             string | fn.#Fn
@@ -71,11 +73,11 @@ import "github.com/TangoGroup/aws/fn"
 			ScheduleOffset?:          int | fn.#Fn
 			ScheduleTimezone?:        string | fn.#Fn
 			StartDate?:               string | fn.#Fn
-			Tags?:                    [...{
+			Tags?:                    [...close({
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			}] | fn.If
-		}
+			})] | fn.If
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -83,18 +85,18 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#MaintenanceWindowTarget: {
-		Type: "AWS::SSM::MaintenanceWindowTarget"
-		Properties: {
+		Type:       "AWS::SSM::MaintenanceWindowTarget"
+		Properties: close({
 			Description?:      string | fn.#Fn
 			Name?:             string | fn.#Fn
 			OwnerInformation?: string | fn.#Fn
 			ResourceType:      string | fn.#Fn
-			Targets:           [...{
+			Targets:           [...close({
 				Key:     string | fn.#Fn
 				Values?: [...(string | fn.#Fn)] | (string | fn.#Fn)
-			}] | fn.If
+			})] | fn.If
 			WindowId: string | fn.#Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -102,45 +104,45 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#MaintenanceWindowTask: {
-		Type: "AWS::SSM::MaintenanceWindowTask"
-		Properties: {
+		Type:       "AWS::SSM::MaintenanceWindowTask"
+		Properties: close({
 			Description?: string | fn.#Fn
-			LoggingInfo?: {
+			LoggingInfo?: close({
 				Region:    string | fn.#Fn
 				S3Bucket:  string | fn.#Fn
 				S3Prefix?: string | fn.#Fn
-			} | fn.If
+			}) | fn.If
 			MaxConcurrency:  string | fn.#Fn
 			MaxErrors:       string | fn.#Fn
 			Name?:           string | fn.#Fn
 			Priority:        int | fn.#Fn
 			ServiceRoleArn?: string | fn.#Fn
-			Targets:         [...{
+			Targets:         [...close({
 				Key:     string | fn.#Fn
 				Values?: [...(string | fn.#Fn)] | (string | fn.#Fn)
-			}] | fn.If
+			})] | fn.If
 			TaskArn:                   string | fn.#Fn
-			TaskInvocationParameters?: {
-				MaintenanceWindowAutomationParameters?: {
+			TaskInvocationParameters?: close({
+				MaintenanceWindowAutomationParameters?: close({
 					DocumentVersion?: string | fn.#Fn
 					Parameters?:      {
 						[string]: _
 					} | fn.#Fn
-				} | fn.If
-				MaintenanceWindowLambdaParameters?: {
+				}) | fn.If
+				MaintenanceWindowLambdaParameters?: close({
 					ClientContext?: string | fn.#Fn
 					Payload?:       string | fn.#Fn
 					Qualifier?:     string | fn.#Fn
-				} | fn.If
-				MaintenanceWindowRunCommandParameters?: {
+				}) | fn.If
+				MaintenanceWindowRunCommandParameters?: close({
 					Comment?:            string | fn.#Fn
 					DocumentHash?:       string | fn.#Fn
 					DocumentHashType?:   string | fn.#Fn
-					NotificationConfig?: {
+					NotificationConfig?: close({
 						NotificationArn:     string | fn.#Fn
 						NotificationEvents?: [...(string | fn.#Fn)] | (string | fn.#Fn)
 						NotificationType?:   string | fn.#Fn
-					} | fn.If
+					}) | fn.If
 					OutputS3BucketName?: string | fn.#Fn
 					OutputS3KeyPrefix?:  string | fn.#Fn
 					Parameters?:         {
@@ -148,18 +150,18 @@ import "github.com/TangoGroup/aws/fn"
 					} | fn.#Fn
 					ServiceRoleArn?: string | fn.#Fn
 					TimeoutSeconds?: int | fn.#Fn
-				} | fn.If
-				MaintenanceWindowStepFunctionsParameters?: {
+				}) | fn.If
+				MaintenanceWindowStepFunctionsParameters?: close({
 					Input?: string | fn.#Fn
 					Name?:  string | fn.#Fn
-				} | fn.If
-			} | fn.If
+				}) | fn.If
+			}) | fn.If
 			TaskParameters?: {
 				[string]: _
 			} | fn.#Fn
 			TaskType: string | fn.#Fn
 			WindowId: string | fn.#Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -167,32 +169,32 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#ResourceDataSync: {
-		Type: "AWS::SSM::ResourceDataSync"
-		Properties: {
+		Type:       "AWS::SSM::ResourceDataSync"
+		Properties: close({
 			BucketName?:    string | fn.#Fn
 			BucketPrefix?:  string | fn.#Fn
 			BucketRegion?:  string | fn.#Fn
 			KMSKeyArn?:     string | fn.#Fn
-			S3Destination?: {
+			S3Destination?: close({
 				BucketName:    string | fn.#Fn
 				BucketPrefix?: string | fn.#Fn
 				BucketRegion:  string | fn.#Fn
 				KMSKeyArn?:    string | fn.#Fn
 				SyncFormat:    string | fn.#Fn
-			} | fn.If
+			}) | fn.If
 			SyncFormat?: string | fn.#Fn
 			SyncName:    string | fn.#Fn
-			SyncSource?: {
-				AwsOrganizationsSource?: {
+			SyncSource?: close({
+				AwsOrganizationsSource?: close({
 					OrganizationSourceType: string | fn.#Fn
 					OrganizationalUnits?:   [...(string | fn.#Fn)] | (string | fn.#Fn)
-				} | fn.If
+				}) | fn.If
 				IncludeFutureRegions?: bool | fn.#Fn
 				SourceRegions:         [...(string | fn.#Fn)] | (string | fn.#Fn)
 				SourceType:            string | fn.#Fn
-			} | fn.If
+			}) | fn.If
 			SyncType?: string | fn.#Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
