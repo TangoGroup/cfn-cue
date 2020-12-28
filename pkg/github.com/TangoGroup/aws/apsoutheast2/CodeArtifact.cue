@@ -7,6 +7,7 @@ CodeArtifact :: {
 		Type:       "AWS::CodeArtifact::Domain"
 		Properties: close({
 			DomainName:                 string | fn.Fn
+			EncryptionKey?:             string | fn.Fn
 			PermissionsPolicyDocument?: {
 				[string]: _
 			} | fn.Fn
@@ -25,6 +26,8 @@ CodeArtifact :: {
 		Type:       "AWS::CodeArtifact::Repository"
 		Properties: close({
 			Description?:               string | fn.Fn
+			DomainName:                 string | fn.Fn
+			DomainOwner?:               string | fn.Fn
 			ExternalConnections?:       [...(string | fn.Fn)] | (string | fn.Fn)
 			PermissionsPolicyDocument?: {
 				[string]: _

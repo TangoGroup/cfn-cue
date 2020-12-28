@@ -207,6 +207,7 @@ Batch :: {
 				[string]: _
 			} | fn.Fn
 			PlatformCapabilities?: [...(string | fn.Fn)] | (string | fn.Fn)
+			PropagateTags?:        bool | fn.Fn
 			RetryStrategy?:        close({
 				Attempts?:       int | fn.Fn
 				EvaluateOnExit?: [...close({

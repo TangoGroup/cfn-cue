@@ -9,11 +9,10 @@ Transfer :: {
 			Certificate?:     string | fn.Fn
 			EndpointDetails?: close({
 				AddressAllocationIds?: [...(string | fn.Fn)] | (string | fn.Fn)
-				SecurityGroupIds?:     [...close({
-				})] | fn.If
-				SubnetIds?:     [...(string | fn.Fn)] | (string | fn.Fn)
-				VpcEndpointId?: string | fn.Fn
-				VpcId?:         string | fn.Fn
+				SecurityGroupIds?:     [...(string | fn.Fn)] | (string | fn.Fn)
+				SubnetIds?:            [...(string | fn.Fn)] | (string | fn.Fn)
+				VpcEndpointId?:        string | fn.Fn
+				VpcId?:                string | fn.Fn
 			}) | fn.If
 			EndpointType?:            string | fn.Fn
 			IdentityProviderDetails?: close({

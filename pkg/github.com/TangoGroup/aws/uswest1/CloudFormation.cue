@@ -30,6 +30,31 @@ CloudFormation :: {
 		Metadata?: [string]: _
 		Condition?: string
 	}
+	ModuleDefaultVersion :: {
+		Type:       "AWS::CloudFormation::ModuleDefaultVersion"
+		Properties: close({
+			Arn?:        string | fn.Fn
+			ModuleName?: string | fn.Fn
+			VersionId?:  string | fn.Fn
+		})
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+		Condition?: string
+	}
+	ModuleVersion :: {
+		Type:       "AWS::CloudFormation::ModuleVersion"
+		Properties: close({
+			ModuleName:     string | fn.Fn
+			ModulePackage?: string | fn.Fn
+		})
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+		Condition?: string
+	}
 	Stack :: {
 		Type:       "AWS::CloudFormation::Stack"
 		Properties: close({
@@ -72,7 +97,7 @@ CloudFormation :: {
 				ParameterKey:   string | fn.Fn
 				ParameterValue: string | fn.Fn
 			})] | fn.If
-			PermissionModel?:     ("SELF_MANAGED" | "SERVICE_MANAGED") | fn.Fn
+			PermissionModel:      ("SELF_MANAGED" | "SERVICE_MANAGED") | fn.Fn
 			StackInstancesGroup?: [...close({
 				DeploymentTargets: close({
 					Accounts?:              [...(string | fn.Fn)] | (string | fn.Fn)
@@ -84,8 +109,8 @@ CloudFormation :: {
 				})] | fn.If
 				Regions: [...(string | fn.Fn)] | (string | fn.Fn)
 			})] | fn.If
-			StackSetName?: string | fn.Fn
-			Tags?:         [...close({
+			StackSetName: string | fn.Fn
+			Tags?:        [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			})] | fn.If

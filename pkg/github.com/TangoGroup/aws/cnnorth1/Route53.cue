@@ -87,7 +87,7 @@ Route53 :: {
 			ResourceRecords?:  [...(string | fn.Fn)] | (string | fn.Fn)
 			SetIdentifier?:    string | fn.Fn
 			TTL?:              int | fn.Fn
-			Type:              ("A" | "AAAA" | "CAA" | "CNAME" | "MX" | "NAPTR" | "NS" | "PTR" | "SOA" | "SPF" | "SRV" | "TXT") | fn.Fn
+			Type:              ("A" | "AAAA" | "CAA" | "CNAME" | "DS" | "MX" | "NAPTR" | "NS" | "PTR" | "SOA" | "SPF" | "SRV" | "TXT") | fn.Fn
 			Weight?:           int | fn.Fn
 		})
 		DependsOn?:           string | [...string]
@@ -124,7 +124,7 @@ Route53 :: {
 				ResourceRecords?:  [...(string | fn.Fn)] | (string | fn.Fn)
 				SetIdentifier?:    string | fn.Fn
 				TTL?:              string | fn.Fn
-				Type:              ("A" | "AAAA" | "CAA" | "CNAME" | "MX" | "NAPTR" | "NS" | "PTR" | "SOA" | "SPF" | "SRV" | "TXT") | fn.Fn
+				Type:              ("A" | "AAAA" | "CAA" | "CNAME" | "DS" | "MX" | "NAPTR" | "NS" | "PTR" | "SOA" | "SPF" | "SRV" | "TXT") | fn.Fn
 				Weight?:           int | fn.Fn
 			})] | fn.If
 		})

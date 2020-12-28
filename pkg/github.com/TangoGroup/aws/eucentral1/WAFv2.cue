@@ -43,9 +43,7 @@ WAFv2 :: {
 	RuleGroup :: {
 		Type:       "AWS::WAFv2::RuleGroup"
 		Properties: close({
-			Capacity:              int | fn.Fn
-			CustomResponseBodies?: close({
-			}) | fn.If
+			Capacity:     int | fn.Fn
 			Description?: string | fn.Fn
 			Name?:        string | fn.Fn
 			Rules?:       [...close({
@@ -3686,58 +3684,27 @@ WAFv2 :: {
 	WebACL :: {
 		Type:       "AWS::WAFv2::WebACL"
 		Properties: close({
-			CustomResponseBodies?: close({
-			}) | fn.If
 			DefaultAction: close({
-				Allow?: close({
-					CustomRequestHandling?: close({
-						InsertHeaders: [...close({
-							Name:  string | fn.Fn
-							Value: string | fn.Fn
-						})] | fn.If
-					}) | fn.If
-				}) | fn.If
-				Block?: close({
-					CustomResponse?: close({
-						CustomResponseBodyKey?: string | fn.Fn
-						ResponseCode:           int | fn.Fn
-						ResponseHeaders?:       [...close({
-							Name:  string | fn.Fn
-							Value: string | fn.Fn
-						})] | fn.If
-					}) | fn.If
-				}) | fn.If
+				Allow?: {
+					[string]: _
+				} | fn.Fn
+				Block?: {
+					[string]: _
+				} | fn.Fn
 			}) | fn.If
 			Description?: string | fn.Fn
 			Name?:        string | fn.Fn
 			Rules?:       [...close({
 				Action?: close({
-					Allow?: close({
-						CustomRequestHandling?: close({
-							InsertHeaders: [...close({
-								Name:  string | fn.Fn
-								Value: string | fn.Fn
-							})] | fn.If
-						}) | fn.If
-					}) | fn.If
-					Block?: close({
-						CustomResponse?: close({
-							CustomResponseBodyKey?: string | fn.Fn
-							ResponseCode:           int | fn.Fn
-							ResponseHeaders?:       [...close({
-								Name:  string | fn.Fn
-								Value: string | fn.Fn
-							})] | fn.If
-						}) | fn.If
-					}) | fn.If
-					Count?: close({
-						CustomRequestHandling?: close({
-							InsertHeaders: [...close({
-								Name:  string | fn.Fn
-								Value: string | fn.Fn
-							})] | fn.If
-						}) | fn.If
-					}) | fn.If
+					Allow?: {
+						[string]: _
+					} | fn.Fn
+					Block?: {
+						[string]: _
+					} | fn.Fn
+					Count?: {
+						[string]: _
+					} | fn.Fn
 				}) | fn.If
 				Name:            string | fn.Fn
 				OverrideAction?: close({

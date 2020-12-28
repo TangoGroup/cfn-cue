@@ -7,13 +7,13 @@ DocDB :: {
 		Type:       "AWS::DocDB::DBCluster"
 		Properties: close({
 			AvailabilityZones?:           [...(string | fn.Fn)] | (string | fn.Fn)
-			BackupRetentionPeriod?:       int | fn.Fn
+			BackupRetentionPeriod?:       (>=1 & <=35) | fn.Fn
 			DBClusterIdentifier?:         string | fn.Fn
 			DBClusterParameterGroupName?: string | fn.Fn
 			DBSubnetGroupName?:           string | fn.Fn
 			DeletionProtection?:          bool | fn.Fn
 			EnableCloudwatchLogsExports?: [...(string | fn.Fn)] | (string | fn.Fn)
-			EngineVersion?:               string | fn.Fn
+			EngineVersion?:               ("3.6.0" | "4.0" | "4.0.0") | fn.Fn
 			KmsKeyId?:                    string | fn.Fn
 			MasterUserPassword:           string | fn.Fn
 			MasterUsername:               string | fn.Fn

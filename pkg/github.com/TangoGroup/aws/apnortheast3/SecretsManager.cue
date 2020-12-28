@@ -4,13 +4,14 @@ import "github.com/TangoGroup/aws/fn"
 
 SecretsManager :: {
 	ResourcePolicy :: {
-		Type: "AWS::SecretsManager::ResourcePolicy"
-		Properties: {
-			ResourcePolicy: {
+		Type:       "AWS::SecretsManager::ResourcePolicy"
+		Properties: close({
+			BlockPublicPolicy?: bool | fn.Fn
+			ResourcePolicy:     {
 				[string]: _
 			} | fn.Fn
 			SecretId: string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -18,12 +19,23 @@ SecretsManager :: {
 		Condition?: string
 	}
 	RotationSchedule :: {
-		Type: "AWS::SecretsManager::RotationSchedule"
-		Properties: {
+		Type:       "AWS::SecretsManager::RotationSchedule"
+		Properties: close({
+			HostedRotationLambda?: close({
+				KmsKeyArn?:             string | fn.Fn
+				MasterSecretArn?:       string | fn.Fn
+				MasterSecretKmsKeyArn?: string | fn.Fn
+				RotationLambdaName?:    string | fn.Fn
+				RotationType:           string | fn.Fn
+				VpcSecurityGroupIds?:   string | fn.Fn
+				VpcSubnetIds?:          string | fn.Fn
+			}) | fn.If
 			RotationLambdaARN?: string | fn.Fn
-			RotationRules?: AutomaticallyAfterDays?: int | fn.Fn
+			RotationRules?:     close({
+				AutomaticallyAfterDays?: int | fn.Fn
+			}) | fn.If
 			SecretId: string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -31,10 +43,10 @@ SecretsManager :: {
 		Condition?: string
 	}
 	Secret :: {
-		Type: "AWS::SecretsManager::Secret"
-		Properties: {
-			Description?: string | fn.Fn
-			GenerateSecretString?: {
+		Type:       "AWS::SecretsManager::Secret"
+		Properties: close({
+			Description?:          string | fn.Fn
+			GenerateSecretString?: close({
 				ExcludeCharacters?:       string | fn.Fn
 				ExcludeLowercase?:        bool | fn.Fn
 				ExcludeNumbers?:          bool | fn.Fn
@@ -45,15 +57,15 @@ SecretsManager :: {
 				PasswordLength?:          int | fn.Fn
 				RequireEachIncludedType?: bool | fn.Fn
 				SecretStringTemplate?:    string | fn.Fn
-			}
+			}) | fn.If
 			KmsKeyId?:     string | fn.Fn
 			Name?:         string | fn.Fn
 			SecretString?: string | fn.Fn
-			Tags?: [...{
+			Tags?:         [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}]
-		}
+			})] | fn.If
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -61,12 +73,12 @@ SecretsManager :: {
 		Condition?: string
 	}
 	SecretTargetAttachment :: {
-		Type: "AWS::SecretsManager::SecretTargetAttachment"
-		Properties: {
+		Type:       "AWS::SecretsManager::SecretTargetAttachment"
+		Properties: close({
 			SecretId:   string | fn.Fn
 			TargetId:   string | fn.Fn
-			TargetType: ("AWS::RDS::DBCluster" | "AWS::RDS::DBInstance") | fn.Fn
-		}
+			TargetType: string | fn.Fn
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

@@ -209,13 +209,30 @@ AppFlow :: {
 						IntermediateBucketName: string | fn.Fn
 						Object:                 string | fn.Fn
 					}) | fn.If
+					Upsolver?: close({
+						BucketName:           string | fn.Fn
+						BucketPrefix?:        string | fn.Fn
+						S3OutputFormatConfig: close({
+							AggregationConfig?: close({
+								AggregationType?: string | fn.Fn
+							}) | fn.If
+							FileType?:    string | fn.Fn
+							PrefixConfig: close({
+								PrefixFormat?: string | fn.Fn
+								PrefixType?:   string | fn.Fn
+							}) | fn.If
+						}) | fn.If
+					}) | fn.If
 				}) | fn.If
 			})] | fn.If
 			FlowName:         string | fn.Fn
 			KMSArn?:          string | fn.Fn
 			SourceFlowConfig: close({
-				ConnectorProfileName?:     string | fn.Fn
-				ConnectorType:             string | fn.Fn
+				ConnectorProfileName?:  string | fn.Fn
+				ConnectorType:          string | fn.Fn
+				IncrementalPullConfig?: close({
+					DatetimeTypeFieldName?: string | fn.Fn
+				}) | fn.If
 				SourceConnectorProperties: close({
 					Amplitude?: close({
 						Object: string | fn.Fn

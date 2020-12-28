@@ -96,6 +96,7 @@ ElastiCache :: {
 				Value: string | fn.Fn
 			})] | fn.If
 			TransitEncryptionEnabled?: bool | fn.Fn
+			UserGroupIds?:             [...(string | fn.Fn)] | (string | fn.Fn)
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain" | "Snapshot"

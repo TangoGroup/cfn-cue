@@ -19,6 +19,20 @@ SSO :: {
 		Metadata?: [string]: _
 		Condition?: string
 	}
+	InstanceAccessControlAttributeConfiguration :: {
+		Type:       "AWS::SSO::InstanceAccessControlAttributeConfiguration"
+		Properties: close({
+			InstanceAccessControlAttributeConfiguration: {
+				[string]: _
+			} | fn.Fn
+			InstanceArn: string | fn.Fn
+		})
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+		Condition?: string
+	}
 	PermissionSet :: {
 		Type:       "AWS::SSO::PermissionSet"
 		Properties: close({

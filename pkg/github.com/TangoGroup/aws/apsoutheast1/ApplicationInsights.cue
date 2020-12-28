@@ -21,6 +21,11 @@ ApplicationInsights :: {
 							AlarmName: string | fn.Fn
 							Severity?: string | fn.Fn
 						})] | fn.If
+						JMXPrometheusExporter?: close({
+							HostPort?:       string | fn.Fn
+							JMXURL?:         string | fn.Fn
+							PrometheusPort?: string | fn.Fn
+						}) | fn.If
 						Logs?: [...close({
 							Encoding?:     string | fn.Fn
 							LogGroupName?: string | fn.Fn
@@ -66,6 +71,11 @@ ApplicationInsights :: {
 							AlarmName: string | fn.Fn
 							Severity?: string | fn.Fn
 						})] | fn.If
+						JMXPrometheusExporter?: close({
+							HostPort?:       string | fn.Fn
+							JMXURL?:         string | fn.Fn
+							PrometheusPort?: string | fn.Fn
+						}) | fn.If
 						Logs?: [...close({
 							Encoding?:     string | fn.Fn
 							LogGroupName?: string | fn.Fn

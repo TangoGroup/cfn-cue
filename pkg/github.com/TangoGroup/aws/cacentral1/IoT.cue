@@ -388,7 +388,13 @@ IoT :: {
 			HttpUrlProperties?: close({
 				ConfirmationUrl?: string | fn.Fn
 			}) | fn.If
-			Status?: string | fn.Fn
+			Status?:        string | fn.Fn
+			VpcProperties?: close({
+				RoleArn?:        string | fn.Fn
+				SecurityGroups?: [...(string | fn.Fn)] | (string | fn.Fn)
+				SubnetIds?:      [...(string | fn.Fn)] | (string | fn.Fn)
+				VpcId?:          string | fn.Fn
+			}) | fn.If
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

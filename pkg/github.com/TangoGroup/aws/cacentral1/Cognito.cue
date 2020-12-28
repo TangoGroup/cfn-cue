@@ -55,9 +55,18 @@ Cognito :: {
 			EmailVerificationSubject?: string | fn.Fn
 			EnabledMfas?:              [...(string | fn.Fn)] | (string | fn.Fn)
 			LambdaConfig?:             close({
-				CreateAuthChallenge?:         string | fn.Fn
-				CustomMessage?:               string | fn.Fn
+				CreateAuthChallenge?: string | fn.Fn
+				CustomEmailSender?:   close({
+					LambdaArn?:     string | fn.Fn
+					LambdaVersion?: string | fn.Fn
+				}) | fn.If
+				CustomMessage?:   string | fn.Fn
+				CustomSMSSender?: close({
+					LambdaArn?:     string | fn.Fn
+					LambdaVersion?: string | fn.Fn
+				}) | fn.If
 				DefineAuthChallenge?:         string | fn.Fn
+				KMSKeyID?:                    string | fn.Fn
 				PostAuthentication?:          string | fn.Fn
 				PostConfirmation?:            string | fn.Fn
 				PreAuthentication?:           string | fn.Fn
