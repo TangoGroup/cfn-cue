@@ -115,5 +115,14 @@ package fn
 
 // ConditionFn: LogicFn | #If
 
-Fn: #Base64 | #Cidr | #GetAZs | #GetAtt | #ImportValue | #Join | #Select | #Split | #Sub | #Ref
+// Fn: #Base64 | #Cidr | #GetAZs | #GetAtt | #ImportValue | #Join | #Select | #Split | #Sub | #Ref
+Fn: #GetAtt | 
+    #Base64 | 
+    // #ImportValue | 
+    #Join | 
+    #Sub | 
+    #Select | 
+    // #Split | 
+    // #Sub |
+    #Ref 
 #Fn: Fn
