@@ -19,7 +19,7 @@ import "github.com/TangoGroup/aws/fn"
 				UseAwsOwnedKey: bool | fn.#Fn
 			}) | fn.If
 			EngineType:          ("ACTIVEMQ" | "RABBITMQ") | fn.#Fn
-			EngineVersion:       ("3.8.6" | "5.15.0" | "5.15.6" | "5.15.8" | "5.15.9" | "5.15.10" | "5.15.12" | "5.15.13") | fn.#Fn
+			EngineVersion:       ("3.8.6" | "5.15.0" | "5.15.6" | "5.15.8" | "5.15.9" | "5.15.10" | "5.15.12" | "5.15.13" | "5.15.14") | fn.#Fn
 			HostInstanceType:    ("mq.m5.2xlarge" | "mq.m5.4xlarge" | "mq.m5.large" | "mq.m5.xlarge" | "mq.t2.micro" | "mq.t3.micro") | fn.#Fn
 			LdapServerMetadata?: close({
 				Hosts:                  [...(string | fn.#Fn)] | (string | fn.#Fn)
@@ -70,7 +70,7 @@ import "github.com/TangoGroup/aws/fn"
 			Data:          string | fn.#Fn
 			Description?:  string | fn.#Fn
 			EngineType:    ("ACTIVEMQ" | "RABBITMQ") | fn.#Fn
-			EngineVersion: ("3.8.6" | "5.15.0" | "5.15.6" | "5.15.8" | "5.15.9" | "5.15.10" | "5.15.12" | "5.15.13") | fn.#Fn
+			EngineVersion: ("3.8.6" | "5.15.0" | "5.15.6" | "5.15.8" | "5.15.9" | "5.15.10" | "5.15.12" | "5.15.13" | "5.15.14") | fn.#Fn
 			Name:          string | fn.#Fn
 			Tags?:         [...close({
 				Key:   string | fn.#Fn

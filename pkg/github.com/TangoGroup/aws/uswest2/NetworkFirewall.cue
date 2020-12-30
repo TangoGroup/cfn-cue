@@ -15,11 +15,10 @@ import "github.com/TangoGroup/aws/fn"
 			SubnetMappings:                  [...close({
 				SubnetId: string | fn.#Fn
 			})] | fn.If
-			Tags?: close({
-				Tags?: [...close({
-					[string]: _
-				})] | fn.If
-			}) | fn.If
+			Tags?: [...close({
+				Key:   string | fn.#Fn
+				Value: string | fn.#Fn
+			})] | fn.If
 			VpcId: string | fn.#Fn
 		})
 		DependsOn?:           string | [...string]
@@ -65,11 +64,10 @@ import "github.com/TangoGroup/aws/fn"
 				}) | fn.If
 			}) | fn.If
 			FirewallPolicyName: string | fn.#Fn
-			Tags?:              close({
-				Tags?: [...close({
-					[string]: _
-				})] | fn.If
-			}) | fn.If
+			Tags?:              [...close({
+				Key:   string | fn.#Fn
+				Value: string | fn.#Fn
+			})] | fn.If
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -80,6 +78,8 @@ import "github.com/TangoGroup/aws/fn"
 	#LoggingConfiguration: {
 		Type:       "AWS::NetworkFirewall::LoggingConfiguration"
 		Properties: close({
+			FirewallArn:          string | fn.#Fn
+			FirewallName?:        string | fn.#Fn
 			LoggingConfiguration: close({
 				LogDestinationConfigs: close({
 					LogDestinationConfigs?: [...close({
@@ -144,13 +144,11 @@ import "github.com/TangoGroup/aws/fn"
 					}) | fn.If
 				}) | fn.If
 			}) | fn.If
-			RuleGroupId?:  string | fn.#Fn
 			RuleGroupName: string | fn.#Fn
-			Tags?:         close({
-				Tags?: [...close({
-					[string]: _
-				})] | fn.If
-			}) | fn.If
+			Tags?:         [...close({
+				Key:   string | fn.#Fn
+				Value: string | fn.#Fn
+			})] | fn.If
 			Type: string | fn.#Fn
 		})
 		DependsOn?:           string | [...string]

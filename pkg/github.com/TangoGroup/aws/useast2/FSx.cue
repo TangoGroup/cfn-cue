@@ -23,7 +23,7 @@ import "github.com/TangoGroup/aws/fn"
 				WeeklyMaintenanceStartTime?:    string | fn.#Fn
 			}) | fn.If
 			SecurityGroupIds?: [...(string | fn.#Fn)] | (string | fn.#Fn)
-			StorageCapacity?:  (>=300 & <=65536) | fn.#Fn
+			StorageCapacity?:  (>=32 & <=65536) | fn.#Fn
 			StorageType?:      string | fn.#Fn
 			SubnetIds:         [...(string | fn.#Fn)] | (string | fn.#Fn)
 			Tags?:             [...close({

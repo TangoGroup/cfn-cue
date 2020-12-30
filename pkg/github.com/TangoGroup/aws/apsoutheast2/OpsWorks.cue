@@ -73,7 +73,7 @@ import "github.com/TangoGroup/aws/fn"
 					Iops?:                int | fn.#Fn
 					SnapshotId?:          string | fn.#Fn
 					VolumeSize?:          int | fn.#Fn
-					VolumeType?:          ("gp2" | "io1" | "io2" | "sc1" | "st1" | "standard") | fn.#Fn
+					VolumeType?:          ("gp2" | "gp3" | "io1" | "io2" | "sc1" | "st1" | "standard") | fn.#Fn
 				}) | fn.If
 				NoDevice?:    string | fn.#Fn
 				VirtualName?: string | fn.#Fn
@@ -186,7 +186,7 @@ import "github.com/TangoGroup/aws/fn"
 				NumberOfDisks?: int | fn.#Fn
 				RaidLevel?:     int | fn.#Fn
 				Size?:          int | fn.#Fn
-				VolumeType?:    ("gp2" | "io1" | "io2" | "sc1" | "st1" | "standard") | fn.#Fn
+				VolumeType?:    ("gp2" | "gp3" | "io1" | "io2" | "sc1" | "st1" | "standard") | fn.#Fn
 			})] | fn.If
 		})
 		DependsOn?:           string | [...string]

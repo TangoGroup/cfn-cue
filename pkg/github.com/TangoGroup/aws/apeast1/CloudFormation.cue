@@ -32,6 +32,31 @@ import "github.com/TangoGroup/aws/fn"
 		Metadata?: [string]: _
 		Condition?: string
 	}
+	#ModuleDefaultVersion: {
+		Type:       "AWS::CloudFormation::ModuleDefaultVersion"
+		Properties: close({
+			Arn?:        string | fn.#Fn
+			ModuleName?: string | fn.#Fn
+			VersionId?:  string | fn.#Fn
+		})
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+		Condition?: string
+	}
+	#ModuleVersion: {
+		Type:       "AWS::CloudFormation::ModuleVersion"
+		Properties: close({
+			ModuleName:     string | fn.#Fn
+			ModulePackage?: string | fn.#Fn
+		})
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+		Condition?: string
+	}
 	#Stack: {
 		Type:       "AWS::CloudFormation::Stack"
 		Properties: close({

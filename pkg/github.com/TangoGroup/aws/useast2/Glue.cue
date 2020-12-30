@@ -45,7 +45,7 @@ import "github.com/TangoGroup/aws/fn"
 				ConnectionProperties?: {
 					[string]: _
 				} | fn.#Fn
-				ConnectionType:                  ("JDBC" | "KAFKA" | "MONGODB" | "NETWORK" | "SFTP") | fn.#Fn
+				ConnectionType:                  ("CUSTOM" | "JDBC" | "KAFKA" | "MARKETPLACE" | "MONGODB" | "NETWORK" | "SFTP") | fn.#Fn
 				Description?:                    string | fn.#Fn
 				MatchCriteria?:                  [...(string | fn.#Fn)] | (string | fn.#Fn)
 				Name?:                           string | fn.#Fn
@@ -135,12 +135,6 @@ import "github.com/TangoGroup/aws/fn"
 		Properties: close({
 			CatalogId:     string | fn.#Fn
 			DatabaseInput: close({
-				CreateTableDefaultPermissions?: [...close({
-					Permissions?: [...(string | fn.#Fn)] | (string | fn.#Fn)
-					Principal?:   close({
-						DataLakePrincipalIdentifier?: string | fn.#Fn
-					}) | fn.If
-				})] | fn.If
 				Description?: string | fn.#Fn
 				LocationUri?: string | fn.#Fn
 				Name?:        string | fn.#Fn
@@ -300,6 +294,15 @@ import "github.com/TangoGroup/aws/fn"
 					Parameters?:      {
 						[string]: _
 					} | fn.#Fn
+					SchemaReference?: close({
+						SchameVersionId?: string | fn.#Fn
+						SchemaId?:        close({
+							RegistryName?: string | fn.#Fn
+							SchemaArn?:    string | fn.#Fn
+							SchemaName?:   string | fn.#Fn
+						}) | fn.If
+						SchemaVersionNumber?: int | fn.#Fn
+					}) | fn.If
 					SerdeInfo?: close({
 						Name?:       string | fn.#Fn
 						Parameters?: {
@@ -460,6 +463,15 @@ import "github.com/TangoGroup/aws/fn"
 					Parameters?:      {
 						[string]: _
 					} | fn.#Fn
+					SchemaReference?: close({
+						SchameVersionId?: string | fn.#Fn
+						SchemaId?:        close({
+							RegistryName?: string | fn.#Fn
+							SchemaArn?:    string | fn.#Fn
+							SchemaName?:   string | fn.#Fn
+						}) | fn.If
+						SchemaVersionNumber?: int | fn.#Fn
+					}) | fn.If
 					SerdeInfo?: close({
 						Name?:       string | fn.#Fn
 						Parameters?: {

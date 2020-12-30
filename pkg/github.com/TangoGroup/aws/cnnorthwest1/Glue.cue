@@ -45,7 +45,7 @@ import "github.com/TangoGroup/aws/fn"
 				ConnectionProperties: {
 					[string]: _
 				} | fn.#Fn
-				ConnectionType:                  ("JDBC" | "KAFKA" | "MONGODB" | "NETWORK" | "SFTP") | fn.#Fn
+				ConnectionType:                  ("CUSTOM" | "JDBC" | "KAFKA" | "MARKETPLACE" | "MONGODB" | "NETWORK" | "SFTP") | fn.#Fn
 				Description?:                    string | fn.#Fn
 				MatchCriteria?:                  [...(string | fn.#Fn)] | (string | fn.#Fn)
 				Name?:                           string | fn.#Fn

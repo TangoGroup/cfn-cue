@@ -339,7 +339,7 @@ import (
 					KmsKeyId?:            string | fn.#Fn
 					SnapshotId?:          string | fn.#Fn
 					VolumeSize?:          int | fn.#Fn
-					VolumeType?:          ("gp2" | "io1" | "io2" | "sc1" | "st1" | "standard") | fn.#Fn
+					VolumeType?:          ("gp2" | "gp3" | "io1" | "io2" | "sc1" | "st1" | "standard") | fn.#Fn
 				}) | fn.If
 				NoDevice?:    string | fn.#Fn
 				VirtualName?: string | fn.#Fn
@@ -360,6 +360,9 @@ import (
 				Count?: int | fn.#Fn
 				Type:   ("eia1.large" | "eia1.medium" | "eia1.xlarge") | fn.#Fn
 			})] | fn.If
+			EnclaveOptions?: close({
+				Enabled?: bool | fn.#Fn
+			}) | fn.If
 			HibernationOptions?: close({
 				Configured?: bool | fn.#Fn
 			}) | fn.If
@@ -468,7 +471,7 @@ import (
 						KmsKeyId?:            string | fn.#Fn
 						SnapshotId?:          string | fn.#Fn
 						VolumeSize?:          int | fn.#Fn
-						VolumeType?:          ("gp2" | "io1" | "io2" | "sc1" | "st1" | "standard") | fn.#Fn
+						VolumeType?:          ("gp2" | "gp3" | "io1" | "io2" | "sc1" | "st1" | "standard") | fn.#Fn
 					}) | fn.If
 					NoDevice?:    string | fn.#Fn
 					VirtualName?: string | fn.#Fn
@@ -568,7 +571,7 @@ import (
 				SecurityGroupIds?:  [...(string | fn.#Fn)] | (string | fn.#Fn)
 				SecurityGroups?:    [...(string | fn.#Fn)] | (string | fn.#Fn)
 				TagSpecifications?: [...close({
-					ResourceType: ("client-vpn-endpoint" | "customer-gateway" | "dedicated-host" | "dhcp-options" | "egress-only-internet-gateway" | "elastic-gpu" | "elastic-ip" | "export-image-task" | "export-instance-task" | "fleet" | "fpga-image" | "host-reservation" | "image" | "import-image-task" | "import-snapshot-task" | "instance" | "internet-gateway" | "key-pair" | "launch-template" | "local-gateway-route-table-vpc-association" | "natgateway" | "network-acl" | "network-interface" | "placement-group" | "reserved-instances" | "route-table" | "security-group" | "snapshot" | "spot-fleet-request" | "spot-instances-request" | "subnet" | "traffic-mirror-filter" | "traffic-mirror-session" | "traffic-mirror-target" | "transit-gateway" | "transit-gateway-attachment" | "transit-gateway-multicast-domain" | "transit-gateway-route-table" | "volume" | "vpc" | "vpc-flow-log" | "vpc-peering-connection" | "vpn-connection" | "vpn-gateway") | fn.#Fn
+					ResourceType: ("client-vpn-endpoint" | "customer-gateway" | "dedicated-host" | "dhcp-options" | "egress-only-internet-gateway" | "elastic-gpu" | "elastic-ip" | "export-image-task" | "export-instance-task" | "fleet" | "fpga-image" | "host-reservation" | "image" | "import-image-task" | "import-snapshot-task" | "instance" | "internet-gateway" | "key-pair" | "launch-template" | "local-gateway-route-table-vpc-association" | "natgateway" | "network-acl" | "network-insights-analysis" | "network-insights-path" | "network-interface" | "placement-group" | "reserved-instances" | "route-table" | "security-group" | "snapshot" | "spot-fleet-request" | "spot-instances-request" | "subnet" | "traffic-mirror-filter" | "traffic-mirror-session" | "traffic-mirror-target" | "transit-gateway" | "transit-gateway-attachment" | "transit-gateway-connect-peer" | "transit-gateway-multicast-domain" | "transit-gateway-route-table" | "volume" | "vpc" | "vpc-flow-log" | "vpc-peering-connection" | "vpn-connection" | "vpn-gateway") | fn.#Fn
 					Tags:         [...close({
 						Key:   string | fn.#Fn
 						Value: string | fn.#Fn
@@ -663,6 +666,43 @@ import (
 			Protocol:   int | fn.#Fn
 			RuleAction: ("allow" | "deny") | fn.#Fn
 			RuleNumber: (>=1 & <=32766) | fn.#Fn
+		})
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+		Condition?: string
+	}
+	#NetworkInsightsAnalysis: {
+		Type:       "AWS::EC2::NetworkInsightsAnalysis"
+		Properties: close({
+			FilterInArns?:         [...(string | fn.#Fn)] | (string | fn.#Fn)
+			NetworkInsightsPathId: string | fn.#Fn
+			StatusMessage?:        string | fn.#Fn
+			Tags?:                 [...close({
+				Key:   string | fn.#Fn
+				Value: string | fn.#Fn
+			})] | fn.If
+		})
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+		Condition?: string
+	}
+	#NetworkInsightsPath: {
+		Type:       "AWS::EC2::NetworkInsightsPath"
+		Properties: close({
+			Destination:      string | fn.#Fn
+			DestinationIp?:   string | fn.#Fn
+			DestinationPort?: int | fn.#Fn
+			Protocol:         string | fn.#Fn
+			Source:           string | fn.#Fn
+			SourceIp?:        string | fn.#Fn
+			Tags?:            [...close({
+				Key:   string | fn.#Fn
+				Value: string | fn.#Fn
+			})] | fn.If
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -884,6 +924,7 @@ import (
 				ExcessCapacityTerminationPolicy?: ("default" | "noTermination") | fn.#Fn
 				IamFleetRole:                     (=~#"arn:(aws[a-zA-Z-]*)?:iam::\d{12}:role/[a-zA-Z_0-9+=,.@\-_/]+"#) | fn.#Fn
 				InstanceInterruptionBehavior?:    ("hibernate" | "stop" | "terminate") | fn.#Fn
+				InstancePoolsToUseCount?:         int | fn.#Fn
 				LaunchSpecifications?:            [...close({
 					BlockDeviceMappings?: [...close({
 						DeviceName: string | fn.#Fn
@@ -893,7 +934,7 @@ import (
 							Iops?:                int | fn.#Fn
 							SnapshotId?:          string | fn.#Fn
 							VolumeSize?:          int | fn.#Fn
-							VolumeType?:          ("gp2" | "io1" | "io2" | "sc1" | "st1" | "standard") | fn.#Fn
+							VolumeType?:          ("gp2" | "gp3" | "io1" | "io2" | "sc1" | "st1" | "standard") | fn.#Fn
 						}) | fn.If
 						NoDevice?:    string | fn.#Fn
 						VirtualName?: string | fn.#Fn
@@ -957,6 +998,7 @@ import (
 					Overrides?: [...close({
 						AvailabilityZone?: ("af-south-1a" | "af-south-1b" | "af-south-1c" | "ap-east-1a" | "ap-east-1b" | "ap-east-1c" | "ap-northeast-1a" | "ap-northeast-1b" | "ap-northeast-1c" | "ap-northeast-1d" | "ap-northeast-2a" | "ap-northeast-2b" | "ap-northeast-2c" | "ap-northeast-2d" | "ap-northeast-3a" | "ap-south-1a" | "ap-south-1b" | "ap-south-1c" | "ap-southeast-1a" | "ap-southeast-1b" | "ap-southeast-1c" | "ap-southeast-2a" | "ap-southeast-2b" | "ap-southeast-2c" | "ca-central-1a" | "ca-central-1b" | "ca-central-1d" | "cn-north-1a" | "cn-north-1b" | "cn-northwest-1a" | "cn-northwest-1b" | "cn-northwest-1c" | "eu-central-1a" | "eu-central-1b" | "eu-central-1c" | "eu-north-1a" | "eu-north-1b" | "eu-north-1c" | "eu-south-1a" | "eu-south-1b" | "eu-south-1c" | "eu-west-1a" | "eu-west-1b" | "eu-west-1c" | "eu-west-2a" | "eu-west-2b" | "eu-west-2c" | "eu-west-3a" | "eu-west-3b" | "eu-west-3c" | "me-south-1a" | "me-south-1b" | "me-south-1c" | "sa-east-1a" | "sa-east-1b" | "sa-east-1c" | "us-east-1a" | "us-east-1b" | "us-east-1c" | "us-east-1d" | "us-east-1e" | "us-east-1f" | "us-east-2a" | "us-east-2b" | "us-east-2c" | "us-gov-east-1a" | "us-gov-east-1b" | "us-gov-east-1c" | "us-gov-west-1a" | "us-gov-west-1b" | "us-gov-west-1c" | "us-west-1a" | "us-west-1b" | "us-west-1c" | "us-west-2a" | "us-west-2b" | "us-west-2c" | "us-west-2d" | "us-west-2-lax-1a" | "us-west-2-lax-1b") | fn.#Fn
 						InstanceType?:     string | fn.#Fn
+						Priority?:         number | fn.#Fn
 						SpotPrice?:        string | fn.#Fn
 						SubnetId?:         string | fn.#Fn
 						WeightedCapacity?: number | fn.#Fn
@@ -974,7 +1016,16 @@ import (
 						})] | fn.If
 					}) | fn.If
 				}) | fn.If
-				ReplaceUnhealthyInstances?:        bool | fn.#Fn
+				OnDemandAllocationStrategy?: string | fn.#Fn
+				OnDemandMaxTotalPrice?:      string | fn.#Fn
+				OnDemandTargetCapacity?:     int | fn.#Fn
+				ReplaceUnhealthyInstances?:  bool | fn.#Fn
+				SpotMaintenanceStrategies?:  close({
+					CapacityRebalance?: close({
+						ReplacementStrategy?: string | fn.#Fn
+					}) | fn.If
+				}) | fn.If
+				SpotMaxTotalPrice?:                string | fn.#Fn
 				SpotPrice?:                        string | fn.#Fn
 				TargetCapacity:                    int | fn.#Fn
 				TerminateInstancesWithExpiration?: bool | fn.#Fn
@@ -1420,7 +1471,8 @@ import (
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
 			})] | fn.If
-			VolumeType?: ("gp2" | "io1" | "io2" | "sc1" | "st1" | "standard") | fn.#Fn
+			Throughput?: int | fn.#Fn
+			VolumeType?: ("gp2" | "gp3" | "io1" | "io2" | "sc1" | "st1" | "standard") | fn.#Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain" | "Snapshot"

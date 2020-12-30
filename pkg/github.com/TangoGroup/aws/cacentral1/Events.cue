@@ -6,6 +6,7 @@ import "github.com/TangoGroup/aws/fn"
 	#Archive: {
 		Type:       "AWS::Events::Archive"
 		Properties: close({
+			ArchiveName?:  string | fn.#Fn
 			Description?:  string | fn.#Fn
 			EventPattern?: {
 				[string]: _

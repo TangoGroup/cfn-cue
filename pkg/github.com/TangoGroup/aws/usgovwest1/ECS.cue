@@ -76,6 +76,10 @@ import "github.com/TangoGroup/aws/fn"
 			})] | fn.If
 			Cluster?:                 string | fn.#Fn
 			DeploymentConfiguration?: close({
+				DeploymentCircuitBreaker?: close({
+					Enable:   bool | fn.#Fn
+					Rollback: bool | fn.#Fn
+				}) | fn.If
 				MaximumPercent?:        int | fn.#Fn
 				MinimumHealthyPercent?: int | fn.#Fn
 			}) | fn.If

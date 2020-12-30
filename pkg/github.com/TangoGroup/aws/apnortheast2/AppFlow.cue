@@ -214,8 +214,11 @@ import "github.com/TangoGroup/aws/fn"
 			FlowName:         string | fn.#Fn
 			KMSArn?:          string | fn.#Fn
 			SourceFlowConfig: close({
-				ConnectorProfileName?:     string | fn.#Fn
-				ConnectorType:             string | fn.#Fn
+				ConnectorProfileName?:  string | fn.#Fn
+				ConnectorType:          string | fn.#Fn
+				IncrementalPullConfig?: close({
+					DatetimeTypeFieldName?: string | fn.#Fn
+				}) | fn.If
 				SourceConnectorProperties: close({
 					Amplitude?: close({
 						Object: string | fn.#Fn

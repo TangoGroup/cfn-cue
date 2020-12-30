@@ -28,8 +28,11 @@ import "github.com/TangoGroup/aws/fn"
 				UserPoolId?:     string | fn.#Fn
 			}) | fn.If
 			DomainEndpointOptions?: close({
-				EnforceHTTPS?:      bool | fn.#Fn
-				TLSSecurityPolicy?: string | fn.#Fn
+				CustomEndpoint?:               string | fn.#Fn
+				CustomEndpointCertificateArn?: string | fn.#Fn
+				CustomEndpointEnabled?:        bool | fn.#Fn
+				EnforceHTTPS?:                 bool | fn.#Fn
+				TLSSecurityPolicy?:            string | fn.#Fn
 			}) | fn.If
 			DomainName?: string | fn.#Fn
 			EBSOptions?: close({

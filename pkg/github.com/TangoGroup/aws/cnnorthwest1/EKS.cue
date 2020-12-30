@@ -33,6 +33,7 @@ import "github.com/TangoGroup/aws/fn"
 		Type:       "AWS::EKS::Nodegroup"
 		Properties: close({
 			AmiType?:            string | fn.#Fn
+			CapacityType?:       string | fn.#Fn
 			ClusterName:         string | fn.#Fn
 			DiskSize?:           number | fn.#Fn
 			ForceUpdateEnabled?: bool | fn.#Fn

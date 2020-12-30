@@ -42,10 +42,10 @@ import "github.com/TangoGroup/aws/fn"
 		Properties: close({
 			CatalogId:       string | fn.#Fn
 			ConnectionInput: close({
-				ConnectionProperties: {
+				ConnectionProperties?: {
 					[string]: _
 				} | fn.#Fn
-				ConnectionType:                  ("JDBC" | "KAFKA" | "MONGODB" | "NETWORK" | "SFTP") | fn.#Fn
+				ConnectionType:                  ("CUSTOM" | "JDBC" | "KAFKA" | "MARKETPLACE" | "MONGODB" | "NETWORK" | "SFTP") | fn.#Fn
 				Description?:                    string | fn.#Fn
 				MatchCriteria?:                  [...(string | fn.#Fn)] | (string | fn.#Fn)
 				Name?:                           string | fn.#Fn
@@ -97,8 +97,9 @@ import "github.com/TangoGroup/aws/fn"
 					Path?:           string | fn.#Fn
 				})] | fn.If
 				S3Targets?: [...close({
-					Exclusions?: [...(string | fn.#Fn)] | (string | fn.#Fn)
-					Path?:       string | fn.#Fn
+					ConnectionName?: string | fn.#Fn
+					Exclusions?:     [...(string | fn.#Fn)] | (string | fn.#Fn)
+					Path?:           string | fn.#Fn
 				})] | fn.If
 			}) | fn.If
 		})
@@ -140,6 +141,10 @@ import "github.com/TangoGroup/aws/fn"
 				Parameters?:  {
 					[string]: _
 				} | fn.#Fn
+				TargetDatabase?: close({
+					CatalogId?:    string | fn.#Fn
+					DatabaseName?: string | fn.#Fn
+				}) | fn.If
 			}) | fn.If
 		})
 		DependsOn?:           string | [...string]
@@ -240,7 +245,14 @@ import "github.com/TangoGroup/aws/fn"
 			Tags?:            {
 				[string]: _
 			} | fn.#Fn
-			Timeout?:            int | fn.#Fn
+			Timeout?:             int | fn.#Fn
+			TransformEncryption?: close({
+				MLUserDataEncryption?: close({
+					KmsKeyId?:                string | fn.#Fn
+					MLUserDataEncryptionMode: string | fn.#Fn
+				}) | fn.If
+				TaskRunSecurityConfigurationName?: string | fn.#Fn
+			}) | fn.If
 			TransformParameters: close({
 				FindMatchesParameters?: close({
 					AccuracyCostTradeoff?:    number | fn.#Fn
@@ -282,6 +294,15 @@ import "github.com/TangoGroup/aws/fn"
 					Parameters?:      {
 						[string]: _
 					} | fn.#Fn
+					SchemaReference?: close({
+						SchameVersionId?: string | fn.#Fn
+						SchemaId?:        close({
+							RegistryName?: string | fn.#Fn
+							SchemaArn?:    string | fn.#Fn
+							SchemaName?:   string | fn.#Fn
+						}) | fn.If
+						SchemaVersionNumber?: int | fn.#Fn
+					}) | fn.If
 					SerdeInfo?: close({
 						Name?:       string | fn.#Fn
 						Parameters?: {
@@ -442,6 +463,15 @@ import "github.com/TangoGroup/aws/fn"
 					Parameters?:      {
 						[string]: _
 					} | fn.#Fn
+					SchemaReference?: close({
+						SchameVersionId?: string | fn.#Fn
+						SchemaId?:        close({
+							RegistryName?: string | fn.#Fn
+							SchemaArn?:    string | fn.#Fn
+							SchemaName?:   string | fn.#Fn
+						}) | fn.If
+						SchemaVersionNumber?: int | fn.#Fn
+					}) | fn.If
 					SerdeInfo?: close({
 						Name?:       string | fn.#Fn
 						Parameters?: {
@@ -462,7 +492,12 @@ import "github.com/TangoGroup/aws/fn"
 					})] | fn.If
 					StoredAsSubDirectories?: bool | fn.#Fn
 				}) | fn.If
-				TableType?:        ("EXTERNAL_TABLE" | "VIRTUAL_VIEW") | fn.#Fn
+				TableType?:   ("EXTERNAL_TABLE" | "VIRTUAL_VIEW") | fn.#Fn
+				TargetTable?: close({
+					CatalogId?:    string | fn.#Fn
+					DatabaseName?: string | fn.#Fn
+					Name?:         string | fn.#Fn
+				}) | fn.If
 				ViewExpandedText?: string | fn.#Fn
 				ViewOriginalText?: string | fn.#Fn
 			}) | fn.If

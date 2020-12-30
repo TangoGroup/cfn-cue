@@ -87,6 +87,10 @@ import "github.com/TangoGroup/aws/fn"
 				})] | fn.If
 			}) | fn.If
 			State: ("DISABLED" | "ENABLED") | fn.#Fn
+			Tags?: [...close({
+				Key:   string | fn.#Fn
+				Value: string | fn.#Fn
+			})] | fn.If
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

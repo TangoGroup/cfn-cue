@@ -6,10 +6,8 @@ import "github.com/TangoGroup/aws/fn"
 	#MonitoringSchedule: {
 		Type:       "AWS::SageMaker::MonitoringSchedule"
 		Properties: close({
-			CreationTime?:                   string | fn.#Fn
 			EndpointName?:                   string | fn.#Fn
 			FailureReason?:                  string | fn.#Fn
-			LastModifiedTime?:               string | fn.#Fn
 			LastMonitoringExecutionSummary?: close({
 				CreationTime:              string | fn.#Fn
 				EndpointName?:             string | fn.#Fn
@@ -20,7 +18,6 @@ import "github.com/TangoGroup/aws/fn"
 				ProcessingJobArn?:         string | fn.#Fn
 				ScheduledTime:             string | fn.#Fn
 			}) | fn.If
-			MonitoringScheduleArn?:   string | fn.#Fn
 			MonitoringScheduleConfig: close({
 				MonitoringJobDefinition: close({
 					BaselineConfig?: close({

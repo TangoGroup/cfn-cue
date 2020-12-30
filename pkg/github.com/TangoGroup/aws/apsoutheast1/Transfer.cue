@@ -9,7 +9,7 @@ import "github.com/TangoGroup/aws/fn"
 			Certificate?:     string | fn.#Fn
 			EndpointDetails?: close({
 				AddressAllocationIds?: [...(string | fn.#Fn)] | (string | fn.#Fn)
-				SecurityGroupIds?:     [...close({})] | fn.If
+				SecurityGroupIds?:     [...(string | fn.#Fn)] | (string | fn.#Fn)
 				SubnetIds?:            [...(string | fn.#Fn)] | (string | fn.#Fn)
 				VpcEndpointId?:        string | fn.#Fn
 				VpcId?:                string | fn.#Fn

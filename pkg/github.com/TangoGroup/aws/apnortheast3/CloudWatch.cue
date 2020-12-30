@@ -112,4 +112,18 @@ import (
 		Metadata?: [string]: _
 		Condition?: string
 	}
+	#InsightRule: {
+		Type:       "AWS::CloudWatch::InsightRule"
+		Properties: close({
+			RuleBody:  string | fn.#Fn
+			RuleName:  string | fn.#Fn
+			RuleState: string | fn.#Fn
+			Tags?:     close({}) | fn.If
+		})
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+		Condition?: string
+	}
 }

@@ -64,6 +64,7 @@ import (
 			})] | fn.If
 			BucketEncryption?: close({
 				ServerSideEncryptionConfiguration: [...close({
+					BucketKeyEnabled?:              bool | fn.#Fn
 					ServerSideEncryptionByDefault?: close({
 						KMSMasterKeyID?: string | fn.#Fn
 						SSEAlgorithm:    ("AES256" | "aws:kms") | fn.#Fn
@@ -262,6 +263,9 @@ import (
 					Prefix?:                  string | fn.#Fn
 					Priority?:                int | fn.#Fn
 					SourceSelectionCriteria?: close({
+						ReplicaModifications?: close({
+							Status: string | fn.#Fn
+						}) | fn.If
 						SseKmsEncryptedObjects?: close({
 							Status: string | fn.#Fn
 						}) | fn.If

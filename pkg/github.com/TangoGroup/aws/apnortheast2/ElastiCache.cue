@@ -96,6 +96,7 @@ import "github.com/TangoGroup/aws/fn"
 				Value: string | fn.#Fn
 			})] | fn.If
 			TransitEncryptionEnabled?: bool | fn.#Fn
+			UserGroupIds?:             [...(string | fn.#Fn)] | (string | fn.#Fn)
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain" | "Snapshot"
@@ -134,6 +135,39 @@ import "github.com/TangoGroup/aws/fn"
 			CacheSubnetGroupName?: string | fn.#Fn
 			Description:           string | fn.#Fn
 			SubnetIds:             [...(string | fn.#Fn)] | (string | fn.#Fn)
+		})
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+		Condition?: string
+	}
+	#User: {
+		Type:       "AWS::ElastiCache::User"
+		Properties: close({
+			AccessString?:       string | fn.#Fn
+			Engine:              string | fn.#Fn
+			NoPasswordRequired?: bool | fn.#Fn
+			Passwords?:          close({
+				PasswordList?: [...(string | fn.#Fn)] | (string | fn.#Fn)
+			}) | fn.If
+			UserId:   string | fn.#Fn
+			UserName: string | fn.#Fn
+		})
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+		Condition?: string
+	}
+	#UserGroup: {
+		Type:       "AWS::ElastiCache::UserGroup"
+		Properties: close({
+			Engine:      string | fn.#Fn
+			UserGroupId: string | fn.#Fn
+			UserIds?:    close({
+				UserIdList?: [...(string | fn.#Fn)] | (string | fn.#Fn)
+			}) | fn.If
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

@@ -6,6 +6,9 @@ import "github.com/TangoGroup/aws/fn"
 	#Channel: {
 		Type:       "AWS::MediaLive::Channel"
 		Properties: close({
+			CdiInputSpecification?: close({
+				Resolution?: string | fn.#Fn
+			}) | fn.If
 			ChannelClass?: string | fn.#Fn
 			Destinations?: [...close({
 				Id?:                   string | fn.#Fn
@@ -82,6 +85,11 @@ import "github.com/TangoGroup/aws/fn"
 							SampleRate?: number | fn.#Fn
 						}) | fn.If
 						PassThroughSettings?: close({}) | fn.If
+						WavSettings?:         close({
+							BitDepth?:   number | fn.#Fn
+							CodingMode?: string | fn.#Fn
+							SampleRate?: number | fn.#Fn
+						}) | fn.If
 					}) | fn.If
 					LanguageCode?:        string | fn.#Fn
 					LanguageCodeControl?: string | fn.#Fn
@@ -265,6 +273,7 @@ import "github.com/TangoGroup/aws/fn"
 								DestinationRefId?: string | fn.#Fn
 							}) | fn.If
 							DirectoryStructure?: string | fn.#Fn
+							DiscontinuityTags?:  string | fn.#Fn
 							EncryptionType?:     string | fn.#Fn
 							HlsCdnSettings?:     close({
 								HlsAkamaiSettings?: close({
@@ -297,16 +306,17 @@ import "github.com/TangoGroup/aws/fn"
 									RestartDelay?:            int | fn.#Fn
 								}) | fn.If
 							}) | fn.If
-							HlsId3SegmentTagging?: string | fn.#Fn
-							IFrameOnlyPlaylists?:  string | fn.#Fn
-							IndexNSegments?:       int | fn.#Fn
-							InputLossAction?:      string | fn.#Fn
-							IvInManifest?:         string | fn.#Fn
-							IvSource?:             string | fn.#Fn
-							KeepSegments?:         int | fn.#Fn
-							KeyFormat?:            string | fn.#Fn
-							KeyFormatVersions?:    string | fn.#Fn
-							KeyProviderSettings?:  close({
+							HlsId3SegmentTagging?:      string | fn.#Fn
+							IFrameOnlyPlaylists?:       string | fn.#Fn
+							IncompleteSegmentBehavior?: string | fn.#Fn
+							IndexNSegments?:            int | fn.#Fn
+							InputLossAction?:           string | fn.#Fn
+							IvInManifest?:              string | fn.#Fn
+							IvSource?:                  string | fn.#Fn
+							KeepSegments?:              int | fn.#Fn
+							KeyFormat?:                 string | fn.#Fn
+							KeyFormatVersions?:         string | fn.#Fn
+							KeyProviderSettings?:       close({
 								StaticKeySettings?: close({
 									KeyProviderServer?: close({
 										PasswordParam?: string | fn.#Fn
@@ -363,6 +373,7 @@ import "github.com/TangoGroup/aws/fn"
 						}) | fn.If
 						MultiplexGroupSettings?: close({}) | fn.If
 						RtmpGroupSettings?:      close({
+							AdMarkers?:            [...(string | fn.#Fn)] | (string | fn.#Fn)
 							AuthenticationScheme?: string | fn.#Fn
 							CacheFullBehavior?:    string | fn.#Fn
 							CacheLength?:          int | fn.#Fn
@@ -443,6 +454,7 @@ import "github.com/TangoGroup/aws/fn"
 										TransportStreamId?:     int | fn.#Fn
 										VideoPid?:              string | fn.#Fn
 									}) | fn.If
+									RawSettings?: close({}) | fn.If
 								}) | fn.If
 								Extension?:    string | fn.#Fn
 								NameModifier?: string | fn.#Fn
@@ -695,6 +707,29 @@ import "github.com/TangoGroup/aws/fn"
 							Tier?:                 string | fn.#Fn
 							TimecodeInsertion?:    string | fn.#Fn
 						}) | fn.If
+						Mpeg2Settings?: close({
+							AdaptiveQuantization?: string | fn.#Fn
+							AfdSignaling?:         string | fn.#Fn
+							ColorMetadata?:        string | fn.#Fn
+							ColorSpace?:           string | fn.#Fn
+							DisplayAspectRatio?:   string | fn.#Fn
+							FilterSettings?:       close({
+								TemporalFilterSettings?: close({
+									PostFilterSharpening?: string | fn.#Fn
+									Strength?:             string | fn.#Fn
+								}) | fn.If
+							}) | fn.If
+							FixedAfd?:             string | fn.#Fn
+							FramerateDenominator?: int | fn.#Fn
+							FramerateNumerator?:   int | fn.#Fn
+							GopClosedCadence?:     int | fn.#Fn
+							GopNumBFrames?:        int | fn.#Fn
+							GopSize?:              number | fn.#Fn
+							GopSizeUnits?:         string | fn.#Fn
+							ScanType?:             string | fn.#Fn
+							SubgopLength?:         string | fn.#Fn
+							TimecodeInsertion?:    string | fn.#Fn
+						}) | fn.If
 					}) | fn.If
 					Height?:          int | fn.#Fn
 					Name?:            string | fn.#Fn
@@ -706,6 +741,22 @@ import "github.com/TangoGroup/aws/fn"
 			}) | fn.If
 			InputAttachments?: [...close({
 				AutomaticInputFailoverSettings?: close({
+					ErrorClearTimeMsec?: int | fn.#Fn
+					FailoverConditions?: [...close({
+						FailoverConditionSettings?: close({
+							AudioSilenceSettings?: close({
+								AudioSelectorName?:         string | fn.#Fn
+								AudioSilenceThresholdMsec?: int | fn.#Fn
+							}) | fn.If
+							InputLossSettings?: close({
+								InputLossThresholdMsec?: int | fn.#Fn
+							}) | fn.If
+							VideoBlackSettings?: close({
+								BlackDetectThreshold?:    number | fn.#Fn
+								VideoBlackThresholdMsec?: int | fn.#Fn
+							}) | fn.If
+						}) | fn.If
+					})] | fn.If
 					InputPreference?:  string | fn.#Fn
 					SecondaryInputId?: string | fn.#Fn
 				}) | fn.If
@@ -733,6 +784,9 @@ import "github.com/TangoGroup/aws/fn"
 						LanguageCode?:     string | fn.#Fn
 						Name?:             string | fn.#Fn
 						SelectorSettings?: close({
+							AncillarySourceSettings?: close({
+								SourceAncillaryChannelNumber?: int | fn.#Fn
+							}) | fn.If
 							AribSourceSettings?:   close({}) | fn.If
 							DvbSubSourceSettings?: close({
 								Pid?: int | fn.#Fn
