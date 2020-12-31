@@ -9,7 +9,7 @@ package fn
 
 // Base64: https://docs.aws.amazon.com/en_pv/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-base64.html
 #Base64: {
-	"Fn::Base64": string | #GetAtt | #Sub | #Ref 
+	"Fn::Base64": string | #Base64 | #FindInMap | #GetAtt | #ImportValue | #Join | #Select | #Sub | #Ref | #If
 }
 
 #CidrIpBlock: string | #Select | #Ref
@@ -21,12 +21,12 @@ package fn
 	"Fn::Cidr": [#CidrIpBlock, #CidrCount, #CidrBits]
 }
 
-// #FindInMapT: string | #FindInMap | #Ref
+#FindInMapT: string | #FindInMap | #Ref
 
 // FindInMap: https://docs.aws.amazon.com/en_pv/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-findinmap.html
-// #FindInMap: {
-// 	"Fn::FindInMap": 3 * [#FindInMapT]
-// }
+#FindInMap: {
+	"Fn::FindInMap": 3 * [#FindInMapT]
+}
 
 // GetAZs: https://docs.aws.amazon.com/en_pv/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-getavailabilityzones.html
 #GetAZs: {
@@ -35,24 +35,24 @@ package fn
 
 // https://docs.aws.amazon.com/en_pv/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-getatt.html
 #GetAtt: {
-	"Fn::GetAtt": [string, string ] | string
+	"Fn::GetAtt": [string, string | #Ref] | string
 }
 
 // https://docs.aws.amazon.com/en_pv/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-importvalue.html
 #ImportValue: {
-	"Fn::ImportValue": string | #Join | #Select | #Split | #Sub | #Ref
+	"Fn::ImportValue": string | #Base64 | #FindInMap | #If | #Join | #Select | #Split | #Sub | #Ref
 }
 
 // https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-join.html
 #Join: {
-	"Fn::Join": [string, [...(#CUETypes | #GetAtt | #GetAZs | #ImportValue | #Join | #Split | #Select | #Sub | #Ref)]]
+	"Fn::Join": [string, [...(#CUETypes | #Base64 | #FindInMap | #GetAtt | #GetAZs | #If | #ImportValue | #Join | #Split | #Select | #Sub | #Ref)]]
 }
 
 // https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-select.html
 #Select: {
 	"Fn::Select": [
-		>=0 | #Ref,
-		[...(#CUETypes  | #GetAtt | #GetAZs | #Split | #Cidr | #Ref)] | #GetAtt | #GetAZs | #Split | #Ref,
+		>=0 | #Ref | #FindInMap,
+		[...(#CUETypes | #FindInMap | #GetAtt | #GetAZs | #If | #Split | #Cidr | #Ref)] | #FindInMap | #GetAtt | #GetAZs | #If | #Split | #Ref,
 	]
 }
 
@@ -60,12 +60,12 @@ package fn
 #Split: {
 	"Fn::Split": [
 		string,
-		string | #GetAtt | #GetAZs | #ImportValue | #Join | #Select | #Sub | #Ref,
+		string | #Base64 | #FindInMap | #GetAtt | #GetAZs | #If | #ImportValue | #Join | #Select | #Sub | #Ref,
 	]
 }
 
 #SubFun: {
-	[string]: string | #GetAtt | #GetAZs | #ImportValue | #Join | #Select | #Sub | #Ref
+	[string]: string | #Base64 | #FindInMap | #GetAtt | #GetAZs | #If | #ImportValue | #Join | #Select | #Sub | #Ref
 }
 
 // https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-sub.html
@@ -78,51 +78,42 @@ package fn
 	"Ref": string
 }
 
-// #LogicCondition: Condition: string
+#LogicCondition: Condition: string
 
 // https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-conditions.html#intrinsic-function-reference-conditions-and
-// #And: {
-// 	"Fn::And": [...(#LogicCondition | #And | #Equals | #Not | #Or)]
-// }
+#And: {
+	"Fn::And": [...(#LogicCondition | #And | #Equals | #Not | #Or)]
+}
 
-// #EqualsT: string | number | bool | #Ref | #FindInMap | #And | #Equals | #Not | #Or | #If
+#EqualsT: string | number | bool | #Ref | #FindInMap | #And | #Equals | #Not | #Or | #If
 
-// // https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-conditions.html#intrinsic-function-reference-conditions-equals
-// #Equals: {
-// 	"Fn::Equals": 2 * [#EqualsT]
-// }
+// https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-conditions.html#intrinsic-function-reference-conditions-equals
+#Equals: {
+	"Fn::Equals": 2 * [#EqualsT]
+}
 
-// #IfT: #Base64 | #FindInMap | #GetAtt | #GetAZs | #If | #Join | #Select | #Sub | #Ref | #CUETypes //| {...}
+#IfT: #Base64 | #FindInMap | #GetAtt | #GetAZs | #If | #Join | #Select | #Sub | #Ref | #CUETypes //| {...}
 
-// // https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-conditions.html#intrinsic-function-reference-conditions-if
-// #If: {
-// 	"Fn::If": [string] + 2*[#IfT]
-// }
+// https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-conditions.html#intrinsic-function-reference-conditions-if
+#If: {
+	"Fn::If": [string] + 2*[#IfT]
+}
 
-// If: #If
+If: #If
 
-// #LogicT: #LogicCondition | #And | #Equals | #Not | #Or
+#LogicT: #LogicCondition | #And | #Equals | #Not | #Or
 
-// #Not: {
-// 	"Fn::Not": [#LogicT]
-// }
+#Not: {
+	"Fn::Not": [#LogicT]
+}
 
-// #Or: {
-// 	"Fn::Or": [...(#LogicT)]
-// }
+#Or: {
+	"Fn::Or": [...(#LogicT)]
+}
 
-// LogicFn: #And | #Equals | #Not | #Or
+LogicFn: #And | #Equals | #Not | #Or
 
-// ConditionFn: LogicFn | #If
+ConditionFn: LogicFn | #If
 
-// Fn: #Base64 | #Cidr | #GetAZs | #GetAtt | #ImportValue | #Join | #Select | #Split | #Sub | #Ref
-Fn: #GetAtt | 
-    #Base64 | 
-    #ImportValue | 
-    #Join | 
-    #Sub | 
-    #Select | 
-    #Split | 
-    #Sub |
-    #Ref 
+Fn: #Base64 | #Cidr | #FindInMap | #GetAZs | #GetAtt | #ImportValue | #Join | #Select | #Split | #Sub | #Ref | #And | #Equals | #If | #Not | #Or
 #Fn: Fn
