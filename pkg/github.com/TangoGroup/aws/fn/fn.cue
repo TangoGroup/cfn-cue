@@ -118,11 +118,11 @@ package fn
 // Fn: #Base64 | #Cidr | #GetAZs | #GetAtt | #ImportValue | #Join | #Select | #Split | #Sub | #Ref
 Fn: #GetAtt | 
     #Base64 | 
-    // #ImportValue | 
+    #ImportValue | 
     #Join | 
     #Sub | 
     #Select | 
-    // #Split | 
-    // #Sub |
+    #Split | 
+    #Sub |
     #Ref 
 #Fn: Fn
