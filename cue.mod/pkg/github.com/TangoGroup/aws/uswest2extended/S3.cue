@@ -1,7 +1,7 @@
-package uswest2
+package uswest2extended
 
 import (
-	"github.com/TangoGroup/aws/fn"
+	fn "github.com/TangoGroup/aws/fnextended"
 	"strings"
 	"time"
 )

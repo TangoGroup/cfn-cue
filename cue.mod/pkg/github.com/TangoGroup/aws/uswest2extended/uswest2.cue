@@ -1,4 +1,4 @@
-package uswest2
+package uswest2extended
 
 #ResourceSpecificationVersion: "22.0.0"
 #Template: {

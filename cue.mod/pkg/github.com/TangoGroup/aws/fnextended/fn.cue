@@ -1,4 +1,4 @@
-package fn
+package fnextended
 
 #CUETypes: bool | string | bytes | int | float
 
@@ -11,13 +11,13 @@ package fn
 #Base64: {
 	"Fn::Base64": string |
 		#Base64 |
-		// #FindInMap | 
+		#FindInMap |
 		#GetAtt |
-		// #ImportValue | 
-		// #Join | 
-		// #Select | 
+		#ImportValue |
+		#Join |
+		#Select |
 		#Sub |
-		// #If | 
+		#If |
 		#Ref
 }
 
@@ -56,9 +56,9 @@ package fn
 // https://docs.aws.amazon.com/en_pv/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-importvalue.html
 #ImportValue: {
 	"Fn::ImportValue": string |
-		//  #Base64 | 
-		//  #FindInMap | 
-		//  #If | 
+		#Base64 |
+		#FindInMap |
+		#If |
 		#Join |
 		#Select |
 		#Split |
@@ -70,11 +70,11 @@ package fn
 #Join: {
 	"Fn::Join": [string, [...(
 		#CUETypes |
-		// #Base64 |
-		// #FindInMap |
+		#Base64 |
+		#FindInMap |
 		#GetAtt |
 		#GetAZs |
-		// #If |
+		#If |
 		#ImportValue |
 		#Join |
 		#Split |
@@ -88,22 +88,22 @@ package fn
 #Select: {
 	"Fn::Select": [
 		>=0 |
-		// #FindInMap | 
+		#FindInMap |
 		#Ref,
 		[...(
 			#CUETypes |
-			// #FindInMap | 
+			#FindInMap |
 			#GetAtt |
 			#GetAZs |
-			// #If | 
+			#If |
 			#Split |
 			#Cidr |
 			#Ref),
 		] |
-		// #FindInMap | 
+		#FindInMap |
 		#GetAtt |
 		#GetAZs |
-		// #If | 
+		#If |
 		#Split |
 		#Ref,
 	]
@@ -115,10 +115,10 @@ package fn
 		string,
 		string |
 		#Base64 |
-		// #FindInMap | 
+		#FindInMap |
 		#GetAtt |
 		#GetAZs |
-		// #If | 
+		#If |
 		#ImportValue |
 		#Join |
 		#Select |
@@ -128,11 +128,11 @@ package fn
 }
 
 #SubFun: [string]: string |
-	//  #Base64 | 
-	//  #FindInMap | 
+	#Base64 |
+	#FindInMap |
 	#GetAtt |
 	#GetAZs |
-	//  #If | 
+	#If |
 	#ImportValue |
 	#Join |
 	#Select |
@@ -149,69 +149,69 @@ package fn
 	Ref: string
 }
 
-// #LogicCondition: Condition: string
+#LogicCondition: Condition: string
 
 // https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-conditions.html#intrinsic-function-reference-conditions-and
-// #And: {
-// 	"Fn::And": [...(
-// 		#LogicCondition |
-// 		#And |
-// 		#Equals |
-// 		#Not |
-// 		#Or)]
-// }
+#And: {
+	"Fn::And": [...(
+		#LogicCondition |
+		#And |
+		#Equals |
+		#Not |
+		#Or)]
+}
 
-// #EqualsT: string |
-// 	number |
-// 	bool |
-// 	#FindInMap |
-// 	#And |
-// 	#Equals |
-// 	#Not |
-// 	#Or |
-// 	#If |
-// 	#Ref
+#EqualsT: string |
+	number |
+	bool |
+	#FindInMap |
+	#And |
+	#Equals |
+	#Not |
+	#Or |
+	#If |
+	#Ref
 
-// // https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-conditions.html#intrinsic-function-reference-conditions-equals
-// #Equals: {
-// 	"Fn::Equals": [#EqualsT, #EqualsT]
-// }
+// https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-conditions.html#intrinsic-function-reference-conditions-equals
+#Equals: {
+	"Fn::Equals": [#EqualsT, #EqualsT]
+}
 
-// #IfT: #Base64 |
-// 	#FindInMap |
-// 	#GetAtt |
-// 	#GetAZs |
-// 	#If |
-// 	#Join |
-// 	#Select |
-// 	#Sub |
-// 	#Ref |
-// 	#CUETypes //| {...}
+#IfT: #Base64 |
+	#FindInMap |
+	#GetAtt |
+	#GetAZs |
+	#If |
+	#Join |
+	#Select |
+	#Sub |
+	#Ref |
+	#CUETypes //| {...}
 
-// // https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-conditions.html#intrinsic-function-reference-conditions-if
-// #If: {
-// 	"Fn::If": [string] + [#IfT, #IfT]
-// }
+// https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-conditions.html#intrinsic-function-reference-conditions-if
+#If: {
+	"Fn::If": [string] + [#IfT, #IfT]
+}
 
-// #LogicT: #LogicCondition | #And | #Equals | #Not | #Or
+#LogicT: #LogicCondition | #And | #Equals | #Not | #Or
 
-// #Not: "Fn::Not": [#LogicT]
+#Not: "Fn::Not": [#LogicT]
 
-// #Or: "Fn::Or": [...(#LogicT)]
+#Or: "Fn::Or": [...#LogicT]
 
 #Fn: #Base64 |
-	// #Cidr |
-	// #FindInMap |
-	// #GetAZs |
+	#Cidr |
+	#FindInMap |
+	#GetAZs |
 	#GetAtt |
 	#ImportValue |
 	#Join |
 	#Select |
 	#Split |
 	#Sub |
-	// #And |
-	// #Equals |
-	// #If |
-	// #Not |
-	// #Or |
+	#And |
+	#Equals |
+	#If |
+	#Not |
+	#Or |
 	#Ref

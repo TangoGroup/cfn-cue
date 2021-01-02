@@ -1,6 +1,6 @@
-package uswest2
+package uswest2extended
 
-import "github.com/TangoGroup/aws/fn"
+import fn "github.com/TangoGroup/aws/fnextended"
 
 #CloudFormation: #CustomResource: {
 	Type:       "AWS::CloudFormation::CustomResource" | =~#"^Custom::[a-zA-Z0-9_@-]{1,60}$"#

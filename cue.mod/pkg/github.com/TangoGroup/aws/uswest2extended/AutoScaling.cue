@@ -1,6 +1,6 @@
-package uswest2
+package uswest2extended
 
-import "github.com/TangoGroup/aws/fn"
+import fn "github.com/TangoGroup/aws/fnextended"
 
 #AutoScaling: #LaunchConfiguration: {
 	Type:       "AWS::AutoScaling::LaunchConfiguration"
