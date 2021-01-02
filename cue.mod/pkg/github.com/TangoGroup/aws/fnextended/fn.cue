@@ -34,7 +34,6 @@ package fnextended
 
 // FindInMap: https://docs.aws.amazon.com/en_pv/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-findinmap.html
 #FindInMap: {
-	// "Fn::FindInMap": 3 * [#FindInMapT]
 	"Fn::FindInMap": [#FindInMapT, #FindInMapT, #FindInMapT]
 }
 
