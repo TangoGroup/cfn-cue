@@ -189,7 +189,8 @@ package fnextended
 
 // https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-conditions.html#intrinsic-function-reference-conditions-if
 #If: {
-	"Fn::If": [string] + [#IfT, #IfT]
+	// "Fn::If": [string] + [#IfT, #IfT]
+  "Fn::If": [string, #IfT, #IfT]
 }
 
 #LogicT: #LogicCondition | #And | #Equals | #Not | #Or
