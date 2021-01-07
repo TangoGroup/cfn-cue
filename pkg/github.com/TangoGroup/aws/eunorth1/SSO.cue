@@ -4,15 +4,15 @@ import "github.com/TangoGroup/aws/fn"
 
 #SSO: {
 	#Assignment: {
-		Type:       "AWS::SSO::Assignment"
-		Properties: close({
+		Type: "AWS::SSO::Assignment"
+		Properties: {
 			InstanceArn:      string | fn.#Fn
 			PermissionSetArn: string | fn.#Fn
 			PrincipalId:      string | fn.#Fn
 			PrincipalType:    string | fn.#Fn
 			TargetId:         string | fn.#Fn
 			TargetType:       string | fn.#Fn
-		})
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -20,13 +20,13 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#InstanceAccessControlAttributeConfiguration: {
-		Type:       "AWS::SSO::InstanceAccessControlAttributeConfiguration"
-		Properties: close({
+		Type: "AWS::SSO::InstanceAccessControlAttributeConfiguration"
+		Properties: {
 			InstanceAccessControlAttributeConfiguration: {
 				[string]: _
 			} | fn.#Fn
 			InstanceArn: string | fn.#Fn
-		})
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -34,8 +34,8 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#PermissionSet: {
-		Type:       "AWS::SSO::PermissionSet"
-		Properties: close({
+		Type: "AWS::SSO::PermissionSet"
+		Properties: {
 			Description?:     string | fn.#Fn
 			InlinePolicy?:    string | fn.#Fn
 			InstanceArn:      string | fn.#Fn
@@ -43,11 +43,11 @@ import "github.com/TangoGroup/aws/fn"
 			Name:             string | fn.#Fn
 			RelayStateType?:  string | fn.#Fn
 			SessionDuration?: string | fn.#Fn
-			Tags?:            [...close({
+			Tags?:            [...{
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			})] | fn.If
-		})
+			}] | fn.#If
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

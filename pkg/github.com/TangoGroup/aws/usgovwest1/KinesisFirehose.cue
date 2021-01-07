@@ -4,103 +4,103 @@ import "github.com/TangoGroup/aws/fn"
 
 #KinesisFirehose: {
 	#DeliveryStream: {
-		Type:       "AWS::KinesisFirehose::DeliveryStream"
-		Properties: close({
-			DeliveryStreamEncryptionConfigurationInput?: close({
+		Type: "AWS::KinesisFirehose::DeliveryStream"
+		Properties: {
+			DeliveryStreamEncryptionConfigurationInput?: {
 				KeyARN?: string | fn.#Fn
 				KeyType: string | fn.#Fn
-			}) | fn.If
+			} | fn.#If
 			DeliveryStreamName?:                    string | fn.#Fn
 			DeliveryStreamType?:                    string | fn.#Fn
-			ElasticsearchDestinationConfiguration?: close({
-				BufferingHints?: close({
+			ElasticsearchDestinationConfiguration?: {
+				BufferingHints?: {
 					IntervalInSeconds?: int | fn.#Fn
 					SizeInMBs?:         int | fn.#Fn
-				}) | fn.If
-				CloudWatchLoggingOptions?: close({
+				} | fn.#If
+				CloudWatchLoggingOptions?: {
 					Enabled?:       bool | fn.#Fn
 					LogGroupName?:  string | fn.#Fn
 					LogStreamName?: string | fn.#Fn
-				}) | fn.If
+				} | fn.#If
 				ClusterEndpoint?:         string | fn.#Fn
 				DomainARN?:               string | fn.#Fn
 				IndexName:                string | fn.#Fn
 				IndexRotationPeriod?:     string | fn.#Fn
-				ProcessingConfiguration?: close({
+				ProcessingConfiguration?: {
 					Enabled?:    bool | fn.#Fn
-					Processors?: [...close({
-						Parameters?: [...close({
+					Processors?: [...{
+						Parameters?: [...{
 							ParameterName:  string | fn.#Fn
 							ParameterValue: string | fn.#Fn
-						})] | fn.If
+						}] | fn.#If
 						Type: string | fn.#Fn
-					})] | fn.If
-				}) | fn.If
-				RetryOptions?: close({
+					}] | fn.#If
+				} | fn.#If
+				RetryOptions?: {
 					DurationInSeconds?: int | fn.#Fn
-				}) | fn.If
+				} | fn.#If
 				RoleARN:         string | fn.#Fn
 				S3BackupMode?:   string | fn.#Fn
-				S3Configuration: close({
+				S3Configuration: {
 					BucketARN:       string | fn.#Fn
-					BufferingHints?: close({
+					BufferingHints?: {
 						IntervalInSeconds?: int | fn.#Fn
 						SizeInMBs?:         int | fn.#Fn
-					}) | fn.If
-					CloudWatchLoggingOptions?: close({
+					} | fn.#If
+					CloudWatchLoggingOptions?: {
 						Enabled?:       bool | fn.#Fn
 						LogGroupName?:  string | fn.#Fn
 						LogStreamName?: string | fn.#Fn
-					}) | fn.If
+					} | fn.#If
 					CompressionFormat?:       string | fn.#Fn
-					EncryptionConfiguration?: close({
-						KMSEncryptionConfig?: close({
+					EncryptionConfiguration?: {
+						KMSEncryptionConfig?: {
 							AWSKMSKeyARN: string | fn.#Fn
-						}) | fn.If
+						} | fn.#If
 						NoEncryptionConfig?: string | fn.#Fn
-					}) | fn.If
+					} | fn.#If
 					ErrorOutputPrefix?: string | fn.#Fn
 					Prefix?:            string | fn.#Fn
 					RoleARN:            string | fn.#Fn
-				}) | fn.If
+				} | fn.#If
 				TypeName?:         string | fn.#Fn
-				VpcConfiguration?: close({
+				VpcConfiguration?: {
 					RoleARN:          string | fn.#Fn
 					SecurityGroupIds: [...(string | fn.#Fn)] | (string | fn.#Fn)
 					SubnetIds:        [...(string | fn.#Fn)] | (string | fn.#Fn)
-				}) | fn.If
-			}) | fn.If
-			ExtendedS3DestinationConfiguration?: close({
+				} | fn.#If
+			} | fn.#If
+			ExtendedS3DestinationConfiguration?: {
 				BucketARN:       string | fn.#Fn
-				BufferingHints?: close({
+				BufferingHints?: {
 					IntervalInSeconds?: int | fn.#Fn
 					SizeInMBs?:         int | fn.#Fn
-				}) | fn.If
-				CloudWatchLoggingOptions?: close({
+				} | fn.#If
+				CloudWatchLoggingOptions?: {
 					Enabled?:       bool | fn.#Fn
 					LogGroupName?:  string | fn.#Fn
 					LogStreamName?: string | fn.#Fn
-				}) | fn.If
+				} | fn.#If
 				CompressionFormat?:                 string | fn.#Fn
-				DataFormatConversionConfiguration?: close({
+				DataFormatConversionConfiguration?: {
 					Enabled?:                  bool | fn.#Fn
-					InputFormatConfiguration?: close({
-						Deserializer?: close({
-							HiveJsonSerDe?: close({
+					InputFormatConfiguration?: {
+						Deserializer?: {
+							HiveJsonSerDe?: {
 								TimestampFormats?: [...(string | fn.#Fn)] | (string | fn.#Fn)
-							}) | fn.If
-							OpenXJsonSerDe?: close({
+							} | fn.#If
+							OpenXJsonSerDe?: {
 								CaseInsensitive?:         bool | fn.#Fn
 								ColumnToJsonKeyMappings?: {
 									[string]: string | fn.#Fn
-								} | fn.If
+								} | fn.#If
 								ConvertDotsInJsonKeysToUnderscores?: bool | fn.#Fn
-							}) | fn.If
-						}) | fn.If
-					}) | fn.If
-					OutputFormatConfiguration?: close({
-						Serializer?: close({
-							OrcSerDe?: close({
+							} | fn.#If
+						} | fn.#If
+					} | fn.#If
+					OutputFormatConfiguration?: {
+						Serializer?: {
+							OrcSerDe?: {
 								BlockSizeBytes?:                      int | fn.#Fn
 								BloomFilterColumns?:                  [...(string | fn.#Fn)] | (string | fn.#Fn)
 								BloomFilterFalsePositiveProbability?: number | fn.#Fn
@@ -111,281 +111,281 @@ import "github.com/TangoGroup/aws/fn"
 								PaddingTolerance?:                    number | fn.#Fn
 								RowIndexStride?:                      int | fn.#Fn
 								StripeSizeBytes?:                     int | fn.#Fn
-							}) | fn.If
-							ParquetSerDe?: close({
+							} | fn.#If
+							ParquetSerDe?: {
 								BlockSizeBytes?:              int | fn.#Fn
 								Compression?:                 string | fn.#Fn
 								EnableDictionaryCompression?: bool | fn.#Fn
 								MaxPaddingBytes?:             int | fn.#Fn
 								PageSizeBytes?:               int | fn.#Fn
 								WriterVersion?:               string | fn.#Fn
-							}) | fn.If
-						}) | fn.If
-					}) | fn.If
-					SchemaConfiguration?: close({
+							} | fn.#If
+						} | fn.#If
+					} | fn.#If
+					SchemaConfiguration?: {
 						CatalogId?:    string | fn.#Fn
 						DatabaseName?: string | fn.#Fn
 						Region?:       string | fn.#Fn
 						RoleARN?:      string | fn.#Fn
 						TableName?:    string | fn.#Fn
 						VersionId?:    string | fn.#Fn
-					}) | fn.If
-				}) | fn.If
-				EncryptionConfiguration?: close({
-					KMSEncryptionConfig?: close({
+					} | fn.#If
+				} | fn.#If
+				EncryptionConfiguration?: {
+					KMSEncryptionConfig?: {
 						AWSKMSKeyARN: string | fn.#Fn
-					}) | fn.If
+					} | fn.#If
 					NoEncryptionConfig?: string | fn.#Fn
-				}) | fn.If
+				} | fn.#If
 				ErrorOutputPrefix?:       string | fn.#Fn
 				Prefix?:                  string | fn.#Fn
-				ProcessingConfiguration?: close({
+				ProcessingConfiguration?: {
 					Enabled?:    bool | fn.#Fn
-					Processors?: [...close({
-						Parameters?: [...close({
+					Processors?: [...{
+						Parameters?: [...{
 							ParameterName:  string | fn.#Fn
 							ParameterValue: string | fn.#Fn
-						})] | fn.If
+						}] | fn.#If
 						Type: string | fn.#Fn
-					})] | fn.If
-				}) | fn.If
+					}] | fn.#If
+				} | fn.#If
 				RoleARN:                string | fn.#Fn
-				S3BackupConfiguration?: close({
+				S3BackupConfiguration?: {
 					BucketARN:       string | fn.#Fn
-					BufferingHints?: close({
+					BufferingHints?: {
 						IntervalInSeconds?: int | fn.#Fn
 						SizeInMBs?:         int | fn.#Fn
-					}) | fn.If
-					CloudWatchLoggingOptions?: close({
+					} | fn.#If
+					CloudWatchLoggingOptions?: {
 						Enabled?:       bool | fn.#Fn
 						LogGroupName?:  string | fn.#Fn
 						LogStreamName?: string | fn.#Fn
-					}) | fn.If
+					} | fn.#If
 					CompressionFormat?:       string | fn.#Fn
-					EncryptionConfiguration?: close({
-						KMSEncryptionConfig?: close({
+					EncryptionConfiguration?: {
+						KMSEncryptionConfig?: {
 							AWSKMSKeyARN: string | fn.#Fn
-						}) | fn.If
+						} | fn.#If
 						NoEncryptionConfig?: string | fn.#Fn
-					}) | fn.If
+					} | fn.#If
 					ErrorOutputPrefix?: string | fn.#Fn
 					Prefix?:            string | fn.#Fn
 					RoleARN:            string | fn.#Fn
-				}) | fn.If
+				} | fn.#If
 				S3BackupMode?: string | fn.#Fn
-			}) | fn.If
-			HttpEndpointDestinationConfiguration?: close({
-				BufferingHints?: close({
+			} | fn.#If
+			HttpEndpointDestinationConfiguration?: {
+				BufferingHints?: {
 					IntervalInSeconds?: int | fn.#Fn
 					SizeInMBs?:         int | fn.#Fn
-				}) | fn.If
-				CloudWatchLoggingOptions?: close({
+				} | fn.#If
+				CloudWatchLoggingOptions?: {
 					Enabled?:       bool | fn.#Fn
 					LogGroupName?:  string | fn.#Fn
 					LogStreamName?: string | fn.#Fn
-				}) | fn.If
-				EndpointConfiguration: close({
+				} | fn.#If
+				EndpointConfiguration: {
 					AccessKey?: string | fn.#Fn
 					Name?:      string | fn.#Fn
 					Url:        string | fn.#Fn
-				}) | fn.If
-				ProcessingConfiguration?: close({
+				} | fn.#If
+				ProcessingConfiguration?: {
 					Enabled?:    bool | fn.#Fn
-					Processors?: [...close({
-						Parameters?: [...close({
+					Processors?: [...{
+						Parameters?: [...{
 							ParameterName:  string | fn.#Fn
 							ParameterValue: string | fn.#Fn
-						})] | fn.If
+						}] | fn.#If
 						Type: string | fn.#Fn
-					})] | fn.If
-				}) | fn.If
-				RequestConfiguration?: close({
-					CommonAttributes?: [...close({
+					}] | fn.#If
+				} | fn.#If
+				RequestConfiguration?: {
+					CommonAttributes?: [...{
 						AttributeName:  string | fn.#Fn
 						AttributeValue: string | fn.#Fn
-					})] | fn.If
+					}] | fn.#If
 					ContentEncoding?: string | fn.#Fn
-				}) | fn.If
-				RetryOptions?: close({
+				} | fn.#If
+				RetryOptions?: {
 					DurationInSeconds?: int | fn.#Fn
-				}) | fn.If
+				} | fn.#If
 				RoleARN?:        string | fn.#Fn
 				S3BackupMode?:   string | fn.#Fn
-				S3Configuration: close({
+				S3Configuration: {
 					BucketARN:       string | fn.#Fn
-					BufferingHints?: close({
+					BufferingHints?: {
 						IntervalInSeconds?: int | fn.#Fn
 						SizeInMBs?:         int | fn.#Fn
-					}) | fn.If
-					CloudWatchLoggingOptions?: close({
+					} | fn.#If
+					CloudWatchLoggingOptions?: {
 						Enabled?:       bool | fn.#Fn
 						LogGroupName?:  string | fn.#Fn
 						LogStreamName?: string | fn.#Fn
-					}) | fn.If
+					} | fn.#If
 					CompressionFormat?:       string | fn.#Fn
-					EncryptionConfiguration?: close({
-						KMSEncryptionConfig?: close({
+					EncryptionConfiguration?: {
+						KMSEncryptionConfig?: {
 							AWSKMSKeyARN: string | fn.#Fn
-						}) | fn.If
+						} | fn.#If
 						NoEncryptionConfig?: string | fn.#Fn
-					}) | fn.If
+					} | fn.#If
 					ErrorOutputPrefix?: string | fn.#Fn
 					Prefix?:            string | fn.#Fn
 					RoleARN:            string | fn.#Fn
-				}) | fn.If
-			}) | fn.If
-			KinesisStreamSourceConfiguration?: close({
+				} | fn.#If
+			} | fn.#If
+			KinesisStreamSourceConfiguration?: {
 				KinesisStreamARN: string | fn.#Fn
 				RoleARN:          string | fn.#Fn
-			}) | fn.If
-			RedshiftDestinationConfiguration?: close({
-				CloudWatchLoggingOptions?: close({
+			} | fn.#If
+			RedshiftDestinationConfiguration?: {
+				CloudWatchLoggingOptions?: {
 					Enabled?:       bool | fn.#Fn
 					LogGroupName?:  string | fn.#Fn
 					LogStreamName?: string | fn.#Fn
-				}) | fn.If
+				} | fn.#If
 				ClusterJDBCURL: string | fn.#Fn
-				CopyCommand:    close({
+				CopyCommand:    {
 					CopyOptions?:      string | fn.#Fn
 					DataTableColumns?: string | fn.#Fn
 					DataTableName:     string | fn.#Fn
-				}) | fn.If
+				} | fn.#If
 				Password:                 string | fn.#Fn
-				ProcessingConfiguration?: close({
+				ProcessingConfiguration?: {
 					Enabled?:    bool | fn.#Fn
-					Processors?: [...close({
-						Parameters?: [...close({
+					Processors?: [...{
+						Parameters?: [...{
 							ParameterName:  string | fn.#Fn
 							ParameterValue: string | fn.#Fn
-						})] | fn.If
+						}] | fn.#If
 						Type: string | fn.#Fn
-					})] | fn.If
-				}) | fn.If
-				RetryOptions?: close({
+					}] | fn.#If
+				} | fn.#If
+				RetryOptions?: {
 					DurationInSeconds?: int | fn.#Fn
-				}) | fn.If
+				} | fn.#If
 				RoleARN:                string | fn.#Fn
-				S3BackupConfiguration?: close({
+				S3BackupConfiguration?: {
 					BucketARN:       string | fn.#Fn
-					BufferingHints?: close({
+					BufferingHints?: {
 						IntervalInSeconds?: int | fn.#Fn
 						SizeInMBs?:         int | fn.#Fn
-					}) | fn.If
-					CloudWatchLoggingOptions?: close({
+					} | fn.#If
+					CloudWatchLoggingOptions?: {
 						Enabled?:       bool | fn.#Fn
 						LogGroupName?:  string | fn.#Fn
 						LogStreamName?: string | fn.#Fn
-					}) | fn.If
+					} | fn.#If
 					CompressionFormat?:       string | fn.#Fn
-					EncryptionConfiguration?: close({
-						KMSEncryptionConfig?: close({
+					EncryptionConfiguration?: {
+						KMSEncryptionConfig?: {
 							AWSKMSKeyARN: string | fn.#Fn
-						}) | fn.If
+						} | fn.#If
 						NoEncryptionConfig?: string | fn.#Fn
-					}) | fn.If
+					} | fn.#If
 					ErrorOutputPrefix?: string | fn.#Fn
 					Prefix?:            string | fn.#Fn
 					RoleARN:            string | fn.#Fn
-				}) | fn.If
+				} | fn.#If
 				S3BackupMode?:   string | fn.#Fn
-				S3Configuration: close({
+				S3Configuration: {
 					BucketARN:       string | fn.#Fn
-					BufferingHints?: close({
+					BufferingHints?: {
 						IntervalInSeconds?: int | fn.#Fn
 						SizeInMBs?:         int | fn.#Fn
-					}) | fn.If
-					CloudWatchLoggingOptions?: close({
+					} | fn.#If
+					CloudWatchLoggingOptions?: {
 						Enabled?:       bool | fn.#Fn
 						LogGroupName?:  string | fn.#Fn
 						LogStreamName?: string | fn.#Fn
-					}) | fn.If
+					} | fn.#If
 					CompressionFormat?:       string | fn.#Fn
-					EncryptionConfiguration?: close({
-						KMSEncryptionConfig?: close({
+					EncryptionConfiguration?: {
+						KMSEncryptionConfig?: {
 							AWSKMSKeyARN: string | fn.#Fn
-						}) | fn.If
+						} | fn.#If
 						NoEncryptionConfig?: string | fn.#Fn
-					}) | fn.If
+					} | fn.#If
 					ErrorOutputPrefix?: string | fn.#Fn
 					Prefix?:            string | fn.#Fn
 					RoleARN:            string | fn.#Fn
-				}) | fn.If
+				} | fn.#If
 				Username: string | fn.#Fn
-			}) | fn.If
-			S3DestinationConfiguration?: close({
+			} | fn.#If
+			S3DestinationConfiguration?: {
 				BucketARN:       string | fn.#Fn
-				BufferingHints?: close({
+				BufferingHints?: {
 					IntervalInSeconds?: int | fn.#Fn
 					SizeInMBs?:         int | fn.#Fn
-				}) | fn.If
-				CloudWatchLoggingOptions?: close({
+				} | fn.#If
+				CloudWatchLoggingOptions?: {
 					Enabled?:       bool | fn.#Fn
 					LogGroupName?:  string | fn.#Fn
 					LogStreamName?: string | fn.#Fn
-				}) | fn.If
+				} | fn.#If
 				CompressionFormat?:       string | fn.#Fn
-				EncryptionConfiguration?: close({
-					KMSEncryptionConfig?: close({
+				EncryptionConfiguration?: {
+					KMSEncryptionConfig?: {
 						AWSKMSKeyARN: string | fn.#Fn
-					}) | fn.If
+					} | fn.#If
 					NoEncryptionConfig?: string | fn.#Fn
-				}) | fn.If
+				} | fn.#If
 				ErrorOutputPrefix?: string | fn.#Fn
 				Prefix?:            string | fn.#Fn
 				RoleARN:            string | fn.#Fn
-			}) | fn.If
-			SplunkDestinationConfiguration?: close({
-				CloudWatchLoggingOptions?: close({
+			} | fn.#If
+			SplunkDestinationConfiguration?: {
+				CloudWatchLoggingOptions?: {
 					Enabled?:       bool | fn.#Fn
 					LogGroupName?:  string | fn.#Fn
 					LogStreamName?: string | fn.#Fn
-				}) | fn.If
+				} | fn.#If
 				HECAcknowledgmentTimeoutInSeconds?: int | fn.#Fn
 				HECEndpoint:                        string | fn.#Fn
 				HECEndpointType:                    string | fn.#Fn
 				HECToken:                           string | fn.#Fn
-				ProcessingConfiguration?:           close({
+				ProcessingConfiguration?:           {
 					Enabled?:    bool | fn.#Fn
-					Processors?: [...close({
-						Parameters?: [...close({
+					Processors?: [...{
+						Parameters?: [...{
 							ParameterName:  string | fn.#Fn
 							ParameterValue: string | fn.#Fn
-						})] | fn.If
+						}] | fn.#If
 						Type: string | fn.#Fn
-					})] | fn.If
-				}) | fn.If
-				RetryOptions?: close({
+					}] | fn.#If
+				} | fn.#If
+				RetryOptions?: {
 					DurationInSeconds?: int | fn.#Fn
-				}) | fn.If
+				} | fn.#If
 				S3BackupMode?:   string | fn.#Fn
-				S3Configuration: close({
+				S3Configuration: {
 					BucketARN:       string | fn.#Fn
-					BufferingHints?: close({
+					BufferingHints?: {
 						IntervalInSeconds?: int | fn.#Fn
 						SizeInMBs?:         int | fn.#Fn
-					}) | fn.If
-					CloudWatchLoggingOptions?: close({
+					} | fn.#If
+					CloudWatchLoggingOptions?: {
 						Enabled?:       bool | fn.#Fn
 						LogGroupName?:  string | fn.#Fn
 						LogStreamName?: string | fn.#Fn
-					}) | fn.If
+					} | fn.#If
 					CompressionFormat?:       string | fn.#Fn
-					EncryptionConfiguration?: close({
-						KMSEncryptionConfig?: close({
+					EncryptionConfiguration?: {
+						KMSEncryptionConfig?: {
 							AWSKMSKeyARN: string | fn.#Fn
-						}) | fn.If
+						} | fn.#If
 						NoEncryptionConfig?: string | fn.#Fn
-					}) | fn.If
+					} | fn.#If
 					ErrorOutputPrefix?: string | fn.#Fn
 					Prefix?:            string | fn.#Fn
 					RoleARN:            string | fn.#Fn
-				}) | fn.If
-			}) | fn.If
-			Tags?: [...close({
+				} | fn.#If
+			} | fn.#If
+			Tags?: [...{
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			})] | fn.If
-		})
+			}] | fn.#If
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

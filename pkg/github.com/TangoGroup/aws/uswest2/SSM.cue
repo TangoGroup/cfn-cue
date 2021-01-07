@@ -4,8 +4,8 @@ import "github.com/TangoGroup/aws/fn"
 
 #SSM: {
 	#Association: {
-		Type:       "AWS::SSM::Association"
-		Properties: close({
+		Type: "AWS::SSM::Association"
+		Properties: {
 			ApplyOnlyAtCronInterval?:       bool | fn.#Fn
 			AssociationName?:               string | fn.#Fn
 			AutomationTargetParameterName?: string | fn.#Fn
@@ -15,26 +15,24 @@ import "github.com/TangoGroup/aws/fn"
 			MaxConcurrency?:                string | fn.#Fn
 			MaxErrors?:                     string | fn.#Fn
 			Name:                           string | fn.#Fn
-			OutputLocation?:                close({
-				S3Location?: close({
+			OutputLocation?:                {
+				S3Location?: {
 					OutputS3BucketName?: string | fn.#Fn
 					OutputS3KeyPrefix?:  string | fn.#Fn
 					OutputS3Region?:     string | fn.#Fn
-				}) | fn.If
-			}) | fn.If
+				} | fn.#If
+			} | fn.#If
 			Parameters?: {
-				[string]: close({
-					ParameterValues: [...(string | fn.#Fn)] | (string | fn.#Fn)
-				})
-			} | fn.If
+				[string]: ParameterValues: [...(string | fn.#Fn)] | (string | fn.#Fn)
+			} | fn.#If
 			ScheduleExpression?: string | fn.#Fn
 			SyncCompliance?:     string | fn.#Fn
-			Targets?:            [...close({
+			Targets?:            [...{
 				Key:    string | fn.#Fn
 				Values: [...(string | fn.#Fn)] | (string | fn.#Fn)
-			})] | fn.If
+			}] | fn.#If
 			WaitForSuccessTimeoutSeconds?: int | fn.#Fn
-		})
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -42,18 +40,18 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#Document: {
-		Type:       "AWS::SSM::Document"
-		Properties: close({
+		Type: "AWS::SSM::Document"
+		Properties: {
 			Content: {
 				[string]: _
 			} | fn.#Fn
 			DocumentType?: string | fn.#Fn
 			Name?:         string | fn.#Fn
-			Tags?:         [...close({
+			Tags?:         [...{
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			})] | fn.If
-		})
+			}] | fn.#If
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -61,8 +59,8 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#MaintenanceWindow: {
-		Type:       "AWS::SSM::MaintenanceWindow"
-		Properties: close({
+		Type: "AWS::SSM::MaintenanceWindow"
+		Properties: {
 			AllowUnassociatedTargets: bool | fn.#Fn
 			Cutoff:                   (>=0 & <=23) | fn.#Fn
 			Description?:             string | fn.#Fn
@@ -73,11 +71,11 @@ import "github.com/TangoGroup/aws/fn"
 			ScheduleOffset?:          int | fn.#Fn
 			ScheduleTimezone?:        string | fn.#Fn
 			StartDate?:               string | fn.#Fn
-			Tags?:                    [...close({
+			Tags?:                    [...{
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			})] | fn.If
-		})
+			}] | fn.#If
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -85,18 +83,18 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#MaintenanceWindowTarget: {
-		Type:       "AWS::SSM::MaintenanceWindowTarget"
-		Properties: close({
+		Type: "AWS::SSM::MaintenanceWindowTarget"
+		Properties: {
 			Description?:      string | fn.#Fn
 			Name?:             string | fn.#Fn
 			OwnerInformation?: string | fn.#Fn
 			ResourceType:      string | fn.#Fn
-			Targets:           [...close({
+			Targets:           [...{
 				Key:     string | fn.#Fn
 				Values?: [...(string | fn.#Fn)] | (string | fn.#Fn)
-			})] | fn.If
+			}] | fn.#If
 			WindowId: string | fn.#Fn
-		})
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -104,45 +102,45 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#MaintenanceWindowTask: {
-		Type:       "AWS::SSM::MaintenanceWindowTask"
-		Properties: close({
+		Type: "AWS::SSM::MaintenanceWindowTask"
+		Properties: {
 			Description?: string | fn.#Fn
-			LoggingInfo?: close({
+			LoggingInfo?: {
 				Region:    string | fn.#Fn
 				S3Bucket:  string | fn.#Fn
 				S3Prefix?: string | fn.#Fn
-			}) | fn.If
+			} | fn.#If
 			MaxConcurrency:  string | fn.#Fn
 			MaxErrors:       string | fn.#Fn
 			Name?:           string | fn.#Fn
 			Priority:        int | fn.#Fn
 			ServiceRoleArn?: string | fn.#Fn
-			Targets:         [...close({
+			Targets:         [...{
 				Key:     string | fn.#Fn
 				Values?: [...(string | fn.#Fn)] | (string | fn.#Fn)
-			})] | fn.If
+			}] | fn.#If
 			TaskArn:                   string | fn.#Fn
-			TaskInvocationParameters?: close({
-				MaintenanceWindowAutomationParameters?: close({
+			TaskInvocationParameters?: {
+				MaintenanceWindowAutomationParameters?: {
 					DocumentVersion?: string | fn.#Fn
 					Parameters?:      {
 						[string]: _
 					} | fn.#Fn
-				}) | fn.If
-				MaintenanceWindowLambdaParameters?: close({
+				} | fn.#If
+				MaintenanceWindowLambdaParameters?: {
 					ClientContext?: string | fn.#Fn
 					Payload?:       string | fn.#Fn
 					Qualifier?:     string | fn.#Fn
-				}) | fn.If
-				MaintenanceWindowRunCommandParameters?: close({
+				} | fn.#If
+				MaintenanceWindowRunCommandParameters?: {
 					Comment?:            string | fn.#Fn
 					DocumentHash?:       string | fn.#Fn
 					DocumentHashType?:   string | fn.#Fn
-					NotificationConfig?: close({
+					NotificationConfig?: {
 						NotificationArn:     string | fn.#Fn
 						NotificationEvents?: [...(string | fn.#Fn)] | (string | fn.#Fn)
 						NotificationType?:   string | fn.#Fn
-					}) | fn.If
+					} | fn.#If
 					OutputS3BucketName?: string | fn.#Fn
 					OutputS3KeyPrefix?:  string | fn.#Fn
 					Parameters?:         {
@@ -150,18 +148,18 @@ import "github.com/TangoGroup/aws/fn"
 					} | fn.#Fn
 					ServiceRoleArn?: string | fn.#Fn
 					TimeoutSeconds?: int | fn.#Fn
-				}) | fn.If
-				MaintenanceWindowStepFunctionsParameters?: close({
+				} | fn.#If
+				MaintenanceWindowStepFunctionsParameters?: {
 					Input?: string | fn.#Fn
 					Name?:  string | fn.#Fn
-				}) | fn.If
-			}) | fn.If
+				} | fn.#If
+			} | fn.#If
 			TaskParameters?: {
 				[string]: _
 			} | fn.#Fn
 			TaskType: string | fn.#Fn
 			WindowId: string | fn.#Fn
-		})
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -169,8 +167,8 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#Parameter: {
-		Type:       "AWS::SSM::Parameter"
-		Properties: close({
+		Type: "AWS::SSM::Parameter"
+		Properties: {
 			AllowedPattern?: string | fn.#Fn
 			DataType?:       string | fn.#Fn
 			Description?:    string | fn.#Fn
@@ -182,7 +180,7 @@ import "github.com/TangoGroup/aws/fn"
 			Tier?: string | fn.#Fn
 			Type:  string | fn.#Fn
 			Value: string | fn.#Fn
-		})
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -190,47 +188,47 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#PatchBaseline: {
-		Type:       "AWS::SSM::PatchBaseline"
-		Properties: close({
-			ApprovalRules?: close({
-				PatchRules?: [...close({
+		Type: "AWS::SSM::PatchBaseline"
+		Properties: {
+			ApprovalRules?: {
+				PatchRules?: [...{
 					ApproveAfterDays?:  int | fn.#Fn
-					ApproveUntilDate?:  close({}) | fn.If
+					ApproveUntilDate?:  {} | fn.#If
 					ComplianceLevel?:   string | fn.#Fn
 					EnableNonSecurity?: bool | fn.#Fn
-					PatchFilterGroup?:  close({
-						PatchFilters?: [...close({
+					PatchFilterGroup?:  {
+						PatchFilters?: [...{
 							Key?:    string | fn.#Fn
 							Values?: [...(string | fn.#Fn)] | (string | fn.#Fn)
-						})] | fn.If
-					}) | fn.If
-				})] | fn.If
-			}) | fn.If
+						}] | fn.#If
+					} | fn.#If
+				}] | fn.#If
+			} | fn.#If
 			ApprovedPatches?:                  [...(string | fn.#Fn)] | (string | fn.#Fn)
 			ApprovedPatchesComplianceLevel?:   string | fn.#Fn
 			ApprovedPatchesEnableNonSecurity?: bool | fn.#Fn
 			Description?:                      string | fn.#Fn
-			GlobalFilters?:                    close({
-				PatchFilters?: [...close({
+			GlobalFilters?:                    {
+				PatchFilters?: [...{
 					Key?:    string | fn.#Fn
 					Values?: [...(string | fn.#Fn)] | (string | fn.#Fn)
-				})] | fn.If
-			}) | fn.If
+				}] | fn.#If
+			} | fn.#If
 			Name:                   string | fn.#Fn
 			OperatingSystem?:       string | fn.#Fn
 			PatchGroups?:           [...(string | fn.#Fn)] | (string | fn.#Fn)
 			RejectedPatches?:       [...(string | fn.#Fn)] | (string | fn.#Fn)
 			RejectedPatchesAction?: string | fn.#Fn
-			Sources?:               [...close({
+			Sources?:               [...{
 				Configuration?: string | fn.#Fn
 				Name?:          string | fn.#Fn
 				Products?:      [...(string | fn.#Fn)] | (string | fn.#Fn)
-			})] | fn.If
-			Tags?: [...close({
+			}] | fn.#If
+			Tags?: [...{
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			})] | fn.If
-		})
+			}] | fn.#If
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -238,32 +236,32 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#ResourceDataSync: {
-		Type:       "AWS::SSM::ResourceDataSync"
-		Properties: close({
+		Type: "AWS::SSM::ResourceDataSync"
+		Properties: {
 			BucketName?:    string | fn.#Fn
 			BucketPrefix?:  string | fn.#Fn
 			BucketRegion?:  string | fn.#Fn
 			KMSKeyArn?:     string | fn.#Fn
-			S3Destination?: close({
+			S3Destination?: {
 				BucketName:    string | fn.#Fn
 				BucketPrefix?: string | fn.#Fn
 				BucketRegion:  string | fn.#Fn
 				KMSKeyArn?:    string | fn.#Fn
 				SyncFormat:    string | fn.#Fn
-			}) | fn.If
+			} | fn.#If
 			SyncFormat?: string | fn.#Fn
 			SyncName:    string | fn.#Fn
-			SyncSource?: close({
-				AwsOrganizationsSource?: close({
+			SyncSource?: {
+				AwsOrganizationsSource?: {
 					OrganizationSourceType: string | fn.#Fn
 					OrganizationalUnits?:   [...(string | fn.#Fn)] | (string | fn.#Fn)
-				}) | fn.If
+				} | fn.#If
 				IncludeFutureRegions?: bool | fn.#Fn
 				SourceRegions:         [...(string | fn.#Fn)] | (string | fn.#Fn)
 				SourceType:            string | fn.#Fn
-			}) | fn.If
+			} | fn.#If
 			SyncType?: string | fn.#Fn
-		})
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

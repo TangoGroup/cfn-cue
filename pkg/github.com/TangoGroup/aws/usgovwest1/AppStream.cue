@@ -4,15 +4,15 @@ import "github.com/TangoGroup/aws/fn"
 
 #AppStream: {
 	#DirectoryConfig: {
-		Type:       "AWS::AppStream::DirectoryConfig"
-		Properties: close({
+		Type: "AWS::AppStream::DirectoryConfig"
+		Properties: {
 			DirectoryName:                        string | fn.#Fn
 			OrganizationalUnitDistinguishedNames: [...(string | fn.#Fn)] | (string | fn.#Fn)
-			ServiceAccountCredentials:            close({
+			ServiceAccountCredentials:            {
 				AccountName:     string | fn.#Fn
 				AccountPassword: string | fn.#Fn
-			}) | fn.If
-		})
+			} | fn.#If
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -20,18 +20,18 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#Fleet: {
-		Type:       "AWS::AppStream::Fleet"
-		Properties: close({
-			ComputeCapacity: close({
+		Type: "AWS::AppStream::Fleet"
+		Properties: {
+			ComputeCapacity: {
 				DesiredInstances: int | fn.#Fn
-			}) | fn.If
+			} | fn.#If
 			Description?:                string | fn.#Fn
 			DisconnectTimeoutInSeconds?: (>=60 & <=360000) | fn.#Fn
 			DisplayName?:                string | fn.#Fn
-			DomainJoinInfo?:             close({
+			DomainJoinInfo?:             {
 				DirectoryName?:                       string | fn.#Fn
 				OrganizationalUnitDistinguishedName?: string | fn.#Fn
-			}) | fn.If
+			} | fn.#If
 			EnableDefaultInternetAccess?:    bool | fn.#Fn
 			FleetType?:                      string | fn.#Fn
 			IamRoleArn?:                     string | fn.#Fn
@@ -42,15 +42,15 @@ import "github.com/TangoGroup/aws/fn"
 			MaxUserDurationInSeconds?:       (>=600 & <=360000) | fn.#Fn
 			Name:                            string | fn.#Fn
 			StreamView?:                     string | fn.#Fn
-			Tags?:                           [...close({
+			Tags?:                           [...{
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			})] | fn.If
-			VpcConfig?: close({
+			}] | fn.#If
+			VpcConfig?: {
 				SecurityGroupIds?: [...(string | fn.#Fn)] | (string | fn.#Fn)
 				SubnetIds?:        [...(string | fn.#Fn)] | (string | fn.#Fn)
-			}) | fn.If
-		})
+			} | fn.#If
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -58,34 +58,34 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#ImageBuilder: {
-		Type:       "AWS::AppStream::ImageBuilder"
-		Properties: close({
-			AccessEndpoints?: [...close({
+		Type: "AWS::AppStream::ImageBuilder"
+		Properties: {
+			AccessEndpoints?: [...{
 				EndpointType: string | fn.#Fn
 				VpceId:       string | fn.#Fn
-			})] | fn.If
+			}] | fn.#If
 			AppstreamAgentVersion?: string | fn.#Fn
 			Description?:           string | fn.#Fn
 			DisplayName?:           string | fn.#Fn
-			DomainJoinInfo?:        close({
+			DomainJoinInfo?:        {
 				DirectoryName?:                       string | fn.#Fn
 				OrganizationalUnitDistinguishedName?: string | fn.#Fn
-			}) | fn.If
+			} | fn.#If
 			EnableDefaultInternetAccess?: bool | fn.#Fn
 			IamRoleArn?:                  string | fn.#Fn
 			ImageArn?:                    string | fn.#Fn
 			ImageName?:                   string | fn.#Fn
 			InstanceType:                 ("stream.compute.2xlarge" | "stream.compute.4xlarge" | "stream.compute.8xlarge" | "stream.compute.large" | "stream.compute.xlarge" | "stream.graphics-pro.16xlarge" | "stream.graphics-pro.4xlarge" | "stream.graphics-pro.8xlarge" | "stream.graphics.g4dn.12xlarge" | "stream.graphics.g4dn.16xlarge" | "stream.graphics.g4dn.2xlarge" | "stream.graphics.g4dn.4xlarge" | "stream.graphics.g4dn.8xlarge" | "stream.graphics.g4dn.xlarge" | "stream.memory.2xlarge" | "stream.memory.4xlarge" | "stream.memory.8xlarge" | "stream.memory.large" | "stream.memory.xlarge" | "stream.standard.large" | "stream.standard.medium" | "stream.standard.small") | fn.#Fn
 			Name:                         string | fn.#Fn
-			Tags?:                        [...close({
+			Tags?:                        [...{
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			})] | fn.If
-			VpcConfig?: close({
+			}] | fn.#If
+			VpcConfig?: {
 				SecurityGroupIds?: [...(string | fn.#Fn)] | (string | fn.#Fn)
 				SubnetIds?:        [...(string | fn.#Fn)] | (string | fn.#Fn)
-			}) | fn.If
-		})
+			} | fn.#If
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -93,16 +93,16 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#Stack: {
-		Type:       "AWS::AppStream::Stack"
-		Properties: close({
-			AccessEndpoints?: [...close({
+		Type: "AWS::AppStream::Stack"
+		Properties: {
+			AccessEndpoints?: [...{
 				EndpointType: string | fn.#Fn
 				VpceId:       string | fn.#Fn
-			})] | fn.If
-			ApplicationSettings?: close({
+			}] | fn.#If
+			ApplicationSettings?: {
 				Enabled:        bool | fn.#Fn
 				SettingsGroup?: string | fn.#Fn
-			}) | fn.If
+			} | fn.#If
 			AttributesToDelete?:      [...(string | fn.#Fn)] | (string | fn.#Fn)
 			DeleteStorageConnectors?: bool | fn.#Fn
 			Description?:             string | fn.#Fn
@@ -111,20 +111,20 @@ import "github.com/TangoGroup/aws/fn"
 			FeedbackURL?:             string | fn.#Fn
 			Name?:                    string | fn.#Fn
 			RedirectURL?:             string | fn.#Fn
-			StorageConnectors?:       [...close({
+			StorageConnectors?:       [...{
 				ConnectorType:       string | fn.#Fn
 				Domains?:            [...(string | fn.#Fn)] | (string | fn.#Fn)
 				ResourceIdentifier?: string | fn.#Fn
-			})] | fn.If
-			Tags?: [...close({
+			}] | fn.#If
+			Tags?: [...{
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			})] | fn.If
-			UserSettings?: [...close({
+			}] | fn.#If
+			UserSettings?: [...{
 				Action:     string | fn.#Fn
 				Permission: string | fn.#Fn
-			})] | fn.If
-		})
+			}] | fn.#If
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -132,11 +132,11 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#StackFleetAssociation: {
-		Type:       "AWS::AppStream::StackFleetAssociation"
-		Properties: close({
+		Type: "AWS::AppStream::StackFleetAssociation"
+		Properties: {
 			FleetName: string | fn.#Fn
 			StackName: string | fn.#Fn
-		})
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

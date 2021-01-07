@@ -4,17 +4,17 @@ import "github.com/TangoGroup/aws/fn"
 
 #GroundStation: {
 	#Config: {
-		Type:       "AWS::GroundStation::Config"
-		Properties: close({
+		Type: "AWS::GroundStation::Config"
+		Properties: {
 			ConfigData: {
 				[string]: _
 			} | fn.#Fn
 			Name:  string | fn.#Fn
-			Tags?: [...close({
+			Tags?: [...{
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			})] | fn.If
-		})
+			}] | fn.#If
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -22,29 +22,29 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#DataflowEndpointGroup: {
-		Type:       "AWS::GroundStation::DataflowEndpointGroup"
-		Properties: close({
-			EndpointDetails: [...close({
-				Endpoint?: close({
-					Address?: close({
+		Type: "AWS::GroundStation::DataflowEndpointGroup"
+		Properties: {
+			EndpointDetails: [...{
+				Endpoint?: {
+					Address?: {
 						Name?: string | fn.#Fn
 						Port?: int | fn.#Fn
-					}) | fn.If
+					} | fn.#If
 					Mtu?:    int | fn.#Fn
 					Name?:   string | fn.#Fn
 					Status?: string | fn.#Fn
-				}) | fn.If
-				SecurityDetails?: close({
+				} | fn.#If
+				SecurityDetails?: {
 					RoleArn?:          string | fn.#Fn
 					SecurityGroupIds?: [...(string | fn.#Fn)] | (string | fn.#Fn)
 					SubnetIds?:        [...(string | fn.#Fn)] | (string | fn.#Fn)
-				}) | fn.If
-			})] | fn.If
-			Tags?: [...close({
+				} | fn.#If
+			}] | fn.#If
+			Tags?: [...{
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			})] | fn.If
-		})
+			}] | fn.#If
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -52,22 +52,22 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#MissionProfile: {
-		Type:       "AWS::GroundStation::MissionProfile"
-		Properties: close({
+		Type: "AWS::GroundStation::MissionProfile"
+		Properties: {
 			ContactPostPassDurationSeconds?: int | fn.#Fn
 			ContactPrePassDurationSeconds?:  int | fn.#Fn
-			DataflowEdges:                   [...close({
+			DataflowEdges:                   [...{
 				Destination?: string | fn.#Fn
 				Source?:      string | fn.#Fn
-			})] | fn.If
+			}] | fn.#If
 			MinimumViableContactDurationSeconds: int | fn.#Fn
 			Name:                                string | fn.#Fn
-			Tags?:                               [...close({
+			Tags?:                               [...{
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			})] | fn.If
+			}] | fn.#If
 			TrackingConfigArn: string | fn.#Fn
-		})
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

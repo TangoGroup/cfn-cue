@@ -4,11 +4,11 @@ import "github.com/TangoGroup/aws/fn"
 
 #SageMaker: {
 	#MonitoringSchedule: {
-		Type:       "AWS::SageMaker::MonitoringSchedule"
-		Properties: close({
+		Type: "AWS::SageMaker::MonitoringSchedule"
+		Properties: {
 			EndpointName?:                   string | fn.#Fn
 			FailureReason?:                  string | fn.#Fn
-			LastMonitoringExecutionSummary?: close({
+			LastMonitoringExecutionSummary?: {
 				CreationTime:              string | fn.#Fn
 				EndpointName?:             string | fn.#Fn
 				FailureReason?:            string | fn.#Fn
@@ -17,72 +17,72 @@ import "github.com/TangoGroup/aws/fn"
 				MonitoringScheduleName:    string | fn.#Fn
 				ProcessingJobArn?:         string | fn.#Fn
 				ScheduledTime:             string | fn.#Fn
-			}) | fn.If
-			MonitoringScheduleConfig: close({
-				MonitoringJobDefinition: close({
-					BaselineConfig?: close({
-						ConstraintsResource?: close({
+			} | fn.#If
+			MonitoringScheduleConfig: {
+				MonitoringJobDefinition: {
+					BaselineConfig?: {
+						ConstraintsResource?: {
 							S3Uri?: string | fn.#Fn
-						}) | fn.If
-						StatisticsResource?: close({
+						} | fn.#If
+						StatisticsResource?: {
 							S3Uri?: string | fn.#Fn
-						}) | fn.If
-					}) | fn.If
-					Environment?:               close({}) | fn.If
-					MonitoringAppSpecification: close({
+						} | fn.#If
+					} | fn.#If
+					Environment?:               {} | fn.#If
+					MonitoringAppSpecification: {
 						ContainerArguments?:              [...(string | fn.#Fn)] | (string | fn.#Fn)
 						ContainerEntrypoint?:             [...(string | fn.#Fn)] | (string | fn.#Fn)
 						ImageUri:                         string | fn.#Fn
 						PostAnalyticsProcessorSourceUri?: string | fn.#Fn
 						RecordPreprocessorSourceUri?:     string | fn.#Fn
-					}) | fn.If
-					MonitoringInputs: close({
-						MonitoringInputs?: [...close({
+					} | fn.#If
+					MonitoringInputs: {
+						MonitoringInputs?: [...{
 							[string]: _
-						})] | fn.If
-					}) | fn.If
-					MonitoringOutputConfig: close({
+						}] | fn.#If
+					} | fn.#If
+					MonitoringOutputConfig: {
 						KmsKeyId?:         string | fn.#Fn
-						MonitoringOutputs: [...close({
-							S3Output: close({
+						MonitoringOutputs: [...{
+							S3Output: {
 								LocalPath:     string | fn.#Fn
 								S3UploadMode?: string | fn.#Fn
 								S3Uri:         string | fn.#Fn
-							}) | fn.If
-						})] | fn.If
-					}) | fn.If
-					MonitoringResources: close({
-						ClusterConfig: close({
+							} | fn.#If
+						}] | fn.#If
+					} | fn.#If
+					MonitoringResources: {
+						ClusterConfig: {
 							InstanceCount:   int | fn.#Fn
 							InstanceType:    string | fn.#Fn
 							VolumeKmsKeyId?: string | fn.#Fn
 							VolumeSizeInGB:  int | fn.#Fn
-						}) | fn.If
-					}) | fn.If
-					NetworkConfig?: close({
+						} | fn.#If
+					} | fn.#If
+					NetworkConfig?: {
 						EnableInterContainerTrafficEncryption?: bool | fn.#Fn
 						EnableNetworkIsolation?:                bool | fn.#Fn
-						VpcConfig?:                             close({
+						VpcConfig?:                             {
 							SecurityGroupIds: [...(string | fn.#Fn)] | (string | fn.#Fn)
 							Subnets:          [...(string | fn.#Fn)] | (string | fn.#Fn)
-						}) | fn.If
-					}) | fn.If
+						} | fn.#If
+					} | fn.#If
 					RoleArn:            string | fn.#Fn
-					StoppingCondition?: close({
+					StoppingCondition?: {
 						MaxRuntimeInSeconds: int | fn.#Fn
-					}) | fn.If
-				}) | fn.If
-				ScheduleConfig?: close({
+					} | fn.#If
+				} | fn.#If
+				ScheduleConfig?: {
 					ScheduleExpression: string | fn.#Fn
-				}) | fn.If
-			}) | fn.If
+				} | fn.#If
+			} | fn.#If
 			MonitoringScheduleName:    string | fn.#Fn
 			MonitoringScheduleStatus?: string | fn.#Fn
-			Tags?:                     [...close({
+			Tags?:                     [...{
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			})] | fn.If
-		})
+			}] | fn.#If
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

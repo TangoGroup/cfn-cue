@@ -4,13 +4,13 @@ import "github.com/TangoGroup/aws/fn"
 
 #RoboMaker: {
 	#Fleet: {
-		Type:       "AWS::RoboMaker::Fleet"
-		Properties: close({
+		Type: "AWS::RoboMaker::Fleet"
+		Properties: {
 			Name?: string | fn.#Fn
 			Tags?: {
 				[string]: _
 			} | fn.#Fn
-		})
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -18,8 +18,8 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#Robot: {
-		Type:       "AWS::RoboMaker::Robot"
-		Properties: close({
+		Type: "AWS::RoboMaker::Robot"
+		Properties: {
 			Architecture:      string | fn.#Fn
 			Fleet?:            string | fn.#Fn
 			GreengrassGroupId: string | fn.#Fn
@@ -27,7 +27,7 @@ import "github.com/TangoGroup/aws/fn"
 			Tags?:             {
 				[string]: _
 			} | fn.#Fn
-		})
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -35,23 +35,23 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#RobotApplication: {
-		Type:       "AWS::RoboMaker::RobotApplication"
-		Properties: close({
+		Type: "AWS::RoboMaker::RobotApplication"
+		Properties: {
 			CurrentRevisionId?: string | fn.#Fn
 			Name?:              string | fn.#Fn
-			RobotSoftwareSuite: close({
+			RobotSoftwareSuite: {
 				Name:    string | fn.#Fn
 				Version: string | fn.#Fn
-			}) | fn.If
-			Sources: [...close({
+			} | fn.#If
+			Sources: [...{
 				Architecture: string | fn.#Fn
 				S3Bucket:     string | fn.#Fn
 				S3Key:        string | fn.#Fn
-			})] | fn.If
+			}] | fn.#If
 			Tags?: {
 				[string]: _
 			} | fn.#Fn
-		})
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -59,11 +59,11 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#RobotApplicationVersion: {
-		Type:       "AWS::RoboMaker::RobotApplicationVersion"
-		Properties: close({
+		Type: "AWS::RoboMaker::RobotApplicationVersion"
+		Properties: {
 			Application:        string | fn.#Fn
 			CurrentRevisionId?: string | fn.#Fn
-		})
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -71,31 +71,31 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#SimulationApplication: {
-		Type:       "AWS::RoboMaker::SimulationApplication"
-		Properties: close({
+		Type: "AWS::RoboMaker::SimulationApplication"
+		Properties: {
 			CurrentRevisionId?: string | fn.#Fn
 			Name?:              string | fn.#Fn
-			RenderingEngine:    close({
+			RenderingEngine:    {
 				Name:    string | fn.#Fn
 				Version: string | fn.#Fn
-			}) | fn.If
-			RobotSoftwareSuite: close({
+			} | fn.#If
+			RobotSoftwareSuite: {
 				Name:    string | fn.#Fn
 				Version: string | fn.#Fn
-			}) | fn.If
-			SimulationSoftwareSuite: close({
+			} | fn.#If
+			SimulationSoftwareSuite: {
 				Name:    string | fn.#Fn
 				Version: string | fn.#Fn
-			}) | fn.If
-			Sources: [...close({
+			} | fn.#If
+			Sources: [...{
 				Architecture: string | fn.#Fn
 				S3Bucket:     string | fn.#Fn
 				S3Key:        string | fn.#Fn
-			})] | fn.If
+			}] | fn.#If
 			Tags?: {
 				[string]: _
 			} | fn.#Fn
-		})
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -103,11 +103,11 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#SimulationApplicationVersion: {
-		Type:       "AWS::RoboMaker::SimulationApplicationVersion"
-		Properties: close({
+		Type: "AWS::RoboMaker::SimulationApplicationVersion"
+		Properties: {
 			Application:        string | fn.#Fn
 			CurrentRevisionId?: string | fn.#Fn
-		})
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

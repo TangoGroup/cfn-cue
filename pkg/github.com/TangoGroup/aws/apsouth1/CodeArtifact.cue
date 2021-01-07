@@ -4,18 +4,18 @@ import "github.com/TangoGroup/aws/fn"
 
 #CodeArtifact: {
 	#Domain: {
-		Type:       "AWS::CodeArtifact::Domain"
-		Properties: close({
+		Type: "AWS::CodeArtifact::Domain"
+		Properties: {
 			DomainName:                 string | fn.#Fn
 			EncryptionKey?:             string | fn.#Fn
 			PermissionsPolicyDocument?: {
 				[string]: _
 			} | fn.#Fn
-			Tags?: [...close({
+			Tags?: [...{
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			})] | fn.If
-		})
+			}] | fn.#If
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -23,8 +23,8 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#Repository: {
-		Type:       "AWS::CodeArtifact::Repository"
-		Properties: close({
+		Type: "AWS::CodeArtifact::Repository"
+		Properties: {
 			Description?:               string | fn.#Fn
 			DomainName:                 string | fn.#Fn
 			DomainOwner?:               string | fn.#Fn
@@ -33,12 +33,12 @@ import "github.com/TangoGroup/aws/fn"
 				[string]: _
 			} | fn.#Fn
 			RepositoryName: string | fn.#Fn
-			Tags?:          [...close({
+			Tags?:          [...{
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			})] | fn.If
+			}] | fn.#If
 			Upstreams?: [...(string | fn.#Fn)] | (string | fn.#Fn)
-		})
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

@@ -4,13 +4,13 @@ import "github.com/TangoGroup/aws/fn"
 
 #CloudFormation: {
 	#CustomResource: {
-		Type:       "AWS::CloudFormation::CustomResource" | =~#"^Custom::[a-zA-Z0-9_@-]{1,60}$"#
-		Properties: close({
+		Type: "AWS::CloudFormation::CustomResource" | =~#"^Custom::[a-zA-Z0-9_@-]{1,60}$"#
+		Properties: {
 			ServiceToken: string | fn.#Fn
 			{
 				[string]: _
 			}
-		})
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -18,14 +18,14 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#Macro: {
-		Type:       "AWS::CloudFormation::Macro"
-		Properties: close({
+		Type: "AWS::CloudFormation::Macro"
+		Properties: {
 			Description?:  string | fn.#Fn
 			FunctionName:  string | fn.#Fn
 			LogGroupName?: string | fn.#Fn
 			LogRoleARN?:   string | fn.#Fn
 			Name:          string | fn.#Fn
-		})
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -33,12 +33,12 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#ModuleDefaultVersion: {
-		Type:       "AWS::CloudFormation::ModuleDefaultVersion"
-		Properties: close({
+		Type: "AWS::CloudFormation::ModuleDefaultVersion"
+		Properties: {
 			Arn?:        string | fn.#Fn
 			ModuleName?: string | fn.#Fn
 			VersionId?:  string | fn.#Fn
-		})
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -46,11 +46,11 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#ModuleVersion: {
-		Type:       "AWS::CloudFormation::ModuleVersion"
-		Properties: close({
+		Type: "AWS::CloudFormation::ModuleVersion"
+		Properties: {
 			ModuleName:     string | fn.#Fn
 			ModulePackage?: string | fn.#Fn
-		})
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -58,19 +58,19 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#Stack: {
-		Type:       "AWS::CloudFormation::Stack"
-		Properties: close({
+		Type: "AWS::CloudFormation::Stack"
+		Properties: {
 			NotificationARNs?: [...(string | fn.#Fn)] | (string | fn.#Fn)
 			Parameters?:       {
 				[string]: string | fn.#Fn
-			} | fn.If
-			Tags?: [...close({
+			} | fn.#If
+			Tags?: [...{
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			})] | fn.If
+			}] | fn.#If
 			TemplateURL:       string | fn.#Fn
 			TimeoutInMinutes?: int | fn.#Fn
-		})
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -78,47 +78,47 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#StackSet: {
-		Type:       "AWS::CloudFormation::StackSet"
-		Properties: close({
+		Type: "AWS::CloudFormation::StackSet"
+		Properties: {
 			AdministrationRoleARN?: string | fn.#Fn
-			AutoDeployment?:        close({
+			AutoDeployment?:        {
 				Enabled?:                      bool | fn.#Fn
 				RetainStacksOnAccountRemoval?: bool | fn.#Fn
-			}) | fn.If
+			} | fn.#If
 			Capabilities?:         [...(string | fn.#Fn)] | (string | fn.#Fn)
 			Description?:          string | fn.#Fn
 			ExecutionRoleName?:    string | fn.#Fn
-			OperationPreferences?: close({
+			OperationPreferences?: {
 				FailureToleranceCount?:      int | fn.#Fn
 				FailureTolerancePercentage?: int | fn.#Fn
 				MaxConcurrentCount?:         int | fn.#Fn
 				MaxConcurrentPercentage?:    int | fn.#Fn
 				RegionOrder?:                [...(string | fn.#Fn)] | (string | fn.#Fn)
-			}) | fn.If
-			Parameters?: [...close({
+			} | fn.#If
+			Parameters?: [...{
 				ParameterKey:   string | fn.#Fn
 				ParameterValue: string | fn.#Fn
-			})] | fn.If
+			}] | fn.#If
 			PermissionModel:      ("SELF_MANAGED" | "SERVICE_MANAGED") | fn.#Fn
-			StackInstancesGroup?: [...close({
-				DeploymentTargets: close({
+			StackInstancesGroup?: [...{
+				DeploymentTargets: {
 					Accounts?:              [...(string | fn.#Fn)] | (string | fn.#Fn)
 					OrganizationalUnitIds?: [...(string | fn.#Fn)] | (string | fn.#Fn)
-				}) | fn.If
-				ParameterOverrides?: [...close({
+				} | fn.#If
+				ParameterOverrides?: [...{
 					ParameterKey:   string | fn.#Fn
 					ParameterValue: string | fn.#Fn
-				})] | fn.If
+				}] | fn.#If
 				Regions: [...(string | fn.#Fn)] | (string | fn.#Fn)
-			})] | fn.If
+			}] | fn.#If
 			StackSetName: string | fn.#Fn
-			Tags?:        [...close({
+			Tags?:        [...{
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			})] | fn.If
+			}] | fn.#If
 			TemplateBody?: string | fn.#Fn
 			TemplateURL?:  string | fn.#Fn
-		})
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -126,12 +126,12 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#WaitCondition: {
-		Type:       "AWS::CloudFormation::WaitCondition"
-		Properties: close({
+		Type: "AWS::CloudFormation::WaitCondition"
+		Properties: {
 			Count?:   int | fn.#Fn
 			Handle?:  string | fn.#Fn
 			Timeout?: (>=0 & <=43200) | fn.#Fn
-		})
+		}
 		DependsOn?: string | [...string]
 		CreationPolicy?: {
 			AutoScalingCreationPolicy?: MinSuccessfulInstancesPercent?: int
@@ -146,8 +146,8 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#WaitConditionHandle: {
-		Type:                 "AWS::CloudFormation::WaitConditionHandle"
-		Properties:           close({})
+		Type: "AWS::CloudFormation::WaitConditionHandle"
+		Properties: {}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

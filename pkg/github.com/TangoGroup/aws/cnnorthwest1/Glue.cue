@@ -4,9 +4,9 @@ import "github.com/TangoGroup/aws/fn"
 
 #Glue: {
 	#Classifier: {
-		Type:       "AWS::Glue::Classifier"
-		Properties: close({
-			CsvClassifier?: close({
+		Type: "AWS::Glue::Classifier"
+		Properties: {
+			CsvClassifier?: {
 				AllowSingleColumn?:    bool | fn.#Fn
 				ContainsHeader?:       string | fn.#Fn
 				Delimiter?:            string | fn.#Fn
@@ -14,23 +14,23 @@ import "github.com/TangoGroup/aws/fn"
 				Header?:               [...(string | fn.#Fn)] | (string | fn.#Fn)
 				Name?:                 string | fn.#Fn
 				QuoteSymbol?:          string | fn.#Fn
-			}) | fn.If
-			GrokClassifier?: close({
+			} | fn.#If
+			GrokClassifier?: {
 				Classification:  string | fn.#Fn
 				CustomPatterns?: string | fn.#Fn
 				GrokPattern:     string | fn.#Fn
 				Name?:           string | fn.#Fn
-			}) | fn.If
-			JsonClassifier?: close({
+			} | fn.#If
+			JsonClassifier?: {
 				JsonPath: string | fn.#Fn
 				Name?:    string | fn.#Fn
-			}) | fn.If
-			XMLClassifier?: close({
+			} | fn.#If
+			XMLClassifier?: {
 				Classification: string | fn.#Fn
 				Name?:          string | fn.#Fn
 				RowTag:         string | fn.#Fn
-			}) | fn.If
-		})
+			} | fn.#If
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -38,10 +38,10 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#Connection: {
-		Type:       "AWS::Glue::Connection"
-		Properties: close({
+		Type: "AWS::Glue::Connection"
+		Properties: {
 			CatalogId:       string | fn.#Fn
-			ConnectionInput: close({
+			ConnectionInput: {
 				ConnectionProperties: {
 					[string]: _
 				} | fn.#Fn
@@ -49,13 +49,13 @@ import "github.com/TangoGroup/aws/fn"
 				Description?:                    string | fn.#Fn
 				MatchCriteria?:                  [...(string | fn.#Fn)] | (string | fn.#Fn)
 				Name?:                           string | fn.#Fn
-				PhysicalConnectionRequirements?: close({
+				PhysicalConnectionRequirements?: {
 					AvailabilityZone?:    ("af-south-1a" | "af-south-1b" | "af-south-1c" | "ap-east-1a" | "ap-east-1b" | "ap-east-1c" | "ap-northeast-1a" | "ap-northeast-1b" | "ap-northeast-1c" | "ap-northeast-1d" | "ap-northeast-2a" | "ap-northeast-2b" | "ap-northeast-2c" | "ap-northeast-2d" | "ap-northeast-3a" | "ap-south-1a" | "ap-south-1b" | "ap-south-1c" | "ap-southeast-1a" | "ap-southeast-1b" | "ap-southeast-1c" | "ap-southeast-2a" | "ap-southeast-2b" | "ap-southeast-2c" | "ca-central-1a" | "ca-central-1b" | "ca-central-1d" | "cn-north-1a" | "cn-north-1b" | "cn-northwest-1a" | "cn-northwest-1b" | "cn-northwest-1c" | "eu-central-1a" | "eu-central-1b" | "eu-central-1c" | "eu-north-1a" | "eu-north-1b" | "eu-north-1c" | "eu-south-1a" | "eu-south-1b" | "eu-south-1c" | "eu-west-1a" | "eu-west-1b" | "eu-west-1c" | "eu-west-2a" | "eu-west-2b" | "eu-west-2c" | "eu-west-3a" | "eu-west-3b" | "eu-west-3c" | "me-south-1a" | "me-south-1b" | "me-south-1c" | "sa-east-1a" | "sa-east-1b" | "sa-east-1c" | "us-east-1a" | "us-east-1b" | "us-east-1c" | "us-east-1d" | "us-east-1e" | "us-east-1f" | "us-east-2a" | "us-east-2b" | "us-east-2c" | "us-gov-east-1a" | "us-gov-east-1b" | "us-gov-east-1c" | "us-gov-west-1a" | "us-gov-west-1b" | "us-gov-west-1c" | "us-west-1a" | "us-west-1b" | "us-west-1c" | "us-west-2a" | "us-west-2b" | "us-west-2c" | "us-west-2d" | "us-west-2-lax-1a" | "us-west-2-lax-1b") | fn.#Fn
 					SecurityGroupIdList?: [...(string | fn.#Fn)] | (string | fn.#Fn)
 					SubnetId?:            string | fn.#Fn
-				}) | fn.If
-			}) | fn.If
-		})
+				} | fn.#If
+			} | fn.#If
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -63,8 +63,8 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#Crawler: {
-		Type:       "AWS::Glue::Crawler"
-		Properties: close({
+		Type: "AWS::Glue::Crawler"
+		Properties: {
 			Classifiers?:                  [...(string | fn.#Fn)] | (string | fn.#Fn)
 			Configuration?:                string | fn.#Fn
 			CrawlerSecurityConfiguration?: string | fn.#Fn
@@ -72,36 +72,36 @@ import "github.com/TangoGroup/aws/fn"
 			Description?:                  string | fn.#Fn
 			Name?:                         string | fn.#Fn
 			Role:                          string | fn.#Fn
-			Schedule?:                     close({
+			Schedule?:                     {
 				ScheduleExpression?: string | fn.#Fn
-			}) | fn.If
-			SchemaChangePolicy?: close({
+			} | fn.#If
+			SchemaChangePolicy?: {
 				DeleteBehavior?: ("DELETE_FROM_DATABASE" | "DEPRECATE_IN_DATABASE" | "LOG") | fn.#Fn
 				UpdateBehavior?: ("LOG" | "UPDATE_IN_DATABASE") | fn.#Fn
-			}) | fn.If
+			} | fn.#If
 			TablePrefix?: string | fn.#Fn
 			Tags?:        {
 				[string]: _
 			} | fn.#Fn
-			Targets: close({
-				CatalogTargets?: [...close({
+			Targets: {
+				CatalogTargets?: [...{
 					DatabaseName?: string | fn.#Fn
 					Tables?:       [...(string | fn.#Fn)] | (string | fn.#Fn)
-				})] | fn.If
-				DynamoDBTargets?: [...close({
+				}] | fn.#If
+				DynamoDBTargets?: [...{
 					Path?: string | fn.#Fn
-				})] | fn.If
-				JdbcTargets?: [...close({
+				}] | fn.#If
+				JdbcTargets?: [...{
 					ConnectionName?: string | fn.#Fn
 					Exclusions?:     [...(string | fn.#Fn)] | (string | fn.#Fn)
 					Path?:           string | fn.#Fn
-				})] | fn.If
-				S3Targets?: [...close({
+				}] | fn.#If
+				S3Targets?: [...{
 					Exclusions?: [...(string | fn.#Fn)] | (string | fn.#Fn)
 					Path?:       string | fn.#Fn
-				})] | fn.If
-			}) | fn.If
-		})
+				}] | fn.#If
+			} | fn.#If
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -109,20 +109,20 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#DataCatalogEncryptionSettings: {
-		Type:       "AWS::Glue::DataCatalogEncryptionSettings"
-		Properties: close({
+		Type: "AWS::Glue::DataCatalogEncryptionSettings"
+		Properties: {
 			CatalogId:                     string | fn.#Fn
-			DataCatalogEncryptionSettings: close({
-				ConnectionPasswordEncryption?: close({
+			DataCatalogEncryptionSettings: {
+				ConnectionPasswordEncryption?: {
 					KmsKeyId?:                          string | fn.#Fn
 					ReturnConnectionPasswordEncrypted?: bool | fn.#Fn
-				}) | fn.If
-				EncryptionAtRest?: close({
+				} | fn.#If
+				EncryptionAtRest?: {
 					CatalogEncryptionMode?: string | fn.#Fn
 					SseAwsKmsKeyId?:        string | fn.#Fn
-				}) | fn.If
-			}) | fn.If
-		})
+				} | fn.#If
+			} | fn.#If
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -130,18 +130,18 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#Database: {
-		Type:       "AWS::Glue::Database"
-		Properties: close({
+		Type: "AWS::Glue::Database"
+		Properties: {
 			CatalogId:     string | fn.#Fn
-			DatabaseInput: close({
+			DatabaseInput: {
 				Description?: string | fn.#Fn
 				LocationUri?: string | fn.#Fn
 				Name?:        string | fn.#Fn
 				Parameters?:  {
 					[string]: _
 				} | fn.#Fn
-			}) | fn.If
-		})
+			} | fn.#If
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -149,8 +149,8 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#DevEndpoint: {
-		Type:       "AWS::Glue::DevEndpoint"
-		Properties: close({
+		Type: "AWS::Glue::DevEndpoint"
+		Properties: {
 			Arguments?: {
 				[string]: _
 			} | fn.#Fn
@@ -170,7 +170,7 @@ import "github.com/TangoGroup/aws/fn"
 				[string]: _
 			} | fn.#Fn
 			WorkerType?: string | fn.#Fn
-		})
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -178,32 +178,32 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#Job: {
-		Type:       "AWS::Glue::Job"
-		Properties: close({
+		Type: "AWS::Glue::Job"
+		Properties: {
 			AllocatedCapacity?: number | fn.#Fn
-			Command:            close({
+			Command:            {
 				Name?:           string | fn.#Fn
 				PythonVersion?:  string | fn.#Fn
 				ScriptLocation?: string | fn.#Fn
-			}) | fn.If
-			Connections?: close({
+			} | fn.#If
+			Connections?: {
 				Connections?: [...(string | fn.#Fn)] | (string | fn.#Fn)
-			}) | fn.If
+			} | fn.#If
 			DefaultArguments?: {
 				[string]: _
 			} | fn.#Fn
 			Description?:       string | fn.#Fn
-			ExecutionProperty?: close({
+			ExecutionProperty?: {
 				MaxConcurrentRuns?: number | fn.#Fn
-			}) | fn.If
+			} | fn.#If
 			GlueVersion?:          string | fn.#Fn
 			LogUri?:               string | fn.#Fn
 			MaxCapacity?:          number | fn.#Fn
 			MaxRetries?:           number | fn.#Fn
 			Name?:                 string | fn.#Fn
-			NotificationProperty?: close({
+			NotificationProperty?: {
 				NotifyDelayAfter?: int | fn.#Fn
-			}) | fn.If
+			} | fn.#If
 			NumberOfWorkers?:       (>=0 & <=299) | fn.#Fn
 			Role:                   string | fn.#Fn
 			SecurityConfiguration?: string | fn.#Fn
@@ -212,7 +212,7 @@ import "github.com/TangoGroup/aws/fn"
 			} | fn.#Fn
 			Timeout?:    int | fn.#Fn
 			WorkerType?: string | fn.#Fn
-		})
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -220,21 +220,21 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#Partition: {
-		Type:       "AWS::Glue::Partition"
-		Properties: close({
+		Type: "AWS::Glue::Partition"
+		Properties: {
 			CatalogId:      string | fn.#Fn
 			DatabaseName:   string | fn.#Fn
-			PartitionInput: close({
+			PartitionInput: {
 				Parameters?: {
 					[string]: _
 				} | fn.#Fn
-				StorageDescriptor?: close({
+				StorageDescriptor?: {
 					BucketColumns?: [...(string | fn.#Fn)] | (string | fn.#Fn)
-					Columns?:       [...close({
+					Columns?:       [...{
 						Comment?: string | fn.#Fn
 						Name:     string | fn.#Fn
 						Type?:    string | fn.#Fn
-					})] | fn.If
+					}] | fn.#If
 					Compressed?:      bool | fn.#Fn
 					InputFormat?:     string | fn.#Fn
 					Location?:        string | fn.#Fn
@@ -243,30 +243,30 @@ import "github.com/TangoGroup/aws/fn"
 					Parameters?:      {
 						[string]: _
 					} | fn.#Fn
-					SerdeInfo?: close({
+					SerdeInfo?: {
 						Name?:       string | fn.#Fn
 						Parameters?: {
 							[string]: _
 						} | fn.#Fn
 						SerializationLibrary?: string | fn.#Fn
-					}) | fn.If
-					SkewedInfo?: close({
+					} | fn.#If
+					SkewedInfo?: {
 						SkewedColumnNames?:             [...(string | fn.#Fn)] | (string | fn.#Fn)
 						SkewedColumnValueLocationMaps?: {
 							[string]: _
 						} | fn.#Fn
 						SkewedColumnValues?: [...(string | fn.#Fn)] | (string | fn.#Fn)
-					}) | fn.If
-					SortColumns?: [...close({
+					} | fn.#If
+					SortColumns?: [...{
 						Column:     string | fn.#Fn
 						SortOrder?: int | fn.#Fn
-					})] | fn.If
+					}] | fn.#If
 					StoredAsSubDirectories?: bool | fn.#Fn
-				}) | fn.If
+				} | fn.#If
 				Values: [...(string | fn.#Fn)] | (string | fn.#Fn)
-			}) | fn.If
+			} | fn.#If
 			TableName: string | fn.#Fn
-		})
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -274,24 +274,24 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#SecurityConfiguration: {
-		Type:       "AWS::Glue::SecurityConfiguration"
-		Properties: close({
-			EncryptionConfiguration: close({
-				CloudWatchEncryption?: close({
+		Type: "AWS::Glue::SecurityConfiguration"
+		Properties: {
+			EncryptionConfiguration: {
+				CloudWatchEncryption?: {
 					CloudWatchEncryptionMode?: string | fn.#Fn
 					KmsKeyArn?:                string | fn.#Fn
-				}) | fn.If
-				JobBookmarksEncryption?: close({
+				} | fn.#If
+				JobBookmarksEncryption?: {
 					JobBookmarksEncryptionMode?: string | fn.#Fn
 					KmsKeyArn?:                  string | fn.#Fn
-				}) | fn.If
-				S3Encryptions?: [...close({
+				} | fn.#If
+				S3Encryptions?: [...{
 					KmsKeyArn?:        string | fn.#Fn
 					S3EncryptionMode?: string | fn.#Fn
-				})] | fn.If
-			}) | fn.If
+				}] | fn.#If
+			} | fn.#If
 			Name: string | fn.#Fn
-		})
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -299,30 +299,30 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#Table: {
-		Type:       "AWS::Glue::Table"
-		Properties: close({
+		Type: "AWS::Glue::Table"
+		Properties: {
 			CatalogId:    string | fn.#Fn
 			DatabaseName: string | fn.#Fn
-			TableInput:   close({
+			TableInput:   {
 				Description?: string | fn.#Fn
 				Name?:        string | fn.#Fn
 				Owner?:       string | fn.#Fn
 				Parameters?:  {
 					[string]: _
 				} | fn.#Fn
-				PartitionKeys?: [...close({
+				PartitionKeys?: [...{
 					Comment?: string | fn.#Fn
 					Name:     string | fn.#Fn
 					Type?:    string | fn.#Fn
-				})] | fn.If
+				}] | fn.#If
 				Retention?:         int | fn.#Fn
-				StorageDescriptor?: close({
+				StorageDescriptor?: {
 					BucketColumns?: [...(string | fn.#Fn)] | (string | fn.#Fn)
-					Columns?:       [...close({
+					Columns?:       [...{
 						Comment?: string | fn.#Fn
 						Name:     string | fn.#Fn
 						Type?:    string | fn.#Fn
-					})] | fn.If
+					}] | fn.#If
 					Compressed?:      bool | fn.#Fn
 					InputFormat?:     string | fn.#Fn
 					Location?:        string | fn.#Fn
@@ -331,31 +331,31 @@ import "github.com/TangoGroup/aws/fn"
 					Parameters?:      {
 						[string]: _
 					} | fn.#Fn
-					SerdeInfo?: close({
+					SerdeInfo?: {
 						Name?:       string | fn.#Fn
 						Parameters?: {
 							[string]: _
 						} | fn.#Fn
 						SerializationLibrary?: string | fn.#Fn
-					}) | fn.If
-					SkewedInfo?: close({
+					} | fn.#If
+					SkewedInfo?: {
 						SkewedColumnNames?:             [...(string | fn.#Fn)] | (string | fn.#Fn)
 						SkewedColumnValueLocationMaps?: {
 							[string]: _
 						} | fn.#Fn
 						SkewedColumnValues?: [...(string | fn.#Fn)] | (string | fn.#Fn)
-					}) | fn.If
-					SortColumns?: [...close({
+					} | fn.#If
+					SortColumns?: [...{
 						Column:    string | fn.#Fn
 						SortOrder: int | fn.#Fn
-					})] | fn.If
+					}] | fn.#If
 					StoredAsSubDirectories?: bool | fn.#Fn
-				}) | fn.If
+				} | fn.#If
 				TableType?:        ("EXTERNAL_TABLE" | "VIRTUAL_VIEW") | fn.#Fn
 				ViewExpandedText?: string | fn.#Fn
 				ViewOriginalText?: string | fn.#Fn
-			}) | fn.If
-		})
+			} | fn.#If
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -363,32 +363,32 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#Trigger: {
-		Type:       "AWS::Glue::Trigger"
-		Properties: close({
-			Actions: [...close({
+		Type: "AWS::Glue::Trigger"
+		Properties: {
+			Actions: [...{
 				Arguments?: {
 					[string]: _
 				} | fn.#Fn
 				CrawlerName?:          string | fn.#Fn
 				JobName?:              string | fn.#Fn
-				NotificationProperty?: close({
+				NotificationProperty?: {
 					NotifyDelayAfter?: int | fn.#Fn
-				}) | fn.If
+				} | fn.#If
 				SecurityConfiguration?: string | fn.#Fn
 				Timeout?:               int | fn.#Fn
-			})] | fn.If
+			}] | fn.#If
 			Description?: string | fn.#Fn
 			Name?:        string | fn.#Fn
-			Predicate?:   close({
-				Conditions?: [...close({
+			Predicate?:   {
+				Conditions?: [...{
 					CrawlState?:      string | fn.#Fn
 					CrawlerName?:     string | fn.#Fn
 					JobName?:         string | fn.#Fn
 					LogicalOperator?: ("EQUALS") | fn.#Fn
 					State?:           ("SUCCEEDED" | "STOPPED" | "TIMEOUT" | "FAILED") | fn.#Fn
-				})] | fn.If
+				}] | fn.#If
 				Logical?: ("AND" | "ANY") | fn.#Fn
-			}) | fn.If
+			} | fn.#If
 			Schedule?:        string | fn.#Fn
 			StartOnCreation?: bool | fn.#Fn
 			Tags?:            {
@@ -396,7 +396,7 @@ import "github.com/TangoGroup/aws/fn"
 			} | fn.#Fn
 			Type:          ("CONDITIONAL" | "ON_DEMAND" | "SCHEDULED") | fn.#Fn
 			WorkflowName?: string | fn.#Fn
-		})
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -404,8 +404,8 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#Workflow: {
-		Type:       "AWS::Glue::Workflow"
-		Properties: close({
+		Type: "AWS::Glue::Workflow"
+		Properties: {
 			DefaultRunProperties?: {
 				[string]: _
 			} | fn.#Fn
@@ -414,7 +414,7 @@ import "github.com/TangoGroup/aws/fn"
 			Tags?:        {
 				[string]: _
 			} | fn.#Fn
-		})
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

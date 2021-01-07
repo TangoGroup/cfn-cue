@@ -4,65 +4,65 @@ import "github.com/TangoGroup/aws/fn"
 
 #GreengrassV2: {
 	#ComponentVersion: {
-		Type:       "AWS::GreengrassV2::ComponentVersion"
-		Properties: close({
+		Type: "AWS::GreengrassV2::ComponentVersion"
+		Properties: {
 			InlineRecipe?:   string | fn.#Fn
-			LambdaFunction?: close({
+			LambdaFunction?: {
 				ComponentDependencies?: {
-					[string]: close({
+					[string]: {
 						DependencyType?:     string | fn.#Fn
 						VersionRequirement?: string | fn.#Fn
-					})
-				} | fn.If
-				ComponentLambdaParameters?: close({
+					}
+				} | fn.#If
+				ComponentLambdaParameters?: {
 					EnvironmentVariables?: {
 						[string]: string | fn.#Fn
-					} | fn.If
-					EventSources?: [...close({
+					} | fn.#If
+					EventSources?: [...{
 						Topic?: string | fn.#Fn
 						Type?:  string | fn.#Fn
-					})] | fn.If
+					}] | fn.#If
 					ExecArgs?:                 [...(string | fn.#Fn)] | (string | fn.#Fn)
 					InputPayloadEncodingType?: string | fn.#Fn
-					LinuxProcessParams?:       close({
-						ContainerParams?: close({
-							Devices?: [...close({
+					LinuxProcessParams?:       {
+						ContainerParams?: {
+							Devices?: [...{
 								AddGroupOwner?: bool | fn.#Fn
 								Path?:          string | fn.#Fn
 								Permission?:    string | fn.#Fn
-							})] | fn.If
+							}] | fn.#If
 							MemorySizeInKB?: int | fn.#Fn
 							MountROSysfs?:   bool | fn.#Fn
-							Volumes?:        [...close({
+							Volumes?:        [...{
 								AddGroupOwner?:   bool | fn.#Fn
 								DestinationPath?: string | fn.#Fn
 								Permission?:      string | fn.#Fn
 								SourcePath?:      string | fn.#Fn
-							})] | fn.If
-						}) | fn.If
+							}] | fn.#If
+						} | fn.#If
 						IsolationMode?: string | fn.#Fn
-					}) | fn.If
+					} | fn.#If
 					MaxIdleTimeInSeconds?:   int | fn.#Fn
 					MaxInstancesCount?:      int | fn.#Fn
 					MaxQueueSize?:           int | fn.#Fn
 					Pinned?:                 bool | fn.#Fn
 					StatusTimeoutInSeconds?: int | fn.#Fn
 					TimeoutInSeconds?:       int | fn.#Fn
-				}) | fn.If
+				} | fn.#If
 				ComponentName?:      string | fn.#Fn
-				ComponentPlatforms?: [...close({
+				ComponentPlatforms?: [...{
 					Attributes?: {
 						[string]: string | fn.#Fn
-					} | fn.If
+					} | fn.#If
 					Name?: string | fn.#Fn
-				})] | fn.If
+				}] | fn.#If
 				ComponentVersion?: string | fn.#Fn
 				LambdaArn?:        string | fn.#Fn
-			}) | fn.If
+			} | fn.#If
 			Tags?: {
 				[string]: string | fn.#Fn
-			} | fn.If
-		})
+			} | fn.#If
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

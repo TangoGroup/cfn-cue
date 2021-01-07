@@ -4,19 +4,19 @@ import "github.com/TangoGroup/aws/fn"
 
 #Budgets: {
 	#Budget: {
-		Type:       "AWS::Budgets::Budget"
-		Properties: close({
-			Budget: close({
-				BudgetLimit?: close({
+		Type: "AWS::Budgets::Budget"
+		Properties: {
+			Budget: {
+				BudgetLimit?: {
 					Amount: number | fn.#Fn
 					Unit:   string | fn.#Fn
-				}) | fn.If
+				} | fn.#If
 				BudgetName?:  string | fn.#Fn
 				BudgetType:   string | fn.#Fn
 				CostFilters?: {
 					[string]: _
 				} | fn.#Fn
-				CostTypes?: close({
+				CostTypes?: {
 					IncludeCredit?:            bool | fn.#Fn
 					IncludeDiscount?:          bool | fn.#Fn
 					IncludeOtherSubscription?: bool | fn.#Fn
@@ -28,29 +28,29 @@ import "github.com/TangoGroup/aws/fn"
 					IncludeUpfront?:           bool | fn.#Fn
 					UseAmortized?:             bool | fn.#Fn
 					UseBlended?:               bool | fn.#Fn
-				}) | fn.If
+				} | fn.#If
 				PlannedBudgetLimits?: {
 					[string]: _
 				} | fn.#Fn
-				TimePeriod?: close({
+				TimePeriod?: {
 					End?:   string | fn.#Fn
 					Start?: string | fn.#Fn
-				}) | fn.If
+				} | fn.#If
 				TimeUnit: string | fn.#Fn
-			}) | fn.If
-			NotificationsWithSubscribers?: [...close({
-				Notification: close({
+			} | fn.#If
+			NotificationsWithSubscribers?: [...{
+				Notification: {
 					ComparisonOperator: string | fn.#Fn
 					NotificationType:   string | fn.#Fn
 					Threshold:          number | fn.#Fn
 					ThresholdType?:     string | fn.#Fn
-				}) | fn.If
-				Subscribers: [...close({
+				} | fn.#If
+				Subscribers: [...{
 					Address:          string | fn.#Fn
 					SubscriptionType: string | fn.#Fn
-				})] | fn.If
-			})] | fn.If
-		})
+				}] | fn.#If
+			}] | fn.#If
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

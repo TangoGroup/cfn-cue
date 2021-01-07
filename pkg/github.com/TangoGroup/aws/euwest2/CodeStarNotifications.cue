@@ -4,8 +4,8 @@ import "github.com/TangoGroup/aws/fn"
 
 #CodeStarNotifications: {
 	#NotificationRule: {
-		Type:       "AWS::CodeStarNotifications::NotificationRule"
-		Properties: close({
+		Type: "AWS::CodeStarNotifications::NotificationRule"
+		Properties: {
 			DetailType:   string | fn.#Fn
 			EventTypeIds: [...(string | fn.#Fn)] | (string | fn.#Fn)
 			Name:         string | fn.#Fn
@@ -14,11 +14,11 @@ import "github.com/TangoGroup/aws/fn"
 			Tags?:        {
 				[string]: _
 			} | fn.#Fn
-			Targets: [...close({
+			Targets: [...{
 				TargetAddress?: string | fn.#Fn
 				TargetType?:    string | fn.#Fn
-			})] | fn.If
-		})
+			}] | fn.#If
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

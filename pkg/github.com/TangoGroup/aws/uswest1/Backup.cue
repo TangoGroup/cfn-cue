@@ -4,29 +4,29 @@ import "github.com/TangoGroup/aws/fn"
 
 #Backup: {
 	#BackupPlan: {
-		Type:       "AWS::Backup::BackupPlan"
-		Properties: close({
-			BackupPlan: close({
-				AdvancedBackupSettings?: [...close({
+		Type: "AWS::Backup::BackupPlan"
+		Properties: {
+			BackupPlan: {
+				AdvancedBackupSettings?: [...{
 					BackupOptions: {
 						[string]: _
 					} | fn.#Fn
 					ResourceType: string | fn.#Fn
-				})] | fn.If
+				}] | fn.#If
 				BackupPlanName: string | fn.#Fn
-				BackupPlanRule: [...close({
+				BackupPlanRule: [...{
 					CompletionWindowMinutes?: int | fn.#Fn
-					CopyActions?:             [...close({
+					CopyActions?:             [...{
 						DestinationBackupVaultArn: string | fn.#Fn
-						Lifecycle?:                close({
+						Lifecycle?:                {
 							DeleteAfterDays?:            int | fn.#Fn
 							MoveToColdStorageAfterDays?: int | fn.#Fn
-						}) | fn.If
-					})] | fn.If
-					Lifecycle?: close({
+						} | fn.#If
+					}] | fn.#If
+					Lifecycle?: {
 						DeleteAfterDays?:            int | fn.#Fn
 						MoveToColdStorageAfterDays?: int | fn.#Fn
-					}) | fn.If
+					} | fn.#If
 					RecoveryPointTags?: {
 						[string]: _
 					} | fn.#Fn
@@ -34,12 +34,12 @@ import "github.com/TangoGroup/aws/fn"
 					ScheduleExpression?: string | fn.#Fn
 					StartWindowMinutes?: int | fn.#Fn
 					TargetBackupVault:   string | fn.#Fn
-				})] | fn.If
-			}) | fn.If
+				}] | fn.#If
+			} | fn.#If
 			BackupPlanTags?: {
 				[string]: _
 			} | fn.#Fn
-		})
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -47,20 +47,20 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#BackupSelection: {
-		Type:       "AWS::Backup::BackupSelection"
-		Properties: close({
+		Type: "AWS::Backup::BackupSelection"
+		Properties: {
 			BackupPlanId:    string | fn.#Fn
-			BackupSelection: close({
+			BackupSelection: {
 				IamRoleArn:  (=~#"arn:(aws[a-zA-Z-]*)?:iam::\d{12}:role/[a-zA-Z_0-9+=,.@\-_/]+"#) | fn.#Fn
-				ListOfTags?: [...close({
+				ListOfTags?: [...{
 					ConditionKey:   string | fn.#Fn
 					ConditionType:  string | fn.#Fn
 					ConditionValue: string | fn.#Fn
-				})] | fn.If
+				}] | fn.#If
 				Resources?:    [...(string | fn.#Fn)] | (string | fn.#Fn)
 				SelectionName: string | fn.#Fn
-			}) | fn.If
-		})
+			} | fn.#If
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -68,8 +68,8 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#BackupVault: {
-		Type:       "AWS::Backup::BackupVault"
-		Properties: close({
+		Type: "AWS::Backup::BackupVault"
+		Properties: {
 			AccessPolicy?: {
 				[string]: _
 			} | fn.#Fn
@@ -78,11 +78,11 @@ import "github.com/TangoGroup/aws/fn"
 				[string]: _
 			} | fn.#Fn
 			EncryptionKeyArn?: string | fn.#Fn
-			Notifications?:    close({
+			Notifications?:    {
 				BackupVaultEvents: [...(string | fn.#Fn)] | (string | fn.#Fn)
 				SNSTopicArn:       string | fn.#Fn
-			}) | fn.If
-		})
+			} | fn.#If
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

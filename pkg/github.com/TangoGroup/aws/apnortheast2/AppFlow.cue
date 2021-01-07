@@ -4,127 +4,127 @@ import "github.com/TangoGroup/aws/fn"
 
 #AppFlow: {
 	#ConnectorProfile: {
-		Type:       "AWS::AppFlow::ConnectorProfile"
-		Properties: close({
+		Type: "AWS::AppFlow::ConnectorProfile"
+		Properties: {
 			ConnectionMode:          string | fn.#Fn
-			ConnectorProfileConfig?: close({
-				ConnectorProfileCredentials: close({
-					Amplitude?: close({
+			ConnectorProfileConfig?: {
+				ConnectorProfileCredentials: {
+					Amplitude?: {
 						ApiKey:    string | fn.#Fn
 						SecretKey: string | fn.#Fn
-					}) | fn.If
-					Datadog?: close({
+					} | fn.#If
+					Datadog?: {
 						ApiKey:         string | fn.#Fn
 						ApplicationKey: string | fn.#Fn
-					}) | fn.If
-					Dynatrace?: close({
+					} | fn.#If
+					Dynatrace?: {
 						ApiToken: string | fn.#Fn
-					}) | fn.If
-					GoogleAnalytics?: close({
+					} | fn.#If
+					GoogleAnalytics?: {
 						AccessToken?:           string | fn.#Fn
 						ClientId:               string | fn.#Fn
 						ClientSecret:           string | fn.#Fn
-						ConnectorOAuthRequest?: close({
+						ConnectorOAuthRequest?: {
 							AuthCode?:    string | fn.#Fn
 							RedirectUri?: string | fn.#Fn
-						}) | fn.If
+						} | fn.#If
 						RefreshToken?: string | fn.#Fn
-					}) | fn.If
-					InforNexus?: close({
+					} | fn.#If
+					InforNexus?: {
 						AccessKeyId:     string | fn.#Fn
 						Datakey:         string | fn.#Fn
 						SecretAccessKey: string | fn.#Fn
 						UserId:          string | fn.#Fn
-					}) | fn.If
-					Marketo?: close({
+					} | fn.#If
+					Marketo?: {
 						AccessToken?:           string | fn.#Fn
 						ClientId:               string | fn.#Fn
 						ClientSecret:           string | fn.#Fn
-						ConnectorOAuthRequest?: close({
+						ConnectorOAuthRequest?: {
 							AuthCode?:    string | fn.#Fn
 							RedirectUri?: string | fn.#Fn
-						}) | fn.If
-					}) | fn.If
-					Redshift?: close({
+						} | fn.#If
+					} | fn.#If
+					Redshift?: {
 						Password: string | fn.#Fn
 						Username: string | fn.#Fn
-					}) | fn.If
-					Salesforce?: close({
+					} | fn.#If
+					Salesforce?: {
 						AccessToken?:           string | fn.#Fn
 						ClientCredentialsArn?:  string | fn.#Fn
-						ConnectorOAuthRequest?: close({
+						ConnectorOAuthRequest?: {
 							AuthCode?:    string | fn.#Fn
 							RedirectUri?: string | fn.#Fn
-						}) | fn.If
+						} | fn.#If
 						RefreshToken?: string | fn.#Fn
-					}) | fn.If
-					ServiceNow?: close({
+					} | fn.#If
+					ServiceNow?: {
 						Password: string | fn.#Fn
 						Username: string | fn.#Fn
-					}) | fn.If
-					Singular?: close({
+					} | fn.#If
+					Singular?: {
 						ApiKey: string | fn.#Fn
-					}) | fn.If
-					Slack?: close({
+					} | fn.#If
+					Slack?: {
 						AccessToken?:           string | fn.#Fn
 						ClientId:               string | fn.#Fn
 						ClientSecret:           string | fn.#Fn
-						ConnectorOAuthRequest?: close({
+						ConnectorOAuthRequest?: {
 							AuthCode?:    string | fn.#Fn
 							RedirectUri?: string | fn.#Fn
-						}) | fn.If
-					}) | fn.If
-					Snowflake?: close({
+						} | fn.#If
+					} | fn.#If
+					Snowflake?: {
 						Password: string | fn.#Fn
 						Username: string | fn.#Fn
-					}) | fn.If
-					Trendmicro?: close({
+					} | fn.#If
+					Trendmicro?: {
 						ApiSecretKey: string | fn.#Fn
-					}) | fn.If
-					Veeva?: close({
+					} | fn.#If
+					Veeva?: {
 						Password: string | fn.#Fn
 						Username: string | fn.#Fn
-					}) | fn.If
-					Zendesk?: close({
+					} | fn.#If
+					Zendesk?: {
 						AccessToken?:           string | fn.#Fn
 						ClientId:               string | fn.#Fn
 						ClientSecret:           string | fn.#Fn
-						ConnectorOAuthRequest?: close({
+						ConnectorOAuthRequest?: {
 							AuthCode?:    string | fn.#Fn
 							RedirectUri?: string | fn.#Fn
-						}) | fn.If
-					}) | fn.If
-				}) | fn.If
-				ConnectorProfileProperties?: close({
-					Datadog?: close({
+						} | fn.#If
+					} | fn.#If
+				} | fn.#If
+				ConnectorProfileProperties?: {
+					Datadog?: {
 						InstanceUrl: string | fn.#Fn
-					}) | fn.If
-					Dynatrace?: close({
+					} | fn.#If
+					Dynatrace?: {
 						InstanceUrl: string | fn.#Fn
-					}) | fn.If
-					InforNexus?: close({
+					} | fn.#If
+					InforNexus?: {
 						InstanceUrl: string | fn.#Fn
-					}) | fn.If
-					Marketo?: close({
+					} | fn.#If
+					Marketo?: {
 						InstanceUrl: string | fn.#Fn
-					}) | fn.If
-					Redshift?: close({
+					} | fn.#If
+					Redshift?: {
 						BucketName:    string | fn.#Fn
 						BucketPrefix?: string | fn.#Fn
 						DatabaseUrl:   string | fn.#Fn
 						RoleArn:       string | fn.#Fn
-					}) | fn.If
-					Salesforce?: close({
+					} | fn.#If
+					Salesforce?: {
 						InstanceUrl?:          string | fn.#Fn
 						isSandboxEnvironment?: bool | fn.#Fn
-					}) | fn.If
-					ServiceNow?: close({
+					} | fn.#If
+					ServiceNow?: {
 						InstanceUrl: string | fn.#Fn
-					}) | fn.If
-					Slack?: close({
+					} | fn.#If
+					Slack?: {
 						InstanceUrl: string | fn.#Fn
-					}) | fn.If
-					Snowflake?: close({
+					} | fn.#If
+					Snowflake?: {
 						AccountName?:            string | fn.#Fn
 						BucketName:              string | fn.#Fn
 						BucketPrefix?:           string | fn.#Fn
@@ -132,19 +132,19 @@ import "github.com/TangoGroup/aws/fn"
 						Region?:                 string | fn.#Fn
 						Stage:                   string | fn.#Fn
 						Warehouse:               string | fn.#Fn
-					}) | fn.If
-					Veeva?: close({
+					} | fn.#If
+					Veeva?: {
 						InstanceUrl: string | fn.#Fn
-					}) | fn.If
-					Zendesk?: close({
+					} | fn.#If
+					Zendesk?: {
 						InstanceUrl: string | fn.#Fn
-					}) | fn.If
-				}) | fn.If
-			}) | fn.If
+					} | fn.#If
+				} | fn.#If
+			} | fn.#If
 			ConnectorProfileName: string | fn.#Fn
 			ConnectorType:        string | fn.#Fn
 			KMSArn?:              string | fn.#Fn
-		})
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -152,127 +152,127 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#Flow: {
-		Type:       "AWS::AppFlow::Flow"
-		Properties: close({
+		Type: "AWS::AppFlow::Flow"
+		Properties: {
 			Description?:              string | fn.#Fn
-			DestinationFlowConfigList: [...close({
+			DestinationFlowConfigList: [...{
 				ConnectorProfileName?:          string | fn.#Fn
 				ConnectorType:                  string | fn.#Fn
-				DestinationConnectorProperties: close({
-					EventBridge?: close({
-						ErrorHandlingConfig?: close({
+				DestinationConnectorProperties: {
+					EventBridge?: {
+						ErrorHandlingConfig?: {
 							BucketName?:       string | fn.#Fn
 							BucketPrefix?:     string | fn.#Fn
 							FailOnFirstError?: bool | fn.#Fn
-						}) | fn.If
+						} | fn.#If
 						Object: string | fn.#Fn
-					}) | fn.If
-					Redshift?: close({
+					} | fn.#If
+					Redshift?: {
 						BucketPrefix?:        string | fn.#Fn
-						ErrorHandlingConfig?: close({
+						ErrorHandlingConfig?: {
 							BucketName?:       string | fn.#Fn
 							BucketPrefix?:     string | fn.#Fn
 							FailOnFirstError?: bool | fn.#Fn
-						}) | fn.If
+						} | fn.#If
 						IntermediateBucketName: string | fn.#Fn
 						Object:                 string | fn.#Fn
-					}) | fn.If
-					S3?: close({
+					} | fn.#If
+					S3?: {
 						BucketName:            string | fn.#Fn
 						BucketPrefix?:         string | fn.#Fn
-						S3OutputFormatConfig?: close({
-							AggregationConfig?: close({
+						S3OutputFormatConfig?: {
+							AggregationConfig?: {
 								AggregationType?: string | fn.#Fn
-							}) | fn.If
+							} | fn.#If
 							FileType?:     string | fn.#Fn
-							PrefixConfig?: close({
+							PrefixConfig?: {
 								PrefixFormat?: string | fn.#Fn
 								PrefixType?:   string | fn.#Fn
-							}) | fn.If
-						}) | fn.If
-					}) | fn.If
-					Salesforce?: close({
-						ErrorHandlingConfig?: close({
+							} | fn.#If
+						} | fn.#If
+					} | fn.#If
+					Salesforce?: {
+						ErrorHandlingConfig?: {
 							BucketName?:       string | fn.#Fn
 							BucketPrefix?:     string | fn.#Fn
 							FailOnFirstError?: bool | fn.#Fn
-						}) | fn.If
+						} | fn.#If
 						Object: string | fn.#Fn
-					}) | fn.If
-					Snowflake?: close({
+					} | fn.#If
+					Snowflake?: {
 						BucketPrefix?:        string | fn.#Fn
-						ErrorHandlingConfig?: close({
+						ErrorHandlingConfig?: {
 							BucketName?:       string | fn.#Fn
 							BucketPrefix?:     string | fn.#Fn
 							FailOnFirstError?: bool | fn.#Fn
-						}) | fn.If
+						} | fn.#If
 						IntermediateBucketName: string | fn.#Fn
 						Object:                 string | fn.#Fn
-					}) | fn.If
-				}) | fn.If
-			})] | fn.If
+					} | fn.#If
+				} | fn.#If
+			}] | fn.#If
 			FlowName:         string | fn.#Fn
 			KMSArn?:          string | fn.#Fn
-			SourceFlowConfig: close({
+			SourceFlowConfig: {
 				ConnectorProfileName?:  string | fn.#Fn
 				ConnectorType:          string | fn.#Fn
-				IncrementalPullConfig?: close({
+				IncrementalPullConfig?: {
 					DatetimeTypeFieldName?: string | fn.#Fn
-				}) | fn.If
-				SourceConnectorProperties: close({
-					Amplitude?: close({
+				} | fn.#If
+				SourceConnectorProperties: {
+					Amplitude?: {
 						Object: string | fn.#Fn
-					}) | fn.If
-					Datadog?: close({
+					} | fn.#If
+					Datadog?: {
 						Object: string | fn.#Fn
-					}) | fn.If
-					Dynatrace?: close({
+					} | fn.#If
+					Dynatrace?: {
 						Object: string | fn.#Fn
-					}) | fn.If
-					GoogleAnalytics?: close({
+					} | fn.#If
+					GoogleAnalytics?: {
 						Object: string | fn.#Fn
-					}) | fn.If
-					InforNexus?: close({
+					} | fn.#If
+					InforNexus?: {
 						Object: string | fn.#Fn
-					}) | fn.If
-					Marketo?: close({
+					} | fn.#If
+					Marketo?: {
 						Object: string | fn.#Fn
-					}) | fn.If
-					S3?: close({
+					} | fn.#If
+					S3?: {
 						BucketName:   string | fn.#Fn
 						BucketPrefix: string | fn.#Fn
-					}) | fn.If
-					Salesforce?: close({
+					} | fn.#If
+					Salesforce?: {
 						EnableDynamicFieldUpdate?: bool | fn.#Fn
 						IncludeDeletedRecords?:    bool | fn.#Fn
 						Object:                    string | fn.#Fn
-					}) | fn.If
-					ServiceNow?: close({
+					} | fn.#If
+					ServiceNow?: {
 						Object: string | fn.#Fn
-					}) | fn.If
-					Singular?: close({
+					} | fn.#If
+					Singular?: {
 						Object: string | fn.#Fn
-					}) | fn.If
-					Slack?: close({
+					} | fn.#If
+					Slack?: {
 						Object: string | fn.#Fn
-					}) | fn.If
-					Trendmicro?: close({
+					} | fn.#If
+					Trendmicro?: {
 						Object: string | fn.#Fn
-					}) | fn.If
-					Veeva?: close({
+					} | fn.#If
+					Veeva?: {
 						Object: string | fn.#Fn
-					}) | fn.If
-					Zendesk?: close({
+					} | fn.#If
+					Zendesk?: {
 						Object: string | fn.#Fn
-					}) | fn.If
-				}) | fn.If
-			}) | fn.If
-			Tags?: [...close({
+					} | fn.#If
+				} | fn.#If
+			} | fn.#If
+			Tags?: [...{
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			})] | fn.If
-			Tasks: [...close({
-				ConnectorOperator?: close({
+			}] | fn.#If
+			Tasks: [...{
+				ConnectorOperator?: {
 					Amplitude?:       string | fn.#Fn
 					Datadog?:         string | fn.#Fn
 					Dynatrace?:       string | fn.#Fn
@@ -287,26 +287,26 @@ import "github.com/TangoGroup/aws/fn"
 					Trendmicro?:      string | fn.#Fn
 					Veeva?:           string | fn.#Fn
 					Zendesk?:         string | fn.#Fn
-				}) | fn.If
+				} | fn.#If
 				DestinationField?: string | fn.#Fn
 				SourceFields:      [...(string | fn.#Fn)] | (string | fn.#Fn)
-				TaskProperties?:   [...close({
+				TaskProperties?:   [...{
 					Key:   string | fn.#Fn
 					Value: string | fn.#Fn
-				})] | fn.If
+				}] | fn.#If
 				TaskType: string | fn.#Fn
-			})] | fn.If
-			TriggerConfig: close({
-				TriggerProperties?: close({
+			}] | fn.#If
+			TriggerConfig: {
+				TriggerProperties?: {
 					DataPullMode?:      string | fn.#Fn
 					ScheduleEndTime?:   number | fn.#Fn
 					ScheduleExpression: string | fn.#Fn
 					ScheduleStartTime?: number | fn.#Fn
 					TimeZone?:          string | fn.#Fn
-				}) | fn.If
+				} | fn.#If
 				TriggerType: string | fn.#Fn
-			}) | fn.If
-		})
+			} | fn.#If
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

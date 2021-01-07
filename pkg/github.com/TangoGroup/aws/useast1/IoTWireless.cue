@@ -4,19 +4,19 @@ import "github.com/TangoGroup/aws/fn"
 
 #IoTWireless: {
 	#Destination: {
-		Type:       "AWS::IoTWireless::Destination"
-		Properties: close({
+		Type: "AWS::IoTWireless::Destination"
+		Properties: {
 			Description?:   string | fn.#Fn
 			Expression:     string | fn.#Fn
 			ExpressionType: string | fn.#Fn
 			Name:           string | fn.#Fn
 			NextToken?:     string | fn.#Fn
 			RoleArn:        string | fn.#Fn
-			Tags?:          [...close({
+			Tags?:          [...{
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			})] | fn.If
-		})
+			}] | fn.#If
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -24,9 +24,9 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#DeviceProfile: {
-		Type:       "AWS::IoTWireless::DeviceProfile"
-		Properties: close({
-			LoRaWANDeviceProfile?: close({
+		Type: "AWS::IoTWireless::DeviceProfile"
+		Properties: {
+			LoRaWANDeviceProfile?: {
 				ClassBTimeout?:     int | fn.#Fn
 				ClassCTimeout?:     int | fn.#Fn
 				MacVersion?:        string | fn.#Fn
@@ -41,14 +41,14 @@ import "github.com/TangoGroup/aws/fn"
 				SupportsClassB?:    bool | fn.#Fn
 				SupportsClassC?:    bool | fn.#Fn
 				SupportsJoin?:      bool | fn.#Fn
-			}) | fn.If
+			} | fn.#If
 			Name?:      string | fn.#Fn
 			NextToken?: string | fn.#Fn
-			Tags?:      [...close({
+			Tags?:      [...{
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			})] | fn.If
-		})
+			}] | fn.#If
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -56,9 +56,9 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#ServiceProfile: {
-		Type:       "AWS::IoTWireless::ServiceProfile"
-		Properties: close({
-			LoRaWANGetServiceProfileInfo?: close({
+		Type: "AWS::IoTWireless::ServiceProfile"
+		Properties: {
+			LoRaWANGetServiceProfileInfo?: {
 				AddGwMetadata?:          bool | fn.#Fn
 				ChannelMask?:            string | fn.#Fn
 				DevStatusReqFreq?:       int | fn.#Fn
@@ -78,17 +78,17 @@ import "github.com/TangoGroup/aws/fn"
 				UlBucketSize?:           int | fn.#Fn
 				UlRate?:                 int | fn.#Fn
 				UlRatePolicy?:           string | fn.#Fn
-			}) | fn.If
-			LoRaWANServiceProfile?: close({
+			} | fn.#If
+			LoRaWANServiceProfile?: {
 				AddGwMetadata?: bool | fn.#Fn
-			}) | fn.If
+			} | fn.#If
 			Name?:      string | fn.#Fn
 			NextToken?: string | fn.#Fn
-			Tags?:      [...close({
+			Tags?:      [...{
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			})] | fn.If
-		})
+			}] | fn.#If
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -96,48 +96,48 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#WirelessDevice: {
-		Type:       "AWS::IoTWireless::WirelessDevice"
-		Properties: close({
+		Type: "AWS::IoTWireless::WirelessDevice"
+		Properties: {
 			Description?:    string | fn.#Fn
 			DestinationName: string | fn.#Fn
-			LoRaWANDevice?:  close({
-				AbpV10X?: close({
+			LoRaWANDevice?:  {
+				AbpV10X?: {
 					DevAddr?:     string | fn.#Fn
-					SessionKeys?: close({
+					SessionKeys?: {
 						AppSKey?: string | fn.#Fn
 						NwkSKey?: string | fn.#Fn
-					}) | fn.If
-				}) | fn.If
-				AbpV11?: close({
+					} | fn.#If
+				} | fn.#If
+				AbpV11?: {
 					DevAddr?:     string | fn.#Fn
-					SessionKeys?: close({
+					SessionKeys?: {
 						AppSKey?:     string | fn.#Fn
 						FNwkSIntKey?: string | fn.#Fn
 						NwkSEncKey?:  string | fn.#Fn
 						SNwkSIntKey?: string | fn.#Fn
-					}) | fn.If
-				}) | fn.If
+					} | fn.#If
+				} | fn.#If
 				DevEui?:          string | fn.#Fn
 				DeviceProfileId?: string | fn.#Fn
-				OtaaV10X?:        close({
+				OtaaV10X?:        {
 					AppEui?: string | fn.#Fn
 					AppKey?: string | fn.#Fn
-				}) | fn.If
-				OtaaV11?: close({
+				} | fn.#If
+				OtaaV11?: {
 					AppKey?:  string | fn.#Fn
 					JoinEui?: string | fn.#Fn
 					NwkKey?:  string | fn.#Fn
-				}) | fn.If
+				} | fn.#If
 				ServiceProfileId?: string | fn.#Fn
-			}) | fn.If
+			} | fn.#If
 			Name?:      string | fn.#Fn
 			NextToken?: string | fn.#Fn
-			Tags?:      [...close({
+			Tags?:      [...{
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			})] | fn.If
+			}] | fn.#If
 			Type: string | fn.#Fn
-		})
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -145,21 +145,21 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#WirelessGateway: {
-		Type:       "AWS::IoTWireless::WirelessGateway"
-		Properties: close({
+		Type: "AWS::IoTWireless::WirelessGateway"
+		Properties: {
 			Description?:   string | fn.#Fn
-			LoRaWANGateway: close({
+			LoRaWANGateway: {
 				GatewayEui?: string | fn.#Fn
 				RfRegion?:   string | fn.#Fn
-			}) | fn.If
+			} | fn.#If
 			Name?:      string | fn.#Fn
 			NextToken?: string | fn.#Fn
-			Tags?:      [...close({
+			Tags?:      [...{
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			})] | fn.If
+			}] | fn.#If
 			ThingName?: string | fn.#Fn
-		})
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

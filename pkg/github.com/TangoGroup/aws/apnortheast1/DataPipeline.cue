@@ -4,36 +4,36 @@ import "github.com/TangoGroup/aws/fn"
 
 #DataPipeline: {
 	#Pipeline: {
-		Type:       "AWS::DataPipeline::Pipeline"
-		Properties: close({
+		Type: "AWS::DataPipeline::Pipeline"
+		Properties: {
 			Activate?:        bool | fn.#Fn
 			Description?:     string | fn.#Fn
 			Name:             string | fn.#Fn
-			ParameterObjects: [...close({
-				Attributes: [...close({
+			ParameterObjects: [...{
+				Attributes: [...{
 					Key:         string | fn.#Fn
 					StringValue: string | fn.#Fn
-				})] | fn.If
+				}] | fn.#If
 				Id: string | fn.#Fn
-			})] | fn.If
-			ParameterValues?: [...close({
+			}] | fn.#If
+			ParameterValues?: [...{
 				Id:          string | fn.#Fn
 				StringValue: string | fn.#Fn
-			})] | fn.If
-			PipelineObjects?: [...close({
-				Fields: [...close({
+			}] | fn.#If
+			PipelineObjects?: [...{
+				Fields: [...{
 					Key:          string | fn.#Fn
 					RefValue?:    string | fn.#Fn
 					StringValue?: string | fn.#Fn
-				})] | fn.If
+				}] | fn.#If
 				Id:   string | fn.#Fn
 				Name: string | fn.#Fn
-			})] | fn.If
-			PipelineTags?: [...close({
+			}] | fn.#If
+			PipelineTags?: [...{
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			})] | fn.If
-		})
+			}] | fn.#If
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

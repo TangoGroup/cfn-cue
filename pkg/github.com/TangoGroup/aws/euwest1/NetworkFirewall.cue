@@ -4,23 +4,23 @@ import "github.com/TangoGroup/aws/fn"
 
 #NetworkFirewall: {
 	#Firewall: {
-		Type:       "AWS::NetworkFirewall::Firewall"
-		Properties: close({
+		Type: "AWS::NetworkFirewall::Firewall"
+		Properties: {
 			DeleteProtection?:               bool | fn.#Fn
 			Description?:                    string | fn.#Fn
 			FirewallName:                    string | fn.#Fn
 			FirewallPolicyArn:               string | fn.#Fn
 			FirewallPolicyChangeProtection?: bool | fn.#Fn
 			SubnetChangeProtection?:         bool | fn.#Fn
-			SubnetMappings:                  [...close({
+			SubnetMappings:                  [...{
 				SubnetId: string | fn.#Fn
-			})] | fn.If
-			Tags?: [...close({
+			}] | fn.#If
+			Tags?: [...{
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			})] | fn.If
+			}] | fn.#If
 			VpcId: string | fn.#Fn
-		})
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -28,47 +28,47 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#FirewallPolicy: {
-		Type:       "AWS::NetworkFirewall::FirewallPolicy"
-		Properties: close({
+		Type: "AWS::NetworkFirewall::FirewallPolicy"
+		Properties: {
 			Description?:   string | fn.#Fn
-			FirewallPolicy: close({
-				StatefulRuleGroupReferences?: close({
-					StatefulRuleGroupReferences?: [...close({
+			FirewallPolicy: {
+				StatefulRuleGroupReferences?: {
+					StatefulRuleGroupReferences?: [...{
 						[string]: _
-					})] | fn.If
-				}) | fn.If
-				StatelessCustomActions?: close({
-					CustomActions?: [...close({
-						ActionDefinition: close({
-							PublishMetricAction?: close({
-								Dimensions: close({
-									Dimensions?: [...close({
+					}] | fn.#If
+				} | fn.#If
+				StatelessCustomActions?: {
+					CustomActions?: [...{
+						ActionDefinition: {
+							PublishMetricAction?: {
+								Dimensions: {
+									Dimensions?: [...{
 										[string]: _
-									})] | fn.If
-								}) | fn.If
-							}) | fn.If
-						}) | fn.If
+									}] | fn.#If
+								} | fn.#If
+							} | fn.#If
+						} | fn.#If
 						ActionName: string | fn.#Fn
-					})] | fn.If
-				}) | fn.If
-				StatelessDefaultActions: close({
+					}] | fn.#If
+				} | fn.#If
+				StatelessDefaultActions: {
 					StatelessActions?: [...(string | fn.#Fn)] | (string | fn.#Fn)
-				}) | fn.If
-				StatelessFragmentDefaultActions: close({
+				} | fn.#If
+				StatelessFragmentDefaultActions: {
 					StatelessActions?: [...(string | fn.#Fn)] | (string | fn.#Fn)
-				}) | fn.If
-				StatelessRuleGroupReferences?: close({
-					StatelessRuleGroupReferences?: [...close({
+				} | fn.#If
+				StatelessRuleGroupReferences?: {
+					StatelessRuleGroupReferences?: [...{
 						[string]: _
-					})] | fn.If
-				}) | fn.If
-			}) | fn.If
+					}] | fn.#If
+				} | fn.#If
+			} | fn.#If
 			FirewallPolicyName: string | fn.#Fn
-			Tags?:              [...close({
+			Tags?:              [...{
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			})] | fn.If
-		})
+			}] | fn.#If
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -76,18 +76,18 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#LoggingConfiguration: {
-		Type:       "AWS::NetworkFirewall::LoggingConfiguration"
-		Properties: close({
+		Type: "AWS::NetworkFirewall::LoggingConfiguration"
+		Properties: {
 			FirewallArn:          string | fn.#Fn
 			FirewallName?:        string | fn.#Fn
-			LoggingConfiguration: close({
-				LogDestinationConfigs: close({
-					LogDestinationConfigs?: [...close({
+			LoggingConfiguration: {
+				LogDestinationConfigs: {
+					LogDestinationConfigs?: [...{
 						[string]: _
-					})] | fn.If
-				}) | fn.If
-			}) | fn.If
-		})
+					}] | fn.#If
+				} | fn.#If
+			} | fn.#If
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -95,62 +95,58 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#RuleGroup: {
-		Type:       "AWS::NetworkFirewall::RuleGroup"
-		Properties: close({
+		Type: "AWS::NetworkFirewall::RuleGroup"
+		Properties: {
 			Capacity:     int | fn.#Fn
 			Description?: string | fn.#Fn
-			RuleGroup?:   close({
-				RuleVariables?: close({
+			RuleGroup?:   {
+				RuleVariables?: {
 					IPSets?: {
-						[string]: close({
-							Definition?: close({
-								VariableDefinitionList?: [...(string | fn.#Fn)] | (string | fn.#Fn)
-							}) | fn.If
-						})
-					} | fn.If
+						[string]: Definition?: {
+							VariableDefinitionList?: [...(string | fn.#Fn)] | (string | fn.#Fn)
+						} | fn.#If
+					} | fn.#If
 					PortSets?: {
-						[string]: close({
-							Definition?: close({
-								VariableDefinitionList?: [...(string | fn.#Fn)] | (string | fn.#Fn)
-							}) | fn.If
-						})
-					} | fn.If
-				}) | fn.If
-				RulesSource: close({
-					RulesSourceList?: close({
+						[string]: Definition?: {
+							VariableDefinitionList?: [...(string | fn.#Fn)] | (string | fn.#Fn)
+						} | fn.#If
+					} | fn.#If
+				} | fn.#If
+				RulesSource: {
+					RulesSourceList?: {
 						GeneratedRulesType: string | fn.#Fn
-						TargetTypes:        close({
+						TargetTypes:        {
 							TargetTypes?: [...(string | fn.#Fn)] | (string | fn.#Fn)
-						}) | fn.If
+						} | fn.#If
 						Targets: [...(string | fn.#Fn)] | (string | fn.#Fn)
-					}) | fn.If
+					} | fn.#If
 					RulesString?:   string | fn.#Fn
-					StatefulRules?: close({
-						StatefulRules?: [...close({
+					StatefulRules?: {
+						StatefulRules?: [...{
 							[string]: _
-						})] | fn.If
-					}) | fn.If
-					StatelessRulesAndCustomActions?: close({
-						CustomActions?: close({
-							CustomActions?: [...close({
+						}] | fn.#If
+					} | fn.#If
+					StatelessRulesAndCustomActions?: {
+						CustomActions?: {
+							CustomActions?: [...{
 								[string]: _
-							})] | fn.If
-						}) | fn.If
-						StatelessRules: close({
-							StatelessRules?: [...close({
+							}] | fn.#If
+						} | fn.#If
+						StatelessRules: {
+							StatelessRules?: [...{
 								[string]: _
-							})] | fn.If
-						}) | fn.If
-					}) | fn.If
-				}) | fn.If
-			}) | fn.If
+							}] | fn.#If
+						} | fn.#If
+					} | fn.#If
+				} | fn.#If
+			} | fn.#If
 			RuleGroupName: string | fn.#Fn
-			Tags?:         [...close({
+			Tags?:         [...{
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			})] | fn.If
+			}] | fn.#If
 			Type: string | fn.#Fn
-		})
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

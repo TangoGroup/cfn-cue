@@ -4,22 +4,22 @@ import "github.com/TangoGroup/aws/fn"
 
 #CodeGuruProfiler: {
 	#ProfilingGroup: {
-		Type:       "AWS::CodeGuruProfiler::ProfilingGroup"
-		Properties: close({
+		Type: "AWS::CodeGuruProfiler::ProfilingGroup"
+		Properties: {
 			AgentPermissions?: {
 				[string]: _
 			} | fn.#Fn
-			AnomalyDetectionNotificationConfiguration?: [...close({
+			AnomalyDetectionNotificationConfiguration?: [...{
 				channelId?: string | fn.#Fn
 				channelUri: string | fn.#Fn
-			})] | fn.If
+			}] | fn.#If
 			ComputePlatform?:   string | fn.#Fn
 			ProfilingGroupName: string | fn.#Fn
-			Tags?:              [...close({
+			Tags?:              [...{
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			})] | fn.If
-		})
+			}] | fn.#If
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

@@ -4,9 +4,9 @@ import "github.com/TangoGroup/aws/fn"
 
 #CodeBuild: {
 	#Project: {
-		Type:       "AWS::CodeBuild::Project"
-		Properties: close({
-			Artifacts: close({
+		Type: "AWS::CodeBuild::Project"
+		Properties: {
+			Artifacts: {
 				ArtifactIdentifier?:   string | fn.#Fn
 				EncryptionDisabled?:   bool | fn.#Fn
 				Location?:             string | fn.#Fn
@@ -16,63 +16,63 @@ import "github.com/TangoGroup/aws/fn"
 				Packaging?:            ("NONE" | "ZIP") | fn.#Fn
 				Path?:                 string | fn.#Fn
 				Type:                  ("CODEPIPELINE" | "NO_ARTIFACTS" | "S3") | fn.#Fn
-			}) | fn.If
+			} | fn.#If
 			BadgeEnabled?:     bool | fn.#Fn
-			BuildBatchConfig?: close({
+			BuildBatchConfig?: {
 				CombineArtifacts?: bool | fn.#Fn
-				Restrictions?:     close({
+				Restrictions?:     {
 					ComputeTypesAllowed?:  [...(string | fn.#Fn)] | (string | fn.#Fn)
 					MaximumBuildsAllowed?: int | fn.#Fn
-				}) | fn.If
+				} | fn.#If
 				ServiceRole?:   string | fn.#Fn
 				TimeoutInMins?: int | fn.#Fn
-			}) | fn.If
-			Cache?: close({
+			} | fn.#If
+			Cache?: {
 				Location?: string | fn.#Fn
 				Modes?:    [...(string | fn.#Fn)] | (string | fn.#Fn)
 				Type:      ("LOCAL" | "NO_CACHE" | "S3") | fn.#Fn
-			}) | fn.If
+			} | fn.#If
 			Description?:   string | fn.#Fn
 			EncryptionKey?: string | fn.#Fn
-			Environment:    close({
+			Environment:    {
 				Certificate?:          string | fn.#Fn
 				ComputeType:           ("BUILD_GENERAL1_2XLARGE" | "BUILD_GENERAL1_LARGE" | "BUILD_GENERAL1_MEDIUM" | "BUILD_GENERAL1_SMALL") | fn.#Fn
-				EnvironmentVariables?: [...close({
+				EnvironmentVariables?: [...{
 					Name:  string | fn.#Fn
 					Type?: string | fn.#Fn
 					Value: string | fn.#Fn
-				})] | fn.If
+				}] | fn.#If
 				Image:                     string | fn.#Fn
 				ImagePullCredentialsType?: ("CODEBUILD" | "SERVICE_ROLE") | fn.#Fn
 				PrivilegedMode?:           bool | fn.#Fn
-				RegistryCredential?:       close({
+				RegistryCredential?:       {
 					Credential:         string | fn.#Fn
 					CredentialProvider: string | fn.#Fn
-				}) | fn.If
+				} | fn.#If
 				Type: ("ARM_CONTAINER" | "LINUX_CONTAINER" | "LINUX_GPU_CONTAINER" | "WINDOWS_CONTAINER" | "WINDOWS_SERVER_2019_CONTAINER") | fn.#Fn
-			}) | fn.If
-			FileSystemLocations?: [...close({
+			} | fn.#If
+			FileSystemLocations?: [...{
 				Identifier:    string | fn.#Fn
 				Location:      string | fn.#Fn
 				MountOptions?: string | fn.#Fn
 				MountPoint:    string | fn.#Fn
 				Type:          string | fn.#Fn
-			})] | fn.If
-			LogsConfig?: close({
-				CloudWatchLogs?: close({
+			}] | fn.#If
+			LogsConfig?: {
+				CloudWatchLogs?: {
 					GroupName?:  string | fn.#Fn
 					Status:      ("DISABLED" | "ENABLED") | fn.#Fn
 					StreamName?: string | fn.#Fn
-				}) | fn.If
-				S3Logs?: close({
+				} | fn.#If
+				S3Logs?: {
 					EncryptionDisabled?: bool | fn.#Fn
 					Location?:           string | fn.#Fn
 					Status:              ("DISABLED" | "ENABLED") | fn.#Fn
-				}) | fn.If
-			}) | fn.If
+				} | fn.#If
+			} | fn.#If
 			Name?:                   string | fn.#Fn
 			QueuedTimeoutInMinutes?: (>=5 & <=480) | fn.#Fn
-			SecondaryArtifacts?:     [...close({
+			SecondaryArtifacts?:     [...{
 				ArtifactIdentifier?:   string | fn.#Fn
 				EncryptionDisabled?:   bool | fn.#Fn
 				Location?:             string | fn.#Fn
@@ -82,73 +82,73 @@ import "github.com/TangoGroup/aws/fn"
 				Packaging?:            ("NONE" | "ZIP") | fn.#Fn
 				Path?:                 string | fn.#Fn
 				Type:                  ("CODEPIPELINE" | "NO_ARTIFACTS" | "S3") | fn.#Fn
-			})] | fn.If
-			SecondarySourceVersions?: [...close({
+			}] | fn.#If
+			SecondarySourceVersions?: [...{
 				SourceIdentifier: string | fn.#Fn
 				SourceVersion?:   string | fn.#Fn
-			})] | fn.If
-			SecondarySources?: [...close({
-				Auth?: close({
+			}] | fn.#If
+			SecondarySources?: [...{
+				Auth?: {
 					Resource?: string | fn.#Fn
 					Type:      string | fn.#Fn
-				}) | fn.If
+				} | fn.#If
 				BuildSpec?:         string | fn.#Fn
-				BuildStatusConfig?: close({
+				BuildStatusConfig?: {
 					Context?:   string | fn.#Fn
 					TargetUrl?: string | fn.#Fn
-				}) | fn.If
+				} | fn.#If
 				GitCloneDepth?:       int | fn.#Fn
-				GitSubmodulesConfig?: close({
+				GitSubmodulesConfig?: {
 					FetchSubmodules: bool | fn.#Fn
-				}) | fn.If
+				} | fn.#If
 				InsecureSsl?:       bool | fn.#Fn
 				Location?:          string | fn.#Fn
 				ReportBuildStatus?: bool | fn.#Fn
 				SourceIdentifier?:  string | fn.#Fn
 				Type:               ("BITBUCKET" | "CODECOMMIT" | "CODEPIPELINE" | "GITHUB" | "GITHUB_ENTERPRISE" | "NO_SOURCE" | "S3") | fn.#Fn
-			})] | fn.If
+			}] | fn.#If
 			ServiceRole: string | fn.#Fn
-			Source:      close({
-				Auth?: close({
+			Source:      {
+				Auth?: {
 					Resource?: string | fn.#Fn
 					Type:      string | fn.#Fn
-				}) | fn.If
+				} | fn.#If
 				BuildSpec?:         string | fn.#Fn
-				BuildStatusConfig?: close({
+				BuildStatusConfig?: {
 					Context?:   string | fn.#Fn
 					TargetUrl?: string | fn.#Fn
-				}) | fn.If
+				} | fn.#If
 				GitCloneDepth?:       int | fn.#Fn
-				GitSubmodulesConfig?: close({
+				GitSubmodulesConfig?: {
 					FetchSubmodules: bool | fn.#Fn
-				}) | fn.If
+				} | fn.#If
 				InsecureSsl?:       bool | fn.#Fn
 				Location?:          string | fn.#Fn
 				ReportBuildStatus?: bool | fn.#Fn
 				SourceIdentifier?:  string | fn.#Fn
 				Type:               ("BITBUCKET" | "CODECOMMIT" | "CODEPIPELINE" | "GITHUB" | "GITHUB_ENTERPRISE" | "NO_SOURCE" | "S3") | fn.#Fn
-			}) | fn.If
+			} | fn.#If
 			SourceVersion?: string | fn.#Fn
-			Tags?:          [...close({
+			Tags?:          [...{
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			})] | fn.If
+			}] | fn.#If
 			TimeoutInMinutes?: (>=5 & <=480) | fn.#Fn
-			Triggers?:         close({
+			Triggers?:         {
 				BuildType?:    string | fn.#Fn
 				FilterGroups?: [...[...{
 					ExcludeMatchedPattern?: bool | fn.#Fn
 					Pattern:                string | fn.#Fn
 					Type:                   string | fn.#Fn
-				}]] | fn.If
+				}]] | fn.#If
 				Webhook?: bool | fn.#Fn
-			}) | fn.If
-			VpcConfig?: close({
+			} | fn.#If
+			VpcConfig?: {
 				SecurityGroupIds?: [...(string | fn.#Fn)] | (string | fn.#Fn)
 				Subnets?:          [...(string | fn.#Fn)] | (string | fn.#Fn)
 				VpcId?:            string | fn.#Fn
-			}) | fn.If
-		})
+			} | fn.#If
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -156,26 +156,26 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#ReportGroup: {
-		Type:       "AWS::CodeBuild::ReportGroup"
-		Properties: close({
+		Type: "AWS::CodeBuild::ReportGroup"
+		Properties: {
 			DeleteReports?: bool | fn.#Fn
-			ExportConfig:   close({
+			ExportConfig:   {
 				ExportConfigType: string | fn.#Fn
-				S3Destination?:   close({
+				S3Destination?:   {
 					Bucket:              string | fn.#Fn
 					EncryptionDisabled?: bool | fn.#Fn
 					EncryptionKey?:      string | fn.#Fn
 					Packaging?:          string | fn.#Fn
 					Path?:               string | fn.#Fn
-				}) | fn.If
-			}) | fn.If
+				} | fn.#If
+			} | fn.#If
 			Name?: string | fn.#Fn
-			Tags?: [...close({
+			Tags?: [...{
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			})] | fn.If
+			}] | fn.#If
 			Type: string | fn.#Fn
-		})
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -183,13 +183,13 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#SourceCredential: {
-		Type:       "AWS::CodeBuild::SourceCredential"
-		Properties: close({
+		Type: "AWS::CodeBuild::SourceCredential"
+		Properties: {
 			AuthType:   string | fn.#Fn
 			ServerType: string | fn.#Fn
 			Token:      string | fn.#Fn
 			Username?:  string | fn.#Fn
-		})
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

@@ -4,8 +4,8 @@ import "github.com/TangoGroup/aws/fn"
 
 #SageMaker: {
 	#NotebookInstance: {
-		Type:       "AWS::SageMaker::NotebookInstance"
-		Properties: close({
+		Type: "AWS::SageMaker::NotebookInstance"
+		Properties: {
 			AcceleratorTypes?:           [...(string | fn.#Fn)] | (string | fn.#Fn)
 			AdditionalCodeRepositories?: [...(string | fn.#Fn)] | (string | fn.#Fn)
 			DefaultCodeRepository?:      string | fn.#Fn
@@ -18,12 +18,12 @@ import "github.com/TangoGroup/aws/fn"
 			RootAccess?:                 string | fn.#Fn
 			SecurityGroupIds?:           [...(string | fn.#Fn)] | (string | fn.#Fn)
 			SubnetId?:                   string | fn.#Fn
-			Tags?:                       [...close({
+			Tags?:                       [...{
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			})] | fn.If
+			}] | fn.#If
 			VolumeSizeInGB?: (>=5 & <=16384) | fn.#Fn
-		})
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

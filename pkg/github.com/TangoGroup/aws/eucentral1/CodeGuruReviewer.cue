@@ -4,17 +4,17 @@ import "github.com/TangoGroup/aws/fn"
 
 #CodeGuruReviewer: {
 	#RepositoryAssociation: {
-		Type:       "AWS::CodeGuruReviewer::RepositoryAssociation"
-		Properties: close({
+		Type: "AWS::CodeGuruReviewer::RepositoryAssociation"
+		Properties: {
 			ConnectionArn?: string | fn.#Fn
 			Name:           string | fn.#Fn
 			Owner?:         string | fn.#Fn
-			Tags?:          [...close({
+			Tags?:          [...{
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			})] | fn.If
+			}] | fn.#If
 			Type: string | fn.#Fn
-		})
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

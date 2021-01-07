@@ -4,8 +4,8 @@ import "github.com/TangoGroup/aws/fn"
 
 #ECR: {
 	#PublicRepository: {
-		Type:       "AWS::ECR::PublicRepository"
-		Properties: close({
+		Type: "AWS::ECR::PublicRepository"
+		Properties: {
 			RepositoryCatalogData?: {
 				[string]: _
 			} | fn.#Fn
@@ -13,7 +13,7 @@ import "github.com/TangoGroup/aws/fn"
 			RepositoryPolicyText?: {
 				[string]: _
 			} | fn.#Fn
-		})
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -21,25 +21,25 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#Repository: {
-		Type:       "AWS::ECR::Repository"
-		Properties: close({
+		Type: "AWS::ECR::Repository"
+		Properties: {
 			ImageScanningConfiguration?: {
 				[string]: _
 			} | fn.#Fn
 			ImageTagMutability?: string | fn.#Fn
-			LifecyclePolicy?:    close({
+			LifecyclePolicy?:    {
 				LifecyclePolicyText?: string | fn.#Fn
 				RegistryId?:          string | fn.#Fn
-			}) | fn.If
+			} | fn.#If
 			RepositoryName?:       string | fn.#Fn
 			RepositoryPolicyText?: {
 				[string]: _
 			} | fn.#Fn
-			Tags?: [...close({
+			Tags?: [...{
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			})] | fn.If
-		})
+			}] | fn.#If
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

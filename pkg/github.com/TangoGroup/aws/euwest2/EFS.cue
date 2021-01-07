@@ -4,28 +4,28 @@ import "github.com/TangoGroup/aws/fn"
 
 #EFS: {
 	#AccessPoint: {
-		Type:       "AWS::EFS::AccessPoint"
-		Properties: close({
-			AccessPointTags?: [...close({
+		Type: "AWS::EFS::AccessPoint"
+		Properties: {
+			AccessPointTags?: [...{
 				Key?:   string | fn.#Fn
 				Value?: string | fn.#Fn
-			})] | fn.If
+			}] | fn.#If
 			ClientToken?: string | fn.#Fn
 			FileSystemId: string | fn.#Fn
-			PosixUser?:   close({
+			PosixUser?:   {
 				Gid:            string | fn.#Fn
 				SecondaryGids?: [...(string | fn.#Fn)] | (string | fn.#Fn)
 				Uid:            string | fn.#Fn
-			}) | fn.If
-			RootDirectory?: close({
-				CreationInfo?: close({
+			} | fn.#If
+			RootDirectory?: {
+				CreationInfo?: {
 					OwnerGid:    string | fn.#Fn
 					OwnerUid:    string | fn.#Fn
 					Permissions: string | fn.#Fn
-				}) | fn.If
+				} | fn.#If
 				Path?: string | fn.#Fn
-			}) | fn.If
-		})
+			} | fn.#If
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -33,27 +33,27 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#FileSystem: {
-		Type:       "AWS::EFS::FileSystem"
-		Properties: close({
-			BackupPolicy?: close({
+		Type: "AWS::EFS::FileSystem"
+		Properties: {
+			BackupPolicy?: {
 				Status: string | fn.#Fn
-			}) | fn.If
+			} | fn.#If
 			Encrypted?:        bool | fn.#Fn
 			FileSystemPolicy?: {
 				[string]: _
 			} | fn.#Fn
-			FileSystemTags?: [...close({
+			FileSystemTags?: [...{
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			})] | fn.If
+			}] | fn.#If
 			KmsKeyId?:          string | fn.#Fn
-			LifecyclePolicies?: [...close({
+			LifecyclePolicies?: [...{
 				TransitionToIA: ("AFTER_14_DAYS" | "AFTER_30_DAYS" | "AFTER_60_DAYS" | "AFTER_7_DAYS" | "AFTER_90_DAYS") | fn.#Fn
-			})] | fn.If
+			}] | fn.#If
 			PerformanceMode?:              ("generalPurpose" | "maxIO") | fn.#Fn
 			ProvisionedThroughputInMibps?: number | fn.#Fn
 			ThroughputMode?:               ("bursting" | "provisioned") | fn.#Fn
-		})
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -61,13 +61,13 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#MountTarget: {
-		Type:       "AWS::EFS::MountTarget"
-		Properties: close({
+		Type: "AWS::EFS::MountTarget"
+		Properties: {
 			FileSystemId:   string | fn.#Fn
 			IpAddress?:     string | fn.#Fn
 			SecurityGroups: [...(string | fn.#Fn)] | (string | fn.#Fn)
 			SubnetId:       string | fn.#Fn
-		})
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

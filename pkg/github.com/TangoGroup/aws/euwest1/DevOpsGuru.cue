@@ -4,14 +4,12 @@ import "github.com/TangoGroup/aws/fn"
 
 #DevOpsGuru: {
 	#NotificationChannel: {
-		Type:       "AWS::DevOpsGuru::NotificationChannel"
-		Properties: close({
-			Config: close({
-				Sns?: close({
-					TopicArn?: string | fn.#Fn
-				}) | fn.If
-			}) | fn.If
-		})
+		Type: "AWS::DevOpsGuru::NotificationChannel"
+		Properties: Config: {
+			Sns?: {
+				TopicArn?: string | fn.#Fn
+			} | fn.#If
+		} | fn.#If
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -19,14 +17,12 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#ResourceCollection: {
-		Type:       "AWS::DevOpsGuru::ResourceCollection"
-		Properties: close({
-			ResourceCollectionFilter: close({
-				CloudFormation?: close({
-					StackNames?: [...(string | fn.#Fn)] | (string | fn.#Fn)
-				}) | fn.If
-			}) | fn.If
-		})
+		Type: "AWS::DevOpsGuru::ResourceCollection"
+		Properties: ResourceCollectionFilter: {
+			CloudFormation?: {
+				StackNames?: [...(string | fn.#Fn)] | (string | fn.#Fn)
+			} | fn.#If
+		} | fn.#If
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

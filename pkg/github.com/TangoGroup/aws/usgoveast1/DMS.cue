@@ -4,12 +4,12 @@ import "github.com/TangoGroup/aws/fn"
 
 #DMS: {
 	#Certificate: {
-		Type:       "AWS::DMS::Certificate"
-		Properties: close({
+		Type: "AWS::DMS::Certificate"
+		Properties: {
 			CertificateIdentifier?: string | fn.#Fn
 			CertificatePem?:        string | fn.#Fn
 			CertificateWallet?:     string | fn.#Fn
-		})
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -17,34 +17,34 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#Endpoint: {
-		Type:       "AWS::DMS::Endpoint"
-		Properties: close({
+		Type: "AWS::DMS::Endpoint"
+		Properties: {
 			CertificateArn?:   string | fn.#Fn
 			DatabaseName?:     string | fn.#Fn
-			DynamoDbSettings?: close({
+			DynamoDbSettings?: {
 				ServiceAccessRoleArn?: string | fn.#Fn
-			}) | fn.If
-			ElasticsearchSettings?: close({
+			} | fn.#If
+			ElasticsearchSettings?: {
 				EndpointUri?:             string | fn.#Fn
 				ErrorRetryDuration?:      int | fn.#Fn
 				FullLoadErrorPercentage?: int | fn.#Fn
 				ServiceAccessRoleArn?:    string | fn.#Fn
-			}) | fn.If
+			} | fn.#If
 			EndpointIdentifier?:        string | fn.#Fn
 			EndpointType:               string | fn.#Fn
 			EngineName:                 string | fn.#Fn
 			ExtraConnectionAttributes?: string | fn.#Fn
-			KafkaSettings?:             close({
+			KafkaSettings?:             {
 				Broker?: string | fn.#Fn
 				Topic?:  string | fn.#Fn
-			}) | fn.If
-			KinesisSettings?: close({
+			} | fn.#If
+			KinesisSettings?: {
 				MessageFormat?:        string | fn.#Fn
 				ServiceAccessRoleArn?: string | fn.#Fn
 				StreamArn?:            string | fn.#Fn
-			}) | fn.If
+			} | fn.#If
 			KmsKeyId?:        string | fn.#Fn
-			MongoDbSettings?: close({
+			MongoDbSettings?: {
 				AuthMechanism?:     string | fn.#Fn
 				AuthSource?:        string | fn.#Fn
 				AuthType?:          string | fn.#Fn
@@ -56,8 +56,8 @@ import "github.com/TangoGroup/aws/fn"
 				Port?:              int | fn.#Fn
 				ServerName?:        string | fn.#Fn
 				Username?:          string | fn.#Fn
-			}) | fn.If
-			NeptuneSettings?: close({
+			} | fn.#If
+			NeptuneSettings?: {
 				ErrorRetryDuration?:   int | fn.#Fn
 				IamAuthEnabled?:       bool | fn.#Fn
 				MaxFileSize?:          int | fn.#Fn
@@ -65,10 +65,10 @@ import "github.com/TangoGroup/aws/fn"
 				S3BucketFolder?:       string | fn.#Fn
 				S3BucketName?:         string | fn.#Fn
 				ServiceAccessRoleArn?: string | fn.#Fn
-			}) | fn.If
+			} | fn.#If
 			Password?:   string | fn.#Fn
 			Port?:       int | fn.#Fn
-			S3Settings?: close({
+			S3Settings?: {
 				BucketFolder?:            string | fn.#Fn
 				BucketName?:              string | fn.#Fn
 				CompressionType?:         string | fn.#Fn
@@ -76,15 +76,15 @@ import "github.com/TangoGroup/aws/fn"
 				CsvRowDelimiter?:         string | fn.#Fn
 				ExternalTableDefinition?: string | fn.#Fn
 				ServiceAccessRoleArn?:    string | fn.#Fn
-			}) | fn.If
+			} | fn.#If
 			ServerName?: string | fn.#Fn
 			SslMode?:    string | fn.#Fn
-			Tags?:       [...close({
+			Tags?:       [...{
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			})] | fn.If
+			}] | fn.#If
 			Username?: string | fn.#Fn
-		})
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -92,19 +92,19 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#EventSubscription: {
-		Type:       "AWS::DMS::EventSubscription"
-		Properties: close({
+		Type: "AWS::DMS::EventSubscription"
+		Properties: {
 			Enabled?:          bool | fn.#Fn
 			EventCategories?:  [...(string | fn.#Fn)] | (string | fn.#Fn)
 			SnsTopicArn:       string | fn.#Fn
 			SourceIds?:        [...(string | fn.#Fn)] | (string | fn.#Fn)
 			SourceType?:       string | fn.#Fn
 			SubscriptionName?: string | fn.#Fn
-			Tags?:             [...close({
+			Tags?:             [...{
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			})] | fn.If
-		})
+			}] | fn.#If
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -112,8 +112,8 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#ReplicationInstance: {
-		Type:       "AWS::DMS::ReplicationInstance"
-		Properties: close({
+		Type: "AWS::DMS::ReplicationInstance"
+		Properties: {
 			AllocatedStorage?:                 int | fn.#Fn
 			AllowMajorVersionUpgrade?:         bool | fn.#Fn
 			AutoMinorVersionUpgrade?:          bool | fn.#Fn
@@ -126,12 +126,12 @@ import "github.com/TangoGroup/aws/fn"
 			ReplicationInstanceClass:          string | fn.#Fn
 			ReplicationInstanceIdentifier?:    string | fn.#Fn
 			ReplicationSubnetGroupIdentifier?: string | fn.#Fn
-			Tags?:                             [...close({
+			Tags?:                             [...{
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			})] | fn.If
+			}] | fn.#If
 			VpcSecurityGroupIds?: [...(string | fn.#Fn)] | (string | fn.#Fn)
-		})
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -139,16 +139,16 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#ReplicationSubnetGroup: {
-		Type:       "AWS::DMS::ReplicationSubnetGroup"
-		Properties: close({
+		Type: "AWS::DMS::ReplicationSubnetGroup"
+		Properties: {
 			ReplicationSubnetGroupDescription: string | fn.#Fn
 			ReplicationSubnetGroupIdentifier?: string | fn.#Fn
 			SubnetIds:                         [...(string | fn.#Fn)] | (string | fn.#Fn)
-			Tags?:                             [...close({
+			Tags?:                             [...{
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			})] | fn.If
-		})
+			}] | fn.#If
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -156,8 +156,8 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#ReplicationTask: {
-		Type:       "AWS::DMS::ReplicationTask"
-		Properties: close({
+		Type: "AWS::DMS::ReplicationTask"
+		Properties: {
 			CdcStartPosition?:          string | fn.#Fn
 			CdcStartTime?:              number | fn.#Fn
 			CdcStopPosition?:           string | fn.#Fn
@@ -167,13 +167,13 @@ import "github.com/TangoGroup/aws/fn"
 			ReplicationTaskSettings?:   string | fn.#Fn
 			SourceEndpointArn:          string | fn.#Fn
 			TableMappings:              string | fn.#Fn
-			Tags?:                      [...close({
+			Tags?:                      [...{
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			})] | fn.If
+			}] | fn.#If
 			TargetEndpointArn: string | fn.#Fn
 			TaskData?:         string | fn.#Fn
-		})
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

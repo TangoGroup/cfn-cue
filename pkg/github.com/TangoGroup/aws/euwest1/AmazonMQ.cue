@@ -4,24 +4,24 @@ import "github.com/TangoGroup/aws/fn"
 
 #AmazonMQ: {
 	#Broker: {
-		Type:       "AWS::AmazonMQ::Broker"
-		Properties: close({
+		Type: "AWS::AmazonMQ::Broker"
+		Properties: {
 			AuthenticationStrategy?: string | fn.#Fn
 			AutoMinorVersionUpgrade: bool | fn.#Fn
 			BrokerName:              string | fn.#Fn
-			Configuration?:          close({
+			Configuration?:          {
 				Id:       string | fn.#Fn
 				Revision: int | fn.#Fn
-			}) | fn.If
+			} | fn.#If
 			DeploymentMode:     ("ACTIVE_STANDBY_MULTI_AZ" | "CLUSTER_MULTI_AZ" | "SINGLE_INSTANCE") | fn.#Fn
-			EncryptionOptions?: close({
+			EncryptionOptions?: {
 				KmsKeyId?:      string | fn.#Fn
 				UseAwsOwnedKey: bool | fn.#Fn
-			}) | fn.If
+			} | fn.#If
 			EngineType:          ("ACTIVEMQ" | "RABBITMQ") | fn.#Fn
 			EngineVersion:       ("3.8.6" | "5.15.0" | "5.15.6" | "5.15.8" | "5.15.9" | "5.15.10" | "5.15.12" | "5.15.13" | "5.15.14") | fn.#Fn
 			HostInstanceType:    ("mq.m4.large" | "mq.m5.2xlarge" | "mq.m5.4xlarge" | "mq.m5.large" | "mq.m5.xlarge" | "mq.t2.micro" | "mq.t3.micro") | fn.#Fn
-			LdapServerMetadata?: close({
+			LdapServerMetadata?: {
 				Hosts:                  [...(string | fn.#Fn)] | (string | fn.#Fn)
 				RoleBase:               string | fn.#Fn
 				RoleName?:              string | fn.#Fn
@@ -33,31 +33,31 @@ import "github.com/TangoGroup/aws/fn"
 				UserRoleName?:          string | fn.#Fn
 				UserSearchMatching:     string | fn.#Fn
 				UserSearchSubtree?:     bool | fn.#Fn
-			}) | fn.If
-			Logs?: close({
+			} | fn.#If
+			Logs?: {
 				Audit?:   bool | fn.#Fn
 				General?: bool | fn.#Fn
-			}) | fn.If
-			MaintenanceWindowStartTime?: close({
+			} | fn.#If
+			MaintenanceWindowStartTime?: {
 				DayOfWeek: string | fn.#Fn
 				TimeOfDay: string | fn.#Fn
 				TimeZone:  string | fn.#Fn
-			}) | fn.If
+			} | fn.#If
 			PubliclyAccessible: bool | fn.#Fn
 			SecurityGroups?:    [...(string | fn.#Fn)] | (string | fn.#Fn)
 			StorageType?:       string | fn.#Fn
 			SubnetIds?:         [...(string | fn.#Fn)] | (string | fn.#Fn)
-			Tags?:              [...close({
+			Tags?:              [...{
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			})] | fn.If
-			Users: [...close({
+			}] | fn.#If
+			Users: [...{
 				ConsoleAccess?: bool | fn.#Fn
 				Groups?:        [...(string | fn.#Fn)] | (string | fn.#Fn)
 				Password:       string | fn.#Fn
 				Username:       string | fn.#Fn
-			})] | fn.If
-		})
+			}] | fn.#If
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -65,18 +65,18 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#Configuration: {
-		Type:       "AWS::AmazonMQ::Configuration"
-		Properties: close({
+		Type: "AWS::AmazonMQ::Configuration"
+		Properties: {
 			Data:          string | fn.#Fn
 			Description?:  string | fn.#Fn
 			EngineType:    ("ACTIVEMQ" | "RABBITMQ") | fn.#Fn
 			EngineVersion: ("3.8.6" | "5.15.0" | "5.15.6" | "5.15.8" | "5.15.9" | "5.15.10" | "5.15.12" | "5.15.13" | "5.15.14") | fn.#Fn
 			Name:          string | fn.#Fn
-			Tags?:         [...close({
+			Tags?:         [...{
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			})] | fn.If
-		})
+			}] | fn.#If
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -84,14 +84,14 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#ConfigurationAssociation: {
-		Type:       "AWS::AmazonMQ::ConfigurationAssociation"
-		Properties: close({
+		Type: "AWS::AmazonMQ::ConfigurationAssociation"
+		Properties: {
 			Broker:        string | fn.#Fn
-			Configuration: close({
+			Configuration: {
 				Id:       string | fn.#Fn
 				Revision: int | fn.#Fn
-			}) | fn.If
-		})
+			} | fn.#If
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

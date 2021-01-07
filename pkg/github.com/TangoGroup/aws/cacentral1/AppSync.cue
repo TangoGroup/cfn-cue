@@ -4,15 +4,15 @@ import "github.com/TangoGroup/aws/fn"
 
 #AppSync: {
 	#ApiCache: {
-		Type:       "AWS::AppSync::ApiCache"
-		Properties: close({
+		Type: "AWS::AppSync::ApiCache"
+		Properties: {
 			ApiCachingBehavior:        string | fn.#Fn
 			ApiId:                     string | fn.#Fn
 			AtRestEncryptionEnabled?:  bool | fn.#Fn
 			TransitEncryptionEnabled?: bool | fn.#Fn
 			Ttl:                       number | fn.#Fn
 			Type:                      string | fn.#Fn
-		})
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -20,13 +20,13 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#ApiKey: {
-		Type:       "AWS::AppSync::ApiKey"
-		Properties: close({
+		Type: "AWS::AppSync::ApiKey"
+		Properties: {
 			ApiId:        string | fn.#Fn
 			ApiKeyId?:    string | fn.#Fn
 			Description?: string | fn.#Fn
 			Expires?:     number | fn.#Fn
-		})
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -34,52 +34,52 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#DataSource: {
-		Type:       "AWS::AppSync::DataSource"
-		Properties: close({
+		Type: "AWS::AppSync::DataSource"
+		Properties: {
 			ApiId:           string | fn.#Fn
 			Description?:    string | fn.#Fn
-			DynamoDBConfig?: close({
+			DynamoDBConfig?: {
 				AwsRegion:        string | fn.#Fn
-				DeltaSyncConfig?: close({
+				DeltaSyncConfig?: {
 					BaseTableTTL:       string | fn.#Fn
 					DeltaSyncTableName: string | fn.#Fn
 					DeltaSyncTableTTL:  string | fn.#Fn
-				}) | fn.If
+				} | fn.#If
 				TableName:             string | fn.#Fn
 				UseCallerCredentials?: bool | fn.#Fn
 				Versioned?:            bool | fn.#Fn
-			}) | fn.If
-			ElasticsearchConfig?: close({
+			} | fn.#If
+			ElasticsearchConfig?: {
 				AwsRegion: string | fn.#Fn
 				Endpoint:  string | fn.#Fn
-			}) | fn.If
-			HttpConfig?: close({
-				AuthorizationConfig?: close({
+			} | fn.#If
+			HttpConfig?: {
+				AuthorizationConfig?: {
 					AuthorizationType: string | fn.#Fn
-					AwsIamConfig?:     close({
+					AwsIamConfig?:     {
 						SigningRegion?:      string | fn.#Fn
 						SigningServiceName?: string | fn.#Fn
-					}) | fn.If
-				}) | fn.If
+					} | fn.#If
+				} | fn.#If
 				Endpoint: string | fn.#Fn
-			}) | fn.If
-			LambdaConfig?: close({
+			} | fn.#If
+			LambdaConfig?: {
 				LambdaFunctionArn: string | fn.#Fn
-			}) | fn.If
+			} | fn.#If
 			Name:                      string | fn.#Fn
-			RelationalDatabaseConfig?: close({
-				RdsHttpEndpointConfig?: close({
+			RelationalDatabaseConfig?: {
+				RdsHttpEndpointConfig?: {
 					AwsRegion:           string | fn.#Fn
 					AwsSecretStoreArn:   string | fn.#Fn
 					DatabaseName?:       string | fn.#Fn
 					DbClusterIdentifier: string | fn.#Fn
 					Schema?:             string | fn.#Fn
-				}) | fn.If
+				} | fn.#If
 				RelationalDatabaseSourceType: string | fn.#Fn
-			}) | fn.If
+			} | fn.#If
 			ServiceRoleArn?: string | fn.#Fn
 			Type:            string | fn.#Fn
-		})
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -87,8 +87,8 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#FunctionConfiguration: {
-		Type:       "AWS::AppSync::FunctionConfiguration"
-		Properties: close({
+		Type: "AWS::AppSync::FunctionConfiguration"
+		Properties: {
 			ApiId:                              string | fn.#Fn
 			DataSourceName:                     string | fn.#Fn
 			Description?:                       string | fn.#Fn
@@ -98,14 +98,14 @@ import "github.com/TangoGroup/aws/fn"
 			RequestMappingTemplateS3Location?:  string | fn.#Fn
 			ResponseMappingTemplate?:           string | fn.#Fn
 			ResponseMappingTemplateS3Location?: string | fn.#Fn
-			SyncConfig?:                        close({
+			SyncConfig?:                        {
 				ConflictDetection:            string | fn.#Fn
 				ConflictHandler?:             string | fn.#Fn
-				LambdaConflictHandlerConfig?: close({
+				LambdaConflictHandlerConfig?: {
 					LambdaConflictHandlerArn?: string | fn.#Fn
-				}) | fn.If
-			}) | fn.If
-		})
+				} | fn.#If
+			} | fn.#If
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -113,47 +113,47 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#GraphQLApi: {
-		Type:       "AWS::AppSync::GraphQLApi"
-		Properties: close({
-			AdditionalAuthenticationProviders?: [...close({
+		Type: "AWS::AppSync::GraphQLApi"
+		Properties: {
+			AdditionalAuthenticationProviders?: [...{
 				AuthenticationType:   string | fn.#Fn
-				OpenIDConnectConfig?: close({
+				OpenIDConnectConfig?: {
 					AuthTTL?:  number | fn.#Fn
 					ClientId?: string | fn.#Fn
 					IatTTL?:   number | fn.#Fn
 					Issuer?:   string | fn.#Fn
-				}) | fn.If
-				UserPoolConfig?: close({
+				} | fn.#If
+				UserPoolConfig?: {
 					AppIdClientRegex?: string | fn.#Fn
 					AwsRegion?:        string | fn.#Fn
 					UserPoolId?:       string | fn.#Fn
-				}) | fn.If
-			})] | fn.If
+				} | fn.#If
+			}] | fn.#If
 			AuthenticationType: string | fn.#Fn
-			LogConfig?:         close({
+			LogConfig?:         {
 				CloudWatchLogsRoleArn?: string | fn.#Fn
 				ExcludeVerboseContent?: bool | fn.#Fn
 				FieldLogLevel?:         string | fn.#Fn
-			}) | fn.If
+			} | fn.#If
 			Name:                 string | fn.#Fn
-			OpenIDConnectConfig?: close({
+			OpenIDConnectConfig?: {
 				AuthTTL?:  number | fn.#Fn
 				ClientId?: string | fn.#Fn
 				IatTTL?:   number | fn.#Fn
 				Issuer?:   string | fn.#Fn
-			}) | fn.If
-			Tags?: [...close({
+			} | fn.#If
+			Tags?: [...{
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			})] | fn.If
-			UserPoolConfig?: close({
+			}] | fn.#If
+			UserPoolConfig?: {
 				AppIdClientRegex?: string | fn.#Fn
 				AwsRegion?:        string | fn.#Fn
 				DefaultAction?:    string | fn.#Fn
 				UserPoolId?:       string | fn.#Fn
-			}) | fn.If
+			} | fn.#If
 			XrayEnabled?: bool | fn.#Fn
-		})
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -161,12 +161,12 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#GraphQLSchema: {
-		Type:       "AWS::AppSync::GraphQLSchema"
-		Properties: close({
+		Type: "AWS::AppSync::GraphQLSchema"
+		Properties: {
 			ApiId:                 string | fn.#Fn
 			Definition?:           string | fn.#Fn
 			DefinitionS3Location?: string | fn.#Fn
-		})
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -174,32 +174,32 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#Resolver: {
-		Type:       "AWS::AppSync::Resolver"
-		Properties: close({
+		Type: "AWS::AppSync::Resolver"
+		Properties: {
 			ApiId:          string | fn.#Fn
-			CachingConfig?: close({
+			CachingConfig?: {
 				CachingKeys?: [...(string | fn.#Fn)] | (string | fn.#Fn)
 				Ttl?:         number | fn.#Fn
-			}) | fn.If
+			} | fn.#If
 			DataSourceName?: string | fn.#Fn
 			FieldName:       string | fn.#Fn
 			Kind?:           string | fn.#Fn
-			PipelineConfig?: close({
+			PipelineConfig?: {
 				Functions?: [...(string | fn.#Fn)] | (string | fn.#Fn)
-			}) | fn.If
+			} | fn.#If
 			RequestMappingTemplate?:            string | fn.#Fn
 			RequestMappingTemplateS3Location?:  string | fn.#Fn
 			ResponseMappingTemplate?:           string | fn.#Fn
 			ResponseMappingTemplateS3Location?: string | fn.#Fn
-			SyncConfig?:                        close({
+			SyncConfig?:                        {
 				ConflictDetection:            string | fn.#Fn
 				ConflictHandler?:             string | fn.#Fn
-				LambdaConflictHandlerConfig?: close({
+				LambdaConflictHandlerConfig?: {
 					LambdaConflictHandlerArn?: string | fn.#Fn
-				}) | fn.If
-			}) | fn.If
+				} | fn.#If
+			} | fn.#If
 			TypeName: string | fn.#Fn
-		})
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

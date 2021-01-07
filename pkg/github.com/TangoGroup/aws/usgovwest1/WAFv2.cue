@@ -4,18 +4,18 @@ import "github.com/TangoGroup/aws/fn"
 
 #WAFv2: {
 	#IPSet: {
-		Type:       "AWS::WAFv2::IPSet"
-		Properties: close({
+		Type: "AWS::WAFv2::IPSet"
+		Properties: {
 			Addresses:        [...(string | fn.#Fn)] | (string | fn.#Fn)
 			Description?:     string | fn.#Fn
 			IPAddressVersion: string | fn.#Fn
 			Name?:            string | fn.#Fn
 			Scope:            string | fn.#Fn
-			Tags?:            [...close({
+			Tags?:            [...{
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			})] | fn.If
-		})
+			}] | fn.#If
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -23,17 +23,17 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#RegexPatternSet: {
-		Type:       "AWS::WAFv2::RegexPatternSet"
-		Properties: close({
+		Type: "AWS::WAFv2::RegexPatternSet"
+		Properties: {
 			Description?:          string | fn.#Fn
 			Name?:                 string | fn.#Fn
 			RegularExpressionList: [...(string | fn.#Fn)] | (string | fn.#Fn)
 			Scope:                 string | fn.#Fn
-			Tags?:                 [...close({
+			Tags?:                 [...{
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			})] | fn.If
-		})
+			}] | fn.#If
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -41,13 +41,13 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#RuleGroup: {
-		Type:       "AWS::WAFv2::RuleGroup"
-		Properties: close({
+		Type: "AWS::WAFv2::RuleGroup"
+		Properties: {
 			Capacity:     int | fn.#Fn
 			Description?: string | fn.#Fn
 			Name?:        string | fn.#Fn
-			Rules?:       [...close({
-				Action?: close({
+			Rules?:       [...{
+				Action?: {
 					Allow?: {
 						[string]: _
 					} | fn.#Fn
@@ -57,16 +57,16 @@ import "github.com/TangoGroup/aws/fn"
 					Count?: {
 						[string]: _
 					} | fn.#Fn
-				}) | fn.If
+				} | fn.#If
 				Name:      string | fn.#Fn
 				Priority:  int | fn.#Fn
-				Statement: close({
-					AndStatement?: close({
-						Statements: [...close({
-							AndStatement?: close({
-								Statements: [...close({
-									ByteMatchStatement?: close({
-										FieldToMatch: close({
+				Statement: {
+					AndStatement?: {
+						Statements: [...{
+							AndStatement?: {
+								Statements: [...{
+									ByteMatchStatement?: {
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -88,33 +88,33 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
+										} | fn.#If
 										PositionalConstraint: string | fn.#Fn
 										SearchString?:        string | fn.#Fn
 										SearchStringBase64?:  string | fn.#Fn
-										TextTransformations:  [...close({
+										TextTransformations:  [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									GeoMatchStatement?: close({
+										}] | fn.#If
+									} | fn.#If
+									GeoMatchStatement?: {
 										CountryCodes?:      [...(string | fn.#Fn)] | (string | fn.#Fn)
-										ForwardedIPConfig?: close({
+										ForwardedIPConfig?: {
 											FallbackBehavior: string | fn.#Fn
 											HeaderName:       string | fn.#Fn
-										}) | fn.If
-									}) | fn.If
-									IPSetReferenceStatement?: close({
+										} | fn.#If
+									} | fn.#If
+									IPSetReferenceStatement?: {
 										Arn:                     string | fn.#Fn
-										IPSetForwardedIPConfig?: close({
+										IPSetForwardedIPConfig?: {
 											FallbackBehavior: string | fn.#Fn
 											HeaderName:       string | fn.#Fn
 											Position:         string | fn.#Fn
-										}) | fn.If
-									}) | fn.If
-									RegexPatternSetReferenceStatement?: close({
+										} | fn.#If
+									} | fn.#If
+									RegexPatternSetReferenceStatement?: {
 										Arn:          string | fn.#Fn
-										FieldToMatch: close({
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -136,15 +136,15 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
-										TextTransformations: [...close({
+										} | fn.#If
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									SizeConstraintStatement?: close({
+										}] | fn.#If
+									} | fn.#If
+									SizeConstraintStatement?: {
 										ComparisonOperator: string | fn.#Fn
-										FieldToMatch:       close({
+										FieldToMatch:       {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -166,15 +166,15 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
+										} | fn.#If
 										Size:                int | fn.#Fn
-										TextTransformations: [...close({
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									SqliMatchStatement?: close({
-										FieldToMatch: close({
+										}] | fn.#If
+									} | fn.#If
+									SqliMatchStatement?: {
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -196,14 +196,14 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
-										TextTransformations: [...close({
+										} | fn.#If
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									XssMatchStatement?: close({
-										FieldToMatch: close({
+										}] | fn.#If
+									} | fn.#If
+									XssMatchStatement?: {
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -225,16 +225,16 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
-										TextTransformations: [...close({
+										} | fn.#If
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-								})] | fn.If
-							}) | fn.If
-							ByteMatchStatement?: close({
-								FieldToMatch: close({
+										}] | fn.#If
+									} | fn.#If
+								}] | fn.#If
+							} | fn.#If
+							ByteMatchStatement?: {
+								FieldToMatch: {
 									AllQueryArguments?: {
 										[string]: _
 									} | fn.#Fn
@@ -256,34 +256,34 @@ import "github.com/TangoGroup/aws/fn"
 									UriPath?: {
 										[string]: _
 									} | fn.#Fn
-								}) | fn.If
+								} | fn.#If
 								PositionalConstraint: string | fn.#Fn
 								SearchString?:        string | fn.#Fn
 								SearchStringBase64?:  string | fn.#Fn
-								TextTransformations:  [...close({
+								TextTransformations:  [...{
 									Priority: int | fn.#Fn
 									Type:     string | fn.#Fn
-								})] | fn.If
-							}) | fn.If
-							GeoMatchStatement?: close({
+								}] | fn.#If
+							} | fn.#If
+							GeoMatchStatement?: {
 								CountryCodes?:      [...(string | fn.#Fn)] | (string | fn.#Fn)
-								ForwardedIPConfig?: close({
+								ForwardedIPConfig?: {
 									FallbackBehavior: string | fn.#Fn
 									HeaderName:       string | fn.#Fn
-								}) | fn.If
-							}) | fn.If
-							IPSetReferenceStatement?: close({
+								} | fn.#If
+							} | fn.#If
+							IPSetReferenceStatement?: {
 								Arn:                     string | fn.#Fn
-								IPSetForwardedIPConfig?: close({
+								IPSetForwardedIPConfig?: {
 									FallbackBehavior: string | fn.#Fn
 									HeaderName:       string | fn.#Fn
 									Position:         string | fn.#Fn
-								}) | fn.If
-							}) | fn.If
-							NotStatement?: close({
-								Statement: close({
-									ByteMatchStatement?: close({
-										FieldToMatch: close({
+								} | fn.#If
+							} | fn.#If
+							NotStatement?: {
+								Statement: {
+									ByteMatchStatement?: {
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -305,33 +305,33 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
+										} | fn.#If
 										PositionalConstraint: string | fn.#Fn
 										SearchString?:        string | fn.#Fn
 										SearchStringBase64?:  string | fn.#Fn
-										TextTransformations:  [...close({
+										TextTransformations:  [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									GeoMatchStatement?: close({
+										}] | fn.#If
+									} | fn.#If
+									GeoMatchStatement?: {
 										CountryCodes?:      [...(string | fn.#Fn)] | (string | fn.#Fn)
-										ForwardedIPConfig?: close({
+										ForwardedIPConfig?: {
 											FallbackBehavior: string | fn.#Fn
 											HeaderName:       string | fn.#Fn
-										}) | fn.If
-									}) | fn.If
-									IPSetReferenceStatement?: close({
+										} | fn.#If
+									} | fn.#If
+									IPSetReferenceStatement?: {
 										Arn:                     string | fn.#Fn
-										IPSetForwardedIPConfig?: close({
+										IPSetForwardedIPConfig?: {
 											FallbackBehavior: string | fn.#Fn
 											HeaderName:       string | fn.#Fn
 											Position:         string | fn.#Fn
-										}) | fn.If
-									}) | fn.If
-									RegexPatternSetReferenceStatement?: close({
+										} | fn.#If
+									} | fn.#If
+									RegexPatternSetReferenceStatement?: {
 										Arn:          string | fn.#Fn
-										FieldToMatch: close({
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -353,15 +353,15 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
-										TextTransformations: [...close({
+										} | fn.#If
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									SizeConstraintStatement?: close({
+										}] | fn.#If
+									} | fn.#If
+									SizeConstraintStatement?: {
 										ComparisonOperator: string | fn.#Fn
-										FieldToMatch:       close({
+										FieldToMatch:       {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -383,15 +383,15 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
+										} | fn.#If
 										Size:                int | fn.#Fn
-										TextTransformations: [...close({
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									SqliMatchStatement?: close({
-										FieldToMatch: close({
+										}] | fn.#If
+									} | fn.#If
+									SqliMatchStatement?: {
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -413,14 +413,14 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
-										TextTransformations: [...close({
+										} | fn.#If
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									XssMatchStatement?: close({
-										FieldToMatch: close({
+										}] | fn.#If
+									} | fn.#If
+									XssMatchStatement?: {
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -442,18 +442,18 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
-										TextTransformations: [...close({
+										} | fn.#If
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-								}) | fn.If
-							}) | fn.If
-							OrStatement?: close({
-								Statements: [...close({
-									ByteMatchStatement?: close({
-										FieldToMatch: close({
+										}] | fn.#If
+									} | fn.#If
+								} | fn.#If
+							} | fn.#If
+							OrStatement?: {
+								Statements: [...{
+									ByteMatchStatement?: {
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -475,33 +475,33 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
+										} | fn.#If
 										PositionalConstraint: string | fn.#Fn
 										SearchString?:        string | fn.#Fn
 										SearchStringBase64?:  string | fn.#Fn
-										TextTransformations:  [...close({
+										TextTransformations:  [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									GeoMatchStatement?: close({
+										}] | fn.#If
+									} | fn.#If
+									GeoMatchStatement?: {
 										CountryCodes?:      [...(string | fn.#Fn)] | (string | fn.#Fn)
-										ForwardedIPConfig?: close({
+										ForwardedIPConfig?: {
 											FallbackBehavior: string | fn.#Fn
 											HeaderName:       string | fn.#Fn
-										}) | fn.If
-									}) | fn.If
-									IPSetReferenceStatement?: close({
+										} | fn.#If
+									} | fn.#If
+									IPSetReferenceStatement?: {
 										Arn:                     string | fn.#Fn
-										IPSetForwardedIPConfig?: close({
+										IPSetForwardedIPConfig?: {
 											FallbackBehavior: string | fn.#Fn
 											HeaderName:       string | fn.#Fn
 											Position:         string | fn.#Fn
-										}) | fn.If
-									}) | fn.If
-									RegexPatternSetReferenceStatement?: close({
+										} | fn.#If
+									} | fn.#If
+									RegexPatternSetReferenceStatement?: {
 										Arn:          string | fn.#Fn
-										FieldToMatch: close({
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -523,15 +523,15 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
-										TextTransformations: [...close({
+										} | fn.#If
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									SizeConstraintStatement?: close({
+										}] | fn.#If
+									} | fn.#If
+									SizeConstraintStatement?: {
 										ComparisonOperator: string | fn.#Fn
-										FieldToMatch:       close({
+										FieldToMatch:       {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -553,15 +553,15 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
+										} | fn.#If
 										Size:                int | fn.#Fn
-										TextTransformations: [...close({
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									SqliMatchStatement?: close({
-										FieldToMatch: close({
+										}] | fn.#If
+									} | fn.#If
+									SqliMatchStatement?: {
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -583,14 +583,14 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
-										TextTransformations: [...close({
+										} | fn.#If
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									XssMatchStatement?: close({
-										FieldToMatch: close({
+										}] | fn.#If
+									} | fn.#If
+									XssMatchStatement?: {
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -612,24 +612,24 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
-										TextTransformations: [...close({
+										} | fn.#If
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-								})] | fn.If
-							}) | fn.If
-							RateBasedStatement?: close({
+										}] | fn.#If
+									} | fn.#If
+								}] | fn.#If
+							} | fn.#If
+							RateBasedStatement?: {
 								AggregateKeyType:   ("FORWARDED_IP" | "IP") | fn.#Fn
-								ForwardedIPConfig?: close({
+								ForwardedIPConfig?: {
 									FallbackBehavior: string | fn.#Fn
 									HeaderName:       string | fn.#Fn
-								}) | fn.If
+								} | fn.#If
 								Limit:               (>=100 & <=20000000) | fn.#Fn
-								ScopeDownStatement?: close({
-									ByteMatchStatement?: close({
-										FieldToMatch: close({
+								ScopeDownStatement?: {
+									ByteMatchStatement?: {
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -651,33 +651,33 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
+										} | fn.#If
 										PositionalConstraint: string | fn.#Fn
 										SearchString?:        string | fn.#Fn
 										SearchStringBase64?:  string | fn.#Fn
-										TextTransformations:  [...close({
+										TextTransformations:  [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									GeoMatchStatement?: close({
+										}] | fn.#If
+									} | fn.#If
+									GeoMatchStatement?: {
 										CountryCodes?:      [...(string | fn.#Fn)] | (string | fn.#Fn)
-										ForwardedIPConfig?: close({
+										ForwardedIPConfig?: {
 											FallbackBehavior: string | fn.#Fn
 											HeaderName:       string | fn.#Fn
-										}) | fn.If
-									}) | fn.If
-									IPSetReferenceStatement?: close({
+										} | fn.#If
+									} | fn.#If
+									IPSetReferenceStatement?: {
 										Arn:                     string | fn.#Fn
-										IPSetForwardedIPConfig?: close({
+										IPSetForwardedIPConfig?: {
 											FallbackBehavior: string | fn.#Fn
 											HeaderName:       string | fn.#Fn
 											Position:         string | fn.#Fn
-										}) | fn.If
-									}) | fn.If
-									RegexPatternSetReferenceStatement?: close({
+										} | fn.#If
+									} | fn.#If
+									RegexPatternSetReferenceStatement?: {
 										Arn:          string | fn.#Fn
-										FieldToMatch: close({
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -699,15 +699,15 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
-										TextTransformations: [...close({
+										} | fn.#If
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									SizeConstraintStatement?: close({
+										}] | fn.#If
+									} | fn.#If
+									SizeConstraintStatement?: {
 										ComparisonOperator: string | fn.#Fn
-										FieldToMatch:       close({
+										FieldToMatch:       {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -729,15 +729,15 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
+										} | fn.#If
 										Size:                int | fn.#Fn
-										TextTransformations: [...close({
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									SqliMatchStatement?: close({
-										FieldToMatch: close({
+										}] | fn.#If
+									} | fn.#If
+									SqliMatchStatement?: {
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -759,14 +759,14 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
-										TextTransformations: [...close({
+										} | fn.#If
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									XssMatchStatement?: close({
-										FieldToMatch: close({
+										}] | fn.#If
+									} | fn.#If
+									XssMatchStatement?: {
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -788,17 +788,17 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
-										TextTransformations: [...close({
+										} | fn.#If
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-								}) | fn.If
-							}) | fn.If
-							RegexPatternSetReferenceStatement?: close({
+										}] | fn.#If
+									} | fn.#If
+								} | fn.#If
+							} | fn.#If
+							RegexPatternSetReferenceStatement?: {
 								Arn:          string | fn.#Fn
-								FieldToMatch: close({
+								FieldToMatch: {
 									AllQueryArguments?: {
 										[string]: _
 									} | fn.#Fn
@@ -820,15 +820,15 @@ import "github.com/TangoGroup/aws/fn"
 									UriPath?: {
 										[string]: _
 									} | fn.#Fn
-								}) | fn.If
-								TextTransformations: [...close({
+								} | fn.#If
+								TextTransformations: [...{
 									Priority: int | fn.#Fn
 									Type:     string | fn.#Fn
-								})] | fn.If
-							}) | fn.If
-							SizeConstraintStatement?: close({
+								}] | fn.#If
+							} | fn.#If
+							SizeConstraintStatement?: {
 								ComparisonOperator: string | fn.#Fn
-								FieldToMatch:       close({
+								FieldToMatch:       {
 									AllQueryArguments?: {
 										[string]: _
 									} | fn.#Fn
@@ -850,15 +850,15 @@ import "github.com/TangoGroup/aws/fn"
 									UriPath?: {
 										[string]: _
 									} | fn.#Fn
-								}) | fn.If
+								} | fn.#If
 								Size:                int | fn.#Fn
-								TextTransformations: [...close({
+								TextTransformations: [...{
 									Priority: int | fn.#Fn
 									Type:     string | fn.#Fn
-								})] | fn.If
-							}) | fn.If
-							SqliMatchStatement?: close({
-								FieldToMatch: close({
+								}] | fn.#If
+							} | fn.#If
+							SqliMatchStatement?: {
+								FieldToMatch: {
 									AllQueryArguments?: {
 										[string]: _
 									} | fn.#Fn
@@ -880,14 +880,14 @@ import "github.com/TangoGroup/aws/fn"
 									UriPath?: {
 										[string]: _
 									} | fn.#Fn
-								}) | fn.If
-								TextTransformations: [...close({
+								} | fn.#If
+								TextTransformations: [...{
 									Priority: int | fn.#Fn
 									Type:     string | fn.#Fn
-								})] | fn.If
-							}) | fn.If
-							XssMatchStatement?: close({
-								FieldToMatch: close({
+								}] | fn.#If
+							} | fn.#If
+							XssMatchStatement?: {
+								FieldToMatch: {
 									AllQueryArguments?: {
 										[string]: _
 									} | fn.#Fn
@@ -909,16 +909,16 @@ import "github.com/TangoGroup/aws/fn"
 									UriPath?: {
 										[string]: _
 									} | fn.#Fn
-								}) | fn.If
-								TextTransformations: [...close({
+								} | fn.#If
+								TextTransformations: [...{
 									Priority: int | fn.#Fn
 									Type:     string | fn.#Fn
-								})] | fn.If
-							}) | fn.If
-						})] | fn.If
-					}) | fn.If
-					ByteMatchStatement?: close({
-						FieldToMatch: close({
+								}] | fn.#If
+							} | fn.#If
+						}] | fn.#If
+					} | fn.#If
+					ByteMatchStatement?: {
+						FieldToMatch: {
 							AllQueryArguments?: {
 								[string]: _
 							} | fn.#Fn
@@ -940,36 +940,36 @@ import "github.com/TangoGroup/aws/fn"
 							UriPath?: {
 								[string]: _
 							} | fn.#Fn
-						}) | fn.If
+						} | fn.#If
 						PositionalConstraint: string | fn.#Fn
 						SearchString?:        string | fn.#Fn
 						SearchStringBase64?:  string | fn.#Fn
-						TextTransformations:  [...close({
+						TextTransformations:  [...{
 							Priority: int | fn.#Fn
 							Type:     string | fn.#Fn
-						})] | fn.If
-					}) | fn.If
-					GeoMatchStatement?: close({
+						}] | fn.#If
+					} | fn.#If
+					GeoMatchStatement?: {
 						CountryCodes?:      [...(string | fn.#Fn)] | (string | fn.#Fn)
-						ForwardedIPConfig?: close({
+						ForwardedIPConfig?: {
 							FallbackBehavior: string | fn.#Fn
 							HeaderName:       string | fn.#Fn
-						}) | fn.If
-					}) | fn.If
-					IPSetReferenceStatement?: close({
+						} | fn.#If
+					} | fn.#If
+					IPSetReferenceStatement?: {
 						Arn:                     string | fn.#Fn
-						IPSetForwardedIPConfig?: close({
+						IPSetForwardedIPConfig?: {
 							FallbackBehavior: string | fn.#Fn
 							HeaderName:       string | fn.#Fn
 							Position:         string | fn.#Fn
-						}) | fn.If
-					}) | fn.If
-					NotStatement?: close({
-						Statement: close({
-							AndStatement?: close({
-								Statements: [...close({
-									ByteMatchStatement?: close({
-										FieldToMatch: close({
+						} | fn.#If
+					} | fn.#If
+					NotStatement?: {
+						Statement: {
+							AndStatement?: {
+								Statements: [...{
+									ByteMatchStatement?: {
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -991,33 +991,33 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
+										} | fn.#If
 										PositionalConstraint: string | fn.#Fn
 										SearchString?:        string | fn.#Fn
 										SearchStringBase64?:  string | fn.#Fn
-										TextTransformations:  [...close({
+										TextTransformations:  [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									GeoMatchStatement?: close({
+										}] | fn.#If
+									} | fn.#If
+									GeoMatchStatement?: {
 										CountryCodes?:      [...(string | fn.#Fn)] | (string | fn.#Fn)
-										ForwardedIPConfig?: close({
+										ForwardedIPConfig?: {
 											FallbackBehavior: string | fn.#Fn
 											HeaderName:       string | fn.#Fn
-										}) | fn.If
-									}) | fn.If
-									IPSetReferenceStatement?: close({
+										} | fn.#If
+									} | fn.#If
+									IPSetReferenceStatement?: {
 										Arn:                     string | fn.#Fn
-										IPSetForwardedIPConfig?: close({
+										IPSetForwardedIPConfig?: {
 											FallbackBehavior: string | fn.#Fn
 											HeaderName:       string | fn.#Fn
 											Position:         string | fn.#Fn
-										}) | fn.If
-									}) | fn.If
-									RegexPatternSetReferenceStatement?: close({
+										} | fn.#If
+									} | fn.#If
+									RegexPatternSetReferenceStatement?: {
 										Arn:          string | fn.#Fn
-										FieldToMatch: close({
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -1039,15 +1039,15 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
-										TextTransformations: [...close({
+										} | fn.#If
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									SizeConstraintStatement?: close({
+										}] | fn.#If
+									} | fn.#If
+									SizeConstraintStatement?: {
 										ComparisonOperator: string | fn.#Fn
-										FieldToMatch:       close({
+										FieldToMatch:       {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -1069,15 +1069,15 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
+										} | fn.#If
 										Size:                int | fn.#Fn
-										TextTransformations: [...close({
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									SqliMatchStatement?: close({
-										FieldToMatch: close({
+										}] | fn.#If
+									} | fn.#If
+									SqliMatchStatement?: {
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -1099,14 +1099,14 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
-										TextTransformations: [...close({
+										} | fn.#If
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									XssMatchStatement?: close({
-										FieldToMatch: close({
+										}] | fn.#If
+									} | fn.#If
+									XssMatchStatement?: {
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -1128,16 +1128,16 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
-										TextTransformations: [...close({
+										} | fn.#If
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-								})] | fn.If
-							}) | fn.If
-							ByteMatchStatement?: close({
-								FieldToMatch: close({
+										}] | fn.#If
+									} | fn.#If
+								}] | fn.#If
+							} | fn.#If
+							ByteMatchStatement?: {
+								FieldToMatch: {
 									AllQueryArguments?: {
 										[string]: _
 									} | fn.#Fn
@@ -1159,34 +1159,34 @@ import "github.com/TangoGroup/aws/fn"
 									UriPath?: {
 										[string]: _
 									} | fn.#Fn
-								}) | fn.If
+								} | fn.#If
 								PositionalConstraint: string | fn.#Fn
 								SearchString?:        string | fn.#Fn
 								SearchStringBase64?:  string | fn.#Fn
-								TextTransformations:  [...close({
+								TextTransformations:  [...{
 									Priority: int | fn.#Fn
 									Type:     string | fn.#Fn
-								})] | fn.If
-							}) | fn.If
-							GeoMatchStatement?: close({
+								}] | fn.#If
+							} | fn.#If
+							GeoMatchStatement?: {
 								CountryCodes?:      [...(string | fn.#Fn)] | (string | fn.#Fn)
-								ForwardedIPConfig?: close({
+								ForwardedIPConfig?: {
 									FallbackBehavior: string | fn.#Fn
 									HeaderName:       string | fn.#Fn
-								}) | fn.If
-							}) | fn.If
-							IPSetReferenceStatement?: close({
+								} | fn.#If
+							} | fn.#If
+							IPSetReferenceStatement?: {
 								Arn:                     string | fn.#Fn
-								IPSetForwardedIPConfig?: close({
+								IPSetForwardedIPConfig?: {
 									FallbackBehavior: string | fn.#Fn
 									HeaderName:       string | fn.#Fn
 									Position:         string | fn.#Fn
-								}) | fn.If
-							}) | fn.If
-							NotStatement?: close({
-								Statement: close({
-									ByteMatchStatement?: close({
-										FieldToMatch: close({
+								} | fn.#If
+							} | fn.#If
+							NotStatement?: {
+								Statement: {
+									ByteMatchStatement?: {
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -1208,33 +1208,33 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
+										} | fn.#If
 										PositionalConstraint: string | fn.#Fn
 										SearchString?:        string | fn.#Fn
 										SearchStringBase64?:  string | fn.#Fn
-										TextTransformations:  [...close({
+										TextTransformations:  [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									GeoMatchStatement?: close({
+										}] | fn.#If
+									} | fn.#If
+									GeoMatchStatement?: {
 										CountryCodes?:      [...(string | fn.#Fn)] | (string | fn.#Fn)
-										ForwardedIPConfig?: close({
+										ForwardedIPConfig?: {
 											FallbackBehavior: string | fn.#Fn
 											HeaderName:       string | fn.#Fn
-										}) | fn.If
-									}) | fn.If
-									IPSetReferenceStatement?: close({
+										} | fn.#If
+									} | fn.#If
+									IPSetReferenceStatement?: {
 										Arn:                     string | fn.#Fn
-										IPSetForwardedIPConfig?: close({
+										IPSetForwardedIPConfig?: {
 											FallbackBehavior: string | fn.#Fn
 											HeaderName:       string | fn.#Fn
 											Position:         string | fn.#Fn
-										}) | fn.If
-									}) | fn.If
-									RegexPatternSetReferenceStatement?: close({
+										} | fn.#If
+									} | fn.#If
+									RegexPatternSetReferenceStatement?: {
 										Arn:          string | fn.#Fn
-										FieldToMatch: close({
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -1256,15 +1256,15 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
-										TextTransformations: [...close({
+										} | fn.#If
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									SizeConstraintStatement?: close({
+										}] | fn.#If
+									} | fn.#If
+									SizeConstraintStatement?: {
 										ComparisonOperator: string | fn.#Fn
-										FieldToMatch:       close({
+										FieldToMatch:       {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -1286,15 +1286,15 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
+										} | fn.#If
 										Size:                int | fn.#Fn
-										TextTransformations: [...close({
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									SqliMatchStatement?: close({
-										FieldToMatch: close({
+										}] | fn.#If
+									} | fn.#If
+									SqliMatchStatement?: {
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -1316,14 +1316,14 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
-										TextTransformations: [...close({
+										} | fn.#If
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									XssMatchStatement?: close({
-										FieldToMatch: close({
+										}] | fn.#If
+									} | fn.#If
+									XssMatchStatement?: {
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -1345,18 +1345,18 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
-										TextTransformations: [...close({
+										} | fn.#If
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-								}) | fn.If
-							}) | fn.If
-							OrStatement?: close({
-								Statements: [...close({
-									ByteMatchStatement?: close({
-										FieldToMatch: close({
+										}] | fn.#If
+									} | fn.#If
+								} | fn.#If
+							} | fn.#If
+							OrStatement?: {
+								Statements: [...{
+									ByteMatchStatement?: {
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -1378,33 +1378,33 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
+										} | fn.#If
 										PositionalConstraint: string | fn.#Fn
 										SearchString?:        string | fn.#Fn
 										SearchStringBase64?:  string | fn.#Fn
-										TextTransformations:  [...close({
+										TextTransformations:  [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									GeoMatchStatement?: close({
+										}] | fn.#If
+									} | fn.#If
+									GeoMatchStatement?: {
 										CountryCodes?:      [...(string | fn.#Fn)] | (string | fn.#Fn)
-										ForwardedIPConfig?: close({
+										ForwardedIPConfig?: {
 											FallbackBehavior: string | fn.#Fn
 											HeaderName:       string | fn.#Fn
-										}) | fn.If
-									}) | fn.If
-									IPSetReferenceStatement?: close({
+										} | fn.#If
+									} | fn.#If
+									IPSetReferenceStatement?: {
 										Arn:                     string | fn.#Fn
-										IPSetForwardedIPConfig?: close({
+										IPSetForwardedIPConfig?: {
 											FallbackBehavior: string | fn.#Fn
 											HeaderName:       string | fn.#Fn
 											Position:         string | fn.#Fn
-										}) | fn.If
-									}) | fn.If
-									RegexPatternSetReferenceStatement?: close({
+										} | fn.#If
+									} | fn.#If
+									RegexPatternSetReferenceStatement?: {
 										Arn:          string | fn.#Fn
-										FieldToMatch: close({
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -1426,15 +1426,15 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
-										TextTransformations: [...close({
+										} | fn.#If
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									SizeConstraintStatement?: close({
+										}] | fn.#If
+									} | fn.#If
+									SizeConstraintStatement?: {
 										ComparisonOperator: string | fn.#Fn
-										FieldToMatch:       close({
+										FieldToMatch:       {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -1456,15 +1456,15 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
+										} | fn.#If
 										Size:                int | fn.#Fn
-										TextTransformations: [...close({
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									SqliMatchStatement?: close({
-										FieldToMatch: close({
+										}] | fn.#If
+									} | fn.#If
+									SqliMatchStatement?: {
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -1486,14 +1486,14 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
-										TextTransformations: [...close({
+										} | fn.#If
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									XssMatchStatement?: close({
-										FieldToMatch: close({
+										}] | fn.#If
+									} | fn.#If
+									XssMatchStatement?: {
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -1515,24 +1515,24 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
-										TextTransformations: [...close({
+										} | fn.#If
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-								})] | fn.If
-							}) | fn.If
-							RateBasedStatement?: close({
+										}] | fn.#If
+									} | fn.#If
+								}] | fn.#If
+							} | fn.#If
+							RateBasedStatement?: {
 								AggregateKeyType:   ("FORWARDED_IP" | "IP") | fn.#Fn
-								ForwardedIPConfig?: close({
+								ForwardedIPConfig?: {
 									FallbackBehavior: string | fn.#Fn
 									HeaderName:       string | fn.#Fn
-								}) | fn.If
+								} | fn.#If
 								Limit:               (>=100 & <=20000000) | fn.#Fn
-								ScopeDownStatement?: close({
-									ByteMatchStatement?: close({
-										FieldToMatch: close({
+								ScopeDownStatement?: {
+									ByteMatchStatement?: {
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -1554,33 +1554,33 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
+										} | fn.#If
 										PositionalConstraint: string | fn.#Fn
 										SearchString?:        string | fn.#Fn
 										SearchStringBase64?:  string | fn.#Fn
-										TextTransformations:  [...close({
+										TextTransformations:  [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									GeoMatchStatement?: close({
+										}] | fn.#If
+									} | fn.#If
+									GeoMatchStatement?: {
 										CountryCodes?:      [...(string | fn.#Fn)] | (string | fn.#Fn)
-										ForwardedIPConfig?: close({
+										ForwardedIPConfig?: {
 											FallbackBehavior: string | fn.#Fn
 											HeaderName:       string | fn.#Fn
-										}) | fn.If
-									}) | fn.If
-									IPSetReferenceStatement?: close({
+										} | fn.#If
+									} | fn.#If
+									IPSetReferenceStatement?: {
 										Arn:                     string | fn.#Fn
-										IPSetForwardedIPConfig?: close({
+										IPSetForwardedIPConfig?: {
 											FallbackBehavior: string | fn.#Fn
 											HeaderName:       string | fn.#Fn
 											Position:         string | fn.#Fn
-										}) | fn.If
-									}) | fn.If
-									RegexPatternSetReferenceStatement?: close({
+										} | fn.#If
+									} | fn.#If
+									RegexPatternSetReferenceStatement?: {
 										Arn:          string | fn.#Fn
-										FieldToMatch: close({
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -1602,15 +1602,15 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
-										TextTransformations: [...close({
+										} | fn.#If
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									SizeConstraintStatement?: close({
+										}] | fn.#If
+									} | fn.#If
+									SizeConstraintStatement?: {
 										ComparisonOperator: string | fn.#Fn
-										FieldToMatch:       close({
+										FieldToMatch:       {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -1632,15 +1632,15 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
+										} | fn.#If
 										Size:                int | fn.#Fn
-										TextTransformations: [...close({
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									SqliMatchStatement?: close({
-										FieldToMatch: close({
+										}] | fn.#If
+									} | fn.#If
+									SqliMatchStatement?: {
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -1662,14 +1662,14 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
-										TextTransformations: [...close({
+										} | fn.#If
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									XssMatchStatement?: close({
-										FieldToMatch: close({
+										}] | fn.#If
+									} | fn.#If
+									XssMatchStatement?: {
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -1691,17 +1691,17 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
-										TextTransformations: [...close({
+										} | fn.#If
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-								}) | fn.If
-							}) | fn.If
-							RegexPatternSetReferenceStatement?: close({
+										}] | fn.#If
+									} | fn.#If
+								} | fn.#If
+							} | fn.#If
+							RegexPatternSetReferenceStatement?: {
 								Arn:          string | fn.#Fn
-								FieldToMatch: close({
+								FieldToMatch: {
 									AllQueryArguments?: {
 										[string]: _
 									} | fn.#Fn
@@ -1723,15 +1723,15 @@ import "github.com/TangoGroup/aws/fn"
 									UriPath?: {
 										[string]: _
 									} | fn.#Fn
-								}) | fn.If
-								TextTransformations: [...close({
+								} | fn.#If
+								TextTransformations: [...{
 									Priority: int | fn.#Fn
 									Type:     string | fn.#Fn
-								})] | fn.If
-							}) | fn.If
-							SizeConstraintStatement?: close({
+								}] | fn.#If
+							} | fn.#If
+							SizeConstraintStatement?: {
 								ComparisonOperator: string | fn.#Fn
-								FieldToMatch:       close({
+								FieldToMatch:       {
 									AllQueryArguments?: {
 										[string]: _
 									} | fn.#Fn
@@ -1753,15 +1753,15 @@ import "github.com/TangoGroup/aws/fn"
 									UriPath?: {
 										[string]: _
 									} | fn.#Fn
-								}) | fn.If
+								} | fn.#If
 								Size:                int | fn.#Fn
-								TextTransformations: [...close({
+								TextTransformations: [...{
 									Priority: int | fn.#Fn
 									Type:     string | fn.#Fn
-								})] | fn.If
-							}) | fn.If
-							SqliMatchStatement?: close({
-								FieldToMatch: close({
+								}] | fn.#If
+							} | fn.#If
+							SqliMatchStatement?: {
+								FieldToMatch: {
 									AllQueryArguments?: {
 										[string]: _
 									} | fn.#Fn
@@ -1783,14 +1783,14 @@ import "github.com/TangoGroup/aws/fn"
 									UriPath?: {
 										[string]: _
 									} | fn.#Fn
-								}) | fn.If
-								TextTransformations: [...close({
+								} | fn.#If
+								TextTransformations: [...{
 									Priority: int | fn.#Fn
 									Type:     string | fn.#Fn
-								})] | fn.If
-							}) | fn.If
-							XssMatchStatement?: close({
-								FieldToMatch: close({
+								}] | fn.#If
+							} | fn.#If
+							XssMatchStatement?: {
+								FieldToMatch: {
 									AllQueryArguments?: {
 										[string]: _
 									} | fn.#Fn
@@ -1812,20 +1812,20 @@ import "github.com/TangoGroup/aws/fn"
 									UriPath?: {
 										[string]: _
 									} | fn.#Fn
-								}) | fn.If
-								TextTransformations: [...close({
+								} | fn.#If
+								TextTransformations: [...{
 									Priority: int | fn.#Fn
 									Type:     string | fn.#Fn
-								})] | fn.If
-							}) | fn.If
-						}) | fn.If
-					}) | fn.If
-					OrStatement?: close({
-						Statements: [...close({
-							AndStatement?: close({
-								Statements: [...close({
-									ByteMatchStatement?: close({
-										FieldToMatch: close({
+								}] | fn.#If
+							} | fn.#If
+						} | fn.#If
+					} | fn.#If
+					OrStatement?: {
+						Statements: [...{
+							AndStatement?: {
+								Statements: [...{
+									ByteMatchStatement?: {
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -1847,33 +1847,33 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
+										} | fn.#If
 										PositionalConstraint: string | fn.#Fn
 										SearchString?:        string | fn.#Fn
 										SearchStringBase64?:  string | fn.#Fn
-										TextTransformations:  [...close({
+										TextTransformations:  [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									GeoMatchStatement?: close({
+										}] | fn.#If
+									} | fn.#If
+									GeoMatchStatement?: {
 										CountryCodes?:      [...(string | fn.#Fn)] | (string | fn.#Fn)
-										ForwardedIPConfig?: close({
+										ForwardedIPConfig?: {
 											FallbackBehavior: string | fn.#Fn
 											HeaderName:       string | fn.#Fn
-										}) | fn.If
-									}) | fn.If
-									IPSetReferenceStatement?: close({
+										} | fn.#If
+									} | fn.#If
+									IPSetReferenceStatement?: {
 										Arn:                     string | fn.#Fn
-										IPSetForwardedIPConfig?: close({
+										IPSetForwardedIPConfig?: {
 											FallbackBehavior: string | fn.#Fn
 											HeaderName:       string | fn.#Fn
 											Position:         string | fn.#Fn
-										}) | fn.If
-									}) | fn.If
-									RegexPatternSetReferenceStatement?: close({
+										} | fn.#If
+									} | fn.#If
+									RegexPatternSetReferenceStatement?: {
 										Arn:          string | fn.#Fn
-										FieldToMatch: close({
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -1895,15 +1895,15 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
-										TextTransformations: [...close({
+										} | fn.#If
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									SizeConstraintStatement?: close({
+										}] | fn.#If
+									} | fn.#If
+									SizeConstraintStatement?: {
 										ComparisonOperator: string | fn.#Fn
-										FieldToMatch:       close({
+										FieldToMatch:       {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -1925,15 +1925,15 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
+										} | fn.#If
 										Size:                int | fn.#Fn
-										TextTransformations: [...close({
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									SqliMatchStatement?: close({
-										FieldToMatch: close({
+										}] | fn.#If
+									} | fn.#If
+									SqliMatchStatement?: {
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -1955,14 +1955,14 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
-										TextTransformations: [...close({
+										} | fn.#If
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									XssMatchStatement?: close({
-										FieldToMatch: close({
+										}] | fn.#If
+									} | fn.#If
+									XssMatchStatement?: {
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -1984,16 +1984,16 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
-										TextTransformations: [...close({
+										} | fn.#If
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-								})] | fn.If
-							}) | fn.If
-							ByteMatchStatement?: close({
-								FieldToMatch: close({
+										}] | fn.#If
+									} | fn.#If
+								}] | fn.#If
+							} | fn.#If
+							ByteMatchStatement?: {
+								FieldToMatch: {
 									AllQueryArguments?: {
 										[string]: _
 									} | fn.#Fn
@@ -2015,34 +2015,34 @@ import "github.com/TangoGroup/aws/fn"
 									UriPath?: {
 										[string]: _
 									} | fn.#Fn
-								}) | fn.If
+								} | fn.#If
 								PositionalConstraint: string | fn.#Fn
 								SearchString?:        string | fn.#Fn
 								SearchStringBase64?:  string | fn.#Fn
-								TextTransformations:  [...close({
+								TextTransformations:  [...{
 									Priority: int | fn.#Fn
 									Type:     string | fn.#Fn
-								})] | fn.If
-							}) | fn.If
-							GeoMatchStatement?: close({
+								}] | fn.#If
+							} | fn.#If
+							GeoMatchStatement?: {
 								CountryCodes?:      [...(string | fn.#Fn)] | (string | fn.#Fn)
-								ForwardedIPConfig?: close({
+								ForwardedIPConfig?: {
 									FallbackBehavior: string | fn.#Fn
 									HeaderName:       string | fn.#Fn
-								}) | fn.If
-							}) | fn.If
-							IPSetReferenceStatement?: close({
+								} | fn.#If
+							} | fn.#If
+							IPSetReferenceStatement?: {
 								Arn:                     string | fn.#Fn
-								IPSetForwardedIPConfig?: close({
+								IPSetForwardedIPConfig?: {
 									FallbackBehavior: string | fn.#Fn
 									HeaderName:       string | fn.#Fn
 									Position:         string | fn.#Fn
-								}) | fn.If
-							}) | fn.If
-							NotStatement?: close({
-								Statement: close({
-									ByteMatchStatement?: close({
-										FieldToMatch: close({
+								} | fn.#If
+							} | fn.#If
+							NotStatement?: {
+								Statement: {
+									ByteMatchStatement?: {
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -2064,33 +2064,33 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
+										} | fn.#If
 										PositionalConstraint: string | fn.#Fn
 										SearchString?:        string | fn.#Fn
 										SearchStringBase64?:  string | fn.#Fn
-										TextTransformations:  [...close({
+										TextTransformations:  [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									GeoMatchStatement?: close({
+										}] | fn.#If
+									} | fn.#If
+									GeoMatchStatement?: {
 										CountryCodes?:      [...(string | fn.#Fn)] | (string | fn.#Fn)
-										ForwardedIPConfig?: close({
+										ForwardedIPConfig?: {
 											FallbackBehavior: string | fn.#Fn
 											HeaderName:       string | fn.#Fn
-										}) | fn.If
-									}) | fn.If
-									IPSetReferenceStatement?: close({
+										} | fn.#If
+									} | fn.#If
+									IPSetReferenceStatement?: {
 										Arn:                     string | fn.#Fn
-										IPSetForwardedIPConfig?: close({
+										IPSetForwardedIPConfig?: {
 											FallbackBehavior: string | fn.#Fn
 											HeaderName:       string | fn.#Fn
 											Position:         string | fn.#Fn
-										}) | fn.If
-									}) | fn.If
-									RegexPatternSetReferenceStatement?: close({
+										} | fn.#If
+									} | fn.#If
+									RegexPatternSetReferenceStatement?: {
 										Arn:          string | fn.#Fn
-										FieldToMatch: close({
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -2112,15 +2112,15 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
-										TextTransformations: [...close({
+										} | fn.#If
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									SizeConstraintStatement?: close({
+										}] | fn.#If
+									} | fn.#If
+									SizeConstraintStatement?: {
 										ComparisonOperator: string | fn.#Fn
-										FieldToMatch:       close({
+										FieldToMatch:       {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -2142,15 +2142,15 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
+										} | fn.#If
 										Size:                int | fn.#Fn
-										TextTransformations: [...close({
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									SqliMatchStatement?: close({
-										FieldToMatch: close({
+										}] | fn.#If
+									} | fn.#If
+									SqliMatchStatement?: {
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -2172,14 +2172,14 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
-										TextTransformations: [...close({
+										} | fn.#If
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									XssMatchStatement?: close({
-										FieldToMatch: close({
+										}] | fn.#If
+									} | fn.#If
+									XssMatchStatement?: {
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -2201,18 +2201,18 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
-										TextTransformations: [...close({
+										} | fn.#If
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-								}) | fn.If
-							}) | fn.If
-							OrStatement?: close({
-								Statements: [...close({
-									ByteMatchStatement?: close({
-										FieldToMatch: close({
+										}] | fn.#If
+									} | fn.#If
+								} | fn.#If
+							} | fn.#If
+							OrStatement?: {
+								Statements: [...{
+									ByteMatchStatement?: {
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -2234,33 +2234,33 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
+										} | fn.#If
 										PositionalConstraint: string | fn.#Fn
 										SearchString?:        string | fn.#Fn
 										SearchStringBase64?:  string | fn.#Fn
-										TextTransformations:  [...close({
+										TextTransformations:  [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									GeoMatchStatement?: close({
+										}] | fn.#If
+									} | fn.#If
+									GeoMatchStatement?: {
 										CountryCodes?:      [...(string | fn.#Fn)] | (string | fn.#Fn)
-										ForwardedIPConfig?: close({
+										ForwardedIPConfig?: {
 											FallbackBehavior: string | fn.#Fn
 											HeaderName:       string | fn.#Fn
-										}) | fn.If
-									}) | fn.If
-									IPSetReferenceStatement?: close({
+										} | fn.#If
+									} | fn.#If
+									IPSetReferenceStatement?: {
 										Arn:                     string | fn.#Fn
-										IPSetForwardedIPConfig?: close({
+										IPSetForwardedIPConfig?: {
 											FallbackBehavior: string | fn.#Fn
 											HeaderName:       string | fn.#Fn
 											Position:         string | fn.#Fn
-										}) | fn.If
-									}) | fn.If
-									RegexPatternSetReferenceStatement?: close({
+										} | fn.#If
+									} | fn.#If
+									RegexPatternSetReferenceStatement?: {
 										Arn:          string | fn.#Fn
-										FieldToMatch: close({
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -2282,15 +2282,15 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
-										TextTransformations: [...close({
+										} | fn.#If
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									SizeConstraintStatement?: close({
+										}] | fn.#If
+									} | fn.#If
+									SizeConstraintStatement?: {
 										ComparisonOperator: string | fn.#Fn
-										FieldToMatch:       close({
+										FieldToMatch:       {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -2312,15 +2312,15 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
+										} | fn.#If
 										Size:                int | fn.#Fn
-										TextTransformations: [...close({
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									SqliMatchStatement?: close({
-										FieldToMatch: close({
+										}] | fn.#If
+									} | fn.#If
+									SqliMatchStatement?: {
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -2342,14 +2342,14 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
-										TextTransformations: [...close({
+										} | fn.#If
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									XssMatchStatement?: close({
-										FieldToMatch: close({
+										}] | fn.#If
+									} | fn.#If
+									XssMatchStatement?: {
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -2371,24 +2371,24 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
-										TextTransformations: [...close({
+										} | fn.#If
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-								})] | fn.If
-							}) | fn.If
-							RateBasedStatement?: close({
+										}] | fn.#If
+									} | fn.#If
+								}] | fn.#If
+							} | fn.#If
+							RateBasedStatement?: {
 								AggregateKeyType:   ("FORWARDED_IP" | "IP") | fn.#Fn
-								ForwardedIPConfig?: close({
+								ForwardedIPConfig?: {
 									FallbackBehavior: string | fn.#Fn
 									HeaderName:       string | fn.#Fn
-								}) | fn.If
+								} | fn.#If
 								Limit:               (>=100 & <=20000000) | fn.#Fn
-								ScopeDownStatement?: close({
-									ByteMatchStatement?: close({
-										FieldToMatch: close({
+								ScopeDownStatement?: {
+									ByteMatchStatement?: {
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -2410,33 +2410,33 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
+										} | fn.#If
 										PositionalConstraint: string | fn.#Fn
 										SearchString?:        string | fn.#Fn
 										SearchStringBase64?:  string | fn.#Fn
-										TextTransformations:  [...close({
+										TextTransformations:  [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									GeoMatchStatement?: close({
+										}] | fn.#If
+									} | fn.#If
+									GeoMatchStatement?: {
 										CountryCodes?:      [...(string | fn.#Fn)] | (string | fn.#Fn)
-										ForwardedIPConfig?: close({
+										ForwardedIPConfig?: {
 											FallbackBehavior: string | fn.#Fn
 											HeaderName:       string | fn.#Fn
-										}) | fn.If
-									}) | fn.If
-									IPSetReferenceStatement?: close({
+										} | fn.#If
+									} | fn.#If
+									IPSetReferenceStatement?: {
 										Arn:                     string | fn.#Fn
-										IPSetForwardedIPConfig?: close({
+										IPSetForwardedIPConfig?: {
 											FallbackBehavior: string | fn.#Fn
 											HeaderName:       string | fn.#Fn
 											Position:         string | fn.#Fn
-										}) | fn.If
-									}) | fn.If
-									RegexPatternSetReferenceStatement?: close({
+										} | fn.#If
+									} | fn.#If
+									RegexPatternSetReferenceStatement?: {
 										Arn:          string | fn.#Fn
-										FieldToMatch: close({
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -2458,15 +2458,15 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
-										TextTransformations: [...close({
+										} | fn.#If
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									SizeConstraintStatement?: close({
+										}] | fn.#If
+									} | fn.#If
+									SizeConstraintStatement?: {
 										ComparisonOperator: string | fn.#Fn
-										FieldToMatch:       close({
+										FieldToMatch:       {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -2488,15 +2488,15 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
+										} | fn.#If
 										Size:                int | fn.#Fn
-										TextTransformations: [...close({
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									SqliMatchStatement?: close({
-										FieldToMatch: close({
+										}] | fn.#If
+									} | fn.#If
+									SqliMatchStatement?: {
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -2518,14 +2518,14 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
-										TextTransformations: [...close({
+										} | fn.#If
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									XssMatchStatement?: close({
-										FieldToMatch: close({
+										}] | fn.#If
+									} | fn.#If
+									XssMatchStatement?: {
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -2547,17 +2547,17 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
-										TextTransformations: [...close({
+										} | fn.#If
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-								}) | fn.If
-							}) | fn.If
-							RegexPatternSetReferenceStatement?: close({
+										}] | fn.#If
+									} | fn.#If
+								} | fn.#If
+							} | fn.#If
+							RegexPatternSetReferenceStatement?: {
 								Arn:          string | fn.#Fn
-								FieldToMatch: close({
+								FieldToMatch: {
 									AllQueryArguments?: {
 										[string]: _
 									} | fn.#Fn
@@ -2579,15 +2579,15 @@ import "github.com/TangoGroup/aws/fn"
 									UriPath?: {
 										[string]: _
 									} | fn.#Fn
-								}) | fn.If
-								TextTransformations: [...close({
+								} | fn.#If
+								TextTransformations: [...{
 									Priority: int | fn.#Fn
 									Type:     string | fn.#Fn
-								})] | fn.If
-							}) | fn.If
-							SizeConstraintStatement?: close({
+								}] | fn.#If
+							} | fn.#If
+							SizeConstraintStatement?: {
 								ComparisonOperator: string | fn.#Fn
-								FieldToMatch:       close({
+								FieldToMatch:       {
 									AllQueryArguments?: {
 										[string]: _
 									} | fn.#Fn
@@ -2609,15 +2609,15 @@ import "github.com/TangoGroup/aws/fn"
 									UriPath?: {
 										[string]: _
 									} | fn.#Fn
-								}) | fn.If
+								} | fn.#If
 								Size:                int | fn.#Fn
-								TextTransformations: [...close({
+								TextTransformations: [...{
 									Priority: int | fn.#Fn
 									Type:     string | fn.#Fn
-								})] | fn.If
-							}) | fn.If
-							SqliMatchStatement?: close({
-								FieldToMatch: close({
+								}] | fn.#If
+							} | fn.#If
+							SqliMatchStatement?: {
+								FieldToMatch: {
 									AllQueryArguments?: {
 										[string]: _
 									} | fn.#Fn
@@ -2639,14 +2639,14 @@ import "github.com/TangoGroup/aws/fn"
 									UriPath?: {
 										[string]: _
 									} | fn.#Fn
-								}) | fn.If
-								TextTransformations: [...close({
+								} | fn.#If
+								TextTransformations: [...{
 									Priority: int | fn.#Fn
 									Type:     string | fn.#Fn
-								})] | fn.If
-							}) | fn.If
-							XssMatchStatement?: close({
-								FieldToMatch: close({
+								}] | fn.#If
+							} | fn.#If
+							XssMatchStatement?: {
+								FieldToMatch: {
 									AllQueryArguments?: {
 										[string]: _
 									} | fn.#Fn
@@ -2668,26 +2668,26 @@ import "github.com/TangoGroup/aws/fn"
 									UriPath?: {
 										[string]: _
 									} | fn.#Fn
-								}) | fn.If
-								TextTransformations: [...close({
+								} | fn.#If
+								TextTransformations: [...{
 									Priority: int | fn.#Fn
 									Type:     string | fn.#Fn
-								})] | fn.If
-							}) | fn.If
-						})] | fn.If
-					}) | fn.If
-					RateBasedStatement?: close({
+								}] | fn.#If
+							} | fn.#If
+						}] | fn.#If
+					} | fn.#If
+					RateBasedStatement?: {
 						AggregateKeyType:   ("FORWARDED_IP" | "IP") | fn.#Fn
-						ForwardedIPConfig?: close({
+						ForwardedIPConfig?: {
 							FallbackBehavior: string | fn.#Fn
 							HeaderName:       string | fn.#Fn
-						}) | fn.If
+						} | fn.#If
 						Limit:               (>=100 & <=20000000) | fn.#Fn
-						ScopeDownStatement?: close({
-							AndStatement?: close({
-								Statements: [...close({
-									ByteMatchStatement?: close({
-										FieldToMatch: close({
+						ScopeDownStatement?: {
+							AndStatement?: {
+								Statements: [...{
+									ByteMatchStatement?: {
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -2709,33 +2709,33 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
+										} | fn.#If
 										PositionalConstraint: string | fn.#Fn
 										SearchString?:        string | fn.#Fn
 										SearchStringBase64?:  string | fn.#Fn
-										TextTransformations:  [...close({
+										TextTransformations:  [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									GeoMatchStatement?: close({
+										}] | fn.#If
+									} | fn.#If
+									GeoMatchStatement?: {
 										CountryCodes?:      [...(string | fn.#Fn)] | (string | fn.#Fn)
-										ForwardedIPConfig?: close({
+										ForwardedIPConfig?: {
 											FallbackBehavior: string | fn.#Fn
 											HeaderName:       string | fn.#Fn
-										}) | fn.If
-									}) | fn.If
-									IPSetReferenceStatement?: close({
+										} | fn.#If
+									} | fn.#If
+									IPSetReferenceStatement?: {
 										Arn:                     string | fn.#Fn
-										IPSetForwardedIPConfig?: close({
+										IPSetForwardedIPConfig?: {
 											FallbackBehavior: string | fn.#Fn
 											HeaderName:       string | fn.#Fn
 											Position:         string | fn.#Fn
-										}) | fn.If
-									}) | fn.If
-									RegexPatternSetReferenceStatement?: close({
+										} | fn.#If
+									} | fn.#If
+									RegexPatternSetReferenceStatement?: {
 										Arn:          string | fn.#Fn
-										FieldToMatch: close({
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -2757,15 +2757,15 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
-										TextTransformations: [...close({
+										} | fn.#If
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									SizeConstraintStatement?: close({
+										}] | fn.#If
+									} | fn.#If
+									SizeConstraintStatement?: {
 										ComparisonOperator: string | fn.#Fn
-										FieldToMatch:       close({
+										FieldToMatch:       {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -2787,15 +2787,15 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
+										} | fn.#If
 										Size:                int | fn.#Fn
-										TextTransformations: [...close({
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									SqliMatchStatement?: close({
-										FieldToMatch: close({
+										}] | fn.#If
+									} | fn.#If
+									SqliMatchStatement?: {
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -2817,14 +2817,14 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
-										TextTransformations: [...close({
+										} | fn.#If
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									XssMatchStatement?: close({
-										FieldToMatch: close({
+										}] | fn.#If
+									} | fn.#If
+									XssMatchStatement?: {
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -2846,16 +2846,16 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
-										TextTransformations: [...close({
+										} | fn.#If
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-								})] | fn.If
-							}) | fn.If
-							ByteMatchStatement?: close({
-								FieldToMatch: close({
+										}] | fn.#If
+									} | fn.#If
+								}] | fn.#If
+							} | fn.#If
+							ByteMatchStatement?: {
+								FieldToMatch: {
 									AllQueryArguments?: {
 										[string]: _
 									} | fn.#Fn
@@ -2877,34 +2877,34 @@ import "github.com/TangoGroup/aws/fn"
 									UriPath?: {
 										[string]: _
 									} | fn.#Fn
-								}) | fn.If
+								} | fn.#If
 								PositionalConstraint: string | fn.#Fn
 								SearchString?:        string | fn.#Fn
 								SearchStringBase64?:  string | fn.#Fn
-								TextTransformations:  [...close({
+								TextTransformations:  [...{
 									Priority: int | fn.#Fn
 									Type:     string | fn.#Fn
-								})] | fn.If
-							}) | fn.If
-							GeoMatchStatement?: close({
+								}] | fn.#If
+							} | fn.#If
+							GeoMatchStatement?: {
 								CountryCodes?:      [...(string | fn.#Fn)] | (string | fn.#Fn)
-								ForwardedIPConfig?: close({
+								ForwardedIPConfig?: {
 									FallbackBehavior: string | fn.#Fn
 									HeaderName:       string | fn.#Fn
-								}) | fn.If
-							}) | fn.If
-							IPSetReferenceStatement?: close({
+								} | fn.#If
+							} | fn.#If
+							IPSetReferenceStatement?: {
 								Arn:                     string | fn.#Fn
-								IPSetForwardedIPConfig?: close({
+								IPSetForwardedIPConfig?: {
 									FallbackBehavior: string | fn.#Fn
 									HeaderName:       string | fn.#Fn
 									Position:         string | fn.#Fn
-								}) | fn.If
-							}) | fn.If
-							NotStatement?: close({
-								Statement: close({
-									ByteMatchStatement?: close({
-										FieldToMatch: close({
+								} | fn.#If
+							} | fn.#If
+							NotStatement?: {
+								Statement: {
+									ByteMatchStatement?: {
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -2926,33 +2926,33 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
+										} | fn.#If
 										PositionalConstraint: string | fn.#Fn
 										SearchString?:        string | fn.#Fn
 										SearchStringBase64?:  string | fn.#Fn
-										TextTransformations:  [...close({
+										TextTransformations:  [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									GeoMatchStatement?: close({
+										}] | fn.#If
+									} | fn.#If
+									GeoMatchStatement?: {
 										CountryCodes?:      [...(string | fn.#Fn)] | (string | fn.#Fn)
-										ForwardedIPConfig?: close({
+										ForwardedIPConfig?: {
 											FallbackBehavior: string | fn.#Fn
 											HeaderName:       string | fn.#Fn
-										}) | fn.If
-									}) | fn.If
-									IPSetReferenceStatement?: close({
+										} | fn.#If
+									} | fn.#If
+									IPSetReferenceStatement?: {
 										Arn:                     string | fn.#Fn
-										IPSetForwardedIPConfig?: close({
+										IPSetForwardedIPConfig?: {
 											FallbackBehavior: string | fn.#Fn
 											HeaderName:       string | fn.#Fn
 											Position:         string | fn.#Fn
-										}) | fn.If
-									}) | fn.If
-									RegexPatternSetReferenceStatement?: close({
+										} | fn.#If
+									} | fn.#If
+									RegexPatternSetReferenceStatement?: {
 										Arn:          string | fn.#Fn
-										FieldToMatch: close({
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -2974,15 +2974,15 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
-										TextTransformations: [...close({
+										} | fn.#If
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									SizeConstraintStatement?: close({
+										}] | fn.#If
+									} | fn.#If
+									SizeConstraintStatement?: {
 										ComparisonOperator: string | fn.#Fn
-										FieldToMatch:       close({
+										FieldToMatch:       {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -3004,15 +3004,15 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
+										} | fn.#If
 										Size:                int | fn.#Fn
-										TextTransformations: [...close({
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									SqliMatchStatement?: close({
-										FieldToMatch: close({
+										}] | fn.#If
+									} | fn.#If
+									SqliMatchStatement?: {
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -3034,14 +3034,14 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
-										TextTransformations: [...close({
+										} | fn.#If
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									XssMatchStatement?: close({
-										FieldToMatch: close({
+										}] | fn.#If
+									} | fn.#If
+									XssMatchStatement?: {
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -3063,18 +3063,18 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
-										TextTransformations: [...close({
+										} | fn.#If
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-								}) | fn.If
-							}) | fn.If
-							OrStatement?: close({
-								Statements: [...close({
-									ByteMatchStatement?: close({
-										FieldToMatch: close({
+										}] | fn.#If
+									} | fn.#If
+								} | fn.#If
+							} | fn.#If
+							OrStatement?: {
+								Statements: [...{
+									ByteMatchStatement?: {
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -3096,33 +3096,33 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
+										} | fn.#If
 										PositionalConstraint: string | fn.#Fn
 										SearchString?:        string | fn.#Fn
 										SearchStringBase64?:  string | fn.#Fn
-										TextTransformations:  [...close({
+										TextTransformations:  [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									GeoMatchStatement?: close({
+										}] | fn.#If
+									} | fn.#If
+									GeoMatchStatement?: {
 										CountryCodes?:      [...(string | fn.#Fn)] | (string | fn.#Fn)
-										ForwardedIPConfig?: close({
+										ForwardedIPConfig?: {
 											FallbackBehavior: string | fn.#Fn
 											HeaderName:       string | fn.#Fn
-										}) | fn.If
-									}) | fn.If
-									IPSetReferenceStatement?: close({
+										} | fn.#If
+									} | fn.#If
+									IPSetReferenceStatement?: {
 										Arn:                     string | fn.#Fn
-										IPSetForwardedIPConfig?: close({
+										IPSetForwardedIPConfig?: {
 											FallbackBehavior: string | fn.#Fn
 											HeaderName:       string | fn.#Fn
 											Position:         string | fn.#Fn
-										}) | fn.If
-									}) | fn.If
-									RegexPatternSetReferenceStatement?: close({
+										} | fn.#If
+									} | fn.#If
+									RegexPatternSetReferenceStatement?: {
 										Arn:          string | fn.#Fn
-										FieldToMatch: close({
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -3144,15 +3144,15 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
-										TextTransformations: [...close({
+										} | fn.#If
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									SizeConstraintStatement?: close({
+										}] | fn.#If
+									} | fn.#If
+									SizeConstraintStatement?: {
 										ComparisonOperator: string | fn.#Fn
-										FieldToMatch:       close({
+										FieldToMatch:       {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -3174,15 +3174,15 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
+										} | fn.#If
 										Size:                int | fn.#Fn
-										TextTransformations: [...close({
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									SqliMatchStatement?: close({
-										FieldToMatch: close({
+										}] | fn.#If
+									} | fn.#If
+									SqliMatchStatement?: {
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -3204,14 +3204,14 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
-										TextTransformations: [...close({
+										} | fn.#If
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									XssMatchStatement?: close({
-										FieldToMatch: close({
+										}] | fn.#If
+									} | fn.#If
+									XssMatchStatement?: {
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -3233,24 +3233,24 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
-										TextTransformations: [...close({
+										} | fn.#If
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-								})] | fn.If
-							}) | fn.If
-							RateBasedStatement?: close({
+										}] | fn.#If
+									} | fn.#If
+								}] | fn.#If
+							} | fn.#If
+							RateBasedStatement?: {
 								AggregateKeyType:   ("FORWARDED_IP" | "IP") | fn.#Fn
-								ForwardedIPConfig?: close({
+								ForwardedIPConfig?: {
 									FallbackBehavior: string | fn.#Fn
 									HeaderName:       string | fn.#Fn
-								}) | fn.If
+								} | fn.#If
 								Limit:               (>=100 & <=20000000) | fn.#Fn
-								ScopeDownStatement?: close({
-									ByteMatchStatement?: close({
-										FieldToMatch: close({
+								ScopeDownStatement?: {
+									ByteMatchStatement?: {
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -3272,33 +3272,33 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
+										} | fn.#If
 										PositionalConstraint: string | fn.#Fn
 										SearchString?:        string | fn.#Fn
 										SearchStringBase64?:  string | fn.#Fn
-										TextTransformations:  [...close({
+										TextTransformations:  [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									GeoMatchStatement?: close({
+										}] | fn.#If
+									} | fn.#If
+									GeoMatchStatement?: {
 										CountryCodes?:      [...(string | fn.#Fn)] | (string | fn.#Fn)
-										ForwardedIPConfig?: close({
+										ForwardedIPConfig?: {
 											FallbackBehavior: string | fn.#Fn
 											HeaderName:       string | fn.#Fn
-										}) | fn.If
-									}) | fn.If
-									IPSetReferenceStatement?: close({
+										} | fn.#If
+									} | fn.#If
+									IPSetReferenceStatement?: {
 										Arn:                     string | fn.#Fn
-										IPSetForwardedIPConfig?: close({
+										IPSetForwardedIPConfig?: {
 											FallbackBehavior: string | fn.#Fn
 											HeaderName:       string | fn.#Fn
 											Position:         string | fn.#Fn
-										}) | fn.If
-									}) | fn.If
-									RegexPatternSetReferenceStatement?: close({
+										} | fn.#If
+									} | fn.#If
+									RegexPatternSetReferenceStatement?: {
 										Arn:          string | fn.#Fn
-										FieldToMatch: close({
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -3320,15 +3320,15 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
-										TextTransformations: [...close({
+										} | fn.#If
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									SizeConstraintStatement?: close({
+										}] | fn.#If
+									} | fn.#If
+									SizeConstraintStatement?: {
 										ComparisonOperator: string | fn.#Fn
-										FieldToMatch:       close({
+										FieldToMatch:       {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -3350,15 +3350,15 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
+										} | fn.#If
 										Size:                int | fn.#Fn
-										TextTransformations: [...close({
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									SqliMatchStatement?: close({
-										FieldToMatch: close({
+										}] | fn.#If
+									} | fn.#If
+									SqliMatchStatement?: {
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -3380,14 +3380,14 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
-										TextTransformations: [...close({
+										} | fn.#If
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									XssMatchStatement?: close({
-										FieldToMatch: close({
+										}] | fn.#If
+									} | fn.#If
+									XssMatchStatement?: {
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -3409,17 +3409,17 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
-										TextTransformations: [...close({
+										} | fn.#If
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-								}) | fn.If
-							}) | fn.If
-							RegexPatternSetReferenceStatement?: close({
+										}] | fn.#If
+									} | fn.#If
+								} | fn.#If
+							} | fn.#If
+							RegexPatternSetReferenceStatement?: {
 								Arn:          string | fn.#Fn
-								FieldToMatch: close({
+								FieldToMatch: {
 									AllQueryArguments?: {
 										[string]: _
 									} | fn.#Fn
@@ -3441,15 +3441,15 @@ import "github.com/TangoGroup/aws/fn"
 									UriPath?: {
 										[string]: _
 									} | fn.#Fn
-								}) | fn.If
-								TextTransformations: [...close({
+								} | fn.#If
+								TextTransformations: [...{
 									Priority: int | fn.#Fn
 									Type:     string | fn.#Fn
-								})] | fn.If
-							}) | fn.If
-							SizeConstraintStatement?: close({
+								}] | fn.#If
+							} | fn.#If
+							SizeConstraintStatement?: {
 								ComparisonOperator: string | fn.#Fn
-								FieldToMatch:       close({
+								FieldToMatch:       {
 									AllQueryArguments?: {
 										[string]: _
 									} | fn.#Fn
@@ -3471,15 +3471,15 @@ import "github.com/TangoGroup/aws/fn"
 									UriPath?: {
 										[string]: _
 									} | fn.#Fn
-								}) | fn.If
+								} | fn.#If
 								Size:                int | fn.#Fn
-								TextTransformations: [...close({
+								TextTransformations: [...{
 									Priority: int | fn.#Fn
 									Type:     string | fn.#Fn
-								})] | fn.If
-							}) | fn.If
-							SqliMatchStatement?: close({
-								FieldToMatch: close({
+								}] | fn.#If
+							} | fn.#If
+							SqliMatchStatement?: {
+								FieldToMatch: {
 									AllQueryArguments?: {
 										[string]: _
 									} | fn.#Fn
@@ -3501,14 +3501,14 @@ import "github.com/TangoGroup/aws/fn"
 									UriPath?: {
 										[string]: _
 									} | fn.#Fn
-								}) | fn.If
-								TextTransformations: [...close({
+								} | fn.#If
+								TextTransformations: [...{
 									Priority: int | fn.#Fn
 									Type:     string | fn.#Fn
-								})] | fn.If
-							}) | fn.If
-							XssMatchStatement?: close({
-								FieldToMatch: close({
+								}] | fn.#If
+							} | fn.#If
+							XssMatchStatement?: {
+								FieldToMatch: {
 									AllQueryArguments?: {
 										[string]: _
 									} | fn.#Fn
@@ -3530,17 +3530,17 @@ import "github.com/TangoGroup/aws/fn"
 									UriPath?: {
 										[string]: _
 									} | fn.#Fn
-								}) | fn.If
-								TextTransformations: [...close({
+								} | fn.#If
+								TextTransformations: [...{
 									Priority: int | fn.#Fn
 									Type:     string | fn.#Fn
-								})] | fn.If
-							}) | fn.If
-						}) | fn.If
-					}) | fn.If
-					RegexPatternSetReferenceStatement?: close({
+								}] | fn.#If
+							} | fn.#If
+						} | fn.#If
+					} | fn.#If
+					RegexPatternSetReferenceStatement?: {
 						Arn:          string | fn.#Fn
-						FieldToMatch: close({
+						FieldToMatch: {
 							AllQueryArguments?: {
 								[string]: _
 							} | fn.#Fn
@@ -3562,15 +3562,15 @@ import "github.com/TangoGroup/aws/fn"
 							UriPath?: {
 								[string]: _
 							} | fn.#Fn
-						}) | fn.If
-						TextTransformations: [...close({
+						} | fn.#If
+						TextTransformations: [...{
 							Priority: int | fn.#Fn
 							Type:     string | fn.#Fn
-						})] | fn.If
-					}) | fn.If
-					SizeConstraintStatement?: close({
+						}] | fn.#If
+					} | fn.#If
+					SizeConstraintStatement?: {
 						ComparisonOperator: string | fn.#Fn
-						FieldToMatch:       close({
+						FieldToMatch:       {
 							AllQueryArguments?: {
 								[string]: _
 							} | fn.#Fn
@@ -3592,15 +3592,15 @@ import "github.com/TangoGroup/aws/fn"
 							UriPath?: {
 								[string]: _
 							} | fn.#Fn
-						}) | fn.If
+						} | fn.#If
 						Size:                int | fn.#Fn
-						TextTransformations: [...close({
+						TextTransformations: [...{
 							Priority: int | fn.#Fn
 							Type:     string | fn.#Fn
-						})] | fn.If
-					}) | fn.If
-					SqliMatchStatement?: close({
-						FieldToMatch: close({
+						}] | fn.#If
+					} | fn.#If
+					SqliMatchStatement?: {
+						FieldToMatch: {
 							AllQueryArguments?: {
 								[string]: _
 							} | fn.#Fn
@@ -3622,14 +3622,14 @@ import "github.com/TangoGroup/aws/fn"
 							UriPath?: {
 								[string]: _
 							} | fn.#Fn
-						}) | fn.If
-						TextTransformations: [...close({
+						} | fn.#If
+						TextTransformations: [...{
 							Priority: int | fn.#Fn
 							Type:     string | fn.#Fn
-						})] | fn.If
-					}) | fn.If
-					XssMatchStatement?: close({
-						FieldToMatch: close({
+						}] | fn.#If
+					} | fn.#If
+					XssMatchStatement?: {
+						FieldToMatch: {
 							AllQueryArguments?: {
 								[string]: _
 							} | fn.#Fn
@@ -3651,30 +3651,30 @@ import "github.com/TangoGroup/aws/fn"
 							UriPath?: {
 								[string]: _
 							} | fn.#Fn
-						}) | fn.If
-						TextTransformations: [...close({
+						} | fn.#If
+						TextTransformations: [...{
 							Priority: int | fn.#Fn
 							Type:     string | fn.#Fn
-						})] | fn.If
-					}) | fn.If
-				}) | fn.If
-				VisibilityConfig: close({
+						}] | fn.#If
+					} | fn.#If
+				} | fn.#If
+				VisibilityConfig: {
 					CloudWatchMetricsEnabled: bool | fn.#Fn
 					MetricName:               string | fn.#Fn
 					SampledRequestsEnabled:   bool | fn.#Fn
-				}) | fn.If
-			})] | fn.If
+				} | fn.#If
+			}] | fn.#If
 			Scope: string | fn.#Fn
-			Tags?: [...close({
+			Tags?: [...{
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			})] | fn.If
-			VisibilityConfig: close({
+			}] | fn.#If
+			VisibilityConfig: {
 				CloudWatchMetricsEnabled: bool | fn.#Fn
 				MetricName:               string | fn.#Fn
 				SampledRequestsEnabled:   bool | fn.#Fn
-			}) | fn.If
-		})
+			} | fn.#If
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -3682,20 +3682,20 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#WebACL: {
-		Type:       "AWS::WAFv2::WebACL"
-		Properties: close({
-			DefaultAction: close({
+		Type: "AWS::WAFv2::WebACL"
+		Properties: {
+			DefaultAction: {
 				Allow?: {
 					[string]: _
 				} | fn.#Fn
 				Block?: {
 					[string]: _
 				} | fn.#Fn
-			}) | fn.If
+			} | fn.#If
 			Description?: string | fn.#Fn
 			Name?:        string | fn.#Fn
-			Rules?:       [...close({
-				Action?: close({
+			Rules?:       [...{
+				Action?: {
 					Allow?: {
 						[string]: _
 					} | fn.#Fn
@@ -3705,24 +3705,24 @@ import "github.com/TangoGroup/aws/fn"
 					Count?: {
 						[string]: _
 					} | fn.#Fn
-				}) | fn.If
+				} | fn.#If
 				Name:            string | fn.#Fn
-				OverrideAction?: close({
+				OverrideAction?: {
 					Count?: {
 						[string]: _
 					} | fn.#Fn
 					None?: {
 						[string]: _
 					} | fn.#Fn
-				}) | fn.If
+				} | fn.#If
 				Priority:  int | fn.#Fn
-				Statement: close({
-					AndStatement?: close({
-						Statements: [...close({
-							AndStatement?: close({
-								Statements: [...close({
-									ByteMatchStatement?: close({
-										FieldToMatch: close({
+				Statement: {
+					AndStatement?: {
+						Statements: [...{
+							AndStatement?: {
+								Statements: [...{
+									ByteMatchStatement?: {
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -3744,40 +3744,40 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
+										} | fn.#If
 										PositionalConstraint: string | fn.#Fn
 										SearchString?:        string | fn.#Fn
 										SearchStringBase64?:  string | fn.#Fn
-										TextTransformations:  [...close({
+										TextTransformations:  [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									GeoMatchStatement?: close({
+										}] | fn.#If
+									} | fn.#If
+									GeoMatchStatement?: {
 										CountryCodes?:      [...(string | fn.#Fn)] | (string | fn.#Fn)
-										ForwardedIPConfig?: close({
+										ForwardedIPConfig?: {
 											FallbackBehavior: string | fn.#Fn
 											HeaderName:       string | fn.#Fn
-										}) | fn.If
-									}) | fn.If
-									IPSetReferenceStatement?: close({
+										} | fn.#If
+									} | fn.#If
+									IPSetReferenceStatement?: {
 										Arn:                     string | fn.#Fn
-										IPSetForwardedIPConfig?: close({
+										IPSetForwardedIPConfig?: {
 											FallbackBehavior: string | fn.#Fn
 											HeaderName:       string | fn.#Fn
 											Position:         string | fn.#Fn
-										}) | fn.If
-									}) | fn.If
-									ManagedRuleGroupStatement?: close({
-										ExcludedRules?: [...close({
+										} | fn.#If
+									} | fn.#If
+									ManagedRuleGroupStatement?: {
+										ExcludedRules?: [...{
 											Name: string | fn.#Fn
-										})] | fn.If
+										}] | fn.#If
 										Name:       string | fn.#Fn
 										VendorName: string | fn.#Fn
-									}) | fn.If
-									RegexPatternSetReferenceStatement?: close({
+									} | fn.#If
+									RegexPatternSetReferenceStatement?: {
 										Arn:          string | fn.#Fn
-										FieldToMatch: close({
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -3799,21 +3799,21 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
-										TextTransformations: [...close({
+										} | fn.#If
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									RuleGroupReferenceStatement?: close({
+										}] | fn.#If
+									} | fn.#If
+									RuleGroupReferenceStatement?: {
 										Arn:            string | fn.#Fn
-										ExcludedRules?: [...close({
+										ExcludedRules?: [...{
 											Name: string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									SizeConstraintStatement?: close({
+										}] | fn.#If
+									} | fn.#If
+									SizeConstraintStatement?: {
 										ComparisonOperator: string | fn.#Fn
-										FieldToMatch:       close({
+										FieldToMatch:       {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -3835,15 +3835,15 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
+										} | fn.#If
 										Size:                int | fn.#Fn
-										TextTransformations: [...close({
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									SqliMatchStatement?: close({
-										FieldToMatch: close({
+										}] | fn.#If
+									} | fn.#If
+									SqliMatchStatement?: {
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -3865,14 +3865,14 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
-										TextTransformations: [...close({
+										} | fn.#If
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									XssMatchStatement?: close({
-										FieldToMatch: close({
+										}] | fn.#If
+									} | fn.#If
+									XssMatchStatement?: {
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -3894,16 +3894,16 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
-										TextTransformations: [...close({
+										} | fn.#If
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-								})] | fn.If
-							}) | fn.If
-							ByteMatchStatement?: close({
-								FieldToMatch: close({
+										}] | fn.#If
+									} | fn.#If
+								}] | fn.#If
+							} | fn.#If
+							ByteMatchStatement?: {
+								FieldToMatch: {
 									AllQueryArguments?: {
 										[string]: _
 									} | fn.#Fn
@@ -3925,41 +3925,41 @@ import "github.com/TangoGroup/aws/fn"
 									UriPath?: {
 										[string]: _
 									} | fn.#Fn
-								}) | fn.If
+								} | fn.#If
 								PositionalConstraint: string | fn.#Fn
 								SearchString?:        string | fn.#Fn
 								SearchStringBase64?:  string | fn.#Fn
-								TextTransformations:  [...close({
+								TextTransformations:  [...{
 									Priority: int | fn.#Fn
 									Type:     string | fn.#Fn
-								})] | fn.If
-							}) | fn.If
-							GeoMatchStatement?: close({
+								}] | fn.#If
+							} | fn.#If
+							GeoMatchStatement?: {
 								CountryCodes?:      [...(string | fn.#Fn)] | (string | fn.#Fn)
-								ForwardedIPConfig?: close({
+								ForwardedIPConfig?: {
 									FallbackBehavior: string | fn.#Fn
 									HeaderName:       string | fn.#Fn
-								}) | fn.If
-							}) | fn.If
-							IPSetReferenceStatement?: close({
+								} | fn.#If
+							} | fn.#If
+							IPSetReferenceStatement?: {
 								Arn:                     string | fn.#Fn
-								IPSetForwardedIPConfig?: close({
+								IPSetForwardedIPConfig?: {
 									FallbackBehavior: string | fn.#Fn
 									HeaderName:       string | fn.#Fn
 									Position:         string | fn.#Fn
-								}) | fn.If
-							}) | fn.If
-							ManagedRuleGroupStatement?: close({
-								ExcludedRules?: [...close({
+								} | fn.#If
+							} | fn.#If
+							ManagedRuleGroupStatement?: {
+								ExcludedRules?: [...{
 									Name: string | fn.#Fn
-								})] | fn.If
+								}] | fn.#If
 								Name:       string | fn.#Fn
 								VendorName: string | fn.#Fn
-							}) | fn.If
-							NotStatement?: close({
-								Statement: close({
-									ByteMatchStatement?: close({
-										FieldToMatch: close({
+							} | fn.#If
+							NotStatement?: {
+								Statement: {
+									ByteMatchStatement?: {
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -3981,40 +3981,40 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
+										} | fn.#If
 										PositionalConstraint: string | fn.#Fn
 										SearchString?:        string | fn.#Fn
 										SearchStringBase64?:  string | fn.#Fn
-										TextTransformations:  [...close({
+										TextTransformations:  [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									GeoMatchStatement?: close({
+										}] | fn.#If
+									} | fn.#If
+									GeoMatchStatement?: {
 										CountryCodes?:      [...(string | fn.#Fn)] | (string | fn.#Fn)
-										ForwardedIPConfig?: close({
+										ForwardedIPConfig?: {
 											FallbackBehavior: string | fn.#Fn
 											HeaderName:       string | fn.#Fn
-										}) | fn.If
-									}) | fn.If
-									IPSetReferenceStatement?: close({
+										} | fn.#If
+									} | fn.#If
+									IPSetReferenceStatement?: {
 										Arn:                     string | fn.#Fn
-										IPSetForwardedIPConfig?: close({
+										IPSetForwardedIPConfig?: {
 											FallbackBehavior: string | fn.#Fn
 											HeaderName:       string | fn.#Fn
 											Position:         string | fn.#Fn
-										}) | fn.If
-									}) | fn.If
-									ManagedRuleGroupStatement?: close({
-										ExcludedRules?: [...close({
+										} | fn.#If
+									} | fn.#If
+									ManagedRuleGroupStatement?: {
+										ExcludedRules?: [...{
 											Name: string | fn.#Fn
-										})] | fn.If
+										}] | fn.#If
 										Name:       string | fn.#Fn
 										VendorName: string | fn.#Fn
-									}) | fn.If
-									RegexPatternSetReferenceStatement?: close({
+									} | fn.#If
+									RegexPatternSetReferenceStatement?: {
 										Arn:          string | fn.#Fn
-										FieldToMatch: close({
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -4036,21 +4036,21 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
-										TextTransformations: [...close({
+										} | fn.#If
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									RuleGroupReferenceStatement?: close({
+										}] | fn.#If
+									} | fn.#If
+									RuleGroupReferenceStatement?: {
 										Arn:            string | fn.#Fn
-										ExcludedRules?: [...close({
+										ExcludedRules?: [...{
 											Name: string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									SizeConstraintStatement?: close({
+										}] | fn.#If
+									} | fn.#If
+									SizeConstraintStatement?: {
 										ComparisonOperator: string | fn.#Fn
-										FieldToMatch:       close({
+										FieldToMatch:       {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -4072,15 +4072,15 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
+										} | fn.#If
 										Size:                int | fn.#Fn
-										TextTransformations: [...close({
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									SqliMatchStatement?: close({
-										FieldToMatch: close({
+										}] | fn.#If
+									} | fn.#If
+									SqliMatchStatement?: {
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -4102,14 +4102,14 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
-										TextTransformations: [...close({
+										} | fn.#If
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									XssMatchStatement?: close({
-										FieldToMatch: close({
+										}] | fn.#If
+									} | fn.#If
+									XssMatchStatement?: {
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -4131,18 +4131,18 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
-										TextTransformations: [...close({
+										} | fn.#If
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-								}) | fn.If
-							}) | fn.If
-							OrStatement?: close({
-								Statements: [...close({
-									ByteMatchStatement?: close({
-										FieldToMatch: close({
+										}] | fn.#If
+									} | fn.#If
+								} | fn.#If
+							} | fn.#If
+							OrStatement?: {
+								Statements: [...{
+									ByteMatchStatement?: {
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -4164,40 +4164,40 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
+										} | fn.#If
 										PositionalConstraint: string | fn.#Fn
 										SearchString?:        string | fn.#Fn
 										SearchStringBase64?:  string | fn.#Fn
-										TextTransformations:  [...close({
+										TextTransformations:  [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									GeoMatchStatement?: close({
+										}] | fn.#If
+									} | fn.#If
+									GeoMatchStatement?: {
 										CountryCodes?:      [...(string | fn.#Fn)] | (string | fn.#Fn)
-										ForwardedIPConfig?: close({
+										ForwardedIPConfig?: {
 											FallbackBehavior: string | fn.#Fn
 											HeaderName:       string | fn.#Fn
-										}) | fn.If
-									}) | fn.If
-									IPSetReferenceStatement?: close({
+										} | fn.#If
+									} | fn.#If
+									IPSetReferenceStatement?: {
 										Arn:                     string | fn.#Fn
-										IPSetForwardedIPConfig?: close({
+										IPSetForwardedIPConfig?: {
 											FallbackBehavior: string | fn.#Fn
 											HeaderName:       string | fn.#Fn
 											Position:         string | fn.#Fn
-										}) | fn.If
-									}) | fn.If
-									ManagedRuleGroupStatement?: close({
-										ExcludedRules?: [...close({
+										} | fn.#If
+									} | fn.#If
+									ManagedRuleGroupStatement?: {
+										ExcludedRules?: [...{
 											Name: string | fn.#Fn
-										})] | fn.If
+										}] | fn.#If
 										Name:       string | fn.#Fn
 										VendorName: string | fn.#Fn
-									}) | fn.If
-									RegexPatternSetReferenceStatement?: close({
+									} | fn.#If
+									RegexPatternSetReferenceStatement?: {
 										Arn:          string | fn.#Fn
-										FieldToMatch: close({
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -4219,21 +4219,21 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
-										TextTransformations: [...close({
+										} | fn.#If
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									RuleGroupReferenceStatement?: close({
+										}] | fn.#If
+									} | fn.#If
+									RuleGroupReferenceStatement?: {
 										Arn:            string | fn.#Fn
-										ExcludedRules?: [...close({
+										ExcludedRules?: [...{
 											Name: string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									SizeConstraintStatement?: close({
+										}] | fn.#If
+									} | fn.#If
+									SizeConstraintStatement?: {
 										ComparisonOperator: string | fn.#Fn
-										FieldToMatch:       close({
+										FieldToMatch:       {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -4255,15 +4255,15 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
+										} | fn.#If
 										Size:                int | fn.#Fn
-										TextTransformations: [...close({
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									SqliMatchStatement?: close({
-										FieldToMatch: close({
+										}] | fn.#If
+									} | fn.#If
+									SqliMatchStatement?: {
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -4285,14 +4285,14 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
-										TextTransformations: [...close({
+										} | fn.#If
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									XssMatchStatement?: close({
-										FieldToMatch: close({
+										}] | fn.#If
+									} | fn.#If
+									XssMatchStatement?: {
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -4314,24 +4314,24 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
-										TextTransformations: [...close({
+										} | fn.#If
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-								})] | fn.If
-							}) | fn.If
-							RateBasedStatement?: close({
+										}] | fn.#If
+									} | fn.#If
+								}] | fn.#If
+							} | fn.#If
+							RateBasedStatement?: {
 								AggregateKeyType:   ("FORWARDED_IP" | "IP") | fn.#Fn
-								ForwardedIPConfig?: close({
+								ForwardedIPConfig?: {
 									FallbackBehavior: string | fn.#Fn
 									HeaderName:       string | fn.#Fn
-								}) | fn.If
+								} | fn.#If
 								Limit:               (>=100 & <=20000000) | fn.#Fn
-								ScopeDownStatement?: close({
-									ByteMatchStatement?: close({
-										FieldToMatch: close({
+								ScopeDownStatement?: {
+									ByteMatchStatement?: {
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -4353,40 +4353,40 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
+										} | fn.#If
 										PositionalConstraint: string | fn.#Fn
 										SearchString?:        string | fn.#Fn
 										SearchStringBase64?:  string | fn.#Fn
-										TextTransformations:  [...close({
+										TextTransformations:  [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									GeoMatchStatement?: close({
+										}] | fn.#If
+									} | fn.#If
+									GeoMatchStatement?: {
 										CountryCodes?:      [...(string | fn.#Fn)] | (string | fn.#Fn)
-										ForwardedIPConfig?: close({
+										ForwardedIPConfig?: {
 											FallbackBehavior: string | fn.#Fn
 											HeaderName:       string | fn.#Fn
-										}) | fn.If
-									}) | fn.If
-									IPSetReferenceStatement?: close({
+										} | fn.#If
+									} | fn.#If
+									IPSetReferenceStatement?: {
 										Arn:                     string | fn.#Fn
-										IPSetForwardedIPConfig?: close({
+										IPSetForwardedIPConfig?: {
 											FallbackBehavior: string | fn.#Fn
 											HeaderName:       string | fn.#Fn
 											Position:         string | fn.#Fn
-										}) | fn.If
-									}) | fn.If
-									ManagedRuleGroupStatement?: close({
-										ExcludedRules?: [...close({
+										} | fn.#If
+									} | fn.#If
+									ManagedRuleGroupStatement?: {
+										ExcludedRules?: [...{
 											Name: string | fn.#Fn
-										})] | fn.If
+										}] | fn.#If
 										Name:       string | fn.#Fn
 										VendorName: string | fn.#Fn
-									}) | fn.If
-									RegexPatternSetReferenceStatement?: close({
+									} | fn.#If
+									RegexPatternSetReferenceStatement?: {
 										Arn:          string | fn.#Fn
-										FieldToMatch: close({
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -4408,21 +4408,21 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
-										TextTransformations: [...close({
+										} | fn.#If
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									RuleGroupReferenceStatement?: close({
+										}] | fn.#If
+									} | fn.#If
+									RuleGroupReferenceStatement?: {
 										Arn:            string | fn.#Fn
-										ExcludedRules?: [...close({
+										ExcludedRules?: [...{
 											Name: string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									SizeConstraintStatement?: close({
+										}] | fn.#If
+									} | fn.#If
+									SizeConstraintStatement?: {
 										ComparisonOperator: string | fn.#Fn
-										FieldToMatch:       close({
+										FieldToMatch:       {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -4444,15 +4444,15 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
+										} | fn.#If
 										Size:                int | fn.#Fn
-										TextTransformations: [...close({
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									SqliMatchStatement?: close({
-										FieldToMatch: close({
+										}] | fn.#If
+									} | fn.#If
+									SqliMatchStatement?: {
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -4474,14 +4474,14 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
-										TextTransformations: [...close({
+										} | fn.#If
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									XssMatchStatement?: close({
-										FieldToMatch: close({
+										}] | fn.#If
+									} | fn.#If
+									XssMatchStatement?: {
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -4503,17 +4503,17 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
-										TextTransformations: [...close({
+										} | fn.#If
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-								}) | fn.If
-							}) | fn.If
-							RegexPatternSetReferenceStatement?: close({
+										}] | fn.#If
+									} | fn.#If
+								} | fn.#If
+							} | fn.#If
+							RegexPatternSetReferenceStatement?: {
 								Arn:          string | fn.#Fn
-								FieldToMatch: close({
+								FieldToMatch: {
 									AllQueryArguments?: {
 										[string]: _
 									} | fn.#Fn
@@ -4535,21 +4535,21 @@ import "github.com/TangoGroup/aws/fn"
 									UriPath?: {
 										[string]: _
 									} | fn.#Fn
-								}) | fn.If
-								TextTransformations: [...close({
+								} | fn.#If
+								TextTransformations: [...{
 									Priority: int | fn.#Fn
 									Type:     string | fn.#Fn
-								})] | fn.If
-							}) | fn.If
-							RuleGroupReferenceStatement?: close({
+								}] | fn.#If
+							} | fn.#If
+							RuleGroupReferenceStatement?: {
 								Arn:            string | fn.#Fn
-								ExcludedRules?: [...close({
+								ExcludedRules?: [...{
 									Name: string | fn.#Fn
-								})] | fn.If
-							}) | fn.If
-							SizeConstraintStatement?: close({
+								}] | fn.#If
+							} | fn.#If
+							SizeConstraintStatement?: {
 								ComparisonOperator: string | fn.#Fn
-								FieldToMatch:       close({
+								FieldToMatch:       {
 									AllQueryArguments?: {
 										[string]: _
 									} | fn.#Fn
@@ -4571,15 +4571,15 @@ import "github.com/TangoGroup/aws/fn"
 									UriPath?: {
 										[string]: _
 									} | fn.#Fn
-								}) | fn.If
+								} | fn.#If
 								Size:                int | fn.#Fn
-								TextTransformations: [...close({
+								TextTransformations: [...{
 									Priority: int | fn.#Fn
 									Type:     string | fn.#Fn
-								})] | fn.If
-							}) | fn.If
-							SqliMatchStatement?: close({
-								FieldToMatch: close({
+								}] | fn.#If
+							} | fn.#If
+							SqliMatchStatement?: {
+								FieldToMatch: {
 									AllQueryArguments?: {
 										[string]: _
 									} | fn.#Fn
@@ -4601,14 +4601,14 @@ import "github.com/TangoGroup/aws/fn"
 									UriPath?: {
 										[string]: _
 									} | fn.#Fn
-								}) | fn.If
-								TextTransformations: [...close({
+								} | fn.#If
+								TextTransformations: [...{
 									Priority: int | fn.#Fn
 									Type:     string | fn.#Fn
-								})] | fn.If
-							}) | fn.If
-							XssMatchStatement?: close({
-								FieldToMatch: close({
+								}] | fn.#If
+							} | fn.#If
+							XssMatchStatement?: {
+								FieldToMatch: {
 									AllQueryArguments?: {
 										[string]: _
 									} | fn.#Fn
@@ -4630,16 +4630,16 @@ import "github.com/TangoGroup/aws/fn"
 									UriPath?: {
 										[string]: _
 									} | fn.#Fn
-								}) | fn.If
-								TextTransformations: [...close({
+								} | fn.#If
+								TextTransformations: [...{
 									Priority: int | fn.#Fn
 									Type:     string | fn.#Fn
-								})] | fn.If
-							}) | fn.If
-						})] | fn.If
-					}) | fn.If
-					ByteMatchStatement?: close({
-						FieldToMatch: close({
+								}] | fn.#If
+							} | fn.#If
+						}] | fn.#If
+					} | fn.#If
+					ByteMatchStatement?: {
+						FieldToMatch: {
 							AllQueryArguments?: {
 								[string]: _
 							} | fn.#Fn
@@ -4661,43 +4661,43 @@ import "github.com/TangoGroup/aws/fn"
 							UriPath?: {
 								[string]: _
 							} | fn.#Fn
-						}) | fn.If
+						} | fn.#If
 						PositionalConstraint: string | fn.#Fn
 						SearchString?:        string | fn.#Fn
 						SearchStringBase64?:  string | fn.#Fn
-						TextTransformations:  [...close({
+						TextTransformations:  [...{
 							Priority: int | fn.#Fn
 							Type:     string | fn.#Fn
-						})] | fn.If
-					}) | fn.If
-					GeoMatchStatement?: close({
+						}] | fn.#If
+					} | fn.#If
+					GeoMatchStatement?: {
 						CountryCodes?:      [...(string | fn.#Fn)] | (string | fn.#Fn)
-						ForwardedIPConfig?: close({
+						ForwardedIPConfig?: {
 							FallbackBehavior: string | fn.#Fn
 							HeaderName:       string | fn.#Fn
-						}) | fn.If
-					}) | fn.If
-					IPSetReferenceStatement?: close({
+						} | fn.#If
+					} | fn.#If
+					IPSetReferenceStatement?: {
 						Arn:                     string | fn.#Fn
-						IPSetForwardedIPConfig?: close({
+						IPSetForwardedIPConfig?: {
 							FallbackBehavior: string | fn.#Fn
 							HeaderName:       string | fn.#Fn
 							Position:         string | fn.#Fn
-						}) | fn.If
-					}) | fn.If
-					ManagedRuleGroupStatement?: close({
-						ExcludedRules?: [...close({
+						} | fn.#If
+					} | fn.#If
+					ManagedRuleGroupStatement?: {
+						ExcludedRules?: [...{
 							Name: string | fn.#Fn
-						})] | fn.If
+						}] | fn.#If
 						Name:       string | fn.#Fn
 						VendorName: string | fn.#Fn
-					}) | fn.If
-					NotStatement?: close({
-						Statement: close({
-							AndStatement?: close({
-								Statements: [...close({
-									ByteMatchStatement?: close({
-										FieldToMatch: close({
+					} | fn.#If
+					NotStatement?: {
+						Statement: {
+							AndStatement?: {
+								Statements: [...{
+									ByteMatchStatement?: {
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -4719,40 +4719,40 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
+										} | fn.#If
 										PositionalConstraint: string | fn.#Fn
 										SearchString?:        string | fn.#Fn
 										SearchStringBase64?:  string | fn.#Fn
-										TextTransformations:  [...close({
+										TextTransformations:  [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									GeoMatchStatement?: close({
+										}] | fn.#If
+									} | fn.#If
+									GeoMatchStatement?: {
 										CountryCodes?:      [...(string | fn.#Fn)] | (string | fn.#Fn)
-										ForwardedIPConfig?: close({
+										ForwardedIPConfig?: {
 											FallbackBehavior: string | fn.#Fn
 											HeaderName:       string | fn.#Fn
-										}) | fn.If
-									}) | fn.If
-									IPSetReferenceStatement?: close({
+										} | fn.#If
+									} | fn.#If
+									IPSetReferenceStatement?: {
 										Arn:                     string | fn.#Fn
-										IPSetForwardedIPConfig?: close({
+										IPSetForwardedIPConfig?: {
 											FallbackBehavior: string | fn.#Fn
 											HeaderName:       string | fn.#Fn
 											Position:         string | fn.#Fn
-										}) | fn.If
-									}) | fn.If
-									ManagedRuleGroupStatement?: close({
-										ExcludedRules?: [...close({
+										} | fn.#If
+									} | fn.#If
+									ManagedRuleGroupStatement?: {
+										ExcludedRules?: [...{
 											Name: string | fn.#Fn
-										})] | fn.If
+										}] | fn.#If
 										Name:       string | fn.#Fn
 										VendorName: string | fn.#Fn
-									}) | fn.If
-									RegexPatternSetReferenceStatement?: close({
+									} | fn.#If
+									RegexPatternSetReferenceStatement?: {
 										Arn:          string | fn.#Fn
-										FieldToMatch: close({
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -4774,21 +4774,21 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
-										TextTransformations: [...close({
+										} | fn.#If
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									RuleGroupReferenceStatement?: close({
+										}] | fn.#If
+									} | fn.#If
+									RuleGroupReferenceStatement?: {
 										Arn:            string | fn.#Fn
-										ExcludedRules?: [...close({
+										ExcludedRules?: [...{
 											Name: string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									SizeConstraintStatement?: close({
+										}] | fn.#If
+									} | fn.#If
+									SizeConstraintStatement?: {
 										ComparisonOperator: string | fn.#Fn
-										FieldToMatch:       close({
+										FieldToMatch:       {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -4810,15 +4810,15 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
+										} | fn.#If
 										Size:                int | fn.#Fn
-										TextTransformations: [...close({
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									SqliMatchStatement?: close({
-										FieldToMatch: close({
+										}] | fn.#If
+									} | fn.#If
+									SqliMatchStatement?: {
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -4840,14 +4840,14 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
-										TextTransformations: [...close({
+										} | fn.#If
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									XssMatchStatement?: close({
-										FieldToMatch: close({
+										}] | fn.#If
+									} | fn.#If
+									XssMatchStatement?: {
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -4869,16 +4869,16 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
-										TextTransformations: [...close({
+										} | fn.#If
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-								})] | fn.If
-							}) | fn.If
-							ByteMatchStatement?: close({
-								FieldToMatch: close({
+										}] | fn.#If
+									} | fn.#If
+								}] | fn.#If
+							} | fn.#If
+							ByteMatchStatement?: {
+								FieldToMatch: {
 									AllQueryArguments?: {
 										[string]: _
 									} | fn.#Fn
@@ -4900,41 +4900,41 @@ import "github.com/TangoGroup/aws/fn"
 									UriPath?: {
 										[string]: _
 									} | fn.#Fn
-								}) | fn.If
+								} | fn.#If
 								PositionalConstraint: string | fn.#Fn
 								SearchString?:        string | fn.#Fn
 								SearchStringBase64?:  string | fn.#Fn
-								TextTransformations:  [...close({
+								TextTransformations:  [...{
 									Priority: int | fn.#Fn
 									Type:     string | fn.#Fn
-								})] | fn.If
-							}) | fn.If
-							GeoMatchStatement?: close({
+								}] | fn.#If
+							} | fn.#If
+							GeoMatchStatement?: {
 								CountryCodes?:      [...(string | fn.#Fn)] | (string | fn.#Fn)
-								ForwardedIPConfig?: close({
+								ForwardedIPConfig?: {
 									FallbackBehavior: string | fn.#Fn
 									HeaderName:       string | fn.#Fn
-								}) | fn.If
-							}) | fn.If
-							IPSetReferenceStatement?: close({
+								} | fn.#If
+							} | fn.#If
+							IPSetReferenceStatement?: {
 								Arn:                     string | fn.#Fn
-								IPSetForwardedIPConfig?: close({
+								IPSetForwardedIPConfig?: {
 									FallbackBehavior: string | fn.#Fn
 									HeaderName:       string | fn.#Fn
 									Position:         string | fn.#Fn
-								}) | fn.If
-							}) | fn.If
-							ManagedRuleGroupStatement?: close({
-								ExcludedRules?: [...close({
+								} | fn.#If
+							} | fn.#If
+							ManagedRuleGroupStatement?: {
+								ExcludedRules?: [...{
 									Name: string | fn.#Fn
-								})] | fn.If
+								}] | fn.#If
 								Name:       string | fn.#Fn
 								VendorName: string | fn.#Fn
-							}) | fn.If
-							NotStatement?: close({
-								Statement: close({
-									ByteMatchStatement?: close({
-										FieldToMatch: close({
+							} | fn.#If
+							NotStatement?: {
+								Statement: {
+									ByteMatchStatement?: {
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -4956,40 +4956,40 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
+										} | fn.#If
 										PositionalConstraint: string | fn.#Fn
 										SearchString?:        string | fn.#Fn
 										SearchStringBase64?:  string | fn.#Fn
-										TextTransformations:  [...close({
+										TextTransformations:  [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									GeoMatchStatement?: close({
+										}] | fn.#If
+									} | fn.#If
+									GeoMatchStatement?: {
 										CountryCodes?:      [...(string | fn.#Fn)] | (string | fn.#Fn)
-										ForwardedIPConfig?: close({
+										ForwardedIPConfig?: {
 											FallbackBehavior: string | fn.#Fn
 											HeaderName:       string | fn.#Fn
-										}) | fn.If
-									}) | fn.If
-									IPSetReferenceStatement?: close({
+										} | fn.#If
+									} | fn.#If
+									IPSetReferenceStatement?: {
 										Arn:                     string | fn.#Fn
-										IPSetForwardedIPConfig?: close({
+										IPSetForwardedIPConfig?: {
 											FallbackBehavior: string | fn.#Fn
 											HeaderName:       string | fn.#Fn
 											Position:         string | fn.#Fn
-										}) | fn.If
-									}) | fn.If
-									ManagedRuleGroupStatement?: close({
-										ExcludedRules?: [...close({
+										} | fn.#If
+									} | fn.#If
+									ManagedRuleGroupStatement?: {
+										ExcludedRules?: [...{
 											Name: string | fn.#Fn
-										})] | fn.If
+										}] | fn.#If
 										Name:       string | fn.#Fn
 										VendorName: string | fn.#Fn
-									}) | fn.If
-									RegexPatternSetReferenceStatement?: close({
+									} | fn.#If
+									RegexPatternSetReferenceStatement?: {
 										Arn:          string | fn.#Fn
-										FieldToMatch: close({
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -5011,21 +5011,21 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
-										TextTransformations: [...close({
+										} | fn.#If
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									RuleGroupReferenceStatement?: close({
+										}] | fn.#If
+									} | fn.#If
+									RuleGroupReferenceStatement?: {
 										Arn:            string | fn.#Fn
-										ExcludedRules?: [...close({
+										ExcludedRules?: [...{
 											Name: string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									SizeConstraintStatement?: close({
+										}] | fn.#If
+									} | fn.#If
+									SizeConstraintStatement?: {
 										ComparisonOperator: string | fn.#Fn
-										FieldToMatch:       close({
+										FieldToMatch:       {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -5047,15 +5047,15 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
+										} | fn.#If
 										Size:                int | fn.#Fn
-										TextTransformations: [...close({
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									SqliMatchStatement?: close({
-										FieldToMatch: close({
+										}] | fn.#If
+									} | fn.#If
+									SqliMatchStatement?: {
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -5077,14 +5077,14 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
-										TextTransformations: [...close({
+										} | fn.#If
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									XssMatchStatement?: close({
-										FieldToMatch: close({
+										}] | fn.#If
+									} | fn.#If
+									XssMatchStatement?: {
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -5106,18 +5106,18 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
-										TextTransformations: [...close({
+										} | fn.#If
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-								}) | fn.If
-							}) | fn.If
-							OrStatement?: close({
-								Statements: [...close({
-									ByteMatchStatement?: close({
-										FieldToMatch: close({
+										}] | fn.#If
+									} | fn.#If
+								} | fn.#If
+							} | fn.#If
+							OrStatement?: {
+								Statements: [...{
+									ByteMatchStatement?: {
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -5139,40 +5139,40 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
+										} | fn.#If
 										PositionalConstraint: string | fn.#Fn
 										SearchString?:        string | fn.#Fn
 										SearchStringBase64?:  string | fn.#Fn
-										TextTransformations:  [...close({
+										TextTransformations:  [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									GeoMatchStatement?: close({
+										}] | fn.#If
+									} | fn.#If
+									GeoMatchStatement?: {
 										CountryCodes?:      [...(string | fn.#Fn)] | (string | fn.#Fn)
-										ForwardedIPConfig?: close({
+										ForwardedIPConfig?: {
 											FallbackBehavior: string | fn.#Fn
 											HeaderName:       string | fn.#Fn
-										}) | fn.If
-									}) | fn.If
-									IPSetReferenceStatement?: close({
+										} | fn.#If
+									} | fn.#If
+									IPSetReferenceStatement?: {
 										Arn:                     string | fn.#Fn
-										IPSetForwardedIPConfig?: close({
+										IPSetForwardedIPConfig?: {
 											FallbackBehavior: string | fn.#Fn
 											HeaderName:       string | fn.#Fn
 											Position:         string | fn.#Fn
-										}) | fn.If
-									}) | fn.If
-									ManagedRuleGroupStatement?: close({
-										ExcludedRules?: [...close({
+										} | fn.#If
+									} | fn.#If
+									ManagedRuleGroupStatement?: {
+										ExcludedRules?: [...{
 											Name: string | fn.#Fn
-										})] | fn.If
+										}] | fn.#If
 										Name:       string | fn.#Fn
 										VendorName: string | fn.#Fn
-									}) | fn.If
-									RegexPatternSetReferenceStatement?: close({
+									} | fn.#If
+									RegexPatternSetReferenceStatement?: {
 										Arn:          string | fn.#Fn
-										FieldToMatch: close({
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -5194,21 +5194,21 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
-										TextTransformations: [...close({
+										} | fn.#If
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									RuleGroupReferenceStatement?: close({
+										}] | fn.#If
+									} | fn.#If
+									RuleGroupReferenceStatement?: {
 										Arn:            string | fn.#Fn
-										ExcludedRules?: [...close({
+										ExcludedRules?: [...{
 											Name: string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									SizeConstraintStatement?: close({
+										}] | fn.#If
+									} | fn.#If
+									SizeConstraintStatement?: {
 										ComparisonOperator: string | fn.#Fn
-										FieldToMatch:       close({
+										FieldToMatch:       {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -5230,15 +5230,15 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
+										} | fn.#If
 										Size:                int | fn.#Fn
-										TextTransformations: [...close({
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									SqliMatchStatement?: close({
-										FieldToMatch: close({
+										}] | fn.#If
+									} | fn.#If
+									SqliMatchStatement?: {
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -5260,14 +5260,14 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
-										TextTransformations: [...close({
+										} | fn.#If
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									XssMatchStatement?: close({
-										FieldToMatch: close({
+										}] | fn.#If
+									} | fn.#If
+									XssMatchStatement?: {
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -5289,24 +5289,24 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
-										TextTransformations: [...close({
+										} | fn.#If
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-								})] | fn.If
-							}) | fn.If
-							RateBasedStatement?: close({
+										}] | fn.#If
+									} | fn.#If
+								}] | fn.#If
+							} | fn.#If
+							RateBasedStatement?: {
 								AggregateKeyType:   ("FORWARDED_IP" | "IP") | fn.#Fn
-								ForwardedIPConfig?: close({
+								ForwardedIPConfig?: {
 									FallbackBehavior: string | fn.#Fn
 									HeaderName:       string | fn.#Fn
-								}) | fn.If
+								} | fn.#If
 								Limit:               (>=100 & <=20000000) | fn.#Fn
-								ScopeDownStatement?: close({
-									ByteMatchStatement?: close({
-										FieldToMatch: close({
+								ScopeDownStatement?: {
+									ByteMatchStatement?: {
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -5328,40 +5328,40 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
+										} | fn.#If
 										PositionalConstraint: string | fn.#Fn
 										SearchString?:        string | fn.#Fn
 										SearchStringBase64?:  string | fn.#Fn
-										TextTransformations:  [...close({
+										TextTransformations:  [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									GeoMatchStatement?: close({
+										}] | fn.#If
+									} | fn.#If
+									GeoMatchStatement?: {
 										CountryCodes?:      [...(string | fn.#Fn)] | (string | fn.#Fn)
-										ForwardedIPConfig?: close({
+										ForwardedIPConfig?: {
 											FallbackBehavior: string | fn.#Fn
 											HeaderName:       string | fn.#Fn
-										}) | fn.If
-									}) | fn.If
-									IPSetReferenceStatement?: close({
+										} | fn.#If
+									} | fn.#If
+									IPSetReferenceStatement?: {
 										Arn:                     string | fn.#Fn
-										IPSetForwardedIPConfig?: close({
+										IPSetForwardedIPConfig?: {
 											FallbackBehavior: string | fn.#Fn
 											HeaderName:       string | fn.#Fn
 											Position:         string | fn.#Fn
-										}) | fn.If
-									}) | fn.If
-									ManagedRuleGroupStatement?: close({
-										ExcludedRules?: [...close({
+										} | fn.#If
+									} | fn.#If
+									ManagedRuleGroupStatement?: {
+										ExcludedRules?: [...{
 											Name: string | fn.#Fn
-										})] | fn.If
+										}] | fn.#If
 										Name:       string | fn.#Fn
 										VendorName: string | fn.#Fn
-									}) | fn.If
-									RegexPatternSetReferenceStatement?: close({
+									} | fn.#If
+									RegexPatternSetReferenceStatement?: {
 										Arn:          string | fn.#Fn
-										FieldToMatch: close({
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -5383,21 +5383,21 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
-										TextTransformations: [...close({
+										} | fn.#If
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									RuleGroupReferenceStatement?: close({
+										}] | fn.#If
+									} | fn.#If
+									RuleGroupReferenceStatement?: {
 										Arn:            string | fn.#Fn
-										ExcludedRules?: [...close({
+										ExcludedRules?: [...{
 											Name: string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									SizeConstraintStatement?: close({
+										}] | fn.#If
+									} | fn.#If
+									SizeConstraintStatement?: {
 										ComparisonOperator: string | fn.#Fn
-										FieldToMatch:       close({
+										FieldToMatch:       {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -5419,15 +5419,15 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
+										} | fn.#If
 										Size:                int | fn.#Fn
-										TextTransformations: [...close({
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									SqliMatchStatement?: close({
-										FieldToMatch: close({
+										}] | fn.#If
+									} | fn.#If
+									SqliMatchStatement?: {
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -5449,14 +5449,14 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
-										TextTransformations: [...close({
+										} | fn.#If
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									XssMatchStatement?: close({
-										FieldToMatch: close({
+										}] | fn.#If
+									} | fn.#If
+									XssMatchStatement?: {
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -5478,17 +5478,17 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
-										TextTransformations: [...close({
+										} | fn.#If
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-								}) | fn.If
-							}) | fn.If
-							RegexPatternSetReferenceStatement?: close({
+										}] | fn.#If
+									} | fn.#If
+								} | fn.#If
+							} | fn.#If
+							RegexPatternSetReferenceStatement?: {
 								Arn:          string | fn.#Fn
-								FieldToMatch: close({
+								FieldToMatch: {
 									AllQueryArguments?: {
 										[string]: _
 									} | fn.#Fn
@@ -5510,21 +5510,21 @@ import "github.com/TangoGroup/aws/fn"
 									UriPath?: {
 										[string]: _
 									} | fn.#Fn
-								}) | fn.If
-								TextTransformations: [...close({
+								} | fn.#If
+								TextTransformations: [...{
 									Priority: int | fn.#Fn
 									Type:     string | fn.#Fn
-								})] | fn.If
-							}) | fn.If
-							RuleGroupReferenceStatement?: close({
+								}] | fn.#If
+							} | fn.#If
+							RuleGroupReferenceStatement?: {
 								Arn:            string | fn.#Fn
-								ExcludedRules?: [...close({
+								ExcludedRules?: [...{
 									Name: string | fn.#Fn
-								})] | fn.If
-							}) | fn.If
-							SizeConstraintStatement?: close({
+								}] | fn.#If
+							} | fn.#If
+							SizeConstraintStatement?: {
 								ComparisonOperator: string | fn.#Fn
-								FieldToMatch:       close({
+								FieldToMatch:       {
 									AllQueryArguments?: {
 										[string]: _
 									} | fn.#Fn
@@ -5546,15 +5546,15 @@ import "github.com/TangoGroup/aws/fn"
 									UriPath?: {
 										[string]: _
 									} | fn.#Fn
-								}) | fn.If
+								} | fn.#If
 								Size:                int | fn.#Fn
-								TextTransformations: [...close({
+								TextTransformations: [...{
 									Priority: int | fn.#Fn
 									Type:     string | fn.#Fn
-								})] | fn.If
-							}) | fn.If
-							SqliMatchStatement?: close({
-								FieldToMatch: close({
+								}] | fn.#If
+							} | fn.#If
+							SqliMatchStatement?: {
+								FieldToMatch: {
 									AllQueryArguments?: {
 										[string]: _
 									} | fn.#Fn
@@ -5576,14 +5576,14 @@ import "github.com/TangoGroup/aws/fn"
 									UriPath?: {
 										[string]: _
 									} | fn.#Fn
-								}) | fn.If
-								TextTransformations: [...close({
+								} | fn.#If
+								TextTransformations: [...{
 									Priority: int | fn.#Fn
 									Type:     string | fn.#Fn
-								})] | fn.If
-							}) | fn.If
-							XssMatchStatement?: close({
-								FieldToMatch: close({
+								}] | fn.#If
+							} | fn.#If
+							XssMatchStatement?: {
+								FieldToMatch: {
 									AllQueryArguments?: {
 										[string]: _
 									} | fn.#Fn
@@ -5605,20 +5605,20 @@ import "github.com/TangoGroup/aws/fn"
 									UriPath?: {
 										[string]: _
 									} | fn.#Fn
-								}) | fn.If
-								TextTransformations: [...close({
+								} | fn.#If
+								TextTransformations: [...{
 									Priority: int | fn.#Fn
 									Type:     string | fn.#Fn
-								})] | fn.If
-							}) | fn.If
-						}) | fn.If
-					}) | fn.If
-					OrStatement?: close({
-						Statements: [...close({
-							AndStatement?: close({
-								Statements: [...close({
-									ByteMatchStatement?: close({
-										FieldToMatch: close({
+								}] | fn.#If
+							} | fn.#If
+						} | fn.#If
+					} | fn.#If
+					OrStatement?: {
+						Statements: [...{
+							AndStatement?: {
+								Statements: [...{
+									ByteMatchStatement?: {
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -5640,40 +5640,40 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
+										} | fn.#If
 										PositionalConstraint: string | fn.#Fn
 										SearchString?:        string | fn.#Fn
 										SearchStringBase64?:  string | fn.#Fn
-										TextTransformations:  [...close({
+										TextTransformations:  [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									GeoMatchStatement?: close({
+										}] | fn.#If
+									} | fn.#If
+									GeoMatchStatement?: {
 										CountryCodes?:      [...(string | fn.#Fn)] | (string | fn.#Fn)
-										ForwardedIPConfig?: close({
+										ForwardedIPConfig?: {
 											FallbackBehavior: string | fn.#Fn
 											HeaderName:       string | fn.#Fn
-										}) | fn.If
-									}) | fn.If
-									IPSetReferenceStatement?: close({
+										} | fn.#If
+									} | fn.#If
+									IPSetReferenceStatement?: {
 										Arn:                     string | fn.#Fn
-										IPSetForwardedIPConfig?: close({
+										IPSetForwardedIPConfig?: {
 											FallbackBehavior: string | fn.#Fn
 											HeaderName:       string | fn.#Fn
 											Position:         string | fn.#Fn
-										}) | fn.If
-									}) | fn.If
-									ManagedRuleGroupStatement?: close({
-										ExcludedRules?: [...close({
+										} | fn.#If
+									} | fn.#If
+									ManagedRuleGroupStatement?: {
+										ExcludedRules?: [...{
 											Name: string | fn.#Fn
-										})] | fn.If
+										}] | fn.#If
 										Name:       string | fn.#Fn
 										VendorName: string | fn.#Fn
-									}) | fn.If
-									RegexPatternSetReferenceStatement?: close({
+									} | fn.#If
+									RegexPatternSetReferenceStatement?: {
 										Arn:          string | fn.#Fn
-										FieldToMatch: close({
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -5695,21 +5695,21 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
-										TextTransformations: [...close({
+										} | fn.#If
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									RuleGroupReferenceStatement?: close({
+										}] | fn.#If
+									} | fn.#If
+									RuleGroupReferenceStatement?: {
 										Arn:            string | fn.#Fn
-										ExcludedRules?: [...close({
+										ExcludedRules?: [...{
 											Name: string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									SizeConstraintStatement?: close({
+										}] | fn.#If
+									} | fn.#If
+									SizeConstraintStatement?: {
 										ComparisonOperator: string | fn.#Fn
-										FieldToMatch:       close({
+										FieldToMatch:       {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -5731,15 +5731,15 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
+										} | fn.#If
 										Size:                int | fn.#Fn
-										TextTransformations: [...close({
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									SqliMatchStatement?: close({
-										FieldToMatch: close({
+										}] | fn.#If
+									} | fn.#If
+									SqliMatchStatement?: {
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -5761,14 +5761,14 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
-										TextTransformations: [...close({
+										} | fn.#If
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									XssMatchStatement?: close({
-										FieldToMatch: close({
+										}] | fn.#If
+									} | fn.#If
+									XssMatchStatement?: {
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -5790,16 +5790,16 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
-										TextTransformations: [...close({
+										} | fn.#If
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-								})] | fn.If
-							}) | fn.If
-							ByteMatchStatement?: close({
-								FieldToMatch: close({
+										}] | fn.#If
+									} | fn.#If
+								}] | fn.#If
+							} | fn.#If
+							ByteMatchStatement?: {
+								FieldToMatch: {
 									AllQueryArguments?: {
 										[string]: _
 									} | fn.#Fn
@@ -5821,41 +5821,41 @@ import "github.com/TangoGroup/aws/fn"
 									UriPath?: {
 										[string]: _
 									} | fn.#Fn
-								}) | fn.If
+								} | fn.#If
 								PositionalConstraint: string | fn.#Fn
 								SearchString?:        string | fn.#Fn
 								SearchStringBase64?:  string | fn.#Fn
-								TextTransformations:  [...close({
+								TextTransformations:  [...{
 									Priority: int | fn.#Fn
 									Type:     string | fn.#Fn
-								})] | fn.If
-							}) | fn.If
-							GeoMatchStatement?: close({
+								}] | fn.#If
+							} | fn.#If
+							GeoMatchStatement?: {
 								CountryCodes?:      [...(string | fn.#Fn)] | (string | fn.#Fn)
-								ForwardedIPConfig?: close({
+								ForwardedIPConfig?: {
 									FallbackBehavior: string | fn.#Fn
 									HeaderName:       string | fn.#Fn
-								}) | fn.If
-							}) | fn.If
-							IPSetReferenceStatement?: close({
+								} | fn.#If
+							} | fn.#If
+							IPSetReferenceStatement?: {
 								Arn:                     string | fn.#Fn
-								IPSetForwardedIPConfig?: close({
+								IPSetForwardedIPConfig?: {
 									FallbackBehavior: string | fn.#Fn
 									HeaderName:       string | fn.#Fn
 									Position:         string | fn.#Fn
-								}) | fn.If
-							}) | fn.If
-							ManagedRuleGroupStatement?: close({
-								ExcludedRules?: [...close({
+								} | fn.#If
+							} | fn.#If
+							ManagedRuleGroupStatement?: {
+								ExcludedRules?: [...{
 									Name: string | fn.#Fn
-								})] | fn.If
+								}] | fn.#If
 								Name:       string | fn.#Fn
 								VendorName: string | fn.#Fn
-							}) | fn.If
-							NotStatement?: close({
-								Statement: close({
-									ByteMatchStatement?: close({
-										FieldToMatch: close({
+							} | fn.#If
+							NotStatement?: {
+								Statement: {
+									ByteMatchStatement?: {
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -5877,40 +5877,40 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
+										} | fn.#If
 										PositionalConstraint: string | fn.#Fn
 										SearchString?:        string | fn.#Fn
 										SearchStringBase64?:  string | fn.#Fn
-										TextTransformations:  [...close({
+										TextTransformations:  [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									GeoMatchStatement?: close({
+										}] | fn.#If
+									} | fn.#If
+									GeoMatchStatement?: {
 										CountryCodes?:      [...(string | fn.#Fn)] | (string | fn.#Fn)
-										ForwardedIPConfig?: close({
+										ForwardedIPConfig?: {
 											FallbackBehavior: string | fn.#Fn
 											HeaderName:       string | fn.#Fn
-										}) | fn.If
-									}) | fn.If
-									IPSetReferenceStatement?: close({
+										} | fn.#If
+									} | fn.#If
+									IPSetReferenceStatement?: {
 										Arn:                     string | fn.#Fn
-										IPSetForwardedIPConfig?: close({
+										IPSetForwardedIPConfig?: {
 											FallbackBehavior: string | fn.#Fn
 											HeaderName:       string | fn.#Fn
 											Position:         string | fn.#Fn
-										}) | fn.If
-									}) | fn.If
-									ManagedRuleGroupStatement?: close({
-										ExcludedRules?: [...close({
+										} | fn.#If
+									} | fn.#If
+									ManagedRuleGroupStatement?: {
+										ExcludedRules?: [...{
 											Name: string | fn.#Fn
-										})] | fn.If
+										}] | fn.#If
 										Name:       string | fn.#Fn
 										VendorName: string | fn.#Fn
-									}) | fn.If
-									RegexPatternSetReferenceStatement?: close({
+									} | fn.#If
+									RegexPatternSetReferenceStatement?: {
 										Arn:          string | fn.#Fn
-										FieldToMatch: close({
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -5932,21 +5932,21 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
-										TextTransformations: [...close({
+										} | fn.#If
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									RuleGroupReferenceStatement?: close({
+										}] | fn.#If
+									} | fn.#If
+									RuleGroupReferenceStatement?: {
 										Arn:            string | fn.#Fn
-										ExcludedRules?: [...close({
+										ExcludedRules?: [...{
 											Name: string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									SizeConstraintStatement?: close({
+										}] | fn.#If
+									} | fn.#If
+									SizeConstraintStatement?: {
 										ComparisonOperator: string | fn.#Fn
-										FieldToMatch:       close({
+										FieldToMatch:       {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -5968,15 +5968,15 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
+										} | fn.#If
 										Size:                int | fn.#Fn
-										TextTransformations: [...close({
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									SqliMatchStatement?: close({
-										FieldToMatch: close({
+										}] | fn.#If
+									} | fn.#If
+									SqliMatchStatement?: {
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -5998,14 +5998,14 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
-										TextTransformations: [...close({
+										} | fn.#If
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									XssMatchStatement?: close({
-										FieldToMatch: close({
+										}] | fn.#If
+									} | fn.#If
+									XssMatchStatement?: {
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -6027,18 +6027,18 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
-										TextTransformations: [...close({
+										} | fn.#If
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-								}) | fn.If
-							}) | fn.If
-							OrStatement?: close({
-								Statements: [...close({
-									ByteMatchStatement?: close({
-										FieldToMatch: close({
+										}] | fn.#If
+									} | fn.#If
+								} | fn.#If
+							} | fn.#If
+							OrStatement?: {
+								Statements: [...{
+									ByteMatchStatement?: {
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -6060,40 +6060,40 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
+										} | fn.#If
 										PositionalConstraint: string | fn.#Fn
 										SearchString?:        string | fn.#Fn
 										SearchStringBase64?:  string | fn.#Fn
-										TextTransformations:  [...close({
+										TextTransformations:  [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									GeoMatchStatement?: close({
+										}] | fn.#If
+									} | fn.#If
+									GeoMatchStatement?: {
 										CountryCodes?:      [...(string | fn.#Fn)] | (string | fn.#Fn)
-										ForwardedIPConfig?: close({
+										ForwardedIPConfig?: {
 											FallbackBehavior: string | fn.#Fn
 											HeaderName:       string | fn.#Fn
-										}) | fn.If
-									}) | fn.If
-									IPSetReferenceStatement?: close({
+										} | fn.#If
+									} | fn.#If
+									IPSetReferenceStatement?: {
 										Arn:                     string | fn.#Fn
-										IPSetForwardedIPConfig?: close({
+										IPSetForwardedIPConfig?: {
 											FallbackBehavior: string | fn.#Fn
 											HeaderName:       string | fn.#Fn
 											Position:         string | fn.#Fn
-										}) | fn.If
-									}) | fn.If
-									ManagedRuleGroupStatement?: close({
-										ExcludedRules?: [...close({
+										} | fn.#If
+									} | fn.#If
+									ManagedRuleGroupStatement?: {
+										ExcludedRules?: [...{
 											Name: string | fn.#Fn
-										})] | fn.If
+										}] | fn.#If
 										Name:       string | fn.#Fn
 										VendorName: string | fn.#Fn
-									}) | fn.If
-									RegexPatternSetReferenceStatement?: close({
+									} | fn.#If
+									RegexPatternSetReferenceStatement?: {
 										Arn:          string | fn.#Fn
-										FieldToMatch: close({
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -6115,21 +6115,21 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
-										TextTransformations: [...close({
+										} | fn.#If
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									RuleGroupReferenceStatement?: close({
+										}] | fn.#If
+									} | fn.#If
+									RuleGroupReferenceStatement?: {
 										Arn:            string | fn.#Fn
-										ExcludedRules?: [...close({
+										ExcludedRules?: [...{
 											Name: string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									SizeConstraintStatement?: close({
+										}] | fn.#If
+									} | fn.#If
+									SizeConstraintStatement?: {
 										ComparisonOperator: string | fn.#Fn
-										FieldToMatch:       close({
+										FieldToMatch:       {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -6151,15 +6151,15 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
+										} | fn.#If
 										Size:                int | fn.#Fn
-										TextTransformations: [...close({
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									SqliMatchStatement?: close({
-										FieldToMatch: close({
+										}] | fn.#If
+									} | fn.#If
+									SqliMatchStatement?: {
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -6181,14 +6181,14 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
-										TextTransformations: [...close({
+										} | fn.#If
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									XssMatchStatement?: close({
-										FieldToMatch: close({
+										}] | fn.#If
+									} | fn.#If
+									XssMatchStatement?: {
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -6210,24 +6210,24 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
-										TextTransformations: [...close({
+										} | fn.#If
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-								})] | fn.If
-							}) | fn.If
-							RateBasedStatement?: close({
+										}] | fn.#If
+									} | fn.#If
+								}] | fn.#If
+							} | fn.#If
+							RateBasedStatement?: {
 								AggregateKeyType:   ("FORWARDED_IP" | "IP") | fn.#Fn
-								ForwardedIPConfig?: close({
+								ForwardedIPConfig?: {
 									FallbackBehavior: string | fn.#Fn
 									HeaderName:       string | fn.#Fn
-								}) | fn.If
+								} | fn.#If
 								Limit:               (>=100 & <=20000000) | fn.#Fn
-								ScopeDownStatement?: close({
-									ByteMatchStatement?: close({
-										FieldToMatch: close({
+								ScopeDownStatement?: {
+									ByteMatchStatement?: {
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -6249,40 +6249,40 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
+										} | fn.#If
 										PositionalConstraint: string | fn.#Fn
 										SearchString?:        string | fn.#Fn
 										SearchStringBase64?:  string | fn.#Fn
-										TextTransformations:  [...close({
+										TextTransformations:  [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									GeoMatchStatement?: close({
+										}] | fn.#If
+									} | fn.#If
+									GeoMatchStatement?: {
 										CountryCodes?:      [...(string | fn.#Fn)] | (string | fn.#Fn)
-										ForwardedIPConfig?: close({
+										ForwardedIPConfig?: {
 											FallbackBehavior: string | fn.#Fn
 											HeaderName:       string | fn.#Fn
-										}) | fn.If
-									}) | fn.If
-									IPSetReferenceStatement?: close({
+										} | fn.#If
+									} | fn.#If
+									IPSetReferenceStatement?: {
 										Arn:                     string | fn.#Fn
-										IPSetForwardedIPConfig?: close({
+										IPSetForwardedIPConfig?: {
 											FallbackBehavior: string | fn.#Fn
 											HeaderName:       string | fn.#Fn
 											Position:         string | fn.#Fn
-										}) | fn.If
-									}) | fn.If
-									ManagedRuleGroupStatement?: close({
-										ExcludedRules?: [...close({
+										} | fn.#If
+									} | fn.#If
+									ManagedRuleGroupStatement?: {
+										ExcludedRules?: [...{
 											Name: string | fn.#Fn
-										})] | fn.If
+										}] | fn.#If
 										Name:       string | fn.#Fn
 										VendorName: string | fn.#Fn
-									}) | fn.If
-									RegexPatternSetReferenceStatement?: close({
+									} | fn.#If
+									RegexPatternSetReferenceStatement?: {
 										Arn:          string | fn.#Fn
-										FieldToMatch: close({
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -6304,21 +6304,21 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
-										TextTransformations: [...close({
+										} | fn.#If
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									RuleGroupReferenceStatement?: close({
+										}] | fn.#If
+									} | fn.#If
+									RuleGroupReferenceStatement?: {
 										Arn:            string | fn.#Fn
-										ExcludedRules?: [...close({
+										ExcludedRules?: [...{
 											Name: string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									SizeConstraintStatement?: close({
+										}] | fn.#If
+									} | fn.#If
+									SizeConstraintStatement?: {
 										ComparisonOperator: string | fn.#Fn
-										FieldToMatch:       close({
+										FieldToMatch:       {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -6340,15 +6340,15 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
+										} | fn.#If
 										Size:                int | fn.#Fn
-										TextTransformations: [...close({
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									SqliMatchStatement?: close({
-										FieldToMatch: close({
+										}] | fn.#If
+									} | fn.#If
+									SqliMatchStatement?: {
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -6370,14 +6370,14 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
-										TextTransformations: [...close({
+										} | fn.#If
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									XssMatchStatement?: close({
-										FieldToMatch: close({
+										}] | fn.#If
+									} | fn.#If
+									XssMatchStatement?: {
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -6399,17 +6399,17 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
-										TextTransformations: [...close({
+										} | fn.#If
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-								}) | fn.If
-							}) | fn.If
-							RegexPatternSetReferenceStatement?: close({
+										}] | fn.#If
+									} | fn.#If
+								} | fn.#If
+							} | fn.#If
+							RegexPatternSetReferenceStatement?: {
 								Arn:          string | fn.#Fn
-								FieldToMatch: close({
+								FieldToMatch: {
 									AllQueryArguments?: {
 										[string]: _
 									} | fn.#Fn
@@ -6431,21 +6431,21 @@ import "github.com/TangoGroup/aws/fn"
 									UriPath?: {
 										[string]: _
 									} | fn.#Fn
-								}) | fn.If
-								TextTransformations: [...close({
+								} | fn.#If
+								TextTransformations: [...{
 									Priority: int | fn.#Fn
 									Type:     string | fn.#Fn
-								})] | fn.If
-							}) | fn.If
-							RuleGroupReferenceStatement?: close({
+								}] | fn.#If
+							} | fn.#If
+							RuleGroupReferenceStatement?: {
 								Arn:            string | fn.#Fn
-								ExcludedRules?: [...close({
+								ExcludedRules?: [...{
 									Name: string | fn.#Fn
-								})] | fn.If
-							}) | fn.If
-							SizeConstraintStatement?: close({
+								}] | fn.#If
+							} | fn.#If
+							SizeConstraintStatement?: {
 								ComparisonOperator: string | fn.#Fn
-								FieldToMatch:       close({
+								FieldToMatch:       {
 									AllQueryArguments?: {
 										[string]: _
 									} | fn.#Fn
@@ -6467,15 +6467,15 @@ import "github.com/TangoGroup/aws/fn"
 									UriPath?: {
 										[string]: _
 									} | fn.#Fn
-								}) | fn.If
+								} | fn.#If
 								Size:                int | fn.#Fn
-								TextTransformations: [...close({
+								TextTransformations: [...{
 									Priority: int | fn.#Fn
 									Type:     string | fn.#Fn
-								})] | fn.If
-							}) | fn.If
-							SqliMatchStatement?: close({
-								FieldToMatch: close({
+								}] | fn.#If
+							} | fn.#If
+							SqliMatchStatement?: {
+								FieldToMatch: {
 									AllQueryArguments?: {
 										[string]: _
 									} | fn.#Fn
@@ -6497,14 +6497,14 @@ import "github.com/TangoGroup/aws/fn"
 									UriPath?: {
 										[string]: _
 									} | fn.#Fn
-								}) | fn.If
-								TextTransformations: [...close({
+								} | fn.#If
+								TextTransformations: [...{
 									Priority: int | fn.#Fn
 									Type:     string | fn.#Fn
-								})] | fn.If
-							}) | fn.If
-							XssMatchStatement?: close({
-								FieldToMatch: close({
+								}] | fn.#If
+							} | fn.#If
+							XssMatchStatement?: {
+								FieldToMatch: {
 									AllQueryArguments?: {
 										[string]: _
 									} | fn.#Fn
@@ -6526,26 +6526,26 @@ import "github.com/TangoGroup/aws/fn"
 									UriPath?: {
 										[string]: _
 									} | fn.#Fn
-								}) | fn.If
-								TextTransformations: [...close({
+								} | fn.#If
+								TextTransformations: [...{
 									Priority: int | fn.#Fn
 									Type:     string | fn.#Fn
-								})] | fn.If
-							}) | fn.If
-						})] | fn.If
-					}) | fn.If
-					RateBasedStatement?: close({
+								}] | fn.#If
+							} | fn.#If
+						}] | fn.#If
+					} | fn.#If
+					RateBasedStatement?: {
 						AggregateKeyType:   ("FORWARDED_IP" | "IP") | fn.#Fn
-						ForwardedIPConfig?: close({
+						ForwardedIPConfig?: {
 							FallbackBehavior: string | fn.#Fn
 							HeaderName:       string | fn.#Fn
-						}) | fn.If
+						} | fn.#If
 						Limit:               (>=100 & <=20000000) | fn.#Fn
-						ScopeDownStatement?: close({
-							AndStatement?: close({
-								Statements: [...close({
-									ByteMatchStatement?: close({
-										FieldToMatch: close({
+						ScopeDownStatement?: {
+							AndStatement?: {
+								Statements: [...{
+									ByteMatchStatement?: {
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -6567,40 +6567,40 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
+										} | fn.#If
 										PositionalConstraint: string | fn.#Fn
 										SearchString?:        string | fn.#Fn
 										SearchStringBase64?:  string | fn.#Fn
-										TextTransformations:  [...close({
+										TextTransformations:  [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									GeoMatchStatement?: close({
+										}] | fn.#If
+									} | fn.#If
+									GeoMatchStatement?: {
 										CountryCodes?:      [...(string | fn.#Fn)] | (string | fn.#Fn)
-										ForwardedIPConfig?: close({
+										ForwardedIPConfig?: {
 											FallbackBehavior: string | fn.#Fn
 											HeaderName:       string | fn.#Fn
-										}) | fn.If
-									}) | fn.If
-									IPSetReferenceStatement?: close({
+										} | fn.#If
+									} | fn.#If
+									IPSetReferenceStatement?: {
 										Arn:                     string | fn.#Fn
-										IPSetForwardedIPConfig?: close({
+										IPSetForwardedIPConfig?: {
 											FallbackBehavior: string | fn.#Fn
 											HeaderName:       string | fn.#Fn
 											Position:         string | fn.#Fn
-										}) | fn.If
-									}) | fn.If
-									ManagedRuleGroupStatement?: close({
-										ExcludedRules?: [...close({
+										} | fn.#If
+									} | fn.#If
+									ManagedRuleGroupStatement?: {
+										ExcludedRules?: [...{
 											Name: string | fn.#Fn
-										})] | fn.If
+										}] | fn.#If
 										Name:       string | fn.#Fn
 										VendorName: string | fn.#Fn
-									}) | fn.If
-									RegexPatternSetReferenceStatement?: close({
+									} | fn.#If
+									RegexPatternSetReferenceStatement?: {
 										Arn:          string | fn.#Fn
-										FieldToMatch: close({
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -6622,21 +6622,21 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
-										TextTransformations: [...close({
+										} | fn.#If
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									RuleGroupReferenceStatement?: close({
+										}] | fn.#If
+									} | fn.#If
+									RuleGroupReferenceStatement?: {
 										Arn:            string | fn.#Fn
-										ExcludedRules?: [...close({
+										ExcludedRules?: [...{
 											Name: string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									SizeConstraintStatement?: close({
+										}] | fn.#If
+									} | fn.#If
+									SizeConstraintStatement?: {
 										ComparisonOperator: string | fn.#Fn
-										FieldToMatch:       close({
+										FieldToMatch:       {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -6658,15 +6658,15 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
+										} | fn.#If
 										Size:                int | fn.#Fn
-										TextTransformations: [...close({
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									SqliMatchStatement?: close({
-										FieldToMatch: close({
+										}] | fn.#If
+									} | fn.#If
+									SqliMatchStatement?: {
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -6688,14 +6688,14 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
-										TextTransformations: [...close({
+										} | fn.#If
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									XssMatchStatement?: close({
-										FieldToMatch: close({
+										}] | fn.#If
+									} | fn.#If
+									XssMatchStatement?: {
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -6717,16 +6717,16 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
-										TextTransformations: [...close({
+										} | fn.#If
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-								})] | fn.If
-							}) | fn.If
-							ByteMatchStatement?: close({
-								FieldToMatch: close({
+										}] | fn.#If
+									} | fn.#If
+								}] | fn.#If
+							} | fn.#If
+							ByteMatchStatement?: {
+								FieldToMatch: {
 									AllQueryArguments?: {
 										[string]: _
 									} | fn.#Fn
@@ -6748,41 +6748,41 @@ import "github.com/TangoGroup/aws/fn"
 									UriPath?: {
 										[string]: _
 									} | fn.#Fn
-								}) | fn.If
+								} | fn.#If
 								PositionalConstraint: string | fn.#Fn
 								SearchString?:        string | fn.#Fn
 								SearchStringBase64?:  string | fn.#Fn
-								TextTransformations:  [...close({
+								TextTransformations:  [...{
 									Priority: int | fn.#Fn
 									Type:     string | fn.#Fn
-								})] | fn.If
-							}) | fn.If
-							GeoMatchStatement?: close({
+								}] | fn.#If
+							} | fn.#If
+							GeoMatchStatement?: {
 								CountryCodes?:      [...(string | fn.#Fn)] | (string | fn.#Fn)
-								ForwardedIPConfig?: close({
+								ForwardedIPConfig?: {
 									FallbackBehavior: string | fn.#Fn
 									HeaderName:       string | fn.#Fn
-								}) | fn.If
-							}) | fn.If
-							IPSetReferenceStatement?: close({
+								} | fn.#If
+							} | fn.#If
+							IPSetReferenceStatement?: {
 								Arn:                     string | fn.#Fn
-								IPSetForwardedIPConfig?: close({
+								IPSetForwardedIPConfig?: {
 									FallbackBehavior: string | fn.#Fn
 									HeaderName:       string | fn.#Fn
 									Position:         string | fn.#Fn
-								}) | fn.If
-							}) | fn.If
-							ManagedRuleGroupStatement?: close({
-								ExcludedRules?: [...close({
+								} | fn.#If
+							} | fn.#If
+							ManagedRuleGroupStatement?: {
+								ExcludedRules?: [...{
 									Name: string | fn.#Fn
-								})] | fn.If
+								}] | fn.#If
 								Name:       string | fn.#Fn
 								VendorName: string | fn.#Fn
-							}) | fn.If
-							NotStatement?: close({
-								Statement: close({
-									ByteMatchStatement?: close({
-										FieldToMatch: close({
+							} | fn.#If
+							NotStatement?: {
+								Statement: {
+									ByteMatchStatement?: {
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -6804,40 +6804,40 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
+										} | fn.#If
 										PositionalConstraint: string | fn.#Fn
 										SearchString?:        string | fn.#Fn
 										SearchStringBase64?:  string | fn.#Fn
-										TextTransformations:  [...close({
+										TextTransformations:  [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									GeoMatchStatement?: close({
+										}] | fn.#If
+									} | fn.#If
+									GeoMatchStatement?: {
 										CountryCodes?:      [...(string | fn.#Fn)] | (string | fn.#Fn)
-										ForwardedIPConfig?: close({
+										ForwardedIPConfig?: {
 											FallbackBehavior: string | fn.#Fn
 											HeaderName:       string | fn.#Fn
-										}) | fn.If
-									}) | fn.If
-									IPSetReferenceStatement?: close({
+										} | fn.#If
+									} | fn.#If
+									IPSetReferenceStatement?: {
 										Arn:                     string | fn.#Fn
-										IPSetForwardedIPConfig?: close({
+										IPSetForwardedIPConfig?: {
 											FallbackBehavior: string | fn.#Fn
 											HeaderName:       string | fn.#Fn
 											Position:         string | fn.#Fn
-										}) | fn.If
-									}) | fn.If
-									ManagedRuleGroupStatement?: close({
-										ExcludedRules?: [...close({
+										} | fn.#If
+									} | fn.#If
+									ManagedRuleGroupStatement?: {
+										ExcludedRules?: [...{
 											Name: string | fn.#Fn
-										})] | fn.If
+										}] | fn.#If
 										Name:       string | fn.#Fn
 										VendorName: string | fn.#Fn
-									}) | fn.If
-									RegexPatternSetReferenceStatement?: close({
+									} | fn.#If
+									RegexPatternSetReferenceStatement?: {
 										Arn:          string | fn.#Fn
-										FieldToMatch: close({
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -6859,21 +6859,21 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
-										TextTransformations: [...close({
+										} | fn.#If
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									RuleGroupReferenceStatement?: close({
+										}] | fn.#If
+									} | fn.#If
+									RuleGroupReferenceStatement?: {
 										Arn:            string | fn.#Fn
-										ExcludedRules?: [...close({
+										ExcludedRules?: [...{
 											Name: string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									SizeConstraintStatement?: close({
+										}] | fn.#If
+									} | fn.#If
+									SizeConstraintStatement?: {
 										ComparisonOperator: string | fn.#Fn
-										FieldToMatch:       close({
+										FieldToMatch:       {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -6895,15 +6895,15 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
+										} | fn.#If
 										Size:                int | fn.#Fn
-										TextTransformations: [...close({
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									SqliMatchStatement?: close({
-										FieldToMatch: close({
+										}] | fn.#If
+									} | fn.#If
+									SqliMatchStatement?: {
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -6925,14 +6925,14 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
-										TextTransformations: [...close({
+										} | fn.#If
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									XssMatchStatement?: close({
-										FieldToMatch: close({
+										}] | fn.#If
+									} | fn.#If
+									XssMatchStatement?: {
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -6954,18 +6954,18 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
-										TextTransformations: [...close({
+										} | fn.#If
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-								}) | fn.If
-							}) | fn.If
-							OrStatement?: close({
-								Statements: [...close({
-									ByteMatchStatement?: close({
-										FieldToMatch: close({
+										}] | fn.#If
+									} | fn.#If
+								} | fn.#If
+							} | fn.#If
+							OrStatement?: {
+								Statements: [...{
+									ByteMatchStatement?: {
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -6987,40 +6987,40 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
+										} | fn.#If
 										PositionalConstraint: string | fn.#Fn
 										SearchString?:        string | fn.#Fn
 										SearchStringBase64?:  string | fn.#Fn
-										TextTransformations:  [...close({
+										TextTransformations:  [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									GeoMatchStatement?: close({
+										}] | fn.#If
+									} | fn.#If
+									GeoMatchStatement?: {
 										CountryCodes?:      [...(string | fn.#Fn)] | (string | fn.#Fn)
-										ForwardedIPConfig?: close({
+										ForwardedIPConfig?: {
 											FallbackBehavior: string | fn.#Fn
 											HeaderName:       string | fn.#Fn
-										}) | fn.If
-									}) | fn.If
-									IPSetReferenceStatement?: close({
+										} | fn.#If
+									} | fn.#If
+									IPSetReferenceStatement?: {
 										Arn:                     string | fn.#Fn
-										IPSetForwardedIPConfig?: close({
+										IPSetForwardedIPConfig?: {
 											FallbackBehavior: string | fn.#Fn
 											HeaderName:       string | fn.#Fn
 											Position:         string | fn.#Fn
-										}) | fn.If
-									}) | fn.If
-									ManagedRuleGroupStatement?: close({
-										ExcludedRules?: [...close({
+										} | fn.#If
+									} | fn.#If
+									ManagedRuleGroupStatement?: {
+										ExcludedRules?: [...{
 											Name: string | fn.#Fn
-										})] | fn.If
+										}] | fn.#If
 										Name:       string | fn.#Fn
 										VendorName: string | fn.#Fn
-									}) | fn.If
-									RegexPatternSetReferenceStatement?: close({
+									} | fn.#If
+									RegexPatternSetReferenceStatement?: {
 										Arn:          string | fn.#Fn
-										FieldToMatch: close({
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -7042,21 +7042,21 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
-										TextTransformations: [...close({
+										} | fn.#If
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									RuleGroupReferenceStatement?: close({
+										}] | fn.#If
+									} | fn.#If
+									RuleGroupReferenceStatement?: {
 										Arn:            string | fn.#Fn
-										ExcludedRules?: [...close({
+										ExcludedRules?: [...{
 											Name: string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									SizeConstraintStatement?: close({
+										}] | fn.#If
+									} | fn.#If
+									SizeConstraintStatement?: {
 										ComparisonOperator: string | fn.#Fn
-										FieldToMatch:       close({
+										FieldToMatch:       {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -7078,15 +7078,15 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
+										} | fn.#If
 										Size:                int | fn.#Fn
-										TextTransformations: [...close({
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									SqliMatchStatement?: close({
-										FieldToMatch: close({
+										}] | fn.#If
+									} | fn.#If
+									SqliMatchStatement?: {
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -7108,14 +7108,14 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
-										TextTransformations: [...close({
+										} | fn.#If
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									XssMatchStatement?: close({
-										FieldToMatch: close({
+										}] | fn.#If
+									} | fn.#If
+									XssMatchStatement?: {
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -7137,24 +7137,24 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
-										TextTransformations: [...close({
+										} | fn.#If
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-								})] | fn.If
-							}) | fn.If
-							RateBasedStatement?: close({
+										}] | fn.#If
+									} | fn.#If
+								}] | fn.#If
+							} | fn.#If
+							RateBasedStatement?: {
 								AggregateKeyType:   ("FORWARDED_IP" | "IP") | fn.#Fn
-								ForwardedIPConfig?: close({
+								ForwardedIPConfig?: {
 									FallbackBehavior: string | fn.#Fn
 									HeaderName:       string | fn.#Fn
-								}) | fn.If
+								} | fn.#If
 								Limit:               (>=100 & <=20000000) | fn.#Fn
-								ScopeDownStatement?: close({
-									ByteMatchStatement?: close({
-										FieldToMatch: close({
+								ScopeDownStatement?: {
+									ByteMatchStatement?: {
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -7176,40 +7176,40 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
+										} | fn.#If
 										PositionalConstraint: string | fn.#Fn
 										SearchString?:        string | fn.#Fn
 										SearchStringBase64?:  string | fn.#Fn
-										TextTransformations:  [...close({
+										TextTransformations:  [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									GeoMatchStatement?: close({
+										}] | fn.#If
+									} | fn.#If
+									GeoMatchStatement?: {
 										CountryCodes?:      [...(string | fn.#Fn)] | (string | fn.#Fn)
-										ForwardedIPConfig?: close({
+										ForwardedIPConfig?: {
 											FallbackBehavior: string | fn.#Fn
 											HeaderName:       string | fn.#Fn
-										}) | fn.If
-									}) | fn.If
-									IPSetReferenceStatement?: close({
+										} | fn.#If
+									} | fn.#If
+									IPSetReferenceStatement?: {
 										Arn:                     string | fn.#Fn
-										IPSetForwardedIPConfig?: close({
+										IPSetForwardedIPConfig?: {
 											FallbackBehavior: string | fn.#Fn
 											HeaderName:       string | fn.#Fn
 											Position:         string | fn.#Fn
-										}) | fn.If
-									}) | fn.If
-									ManagedRuleGroupStatement?: close({
-										ExcludedRules?: [...close({
+										} | fn.#If
+									} | fn.#If
+									ManagedRuleGroupStatement?: {
+										ExcludedRules?: [...{
 											Name: string | fn.#Fn
-										})] | fn.If
+										}] | fn.#If
 										Name:       string | fn.#Fn
 										VendorName: string | fn.#Fn
-									}) | fn.If
-									RegexPatternSetReferenceStatement?: close({
+									} | fn.#If
+									RegexPatternSetReferenceStatement?: {
 										Arn:          string | fn.#Fn
-										FieldToMatch: close({
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -7231,21 +7231,21 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
-										TextTransformations: [...close({
+										} | fn.#If
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									RuleGroupReferenceStatement?: close({
+										}] | fn.#If
+									} | fn.#If
+									RuleGroupReferenceStatement?: {
 										Arn:            string | fn.#Fn
-										ExcludedRules?: [...close({
+										ExcludedRules?: [...{
 											Name: string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									SizeConstraintStatement?: close({
+										}] | fn.#If
+									} | fn.#If
+									SizeConstraintStatement?: {
 										ComparisonOperator: string | fn.#Fn
-										FieldToMatch:       close({
+										FieldToMatch:       {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -7267,15 +7267,15 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
+										} | fn.#If
 										Size:                int | fn.#Fn
-										TextTransformations: [...close({
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									SqliMatchStatement?: close({
-										FieldToMatch: close({
+										}] | fn.#If
+									} | fn.#If
+									SqliMatchStatement?: {
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -7297,14 +7297,14 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
-										TextTransformations: [...close({
+										} | fn.#If
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-									XssMatchStatement?: close({
-										FieldToMatch: close({
+										}] | fn.#If
+									} | fn.#If
+									XssMatchStatement?: {
+										FieldToMatch: {
 											AllQueryArguments?: {
 												[string]: _
 											} | fn.#Fn
@@ -7326,17 +7326,17 @@ import "github.com/TangoGroup/aws/fn"
 											UriPath?: {
 												[string]: _
 											} | fn.#Fn
-										}) | fn.If
-										TextTransformations: [...close({
+										} | fn.#If
+										TextTransformations: [...{
 											Priority: int | fn.#Fn
 											Type:     string | fn.#Fn
-										})] | fn.If
-									}) | fn.If
-								}) | fn.If
-							}) | fn.If
-							RegexPatternSetReferenceStatement?: close({
+										}] | fn.#If
+									} | fn.#If
+								} | fn.#If
+							} | fn.#If
+							RegexPatternSetReferenceStatement?: {
 								Arn:          string | fn.#Fn
-								FieldToMatch: close({
+								FieldToMatch: {
 									AllQueryArguments?: {
 										[string]: _
 									} | fn.#Fn
@@ -7358,21 +7358,21 @@ import "github.com/TangoGroup/aws/fn"
 									UriPath?: {
 										[string]: _
 									} | fn.#Fn
-								}) | fn.If
-								TextTransformations: [...close({
+								} | fn.#If
+								TextTransformations: [...{
 									Priority: int | fn.#Fn
 									Type:     string | fn.#Fn
-								})] | fn.If
-							}) | fn.If
-							RuleGroupReferenceStatement?: close({
+								}] | fn.#If
+							} | fn.#If
+							RuleGroupReferenceStatement?: {
 								Arn:            string | fn.#Fn
-								ExcludedRules?: [...close({
+								ExcludedRules?: [...{
 									Name: string | fn.#Fn
-								})] | fn.If
-							}) | fn.If
-							SizeConstraintStatement?: close({
+								}] | fn.#If
+							} | fn.#If
+							SizeConstraintStatement?: {
 								ComparisonOperator: string | fn.#Fn
-								FieldToMatch:       close({
+								FieldToMatch:       {
 									AllQueryArguments?: {
 										[string]: _
 									} | fn.#Fn
@@ -7394,15 +7394,15 @@ import "github.com/TangoGroup/aws/fn"
 									UriPath?: {
 										[string]: _
 									} | fn.#Fn
-								}) | fn.If
+								} | fn.#If
 								Size:                int | fn.#Fn
-								TextTransformations: [...close({
+								TextTransformations: [...{
 									Priority: int | fn.#Fn
 									Type:     string | fn.#Fn
-								})] | fn.If
-							}) | fn.If
-							SqliMatchStatement?: close({
-								FieldToMatch: close({
+								}] | fn.#If
+							} | fn.#If
+							SqliMatchStatement?: {
+								FieldToMatch: {
 									AllQueryArguments?: {
 										[string]: _
 									} | fn.#Fn
@@ -7424,14 +7424,14 @@ import "github.com/TangoGroup/aws/fn"
 									UriPath?: {
 										[string]: _
 									} | fn.#Fn
-								}) | fn.If
-								TextTransformations: [...close({
+								} | fn.#If
+								TextTransformations: [...{
 									Priority: int | fn.#Fn
 									Type:     string | fn.#Fn
-								})] | fn.If
-							}) | fn.If
-							XssMatchStatement?: close({
-								FieldToMatch: close({
+								}] | fn.#If
+							} | fn.#If
+							XssMatchStatement?: {
+								FieldToMatch: {
 									AllQueryArguments?: {
 										[string]: _
 									} | fn.#Fn
@@ -7453,17 +7453,17 @@ import "github.com/TangoGroup/aws/fn"
 									UriPath?: {
 										[string]: _
 									} | fn.#Fn
-								}) | fn.If
-								TextTransformations: [...close({
+								} | fn.#If
+								TextTransformations: [...{
 									Priority: int | fn.#Fn
 									Type:     string | fn.#Fn
-								})] | fn.If
-							}) | fn.If
-						}) | fn.If
-					}) | fn.If
-					RegexPatternSetReferenceStatement?: close({
+								}] | fn.#If
+							} | fn.#If
+						} | fn.#If
+					} | fn.#If
+					RegexPatternSetReferenceStatement?: {
 						Arn:          string | fn.#Fn
-						FieldToMatch: close({
+						FieldToMatch: {
 							AllQueryArguments?: {
 								[string]: _
 							} | fn.#Fn
@@ -7485,21 +7485,21 @@ import "github.com/TangoGroup/aws/fn"
 							UriPath?: {
 								[string]: _
 							} | fn.#Fn
-						}) | fn.If
-						TextTransformations: [...close({
+						} | fn.#If
+						TextTransformations: [...{
 							Priority: int | fn.#Fn
 							Type:     string | fn.#Fn
-						})] | fn.If
-					}) | fn.If
-					RuleGroupReferenceStatement?: close({
+						}] | fn.#If
+					} | fn.#If
+					RuleGroupReferenceStatement?: {
 						Arn:            string | fn.#Fn
-						ExcludedRules?: [...close({
+						ExcludedRules?: [...{
 							Name: string | fn.#Fn
-						})] | fn.If
-					}) | fn.If
-					SizeConstraintStatement?: close({
+						}] | fn.#If
+					} | fn.#If
+					SizeConstraintStatement?: {
 						ComparisonOperator: string | fn.#Fn
-						FieldToMatch:       close({
+						FieldToMatch:       {
 							AllQueryArguments?: {
 								[string]: _
 							} | fn.#Fn
@@ -7521,15 +7521,15 @@ import "github.com/TangoGroup/aws/fn"
 							UriPath?: {
 								[string]: _
 							} | fn.#Fn
-						}) | fn.If
+						} | fn.#If
 						Size:                int | fn.#Fn
-						TextTransformations: [...close({
+						TextTransformations: [...{
 							Priority: int | fn.#Fn
 							Type:     string | fn.#Fn
-						})] | fn.If
-					}) | fn.If
-					SqliMatchStatement?: close({
-						FieldToMatch: close({
+						}] | fn.#If
+					} | fn.#If
+					SqliMatchStatement?: {
+						FieldToMatch: {
 							AllQueryArguments?: {
 								[string]: _
 							} | fn.#Fn
@@ -7551,14 +7551,14 @@ import "github.com/TangoGroup/aws/fn"
 							UriPath?: {
 								[string]: _
 							} | fn.#Fn
-						}) | fn.If
-						TextTransformations: [...close({
+						} | fn.#If
+						TextTransformations: [...{
 							Priority: int | fn.#Fn
 							Type:     string | fn.#Fn
-						})] | fn.If
-					}) | fn.If
-					XssMatchStatement?: close({
-						FieldToMatch: close({
+						}] | fn.#If
+					} | fn.#If
+					XssMatchStatement?: {
+						FieldToMatch: {
 							AllQueryArguments?: {
 								[string]: _
 							} | fn.#Fn
@@ -7580,30 +7580,30 @@ import "github.com/TangoGroup/aws/fn"
 							UriPath?: {
 								[string]: _
 							} | fn.#Fn
-						}) | fn.If
-						TextTransformations: [...close({
+						} | fn.#If
+						TextTransformations: [...{
 							Priority: int | fn.#Fn
 							Type:     string | fn.#Fn
-						})] | fn.If
-					}) | fn.If
-				}) | fn.If
-				VisibilityConfig: close({
+						}] | fn.#If
+					} | fn.#If
+				} | fn.#If
+				VisibilityConfig: {
 					CloudWatchMetricsEnabled: bool | fn.#Fn
 					MetricName:               string | fn.#Fn
 					SampledRequestsEnabled:   bool | fn.#Fn
-				}) | fn.If
-			})] | fn.If
+				} | fn.#If
+			}] | fn.#If
 			Scope: string | fn.#Fn
-			Tags?: [...close({
+			Tags?: [...{
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			})] | fn.If
-			VisibilityConfig: close({
+			}] | fn.#If
+			VisibilityConfig: {
 				CloudWatchMetricsEnabled: bool | fn.#Fn
 				MetricName:               string | fn.#Fn
 				SampledRequestsEnabled:   bool | fn.#Fn
-			}) | fn.If
-		})
+			} | fn.#If
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -7611,11 +7611,11 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#WebACLAssociation: {
-		Type:       "AWS::WAFv2::WebACLAssociation"
-		Properties: close({
+		Type: "AWS::WAFv2::WebACLAssociation"
+		Properties: {
 			ResourceArn: string | fn.#Fn
 			WebACLArn:   string | fn.#Fn
-		})
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

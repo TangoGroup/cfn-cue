@@ -261,7 +261,6 @@ func createFieldFromProperty(name string, prop Property, resourceSubproperties m
 			v, imports = createStructFromResource(name, resourceSubproperties[typeName], resourceSubproperties, valueTypes)
 			value = &v
 		}
-		value = ast.NewCall(ast.NewIdent("close"), value)
 	}
 
 	if prop.IsList() {
@@ -302,7 +301,7 @@ func createFieldFromProperty(name string, prop Property, resourceSubproperties m
 		value = &ast.BinaryExpr{
 			X:  value,
 			Op: token.OR,
-			Y:  ast.NewSel(ast.NewIdent("fn"), "If"),
+			Y:  ast.NewSel(ast.NewIdent("fn"), "#If"),
 		}
 	}
 
@@ -996,7 +995,7 @@ func main() {
 				importStrings = mergeMaps(importStrings, resourceImports)
 				propertiesStruct := &ast.Field{
 					Label: ast.NewIdent("Properties"),
-					Value: ast.NewCall(ast.NewIdent("close"), &properties),
+					Value: &properties,
 				}
 				resourceType := resourceType(resourceName)
 				resourceElts := []ast.Decl{

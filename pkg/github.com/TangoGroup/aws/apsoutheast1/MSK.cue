@@ -4,77 +4,77 @@ import "github.com/TangoGroup/aws/fn"
 
 #MSK: {
 	#Cluster: {
-		Type:       "AWS::MSK::Cluster"
-		Properties: close({
-			BrokerNodeGroupInfo: close({
+		Type: "AWS::MSK::Cluster"
+		Properties: {
+			BrokerNodeGroupInfo: {
 				BrokerAZDistribution?: string | fn.#Fn
 				ClientSubnets:         [...(string | fn.#Fn)] | (string | fn.#Fn)
 				InstanceType:          string | fn.#Fn
 				SecurityGroups?:       [...(string | fn.#Fn)] | (string | fn.#Fn)
-				StorageInfo?:          close({
-					EBSStorageInfo?: close({
+				StorageInfo?:          {
+					EBSStorageInfo?: {
 						VolumeSize?: int | fn.#Fn
-					}) | fn.If
-				}) | fn.If
-			}) | fn.If
-			ClientAuthentication?: close({
-				Sasl?: close({
-					Scram: close({
+					} | fn.#If
+				} | fn.#If
+			} | fn.#If
+			ClientAuthentication?: {
+				Sasl?: {
+					Scram: {
 						Enabled: bool | fn.#Fn
-					}) | fn.If
-				}) | fn.If
-				Tls?: close({
+					} | fn.#If
+				} | fn.#If
+				Tls?: {
 					CertificateAuthorityArnList?: [...(string | fn.#Fn)] | (string | fn.#Fn)
-				}) | fn.If
-			}) | fn.If
+				} | fn.#If
+			} | fn.#If
 			ClusterName:        string | fn.#Fn
-			ConfigurationInfo?: close({
+			ConfigurationInfo?: {
 				Arn:      string | fn.#Fn
 				Revision: int | fn.#Fn
-			}) | fn.If
-			EncryptionInfo?: close({
-				EncryptionAtRest?: close({
+			} | fn.#If
+			EncryptionInfo?: {
+				EncryptionAtRest?: {
 					DataVolumeKMSKeyId: string | fn.#Fn
-				}) | fn.If
-				EncryptionInTransit?: close({
+				} | fn.#If
+				EncryptionInTransit?: {
 					ClientBroker?: string | fn.#Fn
 					InCluster?:    bool | fn.#Fn
-				}) | fn.If
-			}) | fn.If
+				} | fn.#If
+			} | fn.#If
 			EnhancedMonitoring?: string | fn.#Fn
 			KafkaVersion:        string | fn.#Fn
-			LoggingInfo?:        close({
-				BrokerLogs: close({
-					CloudWatchLogs?: close({
+			LoggingInfo?:        {
+				BrokerLogs: {
+					CloudWatchLogs?: {
 						Enabled:   bool | fn.#Fn
 						LogGroup?: string | fn.#Fn
-					}) | fn.If
-					Firehose?: close({
+					} | fn.#If
+					Firehose?: {
 						DeliveryStream?: string | fn.#Fn
 						Enabled:         bool | fn.#Fn
-					}) | fn.If
-					S3?: close({
+					} | fn.#If
+					S3?: {
 						Bucket?: string | fn.#Fn
 						Enabled: bool | fn.#Fn
 						Prefix?: string | fn.#Fn
-					}) | fn.If
-				}) | fn.If
-			}) | fn.If
+					} | fn.#If
+				} | fn.#If
+			} | fn.#If
 			NumberOfBrokerNodes: int | fn.#Fn
-			OpenMonitoring?:     close({
-				Prometheus: close({
-					JmxExporter?: close({
+			OpenMonitoring?:     {
+				Prometheus: {
+					JmxExporter?: {
 						EnabledInBroker: bool | fn.#Fn
-					}) | fn.If
-					NodeExporter?: close({
+					} | fn.#If
+					NodeExporter?: {
 						EnabledInBroker: bool | fn.#Fn
-					}) | fn.If
-				}) | fn.If
-			}) | fn.If
+					} | fn.#If
+				} | fn.#If
+			} | fn.#If
 			Tags?: {
 				[string]: _
 			} | fn.#Fn
-		})
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

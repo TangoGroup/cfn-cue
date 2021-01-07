@@ -4,18 +4,18 @@ import "github.com/TangoGroup/aws/fn"
 
 #MediaConvert: {
 	#JobTemplate: {
-		Type:       "AWS::MediaConvert::JobTemplate"
-		Properties: close({
-			AccelerationSettings?: close({
+		Type: "AWS::MediaConvert::JobTemplate"
+		Properties: {
+			AccelerationSettings?: {
 				Mode: string | fn.#Fn
-			}) | fn.If
+			} | fn.#If
 			Category?:        string | fn.#Fn
 			Description?:     string | fn.#Fn
-			HopDestinations?: [...close({
+			HopDestinations?: [...{
 				Priority?:    int | fn.#Fn
 				Queue?:       string | fn.#Fn
 				WaitMinutes?: int | fn.#Fn
-			})] | fn.If
+			}] | fn.#If
 			Name?:        string | fn.#Fn
 			Priority?:    int | fn.#Fn
 			Queue?:       string | fn.#Fn
@@ -26,7 +26,7 @@ import "github.com/TangoGroup/aws/fn"
 			Tags?:                 {
 				[string]: _
 			} | fn.#Fn
-		})
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -34,8 +34,8 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#Preset: {
-		Type:       "AWS::MediaConvert::Preset"
-		Properties: close({
+		Type: "AWS::MediaConvert::Preset"
+		Properties: {
 			Category?:    string | fn.#Fn
 			Description?: string | fn.#Fn
 			Name?:        string | fn.#Fn
@@ -45,7 +45,7 @@ import "github.com/TangoGroup/aws/fn"
 			Tags?: {
 				[string]: _
 			} | fn.#Fn
-		})
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -53,8 +53,8 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#Queue: {
-		Type:       "AWS::MediaConvert::Queue"
-		Properties: close({
+		Type: "AWS::MediaConvert::Queue"
+		Properties: {
 			Description?: string | fn.#Fn
 			Name?:        string | fn.#Fn
 			PricingPlan?: string | fn.#Fn
@@ -62,7 +62,7 @@ import "github.com/TangoGroup/aws/fn"
 			Tags?:        {
 				[string]: _
 			} | fn.#Fn
-		})
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

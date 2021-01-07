@@ -4,55 +4,55 @@ import "github.com/TangoGroup/aws/fn"
 
 #AppMesh: {
 	#GatewayRoute: {
-		Type:       "AWS::AppMesh::GatewayRoute"
-		Properties: close({
+		Type: "AWS::AppMesh::GatewayRoute"
+		Properties: {
 			GatewayRouteName: string | fn.#Fn
 			MeshName:         string | fn.#Fn
 			MeshOwner?:       string | fn.#Fn
-			Spec:             close({
-				GrpcRoute?: close({
-					Action: close({
-						Target: close({
-							VirtualService: close({
+			Spec:             {
+				GrpcRoute?: {
+					Action: {
+						Target: {
+							VirtualService: {
 								VirtualServiceName: string | fn.#Fn
-							}) | fn.If
-						}) | fn.If
-					}) | fn.If
-					Match: close({
+							} | fn.#If
+						} | fn.#If
+					} | fn.#If
+					Match: {
 						ServiceName?: string | fn.#Fn
-					}) | fn.If
-				}) | fn.If
-				Http2Route?: close({
-					Action: close({
-						Target: close({
-							VirtualService: close({
+					} | fn.#If
+				} | fn.#If
+				Http2Route?: {
+					Action: {
+						Target: {
+							VirtualService: {
 								VirtualServiceName: string | fn.#Fn
-							}) | fn.If
-						}) | fn.If
-					}) | fn.If
-					Match: close({
+							} | fn.#If
+						} | fn.#If
+					} | fn.#If
+					Match: {
 						Prefix: string | fn.#Fn
-					}) | fn.If
-				}) | fn.If
-				HttpRoute?: close({
-					Action: close({
-						Target: close({
-							VirtualService: close({
+					} | fn.#If
+				} | fn.#If
+				HttpRoute?: {
+					Action: {
+						Target: {
+							VirtualService: {
 								VirtualServiceName: string | fn.#Fn
-							}) | fn.If
-						}) | fn.If
-					}) | fn.If
-					Match: close({
+							} | fn.#If
+						} | fn.#If
+					} | fn.#If
+					Match: {
 						Prefix: string | fn.#Fn
-					}) | fn.If
-				}) | fn.If
-			}) | fn.If
-			Tags?: [...close({
+					} | fn.#If
+				} | fn.#If
+			} | fn.#If
+			Tags?: [...{
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			})] | fn.If
+			}] | fn.#If
 			VirtualGatewayName: string | fn.#Fn
-		})
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -60,43 +60,43 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#VirtualGateway: {
-		Type:       "AWS::AppMesh::VirtualGateway"
-		Properties: close({
+		Type: "AWS::AppMesh::VirtualGateway"
+		Properties: {
 			MeshName:   string | fn.#Fn
 			MeshOwner?: string | fn.#Fn
-			Spec:       close({
-				BackendDefaults?: close({
-					ClientPolicy?: close({
-						TLS?: close({
+			Spec:       {
+				BackendDefaults?: {
+					ClientPolicy?: {
+						TLS?: {
 							Enforce?:   bool | fn.#Fn
 							Ports?:     [...(int | fn.#Fn)] | (int | fn.#Fn)
-							Validation: close({
-								Trust: close({
-									ACM?: close({
+							Validation: {
+								Trust: {
+									ACM?: {
 										CertificateAuthorityArns: [...(string | fn.#Fn)] | (string | fn.#Fn)
-									}) | fn.If
-									File?: close({
+									} | fn.#If
+									File?: {
 										CertificateChain: string | fn.#Fn
-									}) | fn.If
-								}) | fn.If
-							}) | fn.If
-						}) | fn.If
-					}) | fn.If
-				}) | fn.If
-				Listeners: [...close({
-					ConnectionPool?: close({
-						GRPC?: close({
+									} | fn.#If
+								} | fn.#If
+							} | fn.#If
+						} | fn.#If
+					} | fn.#If
+				} | fn.#If
+				Listeners: [...{
+					ConnectionPool?: {
+						GRPC?: {
 							MaxRequests: int | fn.#Fn
-						}) | fn.If
-						HTTP?: close({
+						} | fn.#If
+						HTTP?: {
 							MaxConnections:      int | fn.#Fn
 							MaxPendingRequests?: int | fn.#Fn
-						}) | fn.If
-						HTTP2?: close({
+						} | fn.#If
+						HTTP2?: {
 							MaxRequests: int | fn.#Fn
-						}) | fn.If
-					}) | fn.If
-					HealthCheck?: close({
+						} | fn.#If
+					} | fn.#If
+					HealthCheck?: {
 						HealthyThreshold:   int | fn.#Fn
 						IntervalMillis:     int | fn.#Fn
 						Path?:              string | fn.#Fn
@@ -104,38 +104,38 @@ import "github.com/TangoGroup/aws/fn"
 						Protocol:           string | fn.#Fn
 						TimeoutMillis:      int | fn.#Fn
 						UnhealthyThreshold: int | fn.#Fn
-					}) | fn.If
-					PortMapping: close({
+					} | fn.#If
+					PortMapping: {
 						Port:     int | fn.#Fn
 						Protocol: string | fn.#Fn
-					}) | fn.If
-					TLS?: close({
-						Certificate: close({
-							ACM?: close({
+					} | fn.#If
+					TLS?: {
+						Certificate: {
+							ACM?: {
 								CertificateArn: string | fn.#Fn
-							}) | fn.If
-							File?: close({
+							} | fn.#If
+							File?: {
 								CertificateChain: string | fn.#Fn
 								PrivateKey:       string | fn.#Fn
-							}) | fn.If
-						}) | fn.If
+							} | fn.#If
+						} | fn.#If
 						Mode: string | fn.#Fn
-					}) | fn.If
-				})] | fn.If
-				Logging?: close({
-					AccessLog?: close({
-						File?: close({
+					} | fn.#If
+				}] | fn.#If
+				Logging?: {
+					AccessLog?: {
+						File?: {
 							Path: string | fn.#Fn
-						}) | fn.If
-					}) | fn.If
-				}) | fn.If
-			}) | fn.If
-			Tags?: [...close({
+						} | fn.#If
+					} | fn.#If
+				} | fn.#If
+			} | fn.#If
+			Tags?: [...{
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			})] | fn.If
+			}] | fn.#If
 			VirtualGatewayName: string | fn.#Fn
-		})
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

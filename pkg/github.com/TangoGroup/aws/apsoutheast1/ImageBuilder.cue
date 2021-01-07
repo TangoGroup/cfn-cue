@@ -4,8 +4,8 @@ import "github.com/TangoGroup/aws/fn"
 
 #ImageBuilder: {
 	#Component: {
-		Type:       "AWS::ImageBuilder::Component"
-		Properties: close({
+		Type: "AWS::ImageBuilder::Component"
+		Properties: {
 			ChangeDescription?:   string | fn.#Fn
 			Data?:                string | fn.#Fn
 			Description?:         string | fn.#Fn
@@ -15,10 +15,10 @@ import "github.com/TangoGroup/aws/fn"
 			SupportedOsVersions?: [...(string | fn.#Fn)] | (string | fn.#Fn)
 			Tags?:                {
 				[string]: string | fn.#Fn
-			} | fn.If
+			} | fn.#If
 			Uri?:    string | fn.#Fn
 			Version: string | fn.#Fn
-		})
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -26,21 +26,21 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#DistributionConfiguration: {
-		Type:       "AWS::ImageBuilder::DistributionConfiguration"
-		Properties: close({
+		Type: "AWS::ImageBuilder::DistributionConfiguration"
+		Properties: {
 			Description?:  string | fn.#Fn
-			Distributions: [...close({
+			Distributions: [...{
 				AmiDistributionConfiguration?: {
 					[string]: _
 				} | fn.#Fn
 				LicenseConfigurationArns?: [...(string | fn.#Fn)] | (string | fn.#Fn)
 				Region:                    string | fn.#Fn
-			})] | fn.If
+			}] | fn.#If
 			Name:  string | fn.#Fn
 			Tags?: {
 				[string]: string | fn.#Fn
-			} | fn.If
-		})
+			} | fn.#If
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -48,20 +48,20 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#Image: {
-		Type:       "AWS::ImageBuilder::Image"
-		Properties: close({
+		Type: "AWS::ImageBuilder::Image"
+		Properties: {
 			DistributionConfigurationArn?: string | fn.#Fn
 			EnhancedImageMetadataEnabled?: bool | fn.#Fn
 			ImageRecipeArn:                string | fn.#Fn
-			ImageTestsConfiguration?:      close({
+			ImageTestsConfiguration?:      {
 				ImageTestsEnabled?: bool | fn.#Fn
 				TimeoutMinutes?:    int | fn.#Fn
-			}) | fn.If
+			} | fn.#If
 			InfrastructureConfigurationArn: string | fn.#Fn
 			Tags?:                          {
 				[string]: string | fn.#Fn
-			} | fn.If
-		})
+			} | fn.#If
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -69,27 +69,27 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#ImagePipeline: {
-		Type:       "AWS::ImageBuilder::ImagePipeline"
-		Properties: close({
+		Type: "AWS::ImageBuilder::ImagePipeline"
+		Properties: {
 			Description?:                  string | fn.#Fn
 			DistributionConfigurationArn?: string | fn.#Fn
 			EnhancedImageMetadataEnabled?: bool | fn.#Fn
 			ImageRecipeArn:                string | fn.#Fn
-			ImageTestsConfiguration?:      close({
+			ImageTestsConfiguration?:      {
 				ImageTestsEnabled?: bool | fn.#Fn
 				TimeoutMinutes?:    int | fn.#Fn
-			}) | fn.If
+			} | fn.#If
 			InfrastructureConfigurationArn: string | fn.#Fn
 			Name:                           string | fn.#Fn
-			Schedule?:                      close({
+			Schedule?:                      {
 				PipelineExecutionStartCondition?: string | fn.#Fn
 				ScheduleExpression?:              string | fn.#Fn
-			}) | fn.If
+			} | fn.#If
 			Status?: string | fn.#Fn
 			Tags?:   {
 				[string]: string | fn.#Fn
-			} | fn.If
-		})
+			} | fn.#If
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -97,11 +97,11 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#ImageRecipe: {
-		Type:       "AWS::ImageBuilder::ImageRecipe"
-		Properties: close({
-			BlockDeviceMappings?: [...close({
+		Type: "AWS::ImageBuilder::ImageRecipe"
+		Properties: {
+			BlockDeviceMappings?: [...{
 				DeviceName?: string | fn.#Fn
-				Ebs?:        close({
+				Ebs?:        {
 					DeleteOnTermination?: bool | fn.#Fn
 					Encrypted?:           bool | fn.#Fn
 					Iops?:                int | fn.#Fn
@@ -109,22 +109,22 @@ import "github.com/TangoGroup/aws/fn"
 					SnapshotId?:          string | fn.#Fn
 					VolumeSize?:          int | fn.#Fn
 					VolumeType?:          string | fn.#Fn
-				}) | fn.If
+				} | fn.#If
 				NoDevice?:    string | fn.#Fn
 				VirtualName?: string | fn.#Fn
-			})] | fn.If
-			Components: [...close({
+			}] | fn.#If
+			Components: [...{
 				ComponentArn?: string | fn.#Fn
-			})] | fn.If
+			}] | fn.#If
 			Description?: string | fn.#Fn
 			Name:         string | fn.#Fn
 			ParentImage:  string | fn.#Fn
 			Tags?:        {
 				[string]: string | fn.#Fn
-			} | fn.If
+			} | fn.#If
 			Version:           string | fn.#Fn
 			WorkingDirectory?: string | fn.#Fn
-		})
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -132,8 +132,8 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#InfrastructureConfiguration: {
-		Type:       "AWS::ImageBuilder::InfrastructureConfiguration"
-		Properties: close({
+		Type: "AWS::ImageBuilder::InfrastructureConfiguration"
+		Properties: {
 			Description?:        string | fn.#Fn
 			InstanceProfileName: string | fn.#Fn
 			InstanceTypes?:      [...(string | fn.#Fn)] | (string | fn.#Fn)
@@ -144,15 +144,15 @@ import "github.com/TangoGroup/aws/fn"
 			Name:          string | fn.#Fn
 			ResourceTags?: {
 				[string]: string | fn.#Fn
-			} | fn.If
+			} | fn.#If
 			SecurityGroupIds?: [...(string | fn.#Fn)] | (string | fn.#Fn)
 			SnsTopicArn?:      string | fn.#Fn
 			SubnetId?:         string | fn.#Fn
 			Tags?:             {
 				[string]: string | fn.#Fn
-			} | fn.If
+			} | fn.#If
 			TerminateInstanceOnFailure?: bool | fn.#Fn
-		})
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

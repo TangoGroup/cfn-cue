@@ -4,12 +4,12 @@ import "github.com/TangoGroup/aws/fn"
 
 #FSx: {
 	#FileSystem: {
-		Type:       "AWS::FSx::FileSystem"
-		Properties: close({
+		Type: "AWS::FSx::FileSystem"
+		Properties: {
 			BackupId?:            string | fn.#Fn
 			FileSystemType:       string | fn.#Fn
 			KmsKeyId?:            string | fn.#Fn
-			LustreConfiguration?: close({
+			LustreConfiguration?: {
 				AutoImportPolicy?:              string | fn.#Fn
 				AutomaticBackupRetentionDays?:  int | fn.#Fn
 				CopyTagsToBackups?:             bool | fn.#Fn
@@ -21,34 +21,34 @@ import "github.com/TangoGroup/aws/fn"
 				ImportedFileChunkSize?:         int | fn.#Fn
 				PerUnitStorageThroughput?:      int | fn.#Fn
 				WeeklyMaintenanceStartTime?:    string | fn.#Fn
-			}) | fn.If
+			} | fn.#If
 			SecurityGroupIds?: [...(string | fn.#Fn)] | (string | fn.#Fn)
 			StorageCapacity?:  int | fn.#Fn
 			StorageType?:      string | fn.#Fn
 			SubnetIds:         [...(string | fn.#Fn)] | (string | fn.#Fn)
-			Tags?:             [...close({
+			Tags?:             [...{
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			})] | fn.If
-			WindowsConfiguration?: close({
+			}] | fn.#If
+			WindowsConfiguration?: {
 				ActiveDirectoryId?:                       string | fn.#Fn
 				AutomaticBackupRetentionDays?:            int | fn.#Fn
 				CopyTagsToBackups?:                       bool | fn.#Fn
 				DailyAutomaticBackupStartTime?:           string | fn.#Fn
 				DeploymentType?:                          string | fn.#Fn
 				PreferredSubnetId?:                       string | fn.#Fn
-				SelfManagedActiveDirectoryConfiguration?: close({
+				SelfManagedActiveDirectoryConfiguration?: {
 					DnsIps?:                              [...(string | fn.#Fn)] | (string | fn.#Fn)
 					DomainName?:                          string | fn.#Fn
 					FileSystemAdministratorsGroup?:       string | fn.#Fn
 					OrganizationalUnitDistinguishedName?: string | fn.#Fn
 					Password?:                            string | fn.#Fn
 					UserName?:                            string | fn.#Fn
-				}) | fn.If
+				} | fn.#If
 				ThroughputCapacity?:         int | fn.#Fn
 				WeeklyMaintenanceStartTime?: string | fn.#Fn
-			}) | fn.If
-		})
+			} | fn.#If
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

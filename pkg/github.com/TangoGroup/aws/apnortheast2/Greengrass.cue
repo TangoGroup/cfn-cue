@@ -4,22 +4,22 @@ import "github.com/TangoGroup/aws/fn"
 
 #Greengrass: {
 	#ConnectorDefinition: {
-		Type:       "AWS::Greengrass::ConnectorDefinition"
-		Properties: close({
-			InitialVersion?: close({
-				Connectors: [...close({
+		Type: "AWS::Greengrass::ConnectorDefinition"
+		Properties: {
+			InitialVersion?: {
+				Connectors: [...{
 					ConnectorArn: string | fn.#Fn
 					Id:           string | fn.#Fn
 					Parameters?:  {
 						[string]: _
 					} | fn.#Fn
-				})] | fn.If
-			}) | fn.If
+				}] | fn.#If
+			} | fn.#If
 			Name:  string | fn.#Fn
 			Tags?: {
 				[string]: _
 			} | fn.#Fn
-		})
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -27,17 +27,17 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#ConnectorDefinitionVersion: {
-		Type:       "AWS::Greengrass::ConnectorDefinitionVersion"
-		Properties: close({
+		Type: "AWS::Greengrass::ConnectorDefinitionVersion"
+		Properties: {
 			ConnectorDefinitionId: string | fn.#Fn
-			Connectors:            [...close({
+			Connectors:            [...{
 				ConnectorArn: string | fn.#Fn
 				Id:           string | fn.#Fn
 				Parameters?:  {
 					[string]: _
 				} | fn.#Fn
-			})] | fn.If
-		})
+			}] | fn.#If
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -45,21 +45,21 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#CoreDefinition: {
-		Type:       "AWS::Greengrass::CoreDefinition"
-		Properties: close({
-			InitialVersion?: close({
-				Cores: [...close({
+		Type: "AWS::Greengrass::CoreDefinition"
+		Properties: {
+			InitialVersion?: {
+				Cores: [...{
 					CertificateArn: string | fn.#Fn
 					Id:             string | fn.#Fn
 					SyncShadow?:    bool | fn.#Fn
 					ThingArn:       string | fn.#Fn
-				})] | fn.If
-			}) | fn.If
+				}] | fn.#If
+			} | fn.#If
 			Name:  string | fn.#Fn
 			Tags?: {
 				[string]: _
 			} | fn.#Fn
-		})
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -67,16 +67,16 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#CoreDefinitionVersion: {
-		Type:       "AWS::Greengrass::CoreDefinitionVersion"
-		Properties: close({
+		Type: "AWS::Greengrass::CoreDefinitionVersion"
+		Properties: {
 			CoreDefinitionId: string | fn.#Fn
-			Cores:            [...close({
+			Cores:            [...{
 				CertificateArn: string | fn.#Fn
 				Id:             string | fn.#Fn
 				SyncShadow?:    bool | fn.#Fn
 				ThingArn:       string | fn.#Fn
-			})] | fn.If
-		})
+			}] | fn.#If
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -84,21 +84,21 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#DeviceDefinition: {
-		Type:       "AWS::Greengrass::DeviceDefinition"
-		Properties: close({
-			InitialVersion?: close({
-				Devices: [...close({
+		Type: "AWS::Greengrass::DeviceDefinition"
+		Properties: {
+			InitialVersion?: {
+				Devices: [...{
 					CertificateArn: string | fn.#Fn
 					Id:             string | fn.#Fn
 					SyncShadow?:    bool | fn.#Fn
 					ThingArn:       string | fn.#Fn
-				})] | fn.If
-			}) | fn.If
+				}] | fn.#If
+			} | fn.#If
 			Name:  string | fn.#Fn
 			Tags?: {
 				[string]: _
 			} | fn.#Fn
-		})
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -106,16 +106,16 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#DeviceDefinitionVersion: {
-		Type:       "AWS::Greengrass::DeviceDefinitionVersion"
-		Properties: close({
+		Type: "AWS::Greengrass::DeviceDefinitionVersion"
+		Properties: {
 			DeviceDefinitionId: string | fn.#Fn
-			Devices:            [...close({
+			Devices:            [...{
 				CertificateArn: string | fn.#Fn
 				Id:             string | fn.#Fn
 				SyncShadow?:    bool | fn.#Fn
 				ThingArn:       string | fn.#Fn
-			})] | fn.If
-		})
+			}] | fn.#If
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -123,53 +123,53 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#FunctionDefinition: {
-		Type:       "AWS::Greengrass::FunctionDefinition"
-		Properties: close({
-			InitialVersion?: close({
-				DefaultConfig?: close({
-					Execution: close({
+		Type: "AWS::Greengrass::FunctionDefinition"
+		Properties: {
+			InitialVersion?: {
+				DefaultConfig?: {
+					Execution: {
 						IsolationMode?: string | fn.#Fn
-						RunAs?:         close({
+						RunAs?:         {
 							Gid?: int | fn.#Fn
 							Uid?: int | fn.#Fn
-						}) | fn.If
-					}) | fn.If
-				}) | fn.If
-				Functions: [...close({
+						} | fn.#If
+					} | fn.#If
+				} | fn.#If
+				Functions: [...{
 					FunctionArn:           string | fn.#Fn
-					FunctionConfiguration: close({
+					FunctionConfiguration: {
 						EncodingType?: string | fn.#Fn
-						Environment?:  close({
+						Environment?:  {
 							AccessSysfs?: bool | fn.#Fn
-							Execution?:   close({
+							Execution?:   {
 								IsolationMode?: string | fn.#Fn
-								RunAs?:         close({
+								RunAs?:         {
 									Gid?: int | fn.#Fn
 									Uid?: int | fn.#Fn
-								}) | fn.If
-							}) | fn.If
-							ResourceAccessPolicies?: [...close({
+								} | fn.#If
+							} | fn.#If
+							ResourceAccessPolicies?: [...{
 								Permission?: string | fn.#Fn
 								ResourceId:  string | fn.#Fn
-							})] | fn.If
+							}] | fn.#If
 							Variables?: {
 								[string]: _
 							} | fn.#Fn
-						}) | fn.If
+						} | fn.#If
 						ExecArgs?:   string | fn.#Fn
 						Executable?: string | fn.#Fn
 						MemorySize?: int | fn.#Fn
 						Pinned?:     bool | fn.#Fn
 						Timeout?:    int | fn.#Fn
-					}) | fn.If
+					} | fn.#If
 					Id: string | fn.#Fn
-				})] | fn.If
-			}) | fn.If
+				}] | fn.#If
+			} | fn.#If
 			Name:  string | fn.#Fn
 			Tags?: {
 				[string]: _
 			} | fn.#Fn
-		})
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -177,48 +177,48 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#FunctionDefinitionVersion: {
-		Type:       "AWS::Greengrass::FunctionDefinitionVersion"
-		Properties: close({
-			DefaultConfig?: close({
-				Execution: close({
+		Type: "AWS::Greengrass::FunctionDefinitionVersion"
+		Properties: {
+			DefaultConfig?: {
+				Execution: {
 					IsolationMode?: string | fn.#Fn
-					RunAs?:         close({
+					RunAs?:         {
 						Gid?: int | fn.#Fn
 						Uid?: int | fn.#Fn
-					}) | fn.If
-				}) | fn.If
-			}) | fn.If
+					} | fn.#If
+				} | fn.#If
+			} | fn.#If
 			FunctionDefinitionId: string | fn.#Fn
-			Functions:            [...close({
+			Functions:            [...{
 				FunctionArn:           string | fn.#Fn
-				FunctionConfiguration: close({
+				FunctionConfiguration: {
 					EncodingType?: string | fn.#Fn
-					Environment?:  close({
+					Environment?:  {
 						AccessSysfs?: bool | fn.#Fn
-						Execution?:   close({
+						Execution?:   {
 							IsolationMode?: string | fn.#Fn
-							RunAs?:         close({
+							RunAs?:         {
 								Gid?: int | fn.#Fn
 								Uid?: int | fn.#Fn
-							}) | fn.If
-						}) | fn.If
-						ResourceAccessPolicies?: [...close({
+							} | fn.#If
+						} | fn.#If
+						ResourceAccessPolicies?: [...{
 							Permission?: string | fn.#Fn
 							ResourceId:  string | fn.#Fn
-						})] | fn.If
+						}] | fn.#If
 						Variables?: {
 							[string]: _
 						} | fn.#Fn
-					}) | fn.If
+					} | fn.#If
 					ExecArgs?:   string | fn.#Fn
 					Executable?: string | fn.#Fn
 					MemorySize?: int | fn.#Fn
 					Pinned?:     bool | fn.#Fn
 					Timeout?:    int | fn.#Fn
-				}) | fn.If
+				} | fn.#If
 				Id: string | fn.#Fn
-			})] | fn.If
-		})
+			}] | fn.#If
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -226,9 +226,9 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#Group: {
-		Type:       "AWS::Greengrass::Group"
-		Properties: close({
-			InitialVersion?: close({
+		Type: "AWS::Greengrass::Group"
+		Properties: {
+			InitialVersion?: {
 				ConnectorDefinitionVersionArn?:    string | fn.#Fn
 				CoreDefinitionVersionArn?:         string | fn.#Fn
 				DeviceDefinitionVersionArn?:       string | fn.#Fn
@@ -236,13 +236,13 @@ import "github.com/TangoGroup/aws/fn"
 				LoggerDefinitionVersionArn?:       string | fn.#Fn
 				ResourceDefinitionVersionArn?:     string | fn.#Fn
 				SubscriptionDefinitionVersionArn?: string | fn.#Fn
-			}) | fn.If
+			} | fn.#If
 			Name:     string | fn.#Fn
 			RoleArn?: string | fn.#Fn
 			Tags?:    {
 				[string]: _
 			} | fn.#Fn
-		})
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -250,8 +250,8 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#GroupVersion: {
-		Type:       "AWS::Greengrass::GroupVersion"
-		Properties: close({
+		Type: "AWS::Greengrass::GroupVersion"
+		Properties: {
 			ConnectorDefinitionVersionArn?:    string | fn.#Fn
 			CoreDefinitionVersionArn?:         string | fn.#Fn
 			DeviceDefinitionVersionArn?:       string | fn.#Fn
@@ -260,7 +260,7 @@ import "github.com/TangoGroup/aws/fn"
 			LoggerDefinitionVersionArn?:       string | fn.#Fn
 			ResourceDefinitionVersionArn?:     string | fn.#Fn
 			SubscriptionDefinitionVersionArn?: string | fn.#Fn
-		})
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -268,22 +268,22 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#LoggerDefinition: {
-		Type:       "AWS::Greengrass::LoggerDefinition"
-		Properties: close({
-			InitialVersion?: close({
-				Loggers: [...close({
+		Type: "AWS::Greengrass::LoggerDefinition"
+		Properties: {
+			InitialVersion?: {
+				Loggers: [...{
 					Component: string | fn.#Fn
 					Id:        string | fn.#Fn
 					Level:     string | fn.#Fn
 					Space?:    int | fn.#Fn
 					Type:      string | fn.#Fn
-				})] | fn.If
-			}) | fn.If
+				}] | fn.#If
+			} | fn.#If
 			Name:  string | fn.#Fn
 			Tags?: {
 				[string]: _
 			} | fn.#Fn
-		})
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -291,17 +291,17 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#LoggerDefinitionVersion: {
-		Type:       "AWS::Greengrass::LoggerDefinitionVersion"
-		Properties: close({
+		Type: "AWS::Greengrass::LoggerDefinitionVersion"
+		Properties: {
 			LoggerDefinitionId: string | fn.#Fn
-			Loggers:            [...close({
+			Loggers:            [...{
 				Component: string | fn.#Fn
 				Id:        string | fn.#Fn
 				Level:     string | fn.#Fn
 				Space?:    int | fn.#Fn
 				Type:      string | fn.#Fn
-			})] | fn.If
-		})
+			}] | fn.#If
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -309,56 +309,56 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#ResourceDefinition: {
-		Type:       "AWS::Greengrass::ResourceDefinition"
-		Properties: close({
-			InitialVersion?: close({
-				Resources: [...close({
+		Type: "AWS::Greengrass::ResourceDefinition"
+		Properties: {
+			InitialVersion?: {
+				Resources: [...{
 					Id:                    string | fn.#Fn
 					Name:                  string | fn.#Fn
-					ResourceDataContainer: close({
-						LocalDeviceResourceData?: close({
-							GroupOwnerSetting?: close({
+					ResourceDataContainer: {
+						LocalDeviceResourceData?: {
+							GroupOwnerSetting?: {
 								AutoAddGroupOwner: bool | fn.#Fn
 								GroupOwner?:       string | fn.#Fn
-							}) | fn.If
+							} | fn.#If
 							SourcePath: string | fn.#Fn
-						}) | fn.If
-						LocalVolumeResourceData?: close({
+						} | fn.#If
+						LocalVolumeResourceData?: {
 							DestinationPath:    string | fn.#Fn
-							GroupOwnerSetting?: close({
+							GroupOwnerSetting?: {
 								AutoAddGroupOwner: bool | fn.#Fn
 								GroupOwner?:       string | fn.#Fn
-							}) | fn.If
+							} | fn.#If
 							SourcePath: string | fn.#Fn
-						}) | fn.If
-						S3MachineLearningModelResourceData?: close({
+						} | fn.#If
+						S3MachineLearningModelResourceData?: {
 							DestinationPath: string | fn.#Fn
-							OwnerSetting?:   close({
+							OwnerSetting?:   {
 								GroupOwner:      string | fn.#Fn
 								GroupPermission: string | fn.#Fn
-							}) | fn.If
+							} | fn.#If
 							S3Uri: string | fn.#Fn
-						}) | fn.If
-						SageMakerMachineLearningModelResourceData?: close({
+						} | fn.#If
+						SageMakerMachineLearningModelResourceData?: {
 							DestinationPath: string | fn.#Fn
-							OwnerSetting?:   close({
+							OwnerSetting?:   {
 								GroupOwner:      string | fn.#Fn
 								GroupPermission: string | fn.#Fn
-							}) | fn.If
+							} | fn.#If
 							SageMakerJobArn: string | fn.#Fn
-						}) | fn.If
-						SecretsManagerSecretResourceData?: close({
+						} | fn.#If
+						SecretsManagerSecretResourceData?: {
 							ARN:                                string | fn.#Fn
 							AdditionalStagingLabelsToDownload?: [...(string | fn.#Fn)] | (string | fn.#Fn)
-						}) | fn.If
-					}) | fn.If
-				})] | fn.If
-			}) | fn.If
+						} | fn.#If
+					} | fn.#If
+				}] | fn.#If
+			} | fn.#If
 			Name:  string | fn.#Fn
 			Tags?: {
 				[string]: _
 			} | fn.#Fn
-		})
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -366,51 +366,51 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#ResourceDefinitionVersion: {
-		Type:       "AWS::Greengrass::ResourceDefinitionVersion"
-		Properties: close({
+		Type: "AWS::Greengrass::ResourceDefinitionVersion"
+		Properties: {
 			ResourceDefinitionId: string | fn.#Fn
-			Resources:            [...close({
+			Resources:            [...{
 				Id:                    string | fn.#Fn
 				Name:                  string | fn.#Fn
-				ResourceDataContainer: close({
-					LocalDeviceResourceData?: close({
-						GroupOwnerSetting?: close({
+				ResourceDataContainer: {
+					LocalDeviceResourceData?: {
+						GroupOwnerSetting?: {
 							AutoAddGroupOwner: bool | fn.#Fn
 							GroupOwner?:       string | fn.#Fn
-						}) | fn.If
+						} | fn.#If
 						SourcePath: string | fn.#Fn
-					}) | fn.If
-					LocalVolumeResourceData?: close({
+					} | fn.#If
+					LocalVolumeResourceData?: {
 						DestinationPath:    string | fn.#Fn
-						GroupOwnerSetting?: close({
+						GroupOwnerSetting?: {
 							AutoAddGroupOwner: bool | fn.#Fn
 							GroupOwner?:       string | fn.#Fn
-						}) | fn.If
+						} | fn.#If
 						SourcePath: string | fn.#Fn
-					}) | fn.If
-					S3MachineLearningModelResourceData?: close({
+					} | fn.#If
+					S3MachineLearningModelResourceData?: {
 						DestinationPath: string | fn.#Fn
-						OwnerSetting?:   close({
+						OwnerSetting?:   {
 							GroupOwner:      string | fn.#Fn
 							GroupPermission: string | fn.#Fn
-						}) | fn.If
+						} | fn.#If
 						S3Uri: string | fn.#Fn
-					}) | fn.If
-					SageMakerMachineLearningModelResourceData?: close({
+					} | fn.#If
+					SageMakerMachineLearningModelResourceData?: {
 						DestinationPath: string | fn.#Fn
-						OwnerSetting?:   close({
+						OwnerSetting?:   {
 							GroupOwner:      string | fn.#Fn
 							GroupPermission: string | fn.#Fn
-						}) | fn.If
+						} | fn.#If
 						SageMakerJobArn: string | fn.#Fn
-					}) | fn.If
-					SecretsManagerSecretResourceData?: close({
+					} | fn.#If
+					SecretsManagerSecretResourceData?: {
 						ARN:                                string | fn.#Fn
 						AdditionalStagingLabelsToDownload?: [...(string | fn.#Fn)] | (string | fn.#Fn)
-					}) | fn.If
-				}) | fn.If
-			})] | fn.If
-		})
+					} | fn.#If
+				} | fn.#If
+			}] | fn.#If
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -418,21 +418,21 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#SubscriptionDefinition: {
-		Type:       "AWS::Greengrass::SubscriptionDefinition"
-		Properties: close({
-			InitialVersion?: close({
-				Subscriptions: [...close({
+		Type: "AWS::Greengrass::SubscriptionDefinition"
+		Properties: {
+			InitialVersion?: {
+				Subscriptions: [...{
 					Id:      string | fn.#Fn
 					Source:  string | fn.#Fn
 					Subject: string | fn.#Fn
 					Target:  string | fn.#Fn
-				})] | fn.If
-			}) | fn.If
+				}] | fn.#If
+			} | fn.#If
 			Name:  string | fn.#Fn
 			Tags?: {
 				[string]: _
 			} | fn.#Fn
-		})
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -440,16 +440,16 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#SubscriptionDefinitionVersion: {
-		Type:       "AWS::Greengrass::SubscriptionDefinitionVersion"
-		Properties: close({
+		Type: "AWS::Greengrass::SubscriptionDefinitionVersion"
+		Properties: {
 			SubscriptionDefinitionId: string | fn.#Fn
-			Subscriptions:            [...close({
+			Subscriptions:            [...{
 				Id:      string | fn.#Fn
 				Source:  string | fn.#Fn
 				Subject: string | fn.#Fn
 				Target:  string | fn.#Fn
-			})] | fn.If
-		})
+			}] | fn.#If
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

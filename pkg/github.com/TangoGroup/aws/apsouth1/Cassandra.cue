@@ -4,10 +4,8 @@ import "github.com/TangoGroup/aws/fn"
 
 #Cassandra: {
 	#Keyspace: {
-		Type:       "AWS::Cassandra::Keyspace"
-		Properties: close({
-			KeyspaceName?: string | fn.#Fn
-		})
+		Type: "AWS::Cassandra::Keyspace"
+		Properties: KeyspaceName?: string | fn.#Fn
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -15,33 +13,33 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#Table: {
-		Type:       "AWS::Cassandra::Table"
-		Properties: close({
-			BillingMode?: close({
+		Type: "AWS::Cassandra::Table"
+		Properties: {
+			BillingMode?: {
 				Mode:                   string | fn.#Fn
-				ProvisionedThroughput?: close({
+				ProvisionedThroughput?: {
 					ReadCapacityUnits:  int | fn.#Fn
 					WriteCapacityUnits: int | fn.#Fn
-				}) | fn.If
-			}) | fn.If
-			ClusteringKeyColumns?: [...close({
-				Column: close({
+				} | fn.#If
+			} | fn.#If
+			ClusteringKeyColumns?: [...{
+				Column: {
 					ColumnName: string | fn.#Fn
 					ColumnType: string | fn.#Fn
-				}) | fn.If
+				} | fn.#If
 				OrderBy?: string | fn.#Fn
-			})] | fn.If
+			}] | fn.#If
 			KeyspaceName:        string | fn.#Fn
-			PartitionKeyColumns: [...close({
+			PartitionKeyColumns: [...{
 				ColumnName: string | fn.#Fn
 				ColumnType: string | fn.#Fn
-			})] | fn.If
-			RegularColumns?: [...close({
+			}] | fn.#If
+			RegularColumns?: [...{
 				ColumnName: string | fn.#Fn
 				ColumnType: string | fn.#Fn
-			})] | fn.If
+			}] | fn.#If
 			TableName?: string | fn.#Fn
-		})
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

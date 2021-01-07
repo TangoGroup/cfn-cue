@@ -4,26 +4,26 @@ import "github.com/TangoGroup/aws/fn"
 
 #PinpointEmail: {
 	#ConfigurationSet: {
-		Type:       "AWS::PinpointEmail::ConfigurationSet"
-		Properties: close({
-			DeliveryOptions?: close({
+		Type: "AWS::PinpointEmail::ConfigurationSet"
+		Properties: {
+			DeliveryOptions?: {
 				SendingPoolName?: string | fn.#Fn
-			}) | fn.If
+			} | fn.#If
 			Name:               string | fn.#Fn
-			ReputationOptions?: close({
+			ReputationOptions?: {
 				ReputationMetricsEnabled?: bool | fn.#Fn
-			}) | fn.If
-			SendingOptions?: close({
+			} | fn.#If
+			SendingOptions?: {
 				SendingEnabled?: bool | fn.#Fn
-			}) | fn.If
-			Tags?: [...close({
+			} | fn.#If
+			Tags?: [...{
 				Key?:   string | fn.#Fn
 				Value?: string | fn.#Fn
-			})] | fn.If
-			TrackingOptions?: close({
+			}] | fn.#If
+			TrackingOptions?: {
 				CustomRedirectDomain?: string | fn.#Fn
-			}) | fn.If
-		})
+			} | fn.#If
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -31,32 +31,32 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#ConfigurationSetEventDestination: {
-		Type:       "AWS::PinpointEmail::ConfigurationSetEventDestination"
-		Properties: close({
+		Type: "AWS::PinpointEmail::ConfigurationSetEventDestination"
+		Properties: {
 			ConfigurationSetName: string | fn.#Fn
-			EventDestination?:    close({
-				CloudWatchDestination?: close({
-					DimensionConfigurations?: [...close({
+			EventDestination?:    {
+				CloudWatchDestination?: {
+					DimensionConfigurations?: [...{
 						DefaultDimensionValue: string | fn.#Fn
 						DimensionName:         string | fn.#Fn
 						DimensionValueSource:  string | fn.#Fn
-					})] | fn.If
-				}) | fn.If
+					}] | fn.#If
+				} | fn.#If
 				Enabled?:                    bool | fn.#Fn
-				KinesisFirehoseDestination?: close({
+				KinesisFirehoseDestination?: {
 					DeliveryStreamArn: string | fn.#Fn
 					IamRoleArn:        string | fn.#Fn
-				}) | fn.If
+				} | fn.#If
 				MatchingEventTypes:   [...(string | fn.#Fn)] | (string | fn.#Fn)
-				PinpointDestination?: close({
+				PinpointDestination?: {
 					ApplicationArn?: string | fn.#Fn
-				}) | fn.If
-				SnsDestination?: close({
+				} | fn.#If
+				SnsDestination?: {
 					TopicArn: string | fn.#Fn
-				}) | fn.If
-			}) | fn.If
+				} | fn.#If
+			} | fn.#If
 			EventDestinationName: string | fn.#Fn
-		})
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -64,14 +64,14 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#DedicatedIpPool: {
-		Type:       "AWS::PinpointEmail::DedicatedIpPool"
-		Properties: close({
+		Type: "AWS::PinpointEmail::DedicatedIpPool"
+		Properties: {
 			PoolName?: string | fn.#Fn
-			Tags?:     [...close({
+			Tags?:     [...{
 				Key?:   string | fn.#Fn
 				Value?: string | fn.#Fn
-			})] | fn.If
-		})
+			}] | fn.#If
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -79,20 +79,20 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#Identity: {
-		Type:       "AWS::PinpointEmail::Identity"
-		Properties: close({
+		Type: "AWS::PinpointEmail::Identity"
+		Properties: {
 			DkimSigningEnabled?:        bool | fn.#Fn
 			FeedbackForwardingEnabled?: bool | fn.#Fn
-			MailFromAttributes?:        close({
+			MailFromAttributes?:        {
 				BehaviorOnMxFailure?: string | fn.#Fn
 				MailFromDomain?:      string | fn.#Fn
-			}) | fn.If
+			} | fn.#If
 			Name:  string | fn.#Fn
-			Tags?: [...close({
+			Tags?: [...{
 				Key?:   string | fn.#Fn
 				Value?: string | fn.#Fn
-			})] | fn.If
-		})
+			}] | fn.#If
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

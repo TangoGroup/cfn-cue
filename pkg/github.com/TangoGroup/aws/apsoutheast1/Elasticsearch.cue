@@ -4,44 +4,44 @@ import "github.com/TangoGroup/aws/fn"
 
 #Elasticsearch: {
 	#Domain: {
-		Type:       "AWS::Elasticsearch::Domain"
-		Properties: close({
+		Type: "AWS::Elasticsearch::Domain"
+		Properties: {
 			AccessPolicies?: {
 				[string]: _
 			} | fn.#Fn
 			AdvancedOptions?: {
 				[string]: string | fn.#Fn
-			} | fn.If
-			AdvancedSecurityOptions?: close({
+			} | fn.#If
+			AdvancedSecurityOptions?: {
 				Enabled?:                     bool | fn.#Fn
 				InternalUserDatabaseEnabled?: bool | fn.#Fn
-				MasterUserOptions?:           close({
+				MasterUserOptions?:           {
 					MasterUserARN?:      string | fn.#Fn
 					MasterUserName?:     string | fn.#Fn
 					MasterUserPassword?: string | fn.#Fn
-				}) | fn.If
-			}) | fn.If
-			CognitoOptions?: close({
+				} | fn.#If
+			} | fn.#If
+			CognitoOptions?: {
 				Enabled?:        bool | fn.#Fn
 				IdentityPoolId?: string | fn.#Fn
 				RoleArn?:        string | fn.#Fn
 				UserPoolId?:     string | fn.#Fn
-			}) | fn.If
-			DomainEndpointOptions?: close({
+			} | fn.#If
+			DomainEndpointOptions?: {
 				CustomEndpoint?:               string | fn.#Fn
 				CustomEndpointCertificateArn?: string | fn.#Fn
 				CustomEndpointEnabled?:        bool | fn.#Fn
 				EnforceHTTPS?:                 bool | fn.#Fn
 				TLSSecurityPolicy?:            string | fn.#Fn
-			}) | fn.If
+			} | fn.#If
 			DomainName?: string | fn.#Fn
-			EBSOptions?: close({
+			EBSOptions?: {
 				EBSEnabled?: bool | fn.#Fn
 				Iops?:       int | fn.#Fn
 				VolumeSize?: int | fn.#Fn
 				VolumeType?: string | fn.#Fn
-			}) | fn.If
-			ElasticsearchClusterConfig?: close({
+			} | fn.#If
+			ElasticsearchClusterConfig?: {
 				DedicatedMasterCount?:   int | fn.#Fn
 				DedicatedMasterEnabled?: bool | fn.#Fn
 				DedicatedMasterType?:    string | fn.#Fn
@@ -50,37 +50,37 @@ import "github.com/TangoGroup/aws/fn"
 				WarmCount?:              int | fn.#Fn
 				WarmEnabled?:            bool | fn.#Fn
 				WarmType?:               string | fn.#Fn
-				ZoneAwarenessConfig?:    close({
+				ZoneAwarenessConfig?:    {
 					AvailabilityZoneCount?: int | fn.#Fn
-				}) | fn.If
+				} | fn.#If
 				ZoneAwarenessEnabled?: bool | fn.#Fn
-			}) | fn.If
+			} | fn.#If
 			ElasticsearchVersion?:    string | fn.#Fn
-			EncryptionAtRestOptions?: close({
+			EncryptionAtRestOptions?: {
 				Enabled?:  bool | fn.#Fn
 				KmsKeyId?: string | fn.#Fn
-			}) | fn.If
+			} | fn.#If
 			LogPublishingOptions?: {
-				[string]: close({
+				[string]: {
 					CloudWatchLogsLogGroupArn?: string | fn.#Fn
 					Enabled?:                   bool | fn.#Fn
-				})
-			} | fn.If
-			NodeToNodeEncryptionOptions?: close({
+				}
+			} | fn.#If
+			NodeToNodeEncryptionOptions?: {
 				Enabled?: bool | fn.#Fn
-			}) | fn.If
-			SnapshotOptions?: close({
+			} | fn.#If
+			SnapshotOptions?: {
 				AutomatedSnapshotStartHour?: int | fn.#Fn
-			}) | fn.If
-			Tags?: [...close({
+			} | fn.#If
+			Tags?: [...{
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			})] | fn.If
-			VPCOptions?: close({
+			}] | fn.#If
+			VPCOptions?: {
 				SecurityGroupIds?: [...(string | fn.#Fn)] | (string | fn.#Fn)
 				SubnetIds?:        [...(string | fn.#Fn)] | (string | fn.#Fn)
-			}) | fn.If
-		})
+			} | fn.#If
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

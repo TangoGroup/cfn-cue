@@ -4,309 +4,309 @@ import "github.com/TangoGroup/aws/fn"
 
 #Kendra: {
 	#DataSource: {
-		Type:       "AWS::Kendra::DataSource"
-		Properties: close({
-			DataSourceConfiguration?: close({
-				ConfluenceConfiguration?: close({
-					AttachmentConfiguration?: close({
-						AttachmentFieldMappings?: close({
-							ConfluenceAttachmentFieldMappingsList?: [...close({
+		Type: "AWS::Kendra::DataSource"
+		Properties: {
+			DataSourceConfiguration?: {
+				ConfluenceConfiguration?: {
+					AttachmentConfiguration?: {
+						AttachmentFieldMappings?: {
+							ConfluenceAttachmentFieldMappingsList?: [...{
 								DataSourceFieldName: string | fn.#Fn
 								DateFieldFormat?:    string | fn.#Fn
 								IndexFieldName:      string | fn.#Fn
-							})] | fn.If
-						}) | fn.If
+							}] | fn.#If
+						} | fn.#If
 						CrawlAttachments?: bool | fn.#Fn
-					}) | fn.If
-					BlogConfiguration?: close({
-						BlogFieldMappings?: close({
-							ConfluenceBlogFieldMappingsList?: [...close({
+					} | fn.#If
+					BlogConfiguration?: {
+						BlogFieldMappings?: {
+							ConfluenceBlogFieldMappingsList?: [...{
 								DataSourceFieldName: string | fn.#Fn
 								DateFieldFormat?:    string | fn.#Fn
 								IndexFieldName:      string | fn.#Fn
-							})] | fn.If
-						}) | fn.If
-					}) | fn.If
-					ExclusionPatterns?: close({
+							}] | fn.#If
+						} | fn.#If
+					} | fn.#If
+					ExclusionPatterns?: {
 						DataSourceInclusionsExclusionsStrings?: [...(string | fn.#Fn)] | (string | fn.#Fn)
-					}) | fn.If
-					InclusionPatterns?: close({
+					} | fn.#If
+					InclusionPatterns?: {
 						DataSourceInclusionsExclusionsStrings?: [...(string | fn.#Fn)] | (string | fn.#Fn)
-					}) | fn.If
-					PageConfiguration?: close({
-						PageFieldMappings?: close({
-							ConfluencePageFieldMappingsList?: [...close({
+					} | fn.#If
+					PageConfiguration?: {
+						PageFieldMappings?: {
+							ConfluencePageFieldMappingsList?: [...{
 								DataSourceFieldName: string | fn.#Fn
 								DateFieldFormat?:    string | fn.#Fn
 								IndexFieldName:      string | fn.#Fn
-							})] | fn.If
-						}) | fn.If
-					}) | fn.If
+							}] | fn.#If
+						} | fn.#If
+					} | fn.#If
 					SecretArn:           string | fn.#Fn
 					ServerUrl:           string | fn.#Fn
-					SpaceConfiguration?: close({
+					SpaceConfiguration?: {
 						CrawlArchivedSpaces?: bool | fn.#Fn
 						CrawlPersonalSpaces?: bool | fn.#Fn
-						ExcludeSpaces?:       close({
+						ExcludeSpaces?:       {
 							ConfluenceSpaceList?: [...(string | fn.#Fn)] | (string | fn.#Fn)
-						}) | fn.If
-						IncludeSpaces?: close({
+						} | fn.#If
+						IncludeSpaces?: {
 							ConfluenceSpaceList?: [...(string | fn.#Fn)] | (string | fn.#Fn)
-						}) | fn.If
-						SpaceFieldMappings?: close({
-							ConfluenceSpaceFieldMappingsList?: [...close({
+						} | fn.#If
+						SpaceFieldMappings?: {
+							ConfluenceSpaceFieldMappingsList?: [...{
 								DataSourceFieldName: string | fn.#Fn
 								DateFieldFormat?:    string | fn.#Fn
 								IndexFieldName:      string | fn.#Fn
-							})] | fn.If
-						}) | fn.If
-					}) | fn.If
+							}] | fn.#If
+						} | fn.#If
+					} | fn.#If
 					Version:           string | fn.#Fn
-					VpcConfiguration?: close({
+					VpcConfiguration?: {
 						SecurityGroupIds: [...(string | fn.#Fn)] | (string | fn.#Fn)
 						SubnetIds:        [...(string | fn.#Fn)] | (string | fn.#Fn)
-					}) | fn.If
-				}) | fn.If
-				DatabaseConfiguration?: close({
-					AclConfiguration?: close({
+					} | fn.#If
+				} | fn.#If
+				DatabaseConfiguration?: {
+					AclConfiguration?: {
 						AllowedGroupsColumnName: string | fn.#Fn
-					}) | fn.If
-					ColumnConfiguration: close({
-						ChangeDetectingColumns: close({
+					} | fn.#If
+					ColumnConfiguration: {
+						ChangeDetectingColumns: {
 							ChangeDetectingColumns?: [...(string | fn.#Fn)] | (string | fn.#Fn)
-						}) | fn.If
+						} | fn.#If
 						DocumentDataColumnName:   string | fn.#Fn
 						DocumentIdColumnName:     string | fn.#Fn
 						DocumentTitleColumnName?: string | fn.#Fn
-						FieldMappings?:           close({
-							DataSourceToIndexFieldMappingList?: [...close({
+						FieldMappings?:           {
+							DataSourceToIndexFieldMappingList?: [...{
 								DataSourceFieldName: string | fn.#Fn
 								DateFieldFormat?:    string | fn.#Fn
 								IndexFieldName:      string | fn.#Fn
-							})] | fn.If
-						}) | fn.If
-					}) | fn.If
-					ConnectionConfiguration: close({
+							}] | fn.#If
+						} | fn.#If
+					} | fn.#If
+					ConnectionConfiguration: {
 						DatabaseHost: string | fn.#Fn
 						DatabaseName: string | fn.#Fn
 						DatabasePort: int | fn.#Fn
 						SecretArn:    string | fn.#Fn
 						TableName:    string | fn.#Fn
-					}) | fn.If
+					} | fn.#If
 					DatabaseEngineType: string | fn.#Fn
-					SqlConfiguration?:  close({
+					SqlConfiguration?:  {
 						QueryIdentifiersEnclosingOption?: string | fn.#Fn
-					}) | fn.If
-					VpcConfiguration?: close({
+					} | fn.#If
+					VpcConfiguration?: {
 						SecurityGroupIds: [...(string | fn.#Fn)] | (string | fn.#Fn)
 						SubnetIds:        [...(string | fn.#Fn)] | (string | fn.#Fn)
-					}) | fn.If
-				}) | fn.If
-				OneDriveConfiguration?: close({
+					} | fn.#If
+				} | fn.#If
+				OneDriveConfiguration?: {
 					DisableLocalGroups?: bool | fn.#Fn
-					ExclusionPatterns?:  close({
+					ExclusionPatterns?:  {
 						DataSourceInclusionsExclusionsStrings?: [...(string | fn.#Fn)] | (string | fn.#Fn)
-					}) | fn.If
-					FieldMappings?: close({
-						DataSourceToIndexFieldMappingList?: [...close({
+					} | fn.#If
+					FieldMappings?: {
+						DataSourceToIndexFieldMappingList?: [...{
 							DataSourceFieldName: string | fn.#Fn
 							DateFieldFormat?:    string | fn.#Fn
 							IndexFieldName:      string | fn.#Fn
-						})] | fn.If
-					}) | fn.If
-					InclusionPatterns?: close({
+						}] | fn.#If
+					} | fn.#If
+					InclusionPatterns?: {
 						DataSourceInclusionsExclusionsStrings?: [...(string | fn.#Fn)] | (string | fn.#Fn)
-					}) | fn.If
-					OneDriveUsers: close({
-						OneDriveUserList?: close({
+					} | fn.#If
+					OneDriveUsers: {
+						OneDriveUserList?: {
 							OneDriveUserList?: [...(string | fn.#Fn)] | (string | fn.#Fn)
-						}) | fn.If
-						OneDriveUserS3Path?: close({
+						} | fn.#If
+						OneDriveUserS3Path?: {
 							Bucket: string | fn.#Fn
 							Key:    string | fn.#Fn
-						}) | fn.If
-					}) | fn.If
+						} | fn.#If
+					} | fn.#If
 					SecretArn:    string | fn.#Fn
 					TenantDomain: string | fn.#Fn
-				}) | fn.If
-				S3Configuration?: close({
-					AccessControlListConfiguration?: close({
+				} | fn.#If
+				S3Configuration?: {
+					AccessControlListConfiguration?: {
 						KeyPath?: string | fn.#Fn
-					}) | fn.If
+					} | fn.#If
 					BucketName:                      string | fn.#Fn
-					DocumentsMetadataConfiguration?: close({
+					DocumentsMetadataConfiguration?: {
 						S3Prefix?: string | fn.#Fn
-					}) | fn.If
-					ExclusionPatterns?: close({
+					} | fn.#If
+					ExclusionPatterns?: {
 						DataSourceInclusionsExclusionsStrings?: [...(string | fn.#Fn)] | (string | fn.#Fn)
-					}) | fn.If
-					InclusionPatterns?: close({
+					} | fn.#If
+					InclusionPatterns?: {
 						DataSourceInclusionsExclusionsStrings?: [...(string | fn.#Fn)] | (string | fn.#Fn)
-					}) | fn.If
-					InclusionPrefixes?: close({
+					} | fn.#If
+					InclusionPrefixes?: {
 						DataSourceInclusionsExclusionsStrings?: [...(string | fn.#Fn)] | (string | fn.#Fn)
-					}) | fn.If
-				}) | fn.If
-				SalesforceConfiguration?: close({
-					ChatterFeedConfiguration?: close({
+					} | fn.#If
+				} | fn.#If
+				SalesforceConfiguration?: {
+					ChatterFeedConfiguration?: {
 						DocumentDataFieldName:   string | fn.#Fn
 						DocumentTitleFieldName?: string | fn.#Fn
-						FieldMappings?:          close({
-							DataSourceToIndexFieldMappingList?: [...close({
+						FieldMappings?:          {
+							DataSourceToIndexFieldMappingList?: [...{
 								DataSourceFieldName: string | fn.#Fn
 								DateFieldFormat?:    string | fn.#Fn
 								IndexFieldName:      string | fn.#Fn
-							})] | fn.If
-						}) | fn.If
-						IncludeFilterTypes?: close({
+							}] | fn.#If
+						} | fn.#If
+						IncludeFilterTypes?: {
 							SalesforceChatterFeedIncludeFilterTypes?: [...(string | fn.#Fn)] | (string | fn.#Fn)
-						}) | fn.If
-					}) | fn.If
+						} | fn.#If
+					} | fn.#If
 					CrawlAttachments?:              bool | fn.#Fn
-					ExcludeAttachmentFilePatterns?: close({
+					ExcludeAttachmentFilePatterns?: {
 						DataSourceInclusionsExclusionsStrings?: [...(string | fn.#Fn)] | (string | fn.#Fn)
-					}) | fn.If
-					IncludeAttachmentFilePatterns?: close({
+					} | fn.#If
+					IncludeAttachmentFilePatterns?: {
 						DataSourceInclusionsExclusionsStrings?: [...(string | fn.#Fn)] | (string | fn.#Fn)
-					}) | fn.If
-					KnowledgeArticleConfiguration?: close({
-						CustomKnowledgeArticleTypeConfigurations?: close({
-							SalesforceCustomKnowledgeArticleTypeConfigurationList?: [...close({
+					} | fn.#If
+					KnowledgeArticleConfiguration?: {
+						CustomKnowledgeArticleTypeConfigurations?: {
+							SalesforceCustomKnowledgeArticleTypeConfigurationList?: [...{
 								DocumentDataFieldName:   string | fn.#Fn
 								DocumentTitleFieldName?: string | fn.#Fn
-								FieldMappings?:          close({
-									DataSourceToIndexFieldMappingList?: [...close({
+								FieldMappings?:          {
+									DataSourceToIndexFieldMappingList?: [...{
 										DataSourceFieldName: string | fn.#Fn
 										DateFieldFormat?:    string | fn.#Fn
 										IndexFieldName:      string | fn.#Fn
-									})] | fn.If
-								}) | fn.If
+									}] | fn.#If
+								} | fn.#If
 								Name: string | fn.#Fn
-							})] | fn.If
-						}) | fn.If
-						IncludedStates: close({
+							}] | fn.#If
+						} | fn.#If
+						IncludedStates: {
 							SalesforceKnowledgeArticleStateList?: [...(string | fn.#Fn)] | (string | fn.#Fn)
-						}) | fn.If
-						StandardKnowledgeArticleTypeConfiguration?: close({
+						} | fn.#If
+						StandardKnowledgeArticleTypeConfiguration?: {
 							DocumentDataFieldName:   string | fn.#Fn
 							DocumentTitleFieldName?: string | fn.#Fn
-							FieldMappings?:          close({
-								DataSourceToIndexFieldMappingList?: [...close({
+							FieldMappings?:          {
+								DataSourceToIndexFieldMappingList?: [...{
 									DataSourceFieldName: string | fn.#Fn
 									DateFieldFormat?:    string | fn.#Fn
 									IndexFieldName:      string | fn.#Fn
-								})] | fn.If
-							}) | fn.If
-						}) | fn.If
-					}) | fn.If
+								}] | fn.#If
+							} | fn.#If
+						} | fn.#If
+					} | fn.#If
 					SecretArn:                              string | fn.#Fn
 					ServerUrl:                              string | fn.#Fn
-					StandardObjectAttachmentConfiguration?: close({
+					StandardObjectAttachmentConfiguration?: {
 						DocumentTitleFieldName?: string | fn.#Fn
-						FieldMappings?:          close({
-							DataSourceToIndexFieldMappingList?: [...close({
+						FieldMappings?:          {
+							DataSourceToIndexFieldMappingList?: [...{
 								DataSourceFieldName: string | fn.#Fn
 								DateFieldFormat?:    string | fn.#Fn
 								IndexFieldName:      string | fn.#Fn
-							})] | fn.If
-						}) | fn.If
-					}) | fn.If
-					StandardObjectConfigurations?: close({
-						SalesforceStandardObjectConfigurationList?: [...close({
+							}] | fn.#If
+						} | fn.#If
+					} | fn.#If
+					StandardObjectConfigurations?: {
+						SalesforceStandardObjectConfigurationList?: [...{
 							DocumentDataFieldName:   string | fn.#Fn
 							DocumentTitleFieldName?: string | fn.#Fn
-							FieldMappings?:          close({
-								DataSourceToIndexFieldMappingList?: [...close({
+							FieldMappings?:          {
+								DataSourceToIndexFieldMappingList?: [...{
 									DataSourceFieldName: string | fn.#Fn
 									DateFieldFormat?:    string | fn.#Fn
 									IndexFieldName:      string | fn.#Fn
-								})] | fn.If
-							}) | fn.If
+								}] | fn.#If
+							} | fn.#If
 							Name: string | fn.#Fn
-						})] | fn.If
-					}) | fn.If
-				}) | fn.If
-				ServiceNowConfiguration?: close({
+						}] | fn.#If
+					} | fn.#If
+				} | fn.#If
+				ServiceNowConfiguration?: {
 					HostUrl:                        string | fn.#Fn
-					KnowledgeArticleConfiguration?: close({
+					KnowledgeArticleConfiguration?: {
 						CrawlAttachments?:              bool | fn.#Fn
 						DocumentDataFieldName:          string | fn.#Fn
 						DocumentTitleFieldName?:        string | fn.#Fn
-						ExcludeAttachmentFilePatterns?: close({
+						ExcludeAttachmentFilePatterns?: {
 							DataSourceInclusionsExclusionsStrings?: [...(string | fn.#Fn)] | (string | fn.#Fn)
-						}) | fn.If
-						FieldMappings?: close({
-							DataSourceToIndexFieldMappingList?: [...close({
+						} | fn.#If
+						FieldMappings?: {
+							DataSourceToIndexFieldMappingList?: [...{
 								DataSourceFieldName: string | fn.#Fn
 								DateFieldFormat?:    string | fn.#Fn
 								IndexFieldName:      string | fn.#Fn
-							})] | fn.If
-						}) | fn.If
-						IncludeAttachmentFilePatterns?: close({
+							}] | fn.#If
+						} | fn.#If
+						IncludeAttachmentFilePatterns?: {
 							DataSourceInclusionsExclusionsStrings?: [...(string | fn.#Fn)] | (string | fn.#Fn)
-						}) | fn.If
-					}) | fn.If
+						} | fn.#If
+					} | fn.#If
 					SecretArn:                    string | fn.#Fn
-					ServiceCatalogConfiguration?: close({
+					ServiceCatalogConfiguration?: {
 						CrawlAttachments?:              bool | fn.#Fn
 						DocumentDataFieldName:          string | fn.#Fn
 						DocumentTitleFieldName?:        string | fn.#Fn
-						ExcludeAttachmentFilePatterns?: close({
+						ExcludeAttachmentFilePatterns?: {
 							DataSourceInclusionsExclusionsStrings?: [...(string | fn.#Fn)] | (string | fn.#Fn)
-						}) | fn.If
-						FieldMappings?: close({
-							DataSourceToIndexFieldMappingList?: [...close({
+						} | fn.#If
+						FieldMappings?: {
+							DataSourceToIndexFieldMappingList?: [...{
 								DataSourceFieldName: string | fn.#Fn
 								DateFieldFormat?:    string | fn.#Fn
 								IndexFieldName:      string | fn.#Fn
-							})] | fn.If
-						}) | fn.If
-						IncludeAttachmentFilePatterns?: close({
+							}] | fn.#If
+						} | fn.#If
+						IncludeAttachmentFilePatterns?: {
 							DataSourceInclusionsExclusionsStrings?: [...(string | fn.#Fn)] | (string | fn.#Fn)
-						}) | fn.If
-					}) | fn.If
+						} | fn.#If
+					} | fn.#If
 					ServiceNowBuildVersion: string | fn.#Fn
-				}) | fn.If
-				SharePointConfiguration?: close({
+				} | fn.#If
+				SharePointConfiguration?: {
 					CrawlAttachments?:       bool | fn.#Fn
 					DisableLocalGroups?:     bool | fn.#Fn
 					DocumentTitleFieldName?: string | fn.#Fn
-					ExclusionPatterns?:      close({
+					ExclusionPatterns?:      {
 						DataSourceInclusionsExclusionsStrings?: [...(string | fn.#Fn)] | (string | fn.#Fn)
-					}) | fn.If
-					FieldMappings?: close({
-						DataSourceToIndexFieldMappingList?: [...close({
+					} | fn.#If
+					FieldMappings?: {
+						DataSourceToIndexFieldMappingList?: [...{
 							DataSourceFieldName: string | fn.#Fn
 							DateFieldFormat?:    string | fn.#Fn
 							IndexFieldName:      string | fn.#Fn
-						})] | fn.If
-					}) | fn.If
-					InclusionPatterns?: close({
+						}] | fn.#If
+					} | fn.#If
+					InclusionPatterns?: {
 						DataSourceInclusionsExclusionsStrings?: [...(string | fn.#Fn)] | (string | fn.#Fn)
-					}) | fn.If
+					} | fn.#If
 					SecretArn:         string | fn.#Fn
 					SharePointVersion: string | fn.#Fn
 					Urls:              [...(string | fn.#Fn)] | (string | fn.#Fn)
 					UseChangeLog?:     bool | fn.#Fn
-					VpcConfiguration?: close({
+					VpcConfiguration?: {
 						SecurityGroupIds: [...(string | fn.#Fn)] | (string | fn.#Fn)
 						SubnetIds:        [...(string | fn.#Fn)] | (string | fn.#Fn)
-					}) | fn.If
-				}) | fn.If
-			}) | fn.If
+					} | fn.#If
+				} | fn.#If
+			} | fn.#If
 			Description?: string | fn.#Fn
 			IndexId:      string | fn.#Fn
 			Name:         string | fn.#Fn
 			RoleArn?:     string | fn.#Fn
 			Schedule?:    string | fn.#Fn
-			Tags?:        close({
-				TagList?: [...close({
+			Tags?:        {
+				TagList?: [...{
 					Key:   string | fn.#Fn
 					Value: string | fn.#Fn
-				})] | fn.If
-			}) | fn.If
+				}] | fn.#If
+			} | fn.#If
 			Type: string | fn.#Fn
-		})
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -314,24 +314,24 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#Faq: {
-		Type:       "AWS::Kendra::Faq"
-		Properties: close({
+		Type: "AWS::Kendra::Faq"
+		Properties: {
 			Description?: string | fn.#Fn
 			FileFormat?:  string | fn.#Fn
 			IndexId:      string | fn.#Fn
 			Name:         string | fn.#Fn
 			RoleArn:      string | fn.#Fn
-			S3Path:       close({
+			S3Path:       {
 				Bucket: string | fn.#Fn
 				Key:    string | fn.#Fn
-			}) | fn.If
-			Tags?: close({
-				TagList?: [...close({
+			} | fn.#If
+			Tags?: {
+				TagList?: [...{
 					Key:   string | fn.#Fn
 					Value: string | fn.#Fn
-				})] | fn.If
-			}) | fn.If
-		})
+				}] | fn.#If
+			} | fn.#If
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -339,56 +339,56 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#Index: {
-		Type:       "AWS::Kendra::Index"
-		Properties: close({
-			CapacityUnits?: close({
+		Type: "AWS::Kendra::Index"
+		Properties: {
+			CapacityUnits?: {
 				QueryCapacityUnits:   int | fn.#Fn
 				StorageCapacityUnits: int | fn.#Fn
-			}) | fn.If
+			} | fn.#If
 			Description?:                    string | fn.#Fn
-			DocumentMetadataConfigurations?: close({
-				DocumentMetadataConfigurationList?: [...close({
+			DocumentMetadataConfigurations?: {
+				DocumentMetadataConfigurationList?: [...{
 					Name:       string | fn.#Fn
-					Relevance?: close({
+					Relevance?: {
 						Duration?:             string | fn.#Fn
 						Freshness?:            bool | fn.#Fn
 						Importance?:           int | fn.#Fn
 						RankOrder?:            string | fn.#Fn
-						ValueImportanceItems?: close({
-							ValueImportanceItems?: [...close({
+						ValueImportanceItems?: {
+							ValueImportanceItems?: [...{
 								[string]: _
-							})] | fn.If
-						}) | fn.If
-					}) | fn.If
-					Search?: close({
+							}] | fn.#If
+						} | fn.#If
+					} | fn.#If
+					Search?: {
 						Displayable?: bool | fn.#Fn
 						Facetable?:   bool | fn.#Fn
 						Searchable?:  bool | fn.#Fn
 						Sortable?:    bool | fn.#Fn
-					}) | fn.If
+					} | fn.#If
 					Type: string | fn.#Fn
-				})] | fn.If
-			}) | fn.If
+				}] | fn.#If
+			} | fn.#If
 			Edition:                            string | fn.#Fn
 			Name:                               string | fn.#Fn
 			RoleArn:                            string | fn.#Fn
-			ServerSideEncryptionConfiguration?: close({
+			ServerSideEncryptionConfiguration?: {
 				KmsKeyId?: string | fn.#Fn
-			}) | fn.If
-			Tags?: close({
-				TagList?: [...close({
+			} | fn.#If
+			Tags?: {
+				TagList?: [...{
 					Key:   string | fn.#Fn
 					Value: string | fn.#Fn
-				})] | fn.If
-			}) | fn.If
+				}] | fn.#If
+			} | fn.#If
 			UserContextPolicy?:       string | fn.#Fn
-			UserTokenConfigurations?: close({
-				UserTokenConfigurationList?: [...close({
-					JsonTokenTypeConfiguration?: close({
+			UserTokenConfigurations?: {
+				UserTokenConfigurationList?: [...{
+					JsonTokenTypeConfiguration?: {
 						GroupAttributeField:    string | fn.#Fn
 						UserNameAttributeField: string | fn.#Fn
-					}) | fn.If
-					JwtTokenTypeConfiguration?: close({
+					} | fn.#If
+					JwtTokenTypeConfiguration?: {
 						ClaimRegex?:             string | fn.#Fn
 						GroupAttributeField?:    string | fn.#Fn
 						Issuer?:                 string | fn.#Fn
@@ -396,10 +396,10 @@ import "github.com/TangoGroup/aws/fn"
 						SecretManagerArn?:       string | fn.#Fn
 						URL?:                    string | fn.#Fn
 						UserNameAttributeField?: string | fn.#Fn
-					}) | fn.If
-				})] | fn.If
-			}) | fn.If
-		})
+					} | fn.#If
+				}] | fn.#If
+			} | fn.#If
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

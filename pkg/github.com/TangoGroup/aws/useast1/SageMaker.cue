@@ -4,15 +4,15 @@ import "github.com/TangoGroup/aws/fn"
 
 #SageMaker: {
 	#CodeRepository: {
-		Type:       "AWS::SageMaker::CodeRepository"
-		Properties: close({
+		Type: "AWS::SageMaker::CodeRepository"
+		Properties: {
 			CodeRepositoryName?: string | fn.#Fn
-			GitConfig:           close({
+			GitConfig:           {
 				Branch?:       string | fn.#Fn
 				RepositoryUrl: string | fn.#Fn
 				SecretArn?:    string | fn.#Fn
-			}) | fn.If
-		})
+			} | fn.#If
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -20,69 +20,69 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#DataQualityJobDefinition: {
-		Type:       "AWS::SageMaker::DataQualityJobDefinition"
-		Properties: close({
-			DataQualityAppSpecification: close({
+		Type: "AWS::SageMaker::DataQualityJobDefinition"
+		Properties: {
+			DataQualityAppSpecification: {
 				ContainerArguments?:              [...(string | fn.#Fn)] | (string | fn.#Fn)
 				ContainerEntrypoint?:             [...(string | fn.#Fn)] | (string | fn.#Fn)
-				Environment?:                     close({}) | fn.If
+				Environment?:                     {} | fn.#If
 				ImageUri:                         string | fn.#Fn
 				PostAnalyticsProcessorSourceUri?: string | fn.#Fn
 				RecordPreprocessorSourceUri?:     string | fn.#Fn
-			}) | fn.If
-			DataQualityBaselineConfig?: close({
+			} | fn.#If
+			DataQualityBaselineConfig?: {
 				BaseliningJobName?:   string | fn.#Fn
-				ConstraintsResource?: close({
+				ConstraintsResource?: {
 					S3Uri?: string | fn.#Fn
-				}) | fn.If
-				StatisticsResource?: close({
+				} | fn.#If
+				StatisticsResource?: {
 					S3Uri?: string | fn.#Fn
-				}) | fn.If
-			}) | fn.If
-			DataQualityJobInput: close({
-				EndpointInput: close({
+				} | fn.#If
+			} | fn.#If
+			DataQualityJobInput: {
+				EndpointInput: {
 					EndpointName:            string | fn.#Fn
 					LocalPath:               string | fn.#Fn
 					S3DataDistributionType?: string | fn.#Fn
 					S3InputMode?:            string | fn.#Fn
-				}) | fn.If
-			}) | fn.If
-			DataQualityJobOutputConfig: close({
+				} | fn.#If
+			} | fn.#If
+			DataQualityJobOutputConfig: {
 				KmsKeyId?:         string | fn.#Fn
-				MonitoringOutputs: [...close({
-					S3Output: close({
+				MonitoringOutputs: [...{
+					S3Output: {
 						LocalPath:     string | fn.#Fn
 						S3UploadMode?: string | fn.#Fn
 						S3Uri:         string | fn.#Fn
-					}) | fn.If
-				})] | fn.If
-			}) | fn.If
+					} | fn.#If
+				}] | fn.#If
+			} | fn.#If
 			JobDefinitionName?: string | fn.#Fn
-			JobResources:       close({
-				ClusterConfig: close({
+			JobResources:       {
+				ClusterConfig: {
 					InstanceCount:   int | fn.#Fn
 					InstanceType:    string | fn.#Fn
 					VolumeKmsKeyId?: string | fn.#Fn
 					VolumeSizeInGB:  int | fn.#Fn
-				}) | fn.If
-			}) | fn.If
-			NetworkConfig?: close({
+				} | fn.#If
+			} | fn.#If
+			NetworkConfig?: {
 				EnableInterContainerTrafficEncryption?: bool | fn.#Fn
 				EnableNetworkIsolation?:                bool | fn.#Fn
-				VpcConfig?:                             close({
+				VpcConfig?:                             {
 					SecurityGroupIds: [...(string | fn.#Fn)] | (string | fn.#Fn)
 					Subnets:          [...(string | fn.#Fn)] | (string | fn.#Fn)
-				}) | fn.If
-			}) | fn.If
+				} | fn.#If
+			} | fn.#If
 			RoleArn:            string | fn.#Fn
-			StoppingCondition?: close({
+			StoppingCondition?: {
 				MaxRuntimeInSeconds: int | fn.#Fn
-			}) | fn.If
-			Tags?: [...close({
+			} | fn.#If
+			Tags?: [...{
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			})] | fn.If
-		})
+			}] | fn.#If
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -90,16 +90,16 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#Device: {
-		Type:       "AWS::SageMaker::Device"
-		Properties: close({
+		Type: "AWS::SageMaker::Device"
+		Properties: {
 			Device?: {
 				[string]: _
 			} | fn.#Fn
-			Tags?: [...close({
+			Tags?: [...{
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			})] | fn.If
-		})
+			}] | fn.#If
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -107,19 +107,19 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#DeviceFleet: {
-		Type:       "AWS::SageMaker::DeviceFleet"
-		Properties: close({
+		Type: "AWS::SageMaker::DeviceFleet"
+		Properties: {
 			Description?: string | fn.#Fn
-			OutputConfig: close({
+			OutputConfig: {
 				KmsKeyId?:        string | fn.#Fn
 				S3OutputLocation: string | fn.#Fn
-			}) | fn.If
+			} | fn.#If
 			RoleArn: string | fn.#Fn
-			Tags?:   [...close({
+			Tags?:   [...{
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			})] | fn.If
-		})
+			}] | fn.#If
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -127,38 +127,38 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#Endpoint: {
-		Type:       "AWS::SageMaker::Endpoint"
-		Properties: close({
-			DeploymentConfig?: close({
-				AutoRollbackConfiguration?: close({
-					Alarms: [...close({
+		Type: "AWS::SageMaker::Endpoint"
+		Properties: {
+			DeploymentConfig?: {
+				AutoRollbackConfiguration?: {
+					Alarms: [...{
 						AlarmName: string | fn.#Fn
-					})] | fn.If
-				}) | fn.If
-				BlueGreenUpdatePolicy: close({
+					}] | fn.#If
+				} | fn.#If
+				BlueGreenUpdatePolicy: {
 					MaximumExecutionTimeoutInSeconds?: int | fn.#Fn
 					TerminationWaitInSeconds?:         int | fn.#Fn
-					TrafficRoutingConfiguration:       close({
-						CanarySize?: close({
+					TrafficRoutingConfiguration:       {
+						CanarySize?: {
 							Type:  string | fn.#Fn
 							Value: int | fn.#Fn
-						}) | fn.If
+						} | fn.#If
 						Type:                   string | fn.#Fn
 						WaitIntervalInSeconds?: int | fn.#Fn
-					}) | fn.If
-				}) | fn.If
-			}) | fn.If
+					} | fn.#If
+				} | fn.#If
+			} | fn.#If
 			EndpointConfigName:                string | fn.#Fn
 			EndpointName?:                     string | fn.#Fn
-			ExcludeRetainedVariantProperties?: [...close({
+			ExcludeRetainedVariantProperties?: [...{
 				VariantPropertyType?: string | fn.#Fn
-			})] | fn.If
+			}] | fn.#If
 			RetainAllVariantProperties?: bool | fn.#Fn
-			Tags?:                       [...close({
+			Tags?:                       [...{
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			})] | fn.If
-		})
+			}] | fn.#If
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -166,36 +166,36 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#EndpointConfig: {
-		Type:       "AWS::SageMaker::EndpointConfig"
-		Properties: close({
-			DataCaptureConfig?: close({
-				CaptureContentTypeHeader?: close({
+		Type: "AWS::SageMaker::EndpointConfig"
+		Properties: {
+			DataCaptureConfig?: {
+				CaptureContentTypeHeader?: {
 					CsvContentTypes?:  [...(string | fn.#Fn)] | (string | fn.#Fn)
 					JsonContentTypes?: [...(string | fn.#Fn)] | (string | fn.#Fn)
-				}) | fn.If
-				CaptureOptions: [...close({
+				} | fn.#If
+				CaptureOptions: [...{
 					CaptureMode: string | fn.#Fn
-				})] | fn.If
+				}] | fn.#If
 				DestinationS3Uri:          string | fn.#Fn
 				EnableCapture?:            bool | fn.#Fn
 				InitialSamplingPercentage: int | fn.#Fn
 				KmsKeyId?:                 string | fn.#Fn
-			}) | fn.If
+			} | fn.#If
 			EndpointConfigName?: string | fn.#Fn
 			KmsKeyId?:           string | fn.#Fn
-			ProductionVariants:  [...close({
+			ProductionVariants:  [...{
 				AcceleratorType?:     string | fn.#Fn
 				InitialInstanceCount: int | fn.#Fn
 				InitialVariantWeight: number | fn.#Fn
 				InstanceType:         string | fn.#Fn
 				ModelName:            string | fn.#Fn
 				VariantName:          string | fn.#Fn
-			})] | fn.If
-			Tags?: [...close({
+			}] | fn.#If
+			Tags?: [...{
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			})] | fn.If
-		})
+			}] | fn.#If
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -203,52 +203,52 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#Model: {
-		Type:       "AWS::SageMaker::Model"
-		Properties: close({
-			Containers?: [...close({
+		Type: "AWS::SageMaker::Model"
+		Properties: {
+			Containers?: [...{
 				ContainerHostname?: string | fn.#Fn
 				Environment?:       {
 					[string]: _
 				} | fn.#Fn
 				Image?:       string | fn.#Fn
-				ImageConfig?: close({
+				ImageConfig?: {
 					RepositoryAccessMode: string | fn.#Fn
-				}) | fn.If
+				} | fn.#If
 				Mode?:             string | fn.#Fn
 				ModelDataUrl?:     string | fn.#Fn
 				ModelPackageName?: string | fn.#Fn
-				MultiModelConfig?: close({
+				MultiModelConfig?: {
 					ModelCacheSetting?: string | fn.#Fn
-				}) | fn.If
-			})] | fn.If
+				} | fn.#If
+			}] | fn.#If
 			EnableNetworkIsolation?: bool | fn.#Fn
 			ExecutionRoleArn:        string | fn.#Fn
 			ModelName?:              string | fn.#Fn
-			PrimaryContainer?:       close({
+			PrimaryContainer?:       {
 				ContainerHostname?: string | fn.#Fn
 				Environment?:       {
 					[string]: _
 				} | fn.#Fn
 				Image?:       string | fn.#Fn
-				ImageConfig?: close({
+				ImageConfig?: {
 					RepositoryAccessMode: string | fn.#Fn
-				}) | fn.If
+				} | fn.#If
 				Mode?:             string | fn.#Fn
 				ModelDataUrl?:     string | fn.#Fn
 				ModelPackageName?: string | fn.#Fn
-				MultiModelConfig?: close({
+				MultiModelConfig?: {
 					ModelCacheSetting?: string | fn.#Fn
-				}) | fn.If
-			}) | fn.If
-			Tags?: [...close({
+				} | fn.#If
+			} | fn.#If
+			Tags?: [...{
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			})] | fn.If
-			VpcConfig?: close({
+			}] | fn.#If
+			VpcConfig?: {
 				SecurityGroupIds: [...(string | fn.#Fn)] | (string | fn.#Fn)
 				Subnets:          [...(string | fn.#Fn)] | (string | fn.#Fn)
-			}) | fn.If
-		})
+			} | fn.#If
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -256,30 +256,30 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#ModelBiasJobDefinition: {
-		Type:       "AWS::SageMaker::ModelBiasJobDefinition"
-		Properties: close({
+		Type: "AWS::SageMaker::ModelBiasJobDefinition"
+		Properties: {
 			JobDefinitionName?: string | fn.#Fn
-			JobResources:       close({
-				ClusterConfig: close({
+			JobResources:       {
+				ClusterConfig: {
 					InstanceCount:   int | fn.#Fn
 					InstanceType:    string | fn.#Fn
 					VolumeKmsKeyId?: string | fn.#Fn
 					VolumeSizeInGB:  int | fn.#Fn
-				}) | fn.If
-			}) | fn.If
-			ModelBiasAppSpecification: close({
+				} | fn.#If
+			} | fn.#If
+			ModelBiasAppSpecification: {
 				ConfigUri:    string | fn.#Fn
-				Environment?: close({}) | fn.If
+				Environment?: {} | fn.#If
 				ImageUri:     string | fn.#Fn
-			}) | fn.If
-			ModelBiasBaselineConfig?: close({
+			} | fn.#If
+			ModelBiasBaselineConfig?: {
 				BaseliningJobName?:   string | fn.#Fn
-				ConstraintsResource?: close({
+				ConstraintsResource?: {
 					S3Uri?: string | fn.#Fn
-				}) | fn.If
-			}) | fn.If
-			ModelBiasJobInput: close({
-				EndpointInput: close({
+				} | fn.#If
+			} | fn.#If
+			ModelBiasJobInput: {
+				EndpointInput: {
 					EndTimeOffset?:                 string | fn.#Fn
 					EndpointName:                   string | fn.#Fn
 					FeaturesAttribute?:             string | fn.#Fn
@@ -290,38 +290,38 @@ import "github.com/TangoGroup/aws/fn"
 					S3DataDistributionType?:        string | fn.#Fn
 					S3InputMode?:                   string | fn.#Fn
 					StartTimeOffset?:               string | fn.#Fn
-				}) | fn.If
-				GroundTruthS3Input: close({
+				} | fn.#If
+				GroundTruthS3Input: {
 					S3Uri: string | fn.#Fn
-				}) | fn.If
-			}) | fn.If
-			ModelBiasJobOutputConfig: close({
+				} | fn.#If
+			} | fn.#If
+			ModelBiasJobOutputConfig: {
 				KmsKeyId?:         string | fn.#Fn
-				MonitoringOutputs: [...close({
-					S3Output: close({
+				MonitoringOutputs: [...{
+					S3Output: {
 						LocalPath:     string | fn.#Fn
 						S3UploadMode?: string | fn.#Fn
 						S3Uri:         string | fn.#Fn
-					}) | fn.If
-				})] | fn.If
-			}) | fn.If
-			NetworkConfig?: close({
+					} | fn.#If
+				}] | fn.#If
+			} | fn.#If
+			NetworkConfig?: {
 				EnableInterContainerTrafficEncryption?: bool | fn.#Fn
 				EnableNetworkIsolation?:                bool | fn.#Fn
-				VpcConfig?:                             close({
+				VpcConfig?:                             {
 					SecurityGroupIds: [...(string | fn.#Fn)] | (string | fn.#Fn)
 					Subnets:          [...(string | fn.#Fn)] | (string | fn.#Fn)
-				}) | fn.If
-			}) | fn.If
+				} | fn.#If
+			} | fn.#If
 			RoleArn:            string | fn.#Fn
-			StoppingCondition?: close({
+			StoppingCondition?: {
 				MaxRuntimeInSeconds: int | fn.#Fn
-			}) | fn.If
-			Tags?: [...close({
+			} | fn.#If
+			Tags?: [...{
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			})] | fn.If
-		})
+			}] | fn.#If
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -329,30 +329,30 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#ModelExplainabilityJobDefinition: {
-		Type:       "AWS::SageMaker::ModelExplainabilityJobDefinition"
-		Properties: close({
+		Type: "AWS::SageMaker::ModelExplainabilityJobDefinition"
+		Properties: {
 			JobDefinitionName?: string | fn.#Fn
-			JobResources:       close({
-				ClusterConfig: close({
+			JobResources:       {
+				ClusterConfig: {
 					InstanceCount:   int | fn.#Fn
 					InstanceType:    string | fn.#Fn
 					VolumeKmsKeyId?: string | fn.#Fn
 					VolumeSizeInGB:  int | fn.#Fn
-				}) | fn.If
-			}) | fn.If
-			ModelExplainabilityAppSpecification: close({
+				} | fn.#If
+			} | fn.#If
+			ModelExplainabilityAppSpecification: {
 				ConfigUri:    string | fn.#Fn
-				Environment?: close({}) | fn.If
+				Environment?: {} | fn.#If
 				ImageUri:     string | fn.#Fn
-			}) | fn.If
-			ModelExplainabilityBaselineConfig?: close({
+			} | fn.#If
+			ModelExplainabilityBaselineConfig?: {
 				BaseliningJobName?:   string | fn.#Fn
-				ConstraintsResource?: close({
+				ConstraintsResource?: {
 					S3Uri?: string | fn.#Fn
-				}) | fn.If
-			}) | fn.If
-			ModelExplainabilityJobInput: close({
-				EndpointInput: close({
+				} | fn.#If
+			} | fn.#If
+			ModelExplainabilityJobInput: {
+				EndpointInput: {
 					EndpointName:            string | fn.#Fn
 					FeaturesAttribute?:      string | fn.#Fn
 					InferenceAttribute?:     string | fn.#Fn
@@ -360,35 +360,35 @@ import "github.com/TangoGroup/aws/fn"
 					ProbabilityAttribute?:   string | fn.#Fn
 					S3DataDistributionType?: string | fn.#Fn
 					S3InputMode?:            string | fn.#Fn
-				}) | fn.If
-			}) | fn.If
-			ModelExplainabilityJobOutputConfig: close({
+				} | fn.#If
+			} | fn.#If
+			ModelExplainabilityJobOutputConfig: {
 				KmsKeyId?:         string | fn.#Fn
-				MonitoringOutputs: [...close({
-					S3Output: close({
+				MonitoringOutputs: [...{
+					S3Output: {
 						LocalPath:     string | fn.#Fn
 						S3UploadMode?: string | fn.#Fn
 						S3Uri:         string | fn.#Fn
-					}) | fn.If
-				})] | fn.If
-			}) | fn.If
-			NetworkConfig?: close({
+					} | fn.#If
+				}] | fn.#If
+			} | fn.#If
+			NetworkConfig?: {
 				EnableInterContainerTrafficEncryption?: bool | fn.#Fn
 				EnableNetworkIsolation?:                bool | fn.#Fn
-				VpcConfig?:                             close({
+				VpcConfig?:                             {
 					SecurityGroupIds: [...(string | fn.#Fn)] | (string | fn.#Fn)
 					Subnets:          [...(string | fn.#Fn)] | (string | fn.#Fn)
-				}) | fn.If
-			}) | fn.If
+				} | fn.#If
+			} | fn.#If
 			RoleArn:            string | fn.#Fn
-			StoppingCondition?: close({
+			StoppingCondition?: {
 				MaxRuntimeInSeconds: int | fn.#Fn
-			}) | fn.If
-			Tags?: [...close({
+			} | fn.#If
+			Tags?: [...{
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			})] | fn.If
-		})
+			}] | fn.#If
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -396,18 +396,18 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#ModelPackageGroup: {
-		Type:       "AWS::SageMaker::ModelPackageGroup"
-		Properties: close({
+		Type: "AWS::SageMaker::ModelPackageGroup"
+		Properties: {
 			ModelPackageGroupDescription?: string | fn.#Fn
 			ModelPackageGroupName:         string | fn.#Fn
 			ModelPackageGroupPolicy?:      {
 				[string]: _
 			} | fn.#Fn
-			Tags?: [...close({
+			Tags?: [...{
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			})] | fn.If
-		})
+			}] | fn.#If
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -415,34 +415,34 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#ModelQualityJobDefinition: {
-		Type:       "AWS::SageMaker::ModelQualityJobDefinition"
-		Properties: close({
+		Type: "AWS::SageMaker::ModelQualityJobDefinition"
+		Properties: {
 			JobDefinitionName?: string | fn.#Fn
-			JobResources:       close({
-				ClusterConfig: close({
+			JobResources:       {
+				ClusterConfig: {
 					InstanceCount:   int | fn.#Fn
 					InstanceType:    string | fn.#Fn
 					VolumeKmsKeyId?: string | fn.#Fn
 					VolumeSizeInGB:  int | fn.#Fn
-				}) | fn.If
-			}) | fn.If
-			ModelQualityAppSpecification: close({
+				} | fn.#If
+			} | fn.#If
+			ModelQualityAppSpecification: {
 				ContainerArguments?:              [...(string | fn.#Fn)] | (string | fn.#Fn)
 				ContainerEntrypoint?:             [...(string | fn.#Fn)] | (string | fn.#Fn)
-				Environment?:                     close({}) | fn.If
+				Environment?:                     {} | fn.#If
 				ImageUri:                         string | fn.#Fn
 				PostAnalyticsProcessorSourceUri?: string | fn.#Fn
 				ProblemType:                      string | fn.#Fn
 				RecordPreprocessorSourceUri?:     string | fn.#Fn
-			}) | fn.If
-			ModelQualityBaselineConfig?: close({
+			} | fn.#If
+			ModelQualityBaselineConfig?: {
 				BaseliningJobName?:   string | fn.#Fn
-				ConstraintsResource?: close({
+				ConstraintsResource?: {
 					S3Uri?: string | fn.#Fn
-				}) | fn.If
-			}) | fn.If
-			ModelQualityJobInput: close({
-				EndpointInput: close({
+				} | fn.#If
+			} | fn.#If
+			ModelQualityJobInput: {
+				EndpointInput: {
 					EndTimeOffset?:                 string | fn.#Fn
 					EndpointName:                   string | fn.#Fn
 					InferenceAttribute?:            string | fn.#Fn
@@ -452,38 +452,38 @@ import "github.com/TangoGroup/aws/fn"
 					S3DataDistributionType?:        string | fn.#Fn
 					S3InputMode?:                   string | fn.#Fn
 					StartTimeOffset?:               string | fn.#Fn
-				}) | fn.If
-				GroundTruthS3Input: close({
+				} | fn.#If
+				GroundTruthS3Input: {
 					S3Uri: string | fn.#Fn
-				}) | fn.If
-			}) | fn.If
-			ModelQualityJobOutputConfig: close({
+				} | fn.#If
+			} | fn.#If
+			ModelQualityJobOutputConfig: {
 				KmsKeyId?:         string | fn.#Fn
-				MonitoringOutputs: [...close({
-					S3Output: close({
+				MonitoringOutputs: [...{
+					S3Output: {
 						LocalPath:     string | fn.#Fn
 						S3UploadMode?: string | fn.#Fn
 						S3Uri:         string | fn.#Fn
-					}) | fn.If
-				})] | fn.If
-			}) | fn.If
-			NetworkConfig?: close({
+					} | fn.#If
+				}] | fn.#If
+			} | fn.#If
+			NetworkConfig?: {
 				EnableInterContainerTrafficEncryption?: bool | fn.#Fn
 				EnableNetworkIsolation?:                bool | fn.#Fn
-				VpcConfig?:                             close({
+				VpcConfig?:                             {
 					SecurityGroupIds: [...(string | fn.#Fn)] | (string | fn.#Fn)
 					Subnets:          [...(string | fn.#Fn)] | (string | fn.#Fn)
-				}) | fn.If
-			}) | fn.If
+				} | fn.#If
+			} | fn.#If
 			RoleArn:            string | fn.#Fn
-			StoppingCondition?: close({
+			StoppingCondition?: {
 				MaxRuntimeInSeconds: int | fn.#Fn
-			}) | fn.If
-			Tags?: [...close({
+			} | fn.#If
+			Tags?: [...{
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			})] | fn.If
-		})
+			}] | fn.#If
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -491,11 +491,11 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#MonitoringSchedule: {
-		Type:       "AWS::SageMaker::MonitoringSchedule"
-		Properties: close({
+		Type: "AWS::SageMaker::MonitoringSchedule"
+		Properties: {
 			EndpointName?:                   string | fn.#Fn
 			FailureReason?:                  string | fn.#Fn
-			LastMonitoringExecutionSummary?: close({
+			LastMonitoringExecutionSummary?: {
 				CreationTime:              string | fn.#Fn
 				EndpointName?:             string | fn.#Fn
 				FailureReason?:            string | fn.#Fn
@@ -504,74 +504,74 @@ import "github.com/TangoGroup/aws/fn"
 				MonitoringScheduleName:    string | fn.#Fn
 				ProcessingJobArn?:         string | fn.#Fn
 				ScheduledTime:             string | fn.#Fn
-			}) | fn.If
-			MonitoringScheduleConfig: close({
-				MonitoringJobDefinition?: close({
-					BaselineConfig?: close({
-						ConstraintsResource?: close({
+			} | fn.#If
+			MonitoringScheduleConfig: {
+				MonitoringJobDefinition?: {
+					BaselineConfig?: {
+						ConstraintsResource?: {
 							S3Uri?: string | fn.#Fn
-						}) | fn.If
-						StatisticsResource?: close({
+						} | fn.#If
+						StatisticsResource?: {
 							S3Uri?: string | fn.#Fn
-						}) | fn.If
-					}) | fn.If
-					Environment?:               close({}) | fn.If
-					MonitoringAppSpecification: close({
+						} | fn.#If
+					} | fn.#If
+					Environment?:               {} | fn.#If
+					MonitoringAppSpecification: {
 						ContainerArguments?:              [...(string | fn.#Fn)] | (string | fn.#Fn)
 						ContainerEntrypoint?:             [...(string | fn.#Fn)] | (string | fn.#Fn)
 						ImageUri:                         string | fn.#Fn
 						PostAnalyticsProcessorSourceUri?: string | fn.#Fn
 						RecordPreprocessorSourceUri?:     string | fn.#Fn
-					}) | fn.If
-					MonitoringInputs: close({
-						MonitoringInputs?: [...close({
+					} | fn.#If
+					MonitoringInputs: {
+						MonitoringInputs?: [...{
 							[string]: _
-						})] | fn.If
-					}) | fn.If
-					MonitoringOutputConfig: close({
+						}] | fn.#If
+					} | fn.#If
+					MonitoringOutputConfig: {
 						KmsKeyId?:         string | fn.#Fn
-						MonitoringOutputs: [...close({
-							S3Output: close({
+						MonitoringOutputs: [...{
+							S3Output: {
 								LocalPath:     string | fn.#Fn
 								S3UploadMode?: string | fn.#Fn
 								S3Uri:         string | fn.#Fn
-							}) | fn.If
-						})] | fn.If
-					}) | fn.If
-					MonitoringResources: close({
-						ClusterConfig: close({
+							} | fn.#If
+						}] | fn.#If
+					} | fn.#If
+					MonitoringResources: {
+						ClusterConfig: {
 							InstanceCount:   int | fn.#Fn
 							InstanceType:    string | fn.#Fn
 							VolumeKmsKeyId?: string | fn.#Fn
 							VolumeSizeInGB:  int | fn.#Fn
-						}) | fn.If
-					}) | fn.If
-					NetworkConfig?: close({
+						} | fn.#If
+					} | fn.#If
+					NetworkConfig?: {
 						EnableInterContainerTrafficEncryption?: bool | fn.#Fn
 						EnableNetworkIsolation?:                bool | fn.#Fn
-						VpcConfig?:                             close({
+						VpcConfig?:                             {
 							SecurityGroupIds: [...(string | fn.#Fn)] | (string | fn.#Fn)
 							Subnets:          [...(string | fn.#Fn)] | (string | fn.#Fn)
-						}) | fn.If
-					}) | fn.If
+						} | fn.#If
+					} | fn.#If
 					RoleArn:            string | fn.#Fn
-					StoppingCondition?: close({
+					StoppingCondition?: {
 						MaxRuntimeInSeconds: int | fn.#Fn
-					}) | fn.If
-				}) | fn.If
+					} | fn.#If
+				} | fn.#If
 				MonitoringJobDefinitionName?: string | fn.#Fn
 				MonitoringType?:              string | fn.#Fn
-				ScheduleConfig?:              close({
+				ScheduleConfig?:              {
 					ScheduleExpression: string | fn.#Fn
-				}) | fn.If
-			}) | fn.If
+				} | fn.#If
+			} | fn.#If
 			MonitoringScheduleName:    string | fn.#Fn
 			MonitoringScheduleStatus?: string | fn.#Fn
-			Tags?:                     [...close({
+			Tags?:                     [...{
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			})] | fn.If
-		})
+			}] | fn.#If
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -579,8 +579,8 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#NotebookInstance: {
-		Type:       "AWS::SageMaker::NotebookInstance"
-		Properties: close({
+		Type: "AWS::SageMaker::NotebookInstance"
+		Properties: {
 			AcceleratorTypes?:           [...(string | fn.#Fn)] | (string | fn.#Fn)
 			AdditionalCodeRepositories?: [...(string | fn.#Fn)] | (string | fn.#Fn)
 			DefaultCodeRepository?:      string | fn.#Fn
@@ -593,12 +593,12 @@ import "github.com/TangoGroup/aws/fn"
 			RootAccess?:                 string | fn.#Fn
 			SecurityGroupIds?:           [...(string | fn.#Fn)] | (string | fn.#Fn)
 			SubnetId?:                   string | fn.#Fn
-			Tags?:                       [...close({
+			Tags?:                       [...{
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			})] | fn.If
+			}] | fn.#If
 			VolumeSizeInGB?: (>=5 & <=16384) | fn.#Fn
-		})
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -606,16 +606,16 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#NotebookInstanceLifecycleConfig: {
-		Type:       "AWS::SageMaker::NotebookInstanceLifecycleConfig"
-		Properties: close({
+		Type: "AWS::SageMaker::NotebookInstanceLifecycleConfig"
+		Properties: {
 			NotebookInstanceLifecycleConfigName?: string | fn.#Fn
-			OnCreate?:                            [...close({
+			OnCreate?:                            [...{
 				Content?: string | fn.#Fn
-			})] | fn.If
-			OnStart?: [...close({
+			}] | fn.#If
+			OnStart?: [...{
 				Content?: string | fn.#Fn
-			})] | fn.If
-		})
+			}] | fn.#If
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -623,8 +623,8 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#Pipeline: {
-		Type:       "AWS::SageMaker::Pipeline"
-		Properties: close({
+		Type: "AWS::SageMaker::Pipeline"
+		Properties: {
 			PipelineDefinition: {
 				[string]: _
 			} | fn.#Fn
@@ -632,11 +632,11 @@ import "github.com/TangoGroup/aws/fn"
 			PipelineDisplayName?: string | fn.#Fn
 			PipelineName:         string | fn.#Fn
 			RoleArn:              string | fn.#Fn
-			Tags?:                [...close({
+			Tags?:                [...{
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			})] | fn.If
-		})
+			}] | fn.#If
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -644,18 +644,18 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#Project: {
-		Type:       "AWS::SageMaker::Project"
-		Properties: close({
+		Type: "AWS::SageMaker::Project"
+		Properties: {
 			ProjectDescription?:               string | fn.#Fn
 			ProjectName:                       string | fn.#Fn
 			ServiceCatalogProvisioningDetails: {
 				[string]: _
 			} | fn.#Fn
-			Tags?: [...close({
+			Tags?: [...{
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			})] | fn.If
-		})
+			}] | fn.#If
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -663,25 +663,25 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#Workteam: {
-		Type:       "AWS::SageMaker::Workteam"
-		Properties: close({
+		Type: "AWS::SageMaker::Workteam"
+		Properties: {
 			Description?:       string | fn.#Fn
-			MemberDefinitions?: [...close({
-				CognitoMemberDefinition: close({
+			MemberDefinitions?: [...{
+				CognitoMemberDefinition: {
 					CognitoClientId:  string | fn.#Fn
 					CognitoUserGroup: string | fn.#Fn
 					CognitoUserPool:  string | fn.#Fn
-				}) | fn.If
-			})] | fn.If
-			NotificationConfiguration?: close({
+				} | fn.#If
+			}] | fn.#If
+			NotificationConfiguration?: {
 				NotificationTopicArn: string | fn.#Fn
-			}) | fn.If
-			Tags?: [...close({
+			} | fn.#If
+			Tags?: [...{
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			})] | fn.If
+			}] | fn.#If
 			WorkteamName?: string | fn.#Fn
-		})
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

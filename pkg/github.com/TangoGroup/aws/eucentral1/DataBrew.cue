@@ -4,8 +4,8 @@ import "github.com/TangoGroup/aws/fn"
 
 #DataBrew: {
 	#Dataset: {
-		Type:       "AWS::DataBrew::Dataset"
-		Properties: close({
+		Type: "AWS::DataBrew::Dataset"
+		Properties: {
 			FormatOptions?: {
 				[string]: _
 			} | fn.#Fn
@@ -13,11 +13,11 @@ import "github.com/TangoGroup/aws/fn"
 				[string]: _
 			} | fn.#Fn
 			Name:  string | fn.#Fn
-			Tags?: [...close({
+			Tags?: [...{
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			})] | fn.If
-		})
+			}] | fn.#If
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -25,8 +25,8 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#Job: {
-		Type:       "AWS::DataBrew::Job"
-		Properties: close({
+		Type: "AWS::DataBrew::Job"
+		Properties: {
 			DatasetName?:      string | fn.#Fn
 			EncryptionKeyArn?: string | fn.#Fn
 			EncryptionMode?:   string | fn.#Fn
@@ -37,28 +37,28 @@ import "github.com/TangoGroup/aws/fn"
 			OutputLocation?:   {
 				[string]: _
 			} | fn.#Fn
-			Outputs?: [...close({
+			Outputs?: [...{
 				CompressionFormat?: string | fn.#Fn
 				Format?:            string | fn.#Fn
-				Location:           close({
+				Location:           {
 					Bucket: string | fn.#Fn
 					Key?:   string | fn.#Fn
-				}) | fn.If
+				} | fn.#If
 				Overwrite?:        bool | fn.#Fn
 				PartitionColumns?: [...(string | fn.#Fn)] | (string | fn.#Fn)
-			})] | fn.If
+			}] | fn.#If
 			ProjectName?: string | fn.#Fn
 			Recipe?:      {
 				[string]: _
 			} | fn.#Fn
 			RoleArn: string | fn.#Fn
-			Tags?:   [...close({
+			Tags?:   [...{
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			})] | fn.If
+			}] | fn.#If
 			Timeout?: int | fn.#Fn
 			Type:     string | fn.#Fn
-		})
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -66,8 +66,8 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#Project: {
-		Type:       "AWS::DataBrew::Project"
-		Properties: close({
+		Type: "AWS::DataBrew::Project"
+		Properties: {
 			DatasetName: string | fn.#Fn
 			Name:        string | fn.#Fn
 			RecipeName:  string | fn.#Fn
@@ -75,11 +75,11 @@ import "github.com/TangoGroup/aws/fn"
 			Sample?:     {
 				[string]: _
 			} | fn.#Fn
-			Tags?: [...close({
+			Tags?: [...{
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			})] | fn.If
-		})
+			}] | fn.#If
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -87,26 +87,26 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#Recipe: {
-		Type:       "AWS::DataBrew::Recipe"
-		Properties: close({
+		Type: "AWS::DataBrew::Recipe"
+		Properties: {
 			Description?: string | fn.#Fn
 			Name:         string | fn.#Fn
-			Steps:        [...close({
-				Action: close({
+			Steps:        [...{
+				Action: {
 					Operation:   string | fn.#Fn
 					Parameters?: string | fn.#Fn
-				}) | fn.If
-				ConditionExpressions?: [...close({
+				} | fn.#If
+				ConditionExpressions?: [...{
 					Condition:    string | fn.#Fn
 					TargetColumn: string | fn.#Fn
 					Value?:       string | fn.#Fn
-				})] | fn.If
-			})] | fn.If
-			Tags?: [...close({
+				}] | fn.#If
+			}] | fn.#If
+			Tags?: [...{
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			})] | fn.If
-		})
+			}] | fn.#If
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -114,16 +114,16 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#Schedule: {
-		Type:       "AWS::DataBrew::Schedule"
-		Properties: close({
+		Type: "AWS::DataBrew::Schedule"
+		Properties: {
 			CronExpression: string | fn.#Fn
 			JobNames?:      [...(string | fn.#Fn)] | (string | fn.#Fn)
 			Name:           string | fn.#Fn
-			Tags?:          [...close({
+			Tags?:          [...{
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			})] | fn.If
-		})
+			}] | fn.#If
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

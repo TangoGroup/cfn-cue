@@ -4,19 +4,19 @@ import "github.com/TangoGroup/aws/fn"
 
 #IoT: {
 	#Authorizer: {
-		Type:       "AWS::IoT::Authorizer"
-		Properties: close({
+		Type: "AWS::IoT::Authorizer"
+		Properties: {
 			AuthorizerFunctionArn: string | fn.#Fn
 			AuthorizerName?:       string | fn.#Fn
 			SigningDisabled?:      bool | fn.#Fn
 			Status?:               string | fn.#Fn
-			Tags?:                 [...close({
+			Tags?:                 [...{
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			})] | fn.If
+			}] | fn.#If
 			TokenKeyName?:           string | fn.#Fn
-			TokenSigningPublicKeys?: close({}) | fn.If
-		})
+			TokenSigningPublicKeys?: {} | fn.#If
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -24,14 +24,14 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#Certificate: {
-		Type:       "AWS::IoT::Certificate"
-		Properties: close({
+		Type: "AWS::IoT::Certificate"
+		Properties: {
 			CACertificatePem?:          string | fn.#Fn
 			CertificateMode?:           string | fn.#Fn
 			CertificatePem?:            string | fn.#Fn
 			CertificateSigningRequest?: string | fn.#Fn
 			Status:                     string | fn.#Fn
-		})
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -39,23 +39,23 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#DomainConfiguration: {
-		Type:       "AWS::IoT::DomainConfiguration"
-		Properties: close({
-			AuthorizerConfig?: close({
+		Type: "AWS::IoT::DomainConfiguration"
+		Properties: {
+			AuthorizerConfig?: {
 				AllowAuthorizerOverride?: bool | fn.#Fn
 				DefaultAuthorizerName?:   string | fn.#Fn
-			}) | fn.If
+			} | fn.#If
 			DomainConfigurationName?:   string | fn.#Fn
 			DomainConfigurationStatus?: string | fn.#Fn
 			DomainName?:                string | fn.#Fn
 			ServerCertificateArns?:     [...(string | fn.#Fn)] | (string | fn.#Fn)
 			ServiceType?:               string | fn.#Fn
-			Tags?:                      close({
+			Tags?:                      {
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			}) | fn.If
+			} | fn.#If
 			ValidationCertificateArn?: string | fn.#Fn
-		})
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -63,8 +63,8 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#Policy: {
-		Type:       "AWS::IoT::Policy"
-		Properties: close({
+		Type: "AWS::IoT::Policy"
+		Properties: {
 			PolicyDocument: {
 				{
 					[string]: _
@@ -72,7 +72,7 @@ import "github.com/TangoGroup/aws/fn"
 				Version: string | *"2012-10-17"
 			} | fn.#Fn
 			PolicyName?: string | fn.#Fn
-		})
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -80,11 +80,11 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#PolicyPrincipalAttachment: {
-		Type:       "AWS::IoT::PolicyPrincipalAttachment"
-		Properties: close({
+		Type: "AWS::IoT::PolicyPrincipalAttachment"
+		Properties: {
 			PolicyName: string | fn.#Fn
 			Principal:  string | fn.#Fn
-		})
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -92,22 +92,22 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#ProvisioningTemplate: {
-		Type:       "AWS::IoT::ProvisioningTemplate"
-		Properties: close({
+		Type: "AWS::IoT::ProvisioningTemplate"
+		Properties: {
 			Description?:         string | fn.#Fn
 			Enabled?:             bool | fn.#Fn
-			PreProvisioningHook?: close({
+			PreProvisioningHook?: {
 				PayloadVersion?: string | fn.#Fn
 				TargetArn?:      string | fn.#Fn
-			}) | fn.If
+			} | fn.#If
 			ProvisioningRoleArn: string | fn.#Fn
-			Tags?:               [...close({
+			Tags?:               [...{
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			})] | fn.If
+			}] | fn.#If
 			TemplateBody:  string | fn.#Fn
 			TemplateName?: string | fn.#Fn
-		})
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -115,15 +115,15 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#Thing: {
-		Type:       "AWS::IoT::Thing"
-		Properties: close({
-			AttributePayload?: close({
+		Type: "AWS::IoT::Thing"
+		Properties: {
+			AttributePayload?: {
 				Attributes?: {
 					[string]: string | fn.#Fn
-				} | fn.If
-			}) | fn.If
+				} | fn.#If
+			} | fn.#If
 			ThingName?: string | fn.#Fn
-		})
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -131,11 +131,11 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#ThingPrincipalAttachment: {
-		Type:       "AWS::IoT::ThingPrincipalAttachment"
-		Properties: close({
+		Type: "AWS::IoT::ThingPrincipalAttachment"
+		Properties: {
 			Principal: string | fn.#Fn
 			ThingName: string | fn.#Fn
-		})
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -143,26 +143,26 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#TopicRule: {
-		Type:       "AWS::IoT::TopicRule"
-		Properties: close({
+		Type: "AWS::IoT::TopicRule"
+		Properties: {
 			RuleName?:        string | fn.#Fn
-			TopicRulePayload: close({
-				Actions: [...close({
-					CloudwatchAlarm?: close({
+			TopicRulePayload: {
+				Actions: [...{
+					CloudwatchAlarm?: {
 						AlarmName:   string | fn.#Fn
 						RoleArn:     string | fn.#Fn
 						StateReason: string | fn.#Fn
 						StateValue:  string | fn.#Fn
-					}) | fn.If
-					CloudwatchMetric?: close({
+					} | fn.#If
+					CloudwatchMetric?: {
 						MetricName:       string | fn.#Fn
 						MetricNamespace:  string | fn.#Fn
 						MetricTimestamp?: string | fn.#Fn
 						MetricUnit:       string | fn.#Fn
 						MetricValue:      string | fn.#Fn
 						RoleArn:          string | fn.#Fn
-					}) | fn.If
-					DynamoDB?: close({
+					} | fn.#If
+					DynamoDB?: {
 						HashKeyField:   string | fn.#Fn
 						HashKeyType?:   string | fn.#Fn
 						HashKeyValue:   string | fn.#Fn
@@ -172,123 +172,123 @@ import "github.com/TangoGroup/aws/fn"
 						RangeKeyValue?: string | fn.#Fn
 						RoleArn:        string | fn.#Fn
 						TableName:      string | fn.#Fn
-					}) | fn.If
-					DynamoDBv2?: close({
-						PutItem?: close({
+					} | fn.#If
+					DynamoDBv2?: {
+						PutItem?: {
 							TableName: string | fn.#Fn
-						}) | fn.If
+						} | fn.#If
 						RoleArn?: string | fn.#Fn
-					}) | fn.If
-					Elasticsearch?: close({
+					} | fn.#If
+					Elasticsearch?: {
 						Endpoint: string | fn.#Fn
 						Id:       string | fn.#Fn
 						Index:    string | fn.#Fn
 						RoleArn:  string | fn.#Fn
 						Type:     string | fn.#Fn
-					}) | fn.If
-					Firehose?: close({
+					} | fn.#If
+					Firehose?: {
 						DeliveryStreamName: string | fn.#Fn
 						RoleArn:            string | fn.#Fn
 						Separator?:         string | fn.#Fn
-					}) | fn.If
-					Http?: close({
-						Auth?: close({
-							Sigv4?: close({
+					} | fn.#If
+					Http?: {
+						Auth?: {
+							Sigv4?: {
 								RoleArn:       string | fn.#Fn
 								ServiceName:   string | fn.#Fn
 								SigningRegion: string | fn.#Fn
-							}) | fn.If
-						}) | fn.If
+							} | fn.#If
+						} | fn.#If
 						ConfirmationUrl?: string | fn.#Fn
-						Headers?:         [...close({
+						Headers?:         [...{
 							Key:   string | fn.#Fn
 							Value: string | fn.#Fn
-						})] | fn.If
+						}] | fn.#If
 						Url: string | fn.#Fn
-					}) | fn.If
-					IotAnalytics?: close({
+					} | fn.#If
+					IotAnalytics?: {
 						ChannelName: string | fn.#Fn
 						RoleArn:     string | fn.#Fn
-					}) | fn.If
-					IotEvents?: close({
+					} | fn.#If
+					IotEvents?: {
 						InputName:  string | fn.#Fn
 						MessageId?: string | fn.#Fn
 						RoleArn:    string | fn.#Fn
-					}) | fn.If
-					IotSiteWise?: close({
-						PutAssetPropertyValueEntries: [...close({
+					} | fn.#If
+					IotSiteWise?: {
+						PutAssetPropertyValueEntries: [...{
 							AssetId?:       string | fn.#Fn
 							EntryId?:       string | fn.#Fn
 							PropertyAlias?: string | fn.#Fn
 							PropertyId?:    string | fn.#Fn
-							PropertyValues: [...close({
+							PropertyValues: [...{
 								Quality?:  string | fn.#Fn
-								Timestamp: close({
+								Timestamp: {
 									OffsetInNanos?: string | fn.#Fn
 									TimeInSeconds:  string | fn.#Fn
-								}) | fn.If
-								Value: close({
+								} | fn.#If
+								Value: {
 									BooleanValue?: string | fn.#Fn
 									DoubleValue?:  string | fn.#Fn
 									IntegerValue?: string | fn.#Fn
 									StringValue?:  string | fn.#Fn
-								}) | fn.If
-							})] | fn.If
-						})] | fn.If
+								} | fn.#If
+							}] | fn.#If
+						}] | fn.#If
 						RoleArn: string | fn.#Fn
-					}) | fn.If
-					Kinesis?: close({
+					} | fn.#If
+					Kinesis?: {
 						PartitionKey?: string | fn.#Fn
 						RoleArn:       string | fn.#Fn
 						StreamName:    string | fn.#Fn
-					}) | fn.If
-					Lambda?: close({
+					} | fn.#If
+					Lambda?: {
 						FunctionArn?: string | fn.#Fn
-					}) | fn.If
-					Republish?: close({
+					} | fn.#If
+					Republish?: {
 						Qos?:    int | fn.#Fn
 						RoleArn: string | fn.#Fn
 						Topic:   string | fn.#Fn
-					}) | fn.If
-					S3?: close({
+					} | fn.#If
+					S3?: {
 						BucketName: string | fn.#Fn
 						Key:        string | fn.#Fn
 						RoleArn:    string | fn.#Fn
-					}) | fn.If
-					Sns?: close({
+					} | fn.#If
+					Sns?: {
 						MessageFormat?: string | fn.#Fn
 						RoleArn:        string | fn.#Fn
 						TargetArn:      string | fn.#Fn
-					}) | fn.If
-					Sqs?: close({
+					} | fn.#If
+					Sqs?: {
 						QueueUrl:   string | fn.#Fn
 						RoleArn:    string | fn.#Fn
 						UseBase64?: bool | fn.#Fn
-					}) | fn.If
-					StepFunctions?: close({
+					} | fn.#If
+					StepFunctions?: {
 						ExecutionNamePrefix?: string | fn.#Fn
 						RoleArn:              string | fn.#Fn
 						StateMachineName:     string | fn.#Fn
-					}) | fn.If
-				})] | fn.If
+					} | fn.#If
+				}] | fn.#If
 				AwsIotSqlVersion?: string | fn.#Fn
 				Description?:      string | fn.#Fn
-				ErrorAction?:      close({
-					CloudwatchAlarm?: close({
+				ErrorAction?:      {
+					CloudwatchAlarm?: {
 						AlarmName:   string | fn.#Fn
 						RoleArn:     string | fn.#Fn
 						StateReason: string | fn.#Fn
 						StateValue:  string | fn.#Fn
-					}) | fn.If
-					CloudwatchMetric?: close({
+					} | fn.#If
+					CloudwatchMetric?: {
 						MetricName:       string | fn.#Fn
 						MetricNamespace:  string | fn.#Fn
 						MetricTimestamp?: string | fn.#Fn
 						MetricUnit:       string | fn.#Fn
 						MetricValue:      string | fn.#Fn
 						RoleArn:          string | fn.#Fn
-					}) | fn.If
-					DynamoDB?: close({
+					} | fn.#If
+					DynamoDB?: {
 						HashKeyField:   string | fn.#Fn
 						HashKeyType?:   string | fn.#Fn
 						HashKeyValue:   string | fn.#Fn
@@ -298,109 +298,109 @@ import "github.com/TangoGroup/aws/fn"
 						RangeKeyValue?: string | fn.#Fn
 						RoleArn:        string | fn.#Fn
 						TableName:      string | fn.#Fn
-					}) | fn.If
-					DynamoDBv2?: close({
-						PutItem?: close({
+					} | fn.#If
+					DynamoDBv2?: {
+						PutItem?: {
 							TableName: string | fn.#Fn
-						}) | fn.If
+						} | fn.#If
 						RoleArn?: string | fn.#Fn
-					}) | fn.If
-					Elasticsearch?: close({
+					} | fn.#If
+					Elasticsearch?: {
 						Endpoint: string | fn.#Fn
 						Id:       string | fn.#Fn
 						Index:    string | fn.#Fn
 						RoleArn:  string | fn.#Fn
 						Type:     string | fn.#Fn
-					}) | fn.If
-					Firehose?: close({
+					} | fn.#If
+					Firehose?: {
 						DeliveryStreamName: string | fn.#Fn
 						RoleArn:            string | fn.#Fn
 						Separator?:         string | fn.#Fn
-					}) | fn.If
-					Http?: close({
-						Auth?: close({
-							Sigv4?: close({
+					} | fn.#If
+					Http?: {
+						Auth?: {
+							Sigv4?: {
 								RoleArn:       string | fn.#Fn
 								ServiceName:   string | fn.#Fn
 								SigningRegion: string | fn.#Fn
-							}) | fn.If
-						}) | fn.If
+							} | fn.#If
+						} | fn.#If
 						ConfirmationUrl?: string | fn.#Fn
-						Headers?:         [...close({
+						Headers?:         [...{
 							Key:   string | fn.#Fn
 							Value: string | fn.#Fn
-						})] | fn.If
+						}] | fn.#If
 						Url: string | fn.#Fn
-					}) | fn.If
-					IotAnalytics?: close({
+					} | fn.#If
+					IotAnalytics?: {
 						ChannelName: string | fn.#Fn
 						RoleArn:     string | fn.#Fn
-					}) | fn.If
-					IotEvents?: close({
+					} | fn.#If
+					IotEvents?: {
 						InputName:  string | fn.#Fn
 						MessageId?: string | fn.#Fn
 						RoleArn:    string | fn.#Fn
-					}) | fn.If
-					IotSiteWise?: close({
-						PutAssetPropertyValueEntries: [...close({
+					} | fn.#If
+					IotSiteWise?: {
+						PutAssetPropertyValueEntries: [...{
 							AssetId?:       string | fn.#Fn
 							EntryId?:       string | fn.#Fn
 							PropertyAlias?: string | fn.#Fn
 							PropertyId?:    string | fn.#Fn
-							PropertyValues: [...close({
+							PropertyValues: [...{
 								Quality?:  string | fn.#Fn
-								Timestamp: close({
+								Timestamp: {
 									OffsetInNanos?: string | fn.#Fn
 									TimeInSeconds:  string | fn.#Fn
-								}) | fn.If
-								Value: close({
+								} | fn.#If
+								Value: {
 									BooleanValue?: string | fn.#Fn
 									DoubleValue?:  string | fn.#Fn
 									IntegerValue?: string | fn.#Fn
 									StringValue?:  string | fn.#Fn
-								}) | fn.If
-							})] | fn.If
-						})] | fn.If
+								} | fn.#If
+							}] | fn.#If
+						}] | fn.#If
 						RoleArn: string | fn.#Fn
-					}) | fn.If
-					Kinesis?: close({
+					} | fn.#If
+					Kinesis?: {
 						PartitionKey?: string | fn.#Fn
 						RoleArn:       string | fn.#Fn
 						StreamName:    string | fn.#Fn
-					}) | fn.If
-					Lambda?: close({
+					} | fn.#If
+					Lambda?: {
 						FunctionArn?: string | fn.#Fn
-					}) | fn.If
-					Republish?: close({
+					} | fn.#If
+					Republish?: {
 						Qos?:    int | fn.#Fn
 						RoleArn: string | fn.#Fn
 						Topic:   string | fn.#Fn
-					}) | fn.If
-					S3?: close({
+					} | fn.#If
+					S3?: {
 						BucketName: string | fn.#Fn
 						Key:        string | fn.#Fn
 						RoleArn:    string | fn.#Fn
-					}) | fn.If
-					Sns?: close({
+					} | fn.#If
+					Sns?: {
 						MessageFormat?: string | fn.#Fn
 						RoleArn:        string | fn.#Fn
 						TargetArn:      string | fn.#Fn
-					}) | fn.If
-					Sqs?: close({
+					} | fn.#If
+					Sqs?: {
 						QueueUrl:   string | fn.#Fn
 						RoleArn:    string | fn.#Fn
 						UseBase64?: bool | fn.#Fn
-					}) | fn.If
-					StepFunctions?: close({
+					} | fn.#If
+					StepFunctions?: {
 						ExecutionNamePrefix?: string | fn.#Fn
 						RoleArn:              string | fn.#Fn
 						StateMachineName:     string | fn.#Fn
-					}) | fn.If
-				}) | fn.If
+					} | fn.#If
+				} | fn.#If
 				RuleDisabled: bool | fn.#Fn
 				Sql:          string | fn.#Fn
-			}) | fn.If
-		})
+			} | fn.#If
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -408,19 +408,19 @@ import "github.com/TangoGroup/aws/fn"
 		Condition?: string
 	}
 	#TopicRuleDestination: {
-		Type:       "AWS::IoT::TopicRuleDestination"
-		Properties: close({
-			HttpUrlProperties?: close({
+		Type: "AWS::IoT::TopicRuleDestination"
+		Properties: {
+			HttpUrlProperties?: {
 				ConfirmationUrl?: string | fn.#Fn
-			}) | fn.If
+			} | fn.#If
 			Status?:        string | fn.#Fn
-			VpcProperties?: close({
+			VpcProperties?: {
 				RoleArn?:        string | fn.#Fn
 				SecurityGroups?: [...(string | fn.#Fn)] | (string | fn.#Fn)
 				SubnetIds?:      [...(string | fn.#Fn)] | (string | fn.#Fn)
 				VpcId?:          string | fn.#Fn
-			}) | fn.If
-		})
+			} | fn.#If
+		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
