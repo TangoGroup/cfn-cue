@@ -20,4 +20,33 @@ import "github.com/TangoGroup/aws/fn"
 		Metadata?: [string]: _
 		Condition?: string
 	}
+	#Master: {
+		Type:       "AWS::GuardDuty::Master"
+		Properties: close({
+			DetectorId:    string | fn.#Fn
+			InvitationId?: string | fn.#Fn
+			MasterId:      string | fn.#Fn
+		})
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+		Condition?: string
+	}
+	#Member: {
+		Type:       "AWS::GuardDuty::Member"
+		Properties: close({
+			DetectorId:                string | fn.#Fn
+			DisableEmailNotification?: bool | fn.#Fn
+			Email:                     string | fn.#Fn
+			MemberId:                  string | fn.#Fn
+			Message?:                  string | fn.#Fn
+			Status?:                   ("Created" | "Disabled" | "Enabled" | "Invited" | "Removed" | "Resigned") | fn.#Fn
+		})
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+		Condition?: string
+	}
 }

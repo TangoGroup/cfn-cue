@@ -940,7 +940,13 @@ func main() {
 		fmt.Println(cloudformationSpec)
 		data, _ := downloadSpec(cloudformationSpec)
 
-		spec, _ := processSpec("cfn", data)
+		// fmt.Println(string(data))
+
+		spec, specErr := processSpec("cfn", data)
+		if specErr != nil {
+			fmt.Println(specErr)
+			continue
+		}
 
 		// propertiesByResource := map[string]map[string]Resource{}
 		propertiesByResource := *propertiesByResource(spec)
