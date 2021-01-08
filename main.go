@@ -1062,7 +1062,7 @@ func main() {
 			// 	ast.NewImport(ast.NewIdent(strings.ToLower(serviceName)),
 			// 		servicePackage))
 
-			folder := path.Join("pkg", servicePackage)
+			folder := path.Join("cue.mod", "pkg", servicePackage)
 
 			os.MkdirAll(folder, os.ModePerm)
 
