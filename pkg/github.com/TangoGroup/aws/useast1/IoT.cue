@@ -15,8 +15,9 @@ IoT :: {
 				Value: string | fn.Fn
 			})] | fn.If
 			TokenKeyName?:           string | fn.Fn
-			TokenSigningPublicKeys?: close({
-			}) | fn.If
+			TokenSigningPublicKeys?: {
+				[string]: string | fn.Fn
+			} | fn.If
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -51,10 +52,10 @@ IoT :: {
 			DomainName?:                string | fn.Fn
 			ServerCertificateArns?:     [...(string | fn.Fn)] | (string | fn.Fn)
 			ServiceType?:               string | fn.Fn
-			Tags?:                      close({
+			Tags?:                      [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}) | fn.If
+			})] | fn.If
 			ValidationCertificateArn?: string | fn.Fn
 		})
 		DependsOn?:           string | [...string]

@@ -96,7 +96,8 @@ SageMaker :: {
 			Device?: {
 				[string]: _
 			} | fn.Fn
-			Tags?: [...close({
+			DeviceFleetName: string | fn.Fn
+			Tags?:           [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			})] | fn.If
@@ -110,8 +111,9 @@ SageMaker :: {
 	DeviceFleet :: {
 		Type:       "AWS::SageMaker::DeviceFleet"
 		Properties: close({
-			Description?: string | fn.Fn
-			OutputConfig: close({
+			Description?:    string | fn.Fn
+			DeviceFleetName: string | fn.Fn
+			OutputConfig:    close({
 				KmsKeyId?:        string | fn.Fn
 				S3OutputLocation: string | fn.Fn
 			}) | fn.If

@@ -101,11 +101,10 @@ GameLift :: {
 			DeleteOption?:               string | fn.Fn
 			GameServerGroupName:         string | fn.Fn
 			GameServerProtectionPolicy?: string | fn.Fn
-			InstanceDefinitions:         close({
-				InstanceDefinitions?: [...close({
-					[string]: _
-				})] | fn.If
-			}) | fn.If
+			InstanceDefinitions:         [...close({
+				InstanceType:      string | fn.Fn
+				WeightedCapacity?: string | fn.Fn
+			})] | fn.If
 			LaunchTemplate: close({
 				LaunchTemplateId?:   string | fn.Fn
 				LaunchTemplateName?: string | fn.Fn
@@ -114,14 +113,11 @@ GameLift :: {
 			MaxSize?: number | fn.Fn
 			MinSize?: number | fn.Fn
 			RoleArn:  string | fn.Fn
-			Tags?:    close({
-				Tags?: [...close({
-					[string]: _
-				})] | fn.If
-			}) | fn.If
-			VpcSubnets?: close({
-				VpcSubnets?: [...(string | fn.Fn)] | (string | fn.Fn)
-			}) | fn.If
+			Tags?:    [...close({
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
+			})] | fn.If
+			VpcSubnets?: [...(string | fn.Fn)] | (string | fn.Fn)
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

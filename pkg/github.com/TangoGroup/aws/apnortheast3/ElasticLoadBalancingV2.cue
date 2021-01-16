@@ -119,6 +119,7 @@ ElasticLoadBalancingV2 :: {
 					SessionCookieName?:        string | fn.Fn
 					SessionTimeout?:           int | fn.Fn
 					TokenEndpoint:             string | fn.Fn
+					UseExistingClientSecret?:  bool | fn.Fn
 					UserInfoEndpoint:          string | fn.Fn
 				}) | fn.If
 				FixedResponseConfig?: close({

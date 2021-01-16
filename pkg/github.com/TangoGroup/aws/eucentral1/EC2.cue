@@ -605,11 +605,10 @@ EC2 :: {
 		Type:       "AWS::EC2::LocalGatewayRouteTableVPCAssociation"
 		Properties: close({
 			LocalGatewayRouteTableId: string | fn.Fn
-			Tags?:                    close({
-				Tags?: [...close({
-					[string]: _
-				})] | fn.If
-			}) | fn.If
+			Tags?:                    [...close({
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
+			})] | fn.If
 			VpcId: string | fn.Fn
 		})
 		DependsOn?:           string | [...string]
@@ -679,7 +678,6 @@ EC2 :: {
 		Properties: close({
 			FilterInArns?:         [...(string | fn.Fn)] | (string | fn.Fn)
 			NetworkInsightsPathId: string | fn.Fn
-			StatusMessage?:        string | fn.Fn
 			Tags?:                 [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn

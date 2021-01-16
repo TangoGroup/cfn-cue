@@ -102,6 +102,31 @@ Kendra :: {
 						SubnetIds:        [...(string | fn.Fn)] | (string | fn.Fn)
 					}) | fn.If
 				}) | fn.If
+				GoogleDriveConfiguration?: close({
+					ExcludeMimeTypes?: close({
+						ExcludeMimeTypesList?: [...(string | fn.Fn)] | (string | fn.Fn)
+					}) | fn.If
+					ExcludeSharedDrives?: close({
+						ExcludeSharedDrivesList?: [...(string | fn.Fn)] | (string | fn.Fn)
+					}) | fn.If
+					ExcludeUserAccounts?: close({
+						ExcludeUserAccountsList?: [...(string | fn.Fn)] | (string | fn.Fn)
+					}) | fn.If
+					ExclusionPatterns?: close({
+						DataSourceInclusionsExclusionsStrings?: [...(string | fn.Fn)] | (string | fn.Fn)
+					}) | fn.If
+					FieldMappings?: close({
+						DataSourceToIndexFieldMappingList?: [...close({
+							DataSourceFieldName: string | fn.Fn
+							DateFieldFormat?:    string | fn.Fn
+							IndexFieldName:      string | fn.Fn
+						})] | fn.If
+					}) | fn.If
+					InclusionPatterns?: close({
+						DataSourceInclusionsExclusionsStrings?: [...(string | fn.Fn)] | (string | fn.Fn)
+					}) | fn.If
+					SecretArn: string | fn.Fn
+				}) | fn.If
 				OneDriveConfiguration?: close({
 					DisableLocalGroups?: bool | fn.Fn
 					ExclusionPatterns?:  close({
@@ -299,12 +324,10 @@ Kendra :: {
 			Name:         string | fn.Fn
 			RoleArn?:     string | fn.Fn
 			Schedule?:    string | fn.Fn
-			Tags?:        close({
-				TagList?: [...close({
-					Key:   string | fn.Fn
-					Value: string | fn.Fn
-				})] | fn.If
-			}) | fn.If
+			Tags?:        [...close({
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
+			})] | fn.If
 			Type: string | fn.Fn
 		})
 		DependsOn?:           string | [...string]
@@ -325,12 +348,10 @@ Kendra :: {
 				Bucket: string | fn.Fn
 				Key:    string | fn.Fn
 			}) | fn.If
-			Tags?: close({
-				TagList?: [...close({
-					Key:   string | fn.Fn
-					Value: string | fn.Fn
-				})] | fn.If
-			}) | fn.If
+			Tags?: [...close({
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
+			})] | fn.If
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -346,59 +367,53 @@ Kendra :: {
 				StorageCapacityUnits: int | fn.Fn
 			}) | fn.If
 			Description?:                    string | fn.Fn
-			DocumentMetadataConfigurations?: close({
-				DocumentMetadataConfigurationList?: [...close({
-					Name:       string | fn.Fn
-					Relevance?: close({
-						Duration?:             string | fn.Fn
-						Freshness?:            bool | fn.Fn
-						Importance?:           int | fn.Fn
-						RankOrder?:            string | fn.Fn
-						ValueImportanceItems?: close({
-							ValueImportanceItems?: [...close({
-								[string]: _
-							})] | fn.If
-						}) | fn.If
+			DocumentMetadataConfigurations?: [...close({
+				Name:       string | fn.Fn
+				Relevance?: close({
+					Duration?:             string | fn.Fn
+					Freshness?:            bool | fn.Fn
+					Importance?:           int | fn.Fn
+					RankOrder?:            string | fn.Fn
+					ValueImportanceItems?: close({
+						ValueImportanceItems?: [...close({
+							[string]: _
+						})] | fn.If
 					}) | fn.If
-					Search?: close({
-						Displayable?: bool | fn.Fn
-						Facetable?:   bool | fn.Fn
-						Searchable?:  bool | fn.Fn
-						Sortable?:    bool | fn.Fn
-					}) | fn.If
-					Type: string | fn.Fn
-				})] | fn.If
-			}) | fn.If
+				}) | fn.If
+				Search?: close({
+					Displayable?: bool | fn.Fn
+					Facetable?:   bool | fn.Fn
+					Searchable?:  bool | fn.Fn
+					Sortable?:    bool | fn.Fn
+				}) | fn.If
+				Type: string | fn.Fn
+			})] | fn.If
 			Edition:                            string | fn.Fn
 			Name:                               string | fn.Fn
 			RoleArn:                            string | fn.Fn
 			ServerSideEncryptionConfiguration?: close({
 				KmsKeyId?: string | fn.Fn
 			}) | fn.If
-			Tags?: close({
-				TagList?: [...close({
-					Key:   string | fn.Fn
-					Value: string | fn.Fn
-				})] | fn.If
-			}) | fn.If
+			Tags?: [...close({
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
+			})] | fn.If
 			UserContextPolicy?:       string | fn.Fn
-			UserTokenConfigurations?: close({
-				UserTokenConfigurationList?: [...close({
-					JsonTokenTypeConfiguration?: close({
-						GroupAttributeField:    string | fn.Fn
-						UserNameAttributeField: string | fn.Fn
-					}) | fn.If
-					JwtTokenTypeConfiguration?: close({
-						ClaimRegex?:             string | fn.Fn
-						GroupAttributeField?:    string | fn.Fn
-						Issuer?:                 string | fn.Fn
-						KeyLocation:             string | fn.Fn
-						SecretManagerArn?:       string | fn.Fn
-						URL?:                    string | fn.Fn
-						UserNameAttributeField?: string | fn.Fn
-					}) | fn.If
-				})] | fn.If
-			}) | fn.If
+			UserTokenConfigurations?: [...close({
+				JsonTokenTypeConfiguration?: close({
+					GroupAttributeField:    string | fn.Fn
+					UserNameAttributeField: string | fn.Fn
+				}) | fn.If
+				JwtTokenTypeConfiguration?: close({
+					ClaimRegex?:             string | fn.Fn
+					GroupAttributeField?:    string | fn.Fn
+					Issuer?:                 string | fn.Fn
+					KeyLocation:             string | fn.Fn
+					SecretManagerArn?:       string | fn.Fn
+					URL?:                    string | fn.Fn
+					UserNameAttributeField?: string | fn.Fn
+				}) | fn.If
+			})] | fn.If
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

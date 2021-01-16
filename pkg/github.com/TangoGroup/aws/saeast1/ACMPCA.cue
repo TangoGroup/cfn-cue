@@ -24,6 +24,24 @@ ACMPCA :: {
 	CertificateAuthority :: {
 		Type:       "AWS::ACMPCA::CertificateAuthority"
 		Properties: close({
+			CsrExtensions?: close({
+				KeyUsage?: close({
+					CRLSign?:          bool | fn.Fn
+					DataEncipherment?: bool | fn.Fn
+					DecipherOnly?:     bool | fn.Fn
+					DigitalSignature?: bool | fn.Fn
+					EncipherOnly?:     bool | fn.Fn
+					KeyAgreement?:     bool | fn.Fn
+					KeyCertSign?:      bool | fn.Fn
+					KeyEncipherment?:  bool | fn.Fn
+					NonRepudiation?:   bool | fn.Fn
+				}) | fn.If
+				SubjectInformationAccess?: close({
+					SubjectInformationAccess?: [...close({
+						[string]: _
+					})] | fn.If
+				}) | fn.If
+			}) | fn.If
 			KeyAlgorithm:             string | fn.Fn
 			RevocationConfiguration?: close({
 				CrlConfiguration?: close({

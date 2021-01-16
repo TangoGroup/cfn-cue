@@ -177,9 +177,10 @@ ServiceCatalog :: {
 	PortfolioShare :: {
 		Type:       "AWS::ServiceCatalog::PortfolioShare"
 		Properties: close({
-			AcceptLanguage?: string | fn.Fn
-			AccountId:       string | fn.Fn
-			PortfolioId:     string | fn.Fn
+			AcceptLanguage?:  string | fn.Fn
+			AccountId:        string | fn.Fn
+			PortfolioId:      string | fn.Fn
+			ShareTagOptions?: bool | fn.Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

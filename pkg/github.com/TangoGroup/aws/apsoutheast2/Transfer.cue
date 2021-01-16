@@ -7,6 +7,7 @@ Transfer :: {
 		Type:       "AWS::Transfer::Server"
 		Properties: close({
 			Certificate?:     string | fn.Fn
+			Domain?:          string | fn.Fn
 			EndpointDetails?: close({
 				AddressAllocationIds?: [...(string | fn.Fn)] | (string | fn.Fn)
 				SecurityGroupIds?:     [...(string | fn.Fn)] | (string | fn.Fn)
@@ -45,10 +46,15 @@ Transfer :: {
 			})] | fn.If
 			HomeDirectoryType?: string | fn.Fn
 			Policy?:            string | fn.Fn
-			Role:               string | fn.Fn
-			ServerId:           string | fn.Fn
-			SshPublicKeys?:     [...(string | fn.Fn)] | (string | fn.Fn)
-			Tags?:              [...close({
+			PosixProfile?:      close({
+				Gid:            number | fn.Fn
+				SecondaryGids?: [...(number | fn.Fn)] | (number | fn.Fn)
+				Uid:            number | fn.Fn
+			}) | fn.If
+			Role:           string | fn.Fn
+			ServerId:       string | fn.Fn
+			SshPublicKeys?: [...(string | fn.Fn)] | (string | fn.Fn)
+			Tags?:          [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			})] | fn.If

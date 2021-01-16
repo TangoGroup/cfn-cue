@@ -22,7 +22,15 @@ SSO :: {
 	InstanceAccessControlAttributeConfiguration :: {
 		Type:       "AWS::SSO::InstanceAccessControlAttributeConfiguration"
 		Properties: close({
-			InstanceAccessControlAttributeConfiguration: {
+			AccessControlAttributes?: [...close({
+				Key:   string | fn.Fn
+				Value: close({
+					Source: close({
+						AccessControlAttributeValueSourceList?: [...(string | fn.Fn)] | (string | fn.Fn)
+					}) | fn.If
+				}) | fn.If
+			})] | fn.If
+			InstanceAccessControlAttributeConfiguration?: {
 				[string]: _
 			} | fn.Fn
 			InstanceArn: string | fn.Fn
@@ -36,8 +44,10 @@ SSO :: {
 	PermissionSet :: {
 		Type:       "AWS::SSO::PermissionSet"
 		Properties: close({
-			Description?:     string | fn.Fn
-			InlinePolicy?:    string | fn.Fn
+			Description?:  string | fn.Fn
+			InlinePolicy?: {
+				[string]: _
+			} | fn.Fn
 			InstanceArn:      string | fn.Fn
 			ManagedPolicies?: [...(string | fn.Fn)] | (string | fn.Fn)
 			Name:             string | fn.Fn

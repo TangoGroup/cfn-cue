@@ -18,12 +18,10 @@ AuditManager :: {
 			description?: string | fn.Fn
 			frameworkId?: string | fn.Fn
 			name?:        string | fn.Fn
-			roles?:       close({
-				Roles?: [...close({
-					roleArn?:  string | fn.Fn
-					roleType?: string | fn.Fn
-				})] | fn.If
-			}) | fn.If
+			roles?:       [...close({
+				roleArn?:  string | fn.Fn
+				roleType?: string | fn.Fn
+			})] | fn.If
 			scope?: close({
 				awsAccounts?: close({
 					AWSAccounts?: [...close({
@@ -39,12 +37,10 @@ AuditManager :: {
 				}) | fn.If
 			}) | fn.If
 			status?: string | fn.Fn
-			tags?:   close({
-				Tags?: [...close({
-					Key:   string | fn.Fn
-					Value: string | fn.Fn
-				})] | fn.If
-			}) | fn.If
+			tags?:   [...close({
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
+			})] | fn.If
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

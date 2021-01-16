@@ -27,8 +27,9 @@ StepFunctions :: {
 				Version?: string | fn.Fn
 			}) | fn.If
 			DefinitionString?:        string | fn.Fn
-			DefinitionSubstitutions?: close({
-			}) | fn.If
+			DefinitionSubstitutions?: {
+				[string]: string | fn.Fn
+			} | fn.If
 			LoggingConfiguration?: close({
 				Destinations?: [...close({
 					CloudWatchLogsLogGroup?: close({

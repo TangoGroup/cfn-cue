@@ -23,7 +23,7 @@ FSx :: {
 				WeeklyMaintenanceStartTime?:    string | fn.Fn
 			}) | fn.If
 			SecurityGroupIds?: [...(string | fn.Fn)] | (string | fn.Fn)
-			StorageCapacity?:  int | fn.Fn
+			StorageCapacity?:  (>=32 & <=65536) | fn.Fn
 			StorageType?:      string | fn.Fn
 			SubnetIds:         [...(string | fn.Fn)] | (string | fn.Fn)
 			Tags?:             [...close({

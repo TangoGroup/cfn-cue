@@ -32,36 +32,25 @@ NetworkFirewall :: {
 		Properties: close({
 			Description?:   string | fn.Fn
 			FirewallPolicy: close({
-				StatefulRuleGroupReferences?: close({
-					StatefulRuleGroupReferences?: [...close({
-						[string]: _
-					})] | fn.If
-				}) | fn.If
-				StatelessCustomActions?: close({
-					CustomActions?: [...close({
-						ActionDefinition: close({
-							PublishMetricAction?: close({
-								Dimensions: close({
-									Dimensions?: [...close({
-										[string]: _
-									})] | fn.If
-								}) | fn.If
-							}) | fn.If
+				StatefulRuleGroupReferences?: [...close({
+					ResourceArn: string | fn.Fn
+				})] | fn.If
+				StatelessCustomActions?: [...close({
+					ActionDefinition: close({
+						PublishMetricAction?: close({
+							Dimensions: [...close({
+								Value: string | fn.Fn
+							})] | fn.If
 						}) | fn.If
-						ActionName: string | fn.Fn
-					})] | fn.If
-				}) | fn.If
-				StatelessDefaultActions: close({
-					StatelessActions?: [...(string | fn.Fn)] | (string | fn.Fn)
-				}) | fn.If
-				StatelessFragmentDefaultActions: close({
-					StatelessActions?: [...(string | fn.Fn)] | (string | fn.Fn)
-				}) | fn.If
-				StatelessRuleGroupReferences?: close({
-					StatelessRuleGroupReferences?: [...close({
-						[string]: _
-					})] | fn.If
-				}) | fn.If
+					}) | fn.If
+					ActionName: string | fn.Fn
+				})] | fn.If
+				StatelessDefaultActions:         [...(string | fn.Fn)] | (string | fn.Fn)
+				StatelessFragmentDefaultActions: [...(string | fn.Fn)] | (string | fn.Fn)
+				StatelessRuleGroupReferences?:   [...close({
+					Priority:    int | fn.Fn
+					ResourceArn: string | fn.Fn
+				})] | fn.If
 			}) | fn.If
 			FirewallPolicyName: string | fn.Fn
 			Tags?:              [...close({
@@ -81,11 +70,13 @@ NetworkFirewall :: {
 			FirewallArn:          string | fn.Fn
 			FirewallName?:        string | fn.Fn
 			LoggingConfiguration: close({
-				LogDestinationConfigs: close({
-					LogDestinationConfigs?: [...close({
-						[string]: _
-					})] | fn.If
-				}) | fn.If
+				LogDestinationConfigs: [...close({
+					LogDestination: {
+						[string]: string | fn.Fn
+					} | fn.If
+					LogDestinationType: string | fn.Fn
+					LogType:            string | fn.Fn
+				})] | fn.If
 			}) | fn.If
 		})
 		DependsOn?:           string | [...string]
@@ -103,44 +94,75 @@ NetworkFirewall :: {
 				RuleVariables?: close({
 					IPSets?: {
 						[string]: close({
-							Definition?: close({
-								VariableDefinitionList?: [...(string | fn.Fn)] | (string | fn.Fn)
-							}) | fn.If
+							Definition?: [...(string | fn.Fn)] | (string | fn.Fn)
 						})
 					} | fn.If
 					PortSets?: {
 						[string]: close({
-							Definition?: close({
-								VariableDefinitionList?: [...(string | fn.Fn)] | (string | fn.Fn)
-							}) | fn.If
+							Definition?: [...(string | fn.Fn)] | (string | fn.Fn)
 						})
 					} | fn.If
 				}) | fn.If
 				RulesSource: close({
 					RulesSourceList?: close({
 						GeneratedRulesType: string | fn.Fn
-						TargetTypes:        close({
-							TargetTypes?: [...(string | fn.Fn)] | (string | fn.Fn)
-						}) | fn.If
-						Targets: [...(string | fn.Fn)] | (string | fn.Fn)
+						TargetTypes:        [...(string | fn.Fn)] | (string | fn.Fn)
+						Targets:            [...(string | fn.Fn)] | (string | fn.Fn)
 					}) | fn.If
 					RulesString?:   string | fn.Fn
-					StatefulRules?: close({
-						StatefulRules?: [...close({
-							[string]: _
+					StatefulRules?: [...close({
+						Action: string | fn.Fn
+						Header: close({
+							Destination:     string | fn.Fn
+							DestinationPort: string | fn.Fn
+							Direction:       string | fn.Fn
+							Protocol:        string | fn.Fn
+							Source:          string | fn.Fn
+							SourcePort:      string | fn.Fn
+						}) | fn.If
+						RuleOptions: [...close({
+							Keyword:   string | fn.Fn
+							Settings?: [...(string | fn.Fn)] | (string | fn.Fn)
 						})] | fn.If
-					}) | fn.If
+					})] | fn.If
 					StatelessRulesAndCustomActions?: close({
-						CustomActions?: close({
-							CustomActions?: [...close({
-								[string]: _
-							})] | fn.If
-						}) | fn.If
-						StatelessRules: close({
-							StatelessRules?: [...close({
-								[string]: _
-							})] | fn.If
-						}) | fn.If
+						CustomActions?: [...close({
+							ActionDefinition: close({
+								PublishMetricAction?: close({
+									Dimensions: [...close({
+										Value: string | fn.Fn
+									})] | fn.If
+								}) | fn.If
+							}) | fn.If
+							ActionName: string | fn.Fn
+						})] | fn.If
+						StatelessRules: [...close({
+							Priority:       int | fn.Fn
+							RuleDefinition: close({
+								Actions:         [...(string | fn.Fn)] | (string | fn.Fn)
+								MatchAttributes: close({
+									DestinationPorts?: [...close({
+										FromPort: int | fn.Fn
+										ToPort:   int | fn.Fn
+									})] | fn.If
+									Destinations?: [...close({
+										AddressDefinition: string | fn.Fn
+									})] | fn.If
+									Protocols?:   [...(int | fn.Fn)] | (int | fn.Fn)
+									SourcePorts?: [...close({
+										FromPort: int | fn.Fn
+										ToPort:   int | fn.Fn
+									})] | fn.If
+									Sources?: [...close({
+										AddressDefinition: string | fn.Fn
+									})] | fn.If
+									TCPFlags?: [...close({
+										Flags:  [...(string | fn.Fn)] | (string | fn.Fn)
+										Masks?: [...(string | fn.Fn)] | (string | fn.Fn)
+									})] | fn.If
+								}) | fn.If
+							}) | fn.If
+						})] | fn.If
 					}) | fn.If
 				}) | fn.If
 			}) | fn.If

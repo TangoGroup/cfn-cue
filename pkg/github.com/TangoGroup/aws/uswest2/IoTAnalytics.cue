@@ -124,6 +124,18 @@ IoTAnalytics :: {
 				ServiceManagedS3?: close({
 				}) | fn.If
 			}) | fn.If
+			FileFormatConfiguration?: close({
+				JsonConfiguration?: close({
+				}) | fn.If
+				ParquetConfiguration?: close({
+					SchemaDefinition?: close({
+						Columns?: [...close({
+							Name: string | fn.Fn
+							Type: string | fn.Fn
+						})] | fn.If
+					}) | fn.If
+				}) | fn.If
+			}) | fn.If
 			RetentionPeriod?: close({
 				NumberOfDays?: int | fn.Fn
 				Unlimited?:    bool | fn.Fn

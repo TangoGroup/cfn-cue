@@ -112,4 +112,21 @@ Config :: {
 		Metadata?: [string]: _
 		Condition?: string
 	}
+	StoredQuery :: {
+		Type:       "AWS::Config::StoredQuery"
+		Properties: close({
+			QueryDescription?: string | fn.Fn
+			QueryExpression:   string | fn.Fn
+			QueryName:         string | fn.Fn
+			Tags?:             [...close({
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
+			})] | fn.If
+		})
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+		Condition?: string
+	}
 }

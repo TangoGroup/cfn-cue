@@ -102,31 +102,31 @@ IoTWireless :: {
 			DestinationName: string | fn.Fn
 			LoRaWANDevice?:  close({
 				AbpV10X?: close({
-					DevAddr?:     string | fn.Fn
-					SessionKeys?: close({
-						AppSKey?: string | fn.Fn
-						NwkSKey?: string | fn.Fn
+					DevAddr:     string | fn.Fn
+					SessionKeys: close({
+						AppSKey: string | fn.Fn
+						NwkSKey: string | fn.Fn
 					}) | fn.If
 				}) | fn.If
 				AbpV11?: close({
-					DevAddr?:     string | fn.Fn
-					SessionKeys?: close({
-						AppSKey?:     string | fn.Fn
-						FNwkSIntKey?: string | fn.Fn
-						NwkSEncKey?:  string | fn.Fn
-						SNwkSIntKey?: string | fn.Fn
+					DevAddr:     string | fn.Fn
+					SessionKeys: close({
+						AppSKey:     string | fn.Fn
+						FNwkSIntKey: string | fn.Fn
+						NwkSEncKey:  string | fn.Fn
+						SNwkSIntKey: string | fn.Fn
 					}) | fn.If
 				}) | fn.If
 				DevEui?:          string | fn.Fn
 				DeviceProfileId?: string | fn.Fn
 				OtaaV10X?:        close({
-					AppEui?: string | fn.Fn
-					AppKey?: string | fn.Fn
+					AppEui: string | fn.Fn
+					AppKey: string | fn.Fn
 				}) | fn.If
 				OtaaV11?: close({
-					AppKey?:  string | fn.Fn
-					JoinEui?: string | fn.Fn
-					NwkKey?:  string | fn.Fn
+					AppKey:  string | fn.Fn
+					JoinEui: string | fn.Fn
+					NwkKey:  string | fn.Fn
 				}) | fn.If
 				ServiceProfileId?: string | fn.Fn
 			}) | fn.If
@@ -149,8 +149,8 @@ IoTWireless :: {
 		Properties: close({
 			Description?:   string | fn.Fn
 			LoRaWANGateway: close({
-				GatewayEui?: string | fn.Fn
-				RfRegion?:   string | fn.Fn
+				GatewayEui: string | fn.Fn
+				RfRegion:   string | fn.Fn
 			}) | fn.If
 			Name?:      string | fn.Fn
 			NextToken?: string | fn.Fn

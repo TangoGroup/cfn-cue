@@ -11,7 +11,6 @@ S3 :: {
 		Type:       "AWS::S3::AccessPoint"
 		Properties: close({
 			Bucket:         string | fn.Fn
-			CreationDate?:  string | fn.Fn
 			Name?:          string | fn.Fn
 			NetworkOrigin?: string | fn.Fn
 			Policy?:        {

@@ -148,11 +148,9 @@ ElastiCache :: {
 			AccessString?:       string | fn.Fn
 			Engine:              string | fn.Fn
 			NoPasswordRequired?: bool | fn.Fn
-			Passwords?:          close({
-				PasswordList?: [...(string | fn.Fn)] | (string | fn.Fn)
-			}) | fn.If
-			UserId:   string | fn.Fn
-			UserName: string | fn.Fn
+			Passwords?:          [...(string | fn.Fn)] | (string | fn.Fn)
+			UserId:              string | fn.Fn
+			UserName:            string | fn.Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -165,9 +163,7 @@ ElastiCache :: {
 		Properties: close({
 			Engine:      string | fn.Fn
 			UserGroupId: string | fn.Fn
-			UserIds?:    close({
-				UserIdList?: [...(string | fn.Fn)] | (string | fn.Fn)
-			}) | fn.If
+			UserIds?:    [...(string | fn.Fn)] | (string | fn.Fn)
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

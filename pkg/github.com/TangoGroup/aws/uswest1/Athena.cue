@@ -11,11 +11,10 @@ Athena :: {
 			Parameters?:  {
 				[string]: string | fn.Fn
 			} | fn.If
-			Tags?: close({
-				Tags?: [...close({
-					[string]: _
-				})] | fn.If
-			}) | fn.If
+			Tags?: [...close({
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
+			})] | fn.If
 			Type: string | fn.Fn
 		})
 		DependsOn?:           string | [...string]
@@ -46,11 +45,10 @@ Athena :: {
 			Name:                   string | fn.Fn
 			RecursiveDeleteOption?: bool | fn.Fn
 			State?:                 string | fn.Fn
-			Tags?:                  close({
-				Tags?: [...close({
-					[string]: _
-				})] | fn.If
-			}) | fn.If
+			Tags?:                  [...close({
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
+			})] | fn.If
 			WorkGroupConfiguration?: close({
 				BytesScannedCutoffPerQuery?:      int | fn.Fn
 				EnforceWorkGroupConfiguration?:   bool | fn.Fn

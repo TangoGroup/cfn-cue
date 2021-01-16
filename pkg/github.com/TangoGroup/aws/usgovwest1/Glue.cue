@@ -3,6 +3,27 @@ package usgovwest1
 import "github.com/TangoGroup/aws/fn"
 
 Glue :: {
+	DataCatalogEncryptionSettings :: {
+		Type:       "AWS::Glue::DataCatalogEncryptionSettings"
+		Properties: close({
+			CatalogId:                     string | fn.Fn
+			DataCatalogEncryptionSettings: close({
+				ConnectionPasswordEncryption?: close({
+					KmsKeyId?:                          string | fn.Fn
+					ReturnConnectionPasswordEncrypted?: bool | fn.Fn
+				}) | fn.If
+				EncryptionAtRest?: close({
+					CatalogEncryptionMode?: string | fn.Fn
+					SseAwsKmsKeyId?:        string | fn.Fn
+				}) | fn.If
+			}) | fn.If
+		})
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+		Condition?: string
+	}
 	MLTransform :: {
 		Type:       "AWS::Glue::MLTransform"
 		Properties: close({

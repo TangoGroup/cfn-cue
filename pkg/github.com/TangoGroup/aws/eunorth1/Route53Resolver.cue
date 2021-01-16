@@ -3,6 +3,17 @@ package eunorth1
 import "github.com/TangoGroup/aws/fn"
 
 Route53Resolver :: {
+	ResolverDNSSECConfig :: {
+		Type:       "AWS::Route53Resolver::ResolverDNSSECConfig"
+		Properties: close({
+			ResourceId?: string | fn.Fn
+		})
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+		Condition?: string
+	}
 	ResolverEndpoint :: {
 		Type:       "AWS::Route53Resolver::ResolverEndpoint"
 		Properties: close({

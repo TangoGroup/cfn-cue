@@ -6,45 +6,37 @@ AuditManager :: {
 	Assessment :: {
 		Type:       "AWS::AuditManager::Assessment"
 		Properties: close({
-			assessmentReportsDestination?: close({
-				destination?:     string | fn.Fn
-				destinationType?: string | fn.Fn
+			AssessmentReportsDestination?: close({
+				Destination?:     string | fn.Fn
+				DestinationType?: string | fn.Fn
 			}) | fn.If
-			awsAccount?: close({
-				emailAddress?: string | fn.Fn
-				id?:           string | fn.Fn
-				name?:         string | fn.Fn
+			AwsAccount?: close({
+				EmailAddress?: string | fn.Fn
+				Id?:           string | fn.Fn
+				Name?:         string | fn.Fn
 			}) | fn.If
-			description?: string | fn.Fn
-			frameworkId?: string | fn.Fn
-			name?:        string | fn.Fn
-			roles?:       close({
-				Roles?: [...close({
-					roleArn?:  string | fn.Fn
-					roleType?: string | fn.Fn
+			Description?: string | fn.Fn
+			FrameworkId?: string | fn.Fn
+			Name?:        string | fn.Fn
+			Roles?:       [...close({
+				RoleArn?:  string | fn.Fn
+				RoleType?: string | fn.Fn
+			})] | fn.If
+			Scope?: close({
+				AwsAccounts?: [...close({
+					EmailAddress?: string | fn.Fn
+					Id?:           string | fn.Fn
+					Name?:         string | fn.Fn
+				})] | fn.If
+				AwsServices?: [...close({
+					ServiceName?: string | fn.Fn
 				})] | fn.If
 			}) | fn.If
-			scope?: close({
-				awsAccounts?: close({
-					AWSAccounts?: [...close({
-						emailAddress?: string | fn.Fn
-						id?:           string | fn.Fn
-						name?:         string | fn.Fn
-					})] | fn.If
-				}) | fn.If
-				awsServices?: close({
-					AWSServices?: [...close({
-						serviceName?: string | fn.Fn
-					})] | fn.If
-				}) | fn.If
-			}) | fn.If
-			status?: string | fn.Fn
-			tags?:   close({
-				Tags?: [...close({
-					Key:   string | fn.Fn
-					Value: string | fn.Fn
-				})] | fn.If
-			}) | fn.If
+			Status?: string | fn.Fn
+			Tags?:   [...close({
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
+			})] | fn.If
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

@@ -15,8 +15,9 @@ IoT :: {
 				Value: string | fn.Fn
 			})] | fn.If
 			TokenKeyName?:           string | fn.Fn
-			TokenSigningPublicKeys?: close({
-			}) | fn.If
+			TokenSigningPublicKeys?: {
+				[string]: string | fn.Fn
+			} | fn.If
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

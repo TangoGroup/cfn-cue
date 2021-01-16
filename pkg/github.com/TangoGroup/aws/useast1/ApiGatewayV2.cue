@@ -187,6 +187,9 @@ ApiGatewayV2 :: {
 			RequestTemplates?: {
 				[string]: _
 			} | fn.Fn
+			ResponseParameters?: {
+				[string]: _
+			} | fn.Fn
 			TemplateSelectionExpression?: string | fn.Fn
 			TimeoutInMillis?:             int | fn.Fn
 			TlsConfig?:                   close({
