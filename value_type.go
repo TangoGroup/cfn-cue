@@ -4,7 +4,7 @@ package main
 type ValueType struct {
 	AllowedValues       []string // √
 	AllowedPatternRegex string   // √
-	GetAtt              map[string]string
+	GetAtt              map[string]interface{}
 	JSONMax             int `json:"JsonMax"`
 	ListMax             int
 	ListMin             int
