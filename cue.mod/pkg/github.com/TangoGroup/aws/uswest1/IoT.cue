@@ -15,7 +15,9 @@ import "github.com/TangoGroup/aws/fn"
 				Value: string | fn.#Fn
 			}] | fn.#If
 			TokenKeyName?:           string | fn.#Fn
-			TokenSigningPublicKeys?: {} | fn.#If
+			TokenSigningPublicKeys?: {
+				[string]: string | fn.#Fn
+			} | fn.#If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

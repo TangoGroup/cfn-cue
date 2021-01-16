@@ -24,6 +24,24 @@ import "github.com/TangoGroup/aws/fn"
 	#CertificateAuthority: {
 		Type: "AWS::ACMPCA::CertificateAuthority"
 		Properties: {
+			CsrExtensions?: {
+				KeyUsage?: {
+					CRLSign?:          bool | fn.#Fn
+					DataEncipherment?: bool | fn.#Fn
+					DecipherOnly?:     bool | fn.#Fn
+					DigitalSignature?: bool | fn.#Fn
+					EncipherOnly?:     bool | fn.#Fn
+					KeyAgreement?:     bool | fn.#Fn
+					KeyCertSign?:      bool | fn.#Fn
+					KeyEncipherment?:  bool | fn.#Fn
+					NonRepudiation?:   bool | fn.#Fn
+				} | fn.#If
+				SubjectInformationAccess?: {
+					SubjectInformationAccess?: [...{
+						[string]: _
+					}] | fn.#If
+				} | fn.#If
+			} | fn.#If
 			KeyAlgorithm:             string | fn.#Fn
 			RevocationConfiguration?: {
 				CrlConfiguration?: {

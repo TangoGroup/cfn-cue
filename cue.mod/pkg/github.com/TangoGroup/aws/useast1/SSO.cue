@@ -22,7 +22,15 @@ import "github.com/TangoGroup/aws/fn"
 	#InstanceAccessControlAttributeConfiguration: {
 		Type: "AWS::SSO::InstanceAccessControlAttributeConfiguration"
 		Properties: {
-			InstanceAccessControlAttributeConfiguration: {
+			AccessControlAttributes?: [...{
+				Key:   string | fn.#Fn
+				Value: {
+					Source: {
+						AccessControlAttributeValueSourceList?: [...(string | fn.#Fn)] | (string | fn.#Fn)
+					} | fn.#If
+				} | fn.#If
+			}] | fn.#If
+			InstanceAccessControlAttributeConfiguration?: {
 				[string]: _
 			} | fn.#Fn
 			InstanceArn: string | fn.#Fn
@@ -36,8 +44,10 @@ import "github.com/TangoGroup/aws/fn"
 	#PermissionSet: {
 		Type: "AWS::SSO::PermissionSet"
 		Properties: {
-			Description?:     string | fn.#Fn
-			InlinePolicy?:    string | fn.#Fn
+			Description?:  string | fn.#Fn
+			InlinePolicy?: {
+				[string]: _
+			} | fn.#Fn
 			InstanceArn:      string | fn.#Fn
 			ManagedPolicies?: [...(string | fn.#Fn)] | (string | fn.#Fn)
 			Name:             string | fn.#Fn

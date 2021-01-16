@@ -102,6 +102,31 @@ import "github.com/TangoGroup/aws/fn"
 						SubnetIds:        [...(string | fn.#Fn)] | (string | fn.#Fn)
 					} | fn.#If
 				} | fn.#If
+				GoogleDriveConfiguration?: {
+					ExcludeMimeTypes?: {
+						ExcludeMimeTypesList?: [...(string | fn.#Fn)] | (string | fn.#Fn)
+					} | fn.#If
+					ExcludeSharedDrives?: {
+						ExcludeSharedDrivesList?: [...(string | fn.#Fn)] | (string | fn.#Fn)
+					} | fn.#If
+					ExcludeUserAccounts?: {
+						ExcludeUserAccountsList?: [...(string | fn.#Fn)] | (string | fn.#Fn)
+					} | fn.#If
+					ExclusionPatterns?: {
+						DataSourceInclusionsExclusionsStrings?: [...(string | fn.#Fn)] | (string | fn.#Fn)
+					} | fn.#If
+					FieldMappings?: {
+						DataSourceToIndexFieldMappingList?: [...{
+							DataSourceFieldName: string | fn.#Fn
+							DateFieldFormat?:    string | fn.#Fn
+							IndexFieldName:      string | fn.#Fn
+						}] | fn.#If
+					} | fn.#If
+					InclusionPatterns?: {
+						DataSourceInclusionsExclusionsStrings?: [...(string | fn.#Fn)] | (string | fn.#Fn)
+					} | fn.#If
+					SecretArn: string | fn.#Fn
+				} | fn.#If
 				OneDriveConfiguration?: {
 					DisableLocalGroups?: bool | fn.#Fn
 					ExclusionPatterns?:  {
@@ -299,12 +324,10 @@ import "github.com/TangoGroup/aws/fn"
 			Name:         string | fn.#Fn
 			RoleArn?:     string | fn.#Fn
 			Schedule?:    string | fn.#Fn
-			Tags?:        {
-				TagList?: [...{
-					Key:   string | fn.#Fn
-					Value: string | fn.#Fn
-				}] | fn.#If
-			} | fn.#If
+			Tags?:        [...{
+				Key:   string | fn.#Fn
+				Value: string | fn.#Fn
+			}] | fn.#If
 			Type: string | fn.#Fn
 		}
 		DependsOn?:           string | [...string]
@@ -325,12 +348,10 @@ import "github.com/TangoGroup/aws/fn"
 				Bucket: string | fn.#Fn
 				Key:    string | fn.#Fn
 			} | fn.#If
-			Tags?: {
-				TagList?: [...{
-					Key:   string | fn.#Fn
-					Value: string | fn.#Fn
-				}] | fn.#If
-			} | fn.#If
+			Tags?: [...{
+				Key:   string | fn.#Fn
+				Value: string | fn.#Fn
+			}] | fn.#If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -346,59 +367,53 @@ import "github.com/TangoGroup/aws/fn"
 				StorageCapacityUnits: int | fn.#Fn
 			} | fn.#If
 			Description?:                    string | fn.#Fn
-			DocumentMetadataConfigurations?: {
-				DocumentMetadataConfigurationList?: [...{
-					Name:       string | fn.#Fn
-					Relevance?: {
-						Duration?:             string | fn.#Fn
-						Freshness?:            bool | fn.#Fn
-						Importance?:           int | fn.#Fn
-						RankOrder?:            string | fn.#Fn
-						ValueImportanceItems?: {
-							ValueImportanceItems?: [...{
-								[string]: _
-							}] | fn.#If
-						} | fn.#If
+			DocumentMetadataConfigurations?: [...{
+				Name:       string | fn.#Fn
+				Relevance?: {
+					Duration?:             string | fn.#Fn
+					Freshness?:            bool | fn.#Fn
+					Importance?:           int | fn.#Fn
+					RankOrder?:            string | fn.#Fn
+					ValueImportanceItems?: {
+						ValueImportanceItems?: [...{
+							[string]: _
+						}] | fn.#If
 					} | fn.#If
-					Search?: {
-						Displayable?: bool | fn.#Fn
-						Facetable?:   bool | fn.#Fn
-						Searchable?:  bool | fn.#Fn
-						Sortable?:    bool | fn.#Fn
-					} | fn.#If
-					Type: string | fn.#Fn
-				}] | fn.#If
-			} | fn.#If
+				} | fn.#If
+				Search?: {
+					Displayable?: bool | fn.#Fn
+					Facetable?:   bool | fn.#Fn
+					Searchable?:  bool | fn.#Fn
+					Sortable?:    bool | fn.#Fn
+				} | fn.#If
+				Type: string | fn.#Fn
+			}] | fn.#If
 			Edition:                            string | fn.#Fn
 			Name:                               string | fn.#Fn
 			RoleArn:                            string | fn.#Fn
 			ServerSideEncryptionConfiguration?: {
 				KmsKeyId?: string | fn.#Fn
 			} | fn.#If
-			Tags?: {
-				TagList?: [...{
-					Key:   string | fn.#Fn
-					Value: string | fn.#Fn
-				}] | fn.#If
-			} | fn.#If
+			Tags?: [...{
+				Key:   string | fn.#Fn
+				Value: string | fn.#Fn
+			}] | fn.#If
 			UserContextPolicy?:       string | fn.#Fn
-			UserTokenConfigurations?: {
-				UserTokenConfigurationList?: [...{
-					JsonTokenTypeConfiguration?: {
-						GroupAttributeField:    string | fn.#Fn
-						UserNameAttributeField: string | fn.#Fn
-					} | fn.#If
-					JwtTokenTypeConfiguration?: {
-						ClaimRegex?:             string | fn.#Fn
-						GroupAttributeField?:    string | fn.#Fn
-						Issuer?:                 string | fn.#Fn
-						KeyLocation:             string | fn.#Fn
-						SecretManagerArn?:       string | fn.#Fn
-						URL?:                    string | fn.#Fn
-						UserNameAttributeField?: string | fn.#Fn
-					} | fn.#If
-				}] | fn.#If
-			} | fn.#If
+			UserTokenConfigurations?: [...{
+				JsonTokenTypeConfiguration?: {
+					GroupAttributeField:    string | fn.#Fn
+					UserNameAttributeField: string | fn.#Fn
+				} | fn.#If
+				JwtTokenTypeConfiguration?: {
+					ClaimRegex?:             string | fn.#Fn
+					GroupAttributeField?:    string | fn.#Fn
+					Issuer?:                 string | fn.#Fn
+					KeyLocation:             string | fn.#Fn
+					SecretManagerArn?:       string | fn.#Fn
+					URL?:                    string | fn.#Fn
+					UserNameAttributeField?: string | fn.#Fn
+				} | fn.#If
+			}] | fn.#If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

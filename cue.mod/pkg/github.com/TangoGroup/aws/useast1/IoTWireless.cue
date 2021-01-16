@@ -102,31 +102,31 @@ import "github.com/TangoGroup/aws/fn"
 			DestinationName: string | fn.#Fn
 			LoRaWANDevice?:  {
 				AbpV10X?: {
-					DevAddr?:     string | fn.#Fn
-					SessionKeys?: {
-						AppSKey?: string | fn.#Fn
-						NwkSKey?: string | fn.#Fn
+					DevAddr:     string | fn.#Fn
+					SessionKeys: {
+						AppSKey: string | fn.#Fn
+						NwkSKey: string | fn.#Fn
 					} | fn.#If
 				} | fn.#If
 				AbpV11?: {
-					DevAddr?:     string | fn.#Fn
-					SessionKeys?: {
-						AppSKey?:     string | fn.#Fn
-						FNwkSIntKey?: string | fn.#Fn
-						NwkSEncKey?:  string | fn.#Fn
-						SNwkSIntKey?: string | fn.#Fn
+					DevAddr:     string | fn.#Fn
+					SessionKeys: {
+						AppSKey:     string | fn.#Fn
+						FNwkSIntKey: string | fn.#Fn
+						NwkSEncKey:  string | fn.#Fn
+						SNwkSIntKey: string | fn.#Fn
 					} | fn.#If
 				} | fn.#If
 				DevEui?:          string | fn.#Fn
 				DeviceProfileId?: string | fn.#Fn
 				OtaaV10X?:        {
-					AppEui?: string | fn.#Fn
-					AppKey?: string | fn.#Fn
+					AppEui: string | fn.#Fn
+					AppKey: string | fn.#Fn
 				} | fn.#If
 				OtaaV11?: {
-					AppKey?:  string | fn.#Fn
-					JoinEui?: string | fn.#Fn
-					NwkKey?:  string | fn.#Fn
+					AppKey:  string | fn.#Fn
+					JoinEui: string | fn.#Fn
+					NwkKey:  string | fn.#Fn
 				} | fn.#If
 				ServiceProfileId?: string | fn.#Fn
 			} | fn.#If
@@ -149,8 +149,8 @@ import "github.com/TangoGroup/aws/fn"
 		Properties: {
 			Description?:   string | fn.#Fn
 			LoRaWANGateway: {
-				GatewayEui?: string | fn.#Fn
-				RfRegion?:   string | fn.#Fn
+				GatewayEui: string | fn.#Fn
+				RfRegion:   string | fn.#Fn
 			} | fn.#If
 			Name?:      string | fn.#Fn
 			NextToken?: string | fn.#Fn

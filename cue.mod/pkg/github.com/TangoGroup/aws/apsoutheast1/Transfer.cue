@@ -7,6 +7,7 @@ import "github.com/TangoGroup/aws/fn"
 		Type: "AWS::Transfer::Server"
 		Properties: {
 			Certificate?:     string | fn.#Fn
+			Domain?:          string | fn.#Fn
 			EndpointDetails?: {
 				AddressAllocationIds?: [...(string | fn.#Fn)] | (string | fn.#Fn)
 				SecurityGroupIds?:     [...(string | fn.#Fn)] | (string | fn.#Fn)
@@ -44,10 +45,15 @@ import "github.com/TangoGroup/aws/fn"
 			}] | fn.#If
 			HomeDirectoryType?: string | fn.#Fn
 			Policy?:            string | fn.#Fn
-			Role:               string | fn.#Fn
-			ServerId:           string | fn.#Fn
-			SshPublicKeys?:     [...(string | fn.#Fn)] | (string | fn.#Fn)
-			Tags?:              [...{
+			PosixProfile?:      {
+				Gid:            number | fn.#Fn
+				SecondaryGids?: [...(number | fn.#Fn)] | (number | fn.#Fn)
+				Uid:            number | fn.#Fn
+			} | fn.#If
+			Role:           string | fn.#Fn
+			ServerId:       string | fn.#Fn
+			SshPublicKeys?: [...(string | fn.#Fn)] | (string | fn.#Fn)
+			Tags?:          [...{
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
 			}] | fn.#If

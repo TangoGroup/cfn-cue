@@ -209,6 +209,20 @@ import "github.com/TangoGroup/aws/fn"
 						IntermediateBucketName: string | fn.#Fn
 						Object:                 string | fn.#Fn
 					} | fn.#If
+					Upsolver?: {
+						BucketName:           string | fn.#Fn
+						BucketPrefix?:        string | fn.#Fn
+						S3OutputFormatConfig: {
+							AggregationConfig?: {
+								AggregationType?: string | fn.#Fn
+							} | fn.#If
+							FileType?:    string | fn.#Fn
+							PrefixConfig: {
+								PrefixFormat?: string | fn.#Fn
+								PrefixType?:   string | fn.#Fn
+							} | fn.#If
+						} | fn.#If
+					} | fn.#If
 				} | fn.#If
 			}] | fn.#If
 			FlowName:         string | fn.#Fn

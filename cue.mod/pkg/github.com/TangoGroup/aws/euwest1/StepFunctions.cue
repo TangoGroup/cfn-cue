@@ -27,8 +27,10 @@ import "github.com/TangoGroup/aws/fn"
 				Version?: string | fn.#Fn
 			} | fn.#If
 			DefinitionString?:        string | fn.#Fn
-			DefinitionSubstitutions?: {} | fn.#If
-			LoggingConfiguration?:    {
+			DefinitionSubstitutions?: {
+				[string]: string | fn.#Fn
+			} | fn.#If
+			LoggingConfiguration?: {
 				Destinations?: [...{
 					CloudWatchLogsLogGroup?: {
 						LogGroupArn?: string | fn.#Fn

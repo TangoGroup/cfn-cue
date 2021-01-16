@@ -6,45 +6,37 @@ import "github.com/TangoGroup/aws/fn"
 	#Assessment: {
 		Type: "AWS::AuditManager::Assessment"
 		Properties: {
-			assessmentReportsDestination?: {
-				destination?:     string | fn.#Fn
-				destinationType?: string | fn.#Fn
+			AssessmentReportsDestination?: {
+				Destination?:     string | fn.#Fn
+				DestinationType?: string | fn.#Fn
 			} | fn.#If
-			awsAccount?: {
-				emailAddress?: string | fn.#Fn
-				id?:           string | fn.#Fn
-				name?:         string | fn.#Fn
+			AwsAccount?: {
+				EmailAddress?: string | fn.#Fn
+				Id?:           string | fn.#Fn
+				Name?:         string | fn.#Fn
 			} | fn.#If
-			description?: string | fn.#Fn
-			frameworkId?: string | fn.#Fn
-			name?:        string | fn.#Fn
-			roles?:       {
-				Roles?: [...{
-					roleArn?:  string | fn.#Fn
-					roleType?: string | fn.#Fn
+			Description?: string | fn.#Fn
+			FrameworkId?: string | fn.#Fn
+			Name?:        string | fn.#Fn
+			Roles?:       [...{
+				RoleArn?:  string | fn.#Fn
+				RoleType?: string | fn.#Fn
+			}] | fn.#If
+			Scope?: {
+				AwsAccounts?: [...{
+					EmailAddress?: string | fn.#Fn
+					Id?:           string | fn.#Fn
+					Name?:         string | fn.#Fn
+				}] | fn.#If
+				AwsServices?: [...{
+					ServiceName?: string | fn.#Fn
 				}] | fn.#If
 			} | fn.#If
-			scope?: {
-				awsAccounts?: {
-					AWSAccounts?: [...{
-						emailAddress?: string | fn.#Fn
-						id?:           string | fn.#Fn
-						name?:         string | fn.#Fn
-					}] | fn.#If
-				} | fn.#If
-				awsServices?: {
-					AWSServices?: [...{
-						serviceName?: string | fn.#Fn
-					}] | fn.#If
-				} | fn.#If
-			} | fn.#If
-			status?: string | fn.#Fn
-			tags?:   {
-				Tags?: [...{
-					Key:   string | fn.#Fn
-					Value: string | fn.#Fn
-				}] | fn.#If
-			} | fn.#If
+			Status?: string | fn.#Fn
+			Tags?:   [...{
+				Key:   string | fn.#Fn
+				Value: string | fn.#Fn
+			}] | fn.#If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

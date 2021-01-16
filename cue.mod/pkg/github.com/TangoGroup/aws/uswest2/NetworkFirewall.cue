@@ -32,36 +32,25 @@ import "github.com/TangoGroup/aws/fn"
 		Properties: {
 			Description?:   string | fn.#Fn
 			FirewallPolicy: {
-				StatefulRuleGroupReferences?: {
-					StatefulRuleGroupReferences?: [...{
-						[string]: _
-					}] | fn.#If
-				} | fn.#If
-				StatelessCustomActions?: {
-					CustomActions?: [...{
-						ActionDefinition: {
-							PublishMetricAction?: {
-								Dimensions: {
-									Dimensions?: [...{
-										[string]: _
-									}] | fn.#If
-								} | fn.#If
-							} | fn.#If
+				StatefulRuleGroupReferences?: [...{
+					ResourceArn: string | fn.#Fn
+				}] | fn.#If
+				StatelessCustomActions?: [...{
+					ActionDefinition: {
+						PublishMetricAction?: {
+							Dimensions: [...{
+								Value: string | fn.#Fn
+							}] | fn.#If
 						} | fn.#If
-						ActionName: string | fn.#Fn
-					}] | fn.#If
-				} | fn.#If
-				StatelessDefaultActions: {
-					StatelessActions?: [...(string | fn.#Fn)] | (string | fn.#Fn)
-				} | fn.#If
-				StatelessFragmentDefaultActions: {
-					StatelessActions?: [...(string | fn.#Fn)] | (string | fn.#Fn)
-				} | fn.#If
-				StatelessRuleGroupReferences?: {
-					StatelessRuleGroupReferences?: [...{
-						[string]: _
-					}] | fn.#If
-				} | fn.#If
+					} | fn.#If
+					ActionName: string | fn.#Fn
+				}] | fn.#If
+				StatelessDefaultActions:         [...(string | fn.#Fn)] | (string | fn.#Fn)
+				StatelessFragmentDefaultActions: [...(string | fn.#Fn)] | (string | fn.#Fn)
+				StatelessRuleGroupReferences?:   [...{
+					Priority:    int | fn.#Fn
+					ResourceArn: string | fn.#Fn
+				}] | fn.#If
 			} | fn.#If
 			FirewallPolicyName: string | fn.#Fn
 			Tags?:              [...{
@@ -81,11 +70,13 @@ import "github.com/TangoGroup/aws/fn"
 			FirewallArn:          string | fn.#Fn
 			FirewallName?:        string | fn.#Fn
 			LoggingConfiguration: {
-				LogDestinationConfigs: {
-					LogDestinationConfigs?: [...{
-						[string]: _
-					}] | fn.#If
-				} | fn.#If
+				LogDestinationConfigs: [...{
+					LogDestination: {
+						[string]: string | fn.#Fn
+					} | fn.#If
+					LogDestinationType: string | fn.#Fn
+					LogType:            string | fn.#Fn
+				}] | fn.#If
 			} | fn.#If
 		}
 		DependsOn?:           string | [...string]
@@ -102,41 +93,72 @@ import "github.com/TangoGroup/aws/fn"
 			RuleGroup?:   {
 				RuleVariables?: {
 					IPSets?: {
-						[string]: Definition?: {
-							VariableDefinitionList?: [...(string | fn.#Fn)] | (string | fn.#Fn)
-						} | fn.#If
+						[string]: Definition?: [...(string | fn.#Fn)] | (string | fn.#Fn)
 					} | fn.#If
 					PortSets?: {
-						[string]: Definition?: {
-							VariableDefinitionList?: [...(string | fn.#Fn)] | (string | fn.#Fn)
-						} | fn.#If
+						[string]: Definition?: [...(string | fn.#Fn)] | (string | fn.#Fn)
 					} | fn.#If
 				} | fn.#If
 				RulesSource: {
 					RulesSourceList?: {
 						GeneratedRulesType: string | fn.#Fn
-						TargetTypes:        {
-							TargetTypes?: [...(string | fn.#Fn)] | (string | fn.#Fn)
-						} | fn.#If
-						Targets: [...(string | fn.#Fn)] | (string | fn.#Fn)
+						TargetTypes:        [...(string | fn.#Fn)] | (string | fn.#Fn)
+						Targets:            [...(string | fn.#Fn)] | (string | fn.#Fn)
 					} | fn.#If
 					RulesString?:   string | fn.#Fn
-					StatefulRules?: {
-						StatefulRules?: [...{
-							[string]: _
+					StatefulRules?: [...{
+						Action: string | fn.#Fn
+						Header: {
+							Destination:     string | fn.#Fn
+							DestinationPort: string | fn.#Fn
+							Direction:       string | fn.#Fn
+							Protocol:        string | fn.#Fn
+							Source:          string | fn.#Fn
+							SourcePort:      string | fn.#Fn
+						} | fn.#If
+						RuleOptions: [...{
+							Keyword:   string | fn.#Fn
+							Settings?: [...(string | fn.#Fn)] | (string | fn.#Fn)
 						}] | fn.#If
-					} | fn.#If
+					}] | fn.#If
 					StatelessRulesAndCustomActions?: {
-						CustomActions?: {
-							CustomActions?: [...{
-								[string]: _
-							}] | fn.#If
-						} | fn.#If
-						StatelessRules: {
-							StatelessRules?: [...{
-								[string]: _
-							}] | fn.#If
-						} | fn.#If
+						CustomActions?: [...{
+							ActionDefinition: {
+								PublishMetricAction?: {
+									Dimensions: [...{
+										Value: string | fn.#Fn
+									}] | fn.#If
+								} | fn.#If
+							} | fn.#If
+							ActionName: string | fn.#Fn
+						}] | fn.#If
+						StatelessRules: [...{
+							Priority:       int | fn.#Fn
+							RuleDefinition: {
+								Actions:         [...(string | fn.#Fn)] | (string | fn.#Fn)
+								MatchAttributes: {
+									DestinationPorts?: [...{
+										FromPort: int | fn.#Fn
+										ToPort:   int | fn.#Fn
+									}] | fn.#If
+									Destinations?: [...{
+										AddressDefinition: string | fn.#Fn
+									}] | fn.#If
+									Protocols?:   [...(int | fn.#Fn)] | (int | fn.#Fn)
+									SourcePorts?: [...{
+										FromPort: int | fn.#Fn
+										ToPort:   int | fn.#Fn
+									}] | fn.#If
+									Sources?: [...{
+										AddressDefinition: string | fn.#Fn
+									}] | fn.#If
+									TCPFlags?: [...{
+										Flags:  [...(string | fn.#Fn)] | (string | fn.#Fn)
+										Masks?: [...(string | fn.#Fn)] | (string | fn.#Fn)
+									}] | fn.#If
+								} | fn.#If
+							} | fn.#If
+						}] | fn.#If
 					} | fn.#If
 				} | fn.#If
 			} | fn.#If

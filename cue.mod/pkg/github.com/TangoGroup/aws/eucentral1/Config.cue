@@ -61,7 +61,7 @@ import (
 				AllAwsRegions?: bool | fn.#Fn
 				AwsRegions?:    [...(string | fn.#Fn)] | (string | fn.#Fn)
 			}] | fn.#If
-			ConfigurationAggregatorName?:   string | fn.#Fn
+			ConfigurationAggregatorName:    string | fn.#Fn
 			OrganizationAggregationSource?: {
 				AllAwsRegions?: bool | fn.#Fn
 				AwsRegions?:    [...(string | fn.#Fn)] | (string | fn.#Fn)
@@ -204,6 +204,23 @@ import (
 			TargetId:             string | fn.#Fn
 			TargetType:           string | fn.#Fn
 			TargetVersion?:       string | fn.#Fn
+		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+		Condition?: string
+	}
+	#StoredQuery: {
+		Type: "AWS::Config::StoredQuery"
+		Properties: {
+			QueryDescription?: string | fn.#Fn
+			QueryExpression:   string | fn.#Fn
+			QueryName:         string | fn.#Fn
+			Tags?:             [...{
+				Key:   string | fn.#Fn
+				Value: string | fn.#Fn
+			}] | fn.#If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

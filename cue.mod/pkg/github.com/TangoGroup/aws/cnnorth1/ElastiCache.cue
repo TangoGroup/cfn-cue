@@ -146,11 +146,9 @@ import "github.com/TangoGroup/aws/fn"
 			AccessString?:       string | fn.#Fn
 			Engine:              string | fn.#Fn
 			NoPasswordRequired?: bool | fn.#Fn
-			Passwords?:          {
-				PasswordList?: [...(string | fn.#Fn)] | (string | fn.#Fn)
-			} | fn.#If
-			UserId:   string | fn.#Fn
-			UserName: string | fn.#Fn
+			Passwords?:          [...(string | fn.#Fn)] | (string | fn.#Fn)
+			UserId:              string | fn.#Fn
+			UserName:            string | fn.#Fn
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -163,9 +161,7 @@ import "github.com/TangoGroup/aws/fn"
 		Properties: {
 			Engine:      string | fn.#Fn
 			UserGroupId: string | fn.#Fn
-			UserIds?:    {
-				UserIdList?: [...(string | fn.#Fn)] | (string | fn.#Fn)
-			} | fn.#If
+			UserIds?:    [...(string | fn.#Fn)] | (string | fn.#Fn)
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

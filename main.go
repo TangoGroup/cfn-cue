@@ -1440,7 +1440,7 @@ func main() {
 		}
 
 		b, _ := format.Node(allServicesFile, format.Simplify())
-		packageFolder := path.Join("pkg/github.com/TangoGroup/aws", shortRegion)
+		packageFolder := path.Join("cue.mod/pkg/github.com/TangoGroup/aws", shortRegion)
 
 		os.MkdirAll(packageFolder, os.ModePerm)
 

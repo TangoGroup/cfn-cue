@@ -101,11 +101,10 @@ import "github.com/TangoGroup/aws/fn"
 			DeleteOption?:               string | fn.#Fn
 			GameServerGroupName:         string | fn.#Fn
 			GameServerProtectionPolicy?: string | fn.#Fn
-			InstanceDefinitions:         {
-				InstanceDefinitions?: [...{
-					[string]: _
-				}] | fn.#If
-			} | fn.#If
+			InstanceDefinitions:         [...{
+				InstanceType:      string | fn.#Fn
+				WeightedCapacity?: string | fn.#Fn
+			}] | fn.#If
 			LaunchTemplate: {
 				LaunchTemplateId?:   string | fn.#Fn
 				LaunchTemplateName?: string | fn.#Fn
@@ -114,14 +113,11 @@ import "github.com/TangoGroup/aws/fn"
 			MaxSize?: number | fn.#Fn
 			MinSize?: number | fn.#Fn
 			RoleArn:  string | fn.#Fn
-			Tags?:    {
-				Tags?: [...{
-					[string]: _
-				}] | fn.#If
-			} | fn.#If
-			VpcSubnets?: {
-				VpcSubnets?: [...(string | fn.#Fn)] | (string | fn.#Fn)
-			} | fn.#If
+			Tags?:    [...{
+				Key:   string | fn.#Fn
+				Value: string | fn.#Fn
+			}] | fn.#If
+			VpcSubnets?: [...(string | fn.#Fn)] | (string | fn.#Fn)
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

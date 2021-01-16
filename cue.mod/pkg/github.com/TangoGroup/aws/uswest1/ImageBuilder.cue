@@ -33,6 +33,9 @@ import "github.com/TangoGroup/aws/fn"
 				AmiDistributionConfiguration?: {
 					[string]: _
 				} | fn.#Fn
+				ContainerDistributionConfiguration?: {
+					[string]: _
+				} | fn.#Fn
 				LicenseConfigurationArns?: [...(string | fn.#Fn)] | (string | fn.#Fn)
 				Region:                    string | fn.#Fn
 			}] | fn.#If

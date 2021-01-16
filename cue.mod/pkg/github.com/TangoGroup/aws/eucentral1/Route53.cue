@@ -3,6 +3,15 @@ package eucentral1
 import "github.com/TangoGroup/aws/fn"
 
 #Route53: {
+	#DNSSEC: {
+		Type: "AWS::Route53::DNSSEC"
+		Properties: HostedZoneId: string | fn.#Fn
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+		Condition?: string
+	}
 	#HealthCheck: {
 		Type: "AWS::Route53::HealthCheck"
 		Properties: {
@@ -56,6 +65,20 @@ import "github.com/TangoGroup/aws/fn"
 				VPCId:     string | fn.#Fn
 				VPCRegion: string | fn.#Fn
 			}] | fn.#If
+		}
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+		Condition?: string
+	}
+	#KeySigningKey: {
+		Type: "AWS::Route53::KeySigningKey"
+		Properties: {
+			HostedZoneId:            string | fn.#Fn
+			KeyManagementServiceArn: string | fn.#Fn
+			Name:                    string | fn.#Fn
+			Status:                  string | fn.#Fn
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

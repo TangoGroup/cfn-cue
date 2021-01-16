@@ -95,7 +95,8 @@ import "github.com/TangoGroup/aws/fn"
 			Device?: {
 				[string]: _
 			} | fn.#Fn
-			Tags?: [...{
+			DeviceFleetName: string | fn.#Fn
+			Tags?:           [...{
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
 			}] | fn.#If
@@ -109,8 +110,9 @@ import "github.com/TangoGroup/aws/fn"
 	#DeviceFleet: {
 		Type: "AWS::SageMaker::DeviceFleet"
 		Properties: {
-			Description?: string | fn.#Fn
-			OutputConfig: {
+			Description?:    string | fn.#Fn
+			DeviceFleetName: string | fn.#Fn
+			OutputConfig:    {
 				KmsKeyId?:        string | fn.#Fn
 				S3OutputLocation: string | fn.#Fn
 			} | fn.#If

@@ -376,6 +376,7 @@ import (
 						Iops?:                int | fn.#Fn
 						KmsKeyId?:            string | fn.#Fn
 						SnapshotId?:          string | fn.#Fn
+						Throughput?:          int | fn.#Fn
 						VolumeSize?:          int | fn.#Fn
 						VolumeType?:          ("gp2" | "gp3" | "io1" | "io2" | "sc1" | "st1" | "standard") | fn.#Fn
 					} | fn.#If
@@ -510,11 +511,10 @@ import (
 		Type: "AWS::EC2::LocalGatewayRouteTableVPCAssociation"
 		Properties: {
 			LocalGatewayRouteTableId: string | fn.#Fn
-			Tags?:                    {
-				Tags?: [...{
-					[string]: _
-				}] | fn.#If
-			} | fn.#If
+			Tags?:                    [...{
+				Key:   string | fn.#Fn
+				Value: string | fn.#Fn
+			}] | fn.#If
 			VpcId: string | fn.#Fn
 		}
 		DependsOn?:           string | [...string]
@@ -584,7 +584,6 @@ import (
 		Properties: {
 			FilterInArns?:         [...(string | fn.#Fn)] | (string | fn.#Fn)
 			NetworkInsightsPathId: string | fn.#Fn
-			StatusMessage?:        string | fn.#Fn
 			Tags?:                 [...{
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn

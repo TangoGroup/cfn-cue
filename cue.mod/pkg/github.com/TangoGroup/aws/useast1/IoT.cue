@@ -15,7 +15,9 @@ import "github.com/TangoGroup/aws/fn"
 				Value: string | fn.#Fn
 			}] | fn.#If
 			TokenKeyName?:           string | fn.#Fn
-			TokenSigningPublicKeys?: {} | fn.#If
+			TokenSigningPublicKeys?: {
+				[string]: string | fn.#Fn
+			} | fn.#If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -50,10 +52,10 @@ import "github.com/TangoGroup/aws/fn"
 			DomainName?:                string | fn.#Fn
 			ServerCertificateArns?:     [...(string | fn.#Fn)] | (string | fn.#Fn)
 			ServiceType?:               string | fn.#Fn
-			Tags?:                      {
+			Tags?:                      [...{
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn
-			} | fn.#If
+			}] | fn.#If
 			ValidationCertificateArn?: string | fn.#Fn
 		}
 		DependsOn?:           string | [...string]

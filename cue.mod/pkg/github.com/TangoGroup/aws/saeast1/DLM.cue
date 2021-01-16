@@ -35,14 +35,16 @@ import "github.com/TangoGroup/aws/fn"
 					ExcludeBootVolume?: bool | fn.#Fn
 					NoReboot?:          bool | fn.#Fn
 				} | fn.#If
-				PolicyType?:    string | fn.#Fn
-				ResourceTypes?: [...(("INSTANCE" | "VOLUME") | fn.#Fn)] | (("INSTANCE" | "VOLUME") | fn.#Fn)
-				Schedules?:     [...{
+				PolicyType?:        string | fn.#Fn
+				ResourceLocations?: [...(string | fn.#Fn)] | (string | fn.#Fn)
+				ResourceTypes?:     [...(("INSTANCE" | "VOLUME") | fn.#Fn)] | (("INSTANCE" | "VOLUME") | fn.#Fn)
+				Schedules?:         [...{
 					CopyTags?:   bool | fn.#Fn
 					CreateRule?: {
 						CronExpression?: string | fn.#Fn
 						Interval?:       int | fn.#Fn
 						IntervalUnit?:   string | fn.#Fn
+						Location?:       string | fn.#Fn
 						Times?:          [...(string | fn.#Fn)] | (string | fn.#Fn)
 					} | fn.#If
 					CrossRegionCopyRules?: [...{
@@ -53,7 +55,8 @@ import "github.com/TangoGroup/aws/fn"
 							Interval:     int | fn.#Fn
 							IntervalUnit: string | fn.#Fn
 						} | fn.#If
-						TargetRegion: string | fn.#Fn
+						Target?:       string | fn.#Fn
+						TargetRegion?: string | fn.#Fn
 					}] | fn.#If
 					FastRestoreRule?: {
 						AvailabilityZones?: [...(string | fn.#Fn)] | (string | fn.#Fn)

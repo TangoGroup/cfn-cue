@@ -11,11 +11,10 @@ import "github.com/TangoGroup/aws/fn"
 			Parameters?:  {
 				[string]: string | fn.#Fn
 			} | fn.#If
-			Tags?: {
-				Tags?: [...{
-					[string]: _
-				}] | fn.#If
-			} | fn.#If
+			Tags?: [...{
+				Key:   string | fn.#Fn
+				Value: string | fn.#Fn
+			}] | fn.#If
 			Type: string | fn.#Fn
 		}
 		DependsOn?:           string | [...string]
@@ -46,11 +45,10 @@ import "github.com/TangoGroup/aws/fn"
 			Name:                   string | fn.#Fn
 			RecursiveDeleteOption?: bool | fn.#Fn
 			State?:                 string | fn.#Fn
-			Tags?:                  {
-				Tags?: [...{
-					[string]: _
-				}] | fn.#If
-			} | fn.#If
+			Tags?:                  [...{
+				Key:   string | fn.#Fn
+				Value: string | fn.#Fn
+			}] | fn.#If
 			WorkGroupConfiguration?: {
 				BytesScannedCutoffPerQuery?:      int | fn.#Fn
 				EnforceWorkGroupConfiguration?:   bool | fn.#Fn

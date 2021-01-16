@@ -122,6 +122,17 @@ import "github.com/TangoGroup/aws/fn"
 				} | fn.#If
 				ServiceManagedS3?: {} | fn.#If
 			} | fn.#If
+			FileFormatConfiguration?: {
+				JsonConfiguration?:    {} | fn.#If
+				ParquetConfiguration?: {
+					SchemaDefinition?: {
+						Columns?: [...{
+							Name: string | fn.#Fn
+							Type: string | fn.#Fn
+						}] | fn.#If
+					} | fn.#If
+				} | fn.#If
+			} | fn.#If
 			RetentionPeriod?: {
 				NumberOfDays?: int | fn.#Fn
 				Unlimited?:    bool | fn.#Fn

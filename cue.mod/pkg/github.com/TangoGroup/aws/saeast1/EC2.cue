@@ -574,11 +574,10 @@ import (
 		Type: "AWS::EC2::LocalGatewayRouteTableVPCAssociation"
 		Properties: {
 			LocalGatewayRouteTableId: string | fn.#Fn
-			Tags?:                    {
-				Tags?: [...{
-					[string]: _
-				}] | fn.#If
-			} | fn.#If
+			Tags?:                    [...{
+				Key:   string | fn.#Fn
+				Value: string | fn.#Fn
+			}] | fn.#If
 			VpcId: string | fn.#Fn
 		}
 		DependsOn?:           string | [...string]
@@ -648,7 +647,6 @@ import (
 		Properties: {
 			FilterInArns?:         [...(string | fn.#Fn)] | (string | fn.#Fn)
 			NetworkInsightsPathId: string | fn.#Fn
-			StatusMessage?:        string | fn.#Fn
 			Tags?:                 [...{
 				Key:   string | fn.#Fn
 				Value: string | fn.#Fn

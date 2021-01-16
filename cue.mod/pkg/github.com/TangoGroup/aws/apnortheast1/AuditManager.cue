@@ -18,12 +18,10 @@ import "github.com/TangoGroup/aws/fn"
 			description?: string | fn.#Fn
 			frameworkId?: string | fn.#Fn
 			name?:        string | fn.#Fn
-			roles?:       {
-				Roles?: [...{
-					roleArn?:  string | fn.#Fn
-					roleType?: string | fn.#Fn
-				}] | fn.#If
-			} | fn.#If
+			roles?:       [...{
+				roleArn?:  string | fn.#Fn
+				roleType?: string | fn.#Fn
+			}] | fn.#If
 			scope?: {
 				awsAccounts?: {
 					AWSAccounts?: [...{
@@ -39,12 +37,10 @@ import "github.com/TangoGroup/aws/fn"
 				} | fn.#If
 			} | fn.#If
 			status?: string | fn.#Fn
-			tags?:   {
-				Tags?: [...{
-					Key:   string | fn.#Fn
-					Value: string | fn.#Fn
-				}] | fn.#If
-			} | fn.#If
+			tags?:   [...{
+				Key:   string | fn.#Fn
+				Value: string | fn.#Fn
+			}] | fn.#If
 		}
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

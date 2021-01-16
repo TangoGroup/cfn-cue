@@ -2,7 +2,7 @@ package cnnorthwest1
 
 import "github.com/TangoGroup/aws/fn"
 
-#ResourceSpecificationVersion: "22.0.0"
+#ResourceSpecificationVersion: "24.0.0"
 #Template: {
 	AWSTemplateFormatVersion?: "2010-09-09"
 	Description?:              string
