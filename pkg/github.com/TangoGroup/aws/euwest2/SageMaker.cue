@@ -90,6 +90,35 @@ SageMaker :: {
 		Metadata?: [string]: _
 		Condition?: string
 	}
+	FeatureGroup :: {
+		Type:       "AWS::SageMaker::FeatureGroup"
+		Properties: close({
+			Description?:         string | fn.Fn
+			EventTimeFeatureName: string | fn.Fn
+			FeatureDefinitions:   [...close({
+				FeatureName: string | fn.Fn
+				FeatureType: string | fn.Fn
+			})] | fn.If
+			FeatureGroupName:    string | fn.Fn
+			OfflineStoreConfig?: {
+				[string]: _
+			} | fn.Fn
+			OnlineStoreConfig?: {
+				[string]: _
+			} | fn.Fn
+			RecordIdentifierFeatureName: string | fn.Fn
+			RoleArn?:                    string | fn.Fn
+			Tags?:                       [...close({
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
+			})] | fn.If
+		})
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+		Condition?: string
+	}
 	Model :: {
 		Type:       "AWS::SageMaker::Model"
 		Properties: close({

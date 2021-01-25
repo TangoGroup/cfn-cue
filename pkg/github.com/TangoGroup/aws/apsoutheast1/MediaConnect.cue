@@ -136,6 +136,8 @@ MediaConnect :: {
 	FlowVpcInterface :: {
 		Type:       "AWS::MediaConnect::FlowVpcInterface"
 		Properties: close({
+			FlowArn:          string | fn.Fn
+			Name:             string | fn.Fn
 			RoleArn:          string | fn.Fn
 			SecurityGroupIds: [...(string | fn.Fn)] | (string | fn.Fn)
 			SubnetId:         string | fn.Fn

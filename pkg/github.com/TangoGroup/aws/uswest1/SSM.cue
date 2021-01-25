@@ -112,12 +112,12 @@ SSM :: {
 				S3Bucket:  string | fn.Fn
 				S3Prefix?: string | fn.Fn
 			}) | fn.If
-			MaxConcurrency:  string | fn.Fn
-			MaxErrors:       string | fn.Fn
+			MaxConcurrency?: string | fn.Fn
+			MaxErrors?:      string | fn.Fn
 			Name?:           string | fn.Fn
 			Priority:        int | fn.Fn
 			ServiceRoleArn?: string | fn.Fn
-			Targets:         [...close({
+			Targets?:        [...close({
 				Key:     string | fn.Fn
 				Values?: [...(string | fn.Fn)] | (string | fn.Fn)
 			})] | fn.If

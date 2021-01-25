@@ -94,7 +94,9 @@ DataBrew :: {
 			Steps:        [...close({
 				Action: close({
 					Operation:   string | fn.Fn
-					Parameters?: string | fn.Fn
+					Parameters?: {
+						[string]: string | fn.Fn
+					} | fn.If
 				}) | fn.If
 				ConditionExpressions?: [...close({
 					Condition:    string | fn.Fn

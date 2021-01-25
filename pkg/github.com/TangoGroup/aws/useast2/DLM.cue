@@ -35,14 +35,16 @@ DLM :: {
 					ExcludeBootVolume?: bool | fn.Fn
 					NoReboot?:          bool | fn.Fn
 				}) | fn.If
-				PolicyType?:    string | fn.Fn
-				ResourceTypes?: [...(("INSTANCE" | "VOLUME") | fn.Fn)] | (("INSTANCE" | "VOLUME") | fn.Fn)
-				Schedules?:     [...close({
+				PolicyType?:        string | fn.Fn
+				ResourceLocations?: [...(string | fn.Fn)] | (string | fn.Fn)
+				ResourceTypes?:     [...(("INSTANCE" | "VOLUME") | fn.Fn)] | (("INSTANCE" | "VOLUME") | fn.Fn)
+				Schedules?:         [...close({
 					CopyTags?:   bool | fn.Fn
 					CreateRule?: close({
 						CronExpression?: string | fn.Fn
 						Interval?:       int | fn.Fn
 						IntervalUnit?:   string | fn.Fn
+						Location?:       string | fn.Fn
 						Times?:          [...(string | fn.Fn)] | (string | fn.Fn)
 					}) | fn.If
 					CrossRegionCopyRules?: [...close({
@@ -53,7 +55,8 @@ DLM :: {
 							Interval:     int | fn.Fn
 							IntervalUnit: string | fn.Fn
 						}) | fn.If
-						TargetRegion: string | fn.Fn
+						Target?:       string | fn.Fn
+						TargetRegion?: string | fn.Fn
 					})] | fn.If
 					FastRestoreRule?: close({
 						AvailabilityZones?: [...(string | fn.Fn)] | (string | fn.Fn)
