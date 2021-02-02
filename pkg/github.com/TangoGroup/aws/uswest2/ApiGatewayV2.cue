@@ -248,6 +248,7 @@ ApiGatewayV2 :: {
 				DestinationArn?: string | fn.Fn
 				Format?:         string | fn.Fn
 			}) | fn.If
+			AccessPolicyId?:       string | fn.Fn
 			ApiId:                 string | fn.Fn
 			AutoDeploy?:           bool | fn.Fn
 			ClientCertificateId?:  string | fn.Fn

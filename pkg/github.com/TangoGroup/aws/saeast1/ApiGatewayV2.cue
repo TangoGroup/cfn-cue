@@ -142,6 +142,9 @@ ApiGatewayV2 :: {
 			RequestTemplates?: {
 				[string]: _
 			} | fn.Fn
+			ResponseParameters?: {
+				[string]: _
+			} | fn.Fn
 			TemplateSelectionExpression?: string | fn.Fn
 			TimeoutInMillis?:             int | fn.Fn
 			TlsConfig?:                   close({
@@ -245,6 +248,7 @@ ApiGatewayV2 :: {
 				DestinationArn?: string | fn.Fn
 				Format?:         string | fn.Fn
 			}) | fn.If
+			AccessPolicyId?:       string | fn.Fn
 			ApiId:                 string | fn.Fn
 			AutoDeploy?:           bool | fn.Fn
 			ClientCertificateId?:  string | fn.Fn

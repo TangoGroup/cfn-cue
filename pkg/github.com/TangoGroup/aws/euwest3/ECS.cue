@@ -37,6 +37,19 @@ ECS :: {
 				Name?:  string | fn.Fn
 				Value?: string | fn.Fn
 			})] | fn.If
+			Configuration?: close({
+				ExecuteCommandConfiguration?: close({
+					KmsKeyId?:         string | fn.Fn
+					LogConfiguration?: close({
+						CloudWatchEncryptionEnabled?: bool | fn.Fn
+						CloudWatchLogGroupName?:      string | fn.Fn
+						S3BucketName?:                string | fn.Fn
+						S3EncryptionEnabled?:         bool | fn.Fn
+						S3KeyPrefix?:                 string | fn.Fn
+					}) | fn.If
+					Logging?: string | fn.Fn
+				}) | fn.If
+			}) | fn.If
 			DefaultCapacityProviderStrategy?: [...close({
 				Base?:             int | fn.Fn
 				CapacityProvider?: string | fn.Fn

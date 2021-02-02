@@ -10,13 +10,9 @@ S3 :: {
 	AccessPoint :: {
 		Type:       "AWS::S3::AccessPoint"
 		Properties: close({
-			Bucket:         string | fn.Fn
-			Name?:          string | fn.Fn
-			NetworkOrigin?: string | fn.Fn
-			Policy?:        {
-				[string]: _
-			} | fn.Fn
-			PolicyStatus?: {
+			Bucket:  string | fn.Fn
+			Name?:   string | fn.Fn
+			Policy?: {
 				[string]: _
 			} | fn.Fn
 			PublicAccessBlockConfiguration?: close({

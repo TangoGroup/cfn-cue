@@ -67,12 +67,13 @@ AmazonMQ :: {
 	Configuration :: {
 		Type:       "AWS::AmazonMQ::Configuration"
 		Properties: close({
-			Data:          string | fn.Fn
-			Description?:  string | fn.Fn
-			EngineType:    string | fn.Fn
-			EngineVersion: string | fn.Fn
-			Name:          string | fn.Fn
-			Tags?:         [...close({
+			AuthenticationStrategy?: string | fn.Fn
+			Data:                    string | fn.Fn
+			Description?:            string | fn.Fn
+			EngineType:              string | fn.Fn
+			EngineVersion:           string | fn.Fn
+			Name:                    string | fn.Fn
+			Tags?:                   [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			})] | fn.If
