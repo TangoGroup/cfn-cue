@@ -67,12 +67,13 @@ AmazonMQ :: {
 	Configuration :: {
 		Type:       "AWS::AmazonMQ::Configuration"
 		Properties: close({
-			Data:          string | fn.Fn
-			Description?:  string | fn.Fn
-			EngineType:    ("ACTIVEMQ" | "RABBITMQ") | fn.Fn
-			EngineVersion: ("3.8.6" | "5.15.0" | "5.15.6" | "5.15.8" | "5.15.9" | "5.15.10" | "5.15.12" | "5.15.13" | "5.15.14") | fn.Fn
-			Name:          string | fn.Fn
-			Tags?:         [...close({
+			AuthenticationStrategy?: string | fn.Fn
+			Data:                    string | fn.Fn
+			Description?:            string | fn.Fn
+			EngineType:              ("ACTIVEMQ" | "RABBITMQ") | fn.Fn
+			EngineVersion:           ("3.8.6" | "5.15.0" | "5.15.6" | "5.15.8" | "5.15.9" | "5.15.10" | "5.15.12" | "5.15.13" | "5.15.14") | fn.Fn
+			Name:                    string | fn.Fn
+			Tags?:                   [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			})] | fn.If

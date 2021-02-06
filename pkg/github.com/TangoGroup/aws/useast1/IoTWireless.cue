@@ -10,7 +10,6 @@ IoTWireless :: {
 			Expression:     string | fn.Fn
 			ExpressionType: string | fn.Fn
 			Name:           string | fn.Fn
-			NextToken?:     string | fn.Fn
 			RoleArn:        string | fn.Fn
 			Tags?:          [...close({
 				Key:   string | fn.Fn
@@ -26,7 +25,7 @@ IoTWireless :: {
 	DeviceProfile :: {
 		Type:       "AWS::IoTWireless::DeviceProfile"
 		Properties: close({
-			LoRaWANDeviceProfile?: close({
+			LoRaWAN?: close({
 				ClassBTimeout?:     int | fn.Fn
 				ClassCTimeout?:     int | fn.Fn
 				MacVersion?:        string | fn.Fn
@@ -42,9 +41,8 @@ IoTWireless :: {
 				SupportsClassC?:    bool | fn.Fn
 				SupportsJoin?:      bool | fn.Fn
 			}) | fn.If
-			Name?:      string | fn.Fn
-			NextToken?: string | fn.Fn
-			Tags?:      [...close({
+			Name?: string | fn.Fn
+			Tags?: [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			})] | fn.If
@@ -58,33 +56,11 @@ IoTWireless :: {
 	ServiceProfile :: {
 		Type:       "AWS::IoTWireless::ServiceProfile"
 		Properties: close({
-			LoRaWANGetServiceProfileInfo?: close({
-				AddGwMetadata?:          bool | fn.Fn
-				ChannelMask?:            string | fn.Fn
-				DevStatusReqFreq?:       int | fn.Fn
-				DlBucketSize?:           int | fn.Fn
-				DlRate?:                 int | fn.Fn
-				DlRatePolicy?:           string | fn.Fn
-				DrMax?:                  int | fn.Fn
-				DrMin?:                  int | fn.Fn
-				HrAllowed?:              bool | fn.Fn
-				MinGwDiversity?:         int | fn.Fn
-				NwkGeoLoc?:              bool | fn.Fn
-				PrAllowed?:              bool | fn.Fn
-				RaAllowed?:              bool | fn.Fn
-				ReportDevStatusBattery?: bool | fn.Fn
-				ReportDevStatusMargin?:  bool | fn.Fn
-				TargetPer?:              int | fn.Fn
-				UlBucketSize?:           int | fn.Fn
-				UlRate?:                 int | fn.Fn
-				UlRatePolicy?:           string | fn.Fn
-			}) | fn.If
-			LoRaWANServiceProfile?: close({
+			LoRaWAN?: close({
 				AddGwMetadata?: bool | fn.Fn
 			}) | fn.If
-			Name?:      string | fn.Fn
-			NextToken?: string | fn.Fn
-			Tags?:      [...close({
+			Name?: string | fn.Fn
+			Tags?: [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			})] | fn.If
@@ -98,10 +74,11 @@ IoTWireless :: {
 	WirelessDevice :: {
 		Type:       "AWS::IoTWireless::WirelessDevice"
 		Properties: close({
-			Description?:    string | fn.Fn
-			DestinationName: string | fn.Fn
-			LoRaWANDevice?:  close({
-				AbpV10X?: close({
+			Description?:          string | fn.Fn
+			DestinationName:       string | fn.Fn
+			LastUplinkReceivedAt?: string | fn.Fn
+			LoRaWAN?:              close({
+				AbpV10x?: close({
 					DevAddr:     string | fn.Fn
 					SessionKeys: close({
 						AppSKey: string | fn.Fn
@@ -119,7 +96,7 @@ IoTWireless :: {
 				}) | fn.If
 				DevEui?:          string | fn.Fn
 				DeviceProfileId?: string | fn.Fn
-				OtaaV10X?:        close({
+				OtaaV10x?:        close({
 					AppEui: string | fn.Fn
 					AppKey: string | fn.Fn
 				}) | fn.If
@@ -130,9 +107,8 @@ IoTWireless :: {
 				}) | fn.If
 				ServiceProfileId?: string | fn.Fn
 			}) | fn.If
-			Name?:      string | fn.Fn
-			NextToken?: string | fn.Fn
-			Tags?:      [...close({
+			Name?: string | fn.Fn
+			Tags?: [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			})] | fn.If
@@ -147,14 +123,14 @@ IoTWireless :: {
 	WirelessGateway :: {
 		Type:       "AWS::IoTWireless::WirelessGateway"
 		Properties: close({
-			Description?:   string | fn.Fn
-			LoRaWANGateway: close({
+			Description?:          string | fn.Fn
+			LastUplinkReceivedAt?: string | fn.Fn
+			LoRaWAN:               close({
 				GatewayEui: string | fn.Fn
 				RfRegion:   string | fn.Fn
 			}) | fn.If
-			Name?:      string | fn.Fn
-			NextToken?: string | fn.Fn
-			Tags?:      [...close({
+			Name?: string | fn.Fn
+			Tags?: [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			})] | fn.If

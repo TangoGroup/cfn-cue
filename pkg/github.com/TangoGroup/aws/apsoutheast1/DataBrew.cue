@@ -40,7 +40,12 @@ DataBrew :: {
 			Outputs?: [...close({
 				CompressionFormat?: string | fn.Fn
 				Format?:            string | fn.Fn
-				Location:           close({
+				FormatOptions?:     close({
+					Csv?: close({
+						Delimiter?: string | fn.Fn
+					}) | fn.If
+				}) | fn.If
+				Location: close({
 					Bucket: string | fn.Fn
 					Key?:   string | fn.Fn
 				}) | fn.If

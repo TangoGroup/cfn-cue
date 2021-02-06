@@ -197,7 +197,11 @@ AppFlow :: {
 							BucketPrefix?:     string | fn.Fn
 							FailOnFirstError?: bool | fn.Fn
 						}) | fn.If
-						Object: string | fn.Fn
+						IdFieldNames?: close({
+							IdFieldNamesList?: [...(string | fn.Fn)] | (string | fn.Fn)
+						}) | fn.If
+						Object:              string | fn.Fn
+						WriteOperationType?: string | fn.Fn
 					}) | fn.If
 					Snowflake?: close({
 						BucketPrefix?:        string | fn.Fn

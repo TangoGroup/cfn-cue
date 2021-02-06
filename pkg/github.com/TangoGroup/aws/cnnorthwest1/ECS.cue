@@ -89,6 +89,10 @@ ECS :: {
 			})] | fn.If
 			Cluster?:                 string | fn.Fn
 			DeploymentConfiguration?: close({
+				DeploymentCircuitBreaker?: close({
+					Enable:   bool | fn.Fn
+					Rollback: bool | fn.Fn
+				}) | fn.If
 				MaximumPercent?:        int | fn.Fn
 				MinimumHealthyPercent?: int | fn.Fn
 			}) | fn.If
@@ -97,6 +101,7 @@ ECS :: {
 			}) | fn.If
 			DesiredCount?:                  int | fn.Fn
 			EnableECSManagedTags?:          bool | fn.Fn
+			EnableExecuteCommand?:          bool | fn.Fn
 			HealthCheckGracePeriodSeconds?: int | fn.Fn
 			LaunchType?:                    ("EC2" | "FARGATE") | fn.Fn
 			LoadBalancers?:                 [...close({

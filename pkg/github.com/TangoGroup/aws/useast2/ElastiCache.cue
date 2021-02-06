@@ -37,6 +37,35 @@ ElastiCache :: {
 		Metadata?: [string]: _
 		Condition?: string
 	}
+	GlobalReplicationGroup :: {
+		Type:       "AWS::ElastiCache::GlobalReplicationGroup"
+		Properties: close({
+			AutomaticFailoverEnabled?:          bool | fn.Fn
+			CacheNodeType?:                     string | fn.Fn
+			EngineVersion?:                     string | fn.Fn
+			GlobalNodeGroupCount?:              int | fn.Fn
+			GlobalReplicationGroupDescription?: string | fn.Fn
+			GlobalReplicationGroupIdSuffix?:    string | fn.Fn
+			Members:                            [...close({
+				ReplicationGroupId?:     string | fn.Fn
+				ReplicationGroupRegion?: string | fn.Fn
+				Role?:                   string | fn.Fn
+			})] | fn.If
+			RegionalConfigurations?: [...close({
+				ReplicationGroupId?:       string | fn.Fn
+				ReplicationGroupRegion?:   string | fn.Fn
+				ReshardingConfigurations?: [...close({
+					NodeGroupId?:                string | fn.Fn
+					PreferredAvailabilityZones?: [...(string | fn.Fn)] | (string | fn.Fn)
+				})] | fn.If
+			})] | fn.If
+		})
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+		Condition?: string
+	}
 	ParameterGroup :: {
 		Type:       "AWS::ElastiCache::ParameterGroup"
 		Properties: close({

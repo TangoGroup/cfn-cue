@@ -30,9 +30,6 @@ SSO :: {
 					}) | fn.If
 				}) | fn.If
 			})] | fn.If
-			InstanceAccessControlAttributeConfiguration?: {
-				[string]: _
-			} | fn.Fn
 			InstanceArn: string | fn.Fn
 		})
 		DependsOn?:           string | [...string]

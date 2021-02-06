@@ -25,6 +25,37 @@ ImageBuilder :: {
 		Metadata?: [string]: _
 		Condition?: string
 	}
+	ContainerRecipe :: {
+		Type:       "AWS::ImageBuilder::ContainerRecipe"
+		Properties: close({
+			Components: [...close({
+				ComponentArn?: string | fn.Fn
+			})] | fn.If
+			ContainerType:           string | fn.Fn
+			Description?:            string | fn.Fn
+			DockerfileTemplateData?: string | fn.Fn
+			DockerfileTemplateUri?:  string | fn.Fn
+			ImageOsVersionOverride?: string | fn.Fn
+			KmsKeyId?:               string | fn.Fn
+			Name:                    string | fn.Fn
+			ParentImage:             string | fn.Fn
+			PlatformOverride?:       string | fn.Fn
+			Tags?:                   {
+				[string]: string | fn.Fn
+			} | fn.If
+			TargetRepository: close({
+				RepositoryName?: string | fn.Fn
+				Service?:        string | fn.Fn
+			}) | fn.If
+			Version:           string | fn.Fn
+			WorkingDirectory?: string | fn.Fn
+		})
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+		Condition?: string
+	}
 	DistributionConfiguration :: {
 		Type:       "AWS::ImageBuilder::DistributionConfiguration"
 		Properties: close({

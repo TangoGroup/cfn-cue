@@ -137,9 +137,10 @@ CloudWatch :: {
 			IncludeFilters?: [...close({
 				Namespace: string | fn.Fn
 			})] | fn.If
-			Name?:   string | fn.Fn
-			RoleArn: string | fn.Fn
-			Tags?:   [...close({
+			Name?:         string | fn.Fn
+			OutputFormat?: string | fn.Fn
+			RoleArn:       string | fn.Fn
+			Tags?:         [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			})] | fn.If

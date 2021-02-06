@@ -7,6 +7,10 @@ Cassandra :: {
 		Type:       "AWS::Cassandra::Keyspace"
 		Properties: close({
 			KeyspaceName?: string | fn.Fn
+			Tags?:         [...close({
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
+			})] | fn.If
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -36,11 +40,16 @@ Cassandra :: {
 				ColumnName: string | fn.Fn
 				ColumnType: string | fn.Fn
 			})] | fn.If
-			RegularColumns?: [...close({
+			PointInTimeRecoveryEnabled?: bool | fn.Fn
+			RegularColumns?:             [...close({
 				ColumnName: string | fn.Fn
 				ColumnType: string | fn.Fn
 			})] | fn.If
 			TableName?: string | fn.Fn
+			Tags?:      [...close({
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
+			})] | fn.If
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

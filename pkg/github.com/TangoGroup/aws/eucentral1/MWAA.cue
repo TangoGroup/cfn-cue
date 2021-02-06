@@ -41,13 +41,10 @@ MWAA :: {
 				}) | fn.If
 			}) | fn.If
 			MaxWorkers?:           int | fn.Fn
+			Name:                  string | fn.Fn
 			NetworkConfiguration?: close({
-				SecurityGroupIds?: close({
-					SecurityGroupList?: [...(string | fn.Fn)] | (string | fn.Fn)
-				}) | fn.If
-				SubnetIds?: close({
-					SubnetList?: [...(string | fn.Fn)] | (string | fn.Fn)
-				}) | fn.If
+				SecurityGroupIds?: [...(string | fn.Fn)] | (string | fn.Fn)
+				SubnetIds?:        [...(string | fn.Fn)] | (string | fn.Fn)
 			}) | fn.If
 			PluginsS3ObjectVersion?:      string | fn.Fn
 			PluginsS3Path?:               string | fn.Fn
@@ -57,7 +54,6 @@ MWAA :: {
 			Tags?:                        close({
 			}) | fn.If
 			WebserverAccessMode?:          string | fn.Fn
-			WebserverUrl?:                 string | fn.Fn
 			WeeklyMaintenanceWindowStart?: string | fn.Fn
 		})
 		DependsOn?:           string | [...string]

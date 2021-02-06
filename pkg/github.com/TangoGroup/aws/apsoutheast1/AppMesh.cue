@@ -6,8 +6,8 @@ AppMesh :: {
 	Mesh :: {
 		Type:       "AWS::AppMesh::Mesh"
 		Properties: close({
-			MeshName: string | fn.Fn
-			Spec?:    close({
+			MeshName?: string | fn.Fn
+			Spec?:     close({
 				EgressFilter?: close({
 					Type: string | fn.Fn
 				}) | fn.If
@@ -28,7 +28,7 @@ AppMesh :: {
 		Properties: close({
 			MeshName:   string | fn.Fn
 			MeshOwner?: string | fn.Fn
-			RouteName:  string | fn.Fn
+			RouteName?: string | fn.Fn
 			Spec:       close({
 				GrpcRoute?: close({
 					Action: close({
@@ -358,7 +358,7 @@ AppMesh :: {
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			})] | fn.If
-			VirtualNodeName: string | fn.Fn
+			VirtualNodeName?: string | fn.Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -383,7 +383,7 @@ AppMesh :: {
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			})] | fn.If
-			VirtualRouterName: string | fn.Fn
+			VirtualRouterName?: string | fn.Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

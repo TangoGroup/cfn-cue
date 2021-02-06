@@ -6,10 +6,10 @@ AppMesh :: {
 	GatewayRoute :: {
 		Type:       "AWS::AppMesh::GatewayRoute"
 		Properties: close({
-			GatewayRouteName: string | fn.Fn
-			MeshName:         string | fn.Fn
-			MeshOwner?:       string | fn.Fn
-			Spec:             close({
+			GatewayRouteName?: string | fn.Fn
+			MeshName:          string | fn.Fn
+			MeshOwner?:        string | fn.Fn
+			Spec:              close({
 				GrpcRoute?: close({
 					Action: close({
 						Target: close({
@@ -134,7 +134,7 @@ AppMesh :: {
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			})] | fn.If
-			VirtualGatewayName: string | fn.Fn
+			VirtualGatewayName?: string | fn.Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
