@@ -1,6 +1,9 @@
 package uswest2
 
-import "github.com/TangoGroup/aws/fn"
+import (
+	"github.com/TangoGroup/aws/fn"
+	"strings"
+)
 
 DevOpsGuru :: {
 	NotificationChannel :: {
@@ -8,7 +11,7 @@ DevOpsGuru :: {
 		Properties: close({
 			Config: close({
 				Sns?: close({
-					TopicArn?: string | fn.Fn
+					TopicArn?: (strings.MinRunes(36) & strings.MaxRunes(1024) & (=~#"^arn:aws[a-z0-9-]*:sns:[a-z0-9-]+:\d{12}:[^:]+$"#)) | fn.Fn
 				}) | fn.If
 			}) | fn.If
 		})
@@ -23,7 +26,7 @@ DevOpsGuru :: {
 		Properties: close({
 			ResourceCollectionFilter: close({
 				CloudFormation?: close({
-					StackNames?: [...(string | fn.Fn)] | (string | fn.Fn)
+					StackNames?: [...((strings.MinRunes(1) & strings.MaxRunes(128) & (=~#"^[a-zA-Z*]+[a-zA-Z0-9-]*$"#)) | fn.Fn)] | ((strings.MinRunes(1) & strings.MaxRunes(128) & (=~#"^[a-zA-Z*]+[a-zA-Z0-9-]*$"#)) | fn.Fn)
 				}) | fn.If
 			}) | fn.If
 		})

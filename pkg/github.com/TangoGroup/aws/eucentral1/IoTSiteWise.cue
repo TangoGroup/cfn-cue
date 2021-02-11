@@ -1,6 +1,9 @@
 package eucentral1
 
-import "github.com/TangoGroup/aws/fn"
+import (
+	"github.com/TangoGroup/aws/fn"
+	"strings"
+)
 
 IoTSiteWise :: {
 	AccessPolicy :: {
@@ -8,16 +11,16 @@ IoTSiteWise :: {
 		Properties: close({
 			AccessPolicyIdentity: close({
 				User?: close({
-					id?: string | fn.Fn
+					id?: (=~#"\S+"#) | fn.Fn
 				}) | fn.If
 			}) | fn.If
 			AccessPolicyPermission: string | fn.Fn
 			AccessPolicyResource:   close({
 				Portal?: close({
-					id?: string | fn.Fn
+					id?: (=~#"^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"#) | fn.Fn
 				}) | fn.If
 				Project?: close({
-					id?: string | fn.Fn
+					id?: (=~#"^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"#) | fn.Fn
 				}) | fn.If
 			}) | fn.If
 		})
@@ -31,15 +34,15 @@ IoTSiteWise :: {
 		Type:       "AWS::IoTSiteWise::Asset"
 		Properties: close({
 			AssetHierarchies?: [...close({
-				ChildAssetId: string | fn.Fn
-				LogicalId:    string | fn.Fn
+				ChildAssetId: (=~#"^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"#) | fn.Fn
+				LogicalId:    (strings.MinRunes(1) & strings.MaxRunes(256) & (=~#"[^\u0000-\u001F\u007F]+"#)) | fn.Fn
 			})] | fn.If
-			AssetModelId:     string | fn.Fn
-			AssetName:        string | fn.Fn
+			AssetModelId:     (=~#"^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"#) | fn.Fn
+			AssetName:        (strings.MinRunes(1) & strings.MaxRunes(256) & (=~#"[^\u0000-\u001F\u007F]+"#)) | fn.Fn
 			AssetProperties?: [...close({
-				Alias?:             string | fn.Fn
-				LogicalId:          string | fn.Fn
-				NotificationState?: string | fn.Fn
+				Alias?:             (strings.MinRunes(1) & strings.MaxRunes(1000) & (=~#"[^\u0000-\u001F\u007F]+"#)) | fn.Fn
+				LogicalId:          (strings.MinRunes(1) & strings.MaxRunes(256) & (=~#"[^\u0000-\u001F\u007F]+"#)) | fn.Fn
+				NotificationState?: ("ENABLED" | "DISABLED") | fn.Fn
 			})] | fn.If
 			Tags?: [...close({
 				Key:   string | fn.Fn
@@ -55,49 +58,49 @@ IoTSiteWise :: {
 	AssetModel :: {
 		Type:       "AWS::IoTSiteWise::AssetModel"
 		Properties: close({
-			AssetModelDescription?: string | fn.Fn
+			AssetModelDescription?: (strings.MinRunes(1) & strings.MaxRunes(2048) & (=~#"[^\u0000-\u001F\u007F]+"#)) | fn.Fn
 			AssetModelHierarchies?: [...close({
-				ChildAssetModelId: string | fn.Fn
-				LogicalId:         string | fn.Fn
-				Name:              string | fn.Fn
+				ChildAssetModelId: (=~#"^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"#) | fn.Fn
+				LogicalId:         (strings.MinRunes(1) & strings.MaxRunes(256) & (=~#"[^\u0000-\u001F\u007F]+"#)) | fn.Fn
+				Name:              (strings.MinRunes(1) & strings.MaxRunes(256) & (=~#"[^\u0000-\u001F\u007F]+"#)) | fn.Fn
 			})] | fn.If
-			AssetModelName:        string | fn.Fn
+			AssetModelName:        (strings.MinRunes(1) & strings.MaxRunes(256) & (=~#"[^\u0000-\u001F\u007F]+"#)) | fn.Fn
 			AssetModelProperties?: [...close({
-				DataType:  string | fn.Fn
-				LogicalId: string | fn.Fn
-				Name:      string | fn.Fn
+				DataType:  ("STRING" | "INTEGER" | "DOUBLE" | "BOOLEAN") | fn.Fn
+				LogicalId: (strings.MinRunes(1) & strings.MaxRunes(256) & (=~#"[^\u0000-\u001F\u007F]+"#)) | fn.Fn
+				Name:      (strings.MinRunes(1) & strings.MaxRunes(256) & (=~#"[^\u0000-\u001F\u007F]+"#)) | fn.Fn
 				Type:      close({
 					Attribute?: close({
-						DefaultValue?: string | fn.Fn
+						DefaultValue?: (strings.MinRunes(1) & strings.MaxRunes(1024) & (=~#"[^\u0000-\u001F\u007F]+"#)) | fn.Fn
 					}) | fn.If
 					Metric?: close({
-						Expression: string | fn.Fn
+						Expression: (strings.MinRunes(1) & strings.MaxRunes(1024) & (=~#"^[a-z0-9._+\-*%/^, ()]+$"#)) | fn.Fn
 						Variables:  [...close({
-							Name:  string | fn.Fn
+							Name:  (strings.MinRunes(1) & strings.MaxRunes(64) & (=~#"^[a-z][a-z0-9_]*$"#)) | fn.Fn
 							Value: close({
-								HierarchyLogicalId?: string | fn.Fn
-								PropertyLogicalId:   string | fn.Fn
+								HierarchyLogicalId?: (strings.MinRunes(1) & strings.MaxRunes(256) & (=~#"[^\u0000-\u001F\u007F]+"#)) | fn.Fn
+								PropertyLogicalId:   (strings.MinRunes(1) & strings.MaxRunes(256) & (=~#"[^\u0000-\u001F\u007F]+"#)) | fn.Fn
 							}) | fn.If
 						})] | fn.If
 						Window: close({
 							Tumbling?: close({
-								Interval: string | fn.Fn
+								Interval: ("1w" | "1d" | "1h" | "15m" | "5m" | "1m") | fn.Fn
 							}) | fn.If
 						}) | fn.If
 					}) | fn.If
 					Transform?: close({
-						Expression: string | fn.Fn
+						Expression: (strings.MinRunes(1) & strings.MaxRunes(1024) & (=~#"^[a-z0-9._+\-*%/^, ()]+$"#)) | fn.Fn
 						Variables:  [...close({
-							Name:  string | fn.Fn
+							Name:  (strings.MinRunes(1) & strings.MaxRunes(64) & (=~#"^[a-z][a-z0-9_]*$"#)) | fn.Fn
 							Value: close({
-								HierarchyLogicalId?: string | fn.Fn
-								PropertyLogicalId:   string | fn.Fn
+								HierarchyLogicalId?: (strings.MinRunes(1) & strings.MaxRunes(256) & (=~#"[^\u0000-\u001F\u007F]+"#)) | fn.Fn
+								PropertyLogicalId:   (strings.MinRunes(1) & strings.MaxRunes(256) & (=~#"[^\u0000-\u001F\u007F]+"#)) | fn.Fn
 							}) | fn.If
 						})] | fn.If
 					}) | fn.If
-					TypeName: string | fn.Fn
+					TypeName: ("Measurement" | "Attribute" | "Transform" | "Metric") | fn.Fn
 				}) | fn.If
-				Unit?: string | fn.Fn
+				Unit?: (strings.MinRunes(1) & strings.MaxRunes(256) & (=~#"[^\u0000-\u001F\u007F]+"#)) | fn.Fn
 			})] | fn.If
 			Tags?: [...close({
 				Key:   string | fn.Fn
@@ -113,10 +116,10 @@ IoTSiteWise :: {
 	Dashboard :: {
 		Type:       "AWS::IoTSiteWise::Dashboard"
 		Properties: close({
-			DashboardDefinition:  string | fn.Fn
-			DashboardDescription: string | fn.Fn
-			DashboardName:        string | fn.Fn
-			ProjectId?:           string | fn.Fn
+			DashboardDefinition:  (=~#".+"#) | fn.Fn
+			DashboardDescription: (strings.MinRunes(1) & strings.MaxRunes(2048) & (=~#"[^\u0000-\u001F\u007F]+"#)) | fn.Fn
+			DashboardName:        (strings.MinRunes(1) & strings.MaxRunes(256) & (=~#"[^\u0000-\u001F\u007F]+"#)) | fn.Fn
+			ProjectId?:           (strings.MinRunes(36) & strings.MaxRunes(36) & (=~#"^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"#)) | fn.Fn
 			Tags?:                [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
@@ -132,13 +135,13 @@ IoTSiteWise :: {
 		Type:       "AWS::IoTSiteWise::Gateway"
 		Properties: close({
 			GatewayCapabilitySummaries?: [...close({
-				CapabilityConfiguration?: string | fn.Fn
-				CapabilityNamespace:      string | fn.Fn
+				CapabilityConfiguration?: (strings.MinRunes(1) & strings.MaxRunes(204800)) | fn.Fn
+				CapabilityNamespace:      (=~#"^[a-zA-Z]+:[a-zA-Z]+:[0-9]+$"#) | fn.Fn
 			})] | fn.If
-			GatewayName:     string | fn.Fn
+			GatewayName:     (strings.MinRunes(1) & strings.MaxRunes(256) & (=~#"[^\u0000-\u001F\u007F]+"#)) | fn.Fn
 			GatewayPlatform: close({
 				Greengrass: close({
-					GroupArn: string | fn.Fn
+					GroupArn: (strings.MinRunes(1) & strings.MaxRunes(1600)) | fn.Fn
 				}) | fn.If
 			}) | fn.If
 			Tags?: [...close({
@@ -155,10 +158,10 @@ IoTSiteWise :: {
 	Portal :: {
 		Type:       "AWS::IoTSiteWise::Portal"
 		Properties: close({
-			PortalContactEmail: string | fn.Fn
-			PortalDescription?: string | fn.Fn
-			PortalName:         string | fn.Fn
-			RoleArn:            string | fn.Fn
+			PortalContactEmail: (strings.MinRunes(1) & strings.MaxRunes(255) & (=~#"[^@]+@[^@]+"#)) | fn.Fn
+			PortalDescription?: (strings.MinRunes(1) & strings.MaxRunes(2048) & (=~#"[^\u0000-\u001F\u007F]+"#)) | fn.Fn
+			PortalName:         (strings.MinRunes(1) & strings.MaxRunes(256) & (=~#"[^\u0000-\u001F\u007F]+"#)) | fn.Fn
+			RoleArn:            (strings.MinRunes(1) & strings.MaxRunes(1600) & (=~#".*"#)) | fn.Fn
 			Tags?:              [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
@@ -173,9 +176,9 @@ IoTSiteWise :: {
 	Project :: {
 		Type:       "AWS::IoTSiteWise::Project"
 		Properties: close({
-			PortalId:            string | fn.Fn
-			ProjectDescription?: string | fn.Fn
-			ProjectName:         string | fn.Fn
+			PortalId:            (strings.MinRunes(36) & strings.MaxRunes(36) & (=~#"^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"#)) | fn.Fn
+			ProjectDescription?: (strings.MinRunes(1) & strings.MaxRunes(2048) & (=~#"[^\u0000-\u001F\u007F]+"#)) | fn.Fn
+			ProjectName:         (strings.MinRunes(1) & strings.MaxRunes(256) & (=~#"[^\u0000-\u001F\u007F]+"#)) | fn.Fn
 			Tags?:               [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn

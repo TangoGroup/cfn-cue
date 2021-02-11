@@ -1,94 +1,97 @@
 package euwest2
 
-import "github.com/TangoGroup/aws/fn"
+import (
+	"github.com/TangoGroup/aws/fn"
+	"strings"
+)
 
 AppFlow :: {
 	ConnectorProfile :: {
 		Type:       "AWS::AppFlow::ConnectorProfile"
 		Properties: close({
-			ConnectionMode:          string | fn.Fn
+			ConnectionMode:          ("Public" | "Private") | fn.Fn
 			ConnectorProfileConfig?: close({
 				ConnectorProfileCredentials: close({
 					Amplitude?: close({
-						ApiKey:    string | fn.Fn
-						SecretKey: string | fn.Fn
+						ApiKey:    (=~#"\S+"#) | fn.Fn
+						SecretKey: (=~#"\S+"#) | fn.Fn
 					}) | fn.If
 					Datadog?: close({
-						ApiKey:         string | fn.Fn
-						ApplicationKey: string | fn.Fn
+						ApiKey:         (=~#"\S+"#) | fn.Fn
+						ApplicationKey: (=~#"\S+"#) | fn.Fn
 					}) | fn.If
 					Dynatrace?: close({
-						ApiToken: string | fn.Fn
+						ApiToken: (=~#"\S+"#) | fn.Fn
 					}) | fn.If
 					GoogleAnalytics?: close({
-						AccessToken?:           string | fn.Fn
-						ClientId:               string | fn.Fn
-						ClientSecret:           string | fn.Fn
+						AccessToken?:           (=~#"\S+"#) | fn.Fn
+						ClientId:               (=~#"\S+"#) | fn.Fn
+						ClientSecret:           (=~#"\S+"#) | fn.Fn
 						ConnectorOAuthRequest?: close({
 							AuthCode?:    string | fn.Fn
 							RedirectUri?: string | fn.Fn
 						}) | fn.If
-						RefreshToken?: string | fn.Fn
+						RefreshToken?: (=~#"\S+"#) | fn.Fn
 					}) | fn.If
 					InforNexus?: close({
-						AccessKeyId:     string | fn.Fn
-						Datakey:         string | fn.Fn
-						SecretAccessKey: string | fn.Fn
-						UserId:          string | fn.Fn
+						AccessKeyId:     (=~#"\S+"#) | fn.Fn
+						Datakey:         (=~#"\S+"#) | fn.Fn
+						SecretAccessKey: (=~#"\S+"#) | fn.Fn
+						UserId:          (=~#"\S+"#) | fn.Fn
 					}) | fn.If
 					Marketo?: close({
-						AccessToken?:           string | fn.Fn
-						ClientId:               string | fn.Fn
-						ClientSecret:           string | fn.Fn
+						AccessToken?:           (=~#"\S+"#) | fn.Fn
+						ClientId:               (=~#"\S+"#) | fn.Fn
+						ClientSecret:           (=~#"\S+"#) | fn.Fn
 						ConnectorOAuthRequest?: close({
 							AuthCode?:    string | fn.Fn
 							RedirectUri?: string | fn.Fn
 						}) | fn.If
 					}) | fn.If
 					Redshift?: close({
-						Password: string | fn.Fn
-						Username: string | fn.Fn
+						Password: (=~#"\S+"#) | fn.Fn
+						Username: (=~#"\S+"#) | fn.Fn
 					}) | fn.If
 					Salesforce?: close({
-						AccessToken?:           string | fn.Fn
-						ClientCredentialsArn?:  string | fn.Fn
+						AccessToken?:           (=~#"\S+"#) | fn.Fn
+						ClientCredentialsArn?:  (=~#"arn:aws:secretsmanager:.*:[0-9]+:.*"#) | fn.Fn
 						ConnectorOAuthRequest?: close({
 							AuthCode?:    string | fn.Fn
 							RedirectUri?: string | fn.Fn
 						}) | fn.If
-						RefreshToken?: string | fn.Fn
+						RefreshToken?: (=~#"\S+"#) | fn.Fn
 					}) | fn.If
 					ServiceNow?: close({
-						Password: string | fn.Fn
-						Username: string | fn.Fn
+						Password: (=~#"\S+"#) | fn.Fn
+						Username: (=~#"\S+"#) | fn.Fn
 					}) | fn.If
 					Singular?: close({
-						ApiKey: string | fn.Fn
+						ApiKey: (=~#"\S+"#) | fn.Fn
 					}) | fn.If
 					Slack?: close({
-						AccessToken?:           string | fn.Fn
-						ClientId:               string | fn.Fn
-						ClientSecret:           string | fn.Fn
+						AccessToken?:           (=~#"\S+"#) | fn.Fn
+						ClientId:               (=~#"\S+"#) | fn.Fn
+						ClientSecret:           (=~#"\S+"#) | fn.Fn
 						ConnectorOAuthRequest?: close({
 							AuthCode?:    string | fn.Fn
 							RedirectUri?: string | fn.Fn
 						}) | fn.If
 					}) | fn.If
 					Snowflake?: close({
-						Password: string | fn.Fn
-						Username: string | fn.Fn
+						Password: (=~#"\S+"#) | fn.Fn
+						Username: (=~#"\S+"#) | fn.Fn
 					}) | fn.If
 					Trendmicro?: close({
-						ApiSecretKey: string | fn.Fn
+						ApiSecretKey: (=~#"\S+"#) | fn.Fn
 					}) | fn.If
 					Veeva?: close({
-						Password: string | fn.Fn
-						Username: string | fn.Fn
+						Password: (=~#"\S+"#) | fn.Fn
+						Username: (=~#"\S+"#) | fn.Fn
 					}) | fn.If
 					Zendesk?: close({
-						AccessToken?:           string | fn.Fn
-						ClientId:               string | fn.Fn
-						ClientSecret:           string | fn.Fn
+						AccessToken?:           (=~#"\S+"#) | fn.Fn
+						ClientId:               (=~#"\S+"#) | fn.Fn
+						ClientSecret:           (=~#"\S+"#) | fn.Fn
 						ConnectorOAuthRequest?: close({
 							AuthCode?:    string | fn.Fn
 							RedirectUri?: string | fn.Fn
@@ -97,53 +100,53 @@ AppFlow :: {
 				}) | fn.If
 				ConnectorProfileProperties?: close({
 					Datadog?: close({
-						InstanceUrl: string | fn.Fn
+						InstanceUrl: (=~#"\S+"#) | fn.Fn
 					}) | fn.If
 					Dynatrace?: close({
-						InstanceUrl: string | fn.Fn
+						InstanceUrl: (=~#"\S+"#) | fn.Fn
 					}) | fn.If
 					InforNexus?: close({
-						InstanceUrl: string | fn.Fn
+						InstanceUrl: (=~#"\S+"#) | fn.Fn
 					}) | fn.If
 					Marketo?: close({
-						InstanceUrl: string | fn.Fn
+						InstanceUrl: (=~#"\S+"#) | fn.Fn
 					}) | fn.If
 					Redshift?: close({
-						BucketName:    string | fn.Fn
+						BucketName:    (strings.MinRunes(3) & strings.MaxRunes(63) & (=~#"\S+"#)) | fn.Fn
 						BucketPrefix?: string | fn.Fn
-						DatabaseUrl:   string | fn.Fn
-						RoleArn:       string | fn.Fn
+						DatabaseUrl:   (=~#"\S+"#) | fn.Fn
+						RoleArn:       (=~#"arn:aws:iam:.*:[0-9]+:.*"#) | fn.Fn
 					}) | fn.If
 					Salesforce?: close({
-						InstanceUrl?:          string | fn.Fn
+						InstanceUrl?:          (=~#"\S+"#) | fn.Fn
 						isSandboxEnvironment?: bool | fn.Fn
 					}) | fn.If
 					ServiceNow?: close({
-						InstanceUrl: string | fn.Fn
+						InstanceUrl: (=~#"\S+"#) | fn.Fn
 					}) | fn.If
 					Slack?: close({
-						InstanceUrl: string | fn.Fn
+						InstanceUrl: (=~#"\S+"#) | fn.Fn
 					}) | fn.If
 					Snowflake?: close({
-						AccountName?:            string | fn.Fn
-						BucketName:              string | fn.Fn
+						AccountName?:            (=~#"\S+"#) | fn.Fn
+						BucketName:              (strings.MinRunes(3) & strings.MaxRunes(63) & (=~#"\S+"#)) | fn.Fn
 						BucketPrefix?:           string | fn.Fn
-						PrivateLinkServiceName?: string | fn.Fn
-						Region?:                 string | fn.Fn
-						Stage:                   string | fn.Fn
-						Warehouse:               string | fn.Fn
+						PrivateLinkServiceName?: (=~#"\S+"#) | fn.Fn
+						Region?:                 (=~#"\S+"#) | fn.Fn
+						Stage:                   (=~#"\S+"#) | fn.Fn
+						Warehouse:               (=~#"[\s\w/!@#+=.-]*"#) | fn.Fn
 					}) | fn.If
 					Veeva?: close({
-						InstanceUrl: string | fn.Fn
+						InstanceUrl: (=~#"\S+"#) | fn.Fn
 					}) | fn.If
 					Zendesk?: close({
-						InstanceUrl: string | fn.Fn
+						InstanceUrl: (=~#"\S+"#) | fn.Fn
 					}) | fn.If
 				}) | fn.If
 			}) | fn.If
-			ConnectorProfileName: string | fn.Fn
-			ConnectorType:        string | fn.Fn
-			KMSArn?:              string | fn.Fn
+			ConnectorProfileName: (=~#"[\w/!@#+=.-]+"#) | fn.Fn
+			ConnectorType:        ("Salesforce" | "Singular" | "Slack" | "Redshift" | "Marketo" | "Googleanalytics" | "Zendesk" | "Servicenow" | "Datadog" | "Trendmicro" | "Snowflake" | "Dynatrace" | "Infornexus" | "Amplitude" | "Veeva") | fn.Fn
+			KMSArn?:              (strings.MinRunes(20) & strings.MaxRunes(2048) & (=~#"arn:aws:kms:.*:[0-9]+:.*"#)) | fn.Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -154,134 +157,134 @@ AppFlow :: {
 	Flow :: {
 		Type:       "AWS::AppFlow::Flow"
 		Properties: close({
-			Description?:              string | fn.Fn
+			Description?:              (=~#"[\w!@#\-.?,\s]*"#) | fn.Fn
 			DestinationFlowConfigList: [...close({
-				ConnectorProfileName?:          string | fn.Fn
-				ConnectorType:                  string | fn.Fn
+				ConnectorProfileName?:          (=~#"[\w/!@#+=.-]+"#) | fn.Fn
+				ConnectorType:                  ("Salesforce" | "Singular" | "Slack" | "Redshift" | "S3" | "Marketo" | "Googleanalytics" | "Zendesk" | "Servicenow" | "Datadog" | "Trendmicro" | "Snowflake" | "Dynatrace" | "Infornexus" | "Amplitude" | "Veeva" | "EventBridge" | "Upsolver") | fn.Fn
 				DestinationConnectorProperties: close({
 					EventBridge?: close({
 						ErrorHandlingConfig?: close({
-							BucketName?:       string | fn.Fn
+							BucketName?:       (strings.MinRunes(3) & strings.MaxRunes(63) & (=~#"\S+"#)) | fn.Fn
 							BucketPrefix?:     string | fn.Fn
 							FailOnFirstError?: bool | fn.Fn
 						}) | fn.If
-						Object: string | fn.Fn
+						Object: (=~#"\S+"#) | fn.Fn
 					}) | fn.If
 					Redshift?: close({
 						BucketPrefix?:        string | fn.Fn
 						ErrorHandlingConfig?: close({
-							BucketName?:       string | fn.Fn
+							BucketName?:       (strings.MinRunes(3) & strings.MaxRunes(63) & (=~#"\S+"#)) | fn.Fn
 							BucketPrefix?:     string | fn.Fn
 							FailOnFirstError?: bool | fn.Fn
 						}) | fn.If
-						IntermediateBucketName: string | fn.Fn
-						Object:                 string | fn.Fn
+						IntermediateBucketName: (strings.MinRunes(3) & strings.MaxRunes(63) & (=~#"\S+"#)) | fn.Fn
+						Object:                 (=~#"\S+"#) | fn.Fn
 					}) | fn.If
 					S3?: close({
-						BucketName:            string | fn.Fn
+						BucketName:            (strings.MinRunes(3) & strings.MaxRunes(63) & (=~#"\S+"#)) | fn.Fn
 						BucketPrefix?:         string | fn.Fn
 						S3OutputFormatConfig?: close({
 							AggregationConfig?: close({
-								AggregationType?: string | fn.Fn
+								AggregationType?: ("None" | "SingleFile") | fn.Fn
 							}) | fn.If
-							FileType?:     string | fn.Fn
+							FileType?:     ("CSV" | "JSON" | "PARQUET") | fn.Fn
 							PrefixConfig?: close({
-								PrefixFormat?: string | fn.Fn
-								PrefixType?:   string | fn.Fn
+								PrefixFormat?: ("YEAR" | "MONTH" | "DAY" | "HOUR" | "MINUTE") | fn.Fn
+								PrefixType?:   ("FILENAME" | "PATH" | "PATH_AND_FILENAME") | fn.Fn
 							}) | fn.If
 						}) | fn.If
 					}) | fn.If
 					Salesforce?: close({
 						ErrorHandlingConfig?: close({
-							BucketName?:       string | fn.Fn
+							BucketName?:       (strings.MinRunes(3) & strings.MaxRunes(63) & (=~#"\S+"#)) | fn.Fn
 							BucketPrefix?:     string | fn.Fn
 							FailOnFirstError?: bool | fn.Fn
 						}) | fn.If
 						IdFieldNames?: close({
 							IdFieldNamesList?: [...(string | fn.Fn)] | (string | fn.Fn)
 						}) | fn.If
-						Object:              string | fn.Fn
-						WriteOperationType?: string | fn.Fn
+						Object:              (=~#"\S+"#) | fn.Fn
+						WriteOperationType?: ("INSERT" | "UPSERT" | "UPDATE") | fn.Fn
 					}) | fn.If
 					Snowflake?: close({
 						BucketPrefix?:        string | fn.Fn
 						ErrorHandlingConfig?: close({
-							BucketName?:       string | fn.Fn
+							BucketName?:       (strings.MinRunes(3) & strings.MaxRunes(63) & (=~#"\S+"#)) | fn.Fn
 							BucketPrefix?:     string | fn.Fn
 							FailOnFirstError?: bool | fn.Fn
 						}) | fn.If
-						IntermediateBucketName: string | fn.Fn
-						Object:                 string | fn.Fn
+						IntermediateBucketName: (strings.MinRunes(3) & strings.MaxRunes(63) & (=~#"\S+"#)) | fn.Fn
+						Object:                 (=~#"\S+"#) | fn.Fn
 					}) | fn.If
 					Upsolver?: close({
-						BucketName:           string | fn.Fn
+						BucketName:           (strings.MinRunes(16) & strings.MaxRunes(63) & (=~#"^(upsolver-appflow)\S*"#)) | fn.Fn
 						BucketPrefix?:        string | fn.Fn
 						S3OutputFormatConfig: close({
 							AggregationConfig?: close({
-								AggregationType?: string | fn.Fn
+								AggregationType?: ("None" | "SingleFile") | fn.Fn
 							}) | fn.If
-							FileType?:    string | fn.Fn
+							FileType?:    ("CSV" | "JSON" | "PARQUET") | fn.Fn
 							PrefixConfig: close({
-								PrefixFormat?: string | fn.Fn
-								PrefixType?:   string | fn.Fn
+								PrefixFormat?: ("YEAR" | "MONTH" | "DAY" | "HOUR" | "MINUTE") | fn.Fn
+								PrefixType?:   ("FILENAME" | "PATH" | "PATH_AND_FILENAME") | fn.Fn
 							}) | fn.If
 						}) | fn.If
 					}) | fn.If
 				}) | fn.If
 			})] | fn.If
-			FlowName:         string | fn.Fn
-			KMSArn?:          string | fn.Fn
+			FlowName:         (strings.MinRunes(1) & strings.MaxRunes(256) & (=~#"[a-zA-Z0-9][\w!@#.-]+"#)) | fn.Fn
+			KMSArn?:          (strings.MinRunes(20) & strings.MaxRunes(2048) & (=~#"arn:aws:kms:.*:[0-9]+:.*"#)) | fn.Fn
 			SourceFlowConfig: close({
-				ConnectorProfileName?:  string | fn.Fn
-				ConnectorType:          string | fn.Fn
+				ConnectorProfileName?:  (=~#"[\w/!@#+=.-]+"#) | fn.Fn
+				ConnectorType:          ("Salesforce" | "Singular" | "Slack" | "Redshift" | "S3" | "Marketo" | "Googleanalytics" | "Zendesk" | "Servicenow" | "Datadog" | "Trendmicro" | "Snowflake" | "Dynatrace" | "Infornexus" | "Amplitude" | "Veeva" | "EventBridge" | "Upsolver") | fn.Fn
 				IncrementalPullConfig?: close({
 					DatetimeTypeFieldName?: string | fn.Fn
 				}) | fn.If
 				SourceConnectorProperties: close({
 					Amplitude?: close({
-						Object: string | fn.Fn
+						Object: (=~#"\S+"#) | fn.Fn
 					}) | fn.If
 					Datadog?: close({
-						Object: string | fn.Fn
+						Object: (=~#"\S+"#) | fn.Fn
 					}) | fn.If
 					Dynatrace?: close({
-						Object: string | fn.Fn
+						Object: (=~#"\S+"#) | fn.Fn
 					}) | fn.If
 					GoogleAnalytics?: close({
-						Object: string | fn.Fn
+						Object: (=~#"\S+"#) | fn.Fn
 					}) | fn.If
 					InforNexus?: close({
-						Object: string | fn.Fn
+						Object: (=~#"\S+"#) | fn.Fn
 					}) | fn.If
 					Marketo?: close({
-						Object: string | fn.Fn
+						Object: (=~#"\S+"#) | fn.Fn
 					}) | fn.If
 					S3?: close({
-						BucketName:   string | fn.Fn
+						BucketName:   (strings.MinRunes(3) & strings.MaxRunes(63) & (=~#"\S+"#)) | fn.Fn
 						BucketPrefix: string | fn.Fn
 					}) | fn.If
 					Salesforce?: close({
 						EnableDynamicFieldUpdate?: bool | fn.Fn
 						IncludeDeletedRecords?:    bool | fn.Fn
-						Object:                    string | fn.Fn
+						Object:                    (=~#"\S+"#) | fn.Fn
 					}) | fn.If
 					ServiceNow?: close({
-						Object: string | fn.Fn
+						Object: (=~#"\S+"#) | fn.Fn
 					}) | fn.If
 					Singular?: close({
-						Object: string | fn.Fn
+						Object: (=~#"\S+"#) | fn.Fn
 					}) | fn.If
 					Slack?: close({
-						Object: string | fn.Fn
+						Object: (=~#"\S+"#) | fn.Fn
 					}) | fn.If
 					Trendmicro?: close({
-						Object: string | fn.Fn
+						Object: (=~#"\S+"#) | fn.Fn
 					}) | fn.If
 					Veeva?: close({
-						Object: string | fn.Fn
+						Object: (=~#"\S+"#) | fn.Fn
 					}) | fn.If
 					Zendesk?: close({
-						Object: string | fn.Fn
+						Object: (=~#"\S+"#) | fn.Fn
 					}) | fn.If
 				}) | fn.If
 			}) | fn.If
@@ -291,38 +294,38 @@ AppFlow :: {
 			})] | fn.If
 			Tasks: [...close({
 				ConnectorOperator?: close({
-					Amplitude?:       string | fn.Fn
-					Datadog?:         string | fn.Fn
-					Dynatrace?:       string | fn.Fn
-					GoogleAnalytics?: string | fn.Fn
-					InforNexus?:      string | fn.Fn
-					Marketo?:         string | fn.Fn
-					S3?:              string | fn.Fn
-					Salesforce?:      string | fn.Fn
-					ServiceNow?:      string | fn.Fn
-					Singular?:        string | fn.Fn
-					Slack?:           string | fn.Fn
-					Trendmicro?:      string | fn.Fn
-					Veeva?:           string | fn.Fn
-					Zendesk?:         string | fn.Fn
+					Amplitude?:       ("BETWEEN") | fn.Fn
+					Datadog?:         ("PROJECTION" | "BETWEEN" | "EQUAL_TO" | "ADDITION" | "MULTIPLICATION" | "DIVISION" | "SUBTRACTION" | "MASK_ALL" | "MASK_FIRST_N" | "MASK_LAST_N" | "VALIDATE_NON_NULL" | "VALIDATE_NON_ZERO" | "VALIDATE_NON_NEGATIVE" | "VALIDATE_NUMERIC" | "NO_OP") | fn.Fn
+					Dynatrace?:       ("PROJECTION" | "BETWEEN" | "EQUAL_TO" | "ADDITION" | "MULTIPLICATION" | "DIVISION" | "SUBTRACTION" | "MASK_ALL" | "MASK_FIRST_N" | "MASK_LAST_N" | "VALIDATE_NON_NULL" | "VALIDATE_NON_ZERO" | "VALIDATE_NON_NEGATIVE" | "VALIDATE_NUMERIC" | "NO_OP") | fn.Fn
+					GoogleAnalytics?: ("PROJECTION" | "BETWEEN") | fn.Fn
+					InforNexus?:      ("PROJECTION" | "BETWEEN" | "EQUAL_TO" | "ADDITION" | "MULTIPLICATION" | "DIVISION" | "SUBTRACTION" | "MASK_ALL" | "MASK_FIRST_N" | "MASK_LAST_N" | "VALIDATE_NON_NULL" | "VALIDATE_NON_ZERO" | "VALIDATE_NON_NEGATIVE" | "VALIDATE_NUMERIC" | "NO_OP") | fn.Fn
+					Marketo?:         ("PROJECTION" | "LESS_THAN" | "GREATER_THAN" | "BETWEEN" | "ADDITION" | "MULTIPLICATION" | "DIVISION" | "SUBTRACTION" | "MASK_ALL" | "MASK_FIRST_N" | "MASK_LAST_N" | "VALIDATE_NON_NULL" | "VALIDATE_NON_ZERO" | "VALIDATE_NON_NEGATIVE" | "VALIDATE_NUMERIC" | "NO_OP") | fn.Fn
+					S3?:              ("PROJECTION" | "LESS_THAN" | "GREATER_THAN" | "BETWEEN" | "LESS_THAN_OR_EQUAL_TO" | "GREATER_THAN_OR_EQUAL_TO" | "EQUAL_TO" | "NOT_EQUAL_TO" | "ADDITION" | "MULTIPLICATION" | "DIVISION" | "SUBTRACTION" | "MASK_ALL" | "MASK_FIRST_N" | "MASK_LAST_N" | "VALIDATE_NON_NULL" | "VALIDATE_NON_ZERO" | "VALIDATE_NON_NEGATIVE" | "VALIDATE_NUMERIC" | "NO_OP") | fn.Fn
+					Salesforce?:      ("PROJECTION" | "LESS_THAN" | "CONTAINS" | "GREATER_THAN" | "BETWEEN" | "LESS_THAN_OR_EQUAL_TO" | "GREATER_THAN_OR_EQUAL_TO" | "EQUAL_TO" | "NOT_EQUAL_TO" | "ADDITION" | "MULTIPLICATION" | "DIVISION" | "SUBTRACTION" | "MASK_ALL" | "MASK_FIRST_N" | "MASK_LAST_N" | "VALIDATE_NON_NULL" | "VALIDATE_NON_ZERO" | "VALIDATE_NON_NEGATIVE" | "VALIDATE_NUMERIC" | "NO_OP") | fn.Fn
+					ServiceNow?:      ("PROJECTION" | "LESS_THAN" | "CONTAINS" | "GREATER_THAN" | "BETWEEN" | "LESS_THAN_OR_EQUAL_TO" | "GREATER_THAN_OR_EQUAL_TO" | "EQUAL_TO" | "NOT_EQUAL_TO" | "ADDITION" | "MULTIPLICATION" | "DIVISION" | "SUBTRACTION" | "MASK_ALL" | "MASK_FIRST_N" | "MASK_LAST_N" | "VALIDATE_NON_NULL" | "VALIDATE_NON_ZERO" | "VALIDATE_NON_NEGATIVE" | "VALIDATE_NUMERIC" | "NO_OP") | fn.Fn
+					Singular?:        ("PROJECTION" | "EQUAL_TO" | "ADDITION" | "MULTIPLICATION" | "DIVISION" | "SUBTRACTION" | "MASK_ALL" | "MASK_FIRST_N" | "MASK_LAST_N" | "VALIDATE_NON_NULL" | "VALIDATE_NON_ZERO" | "VALIDATE_NON_NEGATIVE" | "VALIDATE_NUMERIC" | "NO_OP") | fn.Fn
+					Slack?:           ("PROJECTION" | "BETWEEN" | "EQUAL_TO" | "ADDITION" | "MULTIPLICATION" | "DIVISION" | "SUBTRACTION" | "MASK_ALL" | "MASK_FIRST_N" | "MASK_LAST_N" | "VALIDATE_NON_NULL" | "VALIDATE_NON_ZERO" | "VALIDATE_NON_NEGATIVE" | "VALIDATE_NUMERIC" | "NO_OP") | fn.Fn
+					Trendmicro?:      ("PROJECTION" | "EQUAL_TO" | "ADDITION" | "MULTIPLICATION" | "DIVISION" | "SUBTRACTION" | "MASK_ALL" | "MASK_FIRST_N" | "MASK_LAST_N" | "VALIDATE_NON_NULL" | "VALIDATE_NON_ZERO" | "VALIDATE_NON_NEGATIVE" | "VALIDATE_NUMERIC" | "NO_OP") | fn.Fn
+					Veeva?:           ("PROJECTION" | "LESS_THAN" | "GREATER_THAN" | "BETWEEN" | "LESS_THAN_OR_EQUAL_TO" | "GREATER_THAN_OR_EQUAL_TO" | "EQUAL_TO" | "NOT_EQUAL_TO" | "ADDITION" | "MULTIPLICATION" | "DIVISION" | "SUBTRACTION" | "MASK_ALL" | "MASK_FIRST_N" | "MASK_LAST_N" | "VALIDATE_NON_NULL" | "VALIDATE_NON_ZERO" | "VALIDATE_NON_NEGATIVE" | "VALIDATE_NUMERIC" | "NO_OP") | fn.Fn
+					Zendesk?:         ("PROJECTION" | "GREATER_THAN" | "ADDITION" | "MULTIPLICATION" | "DIVISION" | "SUBTRACTION" | "MASK_ALL" | "MASK_FIRST_N" | "MASK_LAST_N" | "VALIDATE_NON_NULL" | "VALIDATE_NON_ZERO" | "VALIDATE_NON_NEGATIVE" | "VALIDATE_NUMERIC" | "NO_OP") | fn.Fn
 				}) | fn.If
 				DestinationField?: string | fn.Fn
 				SourceFields:      [...(string | fn.Fn)] | (string | fn.Fn)
 				TaskProperties?:   [...close({
-					Key:   string | fn.Fn
-					Value: string | fn.Fn
+					Key:   ("VALUE" | "VALUES" | "DATA_TYPE" | "UPPER_BOUND" | "LOWER_BOUND" | "SOURCE_DATA_TYPE" | "DESTINATION_DATA_TYPE" | "VALIDATION_ACTION" | "MASK_VALUE" | "MASK_LENGTH" | "TRUNCATE_LENGTH" | "MATH_OPERATION_FIELDS_ORDER" | "CONCAT_FORMAT" | "SUBFIELD_CATEGORY_MAP") | fn.Fn
+					Value: (=~#".+"#) | fn.Fn
 				})] | fn.If
-				TaskType: string | fn.Fn
+				TaskType: ("Arithmetic" | "Filter" | "Map" | "Mask" | "Merge" | "Truncate" | "Validate") | fn.Fn
 			})] | fn.If
 			TriggerConfig: close({
 				TriggerProperties?: close({
-					DataPullMode?:      string | fn.Fn
+					DataPullMode?:      ("Incremental" | "Complete") | fn.Fn
 					ScheduleEndTime?:   number | fn.Fn
-					ScheduleExpression: string | fn.Fn
+					ScheduleExpression: (strings.MinRunes(1) & strings.MaxRunes(256)) | fn.Fn
 					ScheduleStartTime?: number | fn.Fn
 					TimeZone?:          string | fn.Fn
 				}) | fn.If
-				TriggerType: string | fn.Fn
+				TriggerType: ("Scheduled" | "Event" | "OnDemand") | fn.Fn
 			}) | fn.If
 		})
 		DependsOn?:           string | [...string]

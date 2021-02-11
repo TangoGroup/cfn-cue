@@ -1,15 +1,18 @@
 package useast1
 
-import "github.com/TangoGroup/aws/fn"
+import (
+	"github.com/TangoGroup/aws/fn"
+	"strings"
+)
 
 IoT :: {
 	Authorizer :: {
 		Type:       "AWS::IoT::Authorizer"
 		Properties: close({
 			AuthorizerFunctionArn: string | fn.Fn
-			AuthorizerName?:       string | fn.Fn
+			AuthorizerName?:       (strings.MinRunes(1) & strings.MaxRunes(128) & (=~#"[\w=,@-]+"#)) | fn.Fn
 			SigningDisabled?:      bool | fn.Fn
-			Status?:               string | fn.Fn
+			Status?:               ("ACTIVE" | "INACTIVE") | fn.Fn
 			Tags?:                 [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
@@ -28,11 +31,11 @@ IoT :: {
 	Certificate :: {
 		Type:       "AWS::IoT::Certificate"
 		Properties: close({
-			CACertificatePem?:          string | fn.Fn
-			CertificateMode?:           string | fn.Fn
-			CertificatePem?:            string | fn.Fn
+			CACertificatePem?:          (strings.MinRunes(1) & strings.MaxRunes(65536)) | fn.Fn
+			CertificateMode?:           ("DEFAULT" | "SNI_ONLY") | fn.Fn
+			CertificatePem?:            (strings.MinRunes(1) & strings.MaxRunes(65536)) | fn.Fn
 			CertificateSigningRequest?: string | fn.Fn
-			Status:                     string | fn.Fn
+			Status:                     ("ACTIVE" | "INACTIVE" | "REVOKED" | "PENDING_TRANSFER" | "PENDING_ACTIVATION") | fn.Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -45,18 +48,18 @@ IoT :: {
 		Properties: close({
 			AuthorizerConfig?: close({
 				AllowAuthorizerOverride?: bool | fn.Fn
-				DefaultAuthorizerName?:   string | fn.Fn
+				DefaultAuthorizerName?:   (strings.MinRunes(1) & strings.MaxRunes(128) & (=~#"^[\w=,@-]+$"#)) | fn.Fn
 			}) | fn.If
-			DomainConfigurationName?:   string | fn.Fn
-			DomainConfigurationStatus?: string | fn.Fn
-			DomainName?:                string | fn.Fn
-			ServerCertificateArns?:     [...(string | fn.Fn)] | (string | fn.Fn)
-			ServiceType?:               string | fn.Fn
+			DomainConfigurationName?:   (strings.MinRunes(1) & strings.MaxRunes(128) & (=~#"^[\w.-]+$"#)) | fn.Fn
+			DomainConfigurationStatus?: ("ENABLED" | "DISABLED") | fn.Fn
+			DomainName?:                (strings.MinRunes(1) & strings.MaxRunes(253)) | fn.Fn
+			ServerCertificateArns?:     [...((strings.MinRunes(1) & strings.MaxRunes(2048) & (=~#"^arn:aws(-cn|-us-gov|-iso-b|-iso)?:acm:[a-z]{2}-(gov-|iso-|isob-)?[a-z]{4,9}-\d{1}:\d{12}:certificate/[a-zA-Z0-9/-]+$"#)) | fn.Fn)] | ((strings.MinRunes(1) & strings.MaxRunes(2048) & (=~#"^arn:aws(-cn|-us-gov|-iso-b|-iso)?:acm:[a-z]{2}-(gov-|iso-|isob-)?[a-z]{4,9}-\d{1}:\d{12}:certificate/[a-zA-Z0-9/-]+$"#)) | fn.Fn)
+			ServiceType?:               ("DATA" | "CREDENTIAL_PROVIDER" | "JOBS") | fn.Fn
 			Tags?:                      [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			})] | fn.If
-			ValidationCertificateArn?: string | fn.Fn
+			ValidationCertificateArn?: (=~#"^arn:aws(-cn|-us-gov|-iso-b|-iso)?:acm:[a-z]{2}-(gov-|iso-|isob-)?[a-z]{4,9}-\d{1}:\d{12}:certificate/[a-zA-Z0-9/-]+$"#) | fn.Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -106,7 +109,7 @@ IoT :: {
 				Value: string | fn.Fn
 			})] | fn.If
 			TemplateBody:  string | fn.Fn
-			TemplateName?: string | fn.Fn
+			TemplateName?: (strings.MinRunes(1) & strings.MaxRunes(36) & (=~#"^[0-9A-Za-z_-]+$"#)) | fn.Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -413,7 +416,7 @@ IoT :: {
 			HttpUrlProperties?: close({
 				ConfirmationUrl?: string | fn.Fn
 			}) | fn.If
-			Status?:        string | fn.Fn
+			Status?:        ("ENABLED" | "IN_PROGRESS" | "DISABLED") | fn.Fn
 			VpcProperties?: close({
 				RoleArn?:        string | fn.Fn
 				SecurityGroups?: [...(string | fn.Fn)] | (string | fn.Fn)

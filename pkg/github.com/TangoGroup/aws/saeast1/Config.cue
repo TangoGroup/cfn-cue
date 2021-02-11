@@ -61,11 +61,11 @@ Config :: {
 				ParameterName:  string | fn.Fn
 				ParameterValue: string | fn.Fn
 			})] | fn.If
-			ConformancePackName:  string | fn.Fn
+			ConformancePackName:  (strings.MinRunes(1) & strings.MaxRunes(256) & (=~#"[a-zA-Z][-a-zA-Z0-9]*"#)) | fn.Fn
 			DeliveryS3Bucket?:    string | fn.Fn
 			DeliveryS3KeyPrefix?: string | fn.Fn
-			TemplateBody?:        string | fn.Fn
-			TemplateS3Uri?:       string | fn.Fn
+			TemplateBody?:        (strings.MinRunes(1) & strings.MaxRunes(51200)) | fn.Fn
+			TemplateS3Uri?:       (strings.MinRunes(1) & strings.MaxRunes(1024) & (=~#"s3://.*"#)) | fn.Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -133,9 +133,9 @@ Config :: {
 			DeliveryS3Bucket?:               string | fn.Fn
 			DeliveryS3KeyPrefix?:            string | fn.Fn
 			ExcludedAccounts?:               [...(string | fn.Fn)] | (string | fn.Fn)
-			OrganizationConformancePackName: string | fn.Fn
-			TemplateBody?:                   string | fn.Fn
-			TemplateS3Uri?:                  string | fn.Fn
+			OrganizationConformancePackName: (strings.MinRunes(1) & strings.MaxRunes(128) & (=~#"[a-zA-Z][-a-zA-Z0-9]*"#)) | fn.Fn
+			TemplateBody?:                   (strings.MinRunes(1) & strings.MaxRunes(51200)) | fn.Fn
+			TemplateS3Uri?:                  (strings.MinRunes(1) & strings.MaxRunes(1024) & (=~#"s3://.*"#)) | fn.Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -173,9 +173,9 @@ Config :: {
 	StoredQuery :: {
 		Type:       "AWS::Config::StoredQuery"
 		Properties: close({
-			QueryDescription?: string | fn.Fn
-			QueryExpression:   string | fn.Fn
-			QueryName:         string | fn.Fn
+			QueryDescription?: (=~#"[\s\S]*"#) | fn.Fn
+			QueryExpression:   (strings.MinRunes(1) & strings.MaxRunes(4096) & (=~#"[\s\S]*"#)) | fn.Fn
+			QueryName:         (strings.MinRunes(1) & strings.MaxRunes(64) & (=~#"^[a-zA-Z0-9-_]+$"#)) | fn.Fn
 			Tags?:             [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn

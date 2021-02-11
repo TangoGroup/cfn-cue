@@ -7,13 +7,13 @@ IVS :: {
 		Type:       "AWS::IVS::Channel"
 		Properties: close({
 			Authorized?:  bool | fn.Fn
-			LatencyMode?: string | fn.Fn
-			Name?:        string | fn.Fn
+			LatencyMode?: ("NORMAL" | "LOW") | fn.Fn
+			Name?:        (=~#"^[a-zA-Z0-9-_]*$"#) | fn.Fn
 			Tags?:        [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			})] | fn.If
-			Type?: string | fn.Fn
+			Type?: ("STANDARD" | "BASIC") | fn.Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -24,7 +24,7 @@ IVS :: {
 	PlaybackKeyPair :: {
 		Type:       "AWS::IVS::PlaybackKeyPair"
 		Properties: close({
-			Name?:             string | fn.Fn
+			Name?:             (=~#"^[a-zA-Z0-9-_]*$"#) | fn.Fn
 			PublicKeyMaterial: string | fn.Fn
 			Tags?:             [...close({
 				Key:   string | fn.Fn
@@ -40,7 +40,7 @@ IVS :: {
 	StreamKey :: {
 		Type:       "AWS::IVS::StreamKey"
 		Properties: close({
-			ChannelArn: string | fn.Fn
+			ChannelArn: (=~#"^arn:aws:ivs:[a-z0-9-]+:[0-9]+:channel/[a-zA-Z0-9-]+$"#) | fn.Fn
 			Tags?:      [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn

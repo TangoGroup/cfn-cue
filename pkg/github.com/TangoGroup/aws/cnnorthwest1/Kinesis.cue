@@ -1,17 +1,20 @@
 package cnnorthwest1
 
-import "github.com/TangoGroup/aws/fn"
+import (
+	"github.com/TangoGroup/aws/fn"
+	"strings"
+)
 
 Kinesis :: {
 	Stream :: {
 		Type:       "AWS::Kinesis::Stream"
 		Properties: close({
-			Name?:                 string | fn.Fn
+			Name?:                 (strings.MinRunes(1) & strings.MaxRunes(128) & (=~#"^[a-zA-Z0-9_.-]+$"#)) | fn.Fn
 			RetentionPeriodHours?: (>=1 & <=168) | fn.Fn
 			ShardCount:            (>=1 & <=100000) | fn.Fn
 			StreamEncryption?:     close({
-				EncryptionType: string | fn.Fn
-				KeyId:          string | fn.Fn
+				EncryptionType: ("KMS") | fn.Fn
+				KeyId:          (strings.MinRunes(1) & strings.MaxRunes(2048)) | fn.Fn
 			}) | fn.If
 			Tags?: [...close({
 				Key:   string | fn.Fn

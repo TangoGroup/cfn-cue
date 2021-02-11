@@ -20,27 +20,27 @@ GreengrassV2 :: {
 					} | fn.If
 					EventSources?: [...close({
 						Topic?: string | fn.Fn
-						Type?:  string | fn.Fn
+						Type?:  ("PUB_SUB" | "IOT_CORE") | fn.Fn
 					})] | fn.If
 					ExecArgs?:                 [...(string | fn.Fn)] | (string | fn.Fn)
-					InputPayloadEncodingType?: string | fn.Fn
+					InputPayloadEncodingType?: ("json" | "binary") | fn.Fn
 					LinuxProcessParams?:       close({
 						ContainerParams?: close({
 							Devices?: [...close({
 								AddGroupOwner?: bool | fn.Fn
 								Path?:          string | fn.Fn
-								Permission?:    string | fn.Fn
+								Permission?:    ("ro" | "rw") | fn.Fn
 							})] | fn.If
 							MemorySizeInKB?: int | fn.Fn
 							MountROSysfs?:   bool | fn.Fn
 							Volumes?:        [...close({
 								AddGroupOwner?:   bool | fn.Fn
 								DestinationPath?: string | fn.Fn
-								Permission?:      string | fn.Fn
+								Permission?:      ("ro" | "rw") | fn.Fn
 								SourcePath?:      string | fn.Fn
 							})] | fn.If
 						}) | fn.If
-						IsolationMode?: string | fn.Fn
+						IsolationMode?: ("GreengrassContainer" | "NoContainer") | fn.Fn
 					}) | fn.If
 					MaxIdleTimeInSeconds?:   int | fn.Fn
 					MaxInstancesCount?:      int | fn.Fn
@@ -57,7 +57,7 @@ GreengrassV2 :: {
 					Name?: string | fn.Fn
 				})] | fn.If
 				ComponentVersion?: string | fn.Fn
-				LambdaArn?:        string | fn.Fn
+				LambdaArn?:        (=~#"^arn:aws(-(cn|us-gov))?:lambda:(([a-z]+-)+[0-9])?:([0-9]{12})?:[^.]+$"#) | fn.Fn
 			}) | fn.If
 			Tags?: {
 				[string]: string | fn.Fn

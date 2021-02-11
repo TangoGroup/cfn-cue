@@ -1,12 +1,15 @@
 package useast2
 
-import "github.com/TangoGroup/aws/fn"
+import (
+	"github.com/TangoGroup/aws/fn"
+	"strings"
+)
 
 AccessAnalyzer :: {
 	Analyzer :: {
 		Type:       "AWS::AccessAnalyzer::Analyzer"
 		Properties: close({
-			AnalyzerName?: string | fn.Fn
+			AnalyzerName?: (strings.MinRunes(1) & strings.MaxRunes(1024)) | fn.Fn
 			ArchiveRules?: [...close({
 				Filter: [...close({
 					Contains?: [...(string | fn.Fn)] | (string | fn.Fn)

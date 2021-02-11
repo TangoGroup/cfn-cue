@@ -1,6 +1,9 @@
 package euwest1
 
-import "github.com/TangoGroup/aws/fn"
+import (
+	"github.com/TangoGroup/aws/fn"
+	"strings"
+)
 
 IoTWireless :: {
 	Destination :: {
@@ -8,9 +11,9 @@ IoTWireless :: {
 		Properties: close({
 			Description?:   string | fn.Fn
 			Expression:     string | fn.Fn
-			ExpressionType: string | fn.Fn
-			Name:           string | fn.Fn
-			RoleArn:        string | fn.Fn
+			ExpressionType: ("RuleName" | "MqttTopic") | fn.Fn
+			Name:           (=~#"[a-zA-Z0-9:_-]+"#) | fn.Fn
+			RoleArn:        (strings.MinRunes(20) & strings.MaxRunes(2048)) | fn.Fn
 			Tags?:          [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
@@ -32,8 +35,8 @@ IoTWireless :: {
 				MaxDutyCycle?:      int | fn.Fn
 				MaxEirp?:           int | fn.Fn
 				PingSlotDr?:        int | fn.Fn
-				PingSlotFreq?:      int | fn.Fn
-				PingSlotPeriod?:    int | fn.Fn
+				PingSlotFreq?:      (>=1000000 & <=16700000) | fn.Fn
+				PingSlotPeriod?:    (>=128 & <=4096) | fn.Fn
 				RegParamsRevision?: string | fn.Fn
 				RfRegion?:          string | fn.Fn
 				Supports32BitFCnt?: bool | fn.Fn
@@ -76,34 +79,34 @@ IoTWireless :: {
 		Properties: close({
 			Description?:          string | fn.Fn
 			DestinationName:       string | fn.Fn
-			LastUplinkReceivedAt?: string | fn.Fn
+			LastUplinkReceivedAt?: (=~#"^^([\+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-2])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T\s]((([01]\d|2[0-3])((:?)[0-5]\d)?|24\:?00)([\.,]\d+(?!:))?)?(\17[0-5]\d([\.,]\d+)?)?([zZ]|([\+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$"#) | fn.Fn
 			LoRaWAN?:              close({
 				AbpV10x?: close({
-					DevAddr:     string | fn.Fn
+					DevAddr:     (=~#"[a-fA-F0-9]{8}"#) | fn.Fn
 					SessionKeys: close({
-						AppSKey: string | fn.Fn
-						NwkSKey: string | fn.Fn
+						AppSKey: (=~#"[a-fA-F0-9]{32}"#) | fn.Fn
+						NwkSKey: (=~#"[a-fA-F0-9]{32}"#) | fn.Fn
 					}) | fn.If
 				}) | fn.If
 				AbpV11?: close({
-					DevAddr:     string | fn.Fn
+					DevAddr:     (=~#"[a-fA-F0-9]{8}"#) | fn.Fn
 					SessionKeys: close({
-						AppSKey:     string | fn.Fn
-						FNwkSIntKey: string | fn.Fn
-						NwkSEncKey:  string | fn.Fn
-						SNwkSIntKey: string | fn.Fn
+						AppSKey:     (=~#"[a-fA-F0-9]{32}"#) | fn.Fn
+						FNwkSIntKey: (=~#"[a-fA-F0-9]{32}"#) | fn.Fn
+						NwkSEncKey:  (=~#"[a-fA-F0-9]{32}"#) | fn.Fn
+						SNwkSIntKey: (=~#"[a-fA-F0-9]{32}"#) | fn.Fn
 					}) | fn.If
 				}) | fn.If
-				DevEui?:          string | fn.Fn
+				DevEui?:          (=~#"[a-f0-9]{16}"#) | fn.Fn
 				DeviceProfileId?: string | fn.Fn
 				OtaaV10x?:        close({
-					AppEui: string | fn.Fn
-					AppKey: string | fn.Fn
+					AppEui: (=~#"[a-fA-F0-9]{16}"#) | fn.Fn
+					AppKey: (=~#"[a-fA-F0-9]{32}"#) | fn.Fn
 				}) | fn.If
 				OtaaV11?: close({
-					AppKey:  string | fn.Fn
-					JoinEui: string | fn.Fn
-					NwkKey:  string | fn.Fn
+					AppKey:  (=~#"[a-fA-F0-9]{32}"#) | fn.Fn
+					JoinEui: (=~#"[a-fA-F0-9]{16}"#) | fn.Fn
+					NwkKey:  (=~#"[a-fA-F0-9]{32}"#) | fn.Fn
 				}) | fn.If
 				ServiceProfileId?: string | fn.Fn
 			}) | fn.If
@@ -112,7 +115,7 @@ IoTWireless :: {
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			})] | fn.If
-			Type: string | fn.Fn
+			Type: ("Sidewalk" | "LoRaWAN") | fn.Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -124,9 +127,9 @@ IoTWireless :: {
 		Type:       "AWS::IoTWireless::WirelessGateway"
 		Properties: close({
 			Description?:          string | fn.Fn
-			LastUplinkReceivedAt?: string | fn.Fn
+			LastUplinkReceivedAt?: (=~#"^^([\+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-2])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T\s]((([01]\d|2[0-3])((:?)[0-5]\d)?|24\:?00)([\.,]\d+(?!:))?)?(\17[0-5]\d([\.,]\d+)?)?([zZ]|([\+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$"#) | fn.Fn
 			LoRaWAN:               close({
-				GatewayEui: string | fn.Fn
+				GatewayEui: (=~#"^(([0-9a-f]{2}-){7}|([0-9a-f]{2}:){7}|([0-9a-f]{2}\s){7}|([0-9a-f]{2}){7})([0-9a-f]{2})$"#) | fn.Fn
 				RfRegion:   string | fn.Fn
 			}) | fn.If
 			Name?: string | fn.Fn

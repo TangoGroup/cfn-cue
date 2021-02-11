@@ -1,13 +1,16 @@
 package useast1
 
-import "github.com/TangoGroup/aws/fn"
+import (
+	"github.com/TangoGroup/aws/fn"
+	"strings"
+)
 
 CE :: {
 	CostCategory :: {
 		Type:       "AWS::CE::CostCategory"
 		Properties: close({
-			Name:        string | fn.Fn
-			RuleVersion: string | fn.Fn
+			Name:        (strings.MinRunes(1) & strings.MaxRunes(255)) | fn.Fn
+			RuleVersion: ("CostCategoryExpression.v1") | fn.Fn
 			Rules:       string | fn.Fn
 		})
 		DependsOn?:           string | [...string]

@@ -1,12 +1,15 @@
 package useast1
 
-import "github.com/TangoGroup/aws/fn"
+import (
+	"github.com/TangoGroup/aws/fn"
+	"strings"
+)
 
 WorkSpaces :: {
 	ConnectionAlias :: {
 		Type:       "AWS::WorkSpaces::ConnectionAlias"
 		Properties: close({
-			ConnectionString: string | fn.Fn
+			ConnectionString: (strings.MinRunes(1) & strings.MaxRunes(255) & (=~#"^[.0-9a-zA-Z\-]{1,255}$"#)) | fn.Fn
 			Tags?:            [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn

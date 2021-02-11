@@ -1,13 +1,16 @@
 package uswest1
 
-import "github.com/TangoGroup/aws/fn"
+import (
+	"github.com/TangoGroup/aws/fn"
+	"strings"
+)
 
 Athena :: {
 	DataCatalog :: {
 		Type:       "AWS::Athena::DataCatalog"
 		Properties: close({
-			Description?: string | fn.Fn
-			Name:         string | fn.Fn
+			Description?: (strings.MinRunes(1) & strings.MaxRunes(1024)) | fn.Fn
+			Name:         (strings.MinRunes(1) & strings.MaxRunes(256)) | fn.Fn
 			Parameters?:  {
 				[string]: string | fn.Fn
 			} | fn.If
@@ -15,7 +18,7 @@ Athena :: {
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			})] | fn.If
-			Type: string | fn.Fn
+			Type: ("LAMBDA" | "GLUE" | "HIVE") | fn.Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -26,11 +29,11 @@ Athena :: {
 	NamedQuery :: {
 		Type:       "AWS::Athena::NamedQuery"
 		Properties: close({
-			Database:     string | fn.Fn
-			Description?: string | fn.Fn
-			Name?:        string | fn.Fn
-			QueryString:  string | fn.Fn
-			WorkGroup?:   string | fn.Fn
+			Database:     (strings.MinRunes(1) & strings.MaxRunes(255)) | fn.Fn
+			Description?: (strings.MinRunes(1) & strings.MaxRunes(1024)) | fn.Fn
+			Name?:        (strings.MinRunes(1) & strings.MaxRunes(128)) | fn.Fn
+			QueryString:  (strings.MinRunes(1) & strings.MaxRunes(262144)) | fn.Fn
+			WorkGroup?:   (strings.MinRunes(1) & strings.MaxRunes(128)) | fn.Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -42,9 +45,9 @@ Athena :: {
 		Type:       "AWS::Athena::WorkGroup"
 		Properties: close({
 			Description?:           string | fn.Fn
-			Name:                   string | fn.Fn
+			Name:                   (strings.MinRunes(1) & strings.MaxRunes(128) & (=~#"[a-zA-Z0-9._-]{1,128}"#)) | fn.Fn
 			RecursiveDeleteOption?: bool | fn.Fn
-			State?:                 string | fn.Fn
+			State?:                 ("ENABLED" | "DISABLED") | fn.Fn
 			Tags?:                  [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
@@ -56,7 +59,7 @@ Athena :: {
 				RequesterPaysEnabled?:            bool | fn.Fn
 				ResultConfiguration?:             close({
 					EncryptionConfiguration?: close({
-						EncryptionOption: string | fn.Fn
+						EncryptionOption: ("SSE_S3" | "SSE_KMS" | "CSE_KMS") | fn.Fn
 						KmsKey?:          string | fn.Fn
 					}) | fn.If
 					OutputLocation?: string | fn.Fn
@@ -70,7 +73,7 @@ Athena :: {
 				RequesterPaysEnabled?:             bool | fn.Fn
 				ResultConfigurationUpdates?:       close({
 					EncryptionConfiguration?: close({
-						EncryptionOption: string | fn.Fn
+						EncryptionOption: ("SSE_S3" | "SSE_KMS" | "CSE_KMS") | fn.Fn
 						KmsKey?:          string | fn.Fn
 					}) | fn.If
 					OutputLocation?:                string | fn.Fn

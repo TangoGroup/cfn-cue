@@ -1,6 +1,9 @@
 package cnnorthwest1
 
-import "github.com/TangoGroup/aws/fn"
+import (
+	"github.com/TangoGroup/aws/fn"
+	"strings"
+)
 
 ECR :: {
 	Repository :: {
@@ -9,12 +12,12 @@ ECR :: {
 			ImageScanningConfiguration?: {
 				[string]: _
 			} | fn.Fn
-			ImageTagMutability?: string | fn.Fn
+			ImageTagMutability?: ("MUTABLE" | "IMMUTABLE") | fn.Fn
 			LifecyclePolicy?:    close({
-				LifecyclePolicyText?: string | fn.Fn
-				RegistryId?:          string | fn.Fn
+				LifecyclePolicyText?: (strings.MinRunes(100) & strings.MaxRunes(30720)) | fn.Fn
+				RegistryId?:          (strings.MinRunes(12) & strings.MaxRunes(12) & (=~#"^[0-9]{12}$"#)) | fn.Fn
 			}) | fn.If
-			RepositoryName?:       string | fn.Fn
+			RepositoryName?:       (strings.MinRunes(2) & strings.MaxRunes(256) & (=~#"^(?=.{2,256}$)((?:[a-z0-9]+(?:[._-][a-z0-9]+)*/)*[a-z0-9]+(?:[._-][a-z0-9]+)*)$"#)) | fn.Fn
 			RepositoryPolicyText?: {
 				[string]: _
 			} | fn.Fn

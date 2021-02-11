@@ -22,7 +22,7 @@ Macie :: {
 	FindingsFilter :: {
 		Type:       "AWS::Macie::FindingsFilter"
 		Properties: close({
-			Action?:         string | fn.Fn
+			Action?:         ("ARCHIVE" | "NOOP") | fn.Fn
 			Description?:    string | fn.Fn
 			FindingCriteria: close({
 				Criterion?: close({
@@ -40,8 +40,8 @@ Macie :: {
 	Session :: {
 		Type:       "AWS::Macie::Session"
 		Properties: close({
-			FindingPublishingFrequency?: string | fn.Fn
-			Status?:                     string | fn.Fn
+			FindingPublishingFrequency?: ("FIFTEEN_MINUTES" | "ONE_HOUR" | "SIX_HOURS") | fn.Fn
+			Status?:                     ("ENABLED" | "PAUSED") | fn.Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

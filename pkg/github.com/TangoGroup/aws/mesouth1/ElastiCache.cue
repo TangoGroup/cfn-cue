@@ -146,10 +146,10 @@ ElastiCache :: {
 		Type:       "AWS::ElastiCache::User"
 		Properties: close({
 			AccessString?:       string | fn.Fn
-			Engine:              string | fn.Fn
+			Engine:              ("redis") | fn.Fn
 			NoPasswordRequired?: bool | fn.Fn
 			Passwords?:          [...(string | fn.Fn)] | (string | fn.Fn)
-			UserId:              string | fn.Fn
+			UserId:              (=~#"[a-z][a-z0-9\\-]*"#) | fn.Fn
 			UserName:            string | fn.Fn
 		})
 		DependsOn?:           string | [...string]
@@ -161,8 +161,8 @@ ElastiCache :: {
 	UserGroup :: {
 		Type:       "AWS::ElastiCache::UserGroup"
 		Properties: close({
-			Engine:      string | fn.Fn
-			UserGroupId: string | fn.Fn
+			Engine:      ("redis") | fn.Fn
+			UserGroupId: (=~#"[a-z][a-z0-9\\-]*"#) | fn.Fn
 			UserIds?:    [...(string | fn.Fn)] | (string | fn.Fn)
 		})
 		DependsOn?:           string | [...string]

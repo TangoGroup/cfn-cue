@@ -91,7 +91,7 @@ RDS :: {
 			CharacterSetName?:                   string | fn.Fn
 			CopyTagsToSnapshot?:                 bool | fn.Fn
 			DBClusterIdentifier?:                string | fn.Fn
-			DBInstanceClass:                     string | fn.Fn
+			DBInstanceClass:                     ("db.cv11.18xlarge" | "db.cv11.2xlarge" | "db.cv11.4xlarge" | "db.cv11.9xlarge" | "db.cv11.large" | "db.cv11.medium" | "db.cv11.small" | "db.cv11.xlarge" | "db.m1.large" | "db.m1.medium" | "db.m1.small" | "db.m1.xlarge" | "db.m2.2xlarge" | "db.m2.4xlarge" | "db.m2.xlarge" | "db.m3.2xlarge" | "db.m3.large" | "db.m3.medium" | "db.m3.xlarge" | "db.m4.10xlarge" | "db.m4.16xlarge" | "db.m4.2xlarge" | "db.m4.4xlarge" | "db.m4.large" | "db.m4.xlarge" | "db.m5.12xlarge" | "db.m5.16xlarge" | "db.m5.24xlarge" | "db.m5.2xlarge" | "db.m5.4xlarge" | "db.m5.8xlarge" | "db.m5.large" | "db.m5.xlarge" | "db.m5d.12xlarge" | "db.m5d.16xlarge" | "db.m5d.24xlarge" | "db.m5d.2xlarge" | "db.m5d.4xlarge" | "db.m5d.8xlarge" | "db.m5d.large" | "db.m5d.xlarge" | "db.m6g.12xlarge" | "db.m6g.16xlarge" | "db.m6g.2xlarge" | "db.m6g.4xlarge" | "db.m6g.8xlarge" | "db.m6g.large" | "db.m6g.xlarge" | "db.mv11.12xlarge" | "db.mv11.24xlarge" | "db.mv11.2xlarge" | "db.mv11.4xlarge" | "db.mv11.large" | "db.mv11.medium" | "db.mv11.xlarge" | "db.r3.2xlarge" | "db.r3.4xlarge" | "db.r3.8xlarge" | "db.r3.large" | "db.r3.xlarge" | "db.r4.16xlarge" | "db.r4.2xlarge" | "db.r4.4xlarge" | "db.r4.8xlarge" | "db.r4.large" | "db.r4.xlarge" | "db.r5.12xlarge" | "db.r5.16xlarge" | "db.r5.24xlarge" | "db.r5.2xlarge" | "db.r5.4xlarge" | "db.r5.8xlarge" | "db.r5.large" | "db.r5.xlarge" | "db.r5b.12xlarge" | "db.r5b.16xlarge" | "db.r5b.24xlarge" | "db.r5b.2xlarge" | "db.r5b.4xlarge" | "db.r5b.8xlarge" | "db.r5b.large" | "db.r5b.xlarge" | "db.r5d.12xlarge" | "db.r5d.16xlarge" | "db.r5d.24xlarge" | "db.r5d.2xlarge" | "db.r5d.4xlarge" | "db.r5d.8xlarge" | "db.r5d.large" | "db.r5d.xlarge" | "db.r6g.12xlarge" | "db.r6g.16xlarge" | "db.r6g.2xlarge" | "db.r6g.4xlarge" | "db.r6g.8xlarge" | "db.r6g.large" | "db.r6g.xlarge" | "db.rv11.12xlarge" | "db.rv11.24xlarge" | "db.rv11.2xlarge" | "db.rv11.4xlarge" | "db.rv11.large" | "db.rv11.xlarge" | "db.t1.micro" | "db.t2.2xlarge" | "db.t2.large" | "db.t2.medium" | "db.t2.micro" | "db.t2.small" | "db.t2.xlarge" | "db.t3.2xlarge" | "db.t3.large" | "db.t3.medium" | "db.t3.micro" | "db.t3.small" | "db.t3.xlarge" | "db.x1.16xlarge" | "db.x1.32xlarge" | "db.x1e.16xlarge" | "db.x1e.2xlarge" | "db.x1e.32xlarge" | "db.x1e.4xlarge" | "db.x1e.8xlarge" | "db.x1e.xlarge" | "db.z1d.12xlarge" | "db.z1d.2xlarge" | "db.z1d.3xlarge" | "db.z1d.6xlarge" | "db.z1d.large" | "db.z1d.xlarge") | fn.Fn
 			DBInstanceIdentifier?:               string | fn.Fn
 			DBName?:                             string | fn.Fn
 			DBParameterGroupName?:               string | fn.Fn
@@ -169,21 +169,21 @@ RDS :: {
 		Type:       "AWS::RDS::DBProxy"
 		Properties: close({
 			Auth: [...close({
-				AuthScheme?:  string | fn.Fn
+				AuthScheme?:  ("SECRETS") | fn.Fn
 				Description?: string | fn.Fn
-				IAMAuth?:     string | fn.Fn
+				IAMAuth?:     ("DISABLED" | "REQUIRED") | fn.Fn
 				SecretArn?:   string | fn.Fn
 				UserName?:    string | fn.Fn
 			})] | fn.If
-			DBProxyName:        string | fn.Fn
+			DBProxyName:        (=~#"[0-z]*"#) | fn.Fn
 			DebugLogging?:      bool | fn.Fn
-			EngineFamily:       string | fn.Fn
+			EngineFamily:       ("MYSQL" | "POSTGRESQL") | fn.Fn
 			IdleClientTimeout?: int | fn.Fn
 			RequireTLS?:        bool | fn.Fn
 			RoleArn:            string | fn.Fn
 			Tags?:              [...close({
-				Key?:   string | fn.Fn
-				Value?: string | fn.Fn
+				Key?:   (=~#"(\w|\d|\s|\\|-|\.:=+-)*"#) | fn.Fn
+				Value?: (=~#"(\w|\d|\s|\\|-|\.:=+-)*"#) | fn.Fn
 			})] | fn.If
 			VpcSecurityGroupIds?: [...(string | fn.Fn)] | (string | fn.Fn)
 			VpcSubnetIds:         [...(string | fn.Fn)] | (string | fn.Fn)
@@ -206,8 +206,8 @@ RDS :: {
 			}) | fn.If
 			DBClusterIdentifiers?:  [...(string | fn.Fn)] | (string | fn.Fn)
 			DBInstanceIdentifiers?: [...(string | fn.Fn)] | (string | fn.Fn)
-			DBProxyName:            string | fn.Fn
-			TargetGroupName:        string | fn.Fn
+			DBProxyName:            (=~#"[A-z][0-z]*"#) | fn.Fn
+			TargetGroupName:        ("default") | fn.Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -288,9 +288,9 @@ RDS :: {
 		Type:       "AWS::RDS::GlobalCluster"
 		Properties: close({
 			DeletionProtection?:        bool | fn.Fn
-			Engine?:                    string | fn.Fn
+			Engine?:                    ("aurora" | "aurora-mysql" | "aurora-postgresql") | fn.Fn
 			EngineVersion?:             string | fn.Fn
-			GlobalClusterIdentifier?:   string | fn.Fn
+			GlobalClusterIdentifier?:   (=~#"^[a-zA-Z]{1}(?:-?[a-zA-Z0-9]){0,62}$"#) | fn.Fn
 			SourceDBClusterIdentifier?: string | fn.Fn
 			StorageEncrypted?:          bool | fn.Fn
 		})

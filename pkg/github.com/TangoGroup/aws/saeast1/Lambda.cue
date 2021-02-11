@@ -1,6 +1,9 @@
 package saeast1
 
-import "github.com/TangoGroup/aws/fn"
+import (
+	"github.com/TangoGroup/aws/fn"
+	"strings"
+)
 
 Lambda :: {
 	Alias :: {
@@ -31,10 +34,10 @@ Lambda :: {
 		Type:       "AWS::Lambda::CodeSigningConfig"
 		Properties: close({
 			AllowedPublishers: close({
-				SigningProfileVersionArns: [...(string | fn.Fn)] | (string | fn.Fn)
+				SigningProfileVersionArns: [...((strings.MinRunes(12) & strings.MaxRunes(1024) & (=~#"arn:(aws[a-zA-Z0-9-]*):([a-zA-Z0-9\-])+:([a-z]{2}(-gov)?-[a-z]+-\d{1})?:(\d{12})?:(.*)"#)) | fn.Fn)] | ((strings.MinRunes(12) & strings.MaxRunes(1024) & (=~#"arn:(aws[a-zA-Z0-9-]*):([a-zA-Z0-9\-])+:([a-z]{2}(-gov)?-[a-z]+-\d{1})?:(\d{12})?:(.*)"#)) | fn.Fn)
 			}) | fn.If
 			CodeSigningPolicies?: close({
-				UntrustedArtifactOnDeployment: string | fn.Fn
+				UntrustedArtifactOnDeployment: ("Warn" | "Enforce") | fn.Fn
 			}) | fn.If
 			Description?: string | fn.Fn
 		})
@@ -73,30 +76,30 @@ Lambda :: {
 			BisectBatchOnFunctionError?: bool | fn.Fn
 			DestinationConfig?:          close({
 				OnFailure?: close({
-					Destination?: string | fn.Fn
+					Destination?: (strings.MinRunes(12) & strings.MaxRunes(1024) & (=~#"arn:(aws[a-zA-Z0-9-]*):([a-zA-Z0-9\-])+:([a-z]{2}(-gov)?-[a-z]+-\d{1})?:(\d{12})?:(.*)"#)) | fn.Fn
 				}) | fn.If
 			}) | fn.If
 			Enabled?:                        bool | fn.Fn
-			EventSourceArn?:                 string | fn.Fn
-			FunctionName:                    string | fn.Fn
-			FunctionResponseTypes?:          [...(string | fn.Fn)] | (string | fn.Fn)
-			MaximumBatchingWindowInSeconds?: int | fn.Fn
+			EventSourceArn?:                 (strings.MinRunes(12) & strings.MaxRunes(1024) & (=~#"arn:(aws[a-zA-Z0-9-]*):([a-zA-Z0-9\-])+:([a-z]{2}(-gov)?-[a-z]+-\d{1})?:(\d{12})?:(.*)"#)) | fn.Fn
+			FunctionName:                    (strings.MinRunes(1) & strings.MaxRunes(140) & (=~#"(arn:(aws[a-zA-Z-]*)?:lambda:)?([a-z]{2}(-gov)?-[a-z]+-\d{1}:)?(\d{12}:)?(function:)?([a-zA-Z0-9-_]+)(:(\$LATEST|[a-zA-Z0-9-_]+))?"#)) | fn.Fn
+			FunctionResponseTypes?:          [...(("ReportBatchItemFailures") | fn.Fn)] | (("ReportBatchItemFailures") | fn.Fn)
+			MaximumBatchingWindowInSeconds?: (>=0 & <=300) | fn.Fn
 			MaximumRecordAgeInSeconds?:      (>=-1 & <=604800) | fn.Fn
 			MaximumRetryAttempts?:           (>=-1 & <=10000) | fn.Fn
 			ParallelizationFactor?:          (>=1 & <=10) | fn.Fn
 			PartialBatchResponse?:           bool | fn.Fn
-			Queues?:                         [...(string | fn.Fn)] | (string | fn.Fn)
+			Queues?:                         [...((strings.MinRunes(1) & strings.MaxRunes(1000) & (=~#"[\s\S]*"#)) | fn.Fn)] | ((strings.MinRunes(1) & strings.MaxRunes(1000) & (=~#"[\s\S]*"#)) | fn.Fn)
 			SelfManagedEventSource?:         close({
 				Endpoints?: close({
-					KafkaBootstrapServers?: [...(string | fn.Fn)] | (string | fn.Fn)
+					KafkaBootstrapServers?: [...((strings.MinRunes(1) & strings.MaxRunes(300) & (=~#"^(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9\-]*[A-Za-z0-9]):[0-9]{1,5}"#)) | fn.Fn)] | ((strings.MinRunes(1) & strings.MaxRunes(300) & (=~#"^(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9\-]*[A-Za-z0-9]):[0-9]{1,5}"#)) | fn.Fn)
 				}) | fn.If
 			}) | fn.If
 			SourceAccessConfigurations?: [...close({
-				Type?: string | fn.Fn
-				URI?:  string | fn.Fn
+				Type?: ("BASIC_AUTH" | "VPC_SUBNET" | "VPC_SECURITY_GROUP" | "SASL_SCRAM_512_AUTH" | "SASL_SCRAM_256_AUTH") | fn.Fn
+				URI?:  (strings.MinRunes(1) & strings.MaxRunes(200) & (=~#"[a-zA-Z0-9-\/*:_+=.@-]*"#)) | fn.Fn
 			})] | fn.If
-			StartingPosition?:        ("AT_TIMESTAMP" | "LATEST" | "TRIM_HORIZON") | fn.Fn
-			Topics?:                  [...(string | fn.Fn)] | (string | fn.Fn)
+			StartingPosition?:        (("AT_TIMESTAMP" | "LATEST" | "TRIM_HORIZON") & (strings.MinRunes(6) & strings.MaxRunes(12)) & (=~#"(LATEST|TRIM_HORIZON)+"#)) | fn.Fn
+			Topics?:                  [...((strings.MinRunes(1) & strings.MaxRunes(249) & (=~#"^[^.]([a-zA-Z0-9\-_.]+)"#)) | fn.Fn)] | ((strings.MinRunes(1) & strings.MaxRunes(249) & (=~#"^[^.]([a-zA-Z0-9\-_.]+)"#)) | fn.Fn)
 			TumblingWindowInSeconds?: int | fn.Fn
 		})
 		DependsOn?:           string | [...string]

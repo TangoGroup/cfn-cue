@@ -1,13 +1,16 @@
 package eucentral1
 
-import "github.com/TangoGroup/aws/fn"
+import (
+	"github.com/TangoGroup/aws/fn"
+	"strings"
+)
 
 ServiceCatalogAppRegistry :: {
 	Application :: {
 		Type:       "AWS::ServiceCatalogAppRegistry::Application"
 		Properties: close({
 			Description?: string | fn.Fn
-			Name:         string | fn.Fn
+			Name:         (strings.MinRunes(1) & strings.MaxRunes(256) & (=~#"\w+"#)) | fn.Fn
 			Tags?:        {
 				[string]: string | fn.Fn
 			} | fn.If
@@ -24,7 +27,7 @@ ServiceCatalogAppRegistry :: {
 			Attributes: close({
 			}) | fn.If
 			Description?: string | fn.Fn
-			Name:         string | fn.Fn
+			Name:         (strings.MinRunes(1) & strings.MaxRunes(256) & (=~#"\w+"#)) | fn.Fn
 			Tags?:        {
 				[string]: string | fn.Fn
 			} | fn.If
@@ -38,8 +41,8 @@ ServiceCatalogAppRegistry :: {
 	AttributeGroupAssociation :: {
 		Type:       "AWS::ServiceCatalogAppRegistry::AttributeGroupAssociation"
 		Properties: close({
-			Application:    string | fn.Fn
-			AttributeGroup: string | fn.Fn
+			Application:    (strings.MinRunes(1) & strings.MaxRunes(256) & (=~#"\w+|[a-z0-9]{12}"#)) | fn.Fn
+			AttributeGroup: (strings.MinRunes(1) & strings.MaxRunes(256) & (=~#"\w+|[a-z0-9]{12}"#)) | fn.Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -50,9 +53,9 @@ ServiceCatalogAppRegistry :: {
 	ResourceAssociation :: {
 		Type:       "AWS::ServiceCatalogAppRegistry::ResourceAssociation"
 		Properties: close({
-			Application:  string | fn.Fn
-			Resource:     string | fn.Fn
-			ResourceType: string | fn.Fn
+			Application:  (strings.MinRunes(1) & strings.MaxRunes(256) & (=~#"\w+|[a-z0-9]{12}"#)) | fn.Fn
+			Resource:     (=~#"\w+|arn:aws[-a-z]*:cloudformation:[a-z]{2}(-gov)?-[a-z]+-\d:\d{12}:stack/[a-zA-Z][-A-Za-z0-9]{0,127}/[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}"#) | fn.Fn
+			ResourceType: ("CFN_STACK") | fn.Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

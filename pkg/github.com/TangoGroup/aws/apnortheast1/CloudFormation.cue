@@ -1,6 +1,9 @@
 package apnortheast1
 
-import "github.com/TangoGroup/aws/fn"
+import (
+	"github.com/TangoGroup/aws/fn"
+	"strings"
+)
 
 CloudFormation :: {
 	CustomResource :: {
@@ -33,9 +36,9 @@ CloudFormation :: {
 	ModuleDefaultVersion :: {
 		Type:       "AWS::CloudFormation::ModuleDefaultVersion"
 		Properties: close({
-			Arn?:        string | fn.Fn
-			ModuleName?: string | fn.Fn
-			VersionId?:  string | fn.Fn
+			Arn?:        (=~#"^arn:aws[A-Za-z0-9-]{0,64}:cloudformation:[A-Za-z0-9-]{1,64}:([0-9]{12})?:type/module/.+/[0-9]{8}$"#) | fn.Fn
+			ModuleName?: (=~#"^[A-Za-z0-9]{2,64}::[A-Za-z0-9]{2,64}::[A-Za-z0-9]{2,64}::MODULE"#) | fn.Fn
+			VersionId?:  (=~#"^[0-9]{8}$"#) | fn.Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -46,7 +49,7 @@ CloudFormation :: {
 	ModuleVersion :: {
 		Type:       "AWS::CloudFormation::ModuleVersion"
 		Properties: close({
-			ModuleName:     string | fn.Fn
+			ModuleName:     (=~#"^[A-Za-z0-9]{2,64}::[A-Za-z0-9]{2,64}::[A-Za-z0-9]{2,64}::MODULE"#) | fn.Fn
 			ModulePackage?: string | fn.Fn
 		})
 		DependsOn?:           string | [...string]
@@ -78,44 +81,44 @@ CloudFormation :: {
 	StackSet :: {
 		Type:       "AWS::CloudFormation::StackSet"
 		Properties: close({
-			AdministrationRoleARN?: string | fn.Fn
+			AdministrationRoleARN?: (strings.MinRunes(20) & strings.MaxRunes(2048)) | fn.Fn
 			AutoDeployment?:        close({
 				Enabled?:                      bool | fn.Fn
 				RetainStacksOnAccountRemoval?: bool | fn.Fn
 			}) | fn.If
-			Capabilities?:         [...(string | fn.Fn)] | (string | fn.Fn)
-			Description?:          string | fn.Fn
-			ExecutionRoleName?:    string | fn.Fn
+			Capabilities?:         [...(("CAPABILITY_IAM" | "CAPABILITY_NAMED_IAM" | "CAPABILITY_AUTO_EXPAND") | fn.Fn)] | (("CAPABILITY_IAM" | "CAPABILITY_NAMED_IAM" | "CAPABILITY_AUTO_EXPAND") | fn.Fn)
+			Description?:          (strings.MinRunes(1) & strings.MaxRunes(1024)) | fn.Fn
+			ExecutionRoleName?:    (strings.MinRunes(1) & strings.MaxRunes(64)) | fn.Fn
 			OperationPreferences?: close({
 				FailureToleranceCount?:      int | fn.Fn
 				FailureTolerancePercentage?: int | fn.Fn
 				MaxConcurrentCount?:         int | fn.Fn
 				MaxConcurrentPercentage?:    int | fn.Fn
-				RegionOrder?:                [...(string | fn.Fn)] | (string | fn.Fn)
+				RegionOrder?:                [...((=~#"^[a-zA-Z0-9-]{1,128}$"#) | fn.Fn)] | ((=~#"^[a-zA-Z0-9-]{1,128}$"#) | fn.Fn)
 			}) | fn.If
 			Parameters?: [...close({
 				ParameterKey:   string | fn.Fn
 				ParameterValue: string | fn.Fn
 			})] | fn.If
-			PermissionModel:      ("SELF_MANAGED" | "SERVICE_MANAGED") | fn.Fn
+			PermissionModel:      ("SERVICE_MANAGED" | "SELF_MANAGED") | fn.Fn
 			StackInstancesGroup?: [...close({
 				DeploymentTargets: close({
-					Accounts?:              [...(string | fn.Fn)] | (string | fn.Fn)
-					OrganizationalUnitIds?: [...(string | fn.Fn)] | (string | fn.Fn)
+					Accounts?:              [...((=~#"^[0-9]{12}$"#) | fn.Fn)] | ((=~#"^[0-9]{12}$"#) | fn.Fn)
+					OrganizationalUnitIds?: [...((=~#"^(ou-[a-z0-9]{4,32}-[a-z0-9]{8,32}|r-[a-z0-9]{4,32})$"#) | fn.Fn)] | ((=~#"^(ou-[a-z0-9]{4,32}-[a-z0-9]{8,32}|r-[a-z0-9]{4,32})$"#) | fn.Fn)
 				}) | fn.If
 				ParameterOverrides?: [...close({
 					ParameterKey:   string | fn.Fn
 					ParameterValue: string | fn.Fn
 				})] | fn.If
-				Regions: [...(string | fn.Fn)] | (string | fn.Fn)
+				Regions: [...((=~#"^[a-zA-Z0-9-]{1,128}$"#) | fn.Fn)] | ((=~#"^[a-zA-Z0-9-]{1,128}$"#) | fn.Fn)
 			})] | fn.If
-			StackSetName: string | fn.Fn
+			StackSetName: (=~#"^[a-zA-Z][a-zA-Z0-9\-]{0,127}$"#) | fn.Fn
 			Tags?:        [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			})] | fn.If
-			TemplateBody?: string | fn.Fn
-			TemplateURL?:  string | fn.Fn
+			TemplateBody?: (strings.MinRunes(1) & strings.MaxRunes(51200)) | fn.Fn
+			TemplateURL?:  (strings.MinRunes(1) & strings.MaxRunes(1024)) | fn.Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

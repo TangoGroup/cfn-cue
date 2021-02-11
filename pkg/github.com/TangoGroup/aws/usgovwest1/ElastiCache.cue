@@ -49,7 +49,7 @@ ElastiCache :: {
 			Members:                            [...close({
 				ReplicationGroupId?:     string | fn.Fn
 				ReplicationGroupRegion?: string | fn.Fn
-				Role?:                   string | fn.Fn
+				Role?:                   ("PRIMARY" | "SECONDARY") | fn.Fn
 			})] | fn.If
 			RegionalConfigurations?: [...close({
 				ReplicationGroupId?:       string | fn.Fn

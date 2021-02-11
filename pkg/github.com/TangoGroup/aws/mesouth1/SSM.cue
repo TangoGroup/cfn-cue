@@ -1,25 +1,28 @@
 package mesouth1
 
-import "github.com/TangoGroup/aws/fn"
+import (
+	"github.com/TangoGroup/aws/fn"
+	"strings"
+)
 
 SSM :: {
 	Association :: {
 		Type:       "AWS::SSM::Association"
 		Properties: close({
 			ApplyOnlyAtCronInterval?:       bool | fn.Fn
-			AssociationName?:               string | fn.Fn
-			AutomationTargetParameterName?: string | fn.Fn
-			ComplianceSeverity?:            string | fn.Fn
-			DocumentVersion?:               string | fn.Fn
-			InstanceId?:                    string | fn.Fn
-			MaxConcurrency?:                string | fn.Fn
-			MaxErrors?:                     string | fn.Fn
-			Name:                           string | fn.Fn
+			AssociationName?:               (=~#"^[a-zA-Z0-9_\-.]{3,128}$"#) | fn.Fn
+			AutomationTargetParameterName?: (strings.MinRunes(1) & strings.MaxRunes(50)) | fn.Fn
+			ComplianceSeverity?:            ("CRITICAL" | "HIGH" | "MEDIUM" | "LOW" | "UNSPECIFIED") | fn.Fn
+			DocumentVersion?:               (=~#"([$]LATEST|[$]DEFAULT|^[1-9][0-9]*$)"#) | fn.Fn
+			InstanceId?:                    (=~#"(^i-(\w{8}|\w{17})$)|(^mi-\w{17}$)"#) | fn.Fn
+			MaxConcurrency?:                (strings.MinRunes(1) & strings.MaxRunes(7) & (=~#"^([1-9][0-9]*|[1-9][0-9]%|[1-9]%|100%)$"#)) | fn.Fn
+			MaxErrors?:                     (strings.MinRunes(1) & strings.MaxRunes(7) & (=~#"^([1-9][0-9]*|[0]|[1-9][0-9]%|[0-9]%|100%)$"#)) | fn.Fn
+			Name:                           (=~#"^[a-zA-Z0-9_\-.:/]{3,200}$"#) | fn.Fn
 			OutputLocation?:                close({
 				S3Location?: close({
-					OutputS3BucketName?: string | fn.Fn
+					OutputS3BucketName?: (strings.MinRunes(3) & strings.MaxRunes(63)) | fn.Fn
 					OutputS3KeyPrefix?:  string | fn.Fn
-					OutputS3Region?:     string | fn.Fn
+					OutputS3Region?:     (strings.MinRunes(3) & strings.MaxRunes(20)) | fn.Fn
 				}) | fn.If
 			}) | fn.If
 			Parameters?: {
@@ -27,13 +30,13 @@ SSM :: {
 					ParameterValues: [...(string | fn.Fn)] | (string | fn.Fn)
 				})
 			} | fn.If
-			ScheduleExpression?: string | fn.Fn
-			SyncCompliance?:     string | fn.Fn
+			ScheduleExpression?: (strings.MinRunes(1) & strings.MaxRunes(256)) | fn.Fn
+			SyncCompliance?:     ("AUTO" | "MANUAL") | fn.Fn
 			Targets?:            [...close({
 				Key:    string | fn.Fn
 				Values: [...(string | fn.Fn)] | (string | fn.Fn)
 			})] | fn.If
-			WaitForSuccessTimeoutSeconds?: int | fn.Fn
+			WaitForSuccessTimeoutSeconds?: (>=15 & <=172800) | fn.Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

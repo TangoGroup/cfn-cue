@@ -1,13 +1,16 @@
 package apsoutheast1
 
-import "github.com/TangoGroup/aws/fn"
+import (
+	"github.com/TangoGroup/aws/fn"
+	"strings"
+)
 
 CodeStarConnections :: {
 	Connection :: {
 		Type:       "AWS::CodeStarConnections::Connection"
 		Properties: close({
-			ConnectionName: string | fn.Fn
-			HostArn?:       string | fn.Fn
+			ConnectionName: (strings.MinRunes(1) & strings.MaxRunes(32)) | fn.Fn
+			HostArn?:       (=~#"arn:aws(-[\w]+)*:.+:.+:[0-9]{12}:.+"#) | fn.Fn
 			ProviderType?:  string | fn.Fn
 			Tags?:          [...close({
 				Key:   string | fn.Fn

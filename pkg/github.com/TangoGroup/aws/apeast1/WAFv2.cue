@@ -1,16 +1,19 @@
 package apeast1
 
-import "github.com/TangoGroup/aws/fn"
+import (
+	"github.com/TangoGroup/aws/fn"
+	"strings"
+)
 
 WAFv2 :: {
 	IPSet :: {
 		Type:       "AWS::WAFv2::IPSet"
 		Properties: close({
-			Addresses:        [...(string | fn.Fn)] | (string | fn.Fn)
-			Description?:     string | fn.Fn
-			IPAddressVersion: string | fn.Fn
-			Name?:            string | fn.Fn
-			Scope:            string | fn.Fn
+			Addresses:        [...((strings.MinRunes(1) & strings.MaxRunes(50)) | fn.Fn)] | ((strings.MinRunes(1) & strings.MaxRunes(50)) | fn.Fn)
+			Description?:     (=~#"^[a-zA-Z0-9=:#@/\-,.][a-zA-Z0-9+=:#@/\-,.\s]+[a-zA-Z0-9+=:#@/\-,.]{1,256}$"#) | fn.Fn
+			IPAddressVersion: ("IPV4" | "IPV6") | fn.Fn
+			Name?:            (=~#"^[0-9A-Za-z_-]{1,128}$"#) | fn.Fn
+			Scope:            ("CLOUDFRONT" | "REGIONAL") | fn.Fn
 			Tags?:            [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
@@ -25,10 +28,10 @@ WAFv2 :: {
 	RegexPatternSet :: {
 		Type:       "AWS::WAFv2::RegexPatternSet"
 		Properties: close({
-			Description?:          string | fn.Fn
-			Name?:                 string | fn.Fn
+			Description?:          (=~#"^[a-zA-Z0-9=:#@/\-,.][a-zA-Z0-9+=:#@/\-,.\s]+[a-zA-Z0-9+=:#@/\-,.]{1,256}$"#) | fn.Fn
+			Name?:                 (=~#"^[0-9A-Za-z_-]{1,128}$"#) | fn.Fn
 			RegularExpressionList: [...(string | fn.Fn)] | (string | fn.Fn)
-			Scope:                 string | fn.Fn
+			Scope:                 ("CLOUDFRONT" | "REGIONAL") | fn.Fn
 			Tags?:                 [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
@@ -44,8 +47,8 @@ WAFv2 :: {
 		Type:       "AWS::WAFv2::RuleGroup"
 		Properties: close({
 			Capacity:     int | fn.Fn
-			Description?: string | fn.Fn
-			Name?:        string | fn.Fn
+			Description?: (=~#"^[a-zA-Z0-9=:#@/\-,.][a-zA-Z0-9+=:#@/\-,.\s]+[a-zA-Z0-9+=:#@/\-,.]{1,256}$"#) | fn.Fn
+			Name?:        (=~#"^[0-9A-Za-z_-]{1,128}$"#) | fn.Fn
 			Rules?:       [...close({
 				Action?: close({
 					Allow?: {
@@ -58,7 +61,7 @@ WAFv2 :: {
 						[string]: _
 					} | fn.Fn
 				}) | fn.If
-				Name:      string | fn.Fn
+				Name:      (=~#"^[0-9A-Za-z_-]{1,128}$"#) | fn.Fn
 				Priority:  int | fn.Fn
 				Statement: close({
 					AndStatement?: close({
@@ -89,31 +92,31 @@ WAFv2 :: {
 												[string]: _
 											} | fn.Fn
 										}) | fn.If
-										PositionalConstraint: string | fn.Fn
+										PositionalConstraint: ("EXACTLY" | "STARTS_WITH" | "ENDS_WITH" | "CONTAINS" | "CONTAINS_WORD") | fn.Fn
 										SearchString?:        string | fn.Fn
 										SearchStringBase64?:  string | fn.Fn
 										TextTransformations:  [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									GeoMatchStatement?: close({
-										CountryCodes?:      [...(string | fn.Fn)] | (string | fn.Fn)
+										CountryCodes?:      [...((strings.MinRunes(1) & strings.MaxRunes(2)) | fn.Fn)] | ((strings.MinRunes(1) & strings.MaxRunes(2)) | fn.Fn)
 										ForwardedIPConfig?: close({
-											FallbackBehavior: string | fn.Fn
+											FallbackBehavior: ("MATCH" | "NO_MATCH") | fn.Fn
 											HeaderName:       string | fn.Fn
 										}) | fn.If
 									}) | fn.If
 									IPSetReferenceStatement?: close({
-										Arn:                     string | fn.Fn
+										Arn:                     (strings.MinRunes(20) & strings.MaxRunes(2048)) | fn.Fn
 										IPSetForwardedIPConfig?: close({
-											FallbackBehavior: string | fn.Fn
+											FallbackBehavior: ("MATCH" | "NO_MATCH") | fn.Fn
 											HeaderName:       string | fn.Fn
-											Position:         string | fn.Fn
+											Position:         ("FIRST" | "LAST" | "ANY") | fn.Fn
 										}) | fn.If
 									}) | fn.If
 									RegexPatternSetReferenceStatement?: close({
-										Arn:          string | fn.Fn
+										Arn:          (strings.MinRunes(20) & strings.MaxRunes(2048)) | fn.Fn
 										FieldToMatch: close({
 											AllQueryArguments?: {
 												[string]: _
@@ -139,11 +142,11 @@ WAFv2 :: {
 										}) | fn.If
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									SizeConstraintStatement?: close({
-										ComparisonOperator: string | fn.Fn
+										ComparisonOperator: ("EQ" | "NE" | "LE" | "LT" | "GE" | "GT") | fn.Fn
 										FieldToMatch:       close({
 											AllQueryArguments?: {
 												[string]: _
@@ -170,7 +173,7 @@ WAFv2 :: {
 										Size:                int | fn.Fn
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									SqliMatchStatement?: close({
@@ -199,7 +202,7 @@ WAFv2 :: {
 										}) | fn.If
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									XssMatchStatement?: close({
@@ -228,7 +231,7 @@ WAFv2 :: {
 										}) | fn.If
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 								})] | fn.If
@@ -257,27 +260,27 @@ WAFv2 :: {
 										[string]: _
 									} | fn.Fn
 								}) | fn.If
-								PositionalConstraint: string | fn.Fn
+								PositionalConstraint: ("EXACTLY" | "STARTS_WITH" | "ENDS_WITH" | "CONTAINS" | "CONTAINS_WORD") | fn.Fn
 								SearchString?:        string | fn.Fn
 								SearchStringBase64?:  string | fn.Fn
 								TextTransformations:  [...close({
 									Priority: int | fn.Fn
-									Type:     string | fn.Fn
+									Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 								})] | fn.If
 							}) | fn.If
 							GeoMatchStatement?: close({
-								CountryCodes?:      [...(string | fn.Fn)] | (string | fn.Fn)
+								CountryCodes?:      [...((strings.MinRunes(1) & strings.MaxRunes(2)) | fn.Fn)] | ((strings.MinRunes(1) & strings.MaxRunes(2)) | fn.Fn)
 								ForwardedIPConfig?: close({
-									FallbackBehavior: string | fn.Fn
+									FallbackBehavior: ("MATCH" | "NO_MATCH") | fn.Fn
 									HeaderName:       string | fn.Fn
 								}) | fn.If
 							}) | fn.If
 							IPSetReferenceStatement?: close({
-								Arn:                     string | fn.Fn
+								Arn:                     (strings.MinRunes(20) & strings.MaxRunes(2048)) | fn.Fn
 								IPSetForwardedIPConfig?: close({
-									FallbackBehavior: string | fn.Fn
+									FallbackBehavior: ("MATCH" | "NO_MATCH") | fn.Fn
 									HeaderName:       string | fn.Fn
-									Position:         string | fn.Fn
+									Position:         ("FIRST" | "LAST" | "ANY") | fn.Fn
 								}) | fn.If
 							}) | fn.If
 							NotStatement?: close({
@@ -306,31 +309,31 @@ WAFv2 :: {
 												[string]: _
 											} | fn.Fn
 										}) | fn.If
-										PositionalConstraint: string | fn.Fn
+										PositionalConstraint: ("EXACTLY" | "STARTS_WITH" | "ENDS_WITH" | "CONTAINS" | "CONTAINS_WORD") | fn.Fn
 										SearchString?:        string | fn.Fn
 										SearchStringBase64?:  string | fn.Fn
 										TextTransformations:  [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									GeoMatchStatement?: close({
-										CountryCodes?:      [...(string | fn.Fn)] | (string | fn.Fn)
+										CountryCodes?:      [...((strings.MinRunes(1) & strings.MaxRunes(2)) | fn.Fn)] | ((strings.MinRunes(1) & strings.MaxRunes(2)) | fn.Fn)
 										ForwardedIPConfig?: close({
-											FallbackBehavior: string | fn.Fn
+											FallbackBehavior: ("MATCH" | "NO_MATCH") | fn.Fn
 											HeaderName:       string | fn.Fn
 										}) | fn.If
 									}) | fn.If
 									IPSetReferenceStatement?: close({
-										Arn:                     string | fn.Fn
+										Arn:                     (strings.MinRunes(20) & strings.MaxRunes(2048)) | fn.Fn
 										IPSetForwardedIPConfig?: close({
-											FallbackBehavior: string | fn.Fn
+											FallbackBehavior: ("MATCH" | "NO_MATCH") | fn.Fn
 											HeaderName:       string | fn.Fn
-											Position:         string | fn.Fn
+											Position:         ("FIRST" | "LAST" | "ANY") | fn.Fn
 										}) | fn.If
 									}) | fn.If
 									RegexPatternSetReferenceStatement?: close({
-										Arn:          string | fn.Fn
+										Arn:          (strings.MinRunes(20) & strings.MaxRunes(2048)) | fn.Fn
 										FieldToMatch: close({
 											AllQueryArguments?: {
 												[string]: _
@@ -356,11 +359,11 @@ WAFv2 :: {
 										}) | fn.If
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									SizeConstraintStatement?: close({
-										ComparisonOperator: string | fn.Fn
+										ComparisonOperator: ("EQ" | "NE" | "LE" | "LT" | "GE" | "GT") | fn.Fn
 										FieldToMatch:       close({
 											AllQueryArguments?: {
 												[string]: _
@@ -387,7 +390,7 @@ WAFv2 :: {
 										Size:                int | fn.Fn
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									SqliMatchStatement?: close({
@@ -416,7 +419,7 @@ WAFv2 :: {
 										}) | fn.If
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									XssMatchStatement?: close({
@@ -445,7 +448,7 @@ WAFv2 :: {
 										}) | fn.If
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 								}) | fn.If
@@ -476,31 +479,31 @@ WAFv2 :: {
 												[string]: _
 											} | fn.Fn
 										}) | fn.If
-										PositionalConstraint: string | fn.Fn
+										PositionalConstraint: ("EXACTLY" | "STARTS_WITH" | "ENDS_WITH" | "CONTAINS" | "CONTAINS_WORD") | fn.Fn
 										SearchString?:        string | fn.Fn
 										SearchStringBase64?:  string | fn.Fn
 										TextTransformations:  [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									GeoMatchStatement?: close({
-										CountryCodes?:      [...(string | fn.Fn)] | (string | fn.Fn)
+										CountryCodes?:      [...((strings.MinRunes(1) & strings.MaxRunes(2)) | fn.Fn)] | ((strings.MinRunes(1) & strings.MaxRunes(2)) | fn.Fn)
 										ForwardedIPConfig?: close({
-											FallbackBehavior: string | fn.Fn
+											FallbackBehavior: ("MATCH" | "NO_MATCH") | fn.Fn
 											HeaderName:       string | fn.Fn
 										}) | fn.If
 									}) | fn.If
 									IPSetReferenceStatement?: close({
-										Arn:                     string | fn.Fn
+										Arn:                     (strings.MinRunes(20) & strings.MaxRunes(2048)) | fn.Fn
 										IPSetForwardedIPConfig?: close({
-											FallbackBehavior: string | fn.Fn
+											FallbackBehavior: ("MATCH" | "NO_MATCH") | fn.Fn
 											HeaderName:       string | fn.Fn
-											Position:         string | fn.Fn
+											Position:         ("FIRST" | "LAST" | "ANY") | fn.Fn
 										}) | fn.If
 									}) | fn.If
 									RegexPatternSetReferenceStatement?: close({
-										Arn:          string | fn.Fn
+										Arn:          (strings.MinRunes(20) & strings.MaxRunes(2048)) | fn.Fn
 										FieldToMatch: close({
 											AllQueryArguments?: {
 												[string]: _
@@ -526,11 +529,11 @@ WAFv2 :: {
 										}) | fn.If
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									SizeConstraintStatement?: close({
-										ComparisonOperator: string | fn.Fn
+										ComparisonOperator: ("EQ" | "NE" | "LE" | "LT" | "GE" | "GT") | fn.Fn
 										FieldToMatch:       close({
 											AllQueryArguments?: {
 												[string]: _
@@ -557,7 +560,7 @@ WAFv2 :: {
 										Size:                int | fn.Fn
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									SqliMatchStatement?: close({
@@ -586,7 +589,7 @@ WAFv2 :: {
 										}) | fn.If
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									XssMatchStatement?: close({
@@ -615,18 +618,18 @@ WAFv2 :: {
 										}) | fn.If
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 								})] | fn.If
 							}) | fn.If
 							RateBasedStatement?: close({
-								AggregateKeyType:   ("FORWARDED_IP" | "IP") | fn.Fn
+								AggregateKeyType:   ("IP" | "FORWARDED_IP") | fn.Fn
 								ForwardedIPConfig?: close({
-									FallbackBehavior: string | fn.Fn
+									FallbackBehavior: ("MATCH" | "NO_MATCH") | fn.Fn
 									HeaderName:       string | fn.Fn
 								}) | fn.If
-								Limit:               (>=100 & <=20000000) | fn.Fn
+								Limit:               (>=100 & <=2000000000) | fn.Fn
 								ScopeDownStatement?: close({
 									ByteMatchStatement?: close({
 										FieldToMatch: close({
@@ -652,31 +655,31 @@ WAFv2 :: {
 												[string]: _
 											} | fn.Fn
 										}) | fn.If
-										PositionalConstraint: string | fn.Fn
+										PositionalConstraint: ("EXACTLY" | "STARTS_WITH" | "ENDS_WITH" | "CONTAINS" | "CONTAINS_WORD") | fn.Fn
 										SearchString?:        string | fn.Fn
 										SearchStringBase64?:  string | fn.Fn
 										TextTransformations:  [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									GeoMatchStatement?: close({
-										CountryCodes?:      [...(string | fn.Fn)] | (string | fn.Fn)
+										CountryCodes?:      [...((strings.MinRunes(1) & strings.MaxRunes(2)) | fn.Fn)] | ((strings.MinRunes(1) & strings.MaxRunes(2)) | fn.Fn)
 										ForwardedIPConfig?: close({
-											FallbackBehavior: string | fn.Fn
+											FallbackBehavior: ("MATCH" | "NO_MATCH") | fn.Fn
 											HeaderName:       string | fn.Fn
 										}) | fn.If
 									}) | fn.If
 									IPSetReferenceStatement?: close({
-										Arn:                     string | fn.Fn
+										Arn:                     (strings.MinRunes(20) & strings.MaxRunes(2048)) | fn.Fn
 										IPSetForwardedIPConfig?: close({
-											FallbackBehavior: string | fn.Fn
+											FallbackBehavior: ("MATCH" | "NO_MATCH") | fn.Fn
 											HeaderName:       string | fn.Fn
-											Position:         string | fn.Fn
+											Position:         ("FIRST" | "LAST" | "ANY") | fn.Fn
 										}) | fn.If
 									}) | fn.If
 									RegexPatternSetReferenceStatement?: close({
-										Arn:          string | fn.Fn
+										Arn:          (strings.MinRunes(20) & strings.MaxRunes(2048)) | fn.Fn
 										FieldToMatch: close({
 											AllQueryArguments?: {
 												[string]: _
@@ -702,11 +705,11 @@ WAFv2 :: {
 										}) | fn.If
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									SizeConstraintStatement?: close({
-										ComparisonOperator: string | fn.Fn
+										ComparisonOperator: ("EQ" | "NE" | "LE" | "LT" | "GE" | "GT") | fn.Fn
 										FieldToMatch:       close({
 											AllQueryArguments?: {
 												[string]: _
@@ -733,7 +736,7 @@ WAFv2 :: {
 										Size:                int | fn.Fn
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									SqliMatchStatement?: close({
@@ -762,7 +765,7 @@ WAFv2 :: {
 										}) | fn.If
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									XssMatchStatement?: close({
@@ -791,13 +794,13 @@ WAFv2 :: {
 										}) | fn.If
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 								}) | fn.If
 							}) | fn.If
 							RegexPatternSetReferenceStatement?: close({
-								Arn:          string | fn.Fn
+								Arn:          (strings.MinRunes(20) & strings.MaxRunes(2048)) | fn.Fn
 								FieldToMatch: close({
 									AllQueryArguments?: {
 										[string]: _
@@ -823,11 +826,11 @@ WAFv2 :: {
 								}) | fn.If
 								TextTransformations: [...close({
 									Priority: int | fn.Fn
-									Type:     string | fn.Fn
+									Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 								})] | fn.If
 							}) | fn.If
 							SizeConstraintStatement?: close({
-								ComparisonOperator: string | fn.Fn
+								ComparisonOperator: ("EQ" | "NE" | "LE" | "LT" | "GE" | "GT") | fn.Fn
 								FieldToMatch:       close({
 									AllQueryArguments?: {
 										[string]: _
@@ -854,7 +857,7 @@ WAFv2 :: {
 								Size:                int | fn.Fn
 								TextTransformations: [...close({
 									Priority: int | fn.Fn
-									Type:     string | fn.Fn
+									Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 								})] | fn.If
 							}) | fn.If
 							SqliMatchStatement?: close({
@@ -883,7 +886,7 @@ WAFv2 :: {
 								}) | fn.If
 								TextTransformations: [...close({
 									Priority: int | fn.Fn
-									Type:     string | fn.Fn
+									Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 								})] | fn.If
 							}) | fn.If
 							XssMatchStatement?: close({
@@ -912,7 +915,7 @@ WAFv2 :: {
 								}) | fn.If
 								TextTransformations: [...close({
 									Priority: int | fn.Fn
-									Type:     string | fn.Fn
+									Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 								})] | fn.If
 							}) | fn.If
 						})] | fn.If
@@ -941,27 +944,27 @@ WAFv2 :: {
 								[string]: _
 							} | fn.Fn
 						}) | fn.If
-						PositionalConstraint: string | fn.Fn
+						PositionalConstraint: ("EXACTLY" | "STARTS_WITH" | "ENDS_WITH" | "CONTAINS" | "CONTAINS_WORD") | fn.Fn
 						SearchString?:        string | fn.Fn
 						SearchStringBase64?:  string | fn.Fn
 						TextTransformations:  [...close({
 							Priority: int | fn.Fn
-							Type:     string | fn.Fn
+							Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 						})] | fn.If
 					}) | fn.If
 					GeoMatchStatement?: close({
-						CountryCodes?:      [...(string | fn.Fn)] | (string | fn.Fn)
+						CountryCodes?:      [...((strings.MinRunes(1) & strings.MaxRunes(2)) | fn.Fn)] | ((strings.MinRunes(1) & strings.MaxRunes(2)) | fn.Fn)
 						ForwardedIPConfig?: close({
-							FallbackBehavior: string | fn.Fn
+							FallbackBehavior: ("MATCH" | "NO_MATCH") | fn.Fn
 							HeaderName:       string | fn.Fn
 						}) | fn.If
 					}) | fn.If
 					IPSetReferenceStatement?: close({
-						Arn:                     string | fn.Fn
+						Arn:                     (strings.MinRunes(20) & strings.MaxRunes(2048)) | fn.Fn
 						IPSetForwardedIPConfig?: close({
-							FallbackBehavior: string | fn.Fn
+							FallbackBehavior: ("MATCH" | "NO_MATCH") | fn.Fn
 							HeaderName:       string | fn.Fn
-							Position:         string | fn.Fn
+							Position:         ("FIRST" | "LAST" | "ANY") | fn.Fn
 						}) | fn.If
 					}) | fn.If
 					NotStatement?: close({
@@ -992,31 +995,31 @@ WAFv2 :: {
 												[string]: _
 											} | fn.Fn
 										}) | fn.If
-										PositionalConstraint: string | fn.Fn
+										PositionalConstraint: ("EXACTLY" | "STARTS_WITH" | "ENDS_WITH" | "CONTAINS" | "CONTAINS_WORD") | fn.Fn
 										SearchString?:        string | fn.Fn
 										SearchStringBase64?:  string | fn.Fn
 										TextTransformations:  [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									GeoMatchStatement?: close({
-										CountryCodes?:      [...(string | fn.Fn)] | (string | fn.Fn)
+										CountryCodes?:      [...((strings.MinRunes(1) & strings.MaxRunes(2)) | fn.Fn)] | ((strings.MinRunes(1) & strings.MaxRunes(2)) | fn.Fn)
 										ForwardedIPConfig?: close({
-											FallbackBehavior: string | fn.Fn
+											FallbackBehavior: ("MATCH" | "NO_MATCH") | fn.Fn
 											HeaderName:       string | fn.Fn
 										}) | fn.If
 									}) | fn.If
 									IPSetReferenceStatement?: close({
-										Arn:                     string | fn.Fn
+										Arn:                     (strings.MinRunes(20) & strings.MaxRunes(2048)) | fn.Fn
 										IPSetForwardedIPConfig?: close({
-											FallbackBehavior: string | fn.Fn
+											FallbackBehavior: ("MATCH" | "NO_MATCH") | fn.Fn
 											HeaderName:       string | fn.Fn
-											Position:         string | fn.Fn
+											Position:         ("FIRST" | "LAST" | "ANY") | fn.Fn
 										}) | fn.If
 									}) | fn.If
 									RegexPatternSetReferenceStatement?: close({
-										Arn:          string | fn.Fn
+										Arn:          (strings.MinRunes(20) & strings.MaxRunes(2048)) | fn.Fn
 										FieldToMatch: close({
 											AllQueryArguments?: {
 												[string]: _
@@ -1042,11 +1045,11 @@ WAFv2 :: {
 										}) | fn.If
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									SizeConstraintStatement?: close({
-										ComparisonOperator: string | fn.Fn
+										ComparisonOperator: ("EQ" | "NE" | "LE" | "LT" | "GE" | "GT") | fn.Fn
 										FieldToMatch:       close({
 											AllQueryArguments?: {
 												[string]: _
@@ -1073,7 +1076,7 @@ WAFv2 :: {
 										Size:                int | fn.Fn
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									SqliMatchStatement?: close({
@@ -1102,7 +1105,7 @@ WAFv2 :: {
 										}) | fn.If
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									XssMatchStatement?: close({
@@ -1131,7 +1134,7 @@ WAFv2 :: {
 										}) | fn.If
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 								})] | fn.If
@@ -1160,27 +1163,27 @@ WAFv2 :: {
 										[string]: _
 									} | fn.Fn
 								}) | fn.If
-								PositionalConstraint: string | fn.Fn
+								PositionalConstraint: ("EXACTLY" | "STARTS_WITH" | "ENDS_WITH" | "CONTAINS" | "CONTAINS_WORD") | fn.Fn
 								SearchString?:        string | fn.Fn
 								SearchStringBase64?:  string | fn.Fn
 								TextTransformations:  [...close({
 									Priority: int | fn.Fn
-									Type:     string | fn.Fn
+									Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 								})] | fn.If
 							}) | fn.If
 							GeoMatchStatement?: close({
-								CountryCodes?:      [...(string | fn.Fn)] | (string | fn.Fn)
+								CountryCodes?:      [...((strings.MinRunes(1) & strings.MaxRunes(2)) | fn.Fn)] | ((strings.MinRunes(1) & strings.MaxRunes(2)) | fn.Fn)
 								ForwardedIPConfig?: close({
-									FallbackBehavior: string | fn.Fn
+									FallbackBehavior: ("MATCH" | "NO_MATCH") | fn.Fn
 									HeaderName:       string | fn.Fn
 								}) | fn.If
 							}) | fn.If
 							IPSetReferenceStatement?: close({
-								Arn:                     string | fn.Fn
+								Arn:                     (strings.MinRunes(20) & strings.MaxRunes(2048)) | fn.Fn
 								IPSetForwardedIPConfig?: close({
-									FallbackBehavior: string | fn.Fn
+									FallbackBehavior: ("MATCH" | "NO_MATCH") | fn.Fn
 									HeaderName:       string | fn.Fn
-									Position:         string | fn.Fn
+									Position:         ("FIRST" | "LAST" | "ANY") | fn.Fn
 								}) | fn.If
 							}) | fn.If
 							NotStatement?: close({
@@ -1209,31 +1212,31 @@ WAFv2 :: {
 												[string]: _
 											} | fn.Fn
 										}) | fn.If
-										PositionalConstraint: string | fn.Fn
+										PositionalConstraint: ("EXACTLY" | "STARTS_WITH" | "ENDS_WITH" | "CONTAINS" | "CONTAINS_WORD") | fn.Fn
 										SearchString?:        string | fn.Fn
 										SearchStringBase64?:  string | fn.Fn
 										TextTransformations:  [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									GeoMatchStatement?: close({
-										CountryCodes?:      [...(string | fn.Fn)] | (string | fn.Fn)
+										CountryCodes?:      [...((strings.MinRunes(1) & strings.MaxRunes(2)) | fn.Fn)] | ((strings.MinRunes(1) & strings.MaxRunes(2)) | fn.Fn)
 										ForwardedIPConfig?: close({
-											FallbackBehavior: string | fn.Fn
+											FallbackBehavior: ("MATCH" | "NO_MATCH") | fn.Fn
 											HeaderName:       string | fn.Fn
 										}) | fn.If
 									}) | fn.If
 									IPSetReferenceStatement?: close({
-										Arn:                     string | fn.Fn
+										Arn:                     (strings.MinRunes(20) & strings.MaxRunes(2048)) | fn.Fn
 										IPSetForwardedIPConfig?: close({
-											FallbackBehavior: string | fn.Fn
+											FallbackBehavior: ("MATCH" | "NO_MATCH") | fn.Fn
 											HeaderName:       string | fn.Fn
-											Position:         string | fn.Fn
+											Position:         ("FIRST" | "LAST" | "ANY") | fn.Fn
 										}) | fn.If
 									}) | fn.If
 									RegexPatternSetReferenceStatement?: close({
-										Arn:          string | fn.Fn
+										Arn:          (strings.MinRunes(20) & strings.MaxRunes(2048)) | fn.Fn
 										FieldToMatch: close({
 											AllQueryArguments?: {
 												[string]: _
@@ -1259,11 +1262,11 @@ WAFv2 :: {
 										}) | fn.If
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									SizeConstraintStatement?: close({
-										ComparisonOperator: string | fn.Fn
+										ComparisonOperator: ("EQ" | "NE" | "LE" | "LT" | "GE" | "GT") | fn.Fn
 										FieldToMatch:       close({
 											AllQueryArguments?: {
 												[string]: _
@@ -1290,7 +1293,7 @@ WAFv2 :: {
 										Size:                int | fn.Fn
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									SqliMatchStatement?: close({
@@ -1319,7 +1322,7 @@ WAFv2 :: {
 										}) | fn.If
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									XssMatchStatement?: close({
@@ -1348,7 +1351,7 @@ WAFv2 :: {
 										}) | fn.If
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 								}) | fn.If
@@ -1379,31 +1382,31 @@ WAFv2 :: {
 												[string]: _
 											} | fn.Fn
 										}) | fn.If
-										PositionalConstraint: string | fn.Fn
+										PositionalConstraint: ("EXACTLY" | "STARTS_WITH" | "ENDS_WITH" | "CONTAINS" | "CONTAINS_WORD") | fn.Fn
 										SearchString?:        string | fn.Fn
 										SearchStringBase64?:  string | fn.Fn
 										TextTransformations:  [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									GeoMatchStatement?: close({
-										CountryCodes?:      [...(string | fn.Fn)] | (string | fn.Fn)
+										CountryCodes?:      [...((strings.MinRunes(1) & strings.MaxRunes(2)) | fn.Fn)] | ((strings.MinRunes(1) & strings.MaxRunes(2)) | fn.Fn)
 										ForwardedIPConfig?: close({
-											FallbackBehavior: string | fn.Fn
+											FallbackBehavior: ("MATCH" | "NO_MATCH") | fn.Fn
 											HeaderName:       string | fn.Fn
 										}) | fn.If
 									}) | fn.If
 									IPSetReferenceStatement?: close({
-										Arn:                     string | fn.Fn
+										Arn:                     (strings.MinRunes(20) & strings.MaxRunes(2048)) | fn.Fn
 										IPSetForwardedIPConfig?: close({
-											FallbackBehavior: string | fn.Fn
+											FallbackBehavior: ("MATCH" | "NO_MATCH") | fn.Fn
 											HeaderName:       string | fn.Fn
-											Position:         string | fn.Fn
+											Position:         ("FIRST" | "LAST" | "ANY") | fn.Fn
 										}) | fn.If
 									}) | fn.If
 									RegexPatternSetReferenceStatement?: close({
-										Arn:          string | fn.Fn
+										Arn:          (strings.MinRunes(20) & strings.MaxRunes(2048)) | fn.Fn
 										FieldToMatch: close({
 											AllQueryArguments?: {
 												[string]: _
@@ -1429,11 +1432,11 @@ WAFv2 :: {
 										}) | fn.If
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									SizeConstraintStatement?: close({
-										ComparisonOperator: string | fn.Fn
+										ComparisonOperator: ("EQ" | "NE" | "LE" | "LT" | "GE" | "GT") | fn.Fn
 										FieldToMatch:       close({
 											AllQueryArguments?: {
 												[string]: _
@@ -1460,7 +1463,7 @@ WAFv2 :: {
 										Size:                int | fn.Fn
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									SqliMatchStatement?: close({
@@ -1489,7 +1492,7 @@ WAFv2 :: {
 										}) | fn.If
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									XssMatchStatement?: close({
@@ -1518,18 +1521,18 @@ WAFv2 :: {
 										}) | fn.If
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 								})] | fn.If
 							}) | fn.If
 							RateBasedStatement?: close({
-								AggregateKeyType:   ("FORWARDED_IP" | "IP") | fn.Fn
+								AggregateKeyType:   ("IP" | "FORWARDED_IP") | fn.Fn
 								ForwardedIPConfig?: close({
-									FallbackBehavior: string | fn.Fn
+									FallbackBehavior: ("MATCH" | "NO_MATCH") | fn.Fn
 									HeaderName:       string | fn.Fn
 								}) | fn.If
-								Limit:               (>=100 & <=20000000) | fn.Fn
+								Limit:               (>=100 & <=2000000000) | fn.Fn
 								ScopeDownStatement?: close({
 									ByteMatchStatement?: close({
 										FieldToMatch: close({
@@ -1555,31 +1558,31 @@ WAFv2 :: {
 												[string]: _
 											} | fn.Fn
 										}) | fn.If
-										PositionalConstraint: string | fn.Fn
+										PositionalConstraint: ("EXACTLY" | "STARTS_WITH" | "ENDS_WITH" | "CONTAINS" | "CONTAINS_WORD") | fn.Fn
 										SearchString?:        string | fn.Fn
 										SearchStringBase64?:  string | fn.Fn
 										TextTransformations:  [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									GeoMatchStatement?: close({
-										CountryCodes?:      [...(string | fn.Fn)] | (string | fn.Fn)
+										CountryCodes?:      [...((strings.MinRunes(1) & strings.MaxRunes(2)) | fn.Fn)] | ((strings.MinRunes(1) & strings.MaxRunes(2)) | fn.Fn)
 										ForwardedIPConfig?: close({
-											FallbackBehavior: string | fn.Fn
+											FallbackBehavior: ("MATCH" | "NO_MATCH") | fn.Fn
 											HeaderName:       string | fn.Fn
 										}) | fn.If
 									}) | fn.If
 									IPSetReferenceStatement?: close({
-										Arn:                     string | fn.Fn
+										Arn:                     (strings.MinRunes(20) & strings.MaxRunes(2048)) | fn.Fn
 										IPSetForwardedIPConfig?: close({
-											FallbackBehavior: string | fn.Fn
+											FallbackBehavior: ("MATCH" | "NO_MATCH") | fn.Fn
 											HeaderName:       string | fn.Fn
-											Position:         string | fn.Fn
+											Position:         ("FIRST" | "LAST" | "ANY") | fn.Fn
 										}) | fn.If
 									}) | fn.If
 									RegexPatternSetReferenceStatement?: close({
-										Arn:          string | fn.Fn
+										Arn:          (strings.MinRunes(20) & strings.MaxRunes(2048)) | fn.Fn
 										FieldToMatch: close({
 											AllQueryArguments?: {
 												[string]: _
@@ -1605,11 +1608,11 @@ WAFv2 :: {
 										}) | fn.If
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									SizeConstraintStatement?: close({
-										ComparisonOperator: string | fn.Fn
+										ComparisonOperator: ("EQ" | "NE" | "LE" | "LT" | "GE" | "GT") | fn.Fn
 										FieldToMatch:       close({
 											AllQueryArguments?: {
 												[string]: _
@@ -1636,7 +1639,7 @@ WAFv2 :: {
 										Size:                int | fn.Fn
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									SqliMatchStatement?: close({
@@ -1665,7 +1668,7 @@ WAFv2 :: {
 										}) | fn.If
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									XssMatchStatement?: close({
@@ -1694,13 +1697,13 @@ WAFv2 :: {
 										}) | fn.If
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 								}) | fn.If
 							}) | fn.If
 							RegexPatternSetReferenceStatement?: close({
-								Arn:          string | fn.Fn
+								Arn:          (strings.MinRunes(20) & strings.MaxRunes(2048)) | fn.Fn
 								FieldToMatch: close({
 									AllQueryArguments?: {
 										[string]: _
@@ -1726,11 +1729,11 @@ WAFv2 :: {
 								}) | fn.If
 								TextTransformations: [...close({
 									Priority: int | fn.Fn
-									Type:     string | fn.Fn
+									Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 								})] | fn.If
 							}) | fn.If
 							SizeConstraintStatement?: close({
-								ComparisonOperator: string | fn.Fn
+								ComparisonOperator: ("EQ" | "NE" | "LE" | "LT" | "GE" | "GT") | fn.Fn
 								FieldToMatch:       close({
 									AllQueryArguments?: {
 										[string]: _
@@ -1757,7 +1760,7 @@ WAFv2 :: {
 								Size:                int | fn.Fn
 								TextTransformations: [...close({
 									Priority: int | fn.Fn
-									Type:     string | fn.Fn
+									Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 								})] | fn.If
 							}) | fn.If
 							SqliMatchStatement?: close({
@@ -1786,7 +1789,7 @@ WAFv2 :: {
 								}) | fn.If
 								TextTransformations: [...close({
 									Priority: int | fn.Fn
-									Type:     string | fn.Fn
+									Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 								})] | fn.If
 							}) | fn.If
 							XssMatchStatement?: close({
@@ -1815,7 +1818,7 @@ WAFv2 :: {
 								}) | fn.If
 								TextTransformations: [...close({
 									Priority: int | fn.Fn
-									Type:     string | fn.Fn
+									Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 								})] | fn.If
 							}) | fn.If
 						}) | fn.If
@@ -1848,31 +1851,31 @@ WAFv2 :: {
 												[string]: _
 											} | fn.Fn
 										}) | fn.If
-										PositionalConstraint: string | fn.Fn
+										PositionalConstraint: ("EXACTLY" | "STARTS_WITH" | "ENDS_WITH" | "CONTAINS" | "CONTAINS_WORD") | fn.Fn
 										SearchString?:        string | fn.Fn
 										SearchStringBase64?:  string | fn.Fn
 										TextTransformations:  [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									GeoMatchStatement?: close({
-										CountryCodes?:      [...(string | fn.Fn)] | (string | fn.Fn)
+										CountryCodes?:      [...((strings.MinRunes(1) & strings.MaxRunes(2)) | fn.Fn)] | ((strings.MinRunes(1) & strings.MaxRunes(2)) | fn.Fn)
 										ForwardedIPConfig?: close({
-											FallbackBehavior: string | fn.Fn
+											FallbackBehavior: ("MATCH" | "NO_MATCH") | fn.Fn
 											HeaderName:       string | fn.Fn
 										}) | fn.If
 									}) | fn.If
 									IPSetReferenceStatement?: close({
-										Arn:                     string | fn.Fn
+										Arn:                     (strings.MinRunes(20) & strings.MaxRunes(2048)) | fn.Fn
 										IPSetForwardedIPConfig?: close({
-											FallbackBehavior: string | fn.Fn
+											FallbackBehavior: ("MATCH" | "NO_MATCH") | fn.Fn
 											HeaderName:       string | fn.Fn
-											Position:         string | fn.Fn
+											Position:         ("FIRST" | "LAST" | "ANY") | fn.Fn
 										}) | fn.If
 									}) | fn.If
 									RegexPatternSetReferenceStatement?: close({
-										Arn:          string | fn.Fn
+										Arn:          (strings.MinRunes(20) & strings.MaxRunes(2048)) | fn.Fn
 										FieldToMatch: close({
 											AllQueryArguments?: {
 												[string]: _
@@ -1898,11 +1901,11 @@ WAFv2 :: {
 										}) | fn.If
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									SizeConstraintStatement?: close({
-										ComparisonOperator: string | fn.Fn
+										ComparisonOperator: ("EQ" | "NE" | "LE" | "LT" | "GE" | "GT") | fn.Fn
 										FieldToMatch:       close({
 											AllQueryArguments?: {
 												[string]: _
@@ -1929,7 +1932,7 @@ WAFv2 :: {
 										Size:                int | fn.Fn
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									SqliMatchStatement?: close({
@@ -1958,7 +1961,7 @@ WAFv2 :: {
 										}) | fn.If
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									XssMatchStatement?: close({
@@ -1987,7 +1990,7 @@ WAFv2 :: {
 										}) | fn.If
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 								})] | fn.If
@@ -2016,27 +2019,27 @@ WAFv2 :: {
 										[string]: _
 									} | fn.Fn
 								}) | fn.If
-								PositionalConstraint: string | fn.Fn
+								PositionalConstraint: ("EXACTLY" | "STARTS_WITH" | "ENDS_WITH" | "CONTAINS" | "CONTAINS_WORD") | fn.Fn
 								SearchString?:        string | fn.Fn
 								SearchStringBase64?:  string | fn.Fn
 								TextTransformations:  [...close({
 									Priority: int | fn.Fn
-									Type:     string | fn.Fn
+									Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 								})] | fn.If
 							}) | fn.If
 							GeoMatchStatement?: close({
-								CountryCodes?:      [...(string | fn.Fn)] | (string | fn.Fn)
+								CountryCodes?:      [...((strings.MinRunes(1) & strings.MaxRunes(2)) | fn.Fn)] | ((strings.MinRunes(1) & strings.MaxRunes(2)) | fn.Fn)
 								ForwardedIPConfig?: close({
-									FallbackBehavior: string | fn.Fn
+									FallbackBehavior: ("MATCH" | "NO_MATCH") | fn.Fn
 									HeaderName:       string | fn.Fn
 								}) | fn.If
 							}) | fn.If
 							IPSetReferenceStatement?: close({
-								Arn:                     string | fn.Fn
+								Arn:                     (strings.MinRunes(20) & strings.MaxRunes(2048)) | fn.Fn
 								IPSetForwardedIPConfig?: close({
-									FallbackBehavior: string | fn.Fn
+									FallbackBehavior: ("MATCH" | "NO_MATCH") | fn.Fn
 									HeaderName:       string | fn.Fn
-									Position:         string | fn.Fn
+									Position:         ("FIRST" | "LAST" | "ANY") | fn.Fn
 								}) | fn.If
 							}) | fn.If
 							NotStatement?: close({
@@ -2065,31 +2068,31 @@ WAFv2 :: {
 												[string]: _
 											} | fn.Fn
 										}) | fn.If
-										PositionalConstraint: string | fn.Fn
+										PositionalConstraint: ("EXACTLY" | "STARTS_WITH" | "ENDS_WITH" | "CONTAINS" | "CONTAINS_WORD") | fn.Fn
 										SearchString?:        string | fn.Fn
 										SearchStringBase64?:  string | fn.Fn
 										TextTransformations:  [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									GeoMatchStatement?: close({
-										CountryCodes?:      [...(string | fn.Fn)] | (string | fn.Fn)
+										CountryCodes?:      [...((strings.MinRunes(1) & strings.MaxRunes(2)) | fn.Fn)] | ((strings.MinRunes(1) & strings.MaxRunes(2)) | fn.Fn)
 										ForwardedIPConfig?: close({
-											FallbackBehavior: string | fn.Fn
+											FallbackBehavior: ("MATCH" | "NO_MATCH") | fn.Fn
 											HeaderName:       string | fn.Fn
 										}) | fn.If
 									}) | fn.If
 									IPSetReferenceStatement?: close({
-										Arn:                     string | fn.Fn
+										Arn:                     (strings.MinRunes(20) & strings.MaxRunes(2048)) | fn.Fn
 										IPSetForwardedIPConfig?: close({
-											FallbackBehavior: string | fn.Fn
+											FallbackBehavior: ("MATCH" | "NO_MATCH") | fn.Fn
 											HeaderName:       string | fn.Fn
-											Position:         string | fn.Fn
+											Position:         ("FIRST" | "LAST" | "ANY") | fn.Fn
 										}) | fn.If
 									}) | fn.If
 									RegexPatternSetReferenceStatement?: close({
-										Arn:          string | fn.Fn
+										Arn:          (strings.MinRunes(20) & strings.MaxRunes(2048)) | fn.Fn
 										FieldToMatch: close({
 											AllQueryArguments?: {
 												[string]: _
@@ -2115,11 +2118,11 @@ WAFv2 :: {
 										}) | fn.If
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									SizeConstraintStatement?: close({
-										ComparisonOperator: string | fn.Fn
+										ComparisonOperator: ("EQ" | "NE" | "LE" | "LT" | "GE" | "GT") | fn.Fn
 										FieldToMatch:       close({
 											AllQueryArguments?: {
 												[string]: _
@@ -2146,7 +2149,7 @@ WAFv2 :: {
 										Size:                int | fn.Fn
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									SqliMatchStatement?: close({
@@ -2175,7 +2178,7 @@ WAFv2 :: {
 										}) | fn.If
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									XssMatchStatement?: close({
@@ -2204,7 +2207,7 @@ WAFv2 :: {
 										}) | fn.If
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 								}) | fn.If
@@ -2235,31 +2238,31 @@ WAFv2 :: {
 												[string]: _
 											} | fn.Fn
 										}) | fn.If
-										PositionalConstraint: string | fn.Fn
+										PositionalConstraint: ("EXACTLY" | "STARTS_WITH" | "ENDS_WITH" | "CONTAINS" | "CONTAINS_WORD") | fn.Fn
 										SearchString?:        string | fn.Fn
 										SearchStringBase64?:  string | fn.Fn
 										TextTransformations:  [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									GeoMatchStatement?: close({
-										CountryCodes?:      [...(string | fn.Fn)] | (string | fn.Fn)
+										CountryCodes?:      [...((strings.MinRunes(1) & strings.MaxRunes(2)) | fn.Fn)] | ((strings.MinRunes(1) & strings.MaxRunes(2)) | fn.Fn)
 										ForwardedIPConfig?: close({
-											FallbackBehavior: string | fn.Fn
+											FallbackBehavior: ("MATCH" | "NO_MATCH") | fn.Fn
 											HeaderName:       string | fn.Fn
 										}) | fn.If
 									}) | fn.If
 									IPSetReferenceStatement?: close({
-										Arn:                     string | fn.Fn
+										Arn:                     (strings.MinRunes(20) & strings.MaxRunes(2048)) | fn.Fn
 										IPSetForwardedIPConfig?: close({
-											FallbackBehavior: string | fn.Fn
+											FallbackBehavior: ("MATCH" | "NO_MATCH") | fn.Fn
 											HeaderName:       string | fn.Fn
-											Position:         string | fn.Fn
+											Position:         ("FIRST" | "LAST" | "ANY") | fn.Fn
 										}) | fn.If
 									}) | fn.If
 									RegexPatternSetReferenceStatement?: close({
-										Arn:          string | fn.Fn
+										Arn:          (strings.MinRunes(20) & strings.MaxRunes(2048)) | fn.Fn
 										FieldToMatch: close({
 											AllQueryArguments?: {
 												[string]: _
@@ -2285,11 +2288,11 @@ WAFv2 :: {
 										}) | fn.If
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									SizeConstraintStatement?: close({
-										ComparisonOperator: string | fn.Fn
+										ComparisonOperator: ("EQ" | "NE" | "LE" | "LT" | "GE" | "GT") | fn.Fn
 										FieldToMatch:       close({
 											AllQueryArguments?: {
 												[string]: _
@@ -2316,7 +2319,7 @@ WAFv2 :: {
 										Size:                int | fn.Fn
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									SqliMatchStatement?: close({
@@ -2345,7 +2348,7 @@ WAFv2 :: {
 										}) | fn.If
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									XssMatchStatement?: close({
@@ -2374,18 +2377,18 @@ WAFv2 :: {
 										}) | fn.If
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 								})] | fn.If
 							}) | fn.If
 							RateBasedStatement?: close({
-								AggregateKeyType:   ("FORWARDED_IP" | "IP") | fn.Fn
+								AggregateKeyType:   ("IP" | "FORWARDED_IP") | fn.Fn
 								ForwardedIPConfig?: close({
-									FallbackBehavior: string | fn.Fn
+									FallbackBehavior: ("MATCH" | "NO_MATCH") | fn.Fn
 									HeaderName:       string | fn.Fn
 								}) | fn.If
-								Limit:               (>=100 & <=20000000) | fn.Fn
+								Limit:               (>=100 & <=2000000000) | fn.Fn
 								ScopeDownStatement?: close({
 									ByteMatchStatement?: close({
 										FieldToMatch: close({
@@ -2411,31 +2414,31 @@ WAFv2 :: {
 												[string]: _
 											} | fn.Fn
 										}) | fn.If
-										PositionalConstraint: string | fn.Fn
+										PositionalConstraint: ("EXACTLY" | "STARTS_WITH" | "ENDS_WITH" | "CONTAINS" | "CONTAINS_WORD") | fn.Fn
 										SearchString?:        string | fn.Fn
 										SearchStringBase64?:  string | fn.Fn
 										TextTransformations:  [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									GeoMatchStatement?: close({
-										CountryCodes?:      [...(string | fn.Fn)] | (string | fn.Fn)
+										CountryCodes?:      [...((strings.MinRunes(1) & strings.MaxRunes(2)) | fn.Fn)] | ((strings.MinRunes(1) & strings.MaxRunes(2)) | fn.Fn)
 										ForwardedIPConfig?: close({
-											FallbackBehavior: string | fn.Fn
+											FallbackBehavior: ("MATCH" | "NO_MATCH") | fn.Fn
 											HeaderName:       string | fn.Fn
 										}) | fn.If
 									}) | fn.If
 									IPSetReferenceStatement?: close({
-										Arn:                     string | fn.Fn
+										Arn:                     (strings.MinRunes(20) & strings.MaxRunes(2048)) | fn.Fn
 										IPSetForwardedIPConfig?: close({
-											FallbackBehavior: string | fn.Fn
+											FallbackBehavior: ("MATCH" | "NO_MATCH") | fn.Fn
 											HeaderName:       string | fn.Fn
-											Position:         string | fn.Fn
+											Position:         ("FIRST" | "LAST" | "ANY") | fn.Fn
 										}) | fn.If
 									}) | fn.If
 									RegexPatternSetReferenceStatement?: close({
-										Arn:          string | fn.Fn
+										Arn:          (strings.MinRunes(20) & strings.MaxRunes(2048)) | fn.Fn
 										FieldToMatch: close({
 											AllQueryArguments?: {
 												[string]: _
@@ -2461,11 +2464,11 @@ WAFv2 :: {
 										}) | fn.If
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									SizeConstraintStatement?: close({
-										ComparisonOperator: string | fn.Fn
+										ComparisonOperator: ("EQ" | "NE" | "LE" | "LT" | "GE" | "GT") | fn.Fn
 										FieldToMatch:       close({
 											AllQueryArguments?: {
 												[string]: _
@@ -2492,7 +2495,7 @@ WAFv2 :: {
 										Size:                int | fn.Fn
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									SqliMatchStatement?: close({
@@ -2521,7 +2524,7 @@ WAFv2 :: {
 										}) | fn.If
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									XssMatchStatement?: close({
@@ -2550,13 +2553,13 @@ WAFv2 :: {
 										}) | fn.If
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 								}) | fn.If
 							}) | fn.If
 							RegexPatternSetReferenceStatement?: close({
-								Arn:          string | fn.Fn
+								Arn:          (strings.MinRunes(20) & strings.MaxRunes(2048)) | fn.Fn
 								FieldToMatch: close({
 									AllQueryArguments?: {
 										[string]: _
@@ -2582,11 +2585,11 @@ WAFv2 :: {
 								}) | fn.If
 								TextTransformations: [...close({
 									Priority: int | fn.Fn
-									Type:     string | fn.Fn
+									Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 								})] | fn.If
 							}) | fn.If
 							SizeConstraintStatement?: close({
-								ComparisonOperator: string | fn.Fn
+								ComparisonOperator: ("EQ" | "NE" | "LE" | "LT" | "GE" | "GT") | fn.Fn
 								FieldToMatch:       close({
 									AllQueryArguments?: {
 										[string]: _
@@ -2613,7 +2616,7 @@ WAFv2 :: {
 								Size:                int | fn.Fn
 								TextTransformations: [...close({
 									Priority: int | fn.Fn
-									Type:     string | fn.Fn
+									Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 								})] | fn.If
 							}) | fn.If
 							SqliMatchStatement?: close({
@@ -2642,7 +2645,7 @@ WAFv2 :: {
 								}) | fn.If
 								TextTransformations: [...close({
 									Priority: int | fn.Fn
-									Type:     string | fn.Fn
+									Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 								})] | fn.If
 							}) | fn.If
 							XssMatchStatement?: close({
@@ -2671,18 +2674,18 @@ WAFv2 :: {
 								}) | fn.If
 								TextTransformations: [...close({
 									Priority: int | fn.Fn
-									Type:     string | fn.Fn
+									Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 								})] | fn.If
 							}) | fn.If
 						})] | fn.If
 					}) | fn.If
 					RateBasedStatement?: close({
-						AggregateKeyType:   ("FORWARDED_IP" | "IP") | fn.Fn
+						AggregateKeyType:   ("IP" | "FORWARDED_IP") | fn.Fn
 						ForwardedIPConfig?: close({
-							FallbackBehavior: string | fn.Fn
+							FallbackBehavior: ("MATCH" | "NO_MATCH") | fn.Fn
 							HeaderName:       string | fn.Fn
 						}) | fn.If
-						Limit:               (>=100 & <=20000000) | fn.Fn
+						Limit:               (>=100 & <=2000000000) | fn.Fn
 						ScopeDownStatement?: close({
 							AndStatement?: close({
 								Statements: [...close({
@@ -2710,31 +2713,31 @@ WAFv2 :: {
 												[string]: _
 											} | fn.Fn
 										}) | fn.If
-										PositionalConstraint: string | fn.Fn
+										PositionalConstraint: ("EXACTLY" | "STARTS_WITH" | "ENDS_WITH" | "CONTAINS" | "CONTAINS_WORD") | fn.Fn
 										SearchString?:        string | fn.Fn
 										SearchStringBase64?:  string | fn.Fn
 										TextTransformations:  [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									GeoMatchStatement?: close({
-										CountryCodes?:      [...(string | fn.Fn)] | (string | fn.Fn)
+										CountryCodes?:      [...((strings.MinRunes(1) & strings.MaxRunes(2)) | fn.Fn)] | ((strings.MinRunes(1) & strings.MaxRunes(2)) | fn.Fn)
 										ForwardedIPConfig?: close({
-											FallbackBehavior: string | fn.Fn
+											FallbackBehavior: ("MATCH" | "NO_MATCH") | fn.Fn
 											HeaderName:       string | fn.Fn
 										}) | fn.If
 									}) | fn.If
 									IPSetReferenceStatement?: close({
-										Arn:                     string | fn.Fn
+										Arn:                     (strings.MinRunes(20) & strings.MaxRunes(2048)) | fn.Fn
 										IPSetForwardedIPConfig?: close({
-											FallbackBehavior: string | fn.Fn
+											FallbackBehavior: ("MATCH" | "NO_MATCH") | fn.Fn
 											HeaderName:       string | fn.Fn
-											Position:         string | fn.Fn
+											Position:         ("FIRST" | "LAST" | "ANY") | fn.Fn
 										}) | fn.If
 									}) | fn.If
 									RegexPatternSetReferenceStatement?: close({
-										Arn:          string | fn.Fn
+										Arn:          (strings.MinRunes(20) & strings.MaxRunes(2048)) | fn.Fn
 										FieldToMatch: close({
 											AllQueryArguments?: {
 												[string]: _
@@ -2760,11 +2763,11 @@ WAFv2 :: {
 										}) | fn.If
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									SizeConstraintStatement?: close({
-										ComparisonOperator: string | fn.Fn
+										ComparisonOperator: ("EQ" | "NE" | "LE" | "LT" | "GE" | "GT") | fn.Fn
 										FieldToMatch:       close({
 											AllQueryArguments?: {
 												[string]: _
@@ -2791,7 +2794,7 @@ WAFv2 :: {
 										Size:                int | fn.Fn
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									SqliMatchStatement?: close({
@@ -2820,7 +2823,7 @@ WAFv2 :: {
 										}) | fn.If
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									XssMatchStatement?: close({
@@ -2849,7 +2852,7 @@ WAFv2 :: {
 										}) | fn.If
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 								})] | fn.If
@@ -2878,27 +2881,27 @@ WAFv2 :: {
 										[string]: _
 									} | fn.Fn
 								}) | fn.If
-								PositionalConstraint: string | fn.Fn
+								PositionalConstraint: ("EXACTLY" | "STARTS_WITH" | "ENDS_WITH" | "CONTAINS" | "CONTAINS_WORD") | fn.Fn
 								SearchString?:        string | fn.Fn
 								SearchStringBase64?:  string | fn.Fn
 								TextTransformations:  [...close({
 									Priority: int | fn.Fn
-									Type:     string | fn.Fn
+									Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 								})] | fn.If
 							}) | fn.If
 							GeoMatchStatement?: close({
-								CountryCodes?:      [...(string | fn.Fn)] | (string | fn.Fn)
+								CountryCodes?:      [...((strings.MinRunes(1) & strings.MaxRunes(2)) | fn.Fn)] | ((strings.MinRunes(1) & strings.MaxRunes(2)) | fn.Fn)
 								ForwardedIPConfig?: close({
-									FallbackBehavior: string | fn.Fn
+									FallbackBehavior: ("MATCH" | "NO_MATCH") | fn.Fn
 									HeaderName:       string | fn.Fn
 								}) | fn.If
 							}) | fn.If
 							IPSetReferenceStatement?: close({
-								Arn:                     string | fn.Fn
+								Arn:                     (strings.MinRunes(20) & strings.MaxRunes(2048)) | fn.Fn
 								IPSetForwardedIPConfig?: close({
-									FallbackBehavior: string | fn.Fn
+									FallbackBehavior: ("MATCH" | "NO_MATCH") | fn.Fn
 									HeaderName:       string | fn.Fn
-									Position:         string | fn.Fn
+									Position:         ("FIRST" | "LAST" | "ANY") | fn.Fn
 								}) | fn.If
 							}) | fn.If
 							NotStatement?: close({
@@ -2927,31 +2930,31 @@ WAFv2 :: {
 												[string]: _
 											} | fn.Fn
 										}) | fn.If
-										PositionalConstraint: string | fn.Fn
+										PositionalConstraint: ("EXACTLY" | "STARTS_WITH" | "ENDS_WITH" | "CONTAINS" | "CONTAINS_WORD") | fn.Fn
 										SearchString?:        string | fn.Fn
 										SearchStringBase64?:  string | fn.Fn
 										TextTransformations:  [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									GeoMatchStatement?: close({
-										CountryCodes?:      [...(string | fn.Fn)] | (string | fn.Fn)
+										CountryCodes?:      [...((strings.MinRunes(1) & strings.MaxRunes(2)) | fn.Fn)] | ((strings.MinRunes(1) & strings.MaxRunes(2)) | fn.Fn)
 										ForwardedIPConfig?: close({
-											FallbackBehavior: string | fn.Fn
+											FallbackBehavior: ("MATCH" | "NO_MATCH") | fn.Fn
 											HeaderName:       string | fn.Fn
 										}) | fn.If
 									}) | fn.If
 									IPSetReferenceStatement?: close({
-										Arn:                     string | fn.Fn
+										Arn:                     (strings.MinRunes(20) & strings.MaxRunes(2048)) | fn.Fn
 										IPSetForwardedIPConfig?: close({
-											FallbackBehavior: string | fn.Fn
+											FallbackBehavior: ("MATCH" | "NO_MATCH") | fn.Fn
 											HeaderName:       string | fn.Fn
-											Position:         string | fn.Fn
+											Position:         ("FIRST" | "LAST" | "ANY") | fn.Fn
 										}) | fn.If
 									}) | fn.If
 									RegexPatternSetReferenceStatement?: close({
-										Arn:          string | fn.Fn
+										Arn:          (strings.MinRunes(20) & strings.MaxRunes(2048)) | fn.Fn
 										FieldToMatch: close({
 											AllQueryArguments?: {
 												[string]: _
@@ -2977,11 +2980,11 @@ WAFv2 :: {
 										}) | fn.If
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									SizeConstraintStatement?: close({
-										ComparisonOperator: string | fn.Fn
+										ComparisonOperator: ("EQ" | "NE" | "LE" | "LT" | "GE" | "GT") | fn.Fn
 										FieldToMatch:       close({
 											AllQueryArguments?: {
 												[string]: _
@@ -3008,7 +3011,7 @@ WAFv2 :: {
 										Size:                int | fn.Fn
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									SqliMatchStatement?: close({
@@ -3037,7 +3040,7 @@ WAFv2 :: {
 										}) | fn.If
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									XssMatchStatement?: close({
@@ -3066,7 +3069,7 @@ WAFv2 :: {
 										}) | fn.If
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 								}) | fn.If
@@ -3097,31 +3100,31 @@ WAFv2 :: {
 												[string]: _
 											} | fn.Fn
 										}) | fn.If
-										PositionalConstraint: string | fn.Fn
+										PositionalConstraint: ("EXACTLY" | "STARTS_WITH" | "ENDS_WITH" | "CONTAINS" | "CONTAINS_WORD") | fn.Fn
 										SearchString?:        string | fn.Fn
 										SearchStringBase64?:  string | fn.Fn
 										TextTransformations:  [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									GeoMatchStatement?: close({
-										CountryCodes?:      [...(string | fn.Fn)] | (string | fn.Fn)
+										CountryCodes?:      [...((strings.MinRunes(1) & strings.MaxRunes(2)) | fn.Fn)] | ((strings.MinRunes(1) & strings.MaxRunes(2)) | fn.Fn)
 										ForwardedIPConfig?: close({
-											FallbackBehavior: string | fn.Fn
+											FallbackBehavior: ("MATCH" | "NO_MATCH") | fn.Fn
 											HeaderName:       string | fn.Fn
 										}) | fn.If
 									}) | fn.If
 									IPSetReferenceStatement?: close({
-										Arn:                     string | fn.Fn
+										Arn:                     (strings.MinRunes(20) & strings.MaxRunes(2048)) | fn.Fn
 										IPSetForwardedIPConfig?: close({
-											FallbackBehavior: string | fn.Fn
+											FallbackBehavior: ("MATCH" | "NO_MATCH") | fn.Fn
 											HeaderName:       string | fn.Fn
-											Position:         string | fn.Fn
+											Position:         ("FIRST" | "LAST" | "ANY") | fn.Fn
 										}) | fn.If
 									}) | fn.If
 									RegexPatternSetReferenceStatement?: close({
-										Arn:          string | fn.Fn
+										Arn:          (strings.MinRunes(20) & strings.MaxRunes(2048)) | fn.Fn
 										FieldToMatch: close({
 											AllQueryArguments?: {
 												[string]: _
@@ -3147,11 +3150,11 @@ WAFv2 :: {
 										}) | fn.If
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									SizeConstraintStatement?: close({
-										ComparisonOperator: string | fn.Fn
+										ComparisonOperator: ("EQ" | "NE" | "LE" | "LT" | "GE" | "GT") | fn.Fn
 										FieldToMatch:       close({
 											AllQueryArguments?: {
 												[string]: _
@@ -3178,7 +3181,7 @@ WAFv2 :: {
 										Size:                int | fn.Fn
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									SqliMatchStatement?: close({
@@ -3207,7 +3210,7 @@ WAFv2 :: {
 										}) | fn.If
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									XssMatchStatement?: close({
@@ -3236,18 +3239,18 @@ WAFv2 :: {
 										}) | fn.If
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 								})] | fn.If
 							}) | fn.If
 							RateBasedStatement?: close({
-								AggregateKeyType:   ("FORWARDED_IP" | "IP") | fn.Fn
+								AggregateKeyType:   ("IP" | "FORWARDED_IP") | fn.Fn
 								ForwardedIPConfig?: close({
-									FallbackBehavior: string | fn.Fn
+									FallbackBehavior: ("MATCH" | "NO_MATCH") | fn.Fn
 									HeaderName:       string | fn.Fn
 								}) | fn.If
-								Limit:               (>=100 & <=20000000) | fn.Fn
+								Limit:               (>=100 & <=2000000000) | fn.Fn
 								ScopeDownStatement?: close({
 									ByteMatchStatement?: close({
 										FieldToMatch: close({
@@ -3273,31 +3276,31 @@ WAFv2 :: {
 												[string]: _
 											} | fn.Fn
 										}) | fn.If
-										PositionalConstraint: string | fn.Fn
+										PositionalConstraint: ("EXACTLY" | "STARTS_WITH" | "ENDS_WITH" | "CONTAINS" | "CONTAINS_WORD") | fn.Fn
 										SearchString?:        string | fn.Fn
 										SearchStringBase64?:  string | fn.Fn
 										TextTransformations:  [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									GeoMatchStatement?: close({
-										CountryCodes?:      [...(string | fn.Fn)] | (string | fn.Fn)
+										CountryCodes?:      [...((strings.MinRunes(1) & strings.MaxRunes(2)) | fn.Fn)] | ((strings.MinRunes(1) & strings.MaxRunes(2)) | fn.Fn)
 										ForwardedIPConfig?: close({
-											FallbackBehavior: string | fn.Fn
+											FallbackBehavior: ("MATCH" | "NO_MATCH") | fn.Fn
 											HeaderName:       string | fn.Fn
 										}) | fn.If
 									}) | fn.If
 									IPSetReferenceStatement?: close({
-										Arn:                     string | fn.Fn
+										Arn:                     (strings.MinRunes(20) & strings.MaxRunes(2048)) | fn.Fn
 										IPSetForwardedIPConfig?: close({
-											FallbackBehavior: string | fn.Fn
+											FallbackBehavior: ("MATCH" | "NO_MATCH") | fn.Fn
 											HeaderName:       string | fn.Fn
-											Position:         string | fn.Fn
+											Position:         ("FIRST" | "LAST" | "ANY") | fn.Fn
 										}) | fn.If
 									}) | fn.If
 									RegexPatternSetReferenceStatement?: close({
-										Arn:          string | fn.Fn
+										Arn:          (strings.MinRunes(20) & strings.MaxRunes(2048)) | fn.Fn
 										FieldToMatch: close({
 											AllQueryArguments?: {
 												[string]: _
@@ -3323,11 +3326,11 @@ WAFv2 :: {
 										}) | fn.If
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									SizeConstraintStatement?: close({
-										ComparisonOperator: string | fn.Fn
+										ComparisonOperator: ("EQ" | "NE" | "LE" | "LT" | "GE" | "GT") | fn.Fn
 										FieldToMatch:       close({
 											AllQueryArguments?: {
 												[string]: _
@@ -3354,7 +3357,7 @@ WAFv2 :: {
 										Size:                int | fn.Fn
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									SqliMatchStatement?: close({
@@ -3383,7 +3386,7 @@ WAFv2 :: {
 										}) | fn.If
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									XssMatchStatement?: close({
@@ -3412,13 +3415,13 @@ WAFv2 :: {
 										}) | fn.If
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 								}) | fn.If
 							}) | fn.If
 							RegexPatternSetReferenceStatement?: close({
-								Arn:          string | fn.Fn
+								Arn:          (strings.MinRunes(20) & strings.MaxRunes(2048)) | fn.Fn
 								FieldToMatch: close({
 									AllQueryArguments?: {
 										[string]: _
@@ -3444,11 +3447,11 @@ WAFv2 :: {
 								}) | fn.If
 								TextTransformations: [...close({
 									Priority: int | fn.Fn
-									Type:     string | fn.Fn
+									Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 								})] | fn.If
 							}) | fn.If
 							SizeConstraintStatement?: close({
-								ComparisonOperator: string | fn.Fn
+								ComparisonOperator: ("EQ" | "NE" | "LE" | "LT" | "GE" | "GT") | fn.Fn
 								FieldToMatch:       close({
 									AllQueryArguments?: {
 										[string]: _
@@ -3475,7 +3478,7 @@ WAFv2 :: {
 								Size:                int | fn.Fn
 								TextTransformations: [...close({
 									Priority: int | fn.Fn
-									Type:     string | fn.Fn
+									Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 								})] | fn.If
 							}) | fn.If
 							SqliMatchStatement?: close({
@@ -3504,7 +3507,7 @@ WAFv2 :: {
 								}) | fn.If
 								TextTransformations: [...close({
 									Priority: int | fn.Fn
-									Type:     string | fn.Fn
+									Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 								})] | fn.If
 							}) | fn.If
 							XssMatchStatement?: close({
@@ -3533,13 +3536,13 @@ WAFv2 :: {
 								}) | fn.If
 								TextTransformations: [...close({
 									Priority: int | fn.Fn
-									Type:     string | fn.Fn
+									Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 								})] | fn.If
 							}) | fn.If
 						}) | fn.If
 					}) | fn.If
 					RegexPatternSetReferenceStatement?: close({
-						Arn:          string | fn.Fn
+						Arn:          (strings.MinRunes(20) & strings.MaxRunes(2048)) | fn.Fn
 						FieldToMatch: close({
 							AllQueryArguments?: {
 								[string]: _
@@ -3565,11 +3568,11 @@ WAFv2 :: {
 						}) | fn.If
 						TextTransformations: [...close({
 							Priority: int | fn.Fn
-							Type:     string | fn.Fn
+							Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 						})] | fn.If
 					}) | fn.If
 					SizeConstraintStatement?: close({
-						ComparisonOperator: string | fn.Fn
+						ComparisonOperator: ("EQ" | "NE" | "LE" | "LT" | "GE" | "GT") | fn.Fn
 						FieldToMatch:       close({
 							AllQueryArguments?: {
 								[string]: _
@@ -3596,7 +3599,7 @@ WAFv2 :: {
 						Size:                int | fn.Fn
 						TextTransformations: [...close({
 							Priority: int | fn.Fn
-							Type:     string | fn.Fn
+							Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 						})] | fn.If
 					}) | fn.If
 					SqliMatchStatement?: close({
@@ -3625,7 +3628,7 @@ WAFv2 :: {
 						}) | fn.If
 						TextTransformations: [...close({
 							Priority: int | fn.Fn
-							Type:     string | fn.Fn
+							Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 						})] | fn.If
 					}) | fn.If
 					XssMatchStatement?: close({
@@ -3654,24 +3657,24 @@ WAFv2 :: {
 						}) | fn.If
 						TextTransformations: [...close({
 							Priority: int | fn.Fn
-							Type:     string | fn.Fn
+							Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 						})] | fn.If
 					}) | fn.If
 				}) | fn.If
 				VisibilityConfig: close({
 					CloudWatchMetricsEnabled: bool | fn.Fn
-					MetricName:               string | fn.Fn
+					MetricName:               (strings.MinRunes(1) & strings.MaxRunes(128)) | fn.Fn
 					SampledRequestsEnabled:   bool | fn.Fn
 				}) | fn.If
 			})] | fn.If
-			Scope: string | fn.Fn
+			Scope: ("CLOUDFRONT" | "REGIONAL") | fn.Fn
 			Tags?: [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			})] | fn.If
 			VisibilityConfig: close({
 				CloudWatchMetricsEnabled: bool | fn.Fn
-				MetricName:               string | fn.Fn
+				MetricName:               (strings.MinRunes(1) & strings.MaxRunes(128)) | fn.Fn
 				SampledRequestsEnabled:   bool | fn.Fn
 			}) | fn.If
 		})
@@ -3692,8 +3695,8 @@ WAFv2 :: {
 					[string]: _
 				} | fn.Fn
 			}) | fn.If
-			Description?: string | fn.Fn
-			Name?:        string | fn.Fn
+			Description?: (=~#"^[a-zA-Z0-9=:#@/\-,.][a-zA-Z0-9+=:#@/\-,.\s]+[a-zA-Z0-9+=:#@/\-,.]{1,256}$"#) | fn.Fn
+			Name?:        (=~#"^[0-9A-Za-z_-]{1,128}$"#) | fn.Fn
 			Rules?:       [...close({
 				Action?: close({
 					Allow?: {
@@ -3706,7 +3709,7 @@ WAFv2 :: {
 						[string]: _
 					} | fn.Fn
 				}) | fn.If
-				Name:            string | fn.Fn
+				Name:            (=~#"^[0-9A-Za-z_-]{1,128}$"#) | fn.Fn
 				OverrideAction?: close({
 					Count?: {
 						[string]: _
@@ -3745,38 +3748,38 @@ WAFv2 :: {
 												[string]: _
 											} | fn.Fn
 										}) | fn.If
-										PositionalConstraint: string | fn.Fn
+										PositionalConstraint: ("EXACTLY" | "STARTS_WITH" | "ENDS_WITH" | "CONTAINS" | "CONTAINS_WORD") | fn.Fn
 										SearchString?:        string | fn.Fn
 										SearchStringBase64?:  string | fn.Fn
 										TextTransformations:  [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									GeoMatchStatement?: close({
-										CountryCodes?:      [...(string | fn.Fn)] | (string | fn.Fn)
+										CountryCodes?:      [...((strings.MinRunes(1) & strings.MaxRunes(2)) | fn.Fn)] | ((strings.MinRunes(1) & strings.MaxRunes(2)) | fn.Fn)
 										ForwardedIPConfig?: close({
-											FallbackBehavior: string | fn.Fn
+											FallbackBehavior: ("MATCH" | "NO_MATCH") | fn.Fn
 											HeaderName:       string | fn.Fn
 										}) | fn.If
 									}) | fn.If
 									IPSetReferenceStatement?: close({
-										Arn:                     string | fn.Fn
+										Arn:                     (strings.MinRunes(20) & strings.MaxRunes(2048)) | fn.Fn
 										IPSetForwardedIPConfig?: close({
-											FallbackBehavior: string | fn.Fn
+											FallbackBehavior: ("MATCH" | "NO_MATCH") | fn.Fn
 											HeaderName:       string | fn.Fn
-											Position:         string | fn.Fn
+											Position:         ("FIRST" | "LAST" | "ANY") | fn.Fn
 										}) | fn.If
 									}) | fn.If
 									ManagedRuleGroupStatement?: close({
 										ExcludedRules?: [...close({
-											Name: string | fn.Fn
+											Name: (=~#"^[0-9A-Za-z_-]{1,128}$"#) | fn.Fn
 										})] | fn.If
-										Name:       string | fn.Fn
+										Name:       (=~#"^[0-9A-Za-z_-]{1,128}$"#) | fn.Fn
 										VendorName: string | fn.Fn
 									}) | fn.If
 									RegexPatternSetReferenceStatement?: close({
-										Arn:          string | fn.Fn
+										Arn:          (strings.MinRunes(20) & strings.MaxRunes(2048)) | fn.Fn
 										FieldToMatch: close({
 											AllQueryArguments?: {
 												[string]: _
@@ -3802,17 +3805,17 @@ WAFv2 :: {
 										}) | fn.If
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									RuleGroupReferenceStatement?: close({
-										Arn:            string | fn.Fn
+										Arn:            (strings.MinRunes(20) & strings.MaxRunes(2048)) | fn.Fn
 										ExcludedRules?: [...close({
-											Name: string | fn.Fn
+											Name: (=~#"^[0-9A-Za-z_-]{1,128}$"#) | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									SizeConstraintStatement?: close({
-										ComparisonOperator: string | fn.Fn
+										ComparisonOperator: ("EQ" | "NE" | "LE" | "LT" | "GE" | "GT") | fn.Fn
 										FieldToMatch:       close({
 											AllQueryArguments?: {
 												[string]: _
@@ -3839,7 +3842,7 @@ WAFv2 :: {
 										Size:                int | fn.Fn
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									SqliMatchStatement?: close({
@@ -3868,7 +3871,7 @@ WAFv2 :: {
 										}) | fn.If
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									XssMatchStatement?: close({
@@ -3897,7 +3900,7 @@ WAFv2 :: {
 										}) | fn.If
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 								})] | fn.If
@@ -3926,34 +3929,34 @@ WAFv2 :: {
 										[string]: _
 									} | fn.Fn
 								}) | fn.If
-								PositionalConstraint: string | fn.Fn
+								PositionalConstraint: ("EXACTLY" | "STARTS_WITH" | "ENDS_WITH" | "CONTAINS" | "CONTAINS_WORD") | fn.Fn
 								SearchString?:        string | fn.Fn
 								SearchStringBase64?:  string | fn.Fn
 								TextTransformations:  [...close({
 									Priority: int | fn.Fn
-									Type:     string | fn.Fn
+									Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 								})] | fn.If
 							}) | fn.If
 							GeoMatchStatement?: close({
-								CountryCodes?:      [...(string | fn.Fn)] | (string | fn.Fn)
+								CountryCodes?:      [...((strings.MinRunes(1) & strings.MaxRunes(2)) | fn.Fn)] | ((strings.MinRunes(1) & strings.MaxRunes(2)) | fn.Fn)
 								ForwardedIPConfig?: close({
-									FallbackBehavior: string | fn.Fn
+									FallbackBehavior: ("MATCH" | "NO_MATCH") | fn.Fn
 									HeaderName:       string | fn.Fn
 								}) | fn.If
 							}) | fn.If
 							IPSetReferenceStatement?: close({
-								Arn:                     string | fn.Fn
+								Arn:                     (strings.MinRunes(20) & strings.MaxRunes(2048)) | fn.Fn
 								IPSetForwardedIPConfig?: close({
-									FallbackBehavior: string | fn.Fn
+									FallbackBehavior: ("MATCH" | "NO_MATCH") | fn.Fn
 									HeaderName:       string | fn.Fn
-									Position:         string | fn.Fn
+									Position:         ("FIRST" | "LAST" | "ANY") | fn.Fn
 								}) | fn.If
 							}) | fn.If
 							ManagedRuleGroupStatement?: close({
 								ExcludedRules?: [...close({
-									Name: string | fn.Fn
+									Name: (=~#"^[0-9A-Za-z_-]{1,128}$"#) | fn.Fn
 								})] | fn.If
-								Name:       string | fn.Fn
+								Name:       (=~#"^[0-9A-Za-z_-]{1,128}$"#) | fn.Fn
 								VendorName: string | fn.Fn
 							}) | fn.If
 							NotStatement?: close({
@@ -3982,38 +3985,38 @@ WAFv2 :: {
 												[string]: _
 											} | fn.Fn
 										}) | fn.If
-										PositionalConstraint: string | fn.Fn
+										PositionalConstraint: ("EXACTLY" | "STARTS_WITH" | "ENDS_WITH" | "CONTAINS" | "CONTAINS_WORD") | fn.Fn
 										SearchString?:        string | fn.Fn
 										SearchStringBase64?:  string | fn.Fn
 										TextTransformations:  [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									GeoMatchStatement?: close({
-										CountryCodes?:      [...(string | fn.Fn)] | (string | fn.Fn)
+										CountryCodes?:      [...((strings.MinRunes(1) & strings.MaxRunes(2)) | fn.Fn)] | ((strings.MinRunes(1) & strings.MaxRunes(2)) | fn.Fn)
 										ForwardedIPConfig?: close({
-											FallbackBehavior: string | fn.Fn
+											FallbackBehavior: ("MATCH" | "NO_MATCH") | fn.Fn
 											HeaderName:       string | fn.Fn
 										}) | fn.If
 									}) | fn.If
 									IPSetReferenceStatement?: close({
-										Arn:                     string | fn.Fn
+										Arn:                     (strings.MinRunes(20) & strings.MaxRunes(2048)) | fn.Fn
 										IPSetForwardedIPConfig?: close({
-											FallbackBehavior: string | fn.Fn
+											FallbackBehavior: ("MATCH" | "NO_MATCH") | fn.Fn
 											HeaderName:       string | fn.Fn
-											Position:         string | fn.Fn
+											Position:         ("FIRST" | "LAST" | "ANY") | fn.Fn
 										}) | fn.If
 									}) | fn.If
 									ManagedRuleGroupStatement?: close({
 										ExcludedRules?: [...close({
-											Name: string | fn.Fn
+											Name: (=~#"^[0-9A-Za-z_-]{1,128}$"#) | fn.Fn
 										})] | fn.If
-										Name:       string | fn.Fn
+										Name:       (=~#"^[0-9A-Za-z_-]{1,128}$"#) | fn.Fn
 										VendorName: string | fn.Fn
 									}) | fn.If
 									RegexPatternSetReferenceStatement?: close({
-										Arn:          string | fn.Fn
+										Arn:          (strings.MinRunes(20) & strings.MaxRunes(2048)) | fn.Fn
 										FieldToMatch: close({
 											AllQueryArguments?: {
 												[string]: _
@@ -4039,17 +4042,17 @@ WAFv2 :: {
 										}) | fn.If
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									RuleGroupReferenceStatement?: close({
-										Arn:            string | fn.Fn
+										Arn:            (strings.MinRunes(20) & strings.MaxRunes(2048)) | fn.Fn
 										ExcludedRules?: [...close({
-											Name: string | fn.Fn
+											Name: (=~#"^[0-9A-Za-z_-]{1,128}$"#) | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									SizeConstraintStatement?: close({
-										ComparisonOperator: string | fn.Fn
+										ComparisonOperator: ("EQ" | "NE" | "LE" | "LT" | "GE" | "GT") | fn.Fn
 										FieldToMatch:       close({
 											AllQueryArguments?: {
 												[string]: _
@@ -4076,7 +4079,7 @@ WAFv2 :: {
 										Size:                int | fn.Fn
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									SqliMatchStatement?: close({
@@ -4105,7 +4108,7 @@ WAFv2 :: {
 										}) | fn.If
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									XssMatchStatement?: close({
@@ -4134,7 +4137,7 @@ WAFv2 :: {
 										}) | fn.If
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 								}) | fn.If
@@ -4165,38 +4168,38 @@ WAFv2 :: {
 												[string]: _
 											} | fn.Fn
 										}) | fn.If
-										PositionalConstraint: string | fn.Fn
+										PositionalConstraint: ("EXACTLY" | "STARTS_WITH" | "ENDS_WITH" | "CONTAINS" | "CONTAINS_WORD") | fn.Fn
 										SearchString?:        string | fn.Fn
 										SearchStringBase64?:  string | fn.Fn
 										TextTransformations:  [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									GeoMatchStatement?: close({
-										CountryCodes?:      [...(string | fn.Fn)] | (string | fn.Fn)
+										CountryCodes?:      [...((strings.MinRunes(1) & strings.MaxRunes(2)) | fn.Fn)] | ((strings.MinRunes(1) & strings.MaxRunes(2)) | fn.Fn)
 										ForwardedIPConfig?: close({
-											FallbackBehavior: string | fn.Fn
+											FallbackBehavior: ("MATCH" | "NO_MATCH") | fn.Fn
 											HeaderName:       string | fn.Fn
 										}) | fn.If
 									}) | fn.If
 									IPSetReferenceStatement?: close({
-										Arn:                     string | fn.Fn
+										Arn:                     (strings.MinRunes(20) & strings.MaxRunes(2048)) | fn.Fn
 										IPSetForwardedIPConfig?: close({
-											FallbackBehavior: string | fn.Fn
+											FallbackBehavior: ("MATCH" | "NO_MATCH") | fn.Fn
 											HeaderName:       string | fn.Fn
-											Position:         string | fn.Fn
+											Position:         ("FIRST" | "LAST" | "ANY") | fn.Fn
 										}) | fn.If
 									}) | fn.If
 									ManagedRuleGroupStatement?: close({
 										ExcludedRules?: [...close({
-											Name: string | fn.Fn
+											Name: (=~#"^[0-9A-Za-z_-]{1,128}$"#) | fn.Fn
 										})] | fn.If
-										Name:       string | fn.Fn
+										Name:       (=~#"^[0-9A-Za-z_-]{1,128}$"#) | fn.Fn
 										VendorName: string | fn.Fn
 									}) | fn.If
 									RegexPatternSetReferenceStatement?: close({
-										Arn:          string | fn.Fn
+										Arn:          (strings.MinRunes(20) & strings.MaxRunes(2048)) | fn.Fn
 										FieldToMatch: close({
 											AllQueryArguments?: {
 												[string]: _
@@ -4222,17 +4225,17 @@ WAFv2 :: {
 										}) | fn.If
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									RuleGroupReferenceStatement?: close({
-										Arn:            string | fn.Fn
+										Arn:            (strings.MinRunes(20) & strings.MaxRunes(2048)) | fn.Fn
 										ExcludedRules?: [...close({
-											Name: string | fn.Fn
+											Name: (=~#"^[0-9A-Za-z_-]{1,128}$"#) | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									SizeConstraintStatement?: close({
-										ComparisonOperator: string | fn.Fn
+										ComparisonOperator: ("EQ" | "NE" | "LE" | "LT" | "GE" | "GT") | fn.Fn
 										FieldToMatch:       close({
 											AllQueryArguments?: {
 												[string]: _
@@ -4259,7 +4262,7 @@ WAFv2 :: {
 										Size:                int | fn.Fn
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									SqliMatchStatement?: close({
@@ -4288,7 +4291,7 @@ WAFv2 :: {
 										}) | fn.If
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									XssMatchStatement?: close({
@@ -4317,18 +4320,18 @@ WAFv2 :: {
 										}) | fn.If
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 								})] | fn.If
 							}) | fn.If
 							RateBasedStatement?: close({
-								AggregateKeyType:   ("FORWARDED_IP" | "IP") | fn.Fn
+								AggregateKeyType:   ("IP" | "FORWARDED_IP") | fn.Fn
 								ForwardedIPConfig?: close({
-									FallbackBehavior: string | fn.Fn
+									FallbackBehavior: ("MATCH" | "NO_MATCH") | fn.Fn
 									HeaderName:       string | fn.Fn
 								}) | fn.If
-								Limit:               (>=100 & <=20000000) | fn.Fn
+								Limit:               (>=100 & <=2000000000) | fn.Fn
 								ScopeDownStatement?: close({
 									ByteMatchStatement?: close({
 										FieldToMatch: close({
@@ -4354,38 +4357,38 @@ WAFv2 :: {
 												[string]: _
 											} | fn.Fn
 										}) | fn.If
-										PositionalConstraint: string | fn.Fn
+										PositionalConstraint: ("EXACTLY" | "STARTS_WITH" | "ENDS_WITH" | "CONTAINS" | "CONTAINS_WORD") | fn.Fn
 										SearchString?:        string | fn.Fn
 										SearchStringBase64?:  string | fn.Fn
 										TextTransformations:  [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									GeoMatchStatement?: close({
-										CountryCodes?:      [...(string | fn.Fn)] | (string | fn.Fn)
+										CountryCodes?:      [...((strings.MinRunes(1) & strings.MaxRunes(2)) | fn.Fn)] | ((strings.MinRunes(1) & strings.MaxRunes(2)) | fn.Fn)
 										ForwardedIPConfig?: close({
-											FallbackBehavior: string | fn.Fn
+											FallbackBehavior: ("MATCH" | "NO_MATCH") | fn.Fn
 											HeaderName:       string | fn.Fn
 										}) | fn.If
 									}) | fn.If
 									IPSetReferenceStatement?: close({
-										Arn:                     string | fn.Fn
+										Arn:                     (strings.MinRunes(20) & strings.MaxRunes(2048)) | fn.Fn
 										IPSetForwardedIPConfig?: close({
-											FallbackBehavior: string | fn.Fn
+											FallbackBehavior: ("MATCH" | "NO_MATCH") | fn.Fn
 											HeaderName:       string | fn.Fn
-											Position:         string | fn.Fn
+											Position:         ("FIRST" | "LAST" | "ANY") | fn.Fn
 										}) | fn.If
 									}) | fn.If
 									ManagedRuleGroupStatement?: close({
 										ExcludedRules?: [...close({
-											Name: string | fn.Fn
+											Name: (=~#"^[0-9A-Za-z_-]{1,128}$"#) | fn.Fn
 										})] | fn.If
-										Name:       string | fn.Fn
+										Name:       (=~#"^[0-9A-Za-z_-]{1,128}$"#) | fn.Fn
 										VendorName: string | fn.Fn
 									}) | fn.If
 									RegexPatternSetReferenceStatement?: close({
-										Arn:          string | fn.Fn
+										Arn:          (strings.MinRunes(20) & strings.MaxRunes(2048)) | fn.Fn
 										FieldToMatch: close({
 											AllQueryArguments?: {
 												[string]: _
@@ -4411,17 +4414,17 @@ WAFv2 :: {
 										}) | fn.If
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									RuleGroupReferenceStatement?: close({
-										Arn:            string | fn.Fn
+										Arn:            (strings.MinRunes(20) & strings.MaxRunes(2048)) | fn.Fn
 										ExcludedRules?: [...close({
-											Name: string | fn.Fn
+											Name: (=~#"^[0-9A-Za-z_-]{1,128}$"#) | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									SizeConstraintStatement?: close({
-										ComparisonOperator: string | fn.Fn
+										ComparisonOperator: ("EQ" | "NE" | "LE" | "LT" | "GE" | "GT") | fn.Fn
 										FieldToMatch:       close({
 											AllQueryArguments?: {
 												[string]: _
@@ -4448,7 +4451,7 @@ WAFv2 :: {
 										Size:                int | fn.Fn
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									SqliMatchStatement?: close({
@@ -4477,7 +4480,7 @@ WAFv2 :: {
 										}) | fn.If
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									XssMatchStatement?: close({
@@ -4506,13 +4509,13 @@ WAFv2 :: {
 										}) | fn.If
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 								}) | fn.If
 							}) | fn.If
 							RegexPatternSetReferenceStatement?: close({
-								Arn:          string | fn.Fn
+								Arn:          (strings.MinRunes(20) & strings.MaxRunes(2048)) | fn.Fn
 								FieldToMatch: close({
 									AllQueryArguments?: {
 										[string]: _
@@ -4538,17 +4541,17 @@ WAFv2 :: {
 								}) | fn.If
 								TextTransformations: [...close({
 									Priority: int | fn.Fn
-									Type:     string | fn.Fn
+									Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 								})] | fn.If
 							}) | fn.If
 							RuleGroupReferenceStatement?: close({
-								Arn:            string | fn.Fn
+								Arn:            (strings.MinRunes(20) & strings.MaxRunes(2048)) | fn.Fn
 								ExcludedRules?: [...close({
-									Name: string | fn.Fn
+									Name: (=~#"^[0-9A-Za-z_-]{1,128}$"#) | fn.Fn
 								})] | fn.If
 							}) | fn.If
 							SizeConstraintStatement?: close({
-								ComparisonOperator: string | fn.Fn
+								ComparisonOperator: ("EQ" | "NE" | "LE" | "LT" | "GE" | "GT") | fn.Fn
 								FieldToMatch:       close({
 									AllQueryArguments?: {
 										[string]: _
@@ -4575,7 +4578,7 @@ WAFv2 :: {
 								Size:                int | fn.Fn
 								TextTransformations: [...close({
 									Priority: int | fn.Fn
-									Type:     string | fn.Fn
+									Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 								})] | fn.If
 							}) | fn.If
 							SqliMatchStatement?: close({
@@ -4604,7 +4607,7 @@ WAFv2 :: {
 								}) | fn.If
 								TextTransformations: [...close({
 									Priority: int | fn.Fn
-									Type:     string | fn.Fn
+									Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 								})] | fn.If
 							}) | fn.If
 							XssMatchStatement?: close({
@@ -4633,7 +4636,7 @@ WAFv2 :: {
 								}) | fn.If
 								TextTransformations: [...close({
 									Priority: int | fn.Fn
-									Type:     string | fn.Fn
+									Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 								})] | fn.If
 							}) | fn.If
 						})] | fn.If
@@ -4662,34 +4665,34 @@ WAFv2 :: {
 								[string]: _
 							} | fn.Fn
 						}) | fn.If
-						PositionalConstraint: string | fn.Fn
+						PositionalConstraint: ("EXACTLY" | "STARTS_WITH" | "ENDS_WITH" | "CONTAINS" | "CONTAINS_WORD") | fn.Fn
 						SearchString?:        string | fn.Fn
 						SearchStringBase64?:  string | fn.Fn
 						TextTransformations:  [...close({
 							Priority: int | fn.Fn
-							Type:     string | fn.Fn
+							Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 						})] | fn.If
 					}) | fn.If
 					GeoMatchStatement?: close({
-						CountryCodes?:      [...(string | fn.Fn)] | (string | fn.Fn)
+						CountryCodes?:      [...((strings.MinRunes(1) & strings.MaxRunes(2)) | fn.Fn)] | ((strings.MinRunes(1) & strings.MaxRunes(2)) | fn.Fn)
 						ForwardedIPConfig?: close({
-							FallbackBehavior: string | fn.Fn
+							FallbackBehavior: ("MATCH" | "NO_MATCH") | fn.Fn
 							HeaderName:       string | fn.Fn
 						}) | fn.If
 					}) | fn.If
 					IPSetReferenceStatement?: close({
-						Arn:                     string | fn.Fn
+						Arn:                     (strings.MinRunes(20) & strings.MaxRunes(2048)) | fn.Fn
 						IPSetForwardedIPConfig?: close({
-							FallbackBehavior: string | fn.Fn
+							FallbackBehavior: ("MATCH" | "NO_MATCH") | fn.Fn
 							HeaderName:       string | fn.Fn
-							Position:         string | fn.Fn
+							Position:         ("FIRST" | "LAST" | "ANY") | fn.Fn
 						}) | fn.If
 					}) | fn.If
 					ManagedRuleGroupStatement?: close({
 						ExcludedRules?: [...close({
-							Name: string | fn.Fn
+							Name: (=~#"^[0-9A-Za-z_-]{1,128}$"#) | fn.Fn
 						})] | fn.If
-						Name:       string | fn.Fn
+						Name:       (=~#"^[0-9A-Za-z_-]{1,128}$"#) | fn.Fn
 						VendorName: string | fn.Fn
 					}) | fn.If
 					NotStatement?: close({
@@ -4720,38 +4723,38 @@ WAFv2 :: {
 												[string]: _
 											} | fn.Fn
 										}) | fn.If
-										PositionalConstraint: string | fn.Fn
+										PositionalConstraint: ("EXACTLY" | "STARTS_WITH" | "ENDS_WITH" | "CONTAINS" | "CONTAINS_WORD") | fn.Fn
 										SearchString?:        string | fn.Fn
 										SearchStringBase64?:  string | fn.Fn
 										TextTransformations:  [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									GeoMatchStatement?: close({
-										CountryCodes?:      [...(string | fn.Fn)] | (string | fn.Fn)
+										CountryCodes?:      [...((strings.MinRunes(1) & strings.MaxRunes(2)) | fn.Fn)] | ((strings.MinRunes(1) & strings.MaxRunes(2)) | fn.Fn)
 										ForwardedIPConfig?: close({
-											FallbackBehavior: string | fn.Fn
+											FallbackBehavior: ("MATCH" | "NO_MATCH") | fn.Fn
 											HeaderName:       string | fn.Fn
 										}) | fn.If
 									}) | fn.If
 									IPSetReferenceStatement?: close({
-										Arn:                     string | fn.Fn
+										Arn:                     (strings.MinRunes(20) & strings.MaxRunes(2048)) | fn.Fn
 										IPSetForwardedIPConfig?: close({
-											FallbackBehavior: string | fn.Fn
+											FallbackBehavior: ("MATCH" | "NO_MATCH") | fn.Fn
 											HeaderName:       string | fn.Fn
-											Position:         string | fn.Fn
+											Position:         ("FIRST" | "LAST" | "ANY") | fn.Fn
 										}) | fn.If
 									}) | fn.If
 									ManagedRuleGroupStatement?: close({
 										ExcludedRules?: [...close({
-											Name: string | fn.Fn
+											Name: (=~#"^[0-9A-Za-z_-]{1,128}$"#) | fn.Fn
 										})] | fn.If
-										Name:       string | fn.Fn
+										Name:       (=~#"^[0-9A-Za-z_-]{1,128}$"#) | fn.Fn
 										VendorName: string | fn.Fn
 									}) | fn.If
 									RegexPatternSetReferenceStatement?: close({
-										Arn:          string | fn.Fn
+										Arn:          (strings.MinRunes(20) & strings.MaxRunes(2048)) | fn.Fn
 										FieldToMatch: close({
 											AllQueryArguments?: {
 												[string]: _
@@ -4777,17 +4780,17 @@ WAFv2 :: {
 										}) | fn.If
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									RuleGroupReferenceStatement?: close({
-										Arn:            string | fn.Fn
+										Arn:            (strings.MinRunes(20) & strings.MaxRunes(2048)) | fn.Fn
 										ExcludedRules?: [...close({
-											Name: string | fn.Fn
+											Name: (=~#"^[0-9A-Za-z_-]{1,128}$"#) | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									SizeConstraintStatement?: close({
-										ComparisonOperator: string | fn.Fn
+										ComparisonOperator: ("EQ" | "NE" | "LE" | "LT" | "GE" | "GT") | fn.Fn
 										FieldToMatch:       close({
 											AllQueryArguments?: {
 												[string]: _
@@ -4814,7 +4817,7 @@ WAFv2 :: {
 										Size:                int | fn.Fn
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									SqliMatchStatement?: close({
@@ -4843,7 +4846,7 @@ WAFv2 :: {
 										}) | fn.If
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									XssMatchStatement?: close({
@@ -4872,7 +4875,7 @@ WAFv2 :: {
 										}) | fn.If
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 								})] | fn.If
@@ -4901,34 +4904,34 @@ WAFv2 :: {
 										[string]: _
 									} | fn.Fn
 								}) | fn.If
-								PositionalConstraint: string | fn.Fn
+								PositionalConstraint: ("EXACTLY" | "STARTS_WITH" | "ENDS_WITH" | "CONTAINS" | "CONTAINS_WORD") | fn.Fn
 								SearchString?:        string | fn.Fn
 								SearchStringBase64?:  string | fn.Fn
 								TextTransformations:  [...close({
 									Priority: int | fn.Fn
-									Type:     string | fn.Fn
+									Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 								})] | fn.If
 							}) | fn.If
 							GeoMatchStatement?: close({
-								CountryCodes?:      [...(string | fn.Fn)] | (string | fn.Fn)
+								CountryCodes?:      [...((strings.MinRunes(1) & strings.MaxRunes(2)) | fn.Fn)] | ((strings.MinRunes(1) & strings.MaxRunes(2)) | fn.Fn)
 								ForwardedIPConfig?: close({
-									FallbackBehavior: string | fn.Fn
+									FallbackBehavior: ("MATCH" | "NO_MATCH") | fn.Fn
 									HeaderName:       string | fn.Fn
 								}) | fn.If
 							}) | fn.If
 							IPSetReferenceStatement?: close({
-								Arn:                     string | fn.Fn
+								Arn:                     (strings.MinRunes(20) & strings.MaxRunes(2048)) | fn.Fn
 								IPSetForwardedIPConfig?: close({
-									FallbackBehavior: string | fn.Fn
+									FallbackBehavior: ("MATCH" | "NO_MATCH") | fn.Fn
 									HeaderName:       string | fn.Fn
-									Position:         string | fn.Fn
+									Position:         ("FIRST" | "LAST" | "ANY") | fn.Fn
 								}) | fn.If
 							}) | fn.If
 							ManagedRuleGroupStatement?: close({
 								ExcludedRules?: [...close({
-									Name: string | fn.Fn
+									Name: (=~#"^[0-9A-Za-z_-]{1,128}$"#) | fn.Fn
 								})] | fn.If
-								Name:       string | fn.Fn
+								Name:       (=~#"^[0-9A-Za-z_-]{1,128}$"#) | fn.Fn
 								VendorName: string | fn.Fn
 							}) | fn.If
 							NotStatement?: close({
@@ -4957,38 +4960,38 @@ WAFv2 :: {
 												[string]: _
 											} | fn.Fn
 										}) | fn.If
-										PositionalConstraint: string | fn.Fn
+										PositionalConstraint: ("EXACTLY" | "STARTS_WITH" | "ENDS_WITH" | "CONTAINS" | "CONTAINS_WORD") | fn.Fn
 										SearchString?:        string | fn.Fn
 										SearchStringBase64?:  string | fn.Fn
 										TextTransformations:  [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									GeoMatchStatement?: close({
-										CountryCodes?:      [...(string | fn.Fn)] | (string | fn.Fn)
+										CountryCodes?:      [...((strings.MinRunes(1) & strings.MaxRunes(2)) | fn.Fn)] | ((strings.MinRunes(1) & strings.MaxRunes(2)) | fn.Fn)
 										ForwardedIPConfig?: close({
-											FallbackBehavior: string | fn.Fn
+											FallbackBehavior: ("MATCH" | "NO_MATCH") | fn.Fn
 											HeaderName:       string | fn.Fn
 										}) | fn.If
 									}) | fn.If
 									IPSetReferenceStatement?: close({
-										Arn:                     string | fn.Fn
+										Arn:                     (strings.MinRunes(20) & strings.MaxRunes(2048)) | fn.Fn
 										IPSetForwardedIPConfig?: close({
-											FallbackBehavior: string | fn.Fn
+											FallbackBehavior: ("MATCH" | "NO_MATCH") | fn.Fn
 											HeaderName:       string | fn.Fn
-											Position:         string | fn.Fn
+											Position:         ("FIRST" | "LAST" | "ANY") | fn.Fn
 										}) | fn.If
 									}) | fn.If
 									ManagedRuleGroupStatement?: close({
 										ExcludedRules?: [...close({
-											Name: string | fn.Fn
+											Name: (=~#"^[0-9A-Za-z_-]{1,128}$"#) | fn.Fn
 										})] | fn.If
-										Name:       string | fn.Fn
+										Name:       (=~#"^[0-9A-Za-z_-]{1,128}$"#) | fn.Fn
 										VendorName: string | fn.Fn
 									}) | fn.If
 									RegexPatternSetReferenceStatement?: close({
-										Arn:          string | fn.Fn
+										Arn:          (strings.MinRunes(20) & strings.MaxRunes(2048)) | fn.Fn
 										FieldToMatch: close({
 											AllQueryArguments?: {
 												[string]: _
@@ -5014,17 +5017,17 @@ WAFv2 :: {
 										}) | fn.If
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									RuleGroupReferenceStatement?: close({
-										Arn:            string | fn.Fn
+										Arn:            (strings.MinRunes(20) & strings.MaxRunes(2048)) | fn.Fn
 										ExcludedRules?: [...close({
-											Name: string | fn.Fn
+											Name: (=~#"^[0-9A-Za-z_-]{1,128}$"#) | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									SizeConstraintStatement?: close({
-										ComparisonOperator: string | fn.Fn
+										ComparisonOperator: ("EQ" | "NE" | "LE" | "LT" | "GE" | "GT") | fn.Fn
 										FieldToMatch:       close({
 											AllQueryArguments?: {
 												[string]: _
@@ -5051,7 +5054,7 @@ WAFv2 :: {
 										Size:                int | fn.Fn
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									SqliMatchStatement?: close({
@@ -5080,7 +5083,7 @@ WAFv2 :: {
 										}) | fn.If
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									XssMatchStatement?: close({
@@ -5109,7 +5112,7 @@ WAFv2 :: {
 										}) | fn.If
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 								}) | fn.If
@@ -5140,38 +5143,38 @@ WAFv2 :: {
 												[string]: _
 											} | fn.Fn
 										}) | fn.If
-										PositionalConstraint: string | fn.Fn
+										PositionalConstraint: ("EXACTLY" | "STARTS_WITH" | "ENDS_WITH" | "CONTAINS" | "CONTAINS_WORD") | fn.Fn
 										SearchString?:        string | fn.Fn
 										SearchStringBase64?:  string | fn.Fn
 										TextTransformations:  [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									GeoMatchStatement?: close({
-										CountryCodes?:      [...(string | fn.Fn)] | (string | fn.Fn)
+										CountryCodes?:      [...((strings.MinRunes(1) & strings.MaxRunes(2)) | fn.Fn)] | ((strings.MinRunes(1) & strings.MaxRunes(2)) | fn.Fn)
 										ForwardedIPConfig?: close({
-											FallbackBehavior: string | fn.Fn
+											FallbackBehavior: ("MATCH" | "NO_MATCH") | fn.Fn
 											HeaderName:       string | fn.Fn
 										}) | fn.If
 									}) | fn.If
 									IPSetReferenceStatement?: close({
-										Arn:                     string | fn.Fn
+										Arn:                     (strings.MinRunes(20) & strings.MaxRunes(2048)) | fn.Fn
 										IPSetForwardedIPConfig?: close({
-											FallbackBehavior: string | fn.Fn
+											FallbackBehavior: ("MATCH" | "NO_MATCH") | fn.Fn
 											HeaderName:       string | fn.Fn
-											Position:         string | fn.Fn
+											Position:         ("FIRST" | "LAST" | "ANY") | fn.Fn
 										}) | fn.If
 									}) | fn.If
 									ManagedRuleGroupStatement?: close({
 										ExcludedRules?: [...close({
-											Name: string | fn.Fn
+											Name: (=~#"^[0-9A-Za-z_-]{1,128}$"#) | fn.Fn
 										})] | fn.If
-										Name:       string | fn.Fn
+										Name:       (=~#"^[0-9A-Za-z_-]{1,128}$"#) | fn.Fn
 										VendorName: string | fn.Fn
 									}) | fn.If
 									RegexPatternSetReferenceStatement?: close({
-										Arn:          string | fn.Fn
+										Arn:          (strings.MinRunes(20) & strings.MaxRunes(2048)) | fn.Fn
 										FieldToMatch: close({
 											AllQueryArguments?: {
 												[string]: _
@@ -5197,17 +5200,17 @@ WAFv2 :: {
 										}) | fn.If
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									RuleGroupReferenceStatement?: close({
-										Arn:            string | fn.Fn
+										Arn:            (strings.MinRunes(20) & strings.MaxRunes(2048)) | fn.Fn
 										ExcludedRules?: [...close({
-											Name: string | fn.Fn
+											Name: (=~#"^[0-9A-Za-z_-]{1,128}$"#) | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									SizeConstraintStatement?: close({
-										ComparisonOperator: string | fn.Fn
+										ComparisonOperator: ("EQ" | "NE" | "LE" | "LT" | "GE" | "GT") | fn.Fn
 										FieldToMatch:       close({
 											AllQueryArguments?: {
 												[string]: _
@@ -5234,7 +5237,7 @@ WAFv2 :: {
 										Size:                int | fn.Fn
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									SqliMatchStatement?: close({
@@ -5263,7 +5266,7 @@ WAFv2 :: {
 										}) | fn.If
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									XssMatchStatement?: close({
@@ -5292,18 +5295,18 @@ WAFv2 :: {
 										}) | fn.If
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 								})] | fn.If
 							}) | fn.If
 							RateBasedStatement?: close({
-								AggregateKeyType:   ("FORWARDED_IP" | "IP") | fn.Fn
+								AggregateKeyType:   ("IP" | "FORWARDED_IP") | fn.Fn
 								ForwardedIPConfig?: close({
-									FallbackBehavior: string | fn.Fn
+									FallbackBehavior: ("MATCH" | "NO_MATCH") | fn.Fn
 									HeaderName:       string | fn.Fn
 								}) | fn.If
-								Limit:               (>=100 & <=20000000) | fn.Fn
+								Limit:               (>=100 & <=2000000000) | fn.Fn
 								ScopeDownStatement?: close({
 									ByteMatchStatement?: close({
 										FieldToMatch: close({
@@ -5329,38 +5332,38 @@ WAFv2 :: {
 												[string]: _
 											} | fn.Fn
 										}) | fn.If
-										PositionalConstraint: string | fn.Fn
+										PositionalConstraint: ("EXACTLY" | "STARTS_WITH" | "ENDS_WITH" | "CONTAINS" | "CONTAINS_WORD") | fn.Fn
 										SearchString?:        string | fn.Fn
 										SearchStringBase64?:  string | fn.Fn
 										TextTransformations:  [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									GeoMatchStatement?: close({
-										CountryCodes?:      [...(string | fn.Fn)] | (string | fn.Fn)
+										CountryCodes?:      [...((strings.MinRunes(1) & strings.MaxRunes(2)) | fn.Fn)] | ((strings.MinRunes(1) & strings.MaxRunes(2)) | fn.Fn)
 										ForwardedIPConfig?: close({
-											FallbackBehavior: string | fn.Fn
+											FallbackBehavior: ("MATCH" | "NO_MATCH") | fn.Fn
 											HeaderName:       string | fn.Fn
 										}) | fn.If
 									}) | fn.If
 									IPSetReferenceStatement?: close({
-										Arn:                     string | fn.Fn
+										Arn:                     (strings.MinRunes(20) & strings.MaxRunes(2048)) | fn.Fn
 										IPSetForwardedIPConfig?: close({
-											FallbackBehavior: string | fn.Fn
+											FallbackBehavior: ("MATCH" | "NO_MATCH") | fn.Fn
 											HeaderName:       string | fn.Fn
-											Position:         string | fn.Fn
+											Position:         ("FIRST" | "LAST" | "ANY") | fn.Fn
 										}) | fn.If
 									}) | fn.If
 									ManagedRuleGroupStatement?: close({
 										ExcludedRules?: [...close({
-											Name: string | fn.Fn
+											Name: (=~#"^[0-9A-Za-z_-]{1,128}$"#) | fn.Fn
 										})] | fn.If
-										Name:       string | fn.Fn
+										Name:       (=~#"^[0-9A-Za-z_-]{1,128}$"#) | fn.Fn
 										VendorName: string | fn.Fn
 									}) | fn.If
 									RegexPatternSetReferenceStatement?: close({
-										Arn:          string | fn.Fn
+										Arn:          (strings.MinRunes(20) & strings.MaxRunes(2048)) | fn.Fn
 										FieldToMatch: close({
 											AllQueryArguments?: {
 												[string]: _
@@ -5386,17 +5389,17 @@ WAFv2 :: {
 										}) | fn.If
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									RuleGroupReferenceStatement?: close({
-										Arn:            string | fn.Fn
+										Arn:            (strings.MinRunes(20) & strings.MaxRunes(2048)) | fn.Fn
 										ExcludedRules?: [...close({
-											Name: string | fn.Fn
+											Name: (=~#"^[0-9A-Za-z_-]{1,128}$"#) | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									SizeConstraintStatement?: close({
-										ComparisonOperator: string | fn.Fn
+										ComparisonOperator: ("EQ" | "NE" | "LE" | "LT" | "GE" | "GT") | fn.Fn
 										FieldToMatch:       close({
 											AllQueryArguments?: {
 												[string]: _
@@ -5423,7 +5426,7 @@ WAFv2 :: {
 										Size:                int | fn.Fn
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									SqliMatchStatement?: close({
@@ -5452,7 +5455,7 @@ WAFv2 :: {
 										}) | fn.If
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									XssMatchStatement?: close({
@@ -5481,13 +5484,13 @@ WAFv2 :: {
 										}) | fn.If
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 								}) | fn.If
 							}) | fn.If
 							RegexPatternSetReferenceStatement?: close({
-								Arn:          string | fn.Fn
+								Arn:          (strings.MinRunes(20) & strings.MaxRunes(2048)) | fn.Fn
 								FieldToMatch: close({
 									AllQueryArguments?: {
 										[string]: _
@@ -5513,17 +5516,17 @@ WAFv2 :: {
 								}) | fn.If
 								TextTransformations: [...close({
 									Priority: int | fn.Fn
-									Type:     string | fn.Fn
+									Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 								})] | fn.If
 							}) | fn.If
 							RuleGroupReferenceStatement?: close({
-								Arn:            string | fn.Fn
+								Arn:            (strings.MinRunes(20) & strings.MaxRunes(2048)) | fn.Fn
 								ExcludedRules?: [...close({
-									Name: string | fn.Fn
+									Name: (=~#"^[0-9A-Za-z_-]{1,128}$"#) | fn.Fn
 								})] | fn.If
 							}) | fn.If
 							SizeConstraintStatement?: close({
-								ComparisonOperator: string | fn.Fn
+								ComparisonOperator: ("EQ" | "NE" | "LE" | "LT" | "GE" | "GT") | fn.Fn
 								FieldToMatch:       close({
 									AllQueryArguments?: {
 										[string]: _
@@ -5550,7 +5553,7 @@ WAFv2 :: {
 								Size:                int | fn.Fn
 								TextTransformations: [...close({
 									Priority: int | fn.Fn
-									Type:     string | fn.Fn
+									Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 								})] | fn.If
 							}) | fn.If
 							SqliMatchStatement?: close({
@@ -5579,7 +5582,7 @@ WAFv2 :: {
 								}) | fn.If
 								TextTransformations: [...close({
 									Priority: int | fn.Fn
-									Type:     string | fn.Fn
+									Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 								})] | fn.If
 							}) | fn.If
 							XssMatchStatement?: close({
@@ -5608,7 +5611,7 @@ WAFv2 :: {
 								}) | fn.If
 								TextTransformations: [...close({
 									Priority: int | fn.Fn
-									Type:     string | fn.Fn
+									Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 								})] | fn.If
 							}) | fn.If
 						}) | fn.If
@@ -5641,38 +5644,38 @@ WAFv2 :: {
 												[string]: _
 											} | fn.Fn
 										}) | fn.If
-										PositionalConstraint: string | fn.Fn
+										PositionalConstraint: ("EXACTLY" | "STARTS_WITH" | "ENDS_WITH" | "CONTAINS" | "CONTAINS_WORD") | fn.Fn
 										SearchString?:        string | fn.Fn
 										SearchStringBase64?:  string | fn.Fn
 										TextTransformations:  [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									GeoMatchStatement?: close({
-										CountryCodes?:      [...(string | fn.Fn)] | (string | fn.Fn)
+										CountryCodes?:      [...((strings.MinRunes(1) & strings.MaxRunes(2)) | fn.Fn)] | ((strings.MinRunes(1) & strings.MaxRunes(2)) | fn.Fn)
 										ForwardedIPConfig?: close({
-											FallbackBehavior: string | fn.Fn
+											FallbackBehavior: ("MATCH" | "NO_MATCH") | fn.Fn
 											HeaderName:       string | fn.Fn
 										}) | fn.If
 									}) | fn.If
 									IPSetReferenceStatement?: close({
-										Arn:                     string | fn.Fn
+										Arn:                     (strings.MinRunes(20) & strings.MaxRunes(2048)) | fn.Fn
 										IPSetForwardedIPConfig?: close({
-											FallbackBehavior: string | fn.Fn
+											FallbackBehavior: ("MATCH" | "NO_MATCH") | fn.Fn
 											HeaderName:       string | fn.Fn
-											Position:         string | fn.Fn
+											Position:         ("FIRST" | "LAST" | "ANY") | fn.Fn
 										}) | fn.If
 									}) | fn.If
 									ManagedRuleGroupStatement?: close({
 										ExcludedRules?: [...close({
-											Name: string | fn.Fn
+											Name: (=~#"^[0-9A-Za-z_-]{1,128}$"#) | fn.Fn
 										})] | fn.If
-										Name:       string | fn.Fn
+										Name:       (=~#"^[0-9A-Za-z_-]{1,128}$"#) | fn.Fn
 										VendorName: string | fn.Fn
 									}) | fn.If
 									RegexPatternSetReferenceStatement?: close({
-										Arn:          string | fn.Fn
+										Arn:          (strings.MinRunes(20) & strings.MaxRunes(2048)) | fn.Fn
 										FieldToMatch: close({
 											AllQueryArguments?: {
 												[string]: _
@@ -5698,17 +5701,17 @@ WAFv2 :: {
 										}) | fn.If
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									RuleGroupReferenceStatement?: close({
-										Arn:            string | fn.Fn
+										Arn:            (strings.MinRunes(20) & strings.MaxRunes(2048)) | fn.Fn
 										ExcludedRules?: [...close({
-											Name: string | fn.Fn
+											Name: (=~#"^[0-9A-Za-z_-]{1,128}$"#) | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									SizeConstraintStatement?: close({
-										ComparisonOperator: string | fn.Fn
+										ComparisonOperator: ("EQ" | "NE" | "LE" | "LT" | "GE" | "GT") | fn.Fn
 										FieldToMatch:       close({
 											AllQueryArguments?: {
 												[string]: _
@@ -5735,7 +5738,7 @@ WAFv2 :: {
 										Size:                int | fn.Fn
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									SqliMatchStatement?: close({
@@ -5764,7 +5767,7 @@ WAFv2 :: {
 										}) | fn.If
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									XssMatchStatement?: close({
@@ -5793,7 +5796,7 @@ WAFv2 :: {
 										}) | fn.If
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 								})] | fn.If
@@ -5822,34 +5825,34 @@ WAFv2 :: {
 										[string]: _
 									} | fn.Fn
 								}) | fn.If
-								PositionalConstraint: string | fn.Fn
+								PositionalConstraint: ("EXACTLY" | "STARTS_WITH" | "ENDS_WITH" | "CONTAINS" | "CONTAINS_WORD") | fn.Fn
 								SearchString?:        string | fn.Fn
 								SearchStringBase64?:  string | fn.Fn
 								TextTransformations:  [...close({
 									Priority: int | fn.Fn
-									Type:     string | fn.Fn
+									Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 								})] | fn.If
 							}) | fn.If
 							GeoMatchStatement?: close({
-								CountryCodes?:      [...(string | fn.Fn)] | (string | fn.Fn)
+								CountryCodes?:      [...((strings.MinRunes(1) & strings.MaxRunes(2)) | fn.Fn)] | ((strings.MinRunes(1) & strings.MaxRunes(2)) | fn.Fn)
 								ForwardedIPConfig?: close({
-									FallbackBehavior: string | fn.Fn
+									FallbackBehavior: ("MATCH" | "NO_MATCH") | fn.Fn
 									HeaderName:       string | fn.Fn
 								}) | fn.If
 							}) | fn.If
 							IPSetReferenceStatement?: close({
-								Arn:                     string | fn.Fn
+								Arn:                     (strings.MinRunes(20) & strings.MaxRunes(2048)) | fn.Fn
 								IPSetForwardedIPConfig?: close({
-									FallbackBehavior: string | fn.Fn
+									FallbackBehavior: ("MATCH" | "NO_MATCH") | fn.Fn
 									HeaderName:       string | fn.Fn
-									Position:         string | fn.Fn
+									Position:         ("FIRST" | "LAST" | "ANY") | fn.Fn
 								}) | fn.If
 							}) | fn.If
 							ManagedRuleGroupStatement?: close({
 								ExcludedRules?: [...close({
-									Name: string | fn.Fn
+									Name: (=~#"^[0-9A-Za-z_-]{1,128}$"#) | fn.Fn
 								})] | fn.If
-								Name:       string | fn.Fn
+								Name:       (=~#"^[0-9A-Za-z_-]{1,128}$"#) | fn.Fn
 								VendorName: string | fn.Fn
 							}) | fn.If
 							NotStatement?: close({
@@ -5878,38 +5881,38 @@ WAFv2 :: {
 												[string]: _
 											} | fn.Fn
 										}) | fn.If
-										PositionalConstraint: string | fn.Fn
+										PositionalConstraint: ("EXACTLY" | "STARTS_WITH" | "ENDS_WITH" | "CONTAINS" | "CONTAINS_WORD") | fn.Fn
 										SearchString?:        string | fn.Fn
 										SearchStringBase64?:  string | fn.Fn
 										TextTransformations:  [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									GeoMatchStatement?: close({
-										CountryCodes?:      [...(string | fn.Fn)] | (string | fn.Fn)
+										CountryCodes?:      [...((strings.MinRunes(1) & strings.MaxRunes(2)) | fn.Fn)] | ((strings.MinRunes(1) & strings.MaxRunes(2)) | fn.Fn)
 										ForwardedIPConfig?: close({
-											FallbackBehavior: string | fn.Fn
+											FallbackBehavior: ("MATCH" | "NO_MATCH") | fn.Fn
 											HeaderName:       string | fn.Fn
 										}) | fn.If
 									}) | fn.If
 									IPSetReferenceStatement?: close({
-										Arn:                     string | fn.Fn
+										Arn:                     (strings.MinRunes(20) & strings.MaxRunes(2048)) | fn.Fn
 										IPSetForwardedIPConfig?: close({
-											FallbackBehavior: string | fn.Fn
+											FallbackBehavior: ("MATCH" | "NO_MATCH") | fn.Fn
 											HeaderName:       string | fn.Fn
-											Position:         string | fn.Fn
+											Position:         ("FIRST" | "LAST" | "ANY") | fn.Fn
 										}) | fn.If
 									}) | fn.If
 									ManagedRuleGroupStatement?: close({
 										ExcludedRules?: [...close({
-											Name: string | fn.Fn
+											Name: (=~#"^[0-9A-Za-z_-]{1,128}$"#) | fn.Fn
 										})] | fn.If
-										Name:       string | fn.Fn
+										Name:       (=~#"^[0-9A-Za-z_-]{1,128}$"#) | fn.Fn
 										VendorName: string | fn.Fn
 									}) | fn.If
 									RegexPatternSetReferenceStatement?: close({
-										Arn:          string | fn.Fn
+										Arn:          (strings.MinRunes(20) & strings.MaxRunes(2048)) | fn.Fn
 										FieldToMatch: close({
 											AllQueryArguments?: {
 												[string]: _
@@ -5935,17 +5938,17 @@ WAFv2 :: {
 										}) | fn.If
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									RuleGroupReferenceStatement?: close({
-										Arn:            string | fn.Fn
+										Arn:            (strings.MinRunes(20) & strings.MaxRunes(2048)) | fn.Fn
 										ExcludedRules?: [...close({
-											Name: string | fn.Fn
+											Name: (=~#"^[0-9A-Za-z_-]{1,128}$"#) | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									SizeConstraintStatement?: close({
-										ComparisonOperator: string | fn.Fn
+										ComparisonOperator: ("EQ" | "NE" | "LE" | "LT" | "GE" | "GT") | fn.Fn
 										FieldToMatch:       close({
 											AllQueryArguments?: {
 												[string]: _
@@ -5972,7 +5975,7 @@ WAFv2 :: {
 										Size:                int | fn.Fn
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									SqliMatchStatement?: close({
@@ -6001,7 +6004,7 @@ WAFv2 :: {
 										}) | fn.If
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									XssMatchStatement?: close({
@@ -6030,7 +6033,7 @@ WAFv2 :: {
 										}) | fn.If
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 								}) | fn.If
@@ -6061,38 +6064,38 @@ WAFv2 :: {
 												[string]: _
 											} | fn.Fn
 										}) | fn.If
-										PositionalConstraint: string | fn.Fn
+										PositionalConstraint: ("EXACTLY" | "STARTS_WITH" | "ENDS_WITH" | "CONTAINS" | "CONTAINS_WORD") | fn.Fn
 										SearchString?:        string | fn.Fn
 										SearchStringBase64?:  string | fn.Fn
 										TextTransformations:  [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									GeoMatchStatement?: close({
-										CountryCodes?:      [...(string | fn.Fn)] | (string | fn.Fn)
+										CountryCodes?:      [...((strings.MinRunes(1) & strings.MaxRunes(2)) | fn.Fn)] | ((strings.MinRunes(1) & strings.MaxRunes(2)) | fn.Fn)
 										ForwardedIPConfig?: close({
-											FallbackBehavior: string | fn.Fn
+											FallbackBehavior: ("MATCH" | "NO_MATCH") | fn.Fn
 											HeaderName:       string | fn.Fn
 										}) | fn.If
 									}) | fn.If
 									IPSetReferenceStatement?: close({
-										Arn:                     string | fn.Fn
+										Arn:                     (strings.MinRunes(20) & strings.MaxRunes(2048)) | fn.Fn
 										IPSetForwardedIPConfig?: close({
-											FallbackBehavior: string | fn.Fn
+											FallbackBehavior: ("MATCH" | "NO_MATCH") | fn.Fn
 											HeaderName:       string | fn.Fn
-											Position:         string | fn.Fn
+											Position:         ("FIRST" | "LAST" | "ANY") | fn.Fn
 										}) | fn.If
 									}) | fn.If
 									ManagedRuleGroupStatement?: close({
 										ExcludedRules?: [...close({
-											Name: string | fn.Fn
+											Name: (=~#"^[0-9A-Za-z_-]{1,128}$"#) | fn.Fn
 										})] | fn.If
-										Name:       string | fn.Fn
+										Name:       (=~#"^[0-9A-Za-z_-]{1,128}$"#) | fn.Fn
 										VendorName: string | fn.Fn
 									}) | fn.If
 									RegexPatternSetReferenceStatement?: close({
-										Arn:          string | fn.Fn
+										Arn:          (strings.MinRunes(20) & strings.MaxRunes(2048)) | fn.Fn
 										FieldToMatch: close({
 											AllQueryArguments?: {
 												[string]: _
@@ -6118,17 +6121,17 @@ WAFv2 :: {
 										}) | fn.If
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									RuleGroupReferenceStatement?: close({
-										Arn:            string | fn.Fn
+										Arn:            (strings.MinRunes(20) & strings.MaxRunes(2048)) | fn.Fn
 										ExcludedRules?: [...close({
-											Name: string | fn.Fn
+											Name: (=~#"^[0-9A-Za-z_-]{1,128}$"#) | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									SizeConstraintStatement?: close({
-										ComparisonOperator: string | fn.Fn
+										ComparisonOperator: ("EQ" | "NE" | "LE" | "LT" | "GE" | "GT") | fn.Fn
 										FieldToMatch:       close({
 											AllQueryArguments?: {
 												[string]: _
@@ -6155,7 +6158,7 @@ WAFv2 :: {
 										Size:                int | fn.Fn
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									SqliMatchStatement?: close({
@@ -6184,7 +6187,7 @@ WAFv2 :: {
 										}) | fn.If
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									XssMatchStatement?: close({
@@ -6213,18 +6216,18 @@ WAFv2 :: {
 										}) | fn.If
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 								})] | fn.If
 							}) | fn.If
 							RateBasedStatement?: close({
-								AggregateKeyType:   ("FORWARDED_IP" | "IP") | fn.Fn
+								AggregateKeyType:   ("IP" | "FORWARDED_IP") | fn.Fn
 								ForwardedIPConfig?: close({
-									FallbackBehavior: string | fn.Fn
+									FallbackBehavior: ("MATCH" | "NO_MATCH") | fn.Fn
 									HeaderName:       string | fn.Fn
 								}) | fn.If
-								Limit:               (>=100 & <=20000000) | fn.Fn
+								Limit:               (>=100 & <=2000000000) | fn.Fn
 								ScopeDownStatement?: close({
 									ByteMatchStatement?: close({
 										FieldToMatch: close({
@@ -6250,38 +6253,38 @@ WAFv2 :: {
 												[string]: _
 											} | fn.Fn
 										}) | fn.If
-										PositionalConstraint: string | fn.Fn
+										PositionalConstraint: ("EXACTLY" | "STARTS_WITH" | "ENDS_WITH" | "CONTAINS" | "CONTAINS_WORD") | fn.Fn
 										SearchString?:        string | fn.Fn
 										SearchStringBase64?:  string | fn.Fn
 										TextTransformations:  [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									GeoMatchStatement?: close({
-										CountryCodes?:      [...(string | fn.Fn)] | (string | fn.Fn)
+										CountryCodes?:      [...((strings.MinRunes(1) & strings.MaxRunes(2)) | fn.Fn)] | ((strings.MinRunes(1) & strings.MaxRunes(2)) | fn.Fn)
 										ForwardedIPConfig?: close({
-											FallbackBehavior: string | fn.Fn
+											FallbackBehavior: ("MATCH" | "NO_MATCH") | fn.Fn
 											HeaderName:       string | fn.Fn
 										}) | fn.If
 									}) | fn.If
 									IPSetReferenceStatement?: close({
-										Arn:                     string | fn.Fn
+										Arn:                     (strings.MinRunes(20) & strings.MaxRunes(2048)) | fn.Fn
 										IPSetForwardedIPConfig?: close({
-											FallbackBehavior: string | fn.Fn
+											FallbackBehavior: ("MATCH" | "NO_MATCH") | fn.Fn
 											HeaderName:       string | fn.Fn
-											Position:         string | fn.Fn
+											Position:         ("FIRST" | "LAST" | "ANY") | fn.Fn
 										}) | fn.If
 									}) | fn.If
 									ManagedRuleGroupStatement?: close({
 										ExcludedRules?: [...close({
-											Name: string | fn.Fn
+											Name: (=~#"^[0-9A-Za-z_-]{1,128}$"#) | fn.Fn
 										})] | fn.If
-										Name:       string | fn.Fn
+										Name:       (=~#"^[0-9A-Za-z_-]{1,128}$"#) | fn.Fn
 										VendorName: string | fn.Fn
 									}) | fn.If
 									RegexPatternSetReferenceStatement?: close({
-										Arn:          string | fn.Fn
+										Arn:          (strings.MinRunes(20) & strings.MaxRunes(2048)) | fn.Fn
 										FieldToMatch: close({
 											AllQueryArguments?: {
 												[string]: _
@@ -6307,17 +6310,17 @@ WAFv2 :: {
 										}) | fn.If
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									RuleGroupReferenceStatement?: close({
-										Arn:            string | fn.Fn
+										Arn:            (strings.MinRunes(20) & strings.MaxRunes(2048)) | fn.Fn
 										ExcludedRules?: [...close({
-											Name: string | fn.Fn
+											Name: (=~#"^[0-9A-Za-z_-]{1,128}$"#) | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									SizeConstraintStatement?: close({
-										ComparisonOperator: string | fn.Fn
+										ComparisonOperator: ("EQ" | "NE" | "LE" | "LT" | "GE" | "GT") | fn.Fn
 										FieldToMatch:       close({
 											AllQueryArguments?: {
 												[string]: _
@@ -6344,7 +6347,7 @@ WAFv2 :: {
 										Size:                int | fn.Fn
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									SqliMatchStatement?: close({
@@ -6373,7 +6376,7 @@ WAFv2 :: {
 										}) | fn.If
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									XssMatchStatement?: close({
@@ -6402,13 +6405,13 @@ WAFv2 :: {
 										}) | fn.If
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 								}) | fn.If
 							}) | fn.If
 							RegexPatternSetReferenceStatement?: close({
-								Arn:          string | fn.Fn
+								Arn:          (strings.MinRunes(20) & strings.MaxRunes(2048)) | fn.Fn
 								FieldToMatch: close({
 									AllQueryArguments?: {
 										[string]: _
@@ -6434,17 +6437,17 @@ WAFv2 :: {
 								}) | fn.If
 								TextTransformations: [...close({
 									Priority: int | fn.Fn
-									Type:     string | fn.Fn
+									Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 								})] | fn.If
 							}) | fn.If
 							RuleGroupReferenceStatement?: close({
-								Arn:            string | fn.Fn
+								Arn:            (strings.MinRunes(20) & strings.MaxRunes(2048)) | fn.Fn
 								ExcludedRules?: [...close({
-									Name: string | fn.Fn
+									Name: (=~#"^[0-9A-Za-z_-]{1,128}$"#) | fn.Fn
 								})] | fn.If
 							}) | fn.If
 							SizeConstraintStatement?: close({
-								ComparisonOperator: string | fn.Fn
+								ComparisonOperator: ("EQ" | "NE" | "LE" | "LT" | "GE" | "GT") | fn.Fn
 								FieldToMatch:       close({
 									AllQueryArguments?: {
 										[string]: _
@@ -6471,7 +6474,7 @@ WAFv2 :: {
 								Size:                int | fn.Fn
 								TextTransformations: [...close({
 									Priority: int | fn.Fn
-									Type:     string | fn.Fn
+									Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 								})] | fn.If
 							}) | fn.If
 							SqliMatchStatement?: close({
@@ -6500,7 +6503,7 @@ WAFv2 :: {
 								}) | fn.If
 								TextTransformations: [...close({
 									Priority: int | fn.Fn
-									Type:     string | fn.Fn
+									Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 								})] | fn.If
 							}) | fn.If
 							XssMatchStatement?: close({
@@ -6529,18 +6532,18 @@ WAFv2 :: {
 								}) | fn.If
 								TextTransformations: [...close({
 									Priority: int | fn.Fn
-									Type:     string | fn.Fn
+									Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 								})] | fn.If
 							}) | fn.If
 						})] | fn.If
 					}) | fn.If
 					RateBasedStatement?: close({
-						AggregateKeyType:   ("FORWARDED_IP" | "IP") | fn.Fn
+						AggregateKeyType:   ("IP" | "FORWARDED_IP") | fn.Fn
 						ForwardedIPConfig?: close({
-							FallbackBehavior: string | fn.Fn
+							FallbackBehavior: ("MATCH" | "NO_MATCH") | fn.Fn
 							HeaderName:       string | fn.Fn
 						}) | fn.If
-						Limit:               (>=100 & <=20000000) | fn.Fn
+						Limit:               (>=100 & <=2000000000) | fn.Fn
 						ScopeDownStatement?: close({
 							AndStatement?: close({
 								Statements: [...close({
@@ -6568,38 +6571,38 @@ WAFv2 :: {
 												[string]: _
 											} | fn.Fn
 										}) | fn.If
-										PositionalConstraint: string | fn.Fn
+										PositionalConstraint: ("EXACTLY" | "STARTS_WITH" | "ENDS_WITH" | "CONTAINS" | "CONTAINS_WORD") | fn.Fn
 										SearchString?:        string | fn.Fn
 										SearchStringBase64?:  string | fn.Fn
 										TextTransformations:  [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									GeoMatchStatement?: close({
-										CountryCodes?:      [...(string | fn.Fn)] | (string | fn.Fn)
+										CountryCodes?:      [...((strings.MinRunes(1) & strings.MaxRunes(2)) | fn.Fn)] | ((strings.MinRunes(1) & strings.MaxRunes(2)) | fn.Fn)
 										ForwardedIPConfig?: close({
-											FallbackBehavior: string | fn.Fn
+											FallbackBehavior: ("MATCH" | "NO_MATCH") | fn.Fn
 											HeaderName:       string | fn.Fn
 										}) | fn.If
 									}) | fn.If
 									IPSetReferenceStatement?: close({
-										Arn:                     string | fn.Fn
+										Arn:                     (strings.MinRunes(20) & strings.MaxRunes(2048)) | fn.Fn
 										IPSetForwardedIPConfig?: close({
-											FallbackBehavior: string | fn.Fn
+											FallbackBehavior: ("MATCH" | "NO_MATCH") | fn.Fn
 											HeaderName:       string | fn.Fn
-											Position:         string | fn.Fn
+											Position:         ("FIRST" | "LAST" | "ANY") | fn.Fn
 										}) | fn.If
 									}) | fn.If
 									ManagedRuleGroupStatement?: close({
 										ExcludedRules?: [...close({
-											Name: string | fn.Fn
+											Name: (=~#"^[0-9A-Za-z_-]{1,128}$"#) | fn.Fn
 										})] | fn.If
-										Name:       string | fn.Fn
+										Name:       (=~#"^[0-9A-Za-z_-]{1,128}$"#) | fn.Fn
 										VendorName: string | fn.Fn
 									}) | fn.If
 									RegexPatternSetReferenceStatement?: close({
-										Arn:          string | fn.Fn
+										Arn:          (strings.MinRunes(20) & strings.MaxRunes(2048)) | fn.Fn
 										FieldToMatch: close({
 											AllQueryArguments?: {
 												[string]: _
@@ -6625,17 +6628,17 @@ WAFv2 :: {
 										}) | fn.If
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									RuleGroupReferenceStatement?: close({
-										Arn:            string | fn.Fn
+										Arn:            (strings.MinRunes(20) & strings.MaxRunes(2048)) | fn.Fn
 										ExcludedRules?: [...close({
-											Name: string | fn.Fn
+											Name: (=~#"^[0-9A-Za-z_-]{1,128}$"#) | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									SizeConstraintStatement?: close({
-										ComparisonOperator: string | fn.Fn
+										ComparisonOperator: ("EQ" | "NE" | "LE" | "LT" | "GE" | "GT") | fn.Fn
 										FieldToMatch:       close({
 											AllQueryArguments?: {
 												[string]: _
@@ -6662,7 +6665,7 @@ WAFv2 :: {
 										Size:                int | fn.Fn
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									SqliMatchStatement?: close({
@@ -6691,7 +6694,7 @@ WAFv2 :: {
 										}) | fn.If
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									XssMatchStatement?: close({
@@ -6720,7 +6723,7 @@ WAFv2 :: {
 										}) | fn.If
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 								})] | fn.If
@@ -6749,34 +6752,34 @@ WAFv2 :: {
 										[string]: _
 									} | fn.Fn
 								}) | fn.If
-								PositionalConstraint: string | fn.Fn
+								PositionalConstraint: ("EXACTLY" | "STARTS_WITH" | "ENDS_WITH" | "CONTAINS" | "CONTAINS_WORD") | fn.Fn
 								SearchString?:        string | fn.Fn
 								SearchStringBase64?:  string | fn.Fn
 								TextTransformations:  [...close({
 									Priority: int | fn.Fn
-									Type:     string | fn.Fn
+									Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 								})] | fn.If
 							}) | fn.If
 							GeoMatchStatement?: close({
-								CountryCodes?:      [...(string | fn.Fn)] | (string | fn.Fn)
+								CountryCodes?:      [...((strings.MinRunes(1) & strings.MaxRunes(2)) | fn.Fn)] | ((strings.MinRunes(1) & strings.MaxRunes(2)) | fn.Fn)
 								ForwardedIPConfig?: close({
-									FallbackBehavior: string | fn.Fn
+									FallbackBehavior: ("MATCH" | "NO_MATCH") | fn.Fn
 									HeaderName:       string | fn.Fn
 								}) | fn.If
 							}) | fn.If
 							IPSetReferenceStatement?: close({
-								Arn:                     string | fn.Fn
+								Arn:                     (strings.MinRunes(20) & strings.MaxRunes(2048)) | fn.Fn
 								IPSetForwardedIPConfig?: close({
-									FallbackBehavior: string | fn.Fn
+									FallbackBehavior: ("MATCH" | "NO_MATCH") | fn.Fn
 									HeaderName:       string | fn.Fn
-									Position:         string | fn.Fn
+									Position:         ("FIRST" | "LAST" | "ANY") | fn.Fn
 								}) | fn.If
 							}) | fn.If
 							ManagedRuleGroupStatement?: close({
 								ExcludedRules?: [...close({
-									Name: string | fn.Fn
+									Name: (=~#"^[0-9A-Za-z_-]{1,128}$"#) | fn.Fn
 								})] | fn.If
-								Name:       string | fn.Fn
+								Name:       (=~#"^[0-9A-Za-z_-]{1,128}$"#) | fn.Fn
 								VendorName: string | fn.Fn
 							}) | fn.If
 							NotStatement?: close({
@@ -6805,38 +6808,38 @@ WAFv2 :: {
 												[string]: _
 											} | fn.Fn
 										}) | fn.If
-										PositionalConstraint: string | fn.Fn
+										PositionalConstraint: ("EXACTLY" | "STARTS_WITH" | "ENDS_WITH" | "CONTAINS" | "CONTAINS_WORD") | fn.Fn
 										SearchString?:        string | fn.Fn
 										SearchStringBase64?:  string | fn.Fn
 										TextTransformations:  [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									GeoMatchStatement?: close({
-										CountryCodes?:      [...(string | fn.Fn)] | (string | fn.Fn)
+										CountryCodes?:      [...((strings.MinRunes(1) & strings.MaxRunes(2)) | fn.Fn)] | ((strings.MinRunes(1) & strings.MaxRunes(2)) | fn.Fn)
 										ForwardedIPConfig?: close({
-											FallbackBehavior: string | fn.Fn
+											FallbackBehavior: ("MATCH" | "NO_MATCH") | fn.Fn
 											HeaderName:       string | fn.Fn
 										}) | fn.If
 									}) | fn.If
 									IPSetReferenceStatement?: close({
-										Arn:                     string | fn.Fn
+										Arn:                     (strings.MinRunes(20) & strings.MaxRunes(2048)) | fn.Fn
 										IPSetForwardedIPConfig?: close({
-											FallbackBehavior: string | fn.Fn
+											FallbackBehavior: ("MATCH" | "NO_MATCH") | fn.Fn
 											HeaderName:       string | fn.Fn
-											Position:         string | fn.Fn
+											Position:         ("FIRST" | "LAST" | "ANY") | fn.Fn
 										}) | fn.If
 									}) | fn.If
 									ManagedRuleGroupStatement?: close({
 										ExcludedRules?: [...close({
-											Name: string | fn.Fn
+											Name: (=~#"^[0-9A-Za-z_-]{1,128}$"#) | fn.Fn
 										})] | fn.If
-										Name:       string | fn.Fn
+										Name:       (=~#"^[0-9A-Za-z_-]{1,128}$"#) | fn.Fn
 										VendorName: string | fn.Fn
 									}) | fn.If
 									RegexPatternSetReferenceStatement?: close({
-										Arn:          string | fn.Fn
+										Arn:          (strings.MinRunes(20) & strings.MaxRunes(2048)) | fn.Fn
 										FieldToMatch: close({
 											AllQueryArguments?: {
 												[string]: _
@@ -6862,17 +6865,17 @@ WAFv2 :: {
 										}) | fn.If
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									RuleGroupReferenceStatement?: close({
-										Arn:            string | fn.Fn
+										Arn:            (strings.MinRunes(20) & strings.MaxRunes(2048)) | fn.Fn
 										ExcludedRules?: [...close({
-											Name: string | fn.Fn
+											Name: (=~#"^[0-9A-Za-z_-]{1,128}$"#) | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									SizeConstraintStatement?: close({
-										ComparisonOperator: string | fn.Fn
+										ComparisonOperator: ("EQ" | "NE" | "LE" | "LT" | "GE" | "GT") | fn.Fn
 										FieldToMatch:       close({
 											AllQueryArguments?: {
 												[string]: _
@@ -6899,7 +6902,7 @@ WAFv2 :: {
 										Size:                int | fn.Fn
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									SqliMatchStatement?: close({
@@ -6928,7 +6931,7 @@ WAFv2 :: {
 										}) | fn.If
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									XssMatchStatement?: close({
@@ -6957,7 +6960,7 @@ WAFv2 :: {
 										}) | fn.If
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 								}) | fn.If
@@ -6988,38 +6991,38 @@ WAFv2 :: {
 												[string]: _
 											} | fn.Fn
 										}) | fn.If
-										PositionalConstraint: string | fn.Fn
+										PositionalConstraint: ("EXACTLY" | "STARTS_WITH" | "ENDS_WITH" | "CONTAINS" | "CONTAINS_WORD") | fn.Fn
 										SearchString?:        string | fn.Fn
 										SearchStringBase64?:  string | fn.Fn
 										TextTransformations:  [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									GeoMatchStatement?: close({
-										CountryCodes?:      [...(string | fn.Fn)] | (string | fn.Fn)
+										CountryCodes?:      [...((strings.MinRunes(1) & strings.MaxRunes(2)) | fn.Fn)] | ((strings.MinRunes(1) & strings.MaxRunes(2)) | fn.Fn)
 										ForwardedIPConfig?: close({
-											FallbackBehavior: string | fn.Fn
+											FallbackBehavior: ("MATCH" | "NO_MATCH") | fn.Fn
 											HeaderName:       string | fn.Fn
 										}) | fn.If
 									}) | fn.If
 									IPSetReferenceStatement?: close({
-										Arn:                     string | fn.Fn
+										Arn:                     (strings.MinRunes(20) & strings.MaxRunes(2048)) | fn.Fn
 										IPSetForwardedIPConfig?: close({
-											FallbackBehavior: string | fn.Fn
+											FallbackBehavior: ("MATCH" | "NO_MATCH") | fn.Fn
 											HeaderName:       string | fn.Fn
-											Position:         string | fn.Fn
+											Position:         ("FIRST" | "LAST" | "ANY") | fn.Fn
 										}) | fn.If
 									}) | fn.If
 									ManagedRuleGroupStatement?: close({
 										ExcludedRules?: [...close({
-											Name: string | fn.Fn
+											Name: (=~#"^[0-9A-Za-z_-]{1,128}$"#) | fn.Fn
 										})] | fn.If
-										Name:       string | fn.Fn
+										Name:       (=~#"^[0-9A-Za-z_-]{1,128}$"#) | fn.Fn
 										VendorName: string | fn.Fn
 									}) | fn.If
 									RegexPatternSetReferenceStatement?: close({
-										Arn:          string | fn.Fn
+										Arn:          (strings.MinRunes(20) & strings.MaxRunes(2048)) | fn.Fn
 										FieldToMatch: close({
 											AllQueryArguments?: {
 												[string]: _
@@ -7045,17 +7048,17 @@ WAFv2 :: {
 										}) | fn.If
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									RuleGroupReferenceStatement?: close({
-										Arn:            string | fn.Fn
+										Arn:            (strings.MinRunes(20) & strings.MaxRunes(2048)) | fn.Fn
 										ExcludedRules?: [...close({
-											Name: string | fn.Fn
+											Name: (=~#"^[0-9A-Za-z_-]{1,128}$"#) | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									SizeConstraintStatement?: close({
-										ComparisonOperator: string | fn.Fn
+										ComparisonOperator: ("EQ" | "NE" | "LE" | "LT" | "GE" | "GT") | fn.Fn
 										FieldToMatch:       close({
 											AllQueryArguments?: {
 												[string]: _
@@ -7082,7 +7085,7 @@ WAFv2 :: {
 										Size:                int | fn.Fn
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									SqliMatchStatement?: close({
@@ -7111,7 +7114,7 @@ WAFv2 :: {
 										}) | fn.If
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									XssMatchStatement?: close({
@@ -7140,18 +7143,18 @@ WAFv2 :: {
 										}) | fn.If
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 								})] | fn.If
 							}) | fn.If
 							RateBasedStatement?: close({
-								AggregateKeyType:   ("FORWARDED_IP" | "IP") | fn.Fn
+								AggregateKeyType:   ("IP" | "FORWARDED_IP") | fn.Fn
 								ForwardedIPConfig?: close({
-									FallbackBehavior: string | fn.Fn
+									FallbackBehavior: ("MATCH" | "NO_MATCH") | fn.Fn
 									HeaderName:       string | fn.Fn
 								}) | fn.If
-								Limit:               (>=100 & <=20000000) | fn.Fn
+								Limit:               (>=100 & <=2000000000) | fn.Fn
 								ScopeDownStatement?: close({
 									ByteMatchStatement?: close({
 										FieldToMatch: close({
@@ -7177,38 +7180,38 @@ WAFv2 :: {
 												[string]: _
 											} | fn.Fn
 										}) | fn.If
-										PositionalConstraint: string | fn.Fn
+										PositionalConstraint: ("EXACTLY" | "STARTS_WITH" | "ENDS_WITH" | "CONTAINS" | "CONTAINS_WORD") | fn.Fn
 										SearchString?:        string | fn.Fn
 										SearchStringBase64?:  string | fn.Fn
 										TextTransformations:  [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									GeoMatchStatement?: close({
-										CountryCodes?:      [...(string | fn.Fn)] | (string | fn.Fn)
+										CountryCodes?:      [...((strings.MinRunes(1) & strings.MaxRunes(2)) | fn.Fn)] | ((strings.MinRunes(1) & strings.MaxRunes(2)) | fn.Fn)
 										ForwardedIPConfig?: close({
-											FallbackBehavior: string | fn.Fn
+											FallbackBehavior: ("MATCH" | "NO_MATCH") | fn.Fn
 											HeaderName:       string | fn.Fn
 										}) | fn.If
 									}) | fn.If
 									IPSetReferenceStatement?: close({
-										Arn:                     string | fn.Fn
+										Arn:                     (strings.MinRunes(20) & strings.MaxRunes(2048)) | fn.Fn
 										IPSetForwardedIPConfig?: close({
-											FallbackBehavior: string | fn.Fn
+											FallbackBehavior: ("MATCH" | "NO_MATCH") | fn.Fn
 											HeaderName:       string | fn.Fn
-											Position:         string | fn.Fn
+											Position:         ("FIRST" | "LAST" | "ANY") | fn.Fn
 										}) | fn.If
 									}) | fn.If
 									ManagedRuleGroupStatement?: close({
 										ExcludedRules?: [...close({
-											Name: string | fn.Fn
+											Name: (=~#"^[0-9A-Za-z_-]{1,128}$"#) | fn.Fn
 										})] | fn.If
-										Name:       string | fn.Fn
+										Name:       (=~#"^[0-9A-Za-z_-]{1,128}$"#) | fn.Fn
 										VendorName: string | fn.Fn
 									}) | fn.If
 									RegexPatternSetReferenceStatement?: close({
-										Arn:          string | fn.Fn
+										Arn:          (strings.MinRunes(20) & strings.MaxRunes(2048)) | fn.Fn
 										FieldToMatch: close({
 											AllQueryArguments?: {
 												[string]: _
@@ -7234,17 +7237,17 @@ WAFv2 :: {
 										}) | fn.If
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									RuleGroupReferenceStatement?: close({
-										Arn:            string | fn.Fn
+										Arn:            (strings.MinRunes(20) & strings.MaxRunes(2048)) | fn.Fn
 										ExcludedRules?: [...close({
-											Name: string | fn.Fn
+											Name: (=~#"^[0-9A-Za-z_-]{1,128}$"#) | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									SizeConstraintStatement?: close({
-										ComparisonOperator: string | fn.Fn
+										ComparisonOperator: ("EQ" | "NE" | "LE" | "LT" | "GE" | "GT") | fn.Fn
 										FieldToMatch:       close({
 											AllQueryArguments?: {
 												[string]: _
@@ -7271,7 +7274,7 @@ WAFv2 :: {
 										Size:                int | fn.Fn
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									SqliMatchStatement?: close({
@@ -7300,7 +7303,7 @@ WAFv2 :: {
 										}) | fn.If
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 									XssMatchStatement?: close({
@@ -7329,13 +7332,13 @@ WAFv2 :: {
 										}) | fn.If
 										TextTransformations: [...close({
 											Priority: int | fn.Fn
-											Type:     string | fn.Fn
+											Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 										})] | fn.If
 									}) | fn.If
 								}) | fn.If
 							}) | fn.If
 							RegexPatternSetReferenceStatement?: close({
-								Arn:          string | fn.Fn
+								Arn:          (strings.MinRunes(20) & strings.MaxRunes(2048)) | fn.Fn
 								FieldToMatch: close({
 									AllQueryArguments?: {
 										[string]: _
@@ -7361,17 +7364,17 @@ WAFv2 :: {
 								}) | fn.If
 								TextTransformations: [...close({
 									Priority: int | fn.Fn
-									Type:     string | fn.Fn
+									Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 								})] | fn.If
 							}) | fn.If
 							RuleGroupReferenceStatement?: close({
-								Arn:            string | fn.Fn
+								Arn:            (strings.MinRunes(20) & strings.MaxRunes(2048)) | fn.Fn
 								ExcludedRules?: [...close({
-									Name: string | fn.Fn
+									Name: (=~#"^[0-9A-Za-z_-]{1,128}$"#) | fn.Fn
 								})] | fn.If
 							}) | fn.If
 							SizeConstraintStatement?: close({
-								ComparisonOperator: string | fn.Fn
+								ComparisonOperator: ("EQ" | "NE" | "LE" | "LT" | "GE" | "GT") | fn.Fn
 								FieldToMatch:       close({
 									AllQueryArguments?: {
 										[string]: _
@@ -7398,7 +7401,7 @@ WAFv2 :: {
 								Size:                int | fn.Fn
 								TextTransformations: [...close({
 									Priority: int | fn.Fn
-									Type:     string | fn.Fn
+									Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 								})] | fn.If
 							}) | fn.If
 							SqliMatchStatement?: close({
@@ -7427,7 +7430,7 @@ WAFv2 :: {
 								}) | fn.If
 								TextTransformations: [...close({
 									Priority: int | fn.Fn
-									Type:     string | fn.Fn
+									Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 								})] | fn.If
 							}) | fn.If
 							XssMatchStatement?: close({
@@ -7456,13 +7459,13 @@ WAFv2 :: {
 								}) | fn.If
 								TextTransformations: [...close({
 									Priority: int | fn.Fn
-									Type:     string | fn.Fn
+									Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 								})] | fn.If
 							}) | fn.If
 						}) | fn.If
 					}) | fn.If
 					RegexPatternSetReferenceStatement?: close({
-						Arn:          string | fn.Fn
+						Arn:          (strings.MinRunes(20) & strings.MaxRunes(2048)) | fn.Fn
 						FieldToMatch: close({
 							AllQueryArguments?: {
 								[string]: _
@@ -7488,17 +7491,17 @@ WAFv2 :: {
 						}) | fn.If
 						TextTransformations: [...close({
 							Priority: int | fn.Fn
-							Type:     string | fn.Fn
+							Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 						})] | fn.If
 					}) | fn.If
 					RuleGroupReferenceStatement?: close({
-						Arn:            string | fn.Fn
+						Arn:            (strings.MinRunes(20) & strings.MaxRunes(2048)) | fn.Fn
 						ExcludedRules?: [...close({
-							Name: string | fn.Fn
+							Name: (=~#"^[0-9A-Za-z_-]{1,128}$"#) | fn.Fn
 						})] | fn.If
 					}) | fn.If
 					SizeConstraintStatement?: close({
-						ComparisonOperator: string | fn.Fn
+						ComparisonOperator: ("EQ" | "NE" | "LE" | "LT" | "GE" | "GT") | fn.Fn
 						FieldToMatch:       close({
 							AllQueryArguments?: {
 								[string]: _
@@ -7525,7 +7528,7 @@ WAFv2 :: {
 						Size:                int | fn.Fn
 						TextTransformations: [...close({
 							Priority: int | fn.Fn
-							Type:     string | fn.Fn
+							Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 						})] | fn.If
 					}) | fn.If
 					SqliMatchStatement?: close({
@@ -7554,7 +7557,7 @@ WAFv2 :: {
 						}) | fn.If
 						TextTransformations: [...close({
 							Priority: int | fn.Fn
-							Type:     string | fn.Fn
+							Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 						})] | fn.If
 					}) | fn.If
 					XssMatchStatement?: close({
@@ -7583,24 +7586,24 @@ WAFv2 :: {
 						}) | fn.If
 						TextTransformations: [...close({
 							Priority: int | fn.Fn
-							Type:     string | fn.Fn
+							Type:     ("NONE" | "COMPRESS_WHITE_SPACE" | "HTML_ENTITY_DECODE" | "LOWERCASE" | "CMD_LINE" | "URL_DECODE") | fn.Fn
 						})] | fn.If
 					}) | fn.If
 				}) | fn.If
 				VisibilityConfig: close({
 					CloudWatchMetricsEnabled: bool | fn.Fn
-					MetricName:               string | fn.Fn
+					MetricName:               (strings.MinRunes(1) & strings.MaxRunes(128)) | fn.Fn
 					SampledRequestsEnabled:   bool | fn.Fn
 				}) | fn.If
 			})] | fn.If
-			Scope: string | fn.Fn
+			Scope: ("CLOUDFRONT" | "REGIONAL") | fn.Fn
 			Tags?: [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			})] | fn.If
 			VisibilityConfig: close({
 				CloudWatchMetricsEnabled: bool | fn.Fn
-				MetricName:               string | fn.Fn
+				MetricName:               (strings.MinRunes(1) & strings.MaxRunes(128)) | fn.Fn
 				SampledRequestsEnabled:   bool | fn.Fn
 			}) | fn.If
 		})
@@ -7613,8 +7616,8 @@ WAFv2 :: {
 	WebACLAssociation :: {
 		Type:       "AWS::WAFv2::WebACLAssociation"
 		Properties: close({
-			ResourceArn: string | fn.Fn
-			WebACLArn:   string | fn.Fn
+			ResourceArn: (strings.MinRunes(20) & strings.MaxRunes(2048)) | fn.Fn
+			WebACLArn:   (strings.MinRunes(20) & strings.MaxRunes(2048)) | fn.Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

@@ -6,7 +6,7 @@ Synthetics :: {
 	Canary :: {
 		Type:       "AWS::Synthetics::Canary"
 		Properties: close({
-			ArtifactS3Location: string | fn.Fn
+			ArtifactS3Location: (=~#"^(s3|S3)://"#) | fn.Fn
 			Code:               close({
 				Handler?:         string | fn.Fn
 				S3Bucket?:        string | fn.Fn
@@ -16,7 +16,7 @@ Synthetics :: {
 			}) | fn.If
 			ExecutionRoleArn:        string | fn.Fn
 			FailureRetentionPeriod?: int | fn.Fn
-			Name:                    string | fn.Fn
+			Name:                    (=~#"^[0-9a-z_\-]{1,21}$"#) | fn.Fn
 			RunConfig?:              close({
 				ActiveTracing?:        bool | fn.Fn
 				EnvironmentVariables?: {

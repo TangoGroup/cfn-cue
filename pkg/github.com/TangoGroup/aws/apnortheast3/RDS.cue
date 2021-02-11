@@ -91,7 +91,7 @@ RDS :: {
 			CharacterSetName?:                   string | fn.Fn
 			CopyTagsToSnapshot?:                 bool | fn.Fn
 			DBClusterIdentifier?:                string | fn.Fn
-			DBInstanceClass:                     string | fn.Fn
+			DBInstanceClass:                     ("db.m4.10xlarge" | "db.m4.16xlarge" | "db.m4.2xlarge" | "db.m4.4xlarge" | "db.m4.large" | "db.m4.xlarge" | "db.m5.12xlarge" | "db.m5.16xlarge" | "db.m5.24xlarge" | "db.m5.2xlarge" | "db.m5.4xlarge" | "db.m5.8xlarge" | "db.m5.large" | "db.m5.xlarge" | "db.m5d.12xlarge" | "db.m5d.16xlarge" | "db.m5d.24xlarge" | "db.m5d.2xlarge" | "db.m5d.4xlarge" | "db.m5d.8xlarge" | "db.m5d.large" | "db.m5d.xlarge" | "db.r4.16xlarge" | "db.r4.2xlarge" | "db.r4.4xlarge" | "db.r4.8xlarge" | "db.r4.large" | "db.r4.xlarge" | "db.r5.12xlarge" | "db.r5.16xlarge" | "db.r5.24xlarge" | "db.r5.2xlarge" | "db.r5.4xlarge" | "db.r5.8xlarge" | "db.r5.large" | "db.r5.xlarge" | "db.r5d.12xlarge" | "db.r5d.16xlarge" | "db.r5d.24xlarge" | "db.r5d.2xlarge" | "db.r5d.4xlarge" | "db.r5d.8xlarge" | "db.r5d.large" | "db.r5d.xlarge" | "db.t2.2xlarge" | "db.t2.large" | "db.t2.medium" | "db.t2.micro" | "db.t2.small" | "db.t2.xlarge" | "db.t3.2xlarge" | "db.t3.large" | "db.t3.medium" | "db.t3.micro" | "db.t3.small" | "db.t3.xlarge") | fn.Fn
 			DBInstanceIdentifier?:               string | fn.Fn
 			DBName?:                             string | fn.Fn
 			DBParameterGroupName?:               string | fn.Fn

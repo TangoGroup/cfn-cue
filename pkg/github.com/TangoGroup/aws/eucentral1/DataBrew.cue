@@ -1,6 +1,9 @@
 package eucentral1
 
-import "github.com/TangoGroup/aws/fn"
+import (
+	"github.com/TangoGroup/aws/fn"
+	"strings"
+)
 
 DataBrew :: {
 	Dataset :: {
@@ -12,7 +15,7 @@ DataBrew :: {
 			Input: {
 				[string]: _
 			} | fn.Fn
-			Name:  string | fn.Fn
+			Name:  (strings.MinRunes(1) & strings.MaxRunes(255)) | fn.Fn
 			Tags?: [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
@@ -27,22 +30,22 @@ DataBrew :: {
 	Job :: {
 		Type:       "AWS::DataBrew::Job"
 		Properties: close({
-			DatasetName?:      string | fn.Fn
-			EncryptionKeyArn?: string | fn.Fn
-			EncryptionMode?:   string | fn.Fn
-			LogSubscription?:  string | fn.Fn
+			DatasetName?:      (strings.MinRunes(1) & strings.MaxRunes(255)) | fn.Fn
+			EncryptionKeyArn?: (strings.MinRunes(20) & strings.MaxRunes(2048)) | fn.Fn
+			EncryptionMode?:   ("SSE-KMS" | "SSE-S3") | fn.Fn
+			LogSubscription?:  ("ENABLE" | "DISABLE") | fn.Fn
 			MaxCapacity?:      int | fn.Fn
 			MaxRetries?:       int | fn.Fn
-			Name:              string | fn.Fn
+			Name:              (strings.MinRunes(1) & strings.MaxRunes(255)) | fn.Fn
 			OutputLocation?:   {
 				[string]: _
 			} | fn.Fn
 			Outputs?: [...close({
-				CompressionFormat?: string | fn.Fn
-				Format?:            string | fn.Fn
+				CompressionFormat?: ("GZIP" | "LZ4" | "SNAPPY" | "BZIP2" | "DEFLATE" | "LZO" | "BROTLI" | "ZSTD" | "ZLIB") | fn.Fn
+				Format?:            ("CSV" | "JSON" | "PARQUET" | "GLUEPARQUET" | "AVRO" | "ORC" | "XML") | fn.Fn
 				FormatOptions?:     close({
 					Csv?: close({
-						Delimiter?: string | fn.Fn
+						Delimiter?: (strings.MinRunes(1) & strings.MaxRunes(1)) | fn.Fn
 					}) | fn.If
 				}) | fn.If
 				Location: close({
@@ -52,7 +55,7 @@ DataBrew :: {
 				Overwrite?:        bool | fn.Fn
 				PartitionColumns?: [...(string | fn.Fn)] | (string | fn.Fn)
 			})] | fn.If
-			ProjectName?: string | fn.Fn
+			ProjectName?: (strings.MinRunes(1) & strings.MaxRunes(255)) | fn.Fn
 			Recipe?:      {
 				[string]: _
 			} | fn.Fn
@@ -62,7 +65,7 @@ DataBrew :: {
 				Value: string | fn.Fn
 			})] | fn.If
 			Timeout?: int | fn.Fn
-			Type:     string | fn.Fn
+			Type:     ("PROFILE" | "RECIPE") | fn.Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -73,9 +76,9 @@ DataBrew :: {
 	Project :: {
 		Type:       "AWS::DataBrew::Project"
 		Properties: close({
-			DatasetName: string | fn.Fn
-			Name:        string | fn.Fn
-			RecipeName:  string | fn.Fn
+			DatasetName: (strings.MinRunes(1) & strings.MaxRunes(255)) | fn.Fn
+			Name:        (strings.MinRunes(1) & strings.MaxRunes(255)) | fn.Fn
+			RecipeName:  (strings.MinRunes(1) & strings.MaxRunes(255)) | fn.Fn
 			RoleArn:     string | fn.Fn
 			Sample?:     {
 				[string]: _
@@ -95,7 +98,7 @@ DataBrew :: {
 		Type:       "AWS::DataBrew::Recipe"
 		Properties: close({
 			Description?: string | fn.Fn
-			Name:         string | fn.Fn
+			Name:         (strings.MinRunes(1) & strings.MaxRunes(255)) | fn.Fn
 			Steps:        [...close({
 				Action: close({
 					Operation:   string | fn.Fn
@@ -123,9 +126,9 @@ DataBrew :: {
 	Schedule :: {
 		Type:       "AWS::DataBrew::Schedule"
 		Properties: close({
-			CronExpression: string | fn.Fn
-			JobNames?:      [...(string | fn.Fn)] | (string | fn.Fn)
-			Name:           string | fn.Fn
+			CronExpression: (strings.MinRunes(1) & strings.MaxRunes(512)) | fn.Fn
+			JobNames?:      [...((strings.MinRunes(1) & strings.MaxRunes(255)) | fn.Fn)] | ((strings.MinRunes(1) & strings.MaxRunes(255)) | fn.Fn)
+			Name:           (strings.MinRunes(1) & strings.MaxRunes(255)) | fn.Fn
 			Tags?:          [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn

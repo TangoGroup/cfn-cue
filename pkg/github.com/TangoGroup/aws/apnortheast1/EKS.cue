@@ -1,6 +1,9 @@
 package apnortheast1
 
-import "github.com/TangoGroup/aws/fn"
+import (
+	"github.com/TangoGroup/aws/fn"
+	"strings"
+)
 
 EKS :: {
 	Cluster :: {
@@ -37,8 +40,8 @@ EKS :: {
 			PodExecutionRoleArn: string | fn.Fn
 			Selectors:           [...close({
 				Labels?: [...close({
-					Key:   string | fn.Fn
-					Value: string | fn.Fn
+					Key:   (strings.MinRunes(1) & strings.MaxRunes(127)) | fn.Fn
+					Value: (strings.MinRunes(1) & strings.MaxRunes(255)) | fn.Fn
 				})] | fn.If
 				Namespace: string | fn.Fn
 			})] | fn.If

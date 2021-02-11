@@ -1,6 +1,9 @@
 package euwest1
 
-import "github.com/TangoGroup/aws/fn"
+import (
+	"github.com/TangoGroup/aws/fn"
+	"strings"
+)
 
 CodeGuruProfiler :: {
 	ProfilingGroup :: {
@@ -10,11 +13,11 @@ CodeGuruProfiler :: {
 				[string]: _
 			} | fn.Fn
 			AnomalyDetectionNotificationConfiguration?: [...close({
-				channelId?: string | fn.Fn
-				channelUri: string | fn.Fn
+				channelId?: (=~#"[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}"#) | fn.Fn
+				channelUri: (=~#"^arn:aws([-\w]*):[a-z-]+:(([a-z]+-)+[0-9]+)?:([0-9]{12}):[^.]+$"#) | fn.Fn
 			})] | fn.If
-			ComputePlatform?:   string | fn.Fn
-			ProfilingGroupName: string | fn.Fn
+			ComputePlatform?:   ("Default" | "AWSLambda") | fn.Fn
+			ProfilingGroupName: (strings.MinRunes(1) & strings.MaxRunes(255) & (=~#"^[\w-]+$"#)) | fn.Fn
 			Tags?:              [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn

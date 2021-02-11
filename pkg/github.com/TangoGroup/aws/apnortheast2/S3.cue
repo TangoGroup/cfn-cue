@@ -10,8 +10,8 @@ S3 :: {
 	AccessPoint :: {
 		Type:       "AWS::S3::AccessPoint"
 		Properties: close({
-			Bucket:  string | fn.Fn
-			Name?:   string | fn.Fn
+			Bucket:  (strings.MinRunes(3) & strings.MaxRunes(255)) | fn.Fn
+			Name?:   (strings.MinRunes(3) & strings.MaxRunes(50) & (=~#"^[a-z0-9]([a-z0-9\-]*[a-z0-9])?$"#)) | fn.Fn
 			Policy?: {
 				[string]: _
 			} | fn.Fn
@@ -22,7 +22,7 @@ S3 :: {
 				RestrictPublicBuckets?: bool | fn.Fn
 			}) | fn.If
 			VpcConfiguration?: close({
-				VpcId?: string | fn.Fn
+				VpcId?: (strings.MinRunes(1) & strings.MaxRunes(1024)) | fn.Fn
 			}) | fn.If
 		})
 		DependsOn?:           string | [...string]
@@ -351,8 +351,8 @@ S3 :: {
 						Arn:         string | fn.Fn
 						Encryption?: close({
 						}) | fn.If
-						Format:              string | fn.Fn
-						OutputSchemaVersion: string | fn.Fn
+						Format:              ("CSV" | "Parquet") | fn.Fn
+						OutputSchemaVersion: ("V_1") | fn.Fn
 						Prefix?:             string | fn.Fn
 					}) | fn.If
 				}) | fn.If
@@ -360,7 +360,7 @@ S3 :: {
 					Buckets?: [...(string | fn.Fn)] | (string | fn.Fn)
 					Regions?: [...(string | fn.Fn)] | (string | fn.Fn)
 				}) | fn.If
-				Id:       string | fn.Fn
+				Id:       (strings.MinRunes(1) & strings.MaxRunes(64) & (=~#"^[a-zA-Z0-9\-_.]+$"#)) | fn.Fn
 				Include?: close({
 					Buckets?: [...(string | fn.Fn)] | (string | fn.Fn)
 					Regions?: [...(string | fn.Fn)] | (string | fn.Fn)

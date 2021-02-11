@@ -1,67 +1,70 @@
 package saeast1
 
-import "github.com/TangoGroup/aws/fn"
+import (
+	"github.com/TangoGroup/aws/fn"
+	"strings"
+)
 
 SageMaker :: {
 	DataQualityJobDefinition :: {
 		Type:       "AWS::SageMaker::DataQualityJobDefinition"
 		Properties: close({
 			DataQualityAppSpecification: close({
-				ContainerArguments?:  [...(string | fn.Fn)] | (string | fn.Fn)
-				ContainerEntrypoint?: [...(string | fn.Fn)] | (string | fn.Fn)
+				ContainerArguments?:  [...((strings.MinRunes(1) & strings.MaxRunes(256)) | fn.Fn)] | ((strings.MinRunes(1) & strings.MaxRunes(256)) | fn.Fn)
+				ContainerEntrypoint?: [...((strings.MinRunes(1) & strings.MaxRunes(256)) | fn.Fn)] | ((strings.MinRunes(1) & strings.MaxRunes(256)) | fn.Fn)
 				Environment?:         close({
 				}) | fn.If
-				ImageUri:                         string | fn.Fn
-				PostAnalyticsProcessorSourceUri?: string | fn.Fn
-				RecordPreprocessorSourceUri?:     string | fn.Fn
+				ImageUri:                         (=~#".*"#) | fn.Fn
+				PostAnalyticsProcessorSourceUri?: (=~#"^(https|s3)://([^/]+)/?(.*)$"#) | fn.Fn
+				RecordPreprocessorSourceUri?:     (=~#"^(https|s3)://([^/]+)/?(.*)$"#) | fn.Fn
 			}) | fn.If
 			DataQualityBaselineConfig?: close({
-				BaseliningJobName?:   string | fn.Fn
+				BaseliningJobName?:   (strings.MinRunes(1) & strings.MaxRunes(63) & (=~#"^[a-zA-Z0-9](-*[a-zA-Z0-9])*$"#)) | fn.Fn
 				ConstraintsResource?: close({
-					S3Uri?: string | fn.Fn
+					S3Uri?: (=~#"^(https|s3)://([^/]+)/?(.*)$"#) | fn.Fn
 				}) | fn.If
 				StatisticsResource?: close({
-					S3Uri?: string | fn.Fn
+					S3Uri?: (=~#"^(https|s3)://([^/]+)/?(.*)$"#) | fn.Fn
 				}) | fn.If
 			}) | fn.If
 			DataQualityJobInput: close({
 				EndpointInput: close({
-					EndpointName:            string | fn.Fn
-					LocalPath:               string | fn.Fn
-					S3DataDistributionType?: string | fn.Fn
-					S3InputMode?:            string | fn.Fn
+					EndpointName:            (=~#"^[a-zA-Z0-9](-*[a-zA-Z0-9])*"#) | fn.Fn
+					LocalPath:               (=~#".*"#) | fn.Fn
+					S3DataDistributionType?: ("FullyReplicated" | "ShardedByS3Key") | fn.Fn
+					S3InputMode?:            ("Pipe" | "File") | fn.Fn
 				}) | fn.If
 			}) | fn.If
 			DataQualityJobOutputConfig: close({
-				KmsKeyId?:         string | fn.Fn
+				KmsKeyId?:         (=~#".*"#) | fn.Fn
 				MonitoringOutputs: [...close({
 					S3Output: close({
-						LocalPath:     string | fn.Fn
-						S3UploadMode?: string | fn.Fn
-						S3Uri:         string | fn.Fn
+						LocalPath:     (=~#".*"#) | fn.Fn
+						S3UploadMode?: ("Continuous" | "EndOfJob") | fn.Fn
+						S3Uri:         (=~#"^(https|s3)://([^/]+)/?(.*)$"#) | fn.Fn
 					}) | fn.If
 				})] | fn.If
 			}) | fn.If
-			JobDefinitionName?: string | fn.Fn
+			JobDefinitionName?: (=~#"^[a-zA-Z0-9](-*[a-zA-Z0-9])*$"#) | fn.Fn
 			JobResources:       close({
 				ClusterConfig: close({
-					InstanceCount:   int | fn.Fn
+					InstanceCount:   (>=1 & <=100) | fn.Fn
 					InstanceType:    string | fn.Fn
 					VolumeKmsKeyId?: string | fn.Fn
-					VolumeSizeInGB:  int | fn.Fn
+					VolumeSizeInGB:  (>=1 & <=16384) | fn.Fn
 				}) | fn.If
 			}) | fn.If
 			NetworkConfig?: close({
 				EnableInterContainerTrafficEncryption?: bool | fn.Fn
 				EnableNetworkIsolation?:                bool | fn.Fn
 				VpcConfig?:                             close({
-					SecurityGroupIds: [...(string | fn.Fn)] | (string | fn.Fn)
-					Subnets:          [...(string | fn.Fn)] | (string | fn.Fn)
+					SecurityGroupIds: [...((=~#"[-0-9a-zA-Z]+"#) | fn.Fn)] | ((=~#"[-0-9a-zA-Z]+"#) | fn.Fn)
+					Subnets:          [...((=~#"[-0-9a-zA-Z]+"#) | fn.Fn)] | ((=~#"[-0-9a-zA-Z]+"#) | fn.Fn)
 				}) | fn.If
 			}) | fn.If
-			RoleArn:            string | fn.Fn
+			RoleArn:            (strings.MinRunes(20) & strings.MaxRunes(2048) & (=~#"^arn:aws[a-z\-]*:iam::\d{12}:role/?[a-zA-Z_0-9+=,.@\-_/]+$"#)) | fn.Fn
 			StoppingCondition?: close({
-				MaxRuntimeInSeconds: int | fn.Fn
+				MaxRuntimeInSeconds: (>=1 & <=86400) | fn.Fn
 			}) | fn.If
 			Tags?: [...close({
 				Key:   string | fn.Fn
@@ -78,20 +81,20 @@ SageMaker :: {
 		Type:       "AWS::SageMaker::FeatureGroup"
 		Properties: close({
 			Description?:         string | fn.Fn
-			EventTimeFeatureName: string | fn.Fn
+			EventTimeFeatureName: (strings.MinRunes(1) & strings.MaxRunes(64) & (=~#"^[a-zA-Z0-9](-*[a-zA-Z0-9]){0,63}"#)) | fn.Fn
 			FeatureDefinitions:   [...close({
-				FeatureName: string | fn.Fn
-				FeatureType: string | fn.Fn
+				FeatureName: (strings.MinRunes(1) & strings.MaxRunes(64) & (=~#"^[a-zA-Z0-9](-*[a-zA-Z0-9]){0,63}"#)) | fn.Fn
+				FeatureType: ("Integral" | "Fractional" | "String") | fn.Fn
 			})] | fn.If
-			FeatureGroupName:    string | fn.Fn
+			FeatureGroupName:    (strings.MinRunes(1) & strings.MaxRunes(64) & (=~#"^[a-zA-Z0-9](-*[a-zA-Z0-9]){0,63}"#)) | fn.Fn
 			OfflineStoreConfig?: {
 				[string]: _
 			} | fn.Fn
 			OnlineStoreConfig?: {
 				[string]: _
 			} | fn.Fn
-			RecordIdentifierFeatureName: string | fn.Fn
-			RoleArn?:                    string | fn.Fn
+			RecordIdentifierFeatureName: (strings.MinRunes(1) & strings.MaxRunes(64) & (=~#"^[a-zA-Z0-9](-*[a-zA-Z0-9]){0,63}"#)) | fn.Fn
+			RoleArn?:                    (strings.MinRunes(20) & strings.MaxRunes(2048) & (=~#"^arn:aws[a-z\-]*:iam::\d{12}:role/?[a-zA-Z_0-9+=,.@\-_/]+$"#)) | fn.Fn
 			Tags?:                       [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
@@ -106,51 +109,51 @@ SageMaker :: {
 	ModelBiasJobDefinition :: {
 		Type:       "AWS::SageMaker::ModelBiasJobDefinition"
 		Properties: close({
-			JobDefinitionName?: string | fn.Fn
+			JobDefinitionName?: (=~#"^[a-zA-Z0-9](-*[a-zA-Z0-9])*$"#) | fn.Fn
 			JobResources:       close({
 				ClusterConfig: close({
-					InstanceCount:   int | fn.Fn
+					InstanceCount:   (>=1 & <=100) | fn.Fn
 					InstanceType:    string | fn.Fn
 					VolumeKmsKeyId?: string | fn.Fn
-					VolumeSizeInGB:  int | fn.Fn
+					VolumeSizeInGB:  (>=1 & <=16384) | fn.Fn
 				}) | fn.If
 			}) | fn.If
 			ModelBiasAppSpecification: close({
-				ConfigUri:    string | fn.Fn
+				ConfigUri:    (=~#".*"#) | fn.Fn
 				Environment?: close({
 				}) | fn.If
-				ImageUri: string | fn.Fn
+				ImageUri: (=~#".*"#) | fn.Fn
 			}) | fn.If
 			ModelBiasBaselineConfig?: close({
-				BaseliningJobName?:   string | fn.Fn
+				BaseliningJobName?:   (strings.MinRunes(1) & strings.MaxRunes(63) & (=~#"^[a-zA-Z0-9](-*[a-zA-Z0-9])*$"#)) | fn.Fn
 				ConstraintsResource?: close({
-					S3Uri?: string | fn.Fn
+					S3Uri?: (=~#"^(https|s3)://([^/]+)/?(.*)$"#) | fn.Fn
 				}) | fn.If
 			}) | fn.If
 			ModelBiasJobInput: close({
 				EndpointInput: close({
-					EndTimeOffset?:                 string | fn.Fn
-					EndpointName:                   string | fn.Fn
+					EndTimeOffset?:                 (strings.MinRunes(1) & strings.MaxRunes(15) & (=~#"^.?P.*"#)) | fn.Fn
+					EndpointName:                   (=~#"^[a-zA-Z0-9](-*[a-zA-Z0-9])*"#) | fn.Fn
 					FeaturesAttribute?:             string | fn.Fn
 					InferenceAttribute?:            string | fn.Fn
-					LocalPath:                      string | fn.Fn
+					LocalPath:                      (=~#".*"#) | fn.Fn
 					ProbabilityAttribute?:          string | fn.Fn
 					ProbabilityThresholdAttribute?: number | fn.Fn
-					S3DataDistributionType?:        string | fn.Fn
-					S3InputMode?:                   string | fn.Fn
-					StartTimeOffset?:               string | fn.Fn
+					S3DataDistributionType?:        ("FullyReplicated" | "ShardedByS3Key") | fn.Fn
+					S3InputMode?:                   ("Pipe" | "File") | fn.Fn
+					StartTimeOffset?:               (strings.MinRunes(1) & strings.MaxRunes(15) & (=~#"^.?P.*"#)) | fn.Fn
 				}) | fn.If
 				GroundTruthS3Input: close({
-					S3Uri: string | fn.Fn
+					S3Uri: (=~#"^(https|s3)://([^/]+)/?(.*)$"#) | fn.Fn
 				}) | fn.If
 			}) | fn.If
 			ModelBiasJobOutputConfig: close({
-				KmsKeyId?:         string | fn.Fn
+				KmsKeyId?:         (=~#".*"#) | fn.Fn
 				MonitoringOutputs: [...close({
 					S3Output: close({
-						LocalPath:     string | fn.Fn
-						S3UploadMode?: string | fn.Fn
-						S3Uri:         string | fn.Fn
+						LocalPath:     (=~#".*"#) | fn.Fn
+						S3UploadMode?: ("Continuous" | "EndOfJob") | fn.Fn
+						S3Uri:         (=~#"^(https|s3)://([^/]+)/?(.*)$"#) | fn.Fn
 					}) | fn.If
 				})] | fn.If
 			}) | fn.If
@@ -158,13 +161,13 @@ SageMaker :: {
 				EnableInterContainerTrafficEncryption?: bool | fn.Fn
 				EnableNetworkIsolation?:                bool | fn.Fn
 				VpcConfig?:                             close({
-					SecurityGroupIds: [...(string | fn.Fn)] | (string | fn.Fn)
-					Subnets:          [...(string | fn.Fn)] | (string | fn.Fn)
+					SecurityGroupIds: [...((=~#"[-0-9a-zA-Z]+"#) | fn.Fn)] | ((=~#"[-0-9a-zA-Z]+"#) | fn.Fn)
+					Subnets:          [...((=~#"[-0-9a-zA-Z]+"#) | fn.Fn)] | ((=~#"[-0-9a-zA-Z]+"#) | fn.Fn)
 				}) | fn.If
 			}) | fn.If
-			RoleArn:            string | fn.Fn
+			RoleArn:            (strings.MinRunes(20) & strings.MaxRunes(2048) & (=~#"^arn:aws[a-z\-]*:iam::\d{12}:role/?[a-zA-Z_0-9+=,.@\-_/]+$"#)) | fn.Fn
 			StoppingCondition?: close({
-				MaxRuntimeInSeconds: int | fn.Fn
+				MaxRuntimeInSeconds: (>=1 & <=86400) | fn.Fn
 			}) | fn.If
 			Tags?: [...close({
 				Key:   string | fn.Fn
@@ -180,45 +183,45 @@ SageMaker :: {
 	ModelExplainabilityJobDefinition :: {
 		Type:       "AWS::SageMaker::ModelExplainabilityJobDefinition"
 		Properties: close({
-			JobDefinitionName?: string | fn.Fn
+			JobDefinitionName?: (=~#"^[a-zA-Z0-9](-*[a-zA-Z0-9])*$"#) | fn.Fn
 			JobResources:       close({
 				ClusterConfig: close({
-					InstanceCount:   int | fn.Fn
+					InstanceCount:   (>=1 & <=100) | fn.Fn
 					InstanceType:    string | fn.Fn
 					VolumeKmsKeyId?: string | fn.Fn
-					VolumeSizeInGB:  int | fn.Fn
+					VolumeSizeInGB:  (>=1 & <=16384) | fn.Fn
 				}) | fn.If
 			}) | fn.If
 			ModelExplainabilityAppSpecification: close({
-				ConfigUri:    string | fn.Fn
+				ConfigUri:    (=~#".*"#) | fn.Fn
 				Environment?: close({
 				}) | fn.If
-				ImageUri: string | fn.Fn
+				ImageUri: (=~#".*"#) | fn.Fn
 			}) | fn.If
 			ModelExplainabilityBaselineConfig?: close({
-				BaseliningJobName?:   string | fn.Fn
+				BaseliningJobName?:   (strings.MinRunes(1) & strings.MaxRunes(63) & (=~#"^[a-zA-Z0-9](-*[a-zA-Z0-9])*$"#)) | fn.Fn
 				ConstraintsResource?: close({
-					S3Uri?: string | fn.Fn
+					S3Uri?: (=~#"^(https|s3)://([^/]+)/?(.*)$"#) | fn.Fn
 				}) | fn.If
 			}) | fn.If
 			ModelExplainabilityJobInput: close({
 				EndpointInput: close({
-					EndpointName:            string | fn.Fn
+					EndpointName:            (=~#"^[a-zA-Z0-9](-*[a-zA-Z0-9])*"#) | fn.Fn
 					FeaturesAttribute?:      string | fn.Fn
 					InferenceAttribute?:     string | fn.Fn
-					LocalPath:               string | fn.Fn
+					LocalPath:               (=~#".*"#) | fn.Fn
 					ProbabilityAttribute?:   string | fn.Fn
-					S3DataDistributionType?: string | fn.Fn
-					S3InputMode?:            string | fn.Fn
+					S3DataDistributionType?: ("FullyReplicated" | "ShardedByS3Key") | fn.Fn
+					S3InputMode?:            ("Pipe" | "File") | fn.Fn
 				}) | fn.If
 			}) | fn.If
 			ModelExplainabilityJobOutputConfig: close({
-				KmsKeyId?:         string | fn.Fn
+				KmsKeyId?:         (=~#".*"#) | fn.Fn
 				MonitoringOutputs: [...close({
 					S3Output: close({
-						LocalPath:     string | fn.Fn
-						S3UploadMode?: string | fn.Fn
-						S3Uri:         string | fn.Fn
+						LocalPath:     (=~#".*"#) | fn.Fn
+						S3UploadMode?: ("Continuous" | "EndOfJob") | fn.Fn
+						S3Uri:         (=~#"^(https|s3)://([^/]+)/?(.*)$"#) | fn.Fn
 					}) | fn.If
 				})] | fn.If
 			}) | fn.If
@@ -226,13 +229,13 @@ SageMaker :: {
 				EnableInterContainerTrafficEncryption?: bool | fn.Fn
 				EnableNetworkIsolation?:                bool | fn.Fn
 				VpcConfig?:                             close({
-					SecurityGroupIds: [...(string | fn.Fn)] | (string | fn.Fn)
-					Subnets:          [...(string | fn.Fn)] | (string | fn.Fn)
+					SecurityGroupIds: [...((=~#"[-0-9a-zA-Z]+"#) | fn.Fn)] | ((=~#"[-0-9a-zA-Z]+"#) | fn.Fn)
+					Subnets:          [...((=~#"[-0-9a-zA-Z]+"#) | fn.Fn)] | ((=~#"[-0-9a-zA-Z]+"#) | fn.Fn)
 				}) | fn.If
 			}) | fn.If
-			RoleArn:            string | fn.Fn
+			RoleArn:            (strings.MinRunes(20) & strings.MaxRunes(2048) & (=~#"^arn:aws[a-z\-]*:iam::\d{12}:role/?[a-zA-Z_0-9+=,.@\-_/]+$"#)) | fn.Fn
 			StoppingCondition?: close({
-				MaxRuntimeInSeconds: int | fn.Fn
+				MaxRuntimeInSeconds: (>=1 & <=86400) | fn.Fn
 			}) | fn.If
 			Tags?: [...close({
 				Key:   string | fn.Fn
@@ -249,7 +252,7 @@ SageMaker :: {
 		Type:       "AWS::SageMaker::ModelPackageGroup"
 		Properties: close({
 			ModelPackageGroupDescription?: string | fn.Fn
-			ModelPackageGroupName:         string | fn.Fn
+			ModelPackageGroupName:         (=~#"^[a-zA-Z0-9](-*[a-zA-Z0-9])*$"#) | fn.Fn
 			ModelPackageGroupPolicy?:      {
 				[string]: _
 			} | fn.Fn
@@ -267,54 +270,54 @@ SageMaker :: {
 	ModelQualityJobDefinition :: {
 		Type:       "AWS::SageMaker::ModelQualityJobDefinition"
 		Properties: close({
-			JobDefinitionName?: string | fn.Fn
+			JobDefinitionName?: (=~#"^[a-zA-Z0-9](-*[a-zA-Z0-9])*$"#) | fn.Fn
 			JobResources:       close({
 				ClusterConfig: close({
-					InstanceCount:   int | fn.Fn
+					InstanceCount:   (>=1 & <=100) | fn.Fn
 					InstanceType:    string | fn.Fn
 					VolumeKmsKeyId?: string | fn.Fn
-					VolumeSizeInGB:  int | fn.Fn
+					VolumeSizeInGB:  (>=1 & <=16384) | fn.Fn
 				}) | fn.If
 			}) | fn.If
 			ModelQualityAppSpecification: close({
-				ContainerArguments?:  [...(string | fn.Fn)] | (string | fn.Fn)
-				ContainerEntrypoint?: [...(string | fn.Fn)] | (string | fn.Fn)
+				ContainerArguments?:  [...((strings.MinRunes(1) & strings.MaxRunes(256)) | fn.Fn)] | ((strings.MinRunes(1) & strings.MaxRunes(256)) | fn.Fn)
+				ContainerEntrypoint?: [...((strings.MinRunes(1) & strings.MaxRunes(256)) | fn.Fn)] | ((strings.MinRunes(1) & strings.MaxRunes(256)) | fn.Fn)
 				Environment?:         close({
 				}) | fn.If
-				ImageUri:                         string | fn.Fn
-				PostAnalyticsProcessorSourceUri?: string | fn.Fn
-				ProblemType:                      string | fn.Fn
-				RecordPreprocessorSourceUri?:     string | fn.Fn
+				ImageUri:                         (=~#".*"#) | fn.Fn
+				PostAnalyticsProcessorSourceUri?: (=~#"^(https|s3)://([^/]+)/?(.*)$"#) | fn.Fn
+				ProblemType:                      ("BinaryClassification" | "MulticlassClassification" | "Regression") | fn.Fn
+				RecordPreprocessorSourceUri?:     (=~#"^(https|s3)://([^/]+)/?(.*)$"#) | fn.Fn
 			}) | fn.If
 			ModelQualityBaselineConfig?: close({
-				BaseliningJobName?:   string | fn.Fn
+				BaseliningJobName?:   (strings.MinRunes(1) & strings.MaxRunes(63) & (=~#"^[a-zA-Z0-9](-*[a-zA-Z0-9])*$"#)) | fn.Fn
 				ConstraintsResource?: close({
-					S3Uri?: string | fn.Fn
+					S3Uri?: (=~#"^(https|s3)://([^/]+)/?(.*)$"#) | fn.Fn
 				}) | fn.If
 			}) | fn.If
 			ModelQualityJobInput: close({
 				EndpointInput: close({
-					EndTimeOffset?:                 string | fn.Fn
-					EndpointName:                   string | fn.Fn
+					EndTimeOffset?:                 (strings.MinRunes(1) & strings.MaxRunes(15) & (=~#"^.?P.*"#)) | fn.Fn
+					EndpointName:                   (=~#"^[a-zA-Z0-9](-*[a-zA-Z0-9])*"#) | fn.Fn
 					InferenceAttribute?:            string | fn.Fn
-					LocalPath:                      string | fn.Fn
+					LocalPath:                      (=~#".*"#) | fn.Fn
 					ProbabilityAttribute?:          string | fn.Fn
 					ProbabilityThresholdAttribute?: number | fn.Fn
-					S3DataDistributionType?:        string | fn.Fn
-					S3InputMode?:                   string | fn.Fn
-					StartTimeOffset?:               string | fn.Fn
+					S3DataDistributionType?:        ("FullyReplicated" | "ShardedByS3Key") | fn.Fn
+					S3InputMode?:                   ("Pipe" | "File") | fn.Fn
+					StartTimeOffset?:               (strings.MinRunes(1) & strings.MaxRunes(15) & (=~#"^.?P.*"#)) | fn.Fn
 				}) | fn.If
 				GroundTruthS3Input: close({
-					S3Uri: string | fn.Fn
+					S3Uri: (=~#"^(https|s3)://([^/]+)/?(.*)$"#) | fn.Fn
 				}) | fn.If
 			}) | fn.If
 			ModelQualityJobOutputConfig: close({
-				KmsKeyId?:         string | fn.Fn
+				KmsKeyId?:         (=~#".*"#) | fn.Fn
 				MonitoringOutputs: [...close({
 					S3Output: close({
-						LocalPath:     string | fn.Fn
-						S3UploadMode?: string | fn.Fn
-						S3Uri:         string | fn.Fn
+						LocalPath:     (=~#".*"#) | fn.Fn
+						S3UploadMode?: ("Continuous" | "EndOfJob") | fn.Fn
+						S3Uri:         (=~#"^(https|s3)://([^/]+)/?(.*)$"#) | fn.Fn
 					}) | fn.If
 				})] | fn.If
 			}) | fn.If
@@ -322,13 +325,13 @@ SageMaker :: {
 				EnableInterContainerTrafficEncryption?: bool | fn.Fn
 				EnableNetworkIsolation?:                bool | fn.Fn
 				VpcConfig?:                             close({
-					SecurityGroupIds: [...(string | fn.Fn)] | (string | fn.Fn)
-					Subnets:          [...(string | fn.Fn)] | (string | fn.Fn)
+					SecurityGroupIds: [...((=~#"[-0-9a-zA-Z]+"#) | fn.Fn)] | ((=~#"[-0-9a-zA-Z]+"#) | fn.Fn)
+					Subnets:          [...((=~#"[-0-9a-zA-Z]+"#) | fn.Fn)] | ((=~#"[-0-9a-zA-Z]+"#) | fn.Fn)
 				}) | fn.If
 			}) | fn.If
-			RoleArn:            string | fn.Fn
+			RoleArn:            (strings.MinRunes(20) & strings.MaxRunes(2048) & (=~#"^arn:aws[a-z\-]*:iam::\d{12}:role/?[a-zA-Z_0-9+=,.@\-_/]+$"#)) | fn.Fn
 			StoppingCondition?: close({
-				MaxRuntimeInSeconds: int | fn.Fn
+				MaxRuntimeInSeconds: (>=1 & <=86400) | fn.Fn
 			}) | fn.If
 			Tags?: [...close({
 				Key:   string | fn.Fn
@@ -344,36 +347,36 @@ SageMaker :: {
 	MonitoringSchedule :: {
 		Type:       "AWS::SageMaker::MonitoringSchedule"
 		Properties: close({
-			EndpointName?:                   string | fn.Fn
-			FailureReason?:                  string | fn.Fn
+			EndpointName?:                   (=~#"^[a-zA-Z0-9](-*[a-zA-Z0-9])*"#) | fn.Fn
+			FailureReason?:                  (strings.MinRunes(1) & strings.MaxRunes(1024)) | fn.Fn
 			LastMonitoringExecutionSummary?: close({
 				CreationTime:              string | fn.Fn
-				EndpointName?:             string | fn.Fn
+				EndpointName?:             (=~#"^[a-zA-Z0-9](-*[a-zA-Z0-9])*"#) | fn.Fn
 				FailureReason?:            string | fn.Fn
 				LastModifiedTime:          string | fn.Fn
-				MonitoringExecutionStatus: string | fn.Fn
-				MonitoringScheduleName:    string | fn.Fn
-				ProcessingJobArn?:         string | fn.Fn
+				MonitoringExecutionStatus: ("Pending" | "Completed" | "CompletedWithViolations" | "InProgress" | "Failed" | "Stopping" | "Stopped") | fn.Fn
+				MonitoringScheduleName:    (=~#"^[a-zA-Z0-9](-*[a-zA-Z0-9])*$"#) | fn.Fn
+				ProcessingJobArn?:         (=~#"aws[a-z\-]*:sagemaker:[a-z0-9\-]*:[0-9]{12}:processing-job/.*"#) | fn.Fn
 				ScheduledTime:             string | fn.Fn
 			}) | fn.If
 			MonitoringScheduleConfig: close({
 				MonitoringJobDefinition?: close({
 					BaselineConfig?: close({
 						ConstraintsResource?: close({
-							S3Uri?: string | fn.Fn
+							S3Uri?: (=~#"^(https|s3)://([^/]+)/?(.*)$"#) | fn.Fn
 						}) | fn.If
 						StatisticsResource?: close({
-							S3Uri?: string | fn.Fn
+							S3Uri?: (=~#"^(https|s3)://([^/]+)/?(.*)$"#) | fn.Fn
 						}) | fn.If
 					}) | fn.If
 					Environment?: close({
 					}) | fn.If
 					MonitoringAppSpecification: close({
-						ContainerArguments?:              [...(string | fn.Fn)] | (string | fn.Fn)
-						ContainerEntrypoint?:             [...(string | fn.Fn)] | (string | fn.Fn)
-						ImageUri:                         string | fn.Fn
-						PostAnalyticsProcessorSourceUri?: string | fn.Fn
-						RecordPreprocessorSourceUri?:     string | fn.Fn
+						ContainerArguments?:              [...((strings.MinRunes(1) & strings.MaxRunes(256)) | fn.Fn)] | ((strings.MinRunes(1) & strings.MaxRunes(256)) | fn.Fn)
+						ContainerEntrypoint?:             [...((strings.MinRunes(1) & strings.MaxRunes(256)) | fn.Fn)] | ((strings.MinRunes(1) & strings.MaxRunes(256)) | fn.Fn)
+						ImageUri:                         (=~#".*"#) | fn.Fn
+						PostAnalyticsProcessorSourceUri?: (=~#"^(https|s3)://([^/]+)/?(.*)$"#) | fn.Fn
+						RecordPreprocessorSourceUri?:     (=~#"^(https|s3)://([^/]+)/?(.*)$"#) | fn.Fn
 					}) | fn.If
 					MonitoringInputs: close({
 						MonitoringInputs?: [...close({
@@ -381,44 +384,44 @@ SageMaker :: {
 						})] | fn.If
 					}) | fn.If
 					MonitoringOutputConfig: close({
-						KmsKeyId?:         string | fn.Fn
+						KmsKeyId?:         (=~#".*"#) | fn.Fn
 						MonitoringOutputs: [...close({
 							S3Output: close({
-								LocalPath:     string | fn.Fn
-								S3UploadMode?: string | fn.Fn
-								S3Uri:         string | fn.Fn
+								LocalPath:     (=~#".*"#) | fn.Fn
+								S3UploadMode?: ("Continuous" | "EndOfJob") | fn.Fn
+								S3Uri:         (=~#"^(https|s3)://([^/]+)/?(.*)$"#) | fn.Fn
 							}) | fn.If
 						})] | fn.If
 					}) | fn.If
 					MonitoringResources: close({
 						ClusterConfig: close({
-							InstanceCount:   int | fn.Fn
+							InstanceCount:   (>=1 & <=100) | fn.Fn
 							InstanceType:    string | fn.Fn
 							VolumeKmsKeyId?: string | fn.Fn
-							VolumeSizeInGB:  int | fn.Fn
+							VolumeSizeInGB:  (>=1 & <=16384) | fn.Fn
 						}) | fn.If
 					}) | fn.If
 					NetworkConfig?: close({
 						EnableInterContainerTrafficEncryption?: bool | fn.Fn
 						EnableNetworkIsolation?:                bool | fn.Fn
 						VpcConfig?:                             close({
-							SecurityGroupIds: [...(string | fn.Fn)] | (string | fn.Fn)
-							Subnets:          [...(string | fn.Fn)] | (string | fn.Fn)
+							SecurityGroupIds: [...((=~#"[-0-9a-zA-Z]+"#) | fn.Fn)] | ((=~#"[-0-9a-zA-Z]+"#) | fn.Fn)
+							Subnets:          [...((=~#"[-0-9a-zA-Z]+"#) | fn.Fn)] | ((=~#"[-0-9a-zA-Z]+"#) | fn.Fn)
 						}) | fn.If
 					}) | fn.If
-					RoleArn:            string | fn.Fn
+					RoleArn:            (strings.MinRunes(20) & strings.MaxRunes(2048) & (=~#"^arn:aws[a-z\-]*:iam::\d{12}:role/?[a-zA-Z_0-9+=,.@\-_/]+$"#)) | fn.Fn
 					StoppingCondition?: close({
-						MaxRuntimeInSeconds: int | fn.Fn
+						MaxRuntimeInSeconds: (>=1 & <=86400) | fn.Fn
 					}) | fn.If
 				}) | fn.If
-				MonitoringJobDefinitionName?: string | fn.Fn
-				MonitoringType?:              string | fn.Fn
+				MonitoringJobDefinitionName?: (strings.MinRunes(1) & strings.MaxRunes(63) & (=~#"^[a-zA-Z0-9](-*[a-zA-Z0-9])*$"#)) | fn.Fn
+				MonitoringType?:              ("DataQuality" | "ModelQuality" | "ModelBias" | "ModelExplainability") | fn.Fn
 				ScheduleConfig?:              close({
-					ScheduleExpression: string | fn.Fn
+					ScheduleExpression: (strings.MinRunes(1) & strings.MaxRunes(256)) | fn.Fn
 				}) | fn.If
 			}) | fn.If
-			MonitoringScheduleName:    string | fn.Fn
-			MonitoringScheduleStatus?: string | fn.Fn
+			MonitoringScheduleName:    (=~#"^[a-zA-Z0-9](-*[a-zA-Z0-9])*$"#) | fn.Fn
+			MonitoringScheduleStatus?: ("Pending" | "Failed" | "Scheduled" | "Stopped") | fn.Fn
 			Tags?:                     [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
@@ -437,9 +440,9 @@ SageMaker :: {
 				[string]: _
 			} | fn.Fn
 			PipelineDescription?: string | fn.Fn
-			PipelineDisplayName?: string | fn.Fn
-			PipelineName:         string | fn.Fn
-			RoleArn:              string | fn.Fn
+			PipelineDisplayName?: (strings.MinRunes(1) & strings.MaxRunes(256) & (=~#"^[a-zA-Z0-9](-*[a-zA-Z0-9])*"#)) | fn.Fn
+			PipelineName:         (strings.MinRunes(1) & strings.MaxRunes(256) & (=~#"^[a-zA-Z0-9](-*[a-zA-Z0-9])*"#)) | fn.Fn
+			RoleArn:              (strings.MinRunes(20) & strings.MaxRunes(2048) & (=~#"^arn:aws[a-z\-]*:iam::\d{12}:role/?[a-zA-Z_0-9+=,.@\-_/]+$"#)) | fn.Fn
 			Tags?:                [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
@@ -454,8 +457,8 @@ SageMaker :: {
 	Project :: {
 		Type:       "AWS::SageMaker::Project"
 		Properties: close({
-			ProjectDescription?:               string | fn.Fn
-			ProjectName:                       string | fn.Fn
+			ProjectDescription?:               (=~#".*"#) | fn.Fn
+			ProjectName:                       (strings.MinRunes(1) & strings.MaxRunes(32) & (=~#"^[a-zA-Z0-9](-*[a-zA-Z0-9])*$"#)) | fn.Fn
 			ServiceCatalogProvisioningDetails: {
 				[string]: _
 			} | fn.Fn

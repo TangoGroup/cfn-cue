@@ -87,12 +87,12 @@ CloudWatch :: {
 		Type:       "AWS::CloudWatch::CompositeAlarm"
 		Properties: close({
 			ActionsEnabled?:          bool | fn.Fn
-			AlarmActions?:            [...(string | fn.Fn)] | (string | fn.Fn)
+			AlarmActions?:            [...((strings.MinRunes(1) & strings.MaxRunes(1024)) | fn.Fn)] | ((strings.MinRunes(1) & strings.MaxRunes(1024)) | fn.Fn)
 			AlarmDescription?:        string | fn.Fn
-			AlarmName:                string | fn.Fn
-			AlarmRule:                string | fn.Fn
-			InsufficientDataActions?: [...(string | fn.Fn)] | (string | fn.Fn)
-			OKActions?:               [...(string | fn.Fn)] | (string | fn.Fn)
+			AlarmName:                (strings.MinRunes(1) & strings.MaxRunes(255)) | fn.Fn
+			AlarmRule:                (strings.MinRunes(1) & strings.MaxRunes(10240)) | fn.Fn
+			InsufficientDataActions?: [...((strings.MinRunes(1) & strings.MaxRunes(1024)) | fn.Fn)] | ((strings.MinRunes(1) & strings.MaxRunes(1024)) | fn.Fn)
+			OKActions?:               [...((strings.MinRunes(1) & strings.MaxRunes(1024)) | fn.Fn)] | ((strings.MinRunes(1) & strings.MaxRunes(1024)) | fn.Fn)
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -131,15 +131,15 @@ CloudWatch :: {
 		Type:       "AWS::CloudWatch::MetricStream"
 		Properties: close({
 			ExcludeFilters?: [...close({
-				Namespace: string | fn.Fn
+				Namespace: (strings.MinRunes(1) & strings.MaxRunes(255)) | fn.Fn
 			})] | fn.If
-			FirehoseArn:     string | fn.Fn
+			FirehoseArn:     (strings.MinRunes(20) & strings.MaxRunes(2048)) | fn.Fn
 			IncludeFilters?: [...close({
-				Namespace: string | fn.Fn
+				Namespace: (strings.MinRunes(1) & strings.MaxRunes(255)) | fn.Fn
 			})] | fn.If
-			Name?:         string | fn.Fn
-			OutputFormat?: string | fn.Fn
-			RoleArn:       string | fn.Fn
+			Name?:         (strings.MinRunes(1) & strings.MaxRunes(255)) | fn.Fn
+			OutputFormat?: (strings.MinRunes(1) & strings.MaxRunes(255)) | fn.Fn
+			RoleArn:       (strings.MinRunes(20) & strings.MaxRunes(2048)) | fn.Fn
 			Tags?:         [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn

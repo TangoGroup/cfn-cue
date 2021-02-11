@@ -10,8 +10,8 @@ S3 :: {
 	AccessPoint :: {
 		Type:       "AWS::S3::AccessPoint"
 		Properties: close({
-			Bucket:  string | fn.Fn
-			Name?:   string | fn.Fn
+			Bucket:  (strings.MinRunes(3) & strings.MaxRunes(255)) | fn.Fn
+			Name?:   (strings.MinRunes(3) & strings.MaxRunes(50) & (=~#"^[a-z0-9]([a-z0-9\-]*[a-z0-9])?$"#)) | fn.Fn
 			Policy?: {
 				[string]: _
 			} | fn.Fn
@@ -22,7 +22,7 @@ S3 :: {
 				RestrictPublicBuckets?: bool | fn.Fn
 			}) | fn.If
 			VpcConfiguration?: close({
-				VpcId?: string | fn.Fn
+				VpcId?: (strings.MinRunes(1) & strings.MaxRunes(1024)) | fn.Fn
 			}) | fn.If
 		})
 		DependsOn?:           string | [...string]

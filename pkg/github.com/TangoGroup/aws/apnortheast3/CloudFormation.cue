@@ -33,9 +33,9 @@ CloudFormation :: {
 	ModuleDefaultVersion :: {
 		Type:       "AWS::CloudFormation::ModuleDefaultVersion"
 		Properties: close({
-			Arn?:        string | fn.Fn
-			ModuleName?: string | fn.Fn
-			VersionId?:  string | fn.Fn
+			Arn?:        (=~#"^arn:aws[A-Za-z0-9-]{0,64}:cloudformation:[A-Za-z0-9-]{1,64}:([0-9]{12})?:type/module/.+/[0-9]{8}$"#) | fn.Fn
+			ModuleName?: (=~#"^[A-Za-z0-9]{2,64}::[A-Za-z0-9]{2,64}::[A-Za-z0-9]{2,64}::MODULE"#) | fn.Fn
+			VersionId?:  (=~#"^[0-9]{8}$"#) | fn.Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -46,7 +46,7 @@ CloudFormation :: {
 	ModuleVersion :: {
 		Type:       "AWS::CloudFormation::ModuleVersion"
 		Properties: close({
-			ModuleName:     string | fn.Fn
+			ModuleName:     (=~#"^[A-Za-z0-9]{2,64}::[A-Za-z0-9]{2,64}::[A-Za-z0-9]{2,64}::MODULE"#) | fn.Fn
 			ModulePackage?: string | fn.Fn
 		})
 		DependsOn?:           string | [...string]

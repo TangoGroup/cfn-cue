@@ -9,7 +9,7 @@ Signer :: {
 			Action:          string | fn.Fn
 			Principal:       string | fn.Fn
 			ProfileName:     string | fn.Fn
-			ProfileVersion?: string | fn.Fn
+			ProfileVersion?: (=~#"^[0-9a-zA-Z]{10}$"#) | fn.Fn
 			StatementId:     string | fn.Fn
 		})
 		DependsOn?:           string | [...string]
@@ -21,9 +21,9 @@ Signer :: {
 	SigningProfile :: {
 		Type:       "AWS::Signer::SigningProfile"
 		Properties: close({
-			PlatformId:               string | fn.Fn
+			PlatformId:               ("AWSLambda-SHA384-ECDSA") | fn.Fn
 			SignatureValidityPeriod?: close({
-				Type?:  string | fn.Fn
+				Type?:  ("DAYS" | "MONTHS" | "YEARS") | fn.Fn
 				Value?: int | fn.Fn
 			}) | fn.If
 			Tags?: [...close({

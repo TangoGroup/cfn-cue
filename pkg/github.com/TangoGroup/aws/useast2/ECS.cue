@@ -11,10 +11,10 @@ ECS :: {
 				ManagedScaling?:     close({
 					MaximumScalingStepSize?: int | fn.Fn
 					MinimumScalingStepSize?: int | fn.Fn
-					Status?:                 string | fn.Fn
+					Status?:                 ("DISABLED" | "ENABLED") | fn.Fn
 					TargetCapacity?:         int | fn.Fn
 				}) | fn.If
-				ManagedTerminationProtection?: string | fn.Fn
+				ManagedTerminationProtection?: ("DISABLED" | "ENABLED") | fn.Fn
 			}) | fn.If
 			Name?: string | fn.Fn
 			Tags?: [...close({
@@ -97,7 +97,7 @@ ECS :: {
 				MinimumHealthyPercent?: int | fn.Fn
 			}) | fn.If
 			DeploymentController?: close({
-				Type?: string | fn.Fn
+				Type?: ("CODE_DEPLOY" | "ECS" | "EXTERNAL") | fn.Fn
 			}) | fn.If
 			DesiredCount?:                  int | fn.Fn
 			EnableECSManagedTags?:          bool | fn.Fn
@@ -112,21 +112,21 @@ ECS :: {
 			})] | fn.If
 			NetworkConfiguration?: close({
 				AwsvpcConfiguration?: close({
-					AssignPublicIp?: string | fn.Fn
+					AssignPublicIp?: ("DISABLED" | "ENABLED") | fn.Fn
 					SecurityGroups?: [...(string | fn.Fn)] | (string | fn.Fn)
 					Subnets?:        [...(string | fn.Fn)] | (string | fn.Fn)
 				}) | fn.If
 			}) | fn.If
 			PlacementConstraints?: [...close({
 				Expression?: string | fn.Fn
-				Type:        string | fn.Fn
+				Type:        ("distinctInstance" | "memberOf") | fn.Fn
 			})] | fn.If
 			PlacementStrategies?: [...close({
 				Field?: string | fn.Fn
-				Type:   string | fn.Fn
+				Type:   ("binpack" | "random" | "spread") | fn.Fn
 			})] | fn.If
 			PlatformVersion?:    string | fn.Fn
-			PropagateTags?:      string | fn.Fn
+			PropagateTags?:      ("SERVICE" | "TASK_DEFINITION") | fn.Fn
 			Role?:               string | fn.Fn
 			SchedulingStrategy?: ("DAEMON" | "REPLICA") | fn.Fn
 			ServiceArn?:         string | fn.Fn
@@ -319,7 +319,7 @@ ECS :: {
 					} | fn.Fn
 					FilesystemId:           string | fn.Fn
 					RootDirectory?:         string | fn.Fn
-					TransitEncryption?:     string | fn.Fn
+					TransitEncryption?:     ("ENABLED" | "DISABLED") | fn.Fn
 					TransitEncryptionPort?: int | fn.Fn
 				}) | fn.If
 				Host?: close({
@@ -339,7 +339,7 @@ ECS :: {
 		Properties: close({
 			Cluster:        string | fn.Fn
 			ExternalId?:    string | fn.Fn
-			LaunchType?:    string | fn.Fn
+			LaunchType?:    ("EC2" | "FARGATE") | fn.Fn
 			LoadBalancers?: [...close({
 				ContainerName?:    string | fn.Fn
 				ContainerPort?:    int | fn.Fn
@@ -348,14 +348,14 @@ ECS :: {
 			})] | fn.If
 			NetworkConfiguration?: close({
 				AwsVpcConfiguration?: close({
-					AssignPublicIp?: string | fn.Fn
+					AssignPublicIp?: ("DISABLED" | "ENABLED") | fn.Fn
 					SecurityGroups?: [...(string | fn.Fn)] | (string | fn.Fn)
 					Subnets:         [...(string | fn.Fn)] | (string | fn.Fn)
 				}) | fn.If
 			}) | fn.If
 			PlatformVersion?: string | fn.Fn
 			Scale?:           close({
-				Unit?:  string | fn.Fn
+				Unit?:  ("PERCENT") | fn.Fn
 				Value?: number | fn.Fn
 			}) | fn.If
 			Service:            string | fn.Fn

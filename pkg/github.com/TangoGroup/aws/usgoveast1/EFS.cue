@@ -1,14 +1,17 @@
 package usgoveast1
 
-import "github.com/TangoGroup/aws/fn"
+import (
+	"github.com/TangoGroup/aws/fn"
+	"strings"
+)
 
 EFS :: {
 	AccessPoint :: {
 		Type:       "AWS::EFS::AccessPoint"
 		Properties: close({
 			AccessPointTags?: [...close({
-				Key?:   string | fn.Fn
-				Value?: string | fn.Fn
+				Key?:   (strings.MinRunes(1) & strings.MaxRunes(128)) | fn.Fn
+				Value?: (strings.MinRunes(1) & strings.MaxRunes(256)) | fn.Fn
 			})] | fn.If
 			ClientToken?: string | fn.Fn
 			FileSystemId: string | fn.Fn
@@ -21,9 +24,9 @@ EFS :: {
 				CreationInfo?: close({
 					OwnerGid:    string | fn.Fn
 					OwnerUid:    string | fn.Fn
-					Permissions: string | fn.Fn
+					Permissions: (=~#"^[0-7]{3,4}$"#) | fn.Fn
 				}) | fn.If
-				Path?: string | fn.Fn
+				Path?: (strings.MinRunes(1) & strings.MaxRunes(100)) | fn.Fn
 			}) | fn.If
 		})
 		DependsOn?:           string | [...string]

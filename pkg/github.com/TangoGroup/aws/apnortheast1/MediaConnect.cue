@@ -10,10 +10,10 @@ MediaConnect :: {
 			Name:              string | fn.Fn
 			Source:            close({
 				Decryption?: close({
-					Algorithm:                     string | fn.Fn
+					Algorithm:                     ("aes128" | "aes192" | "aes256") | fn.Fn
 					ConstantInitializationVector?: string | fn.Fn
 					DeviceId?:                     string | fn.Fn
-					KeyType?:                      string | fn.Fn
+					KeyType?:                      ("speke" | "static-key") | fn.Fn
 					Region?:                       string | fn.Fn
 					ResourceId?:                   string | fn.Fn
 					RoleArn:                       string | fn.Fn
@@ -27,7 +27,7 @@ MediaConnect :: {
 				MaxBitrate?:       int | fn.Fn
 				MaxLatency?:       int | fn.Fn
 				Name?:             string | fn.Fn
-				Protocol?:         string | fn.Fn
+				Protocol?:         ("zixi-push" | "rtp-fec" | "rtp" | "rist") | fn.Fn
 				SourceArn?:        string | fn.Fn
 				StreamId?:         string | fn.Fn
 				VpcInterfaceName?: string | fn.Fn
@@ -35,7 +35,7 @@ MediaConnect :: {
 			}) | fn.If
 			SourceFailoverConfig?: close({
 				RecoveryWindow?: int | fn.Fn
-				State?:          string | fn.Fn
+				State?:          ("ENABLED" | "DISABLED") | fn.Fn
 			}) | fn.If
 		})
 		DependsOn?:           string | [...string]
@@ -50,17 +50,17 @@ MediaConnect :: {
 			DataTransferSubscriberFeePercent?: int | fn.Fn
 			Description:                       string | fn.Fn
 			Encryption?:                       close({
-				Algorithm:                     string | fn.Fn
+				Algorithm:                     ("aes128" | "aes192" | "aes256") | fn.Fn
 				ConstantInitializationVector?: string | fn.Fn
 				DeviceId?:                     string | fn.Fn
-				KeyType?:                      string | fn.Fn
+				KeyType?:                      ("speke" | "static-key") | fn.Fn
 				Region?:                       string | fn.Fn
 				ResourceId?:                   string | fn.Fn
 				RoleArn:                       string | fn.Fn
 				SecretArn?:                    string | fn.Fn
 				Url?:                          string | fn.Fn
 			}) | fn.If
-			EntitlementStatus?: string | fn.Fn
+			EntitlementStatus?: ("ENABLED" | "DISABLED") | fn.Fn
 			FlowArn:            string | fn.Fn
 			Name:               string | fn.Fn
 			Subscribers:        [...(string | fn.Fn)] | (string | fn.Fn)
@@ -78,8 +78,8 @@ MediaConnect :: {
 			Description?:   string | fn.Fn
 			Destination?:   string | fn.Fn
 			Encryption?:    close({
-				Algorithm: string | fn.Fn
-				KeyType?:  string | fn.Fn
+				Algorithm: ("aes128" | "aes192" | "aes256") | fn.Fn
+				KeyType?:  ("static-key") | fn.Fn
 				RoleArn:   string | fn.Fn
 				SecretArn: string | fn.Fn
 			}) | fn.If
@@ -87,7 +87,7 @@ MediaConnect :: {
 			MaxLatency?:             int | fn.Fn
 			Name?:                   string | fn.Fn
 			Port?:                   int | fn.Fn
-			Protocol:                string | fn.Fn
+			Protocol:                ("zixi-push" | "rtp-fec" | "rtp" | "zixi-pull" | "rist") | fn.Fn
 			RemoteId?:               string | fn.Fn
 			SmoothingLatency?:       int | fn.Fn
 			StreamId?:               string | fn.Fn
@@ -105,10 +105,10 @@ MediaConnect :: {
 		Type:       "AWS::MediaConnect::FlowSource"
 		Properties: close({
 			Decryption?: close({
-				Algorithm:                     string | fn.Fn
+				Algorithm:                     ("aes128" | "aes192" | "aes256") | fn.Fn
 				ConstantInitializationVector?: string | fn.Fn
 				DeviceId?:                     string | fn.Fn
-				KeyType?:                      string | fn.Fn
+				KeyType?:                      ("speke" | "static-key") | fn.Fn
 				Region?:                       string | fn.Fn
 				ResourceId?:                   string | fn.Fn
 				RoleArn:                       string | fn.Fn
@@ -122,7 +122,7 @@ MediaConnect :: {
 			MaxBitrate?:       int | fn.Fn
 			MaxLatency?:       int | fn.Fn
 			Name:              string | fn.Fn
-			Protocol?:         string | fn.Fn
+			Protocol?:         ("zixi-push" | "rtp-fec" | "rtp" | "rist") | fn.Fn
 			StreamId?:         string | fn.Fn
 			VpcInterfaceName?: string | fn.Fn
 			WhitelistCidr?:    string | fn.Fn

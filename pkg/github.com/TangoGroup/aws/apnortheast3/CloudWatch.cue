@@ -87,12 +87,12 @@ CloudWatch :: {
 		Type:       "AWS::CloudWatch::CompositeAlarm"
 		Properties: close({
 			ActionsEnabled?:          bool | fn.Fn
-			AlarmActions?:            [...(string | fn.Fn)] | (string | fn.Fn)
+			AlarmActions?:            [...((strings.MinRunes(1) & strings.MaxRunes(1024)) | fn.Fn)] | ((strings.MinRunes(1) & strings.MaxRunes(1024)) | fn.Fn)
 			AlarmDescription?:        string | fn.Fn
-			AlarmName:                string | fn.Fn
-			AlarmRule:                string | fn.Fn
-			InsufficientDataActions?: [...(string | fn.Fn)] | (string | fn.Fn)
-			OKActions?:               [...(string | fn.Fn)] | (string | fn.Fn)
+			AlarmName:                (strings.MinRunes(1) & strings.MaxRunes(255)) | fn.Fn
+			AlarmRule:                (strings.MinRunes(1) & strings.MaxRunes(10240)) | fn.Fn
+			InsufficientDataActions?: [...((strings.MinRunes(1) & strings.MaxRunes(1024)) | fn.Fn)] | ((strings.MinRunes(1) & strings.MaxRunes(1024)) | fn.Fn)
+			OKActions?:               [...((strings.MinRunes(1) & strings.MaxRunes(1024)) | fn.Fn)] | ((strings.MinRunes(1) & strings.MaxRunes(1024)) | fn.Fn)
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

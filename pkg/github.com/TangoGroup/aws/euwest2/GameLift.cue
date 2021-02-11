@@ -1,17 +1,20 @@
 package euwest2
 
-import "github.com/TangoGroup/aws/fn"
+import (
+	"github.com/TangoGroup/aws/fn"
+	"strings"
+)
 
 GameLift :: {
 	Alias :: {
 		Type:       "AWS::GameLift::Alias"
 		Properties: close({
-			Description?:    string | fn.Fn
-			Name:            string | fn.Fn
+			Description?:    (strings.MinRunes(1) & strings.MaxRunes(1024)) | fn.Fn
+			Name:            (strings.MinRunes(1) & strings.MaxRunes(1024) & (=~#".*\S.*"#)) | fn.Fn
 			RoutingStrategy: close({
-				FleetId?: string | fn.Fn
+				FleetId?: (=~#"^fleet-\S+"#) | fn.Fn
 				Message?: string | fn.Fn
-				Type?:    string | fn.Fn
+				Type?:    ("SIMPLE" | "TERMINAL") | fn.Fn
 			}) | fn.If
 		})
 		DependsOn?:           string | [...string]
@@ -97,10 +100,10 @@ GameLift :: {
 					TargetValue: number | fn.Fn
 				}) | fn.If
 			}) | fn.If
-			BalancingStrategy?:          string | fn.Fn
-			DeleteOption?:               string | fn.Fn
-			GameServerGroupName:         string | fn.Fn
-			GameServerProtectionPolicy?: string | fn.Fn
+			BalancingStrategy?:          ("SPOT_ONLY" | "SPOT_PREFERRED" | "ON_DEMAND_ONLY") | fn.Fn
+			DeleteOption?:               ("SAFE_DELETE" | "FORCE_DELETE" | "RETAIN") | fn.Fn
+			GameServerGroupName:         (strings.MinRunes(1) & strings.MaxRunes(128) & (=~#"[a-zA-Z0-9-\.]+"#)) | fn.Fn
+			GameServerProtectionPolicy?: ("NO_PROTECTION" | "FULL_PROTECTION") | fn.Fn
 			InstanceDefinitions:         [...close({
 				InstanceType:      string | fn.Fn
 				WeightedCapacity?: string | fn.Fn
@@ -112,12 +115,12 @@ GameLift :: {
 			}) | fn.If
 			MaxSize?: number | fn.Fn
 			MinSize?: number | fn.Fn
-			RoleArn:  string | fn.Fn
+			RoleArn:  (strings.MinRunes(1) & strings.MaxRunes(256) & (=~#"^arn:.*:role\/[\w+=,.@-]+"#)) | fn.Fn
 			Tags?:    [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			})] | fn.If
-			VpcSubnets?: [...(string | fn.Fn)] | (string | fn.Fn)
+			VpcSubnets?: [...((strings.MinRunes(15) & strings.MaxRunes(24) & (=~#"^subnet-[0-9a-z]+$"#)) | fn.Fn)] | ((strings.MinRunes(15) & strings.MaxRunes(24) & (=~#"^subnet-[0-9a-z]+$"#)) | fn.Fn)
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

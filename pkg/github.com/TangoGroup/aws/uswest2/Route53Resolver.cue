@@ -1,12 +1,15 @@
 package uswest2
 
-import "github.com/TangoGroup/aws/fn"
+import (
+	"github.com/TangoGroup/aws/fn"
+	"strings"
+)
 
 Route53Resolver :: {
 	ResolverDNSSECConfig :: {
 		Type:       "AWS::Route53Resolver::ResolverDNSSECConfig"
 		Properties: close({
-			ResourceId?: string | fn.Fn
+			ResourceId?: (strings.MinRunes(1) & strings.MaxRunes(64)) | fn.Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -38,8 +41,8 @@ Route53Resolver :: {
 	ResolverQueryLoggingConfig :: {
 		Type:       "AWS::Route53Resolver::ResolverQueryLoggingConfig"
 		Properties: close({
-			DestinationArn?: string | fn.Fn
-			Name?:           string | fn.Fn
+			DestinationArn?: (strings.MinRunes(1) & strings.MaxRunes(600)) | fn.Fn
+			Name?:           (strings.MinRunes(1) & strings.MaxRunes(64) & (=~#"(?!^[0-9]+$)([a-zA-Z0-9\-_' ']+)"#)) | fn.Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -50,8 +53,8 @@ Route53Resolver :: {
 	ResolverQueryLoggingConfigAssociation :: {
 		Type:       "AWS::Route53Resolver::ResolverQueryLoggingConfigAssociation"
 		Properties: close({
-			ResolverQueryLogConfigId?: string | fn.Fn
-			ResourceId?:               string | fn.Fn
+			ResolverQueryLogConfigId?: (strings.MinRunes(1) & strings.MaxRunes(64)) | fn.Fn
+			ResourceId?:               (strings.MinRunes(1) & strings.MaxRunes(64)) | fn.Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

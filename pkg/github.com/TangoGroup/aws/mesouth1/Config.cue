@@ -115,9 +115,9 @@ Config :: {
 	StoredQuery :: {
 		Type:       "AWS::Config::StoredQuery"
 		Properties: close({
-			QueryDescription?: string | fn.Fn
-			QueryExpression:   string | fn.Fn
-			QueryName:         string | fn.Fn
+			QueryDescription?: (=~#"[\s\S]*"#) | fn.Fn
+			QueryExpression:   (strings.MinRunes(1) & strings.MaxRunes(4096) & (=~#"[\s\S]*"#)) | fn.Fn
+			QueryName:         (strings.MinRunes(1) & strings.MaxRunes(64) & (=~#"^[a-zA-Z0-9-_]+$"#)) | fn.Fn
 			Tags?:             [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn

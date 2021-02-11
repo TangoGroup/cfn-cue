@@ -676,8 +676,8 @@ EC2 :: {
 	NetworkInsightsAnalysis :: {
 		Type:       "AWS::EC2::NetworkInsightsAnalysis"
 		Properties: close({
-			FilterInArns?:         [...(string | fn.Fn)] | (string | fn.Fn)
-			NetworkInsightsPathId: string | fn.Fn
+			FilterInArns?:         [...((strings.MinRunes(1) & strings.MaxRunes(1283)) | fn.Fn)] | ((strings.MinRunes(1) & strings.MaxRunes(1283)) | fn.Fn)
+			NetworkInsightsPathId: (=~#"nip-.+"#) | fn.Fn
 			Tags?:                 [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
@@ -692,12 +692,12 @@ EC2 :: {
 	NetworkInsightsPath :: {
 		Type:       "AWS::EC2::NetworkInsightsPath"
 		Properties: close({
-			Destination:      string | fn.Fn
-			DestinationIp?:   string | fn.Fn
-			DestinationPort?: int | fn.Fn
-			Protocol:         string | fn.Fn
-			Source:           string | fn.Fn
-			SourceIp?:        string | fn.Fn
+			Destination:      (=~#"^([a-z]{1,5}-([a-z0-9]{8}|[a-z0-9]{17}|\*)$)|arn:(aws|aws-cn|aws-us-gov|aws-iso-{0,1}[a-z]{0,1}):[A-Za-z0-9][A-Za-z0-9_/.-]{0,62}:[A-Za-z0-9_/.-]{0,63}:[A-Za-z0-9_/.-]{0,63}:[A-Za-z0-9][A-Za-z0-9:_/+=,@.-]{0,1023}$"#) | fn.Fn
+			DestinationIp?:   (=~#"^([0-9]{1,3}.){3}[0-9]{1,3}$"#) | fn.Fn
+			DestinationPort?: (>=1 & <=65535) | fn.Fn
+			Protocol:         ("tcp" | "udp") | fn.Fn
+			Source:           (=~#"^([a-z]{1,5}-([a-z0-9]{8}|[a-z0-9]{17}|\*)$)|arn:(aws|aws-cn|aws-us-gov|aws-iso-{0,1}[a-z]{0,1}):[A-Za-z0-9][A-Za-z0-9_/.-]{0,62}:[A-Za-z0-9_/.-]{0,63}:[A-Za-z0-9_/.-]{0,63}:[A-Za-z0-9][A-Za-z0-9:_/+=,@.-]{0,1023}$"#) | fn.Fn
+			SourceIp?:        (=~#"^([0-9]{1,3}.){3}[0-9]{1,3}$"#) | fn.Fn
 			Tags?:            [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
@@ -779,13 +779,13 @@ EC2 :: {
 	PrefixList :: {
 		Type:       "AWS::EC2::PrefixList"
 		Properties: close({
-			AddressFamily: string | fn.Fn
+			AddressFamily: ("IPv4" | "IPv6") | fn.Fn
 			Entries?:      [...close({
-				Cidr:         (=~#"^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]).){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/([0-9]|[1-2][0-9]|3[0-2]))$"#) | fn.Fn
+				Cidr:         (strings.MinRunes(1) & strings.MaxRunes(46)) | fn.Fn
 				Description?: string | fn.Fn
 			})] | fn.If
-			MaxEntries:     int | fn.Fn
-			PrefixListName: string | fn.Fn
+			MaxEntries:     (>=1 & <=1000) | fn.Fn
+			PrefixListName: (strings.MinRunes(1) & strings.MaxRunes(255)) | fn.Fn
 			Tags?:          [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn

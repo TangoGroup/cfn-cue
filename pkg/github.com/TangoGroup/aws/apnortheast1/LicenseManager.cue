@@ -1,6 +1,9 @@
 package apnortheast1
 
-import "github.com/TangoGroup/aws/fn"
+import (
+	"github.com/TangoGroup/aws/fn"
+	"strings"
+)
 
 LicenseManager :: {
 	Grant :: {
@@ -52,7 +55,7 @@ LicenseManager :: {
 			})] | fn.If
 			LicenseName: string | fn.Fn
 			ProductName: string | fn.Fn
-			ProductSKU?: string | fn.Fn
+			ProductSKU?: (strings.MinRunes(1) & strings.MaxRunes(1024)) | fn.Fn
 			Status?:     string | fn.Fn
 			Validity:    close({
 				Begin: string | fn.Fn

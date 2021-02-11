@@ -1,12 +1,15 @@
 package useast2
 
-import "github.com/TangoGroup/aws/fn"
+import (
+	"github.com/TangoGroup/aws/fn"
+	"strings"
+)
 
 LookoutVision :: {
 	Project :: {
 		Type:       "AWS::LookoutVision::Project"
 		Properties: close({
-			ProjectName: string | fn.Fn
+			ProjectName: (strings.MinRunes(1) & strings.MaxRunes(255) & (=~#"[a-zA-Z0-9][a-zA-Z0-9_\-]*"#)) | fn.Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

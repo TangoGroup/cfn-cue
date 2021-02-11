@@ -1,15 +1,18 @@
 package euwest2
 
-import "github.com/TangoGroup/aws/fn"
+import (
+	"github.com/TangoGroup/aws/fn"
+	"strings"
+)
 
 IoT :: {
 	Authorizer :: {
 		Type:       "AWS::IoT::Authorizer"
 		Properties: close({
 			AuthorizerFunctionArn: string | fn.Fn
-			AuthorizerName?:       string | fn.Fn
+			AuthorizerName?:       (strings.MinRunes(1) & strings.MaxRunes(128) & (=~#"[\w=,@-]+"#)) | fn.Fn
 			SigningDisabled?:      bool | fn.Fn
-			Status?:               string | fn.Fn
+			Status?:               ("ACTIVE" | "INACTIVE") | fn.Fn
 			Tags?:                 [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
@@ -28,11 +31,11 @@ IoT :: {
 	Certificate :: {
 		Type:       "AWS::IoT::Certificate"
 		Properties: close({
-			CACertificatePem?:          string | fn.Fn
-			CertificateMode?:           string | fn.Fn
-			CertificatePem?:            string | fn.Fn
+			CACertificatePem?:          (strings.MinRunes(1) & strings.MaxRunes(65536)) | fn.Fn
+			CertificateMode?:           ("DEFAULT" | "SNI_ONLY") | fn.Fn
+			CertificatePem?:            (strings.MinRunes(1) & strings.MaxRunes(65536)) | fn.Fn
 			CertificateSigningRequest?: string | fn.Fn
-			Status:                     string | fn.Fn
+			Status:                     ("ACTIVE" | "INACTIVE" | "REVOKED" | "PENDING_TRANSFER" | "PENDING_ACTIVATION") | fn.Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -82,7 +85,7 @@ IoT :: {
 				Value: string | fn.Fn
 			})] | fn.If
 			TemplateBody:  string | fn.Fn
-			TemplateName?: string | fn.Fn
+			TemplateName?: (strings.MinRunes(1) & strings.MaxRunes(36) & (=~#"^[0-9A-Za-z_-]+$"#)) | fn.Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -389,7 +392,7 @@ IoT :: {
 			HttpUrlProperties?: close({
 				ConfirmationUrl?: string | fn.Fn
 			}) | fn.If
-			Status?:        string | fn.Fn
+			Status?:        ("ENABLED" | "IN_PROGRESS" | "DISABLED") | fn.Fn
 			VpcProperties?: close({
 				RoleArn?:        string | fn.Fn
 				SecurityGroups?: [...(string | fn.Fn)] | (string | fn.Fn)
