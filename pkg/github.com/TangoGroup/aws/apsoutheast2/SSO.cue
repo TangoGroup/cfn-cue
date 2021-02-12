@@ -33,9 +33,6 @@ SSO :: {
 					}) | fn.If
 				}) | fn.If
 			})] | fn.If
-			InstanceAccessControlAttributeConfiguration?: {
-				[string]: _
-			} | fn.Fn
 			InstanceArn: (strings.MinRunes(10) & strings.MaxRunes(1224) & (=~#"arn:aws:sso:::instance/(sso)?ins-[a-zA-Z0-9-.]{16}"#)) | fn.Fn
 		})
 		DependsOn?:           string | [...string]

@@ -101,7 +101,6 @@ ECS :: {
 			}) | fn.If
 			DesiredCount?:                  int | fn.Fn
 			EnableECSManagedTags?:          bool | fn.Fn
-			EnableExecuteCommand?:          bool | fn.Fn
 			HealthCheckGracePeriodSeconds?: int | fn.Fn
 			LaunchType?:                    ("EC2" | "FARGATE") | fn.Fn
 			LoadBalancers?:                 [...close({

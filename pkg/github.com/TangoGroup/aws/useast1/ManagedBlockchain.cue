@@ -46,7 +46,7 @@ ManagedBlockchain :: {
 	Node :: {
 		Type:       "AWS::ManagedBlockchain::Node"
 		Properties: close({
-			MemberId:          string | fn.Fn
+			MemberId?:         string | fn.Fn
 			NetworkId:         string | fn.Fn
 			NodeConfiguration: close({
 				AvailabilityZone: string | fn.Fn

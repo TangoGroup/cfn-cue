@@ -261,15 +261,32 @@ AppMesh :: {
 				BackendDefaults?: close({
 					ClientPolicy?: close({
 						TLS?: close({
+							Certificate?: close({
+								File?: close({
+									CertificateChain: string | fn.Fn
+									PrivateKey:       string | fn.Fn
+								}) | fn.If
+								SDS?: close({
+									SecretName: string | fn.Fn
+								}) | fn.If
+							}) | fn.If
 							Enforce?:   bool | fn.Fn
 							Ports?:     [...(int | fn.Fn)] | (int | fn.Fn)
 							Validation: close({
+								SubjectAlternativeNames?: close({
+									Match: close({
+										Exact?: [...(string | fn.Fn)] | (string | fn.Fn)
+									}) | fn.If
+								}) | fn.If
 								Trust: close({
 									ACM?: close({
 										CertificateAuthorityArns: [...(string | fn.Fn)] | (string | fn.Fn)
 									}) | fn.If
 									File?: close({
 										CertificateChain: string | fn.Fn
+									}) | fn.If
+									SDS?: close({
+										SecretName: string | fn.Fn
 									}) | fn.If
 								}) | fn.If
 							}) | fn.If
@@ -311,8 +328,26 @@ AppMesh :: {
 								CertificateChain: string | fn.Fn
 								PrivateKey:       string | fn.Fn
 							}) | fn.If
+							SDS?: close({
+								SecretName: string | fn.Fn
+							}) | fn.If
 						}) | fn.If
-						Mode: string | fn.Fn
+						Mode:        string | fn.Fn
+						Validation?: close({
+							SubjectAlternativeNames?: close({
+								Match: close({
+									Exact?: [...(string | fn.Fn)] | (string | fn.Fn)
+								}) | fn.If
+							}) | fn.If
+							Trust: close({
+								File?: close({
+									CertificateChain: string | fn.Fn
+								}) | fn.If
+								SDS?: close({
+									SecretName: string | fn.Fn
+								}) | fn.If
+							}) | fn.If
+						}) | fn.If
 					}) | fn.If
 				})] | fn.If
 				Logging?: close({
@@ -344,15 +379,32 @@ AppMesh :: {
 				BackendDefaults?: close({
 					ClientPolicy?: close({
 						TLS?: close({
+							Certificate?: close({
+								File?: close({
+									CertificateChain: string | fn.Fn
+									PrivateKey:       string | fn.Fn
+								}) | fn.If
+								SDS?: close({
+									SecretName: string | fn.Fn
+								}) | fn.If
+							}) | fn.If
 							Enforce?:   bool | fn.Fn
 							Ports?:     [...(int | fn.Fn)] | (int | fn.Fn)
 							Validation: close({
+								SubjectAlternativeNames?: close({
+									Match: close({
+										Exact?: [...(string | fn.Fn)] | (string | fn.Fn)
+									}) | fn.If
+								}) | fn.If
 								Trust: close({
 									ACM?: close({
 										CertificateAuthorityArns: [...(string | fn.Fn)] | (string | fn.Fn)
 									}) | fn.If
 									File?: close({
 										CertificateChain: string | fn.Fn
+									}) | fn.If
+									SDS?: close({
+										SecretName: string | fn.Fn
 									}) | fn.If
 								}) | fn.If
 							}) | fn.If
@@ -363,15 +415,32 @@ AppMesh :: {
 					VirtualService?: close({
 						ClientPolicy?: close({
 							TLS?: close({
+								Certificate?: close({
+									File?: close({
+										CertificateChain: string | fn.Fn
+										PrivateKey:       string | fn.Fn
+									}) | fn.If
+									SDS?: close({
+										SecretName: string | fn.Fn
+									}) | fn.If
+								}) | fn.If
 								Enforce?:   bool | fn.Fn
 								Ports?:     [...(int | fn.Fn)] | (int | fn.Fn)
 								Validation: close({
+									SubjectAlternativeNames?: close({
+										Match: close({
+											Exact?: [...(string | fn.Fn)] | (string | fn.Fn)
+										}) | fn.If
+									}) | fn.If
 									Trust: close({
 										ACM?: close({
 											CertificateAuthorityArns: [...(string | fn.Fn)] | (string | fn.Fn)
 										}) | fn.If
 										File?: close({
 											CertificateChain: string | fn.Fn
+										}) | fn.If
+										SDS?: close({
+											SecretName: string | fn.Fn
 										}) | fn.If
 									}) | fn.If
 								}) | fn.If
@@ -430,8 +499,26 @@ AppMesh :: {
 								CertificateChain: string | fn.Fn
 								PrivateKey:       string | fn.Fn
 							}) | fn.If
+							SDS?: close({
+								SecretName: string | fn.Fn
+							}) | fn.If
 						}) | fn.If
-						Mode: string | fn.Fn
+						Mode:        string | fn.Fn
+						Validation?: close({
+							SubjectAlternativeNames?: close({
+								Match: close({
+									Exact?: [...(string | fn.Fn)] | (string | fn.Fn)
+								}) | fn.If
+							}) | fn.If
+							Trust: close({
+								File?: close({
+									CertificateChain: string | fn.Fn
+								}) | fn.If
+								SDS?: close({
+									SecretName: string | fn.Fn
+								}) | fn.If
+							}) | fn.If
+						}) | fn.If
 					}) | fn.If
 					Timeout?: close({
 						GRPC?: close({

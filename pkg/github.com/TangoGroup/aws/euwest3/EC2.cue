@@ -1125,6 +1125,66 @@ EC2 :: {
 		Metadata?: [string]: _
 		Condition?: string
 	}
+	TransitGatewayMulticastDomain :: {
+		Type:       "AWS::EC2::TransitGatewayMulticastDomain"
+		Properties: close({
+			Options?: {
+				[string]: _
+			} | fn.Fn
+			Tags?: [...close({
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
+			})] | fn.If
+			TransitGatewayId?: string | fn.Fn
+		})
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+		Condition?: string
+	}
+	TransitGatewayMulticastDomainAssociation :: {
+		Type:       "AWS::EC2::TransitGatewayMulticastDomainAssociation"
+		Properties: close({
+			State?:                           string | fn.Fn
+			SubnetId?:                        string | fn.Fn
+			TransitGatewayAttachmentId?:      string | fn.Fn
+			TransitGatewayMulticastDomainId?: string | fn.Fn
+		})
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+		Condition?: string
+	}
+	TransitGatewayMulticastGroupMember :: {
+		Type:       "AWS::EC2::TransitGatewayMulticastGroupMember"
+		Properties: close({
+			GroupIpAddress?:                  string | fn.Fn
+			NetworkInterfaceId?:              string | fn.Fn
+			TransitGatewayAttachmentId?:      string | fn.Fn
+			TransitGatewayMulticastDomainId?: string | fn.Fn
+		})
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+		Condition?: string
+	}
+	TransitGatewayMulticastGroupSource :: {
+		Type:       "AWS::EC2::TransitGatewayMulticastGroupSource"
+		Properties: close({
+			GroupIpAddress?:                  string | fn.Fn
+			NetworkInterfaceId?:              string | fn.Fn
+			TransitGatewayAttachmentId?:      string | fn.Fn
+			TransitGatewayMulticastDomainId?: string | fn.Fn
+		})
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+		Condition?: string
+	}
 	TransitGatewayRoute :: {
 		Type:       "AWS::EC2::TransitGatewayRoute"
 		Properties: close({

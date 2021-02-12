@@ -171,4 +171,33 @@ ElastiCache :: {
 		Metadata?: [string]: _
 		Condition?: string
 	}
+	User :: {
+		Type:       "AWS::ElastiCache::User"
+		Properties: close({
+			AccessString?:       string | fn.Fn
+			Engine:              ("redis") | fn.Fn
+			NoPasswordRequired?: bool | fn.Fn
+			Passwords?:          [...(string | fn.Fn)] | (string | fn.Fn)
+			UserId:              (=~#"[a-z][a-z0-9\\-]*"#) | fn.Fn
+			UserName:            string | fn.Fn
+		})
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+		Condition?: string
+	}
+	UserGroup :: {
+		Type:       "AWS::ElastiCache::UserGroup"
+		Properties: close({
+			Engine:      ("redis") | fn.Fn
+			UserGroupId: (=~#"[a-z][a-z0-9\\-]*"#) | fn.Fn
+			UserIds?:    [...(string | fn.Fn)] | (string | fn.Fn)
+		})
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+		Condition?: string
+	}
 }

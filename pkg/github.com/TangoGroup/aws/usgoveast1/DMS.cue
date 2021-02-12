@@ -19,8 +19,12 @@ DMS :: {
 	Endpoint :: {
 		Type:       "AWS::DMS::Endpoint"
 		Properties: close({
-			CertificateArn?:   string | fn.Fn
-			DatabaseName?:     string | fn.Fn
+			CertificateArn?: string | fn.Fn
+			DatabaseName?:   string | fn.Fn
+			DocDbSettings?:  close({
+				SecretsManagerAccessRoleArn?: string | fn.Fn
+				SecretsManagerSecretId?:      string | fn.Fn
+			}) | fn.If
 			DynamoDbSettings?: close({
 				ServiceAccessRoleArn?: string | fn.Fn
 			}) | fn.If
@@ -34,7 +38,11 @@ DMS :: {
 			EndpointType:               string | fn.Fn
 			EngineName:                 string | fn.Fn
 			ExtraConnectionAttributes?: string | fn.Fn
-			KafkaSettings?:             close({
+			IbmDb2Settings?:            close({
+				SecretsManagerAccessRoleArn?: string | fn.Fn
+				SecretsManagerSecretId?:      string | fn.Fn
+			}) | fn.If
+			KafkaSettings?: close({
 				Broker?: string | fn.Fn
 				Topic?:  string | fn.Fn
 			}) | fn.If
@@ -43,19 +51,29 @@ DMS :: {
 				ServiceAccessRoleArn?: string | fn.Fn
 				StreamArn?:            string | fn.Fn
 			}) | fn.If
-			KmsKeyId?:        string | fn.Fn
+			KmsKeyId?:                   string | fn.Fn
+			MicrosoftSqlServerSettings?: close({
+				SecretsManagerAccessRoleArn?: string | fn.Fn
+				SecretsManagerSecretId?:      string | fn.Fn
+			}) | fn.If
 			MongoDbSettings?: close({
-				AuthMechanism?:     string | fn.Fn
-				AuthSource?:        string | fn.Fn
-				AuthType?:          string | fn.Fn
-				DatabaseName?:      string | fn.Fn
-				DocsToInvestigate?: string | fn.Fn
-				ExtractDocId?:      string | fn.Fn
-				NestingLevel?:      string | fn.Fn
-				Password?:          string | fn.Fn
-				Port?:              int | fn.Fn
-				ServerName?:        string | fn.Fn
-				Username?:          string | fn.Fn
+				AuthMechanism?:               string | fn.Fn
+				AuthSource?:                  string | fn.Fn
+				AuthType?:                    string | fn.Fn
+				DatabaseName?:                string | fn.Fn
+				DocsToInvestigate?:           string | fn.Fn
+				ExtractDocId?:                string | fn.Fn
+				NestingLevel?:                string | fn.Fn
+				Password?:                    string | fn.Fn
+				Port?:                        int | fn.Fn
+				SecretsManagerAccessRoleArn?: string | fn.Fn
+				SecretsManagerSecretId?:      string | fn.Fn
+				ServerName?:                  string | fn.Fn
+				Username?:                    string | fn.Fn
+			}) | fn.If
+			MySqlSettings?: close({
+				SecretsManagerAccessRoleArn?: string | fn.Fn
+				SecretsManagerSecretId?:      string | fn.Fn
 			}) | fn.If
 			NeptuneSettings?: close({
 				ErrorRetryDuration?:   int | fn.Fn
@@ -66,8 +84,22 @@ DMS :: {
 				S3BucketName?:         string | fn.Fn
 				ServiceAccessRoleArn?: string | fn.Fn
 			}) | fn.If
-			Password?:   string | fn.Fn
-			Port?:       int | fn.Fn
+			OracleSettings?: close({
+				SecretsManagerAccessRoleArn?:          string | fn.Fn
+				SecretsManagerOracleAsmAccessRoleArn?: string | fn.Fn
+				SecretsManagerOracleAsmSecretId?:      string | fn.Fn
+				SecretsManagerSecretId?:               string | fn.Fn
+			}) | fn.If
+			Password?:           string | fn.Fn
+			Port?:               int | fn.Fn
+			PostgreSqlSettings?: close({
+				SecretsManagerAccessRoleArn?: string | fn.Fn
+				SecretsManagerSecretId?:      string | fn.Fn
+			}) | fn.If
+			RedshiftSettings?: close({
+				SecretsManagerAccessRoleArn?: string | fn.Fn
+				SecretsManagerSecretId?:      string | fn.Fn
+			}) | fn.If
 			S3Settings?: close({
 				BucketFolder?:            string | fn.Fn
 				BucketName?:              string | fn.Fn
@@ -77,9 +109,13 @@ DMS :: {
 				ExternalTableDefinition?: string | fn.Fn
 				ServiceAccessRoleArn?:    string | fn.Fn
 			}) | fn.If
-			ServerName?: string | fn.Fn
-			SslMode?:    string | fn.Fn
-			Tags?:       [...close({
+			ServerName?:     string | fn.Fn
+			SslMode?:        string | fn.Fn
+			SybaseSettings?: close({
+				SecretsManagerAccessRoleArn?: string | fn.Fn
+				SecretsManagerSecretId?:      string | fn.Fn
+			}) | fn.If
+			Tags?: [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			})] | fn.If

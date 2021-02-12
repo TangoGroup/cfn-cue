@@ -42,4 +42,35 @@ ServiceCatalog :: {
 		Metadata?: [string]: _
 		Condition?: string
 	}
+	ServiceAction :: {
+		Type:       "AWS::ServiceCatalog::ServiceAction"
+		Properties: close({
+			AcceptLanguage?: ("en" | "jp" | "zh") | fn.Fn
+			Definition:      [...close({
+				Key:   (strings.MinRunes(1) & strings.MaxRunes(1000)) | fn.Fn
+				Value: string | fn.Fn
+			})] | fn.If
+			DefinitionType: ("SSM_AUTOMATION") | fn.Fn
+			Description?:   string | fn.Fn
+			Name:           (strings.MinRunes(1) & strings.MaxRunes(256)) | fn.Fn
+		})
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+		Condition?: string
+	}
+	ServiceActionAssociation :: {
+		Type:       "AWS::ServiceCatalog::ServiceActionAssociation"
+		Properties: close({
+			ProductId:              (strings.MinRunes(1) & strings.MaxRunes(100) & (=~#"^[a-zA-Z0-9][a-zA-Z0-9_-]{1,99}\Z"#)) | fn.Fn
+			ProvisioningArtifactId: (strings.MinRunes(1) & strings.MaxRunes(100) & (=~#"^[a-zA-Z0-9][a-zA-Z0-9_-]{1,99}\Z"#)) | fn.Fn
+			ServiceActionId:        (strings.MinRunes(1) & strings.MaxRunes(100) & (=~#"^[a-zA-Z0-9][a-zA-Z0-9_-]{1,99}\Z"#)) | fn.Fn
+		})
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+		Condition?: string
+	}
 }

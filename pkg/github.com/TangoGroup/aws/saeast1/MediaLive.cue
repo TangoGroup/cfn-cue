@@ -869,6 +869,11 @@ MediaLive :: {
 			Tags?:     {
 				[string]: _
 			} | fn.Fn
+			Vpc?: close({
+				PublicAddressAllocationIds?: [...(string | fn.Fn)] | (string | fn.Fn)
+				SecurityGroupIds?:           [...(string | fn.Fn)] | (string | fn.Fn)
+				SubnetIds?:                  [...(string | fn.Fn)] | (string | fn.Fn)
+			}) | fn.If
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
