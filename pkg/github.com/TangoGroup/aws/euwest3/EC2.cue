@@ -602,11 +602,11 @@ EC2 :: {
 	NetworkInsightsPath :: {
 		Type:       "AWS::EC2::NetworkInsightsPath"
 		Properties: close({
-			Destination:      (=~#"^([a-z]{1,5}-([a-z0-9]{8}|[a-z0-9]{17}|\*)$)|arn:(aws|aws-cn|aws-us-gov|aws-iso-{0,1}[a-z]{0,1}):[A-Za-z0-9][A-Za-z0-9_/.-]{0,62}:[A-Za-z0-9_/.-]{0,63}:[A-Za-z0-9_/.-]{0,63}:[A-Za-z0-9][A-Za-z0-9:_/+=,@.-]{0,1023}$"#) | fn.Fn
+			Destination:      (strings.MinRunes(20) & strings.MaxRunes(2048) & (=~#"^([a-z]{1,5}-([a-z0-9]{8}|[a-z0-9]{17}|\*)$)|arn:(aws|aws-cn|aws-us-gov|aws-iso-{0,1}[a-z]{0,1}):[A-Za-z0-9][A-Za-z0-9_/.-]{0,62}:[A-Za-z0-9_/.-]{0,63}:[A-Za-z0-9_/.-]{0,63}:[A-Za-z0-9][A-Za-z0-9:_/+=,@.-]{0,1023}$"#)) | fn.Fn
 			DestinationIp?:   (=~#"^([0-9]{1,3}.){3}[0-9]{1,3}$"#) | fn.Fn
 			DestinationPort?: (>=1 & <=65535) | fn.Fn
 			Protocol:         ("tcp" | "udp") | fn.Fn
-			Source:           (=~#"^([a-z]{1,5}-([a-z0-9]{8}|[a-z0-9]{17}|\*)$)|arn:(aws|aws-cn|aws-us-gov|aws-iso-{0,1}[a-z]{0,1}):[A-Za-z0-9][A-Za-z0-9_/.-]{0,62}:[A-Za-z0-9_/.-]{0,63}:[A-Za-z0-9_/.-]{0,63}:[A-Za-z0-9][A-Za-z0-9:_/+=,@.-]{0,1023}$"#) | fn.Fn
+			Source:           (strings.MinRunes(20) & strings.MaxRunes(2048) & (=~#"^([a-z]{1,5}-([a-z0-9]{8}|[a-z0-9]{17}|\*)$)|arn:(aws|aws-cn|aws-us-gov|aws-iso-{0,1}[a-z]{0,1}):[A-Za-z0-9][A-Za-z0-9_/.-]{0,62}:[A-Za-z0-9_/.-]{0,63}:[A-Za-z0-9_/.-]{0,63}:[A-Za-z0-9][A-Za-z0-9:_/+=,@.-]{0,1023}$"#)) | fn.Fn
 			SourceIp?:        (=~#"^([0-9]{1,3}.){3}[0-9]{1,3}$"#) | fn.Fn
 			Tags?:            [...close({
 				Key:   string | fn.Fn
