@@ -32,6 +32,7 @@ FSx :: {
 			})] | fn.If
 			WindowsConfiguration?: close({
 				ActiveDirectoryId?:                       string | fn.Fn
+				Aliases?:                                 [...(string | fn.Fn)] | (string | fn.Fn)
 				AutomaticBackupRetentionDays?:            int | fn.Fn
 				CopyTagsToBackups?:                       bool | fn.Fn
 				DailyAutomaticBackupStartTime?:           string | fn.Fn
@@ -45,7 +46,7 @@ FSx :: {
 					Password?:                            string | fn.Fn
 					UserName?:                            string | fn.Fn
 				}) | fn.If
-				ThroughputCapacity?:         int | fn.Fn
+				ThroughputCapacity:          int | fn.Fn
 				WeeklyMaintenanceStartTime?: string | fn.Fn
 			}) | fn.If
 		})

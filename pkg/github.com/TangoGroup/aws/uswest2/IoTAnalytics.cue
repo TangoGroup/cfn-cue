@@ -83,7 +83,15 @@ IoTAnalytics :: {
 				}) | fn.If
 				EntryName?: string | fn.Fn
 			})] | fn.If
-			DatasetName?:     string | fn.Fn
+			DatasetName?:   string | fn.Fn
+			LateDataRules?: [...close({
+				RuleConfiguration: close({
+					DeltaTimeSessionWindowConfiguration?: close({
+						TimeoutInMinutes: int | fn.Fn
+					}) | fn.If
+				}) | fn.If
+				RuleName?: string | fn.Fn
+			})] | fn.If
 			RetentionPeriod?: close({
 				NumberOfDays: int | fn.Fn
 				Unlimited:    bool | fn.Fn

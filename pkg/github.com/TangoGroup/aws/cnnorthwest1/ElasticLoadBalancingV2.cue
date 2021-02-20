@@ -225,12 +225,14 @@ ElasticLoadBalancingV2 :: {
 			HealthCheckTimeoutSeconds?:  (>=2 & <=120) | fn.Fn
 			HealthyThresholdCount?:      (>=2 & <=10) | fn.Fn
 			Matcher?:                    close({
+				GrpcCode?: string | fn.Fn
 				HttpCode?: string | fn.Fn
 			}) | fn.If
-			Name?:     string | fn.Fn
-			Port?:     int | fn.Fn
-			Protocol?: string | fn.Fn
-			Tags?:     [...close({
+			Name?:            string | fn.Fn
+			Port?:            int | fn.Fn
+			Protocol?:        string | fn.Fn
+			ProtocolVersion?: string | fn.Fn
+			Tags?:            [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			})] | fn.If

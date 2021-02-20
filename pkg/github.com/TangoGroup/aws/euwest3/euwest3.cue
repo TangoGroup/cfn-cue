@@ -2,7 +2,7 @@ package euwest3
 
 import "github.com/TangoGroup/aws/fn"
 
-ResourceSpecificationVersion :: "28.0.0"
+ResourceSpecificationVersion :: "28.1.0"
 Template :: {
 	AWSTemplateFormatVersion?: "2010-09-09"
 	Description?:              string

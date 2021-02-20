@@ -45,7 +45,14 @@ Glue :: {
 			Tags?:            {
 				[string]: _
 			} | fn.Fn
-			Timeout?:            int | fn.Fn
+			Timeout?:             int | fn.Fn
+			TransformEncryption?: close({
+				MLUserDataEncryption?: close({
+					KmsKeyId?:                string | fn.Fn
+					MLUserDataEncryptionMode: string | fn.Fn
+				}) | fn.If
+				TaskRunSecurityConfigurationName?: string | fn.Fn
+			}) | fn.If
 			TransformParameters: close({
 				FindMatchesParameters?: close({
 					AccuracyCostTradeoff?:    number | fn.Fn

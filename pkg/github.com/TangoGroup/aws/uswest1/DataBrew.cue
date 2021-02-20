@@ -33,11 +33,14 @@ DataBrew :: {
 			DatasetName?:      (strings.MinRunes(1) & strings.MaxRunes(255)) | fn.Fn
 			EncryptionKeyArn?: (strings.MinRunes(20) & strings.MaxRunes(2048)) | fn.Fn
 			EncryptionMode?:   ("SSE-KMS" | "SSE-S3") | fn.Fn
-			LogSubscription?:  ("ENABLE" | "DISABLE") | fn.Fn
-			MaxCapacity?:      int | fn.Fn
-			MaxRetries?:       int | fn.Fn
-			Name:              (strings.MinRunes(1) & strings.MaxRunes(255)) | fn.Fn
-			OutputLocation?:   {
+			JobSample?:        {
+				[string]: _
+			} | fn.Fn
+			LogSubscription?: ("ENABLE" | "DISABLE") | fn.Fn
+			MaxCapacity?:     int | fn.Fn
+			MaxRetries?:      int | fn.Fn
+			Name:             (strings.MinRunes(1) & strings.MaxRunes(255)) | fn.Fn
+			OutputLocation?:  {
 				[string]: _
 			} | fn.Fn
 			Outputs?: [...close({

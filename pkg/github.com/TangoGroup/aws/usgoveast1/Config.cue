@@ -139,4 +139,21 @@ Config :: {
 		Metadata?: [string]: _
 		Condition?: string
 	}
+	StoredQuery :: {
+		Type:       "AWS::Config::StoredQuery"
+		Properties: close({
+			QueryDescription?: (=~#"[\s\S]*"#) | fn.Fn
+			QueryExpression:   (strings.MinRunes(1) & strings.MaxRunes(4096) & (=~#"[\s\S]*"#)) | fn.Fn
+			QueryName:         (strings.MinRunes(1) & strings.MaxRunes(64) & (=~#"^[a-zA-Z0-9-_]+$"#)) | fn.Fn
+			Tags?:             [...close({
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
+			})] | fn.If
+		})
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+		Condition?: string
+	}
 }

@@ -60,7 +60,25 @@ IoTWireless :: {
 		Type:       "AWS::IoTWireless::ServiceProfile"
 		Properties: close({
 			LoRaWAN?: close({
-				AddGwMetadata?: bool | fn.Fn
+				AddGwMetadata?:          bool | fn.Fn
+				ChannelMask?:            string | fn.Fn
+				DevStatusReqFreq?:       int | fn.Fn
+				DlBucketSize?:           int | fn.Fn
+				DlRate?:                 int | fn.Fn
+				DlRatePolicy?:           string | fn.Fn
+				DrMax?:                  int | fn.Fn
+				DrMin?:                  int | fn.Fn
+				HrAllowed?:              bool | fn.Fn
+				MinGwDiversity?:         int | fn.Fn
+				NwkGeoLoc?:              bool | fn.Fn
+				PrAllowed?:              bool | fn.Fn
+				RaAllowed?:              bool | fn.Fn
+				ReportDevStatusBattery?: bool | fn.Fn
+				ReportDevStatusMargin?:  bool | fn.Fn
+				TargetPer?:              int | fn.Fn
+				UlBucketSize?:           int | fn.Fn
+				UlRate?:                 int | fn.Fn
+				UlRatePolicy?:           string | fn.Fn
 			}) | fn.If
 			Name?: string | fn.Fn
 			Tags?: [...close({
@@ -115,7 +133,8 @@ IoTWireless :: {
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			})] | fn.If
-			Type: ("Sidewalk" | "LoRaWAN") | fn.Fn
+			ThingArn?: string | fn.Fn
+			Type:      ("Sidewalk" | "LoRaWAN") | fn.Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -137,7 +156,7 @@ IoTWireless :: {
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			})] | fn.If
-			ThingName?: string | fn.Fn
+			ThingArn?: string | fn.Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

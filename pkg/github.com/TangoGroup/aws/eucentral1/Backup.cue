@@ -75,8 +75,8 @@ Backup :: {
 			} | fn.Fn
 			BackupVaultName:  string | fn.Fn
 			BackupVaultTags?: {
-				[string]: _
-			} | fn.Fn
+				[string]: string | fn.Fn
+			} | fn.If
 			EncryptionKeyArn?: string | fn.Fn
 			Notifications?:    close({
 				BackupVaultEvents: [...(string | fn.Fn)] | (string | fn.Fn)

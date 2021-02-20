@@ -6,9 +6,70 @@ GroundStation :: {
 	Config :: {
 		Type:       "AWS::GroundStation::Config"
 		Properties: close({
-			ConfigData: {
-				[string]: _
-			} | fn.Fn
+			ConfigData: close({
+				AntennaDownlinkConfig?: close({
+					SpectrumConfig?: close({
+						Bandwidth?: close({
+							Units?: string | fn.Fn
+							Value?: number | fn.Fn
+						}) | fn.If
+						CenterFrequency?: close({
+							Units?: string | fn.Fn
+							Value?: number | fn.Fn
+						}) | fn.If
+						Polarization?: string | fn.Fn
+					}) | fn.If
+				}) | fn.If
+				AntennaDownlinkDemodDecodeConfig?: close({
+					DecodeConfig?: close({
+						UnvalidatedJson?: string | fn.Fn
+					}) | fn.If
+					DemodulationConfig?: close({
+						UnvalidatedJson?: string | fn.Fn
+					}) | fn.If
+					SpectrumConfig?: close({
+						Bandwidth?: close({
+							Units?: string | fn.Fn
+							Value?: number | fn.Fn
+						}) | fn.If
+						CenterFrequency?: close({
+							Units?: string | fn.Fn
+							Value?: number | fn.Fn
+						}) | fn.If
+						Polarization?: string | fn.Fn
+					}) | fn.If
+				}) | fn.If
+				AntennaUplinkConfig?: close({
+					SpectrumConfig?: close({
+						CenterFrequency?: close({
+							Units?: string | fn.Fn
+							Value?: number | fn.Fn
+						}) | fn.If
+						Polarization?: string | fn.Fn
+					}) | fn.If
+					TargetEirp?: close({
+						Units?: string | fn.Fn
+						Value?: number | fn.Fn
+					}) | fn.If
+					TransmitDisabled?: bool | fn.Fn
+				}) | fn.If
+				DataflowEndpointConfig?: close({
+					DataflowEndpointName?:   string | fn.Fn
+					DataflowEndpointRegion?: string | fn.Fn
+				}) | fn.If
+				S3RecordingConfig?: close({
+					BucketArn?: string | fn.Fn
+					Prefix?:    string | fn.Fn
+					RoleArn?:   string | fn.Fn
+				}) | fn.If
+				TrackingConfig?: close({
+					Autotrack?: string | fn.Fn
+				}) | fn.If
+				UplinkEchoConfig?: close({
+					AntennaUplinkConfigArn?: string | fn.Fn
+					Enabled?:                bool | fn.Fn
+				}) | fn.If
+			}) | fn.If
 			Name:  string | fn.Fn
 			Tags?: [...close({
 				Key:   string | fn.Fn

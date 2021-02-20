@@ -87,9 +87,10 @@ ImageBuilder :: {
 	Image :: {
 		Type:       "AWS::ImageBuilder::Image"
 		Properties: close({
+			ContainerRecipeArn?:           string | fn.Fn
 			DistributionConfigurationArn?: string | fn.Fn
 			EnhancedImageMetadataEnabled?: bool | fn.Fn
-			ImageRecipeArn:                string | fn.Fn
+			ImageRecipeArn?:               string | fn.Fn
 			ImageTestsConfiguration?:      close({
 				ImageTestsEnabled?: bool | fn.Fn
 				TimeoutMinutes?:    (>=60 & <=1440) | fn.Fn
@@ -108,10 +109,11 @@ ImageBuilder :: {
 	ImagePipeline :: {
 		Type:       "AWS::ImageBuilder::ImagePipeline"
 		Properties: close({
+			ContainerRecipeArn?:           string | fn.Fn
 			Description?:                  string | fn.Fn
 			DistributionConfigurationArn?: string | fn.Fn
 			EnhancedImageMetadataEnabled?: bool | fn.Fn
-			ImageRecipeArn:                string | fn.Fn
+			ImageRecipeArn?:               string | fn.Fn
 			ImageTestsConfiguration?:      close({
 				ImageTestsEnabled?: bool | fn.Fn
 				TimeoutMinutes?:    (>=60 & <=1440) | fn.Fn
