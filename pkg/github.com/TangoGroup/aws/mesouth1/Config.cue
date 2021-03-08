@@ -95,6 +95,25 @@ Config :: {
 		Metadata?: [string]: _
 		Condition?: string
 	}
+	ConformancePack :: {
+		Type:       "AWS::Config::ConformancePack"
+		Properties: close({
+			ConformancePackInputParameters?: [...close({
+				ParameterName:  string | fn.Fn
+				ParameterValue: string | fn.Fn
+			})] | fn.If
+			ConformancePackName:  (strings.MinRunes(1) & strings.MaxRunes(256) & (=~#"[a-zA-Z][-a-zA-Z0-9]*"#)) | fn.Fn
+			DeliveryS3Bucket?:    string | fn.Fn
+			DeliveryS3KeyPrefix?: string | fn.Fn
+			TemplateBody?:        (strings.MinRunes(1) & strings.MaxRunes(51200)) | fn.Fn
+			TemplateS3Uri?:       (strings.MinRunes(1) & strings.MaxRunes(1024) & (=~#"s3://.*"#)) | fn.Fn
+		})
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+		Condition?: string
+	}
 	DeliveryChannel :: {
 		Type:       "AWS::Config::DeliveryChannel"
 		Properties: close({

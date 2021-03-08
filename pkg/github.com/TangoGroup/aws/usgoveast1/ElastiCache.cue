@@ -42,6 +42,7 @@ ElastiCache :: {
 		Properties: close({
 			AutomaticFailoverEnabled?:          bool | fn.Fn
 			CacheNodeType?:                     string | fn.Fn
+			CacheParameterGroupName?:           string | fn.Fn
 			EngineVersion?:                     string | fn.Fn
 			GlobalNodeGroupCount?:              int | fn.Fn
 			GlobalReplicationGroupDescription?: string | fn.Fn

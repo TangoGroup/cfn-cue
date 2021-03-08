@@ -649,8 +649,8 @@ EC2 :: {
 	NetworkInsightsAnalysis :: {
 		Type:       "AWS::EC2::NetworkInsightsAnalysis"
 		Properties: close({
-			FilterInArns?:         [...((strings.MinRunes(1) & strings.MaxRunes(1283)) | fn.Fn)] | ((strings.MinRunes(1) & strings.MaxRunes(1283)) | fn.Fn)
-			NetworkInsightsPathId: (=~#"nip-.+"#) | fn.Fn
+			FilterInArns?:         [...(string | fn.Fn)] | (string | fn.Fn)
+			NetworkInsightsPathId: string | fn.Fn
 			Tags?:                 [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
@@ -665,12 +665,12 @@ EC2 :: {
 	NetworkInsightsPath :: {
 		Type:       "AWS::EC2::NetworkInsightsPath"
 		Properties: close({
-			Destination:      (strings.MinRunes(20) & strings.MaxRunes(2048) & (=~#"^([a-z]{1,5}-([a-z0-9]{8}|[a-z0-9]{17}|\*)$)|arn:(aws|aws-cn|aws-us-gov|aws-iso-{0,1}[a-z]{0,1}):[A-Za-z0-9][A-Za-z0-9_/.-]{0,62}:[A-Za-z0-9_/.-]{0,63}:[A-Za-z0-9_/.-]{0,63}:[A-Za-z0-9][A-Za-z0-9:_/+=,@.-]{0,1023}$"#)) | fn.Fn
-			DestinationIp?:   (=~#"^([0-9]{1,3}.){3}[0-9]{1,3}$"#) | fn.Fn
-			DestinationPort?: (>=1 & <=65535) | fn.Fn
+			Destination:      string | fn.Fn
+			DestinationIp?:   string | fn.Fn
+			DestinationPort?: int | fn.Fn
 			Protocol:         ("tcp" | "udp") | fn.Fn
-			Source:           (strings.MinRunes(20) & strings.MaxRunes(2048) & (=~#"^([a-z]{1,5}-([a-z0-9]{8}|[a-z0-9]{17}|\*)$)|arn:(aws|aws-cn|aws-us-gov|aws-iso-{0,1}[a-z]{0,1}):[A-Za-z0-9][A-Za-z0-9_/.-]{0,62}:[A-Za-z0-9_/.-]{0,63}:[A-Za-z0-9_/.-]{0,63}:[A-Za-z0-9][A-Za-z0-9:_/+=,@.-]{0,1023}$"#)) | fn.Fn
-			SourceIp?:        (=~#"^([0-9]{1,3}.){3}[0-9]{1,3}$"#) | fn.Fn
+			Source:           string | fn.Fn
+			SourceIp?:        string | fn.Fn
 			Tags?:            [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
@@ -1198,7 +1198,7 @@ EC2 :: {
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			})] | fn.If
-			TransitGatewayId?: string | fn.Fn
+			TransitGatewayId: string | fn.Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -1209,10 +1209,9 @@ EC2 :: {
 	TransitGatewayMulticastDomainAssociation :: {
 		Type:       "AWS::EC2::TransitGatewayMulticastDomainAssociation"
 		Properties: close({
-			State?:                           string | fn.Fn
-			SubnetId?:                        string | fn.Fn
-			TransitGatewayAttachmentId?:      string | fn.Fn
-			TransitGatewayMulticastDomainId?: string | fn.Fn
+			SubnetId:                        string | fn.Fn
+			TransitGatewayAttachmentId:      string | fn.Fn
+			TransitGatewayMulticastDomainId: string | fn.Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -1223,10 +1222,9 @@ EC2 :: {
 	TransitGatewayMulticastGroupMember :: {
 		Type:       "AWS::EC2::TransitGatewayMulticastGroupMember"
 		Properties: close({
-			GroupIpAddress?:                  string | fn.Fn
-			NetworkInterfaceId?:              string | fn.Fn
-			TransitGatewayAttachmentId?:      string | fn.Fn
-			TransitGatewayMulticastDomainId?: string | fn.Fn
+			GroupIpAddress:                  string | fn.Fn
+			NetworkInterfaceId:              string | fn.Fn
+			TransitGatewayMulticastDomainId: string | fn.Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -1237,10 +1235,9 @@ EC2 :: {
 	TransitGatewayMulticastGroupSource :: {
 		Type:       "AWS::EC2::TransitGatewayMulticastGroupSource"
 		Properties: close({
-			GroupIpAddress?:                  string | fn.Fn
-			NetworkInterfaceId?:              string | fn.Fn
-			TransitGatewayAttachmentId?:      string | fn.Fn
-			TransitGatewayMulticastDomainId?: string | fn.Fn
+			GroupIpAddress:                  string | fn.Fn
+			NetworkInterfaceId:              string | fn.Fn
+			TransitGatewayMulticastDomainId: string | fn.Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

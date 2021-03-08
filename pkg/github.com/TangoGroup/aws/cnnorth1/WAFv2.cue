@@ -7613,4 +7613,16 @@ WAFv2 :: {
 		Metadata?: [string]: _
 		Condition?: string
 	}
+	WebACLAssociation :: {
+		Type:       "AWS::WAFv2::WebACLAssociation"
+		Properties: close({
+			ResourceArn: (strings.MinRunes(20) & strings.MaxRunes(2048)) | fn.Fn
+			WebACLArn:   (strings.MinRunes(20) & strings.MaxRunes(2048)) | fn.Fn
+		})
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+		Condition?: string
+	}
 }

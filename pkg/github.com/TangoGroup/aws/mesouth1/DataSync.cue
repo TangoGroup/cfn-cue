@@ -45,6 +45,26 @@ DataSync :: {
 		Metadata?: [string]: _
 		Condition?: string
 	}
+	LocationFSxWindows :: {
+		Type:       "AWS::DataSync::LocationFSxWindows"
+		Properties: close({
+			Domain?:           (=~#"^([A-Za-z0-9]+[A-Za-z0-9-.]*)*[A-Za-z0-9-]*[A-Za-z0-9]$"#) | fn.Fn
+			FsxFilesystemArn:  (=~#"^arn:(aws|aws-cn|aws-us-gov|aws-iso|aws-iso-b):fsx:[a-z\-0-9]*:[0-9]{12}:file-system/fs-.*$"#) | fn.Fn
+			Password:          (=~#"^.{0,104}$"#) | fn.Fn
+			SecurityGroupArns: [...((=~#"^arn:(aws|aws-cn|aws-us-gov|aws-iso|aws-iso-b):ec2:[a-z\-0-9]*:[0-9]{12}:security-group/.*$"#) | fn.Fn)] | ((=~#"^arn:(aws|aws-cn|aws-us-gov|aws-iso|aws-iso-b):ec2:[a-z\-0-9]*:[0-9]{12}:security-group/.*$"#) | fn.Fn)
+			Subdirectory?:     string | fn.Fn
+			Tags?:             [...close({
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
+			})] | fn.If
+			User: (=~#"^[^\x5B\x5D\\/:;|=,+*?]{1,104}$"#) | fn.Fn
+		})
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+		Condition?: string
+	}
 	LocationNFS :: {
 		Type:       "AWS::DataSync::LocationNFS"
 		Properties: close({

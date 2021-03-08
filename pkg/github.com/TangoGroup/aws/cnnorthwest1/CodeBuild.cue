@@ -164,6 +164,7 @@ CodeBuild :: {
 				ExportConfigType: string | fn.Fn
 				S3Destination?:   close({
 					Bucket:              string | fn.Fn
+					BucketOwner?:        string | fn.Fn
 					EncryptionDisabled?: bool | fn.Fn
 					EncryptionKey?:      string | fn.Fn
 					Packaging?:          string | fn.Fn

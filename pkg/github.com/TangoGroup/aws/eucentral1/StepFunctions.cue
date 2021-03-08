@@ -24,6 +24,8 @@ StepFunctions :: {
 	StateMachine :: {
 		Type:       "AWS::StepFunctions::StateMachine"
 		Properties: close({
+			Definition?: close({
+			}) | fn.If
 			DefinitionS3Location?: close({
 				Bucket:   string | fn.Fn
 				Key:      string | fn.Fn

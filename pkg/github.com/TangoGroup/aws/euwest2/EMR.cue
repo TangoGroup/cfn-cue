@@ -1,6 +1,9 @@
 package euwest2
 
-import "github.com/TangoGroup/aws/fn"
+import (
+	"github.com/TangoGroup/aws/fn"
+	"strings"
+)
 
 EMR :: {
 	Cluster :: {
@@ -460,6 +463,44 @@ EMR :: {
 			}) | fn.If
 			JobFlowId: string | fn.Fn
 			Name:      string | fn.Fn
+		})
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+		Condition?: string
+	}
+	Studio :: {
+		Type:       "AWS::EMR::Studio"
+		Properties: close({
+			AuthMode:              ("SSO" | "IAM") | fn.Fn
+			DefaultS3Location:     (strings.MinRunes(6) & strings.MaxRunes(10280) & (=~#"^s3://.*"#)) | fn.Fn
+			Description?:          string | fn.Fn
+			EngineSecurityGroupId: (strings.MinRunes(4) & strings.MaxRunes(256) & (=~#"^sg-[a-zA-Z0-9\-._]+$"#)) | fn.Fn
+			Name:                  (strings.MinRunes(1) & strings.MaxRunes(256) & (=~#"[a-zA-Z0-9_-]+"#)) | fn.Fn
+			ServiceRole:           (=~#"^arn:aws(-(cn|us-gov))?:[a-z-]+:(([a-z]+-)+[0-9])?:([0-9]{12})?:[^.]+$"#) | fn.Fn
+			SubnetIds:             [...((=~#"^(subnet-[a-f0-9]{13})|(subnet-[a-f0-9]{8})\Z"#) | fn.Fn)] | ((=~#"^(subnet-[a-f0-9]{13})|(subnet-[a-f0-9]{8})\Z"#) | fn.Fn)
+			Tags?:                 [...close({
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
+			})] | fn.If
+			UserRole:                 (=~#"^arn:aws(-(cn|us-gov))?:[a-z-]+:(([a-z]+-)+[0-9])?:([0-9]{12})?:[^.]+$"#) | fn.Fn
+			VpcId:                    (=~#"^(vpc-[0-9a-f]{8}|vpc-[0-9a-f]{17})$"#) | fn.Fn
+			WorkspaceSecurityGroupId: (=~#"^sg-[a-zA-Z0-9\-._]+$"#) | fn.Fn
+		})
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+		Condition?: string
+	}
+	StudioSessionMapping :: {
+		Type:       "AWS::EMR::StudioSessionMapping"
+		Properties: close({
+			IdentityName:     string | fn.Fn
+			IdentityType:     ("USER" | "GROUP") | fn.Fn
+			SessionPolicyArn: (=~#"^arn:aws(-(cn|us-gov))?:iam::([0-9]{12})?:policy\/[^.]+$"#) | fn.Fn
+			StudioId:         (strings.MinRunes(4) & strings.MaxRunes(256) & (=~#"^es-[0-9A-Z]+"#)) | fn.Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

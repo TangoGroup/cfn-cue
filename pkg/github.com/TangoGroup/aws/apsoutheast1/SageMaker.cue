@@ -219,6 +219,36 @@ SageMaker :: {
 		Metadata?: [string]: _
 		Condition?: string
 	}
+	Image :: {
+		Type:       "AWS::SageMaker::Image"
+		Properties: close({
+			ImageDescription?: (strings.MinRunes(1) & strings.MaxRunes(512) & (=~#".+"#)) | fn.Fn
+			ImageDisplayName?: (strings.MinRunes(1) & strings.MaxRunes(128) & (=~#"^[A-Za-z0-9 -_]+$"#)) | fn.Fn
+			ImageName:         (strings.MinRunes(1) & strings.MaxRunes(63) & (=~#"^[a-zA-Z0-9]([-.]?[a-zA-Z0-9])*$"#)) | fn.Fn
+			ImageRoleArn:      (strings.MinRunes(1) & strings.MaxRunes(256) & (=~#"^arn:aws(-[\w]+)*:iam::[0-9]{12}:role/.*$"#)) | fn.Fn
+			Tags?:             [...close({
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
+			})] | fn.If
+		})
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+		Condition?: string
+	}
+	ImageVersion :: {
+		Type:       "AWS::SageMaker::ImageVersion"
+		Properties: close({
+			BaseImage: (strings.MinRunes(1) & strings.MaxRunes(255) & (=~#".+"#)) | fn.Fn
+			ImageName: (strings.MinRunes(1) & strings.MaxRunes(63) & (=~#"^[A-Za-z0-9]([-.]?[A-Za-z0-9])*$"#)) | fn.Fn
+		})
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+		Condition?: string
+	}
 	Model :: {
 		Type:       "AWS::SageMaker::Model"
 		Properties: close({
@@ -238,10 +268,13 @@ SageMaker :: {
 					ModelCacheSetting?: string | fn.Fn
 				}) | fn.If
 			})] | fn.If
-			EnableNetworkIsolation?: bool | fn.Fn
-			ExecutionRoleArn:        string | fn.Fn
-			ModelName?:              string | fn.Fn
-			PrimaryContainer?:       close({
+			EnableNetworkIsolation?:   bool | fn.Fn
+			ExecutionRoleArn:          string | fn.Fn
+			InferenceExecutionConfig?: close({
+				Mode: string | fn.Fn
+			}) | fn.If
+			ModelName?:        string | fn.Fn
+			PrimaryContainer?: close({
 				ContainerHostname?: string | fn.Fn
 				Environment?:       {
 					[string]: _

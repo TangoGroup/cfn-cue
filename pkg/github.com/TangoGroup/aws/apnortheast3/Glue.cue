@@ -1,12 +1,15 @@
 package apnortheast3
 
-import "github.com/TangoGroup/aws/fn"
+import (
+	"github.com/TangoGroup/aws/fn"
+	"strings"
+)
 
 Glue :: {
 	Classifier :: {
-		Type: "AWS::Glue::Classifier"
-		Properties: {
-			CsvClassifier?: {
+		Type:       "AWS::Glue::Classifier"
+		Properties: close({
+			CsvClassifier?: close({
 				AllowSingleColumn?:    bool | fn.Fn
 				ContainsHeader?:       string | fn.Fn
 				Delimiter?:            string | fn.Fn
@@ -14,23 +17,23 @@ Glue :: {
 				Header?:               [...(string | fn.Fn)] | (string | fn.Fn)
 				Name?:                 string | fn.Fn
 				QuoteSymbol?:          string | fn.Fn
-			}
-			GrokClassifier?: {
+			}) | fn.If
+			GrokClassifier?: close({
 				Classification:  string | fn.Fn
 				CustomPatterns?: string | fn.Fn
 				GrokPattern:     string | fn.Fn
 				Name?:           string | fn.Fn
-			}
-			JsonClassifier?: {
+			}) | fn.If
+			JsonClassifier?: close({
 				JsonPath: string | fn.Fn
 				Name?:    string | fn.Fn
-			}
-			XMLClassifier?: {
+			}) | fn.If
+			XMLClassifier?: close({
 				Classification: string | fn.Fn
 				Name?:          string | fn.Fn
 				RowTag:         string | fn.Fn
-			}
-		}
+			}) | fn.If
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -38,24 +41,24 @@ Glue :: {
 		Condition?: string
 	}
 	Connection :: {
-		Type: "AWS::Glue::Connection"
-		Properties: {
-			CatalogId: string | fn.Fn
-			ConnectionInput: {
-				ConnectionProperties: {
+		Type:       "AWS::Glue::Connection"
+		Properties: close({
+			CatalogId:       string | fn.Fn
+			ConnectionInput: close({
+				ConnectionProperties?: {
 					[string]: _
 				} | fn.Fn
-				ConnectionType: ("JDBC" | "SFTP") | fn.Fn
-				Description?:   string | fn.Fn
-				MatchCriteria?: [...(string | fn.Fn)] | (string | fn.Fn)
-				Name?:          string | fn.Fn
-				PhysicalConnectionRequirements?: {
+				ConnectionType:                  string | fn.Fn
+				Description?:                    string | fn.Fn
+				MatchCriteria?:                  [...(string | fn.Fn)] | (string | fn.Fn)
+				Name?:                           string | fn.Fn
+				PhysicalConnectionRequirements?: close({
 					AvailabilityZone?:    string | fn.Fn
 					SecurityGroupIdList?: [...(string | fn.Fn)] | (string | fn.Fn)
 					SubnetId?:            string | fn.Fn
-				}
-			}
-		}
+				}) | fn.If
+			}) | fn.If
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -63,8 +66,8 @@ Glue :: {
 		Condition?: string
 	}
 	Crawler :: {
-		Type: "AWS::Glue::Crawler"
-		Properties: {
+		Type:       "AWS::Glue::Crawler"
+		Properties: close({
 			Classifiers?:                  [...(string | fn.Fn)] | (string | fn.Fn)
 			Configuration?:                string | fn.Fn
 			CrawlerSecurityConfiguration?: string | fn.Fn
@@ -72,34 +75,37 @@ Glue :: {
 			Description?:                  string | fn.Fn
 			Name?:                         string | fn.Fn
 			Role:                          string | fn.Fn
-			Schedule?: ScheduleExpression?: string | fn.Fn
-			SchemaChangePolicy?: {
-				DeleteBehavior?: ("DELETE_FROM_DATABASE" | "DEPRECATE_IN_DATABASE" | "LOG") | fn.Fn
-				UpdateBehavior?: ("LOG" | "UPDATE_IN_DATABASE") | fn.Fn
-			}
+			Schedule?:                     close({
+				ScheduleExpression?: string | fn.Fn
+			}) | fn.If
+			SchemaChangePolicy?: close({
+				DeleteBehavior?: string | fn.Fn
+				UpdateBehavior?: string | fn.Fn
+			}) | fn.If
 			TablePrefix?: string | fn.Fn
 			Tags?:        {
 				[string]: _
 			} | fn.Fn
-			Targets: {
-				CatalogTargets?: [...{
+			Targets: close({
+				CatalogTargets?: [...close({
 					DatabaseName?: string | fn.Fn
 					Tables?:       [...(string | fn.Fn)] | (string | fn.Fn)
-				}]
-				DynamoDBTargets?: [...{
+				})] | fn.If
+				DynamoDBTargets?: [...close({
 					Path?: string | fn.Fn
-				}]
-				JdbcTargets?: [...{
+				})] | fn.If
+				JdbcTargets?: [...close({
 					ConnectionName?: string | fn.Fn
 					Exclusions?:     [...(string | fn.Fn)] | (string | fn.Fn)
 					Path?:           string | fn.Fn
-				}]
-				S3Targets?: [...{
-					Exclusions?: [...(string | fn.Fn)] | (string | fn.Fn)
-					Path?:       string | fn.Fn
-				}]
-			}
-		}
+				})] | fn.If
+				S3Targets?: [...close({
+					ConnectionName?: string | fn.Fn
+					Exclusions?:     [...(string | fn.Fn)] | (string | fn.Fn)
+					Path?:           string | fn.Fn
+				})] | fn.If
+			}) | fn.If
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -107,20 +113,20 @@ Glue :: {
 		Condition?: string
 	}
 	DataCatalogEncryptionSettings :: {
-		Type: "AWS::Glue::DataCatalogEncryptionSettings"
-		Properties: {
-			CatalogId: string | fn.Fn
-			DataCatalogEncryptionSettings: {
-				ConnectionPasswordEncryption?: {
+		Type:       "AWS::Glue::DataCatalogEncryptionSettings"
+		Properties: close({
+			CatalogId:                     string | fn.Fn
+			DataCatalogEncryptionSettings: close({
+				ConnectionPasswordEncryption?: close({
 					KmsKeyId?:                          string | fn.Fn
 					ReturnConnectionPasswordEncrypted?: bool | fn.Fn
-				}
-				EncryptionAtRest?: {
+				}) | fn.If
+				EncryptionAtRest?: close({
 					CatalogEncryptionMode?: string | fn.Fn
 					SseAwsKmsKeyId?:        string | fn.Fn
-				}
-			}
-		}
+				}) | fn.If
+			}) | fn.If
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -128,18 +134,22 @@ Glue :: {
 		Condition?: string
 	}
 	Database :: {
-		Type: "AWS::Glue::Database"
-		Properties: {
-			CatalogId: string | fn.Fn
-			DatabaseInput: {
+		Type:       "AWS::Glue::Database"
+		Properties: close({
+			CatalogId:     string | fn.Fn
+			DatabaseInput: close({
 				Description?: string | fn.Fn
 				LocationUri?: string | fn.Fn
 				Name?:        string | fn.Fn
 				Parameters?:  {
 					[string]: _
 				} | fn.Fn
-			}
-		}
+				TargetDatabase?: close({
+					CatalogId?:    string | fn.Fn
+					DatabaseName?: string | fn.Fn
+				}) | fn.If
+			}) | fn.If
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -147,8 +157,8 @@ Glue :: {
 		Condition?: string
 	}
 	DevEndpoint :: {
-		Type: "AWS::Glue::DevEndpoint"
-		Properties: {
+		Type:       "AWS::Glue::DevEndpoint"
+		Properties: close({
 			Arguments?: {
 				[string]: _
 			} | fn.Fn
@@ -159,6 +169,7 @@ Glue :: {
 			NumberOfNodes?:         int | fn.Fn
 			NumberOfWorkers?:       int | fn.Fn
 			PublicKey?:             string | fn.Fn
+			PublicKeys?:            [...(string | fn.Fn)] | (string | fn.Fn)
 			RoleArn:                string | fn.Fn
 			SecurityConfiguration?: string | fn.Fn
 			SecurityGroupIds?:      [...(string | fn.Fn)] | (string | fn.Fn)
@@ -167,7 +178,7 @@ Glue :: {
 				[string]: _
 			} | fn.Fn
 			WorkerType?: string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -175,27 +186,33 @@ Glue :: {
 		Condition?: string
 	}
 	Job :: {
-		Type: "AWS::Glue::Job"
-		Properties: {
+		Type:       "AWS::Glue::Job"
+		Properties: close({
 			AllocatedCapacity?: number | fn.Fn
-			Command: {
+			Command:            close({
 				Name?:           string | fn.Fn
 				PythonVersion?:  string | fn.Fn
 				ScriptLocation?: string | fn.Fn
-			}
-			Connections?: Connections?: [...(string | fn.Fn)] | (string | fn.Fn)
+			}) | fn.If
+			Connections?: close({
+				Connections?: [...(string | fn.Fn)] | (string | fn.Fn)
+			}) | fn.If
 			DefaultArguments?: {
 				[string]: _
 			} | fn.Fn
-			Description?: string | fn.Fn
-			ExecutionProperty?: MaxConcurrentRuns?: number | fn.Fn
-			GlueVersion?: string | fn.Fn
-			LogUri?:      string | fn.Fn
-			MaxCapacity?: number | fn.Fn
-			MaxRetries?:  number | fn.Fn
-			Name?:        string | fn.Fn
-			NotificationProperty?: NotifyDelayAfter?: int | fn.Fn
-			NumberOfWorkers?:       (>=0 & <=299) | fn.Fn
+			Description?:       string | fn.Fn
+			ExecutionProperty?: close({
+				MaxConcurrentRuns?: number | fn.Fn
+			}) | fn.If
+			GlueVersion?:          string | fn.Fn
+			LogUri?:               string | fn.Fn
+			MaxCapacity?:          number | fn.Fn
+			MaxRetries?:           number | fn.Fn
+			Name?:                 string | fn.Fn
+			NotificationProperty?: close({
+				NotifyDelayAfter?: int | fn.Fn
+			}) | fn.If
+			NumberOfWorkers?:       int | fn.Fn
 			Role:                   string | fn.Fn
 			SecurityConfiguration?: string | fn.Fn
 			Tags?:                  {
@@ -203,7 +220,7 @@ Glue :: {
 			} | fn.Fn
 			Timeout?:    int | fn.Fn
 			WorkerType?: string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -211,33 +228,45 @@ Glue :: {
 		Condition?: string
 	}
 	MLTransform :: {
-		Type: "AWS::Glue::MLTransform"
-		Properties: {
-			Description?: string | fn.Fn
-			GlueVersion?: string | fn.Fn
-			InputRecordTables: GlueTables?: [...{
-				CatalogId?:      string | fn.Fn
-				ConnectionName?: string | fn.Fn
-				DatabaseName:    string | fn.Fn
-				TableName:       string | fn.Fn
-			}]
-			MaxCapacity?:     (>=1 & <=100) | fn.Fn
+		Type:       "AWS::Glue::MLTransform"
+		Properties: close({
+			Description?:      string | fn.Fn
+			GlueVersion?:      string | fn.Fn
+			InputRecordTables: close({
+				GlueTables?: [...close({
+					CatalogId?:      string | fn.Fn
+					ConnectionName?: string | fn.Fn
+					DatabaseName:    string | fn.Fn
+					TableName:       string | fn.Fn
+				})] | fn.If
+			}) | fn.If
+			MaxCapacity?:     number | fn.Fn
 			MaxRetries?:      int | fn.Fn
 			Name?:            string | fn.Fn
 			NumberOfWorkers?: int | fn.Fn
 			Role:             string | fn.Fn
-			Timeout?:         int | fn.Fn
-			TransformParameters: {
-				FindMatchesParameters?: {
+			Tags?:            {
+				[string]: _
+			} | fn.Fn
+			Timeout?:             int | fn.Fn
+			TransformEncryption?: close({
+				MLUserDataEncryption?: close({
+					KmsKeyId?:                string | fn.Fn
+					MLUserDataEncryptionMode: string | fn.Fn
+				}) | fn.If
+				TaskRunSecurityConfigurationName?: string | fn.Fn
+			}) | fn.If
+			TransformParameters: close({
+				FindMatchesParameters?: close({
 					AccuracyCostTradeoff?:    number | fn.Fn
 					EnforceProvidedLabels?:   bool | fn.Fn
 					PrecisionRecallTradeoff?: number | fn.Fn
 					PrimaryKeyColumnName:     string | fn.Fn
-				}
+				}) | fn.If
 				TransformType: string | fn.Fn
-			}
+			}) | fn.If
 			WorkerType?: string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -245,21 +274,21 @@ Glue :: {
 		Condition?: string
 	}
 	Partition :: {
-		Type: "AWS::Glue::Partition"
-		Properties: {
-			CatalogId:    string | fn.Fn
-			DatabaseName: string | fn.Fn
-			PartitionInput: {
+		Type:       "AWS::Glue::Partition"
+		Properties: close({
+			CatalogId:      string | fn.Fn
+			DatabaseName:   string | fn.Fn
+			PartitionInput: close({
 				Parameters?: {
 					[string]: _
 				} | fn.Fn
-				StorageDescriptor?: {
+				StorageDescriptor?: close({
 					BucketColumns?: [...(string | fn.Fn)] | (string | fn.Fn)
-					Columns?: [...{
+					Columns?:       [...close({
 						Comment?: string | fn.Fn
 						Name:     string | fn.Fn
 						Type?:    string | fn.Fn
-					}]
+					})] | fn.If
 					Compressed?:      bool | fn.Fn
 					InputFormat?:     string | fn.Fn
 					Location?:        string | fn.Fn
@@ -268,30 +297,111 @@ Glue :: {
 					Parameters?:      {
 						[string]: _
 					} | fn.Fn
-					SerdeInfo?: {
+					SchemaReference?: close({
+						SchameVersionId?: string | fn.Fn
+						SchemaId?:        close({
+							RegistryName?: string | fn.Fn
+							SchemaArn?:    string | fn.Fn
+							SchemaName?:   string | fn.Fn
+						}) | fn.If
+						SchemaVersionNumber?: int | fn.Fn
+					}) | fn.If
+					SerdeInfo?: close({
 						Name?:       string | fn.Fn
 						Parameters?: {
 							[string]: _
 						} | fn.Fn
 						SerializationLibrary?: string | fn.Fn
-					}
-					SkewedInfo?: {
+					}) | fn.If
+					SkewedInfo?: close({
 						SkewedColumnNames?:             [...(string | fn.Fn)] | (string | fn.Fn)
 						SkewedColumnValueLocationMaps?: {
 							[string]: _
 						} | fn.Fn
 						SkewedColumnValues?: [...(string | fn.Fn)] | (string | fn.Fn)
-					}
-					SortColumns?: [...{
+					}) | fn.If
+					SortColumns?: [...close({
 						Column:     string | fn.Fn
 						SortOrder?: int | fn.Fn
-					}]
+					})] | fn.If
 					StoredAsSubDirectories?: bool | fn.Fn
-				}
+				}) | fn.If
 				Values: [...(string | fn.Fn)] | (string | fn.Fn)
-			}
+			}) | fn.If
 			TableName: string | fn.Fn
-		}
+		})
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+		Condition?: string
+	}
+	Registry :: {
+		Type:       "AWS::Glue::Registry"
+		Properties: close({
+			Description?: string | fn.Fn
+			Name:         (strings.MinRunes(1) & strings.MaxRunes(255)) | fn.Fn
+			Tags?:        [...close({
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
+			})] | fn.If
+		})
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+		Condition?: string
+	}
+	Schema :: {
+		Type:       "AWS::Glue::Schema"
+		Properties: close({
+			CheckpointVersion?: close({
+				IsLatest?:      bool | fn.Fn
+				VersionNumber?: (>=1 & <=100000) | fn.Fn
+			}) | fn.If
+			Compatibility: ("NONE" | "DISABLED" | "BACKWARD" | "BACKWARD_ALL" | "FORWARD" | "FORWARD_ALL" | "FULL" | "FULL_ALL") | fn.Fn
+			DataFormat:    ("AVRO") | fn.Fn
+			Description?:  string | fn.Fn
+			Name:          (strings.MinRunes(1) & strings.MaxRunes(255)) | fn.Fn
+			Registry?:     close({
+				Arn?:  (=~#"arn:(aws|aws-us-gov|aws-cn):glue:.*"#) | fn.Fn
+				Name?: (strings.MinRunes(1) & strings.MaxRunes(255)) | fn.Fn
+			}) | fn.If
+			SchemaDefinition: string | fn.Fn
+			Tags?:            [...close({
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
+			})] | fn.If
+		})
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+		Condition?: string
+	}
+	SchemaVersion :: {
+		Type:       "AWS::Glue::SchemaVersion"
+		Properties: close({
+			Schema: close({
+				RegistryName?: (strings.MinRunes(1) & strings.MaxRunes(255)) | fn.Fn
+				SchemaArn?:    (=~#"arn:(aws|aws-us-gov|aws-cn):glue:.*"#) | fn.Fn
+				SchemaName?:   (strings.MinRunes(1) & strings.MaxRunes(255)) | fn.Fn
+			}) | fn.If
+			SchemaDefinition: string | fn.Fn
+		})
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+		Condition?: string
+	}
+	SchemaVersionMetadata :: {
+		Type:       "AWS::Glue::SchemaVersionMetadata"
+		Properties: close({
+			Key:             (strings.MinRunes(1) & strings.MaxRunes(128)) | fn.Fn
+			SchemaVersionId: (=~#"[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}"#) | fn.Fn
+			Value:           (strings.MinRunes(1) & strings.MaxRunes(256)) | fn.Fn
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -299,24 +409,24 @@ Glue :: {
 		Condition?: string
 	}
 	SecurityConfiguration :: {
-		Type: "AWS::Glue::SecurityConfiguration"
-		Properties: {
-			EncryptionConfiguration: {
-				CloudWatchEncryption?: {
+		Type:       "AWS::Glue::SecurityConfiguration"
+		Properties: close({
+			EncryptionConfiguration: close({
+				CloudWatchEncryption?: close({
 					CloudWatchEncryptionMode?: string | fn.Fn
 					KmsKeyArn?:                string | fn.Fn
-				}
-				JobBookmarksEncryption?: {
+				}) | fn.If
+				JobBookmarksEncryption?: close({
 					JobBookmarksEncryptionMode?: string | fn.Fn
 					KmsKeyArn?:                  string | fn.Fn
-				}
-				S3Encryptions?: [...{
+				}) | fn.If
+				S3Encryptions?: [...close({
 					KmsKeyArn?:        string | fn.Fn
 					S3EncryptionMode?: string | fn.Fn
-				}]
-			}
+				})] | fn.If
+			}) | fn.If
 			Name: string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -324,30 +434,30 @@ Glue :: {
 		Condition?: string
 	}
 	Table :: {
-		Type: "AWS::Glue::Table"
-		Properties: {
+		Type:       "AWS::Glue::Table"
+		Properties: close({
 			CatalogId:    string | fn.Fn
 			DatabaseName: string | fn.Fn
-			TableInput: {
+			TableInput:   close({
 				Description?: string | fn.Fn
 				Name?:        string | fn.Fn
 				Owner?:       string | fn.Fn
 				Parameters?:  {
 					[string]: _
 				} | fn.Fn
-				PartitionKeys?: [...{
+				PartitionKeys?: [...close({
 					Comment?: string | fn.Fn
 					Name:     string | fn.Fn
 					Type?:    string | fn.Fn
-				}]
-				Retention?: int | fn.Fn
-				StorageDescriptor?: {
+				})] | fn.If
+				Retention?:         int | fn.Fn
+				StorageDescriptor?: close({
 					BucketColumns?: [...(string | fn.Fn)] | (string | fn.Fn)
-					Columns?: [...{
+					Columns?:       [...close({
 						Comment?: string | fn.Fn
 						Name:     string | fn.Fn
 						Type?:    string | fn.Fn
-					}]
+					})] | fn.If
 					Compressed?:      bool | fn.Fn
 					InputFormat?:     string | fn.Fn
 					Location?:        string | fn.Fn
@@ -356,31 +466,45 @@ Glue :: {
 					Parameters?:      {
 						[string]: _
 					} | fn.Fn
-					SerdeInfo?: {
+					SchemaReference?: close({
+						SchameVersionId?: string | fn.Fn
+						SchemaId?:        close({
+							RegistryName?: string | fn.Fn
+							SchemaArn?:    string | fn.Fn
+							SchemaName?:   string | fn.Fn
+						}) | fn.If
+						SchemaVersionNumber?: int | fn.Fn
+					}) | fn.If
+					SerdeInfo?: close({
 						Name?:       string | fn.Fn
 						Parameters?: {
 							[string]: _
 						} | fn.Fn
 						SerializationLibrary?: string | fn.Fn
-					}
-					SkewedInfo?: {
+					}) | fn.If
+					SkewedInfo?: close({
 						SkewedColumnNames?:             [...(string | fn.Fn)] | (string | fn.Fn)
 						SkewedColumnValueLocationMaps?: {
 							[string]: _
 						} | fn.Fn
 						SkewedColumnValues?: [...(string | fn.Fn)] | (string | fn.Fn)
-					}
-					SortColumns?: [...{
+					}) | fn.If
+					SortColumns?: [...close({
 						Column:    string | fn.Fn
 						SortOrder: int | fn.Fn
-					}]
+					})] | fn.If
 					StoredAsSubDirectories?: bool | fn.Fn
-				}
-				TableType?:        ("EXTERNAL_TABLE" | "VIRTUAL_VIEW") | fn.Fn
+				}) | fn.If
+				TableType?:   string | fn.Fn
+				TargetTable?: close({
+					CatalogId?:    string | fn.Fn
+					DatabaseName?: string | fn.Fn
+					Name?:         string | fn.Fn
+				}) | fn.If
 				ViewExpandedText?: string | fn.Fn
 				ViewOriginalText?: string | fn.Fn
-			}
-		}
+			}) | fn.If
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -388,38 +512,40 @@ Glue :: {
 		Condition?: string
 	}
 	Trigger :: {
-		Type: "AWS::Glue::Trigger"
-		Properties: {
-			Actions: [...{
+		Type:       "AWS::Glue::Trigger"
+		Properties: close({
+			Actions: [...close({
 				Arguments?: {
 					[string]: _
 				} | fn.Fn
-				CrawlerName?: string | fn.Fn
-				JobName?:     string | fn.Fn
-				NotificationProperty?: NotifyDelayAfter?: int | fn.Fn
+				CrawlerName?:          string | fn.Fn
+				JobName?:              string | fn.Fn
+				NotificationProperty?: close({
+					NotifyDelayAfter?: int | fn.Fn
+				}) | fn.If
 				SecurityConfiguration?: string | fn.Fn
 				Timeout?:               int | fn.Fn
-			}]
+			})] | fn.If
 			Description?: string | fn.Fn
 			Name?:        string | fn.Fn
-			Predicate?: {
-				Conditions?: [...{
+			Predicate?:   close({
+				Conditions?: [...close({
 					CrawlState?:      string | fn.Fn
 					CrawlerName?:     string | fn.Fn
 					JobName?:         string | fn.Fn
-					LogicalOperator?: ("EQUALS") | fn.Fn
-					State?:           ("SUCCEEDED") | fn.Fn
-				}]
-				Logical?: ("AND") | fn.Fn
-			}
+					LogicalOperator?: string | fn.Fn
+					State?:           string | fn.Fn
+				})] | fn.If
+				Logical?: string | fn.Fn
+			}) | fn.If
 			Schedule?:        string | fn.Fn
 			StartOnCreation?: bool | fn.Fn
 			Tags?:            {
 				[string]: _
 			} | fn.Fn
-			Type:          ("CONDITIONAL" | "ON_DEMAND" | "SCHEDULED") | fn.Fn
+			Type:          string | fn.Fn
 			WorkflowName?: string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -427,8 +553,8 @@ Glue :: {
 		Condition?: string
 	}
 	Workflow :: {
-		Type: "AWS::Glue::Workflow"
-		Properties: {
+		Type:       "AWS::Glue::Workflow"
+		Properties: close({
 			DefaultRunProperties?: {
 				[string]: _
 			} | fn.Fn
@@ -437,7 +563,7 @@ Glue :: {
 			Tags?:        {
 				[string]: _
 			} | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

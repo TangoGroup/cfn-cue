@@ -11,10 +11,10 @@ IoTSiteWise :: {
 		Properties: close({
 			AccessPolicyIdentity: close({
 				IamRole?: close({
-					arn?: string | fn.Fn
+					arn?: (strings.MinRunes(1) & strings.MaxRunes(1600) & (=~#".*"#)) | fn.Fn
 				}) | fn.If
 				IamUser?: close({
-					arn?: string | fn.Fn
+					arn?: (strings.MinRunes(1) & strings.MaxRunes(1600) & (=~#".*"#)) | fn.Fn
 				}) | fn.If
 				User?: close({
 					id?: (=~#"\S+"#) | fn.Fn
@@ -66,8 +66,8 @@ IoTSiteWise :: {
 		Properties: close({
 			AssetModelCompositeModels?: [...close({
 				CompositeModelProperties?: [...close({
-					DataType:      ("STRING" | "INTEGER" | "DOUBLE" | "BOOLEAN") | fn.Fn
-					DataTypeSpec?: string | fn.Fn
+					DataType:      ("STRING" | "INTEGER" | "DOUBLE" | "BOOLEAN" | "STRUCT") | fn.Fn
+					DataTypeSpec?: ("AWS/ALARM_STATE") | fn.Fn
 					LogicalId:     (strings.MinRunes(1) & strings.MaxRunes(256) & (=~#"[^\u0000-\u001F\u007F]+"#)) | fn.Fn
 					Name:          (strings.MinRunes(1) & strings.MaxRunes(256) & (=~#"[^\u0000-\u001F\u007F]+"#)) | fn.Fn
 					Type:          close({
@@ -103,9 +103,9 @@ IoTSiteWise :: {
 					}) | fn.If
 					Unit?: (strings.MinRunes(1) & strings.MaxRunes(256) & (=~#"[^\u0000-\u001F\u007F]+"#)) | fn.Fn
 				})] | fn.If
-				Description?: string | fn.Fn
-				Name:         string | fn.Fn
-				Type:         string | fn.Fn
+				Description?: (strings.MinRunes(1) & strings.MaxRunes(2048) & (=~#"[^\u0000-\u001F\u007F]+"#)) | fn.Fn
+				Name:         (strings.MinRunes(1) & strings.MaxRunes(256) & (=~#"[^\u0000-\u001F\u007F]+"#)) | fn.Fn
+				Type:         (strings.MinRunes(1) & strings.MaxRunes(256) & (=~#"[^\u0000-\u001F\u007F]+"#)) | fn.Fn
 			})] | fn.If
 			AssetModelDescription?: (strings.MinRunes(1) & strings.MaxRunes(2048) & (=~#"[^\u0000-\u001F\u007F]+"#)) | fn.Fn
 			AssetModelHierarchies?: [...close({
@@ -115,8 +115,8 @@ IoTSiteWise :: {
 			})] | fn.If
 			AssetModelName:        (strings.MinRunes(1) & strings.MaxRunes(256) & (=~#"[^\u0000-\u001F\u007F]+"#)) | fn.Fn
 			AssetModelProperties?: [...close({
-				DataType:      ("STRING" | "INTEGER" | "DOUBLE" | "BOOLEAN") | fn.Fn
-				DataTypeSpec?: string | fn.Fn
+				DataType:      ("STRING" | "INTEGER" | "DOUBLE" | "BOOLEAN" | "STRUCT") | fn.Fn
+				DataTypeSpec?: ("AWS/ALARM_STATE") | fn.Fn
 				LogicalId:     (strings.MinRunes(1) & strings.MaxRunes(256) & (=~#"[^\u0000-\u001F\u007F]+"#)) | fn.Fn
 				Name:          (strings.MinRunes(1) & strings.MaxRunes(256) & (=~#"[^\u0000-\u001F\u007F]+"#)) | fn.Fn
 				Type:          close({
