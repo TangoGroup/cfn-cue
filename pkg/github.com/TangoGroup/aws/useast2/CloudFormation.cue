@@ -49,8 +49,8 @@ CloudFormation :: {
 	ModuleVersion :: {
 		Type:       "AWS::CloudFormation::ModuleVersion"
 		Properties: close({
-			ModuleName:     (=~#"^[A-Za-z0-9]{2,64}::[A-Za-z0-9]{2,64}::[A-Za-z0-9]{2,64}::MODULE"#) | fn.Fn
-			ModulePackage?: string | fn.Fn
+			ModuleName:    (=~#"^[A-Za-z0-9]{2,64}::[A-Za-z0-9]{2,64}::[A-Za-z0-9]{2,64}::MODULE"#) | fn.Fn
+			ModulePackage: string | fn.Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

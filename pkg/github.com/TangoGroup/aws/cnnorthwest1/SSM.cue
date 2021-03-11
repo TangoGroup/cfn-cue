@@ -109,29 +109,29 @@ SSM :: {
 	ResourceDataSync :: {
 		Type:       "AWS::SSM::ResourceDataSync"
 		Properties: close({
-			BucketName?:    string | fn.Fn
+			BucketName?:    (strings.MinRunes(1) & strings.MaxRunes(2048)) | fn.Fn
 			BucketPrefix?:  string | fn.Fn
-			BucketRegion?:  string | fn.Fn
+			BucketRegion?:  (strings.MinRunes(1) & strings.MaxRunes(64)) | fn.Fn
 			KMSKeyArn?:     string | fn.Fn
 			S3Destination?: close({
-				BucketName:    string | fn.Fn
-				BucketPrefix?: string | fn.Fn
-				BucketRegion:  string | fn.Fn
-				KMSKeyArn?:    string | fn.Fn
-				SyncFormat:    string | fn.Fn
+				BucketName:    (strings.MinRunes(1) & strings.MaxRunes(2048)) | fn.Fn
+				BucketPrefix?: (strings.MinRunes(1) & strings.MaxRunes(256)) | fn.Fn
+				BucketRegion:  (strings.MinRunes(1) & strings.MaxRunes(64)) | fn.Fn
+				KMSKeyArn?:    (strings.MinRunes(1) & strings.MaxRunes(512)) | fn.Fn
+				SyncFormat:    (strings.MinRunes(1) & strings.MaxRunes(1024)) | fn.Fn
 			}) | fn.If
 			SyncFormat?: string | fn.Fn
-			SyncName:    string | fn.Fn
+			SyncName:    (strings.MinRunes(1) & strings.MaxRunes(64)) | fn.Fn
 			SyncSource?: close({
 				AwsOrganizationsSource?: close({
-					OrganizationSourceType: string | fn.Fn
+					OrganizationSourceType: (strings.MinRunes(1) & strings.MaxRunes(64)) | fn.Fn
 					OrganizationalUnits?:   [...(string | fn.Fn)] | (string | fn.Fn)
 				}) | fn.If
 				IncludeFutureRegions?: bool | fn.Fn
 				SourceRegions:         [...(string | fn.Fn)] | (string | fn.Fn)
-				SourceType:            string | fn.Fn
+				SourceType:            (strings.MinRunes(1) & strings.MaxRunes(64)) | fn.Fn
 			}) | fn.If
-			SyncType?: string | fn.Fn
+			SyncType?: (strings.MinRunes(1) & strings.MaxRunes(64)) | fn.Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

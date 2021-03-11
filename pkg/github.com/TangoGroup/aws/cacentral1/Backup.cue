@@ -33,7 +33,7 @@ Backup :: {
 					RuleName:            string | fn.Fn
 					ScheduleExpression?: string | fn.Fn
 					StartWindowMinutes?: int | fn.Fn
-					TargetBackupVault:   string | fn.Fn
+					TargetBackupVault:   (=~#"^[a-zA-Z0-9\-\_]{2,50}$"#) | fn.Fn
 				})] | fn.If
 			}) | fn.If
 			BackupPlanTags?: {
@@ -73,7 +73,7 @@ Backup :: {
 			AccessPolicy?: {
 				[string]: _
 			} | fn.Fn
-			BackupVaultName:  string | fn.Fn
+			BackupVaultName:  (=~#"^[a-zA-Z0-9\-\_]{2,50}$"#) | fn.Fn
 			BackupVaultTags?: {
 				[string]: _
 			} | fn.Fn

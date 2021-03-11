@@ -20,6 +20,33 @@ GuardDuty :: {
 		Metadata?: [string]: _
 		Condition?: string
 	}
+	Filter :: {
+		Type:       "AWS::GuardDuty::Filter"
+		Properties: close({
+			Action:          ("ARCHIVE" | "NOOP") | fn.Fn
+			Description:     string | fn.Fn
+			DetectorId:      string | fn.Fn
+			FindingCriteria: close({
+				Criterion?: {
+					[string]: _
+				} | fn.Fn
+				ItemType?: close({
+					Eq?:  [...(string | fn.Fn)] | (string | fn.Fn)
+					Gte?: int | fn.Fn
+					Lt?:  int | fn.Fn
+					Lte?: int | fn.Fn
+					Neq?: [...(string | fn.Fn)] | (string | fn.Fn)
+				}) | fn.If
+			}) | fn.If
+			Name: string | fn.Fn
+			Rank: int | fn.Fn
+		})
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+		Condition?: string
+	}
 	Master :: {
 		Type:       "AWS::GuardDuty::Master"
 		Properties: close({

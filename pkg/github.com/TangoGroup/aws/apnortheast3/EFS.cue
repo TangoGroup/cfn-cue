@@ -13,7 +13,7 @@ EFS :: {
 			})] | fn.If
 			KmsKeyId?:          string | fn.Fn
 			LifecyclePolicies?: [...close({
-				TransitionToIA: ("AFTER_7_DAYS" | "AFTER_14_DAYS" | "AFTER_30_DAYS" | "AFTER_60_DAYS" | "AFTER_90_DAYS") | fn.Fn
+				TransitionToIA: ("AFTER_14_DAYS" | "AFTER_30_DAYS" | "AFTER_60_DAYS" | "AFTER_7_DAYS" | "AFTER_90_DAYS") | fn.Fn
 			})] | fn.If
 			PerformanceMode?:              ("generalPurpose" | "maxIO") | fn.Fn
 			ProvisionedThroughputInMibps?: number | fn.Fn

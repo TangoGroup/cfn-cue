@@ -383,10 +383,13 @@ SageMaker :: {
 					ModelCacheSetting?: string | fn.Fn
 				}) | fn.If
 			})] | fn.If
-			EnableNetworkIsolation?: bool | fn.Fn
-			ExecutionRoleArn:        string | fn.Fn
-			ModelName?:              string | fn.Fn
-			PrimaryContainer?:       close({
+			EnableNetworkIsolation?:   bool | fn.Fn
+			ExecutionRoleArn:          string | fn.Fn
+			InferenceExecutionConfig?: close({
+				Mode: string | fn.Fn
+			}) | fn.If
+			ModelName?:        string | fn.Fn
+			PrimaryContainer?: close({
 				ContainerHostname?: string | fn.Fn
 				Environment?:       {
 					[string]: _

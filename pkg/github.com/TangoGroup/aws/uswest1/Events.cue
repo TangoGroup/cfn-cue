@@ -1,8 +1,27 @@
 package uswest1
 
-import "github.com/TangoGroup/aws/fn"
+import (
+	"github.com/TangoGroup/aws/fn"
+	"strings"
+)
 
 Events :: {
+	ApiDestination :: {
+		Type:       "AWS::Events::ApiDestination"
+		Properties: close({
+			ConnectionArn:                 string | fn.Fn
+			Description?:                  string | fn.Fn
+			HttpMethod:                    ("GET" | "HEAD" | "POST" | "OPTIONS" | "PUT" | "DELETE" | "PATCH") | fn.Fn
+			InvocationEndpoint:            string | fn.Fn
+			InvocationRateLimitPerSecond?: int | fn.Fn
+			Name?:                         (strings.MinRunes(1) & strings.MaxRunes(64)) | fn.Fn
+		})
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+		Condition?: string
+	}
 	Archive :: {
 		Type:       "AWS::Events::Archive"
 		Properties: close({
@@ -13,6 +32,22 @@ Events :: {
 			} | fn.Fn
 			RetentionDays?: int | fn.Fn
 			SourceArn:      string | fn.Fn
+		})
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+		Condition?: string
+	}
+	Connection :: {
+		Type:       "AWS::Events::Connection"
+		Properties: close({
+			AuthParameters: {
+				[string]: _
+			} | fn.Fn
+			AuthorizationType: ("API_KEY" | "BASIC" | "OAUTH_CLIENT_CREDENTIALS") | fn.Fn
+			Description?:      string | fn.Fn
+			Name?:             (strings.MinRunes(1) & strings.MaxRunes(64)) | fn.Fn
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

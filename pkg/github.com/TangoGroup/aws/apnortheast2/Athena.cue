@@ -53,8 +53,12 @@ Athena :: {
 				Value: string | fn.Fn
 			})] | fn.If
 			WorkGroupConfiguration?: close({
-				BytesScannedCutoffPerQuery?:      int | fn.Fn
-				EnforceWorkGroupConfiguration?:   bool | fn.Fn
+				BytesScannedCutoffPerQuery?:    int | fn.Fn
+				EnforceWorkGroupConfiguration?: bool | fn.Fn
+				EngineVersion?:                 close({
+					EffectiveEngineVersion?: string | fn.Fn
+					SelectedEngineVersion?:  string | fn.Fn
+				}) | fn.If
 				PublishCloudWatchMetricsEnabled?: bool | fn.Fn
 				RequesterPaysEnabled?:            bool | fn.Fn
 				ResultConfiguration?:             close({
@@ -66,8 +70,12 @@ Athena :: {
 				}) | fn.If
 			}) | fn.If
 			WorkGroupConfigurationUpdates?: close({
-				BytesScannedCutoffPerQuery?:       int | fn.Fn
-				EnforceWorkGroupConfiguration?:    bool | fn.Fn
+				BytesScannedCutoffPerQuery?:    int | fn.Fn
+				EnforceWorkGroupConfiguration?: bool | fn.Fn
+				EngineVersion?:                 close({
+					EffectiveEngineVersion?: string | fn.Fn
+					SelectedEngineVersion?:  string | fn.Fn
+				}) | fn.If
 				PublishCloudWatchMetricsEnabled?:  bool | fn.Fn
 				RemoveBytesScannedCutoffPerQuery?: bool | fn.Fn
 				RequesterPaysEnabled?:             bool | fn.Fn

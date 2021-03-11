@@ -75,7 +75,7 @@ IoTSiteWise :: {
 							DefaultValue?: (strings.MinRunes(1) & strings.MaxRunes(1024) & (=~#"[^\u0000-\u001F\u007F]+"#)) | fn.Fn
 						}) | fn.If
 						Metric?: close({
-							Expression: (strings.MinRunes(1) & strings.MaxRunes(1024) & (=~#"^[a-z0-9._+\-*%/^, ()]+$"#)) | fn.Fn
+							Expression: (strings.MinRunes(1) & strings.MaxRunes(1024)) | fn.Fn
 							Variables:  [...close({
 								Name:  (strings.MinRunes(1) & strings.MaxRunes(64) & (=~#"^[a-z][a-z0-9_]*$"#)) | fn.Fn
 								Value: close({
@@ -90,7 +90,7 @@ IoTSiteWise :: {
 							}) | fn.If
 						}) | fn.If
 						Transform?: close({
-							Expression: (strings.MinRunes(1) & strings.MaxRunes(1024) & (=~#"^[a-z0-9._+\-*%/^, ()]+$"#)) | fn.Fn
+							Expression: (strings.MinRunes(1) & strings.MaxRunes(1024)) | fn.Fn
 							Variables:  [...close({
 								Name:  (strings.MinRunes(1) & strings.MaxRunes(64) & (=~#"^[a-z][a-z0-9_]*$"#)) | fn.Fn
 								Value: close({
@@ -124,7 +124,7 @@ IoTSiteWise :: {
 						DefaultValue?: (strings.MinRunes(1) & strings.MaxRunes(1024) & (=~#"[^\u0000-\u001F\u007F]+"#)) | fn.Fn
 					}) | fn.If
 					Metric?: close({
-						Expression: (strings.MinRunes(1) & strings.MaxRunes(1024) & (=~#"^[a-z0-9._+\-*%/^, ()]+$"#)) | fn.Fn
+						Expression: (strings.MinRunes(1) & strings.MaxRunes(1024)) | fn.Fn
 						Variables:  [...close({
 							Name:  (strings.MinRunes(1) & strings.MaxRunes(64) & (=~#"^[a-z][a-z0-9_]*$"#)) | fn.Fn
 							Value: close({
@@ -139,7 +139,7 @@ IoTSiteWise :: {
 						}) | fn.If
 					}) | fn.If
 					Transform?: close({
-						Expression: (strings.MinRunes(1) & strings.MaxRunes(1024) & (=~#"^[a-z0-9._+\-*%/^, ()]+$"#)) | fn.Fn
+						Expression: (strings.MinRunes(1) & strings.MaxRunes(1024)) | fn.Fn
 						Variables:  [...close({
 							Name:  (strings.MinRunes(1) & strings.MaxRunes(64) & (=~#"^[a-z][a-z0-9_]*$"#)) | fn.Fn
 							Value: close({

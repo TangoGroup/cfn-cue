@@ -75,7 +75,11 @@ IAM :: {
 	OIDCProvider :: {
 		Type:       "AWS::IAM::OIDCProvider"
 		Properties: close({
-			ClientIdList?:  [...((strings.MinRunes(1) & strings.MaxRunes(255)) | fn.Fn)] | ((strings.MinRunes(1) & strings.MaxRunes(255)) | fn.Fn)
+			ClientIdList?: [...((strings.MinRunes(1) & strings.MaxRunes(255)) | fn.Fn)] | ((strings.MinRunes(1) & strings.MaxRunes(255)) | fn.Fn)
+			Tags?:         [...close({
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
+			})] | fn.If
 			ThumbprintList: [...((strings.MinRunes(40) & strings.MaxRunes(40) & (=~#"[0-9A-Fa-f]{40}"#)) | fn.Fn)] | ((strings.MinRunes(40) & strings.MaxRunes(40) & (=~#"[0-9A-Fa-f]{40}"#)) | fn.Fn)
 			Url?:           (strings.MinRunes(1) & strings.MaxRunes(255)) | fn.Fn
 		})
@@ -139,6 +143,10 @@ IAM :: {
 		Properties: close({
 			Name?:                (strings.MinRunes(1) & strings.MaxRunes(128) & (=~#"[\w._-]+"#)) | fn.Fn
 			SamlMetadataDocument: (strings.MinRunes(1000) & strings.MaxRunes(10000000)) | fn.Fn
+			Tags?:                [...close({
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
+			})] | fn.If
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -154,6 +162,10 @@ IAM :: {
 			Path?:                  (strings.MinRunes(1) & strings.MaxRunes(512) & (=~#"(\u002F)|(\u002F[\u0021-\u007F]+\u002F)"#)) | fn.Fn
 			PrivateKey?:            (strings.MinRunes(1) & strings.MaxRunes(16384) & (=~#"[\u0009\u000A\u000D\u0020-\u00FF]+"#)) | fn.Fn
 			ServerCertificateName?: (strings.MinRunes(1) & strings.MaxRunes(128) & (=~#"[\w+=,.@-]+"#)) | fn.Fn
+			Tags?:                  [...close({
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
+			})] | fn.If
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -206,7 +218,11 @@ IAM :: {
 	VirtualMFADevice :: {
 		Type:       "AWS::IAM::VirtualMFADevice"
 		Properties: close({
-			Path?:                 (strings.MinRunes(1) & strings.MaxRunes(512) & (=~#"(\u002F)|(\u002F[\u0021-\u007F]+\u002F)"#)) | fn.Fn
+			Path?: (strings.MinRunes(1) & strings.MaxRunes(512) & (=~#"(\u002F)|(\u002F[\u0021-\u007F]+\u002F)"#)) | fn.Fn
+			Tags?: [...close({
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
+			})] | fn.If
 			Users:                 [...(string | fn.Fn)] | (string | fn.Fn)
 			VirtualMfaDeviceName?: (strings.MinRunes(1) & strings.MaxRunes(226) & (=~#"[\w+=,.@-]+"#)) | fn.Fn
 		})

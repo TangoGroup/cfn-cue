@@ -1,81 +1,94 @@
 package apnortheast3
 
-import "github.com/TangoGroup/aws/fn"
+import (
+	"github.com/TangoGroup/aws/fn"
+	"strings"
+)
 
 KinesisFirehose :: {
 	DeliveryStream :: {
 		Type:       "AWS::KinesisFirehose::DeliveryStream"
 		Properties: close({
-			DeliveryStreamName?:                    string | fn.Fn
-			DeliveryStreamType?:                    string | fn.Fn
+			DeliveryStreamEncryptionConfigurationInput?: close({
+				KeyARN?: (strings.MinRunes(1) & strings.MaxRunes(512) & (=~#"arn:.*"#)) | fn.Fn
+				KeyType: ("AWS_OWNED_CMK" | "CUSTOMER_MANAGED_CMK") | fn.Fn
+			}) | fn.If
+			DeliveryStreamName?:                    (strings.MinRunes(1) & strings.MaxRunes(64) & (=~#"[a-zA-Z0-9._-]+"#)) | fn.Fn
+			DeliveryStreamType?:                    ("DirectPut" | "KinesisStreamAsSource") | fn.Fn
 			ElasticsearchDestinationConfiguration?: close({
-				BufferingHints: close({
-					IntervalInSeconds: int | fn.Fn
-					SizeInMBs:         int | fn.Fn
+				BufferingHints?: close({
+					IntervalInSeconds?: int | fn.Fn
+					SizeInMBs?:         int | fn.Fn
 				}) | fn.If
 				CloudWatchLoggingOptions?: close({
 					Enabled?:       bool | fn.Fn
 					LogGroupName?:  string | fn.Fn
 					LogStreamName?: string | fn.Fn
 				}) | fn.If
-				DomainARN:                string | fn.Fn
-				IndexName:                string | fn.Fn
-				IndexRotationPeriod:      string | fn.Fn
+				ClusterEndpoint?:         (strings.MinRunes(1) & strings.MaxRunes(512) & (=~#"https:.*"#)) | fn.Fn
+				DomainARN?:               (strings.MinRunes(1) & strings.MaxRunes(512) & (=~#"arn:.*"#)) | fn.Fn
+				IndexName:                (strings.MinRunes(1) & strings.MaxRunes(80)) | fn.Fn
+				IndexRotationPeriod?:     ("NoRotation" | "OneHour" | "OneDay" | "OneWeek" | "OneMonth") | fn.Fn
 				ProcessingConfiguration?: close({
 					Enabled?:    bool | fn.Fn
 					Processors?: [...close({
-						Parameters: [...close({
+						Parameters?: [...close({
 							ParameterName:  string | fn.Fn
 							ParameterValue: string | fn.Fn
 						})] | fn.If
-						Type: string | fn.Fn
+						Type: ("Lambda") | fn.Fn
 					})] | fn.If
 				}) | fn.If
-				RetryOptions: close({
-					DurationInSeconds: int | fn.Fn
+				RetryOptions?: close({
+					DurationInSeconds?: int | fn.Fn
 				}) | fn.If
-				RoleARN:         string | fn.Fn
-				S3BackupMode:    string | fn.Fn
+				RoleARN:         (strings.MinRunes(1) & strings.MaxRunes(512) & (=~#"arn:.*"#)) | fn.Fn
+				S3BackupMode?:   ("FailedDocumentsOnly" | "AllDocuments") | fn.Fn
 				S3Configuration: close({
-					BucketARN:      string | fn.Fn
-					BufferingHints: close({
-						IntervalInSeconds: int | fn.Fn
-						SizeInMBs:         int | fn.Fn
+					BucketARN:       (strings.MinRunes(1) & strings.MaxRunes(2048) & (=~#"arn:.*"#)) | fn.Fn
+					BufferingHints?: close({
+						IntervalInSeconds?: int | fn.Fn
+						SizeInMBs?:         int | fn.Fn
 					}) | fn.If
 					CloudWatchLoggingOptions?: close({
 						Enabled?:       bool | fn.Fn
 						LogGroupName?:  string | fn.Fn
 						LogStreamName?: string | fn.Fn
 					}) | fn.If
-					CompressionFormat:        string | fn.Fn
+					CompressionFormat?:       ("UNCOMPRESSED" | "GZIP" | "ZIP" | "Snappy" | "HADOOP_SNAPPY") | fn.Fn
 					EncryptionConfiguration?: close({
 						KMSEncryptionConfig?: close({
 							AWSKMSKeyARN: string | fn.Fn
 						}) | fn.If
-						NoEncryptionConfig?: string | fn.Fn
+						NoEncryptionConfig?: ("NoEncryption") | fn.Fn
 					}) | fn.If
 					ErrorOutputPrefix?: string | fn.Fn
 					Prefix?:            string | fn.Fn
-					RoleARN:            string | fn.Fn
+					RoleARN:            (strings.MinRunes(1) & strings.MaxRunes(512) & (=~#"arn:.*"#)) | fn.Fn
 				}) | fn.If
-				TypeName: string | fn.Fn
+				TypeName?:         string | fn.Fn
+				VpcConfiguration?: close({
+					RoleARN:          (strings.MinRunes(1) & strings.MaxRunes(512) & (=~#"arn:.*"#)) | fn.Fn
+					SecurityGroupIds: [...((strings.MinRunes(1) & strings.MaxRunes(1024)) | fn.Fn)] | ((strings.MinRunes(1) & strings.MaxRunes(1024)) | fn.Fn)
+					SubnetIds:        [...((strings.MinRunes(1) & strings.MaxRunes(1024)) | fn.Fn)] | ((strings.MinRunes(1) & strings.MaxRunes(1024)) | fn.Fn)
+				}) | fn.If
 			}) | fn.If
 			ExtendedS3DestinationConfiguration?: close({
-				BucketARN:      string | fn.Fn
-				BufferingHints: close({
-					IntervalInSeconds: int | fn.Fn
-					SizeInMBs:         int | fn.Fn
+				BucketARN:       (strings.MinRunes(1) & strings.MaxRunes(2048) & (=~#"arn:.*"#)) | fn.Fn
+				BufferingHints?: close({
+					IntervalInSeconds?: int | fn.Fn
+					SizeInMBs?:         int | fn.Fn
 				}) | fn.If
 				CloudWatchLoggingOptions?: close({
 					Enabled?:       bool | fn.Fn
 					LogGroupName?:  string | fn.Fn
 					LogStreamName?: string | fn.Fn
 				}) | fn.If
-				CompressionFormat:                  string | fn.Fn
+				CompressionFormat?:                 ("UNCOMPRESSED" | "GZIP" | "ZIP" | "Snappy" | "HADOOP_SNAPPY") | fn.Fn
 				DataFormatConversionConfiguration?: close({
-					Enabled:                  bool | fn.Fn
-					InputFormatConfiguration: close({
-						Deserializer: close({
+					Enabled?:                  bool | fn.Fn
+					InputFormatConfiguration?: close({
+						Deserializer?: close({
 							HiveJsonSerDe?: close({
 								TimestampFormats?: [...(string | fn.Fn)] | (string | fn.Fn)
 							}) | fn.If
@@ -88,8 +101,8 @@ KinesisFirehose :: {
 							}) | fn.If
 						}) | fn.If
 					}) | fn.If
-					OutputFormatConfiguration: close({
-						Serializer: close({
+					OutputFormatConfiguration?: close({
+						Serializer?: close({
 							OrcSerDe?: close({
 								BlockSizeBytes?:                      int | fn.Fn
 								BloomFilterColumns?:                  [...(string | fn.Fn)] | (string | fn.Fn)
@@ -112,61 +125,121 @@ KinesisFirehose :: {
 							}) | fn.If
 						}) | fn.If
 					}) | fn.If
-					SchemaConfiguration: close({
-						CatalogId:    string | fn.Fn
-						DatabaseName: string | fn.Fn
-						Region:       string | fn.Fn
-						RoleARN:      string | fn.Fn
-						TableName:    string | fn.Fn
-						VersionId:    string | fn.Fn
+					SchemaConfiguration?: close({
+						CatalogId?:    string | fn.Fn
+						DatabaseName?: string | fn.Fn
+						Region?:       string | fn.Fn
+						RoleARN?:      (strings.MinRunes(1) & strings.MaxRunes(512) & (=~#"arn:.*"#)) | fn.Fn
+						TableName?:    string | fn.Fn
+						VersionId?:    string | fn.Fn
 					}) | fn.If
 				}) | fn.If
 				EncryptionConfiguration?: close({
 					KMSEncryptionConfig?: close({
 						AWSKMSKeyARN: string | fn.Fn
 					}) | fn.If
-					NoEncryptionConfig?: string | fn.Fn
+					NoEncryptionConfig?: ("NoEncryption") | fn.Fn
 				}) | fn.If
 				ErrorOutputPrefix?:       string | fn.Fn
 				Prefix?:                  string | fn.Fn
 				ProcessingConfiguration?: close({
 					Enabled?:    bool | fn.Fn
 					Processors?: [...close({
-						Parameters: [...close({
+						Parameters?: [...close({
 							ParameterName:  string | fn.Fn
 							ParameterValue: string | fn.Fn
 						})] | fn.If
-						Type: string | fn.Fn
+						Type: ("Lambda") | fn.Fn
 					})] | fn.If
 				}) | fn.If
-				RoleARN:                string | fn.Fn
+				RoleARN:                (strings.MinRunes(1) & strings.MaxRunes(512) & (=~#"arn:.*"#)) | fn.Fn
 				S3BackupConfiguration?: close({
-					BucketARN:      string | fn.Fn
-					BufferingHints: close({
-						IntervalInSeconds: int | fn.Fn
-						SizeInMBs:         int | fn.Fn
+					BucketARN:       (strings.MinRunes(1) & strings.MaxRunes(2048) & (=~#"arn:.*"#)) | fn.Fn
+					BufferingHints?: close({
+						IntervalInSeconds?: int | fn.Fn
+						SizeInMBs?:         int | fn.Fn
 					}) | fn.If
 					CloudWatchLoggingOptions?: close({
 						Enabled?:       bool | fn.Fn
 						LogGroupName?:  string | fn.Fn
 						LogStreamName?: string | fn.Fn
 					}) | fn.If
-					CompressionFormat:        string | fn.Fn
+					CompressionFormat?:       ("UNCOMPRESSED" | "GZIP" | "ZIP" | "Snappy" | "HADOOP_SNAPPY") | fn.Fn
 					EncryptionConfiguration?: close({
 						KMSEncryptionConfig?: close({
 							AWSKMSKeyARN: string | fn.Fn
 						}) | fn.If
-						NoEncryptionConfig?: string | fn.Fn
+						NoEncryptionConfig?: ("NoEncryption") | fn.Fn
 					}) | fn.If
 					ErrorOutputPrefix?: string | fn.Fn
 					Prefix?:            string | fn.Fn
-					RoleARN:            string | fn.Fn
+					RoleARN:            (strings.MinRunes(1) & strings.MaxRunes(512) & (=~#"arn:.*"#)) | fn.Fn
 				}) | fn.If
-				S3BackupMode?: string | fn.Fn
+				S3BackupMode?: ("Disabled" | "Enabled") | fn.Fn
+			}) | fn.If
+			HttpEndpointDestinationConfiguration?: close({
+				BufferingHints?: close({
+					IntervalInSeconds?: int | fn.Fn
+					SizeInMBs?:         int | fn.Fn
+				}) | fn.If
+				CloudWatchLoggingOptions?: close({
+					Enabled?:       bool | fn.Fn
+					LogGroupName?:  string | fn.Fn
+					LogStreamName?: string | fn.Fn
+				}) | fn.If
+				EndpointConfiguration: close({
+					AccessKey?: string | fn.Fn
+					Name?:      (strings.MinRunes(1) & strings.MaxRunes(256)) | fn.Fn
+					Url:        (strings.MinRunes(1) & strings.MaxRunes(1000)) | fn.Fn
+				}) | fn.If
+				ProcessingConfiguration?: close({
+					Enabled?:    bool | fn.Fn
+					Processors?: [...close({
+						Parameters?: [...close({
+							ParameterName:  string | fn.Fn
+							ParameterValue: string | fn.Fn
+						})] | fn.If
+						Type: ("Lambda") | fn.Fn
+					})] | fn.If
+				}) | fn.If
+				RequestConfiguration?: close({
+					CommonAttributes?: [...close({
+						AttributeName:  (strings.MinRunes(1) & strings.MaxRunes(256)) | fn.Fn
+						AttributeValue: string | fn.Fn
+					})] | fn.If
+					ContentEncoding?: ("NONE" | "GZIP") | fn.Fn
+				}) | fn.If
+				RetryOptions?: close({
+					DurationInSeconds?: int | fn.Fn
+				}) | fn.If
+				RoleARN?:        (strings.MinRunes(1) & strings.MaxRunes(512) & (=~#"arn:.*"#)) | fn.Fn
+				S3BackupMode?:   string | fn.Fn
+				S3Configuration: close({
+					BucketARN:       (strings.MinRunes(1) & strings.MaxRunes(2048) & (=~#"arn:.*"#)) | fn.Fn
+					BufferingHints?: close({
+						IntervalInSeconds?: int | fn.Fn
+						SizeInMBs?:         int | fn.Fn
+					}) | fn.If
+					CloudWatchLoggingOptions?: close({
+						Enabled?:       bool | fn.Fn
+						LogGroupName?:  string | fn.Fn
+						LogStreamName?: string | fn.Fn
+					}) | fn.If
+					CompressionFormat?:       ("UNCOMPRESSED" | "GZIP" | "ZIP" | "Snappy" | "HADOOP_SNAPPY") | fn.Fn
+					EncryptionConfiguration?: close({
+						KMSEncryptionConfig?: close({
+							AWSKMSKeyARN: string | fn.Fn
+						}) | fn.If
+						NoEncryptionConfig?: ("NoEncryption") | fn.Fn
+					}) | fn.If
+					ErrorOutputPrefix?: string | fn.Fn
+					Prefix?:            string | fn.Fn
+					RoleARN:            (strings.MinRunes(1) & strings.MaxRunes(512) & (=~#"arn:.*"#)) | fn.Fn
+				}) | fn.If
 			}) | fn.If
 			KinesisStreamSourceConfiguration?: close({
-				KinesisStreamARN: string | fn.Fn
-				RoleARN:          string | fn.Fn
+				KinesisStreamARN: (strings.MinRunes(1) & strings.MaxRunes(512) & (=~#"arn:.*"#)) | fn.Fn
+				RoleARN:          (strings.MinRunes(1) & strings.MaxRunes(512) & (=~#"arn:.*"#)) | fn.Fn
 			}) | fn.If
 			RedshiftDestinationConfiguration?: close({
 				CloudWatchLoggingOptions?: close({
@@ -174,69 +247,95 @@ KinesisFirehose :: {
 					LogGroupName?:  string | fn.Fn
 					LogStreamName?: string | fn.Fn
 				}) | fn.If
-				ClusterJDBCURL: string | fn.Fn
+				ClusterJDBCURL: (strings.MinRunes(1) & strings.MaxRunes(512)) | fn.Fn
 				CopyCommand:    close({
 					CopyOptions?:      string | fn.Fn
 					DataTableColumns?: string | fn.Fn
-					DataTableName:     string | fn.Fn
+					DataTableName:     (strings.MinRunes(1) & strings.MaxRunes(512)) | fn.Fn
 				}) | fn.If
-				Password:                 string | fn.Fn
+				Password:                 (strings.MinRunes(6) & strings.MaxRunes(512)) | fn.Fn
 				ProcessingConfiguration?: close({
 					Enabled?:    bool | fn.Fn
 					Processors?: [...close({
-						Parameters: [...close({
+						Parameters?: [...close({
 							ParameterName:  string | fn.Fn
 							ParameterValue: string | fn.Fn
 						})] | fn.If
-						Type: string | fn.Fn
+						Type: ("Lambda") | fn.Fn
 					})] | fn.If
 				}) | fn.If
-				RoleARN:         string | fn.Fn
-				S3Configuration: close({
-					BucketARN:      string | fn.Fn
-					BufferingHints: close({
-						IntervalInSeconds: int | fn.Fn
-						SizeInMBs:         int | fn.Fn
+				RetryOptions?: close({
+					DurationInSeconds?: int | fn.Fn
+				}) | fn.If
+				RoleARN:                (strings.MinRunes(1) & strings.MaxRunes(512) & (=~#"arn:.*"#)) | fn.Fn
+				S3BackupConfiguration?: close({
+					BucketARN:       (strings.MinRunes(1) & strings.MaxRunes(2048) & (=~#"arn:.*"#)) | fn.Fn
+					BufferingHints?: close({
+						IntervalInSeconds?: int | fn.Fn
+						SizeInMBs?:         int | fn.Fn
 					}) | fn.If
 					CloudWatchLoggingOptions?: close({
 						Enabled?:       bool | fn.Fn
 						LogGroupName?:  string | fn.Fn
 						LogStreamName?: string | fn.Fn
 					}) | fn.If
-					CompressionFormat:        string | fn.Fn
+					CompressionFormat?:       ("UNCOMPRESSED" | "GZIP" | "ZIP" | "Snappy" | "HADOOP_SNAPPY") | fn.Fn
 					EncryptionConfiguration?: close({
 						KMSEncryptionConfig?: close({
 							AWSKMSKeyARN: string | fn.Fn
 						}) | fn.If
-						NoEncryptionConfig?: string | fn.Fn
+						NoEncryptionConfig?: ("NoEncryption") | fn.Fn
 					}) | fn.If
 					ErrorOutputPrefix?: string | fn.Fn
 					Prefix?:            string | fn.Fn
-					RoleARN:            string | fn.Fn
+					RoleARN:            (strings.MinRunes(1) & strings.MaxRunes(512) & (=~#"arn:.*"#)) | fn.Fn
 				}) | fn.If
-				Username: string | fn.Fn
+				S3BackupMode?:   ("Disabled" | "Enabled") | fn.Fn
+				S3Configuration: close({
+					BucketARN:       (strings.MinRunes(1) & strings.MaxRunes(2048) & (=~#"arn:.*"#)) | fn.Fn
+					BufferingHints?: close({
+						IntervalInSeconds?: int | fn.Fn
+						SizeInMBs?:         int | fn.Fn
+					}) | fn.If
+					CloudWatchLoggingOptions?: close({
+						Enabled?:       bool | fn.Fn
+						LogGroupName?:  string | fn.Fn
+						LogStreamName?: string | fn.Fn
+					}) | fn.If
+					CompressionFormat?:       ("UNCOMPRESSED" | "GZIP" | "ZIP" | "Snappy" | "HADOOP_SNAPPY") | fn.Fn
+					EncryptionConfiguration?: close({
+						KMSEncryptionConfig?: close({
+							AWSKMSKeyARN: string | fn.Fn
+						}) | fn.If
+						NoEncryptionConfig?: ("NoEncryption") | fn.Fn
+					}) | fn.If
+					ErrorOutputPrefix?: string | fn.Fn
+					Prefix?:            string | fn.Fn
+					RoleARN:            (strings.MinRunes(1) & strings.MaxRunes(512) & (=~#"arn:.*"#)) | fn.Fn
+				}) | fn.If
+				Username: (strings.MinRunes(1) & strings.MaxRunes(512)) | fn.Fn
 			}) | fn.If
 			S3DestinationConfiguration?: close({
-				BucketARN:      string | fn.Fn
-				BufferingHints: close({
-					IntervalInSeconds: int | fn.Fn
-					SizeInMBs:         int | fn.Fn
+				BucketARN:       (strings.MinRunes(1) & strings.MaxRunes(2048) & (=~#"arn:.*"#)) | fn.Fn
+				BufferingHints?: close({
+					IntervalInSeconds?: int | fn.Fn
+					SizeInMBs?:         int | fn.Fn
 				}) | fn.If
 				CloudWatchLoggingOptions?: close({
 					Enabled?:       bool | fn.Fn
 					LogGroupName?:  string | fn.Fn
 					LogStreamName?: string | fn.Fn
 				}) | fn.If
-				CompressionFormat:        string | fn.Fn
+				CompressionFormat?:       ("UNCOMPRESSED" | "GZIP" | "ZIP" | "Snappy" | "HADOOP_SNAPPY") | fn.Fn
 				EncryptionConfiguration?: close({
 					KMSEncryptionConfig?: close({
 						AWSKMSKeyARN: string | fn.Fn
 					}) | fn.If
-					NoEncryptionConfig?: string | fn.Fn
+					NoEncryptionConfig?: ("NoEncryption") | fn.Fn
 				}) | fn.If
 				ErrorOutputPrefix?: string | fn.Fn
 				Prefix?:            string | fn.Fn
-				RoleARN:            string | fn.Fn
+				RoleARN:            (strings.MinRunes(1) & strings.MaxRunes(512) & (=~#"arn:.*"#)) | fn.Fn
 			}) | fn.If
 			SplunkDestinationConfiguration?: close({
 				CloudWatchLoggingOptions?: close({
@@ -244,47 +343,51 @@ KinesisFirehose :: {
 					LogGroupName?:  string | fn.Fn
 					LogStreamName?: string | fn.Fn
 				}) | fn.If
-				HECAcknowledgmentTimeoutInSeconds?: int | fn.Fn
+				HECAcknowledgmentTimeoutInSeconds?: (>=180 & <=600) | fn.Fn
 				HECEndpoint:                        string | fn.Fn
-				HECEndpointType:                    string | fn.Fn
+				HECEndpointType:                    ("Raw" | "Event") | fn.Fn
 				HECToken:                           string | fn.Fn
 				ProcessingConfiguration?:           close({
 					Enabled?:    bool | fn.Fn
 					Processors?: [...close({
-						Parameters: [...close({
+						Parameters?: [...close({
 							ParameterName:  string | fn.Fn
 							ParameterValue: string | fn.Fn
 						})] | fn.If
-						Type: string | fn.Fn
+						Type: ("Lambda") | fn.Fn
 					})] | fn.If
 				}) | fn.If
 				RetryOptions?: close({
-					DurationInSeconds: int | fn.Fn
+					DurationInSeconds?: int | fn.Fn
 				}) | fn.If
 				S3BackupMode?:   string | fn.Fn
 				S3Configuration: close({
-					BucketARN:      string | fn.Fn
-					BufferingHints: close({
-						IntervalInSeconds: int | fn.Fn
-						SizeInMBs:         int | fn.Fn
+					BucketARN:       (strings.MinRunes(1) & strings.MaxRunes(2048) & (=~#"arn:.*"#)) | fn.Fn
+					BufferingHints?: close({
+						IntervalInSeconds?: int | fn.Fn
+						SizeInMBs?:         int | fn.Fn
 					}) | fn.If
 					CloudWatchLoggingOptions?: close({
 						Enabled?:       bool | fn.Fn
 						LogGroupName?:  string | fn.Fn
 						LogStreamName?: string | fn.Fn
 					}) | fn.If
-					CompressionFormat:        string | fn.Fn
+					CompressionFormat?:       ("UNCOMPRESSED" | "GZIP" | "ZIP" | "Snappy" | "HADOOP_SNAPPY") | fn.Fn
 					EncryptionConfiguration?: close({
 						KMSEncryptionConfig?: close({
 							AWSKMSKeyARN: string | fn.Fn
 						}) | fn.If
-						NoEncryptionConfig?: string | fn.Fn
+						NoEncryptionConfig?: ("NoEncryption") | fn.Fn
 					}) | fn.If
 					ErrorOutputPrefix?: string | fn.Fn
 					Prefix?:            string | fn.Fn
-					RoleARN:            string | fn.Fn
+					RoleARN:            (strings.MinRunes(1) & strings.MaxRunes(512) & (=~#"arn:.*"#)) | fn.Fn
 				}) | fn.If
 			}) | fn.If
+			Tags?: [...close({
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
+			})] | fn.If
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

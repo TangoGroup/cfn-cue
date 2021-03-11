@@ -83,7 +83,7 @@ EC2 :: {
 			}) | fn.If
 			ReplaceUnhealthyInstances?: bool | fn.Fn
 			SpotOptions?:               close({
-				AllocationStrategy?:           ("capacityOptimized" | "diversified" | "lowestPrice") | fn.Fn
+				AllocationStrategy?:           ("capacityOptimized" | "capacityOptimizedPrioritized" | "diversified" | "lowestPrice") | fn.Fn
 				InstanceInterruptionBehavior?: ("hibernate" | "stop" | "terminate") | fn.Fn
 				InstancePoolsToUseCount?:      int | fn.Fn
 				MaxTotalPrice?:                string | fn.Fn
@@ -745,7 +745,7 @@ EC2 :: {
 		Type:       "AWS::EC2::SpotFleet"
 		Properties: close({
 			SpotFleetRequestConfigData: close({
-				AllocationStrategy?:              ("capacityOptimized" | "diversified" | "lowestPrice") | fn.Fn
+				AllocationStrategy?:              ("capacityOptimized" | "capacityOptimizedPrioritized" | "diversified" | "lowestPrice") | fn.Fn
 				ExcessCapacityTerminationPolicy?: ("default" | "noTermination") | fn.Fn
 				IamFleetRole:                     (=~#"arn:(aws[a-zA-Z-]*)?:iam::\d{12}:role/[a-zA-Z_0-9+=,.@\-_/]+"#) | fn.Fn
 				InstanceInterruptionBehavior?:    ("hibernate" | "stop" | "terminate") | fn.Fn

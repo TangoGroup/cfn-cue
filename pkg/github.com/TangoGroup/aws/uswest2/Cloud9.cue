@@ -9,6 +9,7 @@ Cloud9 :: {
 			AutomaticStopTimeMinutes?: (>=0 & <=20160) | fn.Fn
 			ConnectionType?:           string | fn.Fn
 			Description?:              string | fn.Fn
+			ImageId?:                  string | fn.Fn
 			InstanceType:              string | fn.Fn
 			Name?:                     string | fn.Fn
 			OwnerArn?:                 string | fn.Fn

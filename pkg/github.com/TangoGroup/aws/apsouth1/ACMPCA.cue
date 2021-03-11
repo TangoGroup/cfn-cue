@@ -95,11 +95,11 @@ ACMPCA :: {
 			TemplateArn?:              string | fn.Fn
 			Validity:                  close({
 				Type:  string | fn.Fn
-				Value: int | fn.Fn
+				Value: number | fn.Fn
 			}) | fn.If
 			ValidityNotBefore?: close({
 				Type:  string | fn.Fn
-				Value: int | fn.Fn
+				Value: number | fn.Fn
 			}) | fn.If
 		})
 		DependsOn?:           string | [...string]

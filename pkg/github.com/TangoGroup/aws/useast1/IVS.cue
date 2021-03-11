@@ -6,11 +6,10 @@ IVS :: {
 	Channel :: {
 		Type:       "AWS::IVS::Channel"
 		Properties: close({
-			Authorized?:                bool | fn.Fn
-			LatencyMode?:               ("NORMAL" | "LOW") | fn.Fn
-			Name?:                      (=~#"^[a-zA-Z0-9-_]*$"#) | fn.Fn
-			RecordingConfigurationArn?: (=~#"^$|arn:aws:ivs:[a-z0-9-]+:[0-9]+:recording-configuration/[a-zA-Z0-9-]+$"#) | fn.Fn
-			Tags?:                      [...close({
+			Authorized?:  bool | fn.Fn
+			LatencyMode?: ("NORMAL" | "LOW") | fn.Fn
+			Name?:        (=~#"^[a-zA-Z0-9-_]*$"#) | fn.Fn
+			Tags?:        [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			})] | fn.If

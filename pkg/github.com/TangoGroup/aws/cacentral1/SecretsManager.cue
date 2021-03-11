@@ -58,8 +58,12 @@ SecretsManager :: {
 				RequireEachIncludedType?: bool | fn.Fn
 				SecretStringTemplate?:    string | fn.Fn
 			}) | fn.If
-			KmsKeyId?:     string | fn.Fn
-			Name?:         string | fn.Fn
+			KmsKeyId?:       string | fn.Fn
+			Name?:           string | fn.Fn
+			ReplicaRegions?: [...close({
+				KmsKeyId?: string | fn.Fn
+				Region:    string | fn.Fn
+			})] | fn.If
 			SecretString?: string | fn.Fn
 			Tags?:         [...close({
 				Key:   string | fn.Fn

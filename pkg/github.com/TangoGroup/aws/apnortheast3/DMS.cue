@@ -4,12 +4,12 @@ import "github.com/TangoGroup/aws/fn"
 
 DMS :: {
 	Certificate :: {
-		Type: "AWS::DMS::Certificate"
-		Properties: {
+		Type:       "AWS::DMS::Certificate"
+		Properties: close({
 			CertificateIdentifier?: string | fn.Fn
 			CertificatePem?:        string | fn.Fn
 			CertificateWallet?:     string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -17,43 +17,90 @@ DMS :: {
 		Condition?: string
 	}
 	Endpoint :: {
-		Type: "AWS::DMS::Endpoint"
-		Properties: {
+		Type:       "AWS::DMS::Endpoint"
+		Properties: close({
 			CertificateArn?: string | fn.Fn
 			DatabaseName?:   string | fn.Fn
-			DynamoDbSettings?: ServiceAccessRoleArn?: string | fn.Fn
-			ElasticsearchSettings?: {
+			DocDbSettings?:  close({
+				SecretsManagerAccessRoleArn?: string | fn.Fn
+				SecretsManagerSecretId?:      string | fn.Fn
+			}) | fn.If
+			DynamoDbSettings?: close({
+				ServiceAccessRoleArn?: string | fn.Fn
+			}) | fn.If
+			ElasticsearchSettings?: close({
 				EndpointUri?:             string | fn.Fn
 				ErrorRetryDuration?:      int | fn.Fn
 				FullLoadErrorPercentage?: int | fn.Fn
 				ServiceAccessRoleArn?:    string | fn.Fn
-			}
+			}) | fn.If
 			EndpointIdentifier?:        string | fn.Fn
-			EndpointType:               ("source" | "target") | fn.Fn
-			EngineName:                 ("aurora-postgresql" | "aurora" | "azuredb" | "db2" | "dynamodb" | "mariadb" | "mongodb" | "mysql" | "oracle" | "postgres" | "redshift" | "s3" | "sqlserver" | "sybase") | fn.Fn
+			EndpointType:               string | fn.Fn
+			EngineName:                 string | fn.Fn
 			ExtraConnectionAttributes?: string | fn.Fn
-			KinesisSettings?: {
+			IbmDb2Settings?:            close({
+				SecretsManagerAccessRoleArn?: string | fn.Fn
+				SecretsManagerSecretId?:      string | fn.Fn
+			}) | fn.If
+			KafkaSettings?: close({
+				Broker?: string | fn.Fn
+				Topic?:  string | fn.Fn
+			}) | fn.If
+			KinesisSettings?: close({
 				MessageFormat?:        string | fn.Fn
 				ServiceAccessRoleArn?: string | fn.Fn
 				StreamArn?:            string | fn.Fn
-			}
-			KmsKeyId?: string | fn.Fn
-			MongoDbSettings?: {
-				AuthMechanism?:     string | fn.Fn
-				AuthSource?:        string | fn.Fn
-				AuthType?:          string | fn.Fn
-				DatabaseName?:      string | fn.Fn
-				DocsToInvestigate?: string | fn.Fn
-				ExtractDocId?:      string | fn.Fn
-				NestingLevel?:      string | fn.Fn
-				Password?:          string | fn.Fn
-				Port?:              int | fn.Fn
-				ServerName?:        string | fn.Fn
-				Username?:          string | fn.Fn
-			}
-			Password?: string | fn.Fn
-			Port?:     int | fn.Fn
-			S3Settings?: {
+			}) | fn.If
+			KmsKeyId?:                   string | fn.Fn
+			MicrosoftSqlServerSettings?: close({
+				SecretsManagerAccessRoleArn?: string | fn.Fn
+				SecretsManagerSecretId?:      string | fn.Fn
+			}) | fn.If
+			MongoDbSettings?: close({
+				AuthMechanism?:               string | fn.Fn
+				AuthSource?:                  string | fn.Fn
+				AuthType?:                    string | fn.Fn
+				DatabaseName?:                string | fn.Fn
+				DocsToInvestigate?:           string | fn.Fn
+				ExtractDocId?:                string | fn.Fn
+				NestingLevel?:                string | fn.Fn
+				Password?:                    string | fn.Fn
+				Port?:                        int | fn.Fn
+				SecretsManagerAccessRoleArn?: string | fn.Fn
+				SecretsManagerSecretId?:      string | fn.Fn
+				ServerName?:                  string | fn.Fn
+				Username?:                    string | fn.Fn
+			}) | fn.If
+			MySqlSettings?: close({
+				SecretsManagerAccessRoleArn?: string | fn.Fn
+				SecretsManagerSecretId?:      string | fn.Fn
+			}) | fn.If
+			NeptuneSettings?: close({
+				ErrorRetryDuration?:   int | fn.Fn
+				IamAuthEnabled?:       bool | fn.Fn
+				MaxFileSize?:          int | fn.Fn
+				MaxRetryCount?:        int | fn.Fn
+				S3BucketFolder?:       string | fn.Fn
+				S3BucketName?:         string | fn.Fn
+				ServiceAccessRoleArn?: string | fn.Fn
+			}) | fn.If
+			OracleSettings?: close({
+				SecretsManagerAccessRoleArn?:          string | fn.Fn
+				SecretsManagerOracleAsmAccessRoleArn?: string | fn.Fn
+				SecretsManagerOracleAsmSecretId?:      string | fn.Fn
+				SecretsManagerSecretId?:               string | fn.Fn
+			}) | fn.If
+			Password?:           string | fn.Fn
+			Port?:               int | fn.Fn
+			PostgreSqlSettings?: close({
+				SecretsManagerAccessRoleArn?: string | fn.Fn
+				SecretsManagerSecretId?:      string | fn.Fn
+			}) | fn.If
+			RedshiftSettings?: close({
+				SecretsManagerAccessRoleArn?: string | fn.Fn
+				SecretsManagerSecretId?:      string | fn.Fn
+			}) | fn.If
+			S3Settings?: close({
 				BucketFolder?:            string | fn.Fn
 				BucketName?:              string | fn.Fn
 				CompressionType?:         string | fn.Fn
@@ -61,15 +108,19 @@ DMS :: {
 				CsvRowDelimiter?:         string | fn.Fn
 				ExternalTableDefinition?: string | fn.Fn
 				ServiceAccessRoleArn?:    string | fn.Fn
-			}
-			ServerName?: string | fn.Fn
-			SslMode?:    ("none" | "require" | "verify-ca" | "verify-full") | fn.Fn
-			Tags?: [...{
+			}) | fn.If
+			ServerName?:     string | fn.Fn
+			SslMode?:        string | fn.Fn
+			SybaseSettings?: close({
+				SecretsManagerAccessRoleArn?: string | fn.Fn
+				SecretsManagerSecretId?:      string | fn.Fn
+			}) | fn.If
+			Tags?: [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}]
+			})] | fn.If
 			Username?: string | fn.Fn
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -77,19 +128,19 @@ DMS :: {
 		Condition?: string
 	}
 	EventSubscription :: {
-		Type: "AWS::DMS::EventSubscription"
-		Properties: {
+		Type:       "AWS::DMS::EventSubscription"
+		Properties: close({
 			Enabled?:          bool | fn.Fn
 			EventCategories?:  [...(string | fn.Fn)] | (string | fn.Fn)
 			SnsTopicArn:       string | fn.Fn
 			SourceIds?:        [...(string | fn.Fn)] | (string | fn.Fn)
 			SourceType?:       string | fn.Fn
 			SubscriptionName?: string | fn.Fn
-			Tags?: [...{
+			Tags?:             [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}]
-		}
+			})] | fn.If
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -97,8 +148,8 @@ DMS :: {
 		Condition?: string
 	}
 	ReplicationInstance :: {
-		Type: "AWS::DMS::ReplicationInstance"
-		Properties: {
+		Type:       "AWS::DMS::ReplicationInstance"
+		Properties: close({
 			AllocatedStorage?:                 int | fn.Fn
 			AllowMajorVersionUpgrade?:         bool | fn.Fn
 			AutoMinorVersionUpgrade?:          bool | fn.Fn
@@ -111,12 +162,12 @@ DMS :: {
 			ReplicationInstanceClass:          string | fn.Fn
 			ReplicationInstanceIdentifier?:    string | fn.Fn
 			ReplicationSubnetGroupIdentifier?: string | fn.Fn
-			Tags?: [...{
+			Tags?:                             [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}]
+			})] | fn.If
 			VpcSecurityGroupIds?: [...(string | fn.Fn)] | (string | fn.Fn)
-		}
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -124,16 +175,16 @@ DMS :: {
 		Condition?: string
 	}
 	ReplicationSubnetGroup :: {
-		Type: "AWS::DMS::ReplicationSubnetGroup"
-		Properties: {
+		Type:       "AWS::DMS::ReplicationSubnetGroup"
+		Properties: close({
 			ReplicationSubnetGroupDescription: string | fn.Fn
 			ReplicationSubnetGroupIdentifier?: string | fn.Fn
 			SubnetIds:                         [...(string | fn.Fn)] | (string | fn.Fn)
-			Tags?: [...{
+			Tags?:                             [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}]
-		}
+			})] | fn.If
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -141,8 +192,8 @@ DMS :: {
 		Condition?: string
 	}
 	ReplicationTask :: {
-		Type: "AWS::DMS::ReplicationTask"
-		Properties: {
+		Type:       "AWS::DMS::ReplicationTask"
+		Properties: close({
 			CdcStartPosition?:          string | fn.Fn
 			CdcStartTime?:              number | fn.Fn
 			CdcStopPosition?:           string | fn.Fn
@@ -152,12 +203,13 @@ DMS :: {
 			ReplicationTaskSettings?:   string | fn.Fn
 			SourceEndpointArn:          string | fn.Fn
 			TableMappings:              string | fn.Fn
-			Tags?: [...{
+			Tags?:                      [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}]
+			})] | fn.If
 			TargetEndpointArn: string | fn.Fn
-		}
+			TaskData?:         string | fn.Fn
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

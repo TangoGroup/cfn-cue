@@ -9,6 +9,7 @@ DataBrew :: {
 	Dataset :: {
 		Type:       "AWS::DataBrew::Dataset"
 		Properties: close({
+			Format?:        ("CSV" | "JSON" | "PARQUET" | "EXCEL") | fn.Fn
 			FormatOptions?: {
 				[string]: _
 			} | fn.Fn

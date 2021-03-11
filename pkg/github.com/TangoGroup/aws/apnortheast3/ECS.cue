@@ -25,13 +25,22 @@ ECS :: {
 	Service :: {
 		Type:       "AWS::ECS::Service"
 		Properties: close({
+			CapacityProviderStrategy?: [...close({
+				Base?:             int | fn.Fn
+				CapacityProvider?: string | fn.Fn
+				Weight?:           int | fn.Fn
+			})] | fn.If
 			Cluster?:                 string | fn.Fn
 			DeploymentConfiguration?: close({
+				DeploymentCircuitBreaker?: close({
+					Enable:   bool | fn.Fn
+					Rollback: bool | fn.Fn
+				}) | fn.If
 				MaximumPercent?:        int | fn.Fn
 				MinimumHealthyPercent?: int | fn.Fn
 			}) | fn.If
 			DeploymentController?: close({
-				Type?: string | fn.Fn
+				Type?: ("CODE_DEPLOY" | "ECS" | "EXTERNAL") | fn.Fn
 			}) | fn.If
 			DesiredCount?:                  int | fn.Fn
 			EnableECSManagedTags?:          bool | fn.Fn
@@ -39,29 +48,30 @@ ECS :: {
 			LaunchType?:                    ("EC2" | "FARGATE") | fn.Fn
 			LoadBalancers?:                 [...close({
 				ContainerName?:    string | fn.Fn
-				ContainerPort:     int | fn.Fn
+				ContainerPort?:    int | fn.Fn
 				LoadBalancerName?: string | fn.Fn
 				TargetGroupArn?:   string | fn.Fn
 			})] | fn.If
 			NetworkConfiguration?: close({
 				AwsvpcConfiguration?: close({
-					AssignPublicIp?: string | fn.Fn
+					AssignPublicIp?: ("DISABLED" | "ENABLED") | fn.Fn
 					SecurityGroups?: [...(string | fn.Fn)] | (string | fn.Fn)
-					Subnets:         [...(string | fn.Fn)] | (string | fn.Fn)
+					Subnets?:        [...(string | fn.Fn)] | (string | fn.Fn)
 				}) | fn.If
 			}) | fn.If
 			PlacementConstraints?: [...close({
 				Expression?: string | fn.Fn
-				Type:        string | fn.Fn
+				Type:        ("distinctInstance" | "memberOf") | fn.Fn
 			})] | fn.If
 			PlacementStrategies?: [...close({
 				Field?: string | fn.Fn
-				Type:   string | fn.Fn
+				Type:   ("binpack" | "random" | "spread") | fn.Fn
 			})] | fn.If
 			PlatformVersion?:    string | fn.Fn
-			PropagateTags?:      string | fn.Fn
+			PropagateTags?:      ("SERVICE" | "TASK_DEFINITION") | fn.Fn
 			Role?:               string | fn.Fn
 			SchedulingStrategy?: ("DAEMON" | "REPLICA") | fn.Fn
+			ServiceArn?:         string | fn.Fn
 			ServiceName?:        string | fn.Fn
 			ServiceRegistries?:  [...close({
 				ContainerName?: string | fn.Fn
