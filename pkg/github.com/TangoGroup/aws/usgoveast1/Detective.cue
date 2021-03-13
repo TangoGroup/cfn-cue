@@ -1,4 +1,4 @@
-package cacentral1
+package usgoveast1
 
 import (
 	"github.com/TangoGroup/aws/fn"

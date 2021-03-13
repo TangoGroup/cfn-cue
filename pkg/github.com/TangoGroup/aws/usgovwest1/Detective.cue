@@ -1,4 +1,4 @@
-package cacentral1
+package usgovwest1
 
 import (
 	"github.com/TangoGroup/aws/fn"

@@ -464,6 +464,8 @@ EC2 :: {
 				UserData?: string | fn.Fn
 			}) | fn.If
 			LaunchTemplateName?: (strings.MinRunes(3) & strings.MaxRunes(128) & (=~#"^[a-zA-Z0-9().\-/_]+$"#)) | fn.Fn
+			TagSpecifications?:  close({
+			}) | fn.If
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -974,9 +976,9 @@ EC2 :: {
 	VPCEndpointService :: {
 		Type:       "AWS::EC2::VPCEndpointService"
 		Properties: close({
-			AcceptanceRequired?:        bool | fn.Fn
-			ApplianceLoadBalancerArns?: [...(string | fn.Fn)] | (string | fn.Fn)
-			NetworkLoadBalancerArns?:   [...(string | fn.Fn)] | (string | fn.Fn)
+			AcceptanceRequired?:      bool | fn.Fn
+			GatewayLoadBalancerArns?: [...(string | fn.Fn)] | (string | fn.Fn)
+			NetworkLoadBalancerArns?: [...(string | fn.Fn)] | (string | fn.Fn)
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

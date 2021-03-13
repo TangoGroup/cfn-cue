@@ -28,8 +28,8 @@ Backup :: {
 						MoveToColdStorageAfterDays?: int | fn.Fn
 					}) | fn.If
 					RecoveryPointTags?: {
-						[string]: _
-					} | fn.Fn
+						[string]: string | fn.Fn
+					} | fn.If
 					RuleName:            string | fn.Fn
 					ScheduleExpression?: string | fn.Fn
 					StartWindowMinutes?: int | fn.Fn
@@ -37,8 +37,8 @@ Backup :: {
 				})] | fn.If
 			}) | fn.If
 			BackupPlanTags?: {
-				[string]: _
-			} | fn.Fn
+				[string]: string | fn.Fn
+			} | fn.If
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

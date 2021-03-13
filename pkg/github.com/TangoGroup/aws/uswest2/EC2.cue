@@ -596,6 +596,8 @@ EC2 :: {
 				UserData?: string | fn.Fn
 			}) | fn.If
 			LaunchTemplateName?: (strings.MinRunes(3) & strings.MaxRunes(128) & (=~#"^[a-zA-Z0-9().\-/_]+$"#)) | fn.Fn
+			TagSpecifications?:  close({
+			}) | fn.If
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

@@ -116,7 +116,12 @@ AppSync :: {
 		Type:       "AWS::AppSync::GraphQLApi"
 		Properties: close({
 			AdditionalAuthenticationProviders?: [...close({
-				AuthenticationType:   string | fn.Fn
+				AuthenticationType:      string | fn.Fn
+				LambdaAuthorizerConfig?: close({
+					AuthorizerResultTtlInSeconds?: number | fn.Fn
+					AuthorizerUri?:                string | fn.Fn
+					IdentityValidationExpression?: string | fn.Fn
+				}) | fn.If
 				OpenIDConnectConfig?: close({
 					AuthTTL?:  number | fn.Fn
 					ClientId?: string | fn.Fn
@@ -129,8 +134,13 @@ AppSync :: {
 					UserPoolId?:       string | fn.Fn
 				}) | fn.If
 			})] | fn.If
-			AuthenticationType: ("AMAZON_COGNITO_USER_POOLS" | "API_KEY" | "AWS_IAM" | "OPENID_CONNECT") | fn.Fn
-			LogConfig?:         close({
+			AuthenticationType:      ("AMAZON_COGNITO_USER_POOLS" | "API_KEY" | "AWS_IAM" | "OPENID_CONNECT") | fn.Fn
+			LambdaAuthorizerConfig?: close({
+				AuthorizerResultTtlInSeconds?: number | fn.Fn
+				AuthorizerUri?:                string | fn.Fn
+				IdentityValidationExpression?: string | fn.Fn
+			}) | fn.If
+			LogConfig?: close({
 				CloudWatchLogsRoleArn?: string | fn.Fn
 				ExcludeVerboseContent?: bool | fn.Fn
 				FieldLogLevel?:         string | fn.Fn

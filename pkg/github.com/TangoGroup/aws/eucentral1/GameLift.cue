@@ -14,7 +14,7 @@ GameLift :: {
 			RoutingStrategy: close({
 				FleetId?: (=~#"^fleet-\S+"#) | fn.Fn
 				Message?: string | fn.Fn
-				Type?:    ("SIMPLE" | "TERMINAL") | fn.Fn
+				Type:     ("SIMPLE" | "TERMINAL") | fn.Fn
 			}) | fn.If
 		})
 		DependsOn?:           string | [...string]

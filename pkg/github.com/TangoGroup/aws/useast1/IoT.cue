@@ -468,6 +468,7 @@ IoT :: {
 					}) | fn.If
 					S3?: close({
 						BucketName: string | fn.Fn
+						CannedAcl?: ("private" | "public-read" | "public-read-write" | "aws-exec-read" | "authenticated-read" | "bucket-owner-read" | "bucket-owner-full-control" | "log-delivery-write") | fn.Fn
 						Key:        string | fn.Fn
 						RoleArn:    string | fn.Fn
 					}) | fn.If
@@ -594,6 +595,7 @@ IoT :: {
 					}) | fn.If
 					S3?: close({
 						BucketName: string | fn.Fn
+						CannedAcl?: ("private" | "public-read" | "public-read-write" | "aws-exec-read" | "authenticated-read" | "bucket-owner-read" | "bucket-owner-full-control" | "log-delivery-write") | fn.Fn
 						Key:        string | fn.Fn
 						RoleArn:    string | fn.Fn
 					}) | fn.If
@@ -613,8 +615,8 @@ IoT :: {
 						StateMachineName:     string | fn.Fn
 					}) | fn.If
 				}) | fn.If
-				RuleDisabled: bool | fn.Fn
-				Sql:          string | fn.Fn
+				RuleDisabled?: bool | fn.Fn
+				Sql:           string | fn.Fn
 			}) | fn.If
 		})
 		DependsOn?:           string | [...string]

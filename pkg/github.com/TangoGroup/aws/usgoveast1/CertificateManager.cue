@@ -3,6 +3,19 @@ package usgoveast1
 import "github.com/TangoGroup/aws/fn"
 
 CertificateManager :: {
+	Account :: {
+		Type:       "AWS::CertificateManager::Account"
+		Properties: close({
+			ExpiryEventsConfiguration: close({
+				DaysBeforeExpiry?: (>=1 & <=45) | fn.Fn
+			}) | fn.If
+		})
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+		Condition?: string
+	}
 	Certificate :: {
 		Type:       "AWS::CertificateManager::Certificate"
 		Properties: close({

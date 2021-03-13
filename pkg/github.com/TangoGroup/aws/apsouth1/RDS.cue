@@ -194,6 +194,25 @@ RDS :: {
 		Metadata?: [string]: _
 		Condition?: string
 	}
+	DBProxyEndpoint :: {
+		Type:       "AWS::RDS::DBProxyEndpoint"
+		Properties: close({
+			DBProxyEndpointName: (=~#"[0-z]*"#) | fn.Fn
+			DBProxyName:         (=~#"[0-z]*"#) | fn.Fn
+			Tags?:               [...close({
+				Key?:   (=~#"(\w|\d|\s|\\|-|\.:=+-)*"#) | fn.Fn
+				Value?: (=~#"(\w|\d|\s|\\|-|\.:=+-)*"#) | fn.Fn
+			})] | fn.If
+			TargetRole?:          ("READ_WRITE" | "READ_ONLY") | fn.Fn
+			VpcSecurityGroupIds?: [...(string | fn.Fn)] | (string | fn.Fn)
+			VpcSubnetIds:         [...(string | fn.Fn)] | (string | fn.Fn)
+		})
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+		Condition?: string
+	}
 	DBProxyTargetGroup :: {
 		Type:       "AWS::RDS::DBProxyTargetGroup"
 		Properties: close({

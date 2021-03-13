@@ -1,6 +1,9 @@
 package usgoveast1
 
-import "github.com/TangoGroup/aws/fn"
+import (
+	"github.com/TangoGroup/aws/fn"
+	"strings"
+)
 
 ECS :: {
 	CapacityProvider :: {
@@ -53,6 +56,23 @@ ECS :: {
 		Metadata?: [string]: _
 		Condition?: string
 	}
+	ClusterCapacityProviderAssociations :: {
+		Type:       "AWS::ECS::ClusterCapacityProviderAssociations"
+		Properties: close({
+			CapacityProviders:               [...(string | fn.Fn)] | (string | fn.Fn)
+			Cluster:                         (strings.MinRunes(1) & strings.MaxRunes(2048)) | fn.Fn
+			DefaultCapacityProviderStrategy: [...close({
+				Base?:            int | fn.Fn
+				CapacityProvider: string | fn.Fn
+				Weight?:          int | fn.Fn
+			})] | fn.If
+		})
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+		Condition?: string
+	}
 	PrimaryTaskSet :: {
 		Type:       "AWS::ECS::PrimaryTaskSet"
 		Properties: close({
@@ -88,6 +108,7 @@ ECS :: {
 			}) | fn.If
 			DesiredCount?:                  int | fn.Fn
 			EnableECSManagedTags?:          bool | fn.Fn
+			EnableExecuteCommand?:          bool | fn.Fn
 			HealthCheckGracePeriodSeconds?: int | fn.Fn
 			LaunchType?:                    ("EC2" | "FARGATE") | fn.Fn
 			LoadBalancers?:                 [...close({

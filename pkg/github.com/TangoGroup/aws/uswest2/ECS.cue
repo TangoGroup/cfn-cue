@@ -1,6 +1,9 @@
 package uswest2
 
-import "github.com/TangoGroup/aws/fn"
+import (
+	"github.com/TangoGroup/aws/fn"
+	"strings"
+)
 
 ECS :: {
 	CapacityProvider :: {
@@ -37,6 +40,19 @@ ECS :: {
 				Name?:  string | fn.Fn
 				Value?: string | fn.Fn
 			})] | fn.If
+			Configuration?: close({
+				ExecuteCommandConfiguration?: close({
+					KmsKeyId?:         string | fn.Fn
+					LogConfiguration?: close({
+						CloudWatchEncryptionEnabled?: bool | fn.Fn
+						CloudWatchLogGroupName?:      string | fn.Fn
+						S3BucketName?:                string | fn.Fn
+						S3EncryptionEnabled?:         bool | fn.Fn
+						S3KeyPrefix?:                 string | fn.Fn
+					}) | fn.If
+					Logging?: string | fn.Fn
+				}) | fn.If
+			}) | fn.If
 			DefaultCapacityProviderStrategy?: [...close({
 				Base?:             int | fn.Fn
 				CapacityProvider?: string | fn.Fn
@@ -45,6 +61,23 @@ ECS :: {
 			Tags?: [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
+			})] | fn.If
+		})
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+		Condition?: string
+	}
+	ClusterCapacityProviderAssociations :: {
+		Type:       "AWS::ECS::ClusterCapacityProviderAssociations"
+		Properties: close({
+			CapacityProviders:               [...(string | fn.Fn)] | (string | fn.Fn)
+			Cluster:                         (strings.MinRunes(1) & strings.MaxRunes(2048)) | fn.Fn
+			DefaultCapacityProviderStrategy: [...close({
+				Base?:            int | fn.Fn
+				CapacityProvider: string | fn.Fn
+				Weight?:          int | fn.Fn
 			})] | fn.If
 		})
 		DependsOn?:           string | [...string]
@@ -88,6 +121,7 @@ ECS :: {
 			}) | fn.If
 			DesiredCount?:                  int | fn.Fn
 			EnableECSManagedTags?:          bool | fn.Fn
+			EnableExecuteCommand?:          bool | fn.Fn
 			HealthCheckGracePeriodSeconds?: int | fn.Fn
 			LaunchType?:                    ("EC2" | "FARGATE") | fn.Fn
 			LoadBalancers?:                 [...close({
