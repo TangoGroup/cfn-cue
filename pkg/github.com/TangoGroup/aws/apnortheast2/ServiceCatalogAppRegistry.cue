@@ -24,8 +24,9 @@ ServiceCatalogAppRegistry :: {
 	AttributeGroup :: {
 		Type:       "AWS::ServiceCatalogAppRegistry::AttributeGroup"
 		Properties: close({
-			Attributes: close({
-			}) | fn.If
+			Attributes: {
+				[string]: _
+			} | fn.Fn
 			Description?: string | fn.Fn
 			Name:         (strings.MinRunes(1) & strings.MaxRunes(256) & (=~#"\w+"#)) | fn.Fn
 			Tags?:        {

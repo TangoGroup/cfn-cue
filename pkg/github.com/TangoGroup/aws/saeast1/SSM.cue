@@ -95,8 +95,8 @@ SSM :: {
 			OwnerInformation?: string | fn.Fn
 			ResourceType:      string | fn.Fn
 			Targets:           [...close({
-				Key:     string | fn.Fn
-				Values?: [...(string | fn.Fn)] | (string | fn.Fn)
+				Key:    string | fn.Fn
+				Values: [...(string | fn.Fn)] | (string | fn.Fn)
 			})] | fn.If
 			WindowId: string | fn.Fn
 		})
@@ -121,8 +121,8 @@ SSM :: {
 			Priority:        int | fn.Fn
 			ServiceRoleArn?: string | fn.Fn
 			Targets?:        [...close({
-				Key:     string | fn.Fn
-				Values?: [...(string | fn.Fn)] | (string | fn.Fn)
+				Key:    string | fn.Fn
+				Values: [...(string | fn.Fn)] | (string | fn.Fn)
 			})] | fn.If
 			TaskArn:                   string | fn.Fn
 			TaskInvocationParameters?: close({

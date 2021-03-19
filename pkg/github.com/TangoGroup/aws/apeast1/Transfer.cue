@@ -6,8 +6,14 @@ Transfer :: {
 	Server :: {
 		Type:       "AWS::Transfer::Server"
 		Properties: close({
+			Certificate?:     string | fn.Fn
+			Domain?:          string | fn.Fn
 			EndpointDetails?: close({
-				VpcEndpointId: string | fn.Fn
+				AddressAllocationIds?: [...(string | fn.Fn)] | (string | fn.Fn)
+				SecurityGroupIds?:     [...(string | fn.Fn)] | (string | fn.Fn)
+				SubnetIds?:            [...(string | fn.Fn)] | (string | fn.Fn)
+				VpcEndpointId?:        string | fn.Fn
+				VpcId?:                string | fn.Fn
 			}) | fn.If
 			EndpointType?:            string | fn.Fn
 			IdentityProviderDetails?: close({
@@ -16,7 +22,10 @@ Transfer :: {
 			}) | fn.If
 			IdentityProviderType?: string | fn.Fn
 			LoggingRole?:          string | fn.Fn
-			Tags?:                 [...close({
+			Protocols?:            [...close({
+			})] | fn.If
+			SecurityPolicyName?: string | fn.Fn
+			Tags?:               [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
 			})] | fn.If
@@ -30,8 +39,18 @@ Transfer :: {
 	User :: {
 		Type:       "AWS::Transfer::User"
 		Properties: close({
-			HomeDirectory?: string | fn.Fn
-			Policy?:        string | fn.Fn
+			HomeDirectory?:         string | fn.Fn
+			HomeDirectoryMappings?: [...close({
+				Entry:  string | fn.Fn
+				Target: string | fn.Fn
+			})] | fn.If
+			HomeDirectoryType?: string | fn.Fn
+			Policy?:            string | fn.Fn
+			PosixProfile?:      close({
+				Gid:            number | fn.Fn
+				SecondaryGids?: [...(number | fn.Fn)] | (number | fn.Fn)
+				Uid:            number | fn.Fn
+			}) | fn.If
 			Role:           string | fn.Fn
 			ServerId:       string | fn.Fn
 			SshPublicKeys?: [...(string | fn.Fn)] | (string | fn.Fn)
