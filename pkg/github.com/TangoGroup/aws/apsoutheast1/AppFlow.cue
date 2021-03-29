@@ -160,7 +160,7 @@ AppFlow :: {
 			Description?:              (=~#"[\w!@#\-.?,\s]*"#) | fn.Fn
 			DestinationFlowConfigList: [...close({
 				ConnectorProfileName?:          (=~#"[\w/!@#+=.-]+"#) | fn.Fn
-				ConnectorType:                  ("Salesforce" | "Singular" | "Slack" | "Redshift" | "S3" | "Marketo" | "Googleanalytics" | "Zendesk" | "Servicenow" | "Datadog" | "Trendmicro" | "Snowflake" | "Dynatrace" | "Infornexus" | "Amplitude" | "Veeva" | "EventBridge" | "Upsolver") | fn.Fn
+				ConnectorType:                  ("Salesforce" | "Singular" | "Slack" | "Redshift" | "S3" | "Marketo" | "Googleanalytics" | "Zendesk" | "Servicenow" | "Datadog" | "Trendmicro" | "Snowflake" | "Dynatrace" | "Infornexus" | "Amplitude" | "Veeva" | "EventBridge" | "Upsolver" | "LookoutMetrics") | fn.Fn
 				DestinationConnectorProperties: close({
 					EventBridge?: close({
 						ErrorHandlingConfig?: close({
@@ -236,7 +236,7 @@ AppFlow :: {
 			KMSArn?:          (strings.MinRunes(20) & strings.MaxRunes(2048) & (=~#"arn:aws:kms:.*:[0-9]+:.*"#)) | fn.Fn
 			SourceFlowConfig: close({
 				ConnectorProfileName?:  (=~#"[\w/!@#+=.-]+"#) | fn.Fn
-				ConnectorType:          ("Salesforce" | "Singular" | "Slack" | "Redshift" | "S3" | "Marketo" | "Googleanalytics" | "Zendesk" | "Servicenow" | "Datadog" | "Trendmicro" | "Snowflake" | "Dynatrace" | "Infornexus" | "Amplitude" | "Veeva" | "EventBridge" | "Upsolver") | fn.Fn
+				ConnectorType:          ("Salesforce" | "Singular" | "Slack" | "Redshift" | "S3" | "Marketo" | "Googleanalytics" | "Zendesk" | "Servicenow" | "Datadog" | "Trendmicro" | "Snowflake" | "Dynatrace" | "Infornexus" | "Amplitude" | "Veeva" | "EventBridge" | "Upsolver" | "LookoutMetrics") | fn.Fn
 				IncrementalPullConfig?: close({
 					DatetimeTypeFieldName?: string | fn.Fn
 				}) | fn.If

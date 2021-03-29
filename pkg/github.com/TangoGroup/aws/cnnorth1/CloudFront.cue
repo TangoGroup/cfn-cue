@@ -36,6 +36,19 @@ CloudFront :: {
 		Metadata?: [string]: _
 		Condition?: string
 	}
+	CloudFrontOriginAccessIdentity :: {
+		Type:       "AWS::CloudFront::CloudFrontOriginAccessIdentity"
+		Properties: close({
+			CloudFrontOriginAccessIdentityConfig: close({
+				Comment: string | fn.Fn
+			}) | fn.If
+		})
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+		Condition?: string
+	}
 	KeyGroup :: {
 		Type:       "AWS::CloudFront::KeyGroup"
 		Properties: close({

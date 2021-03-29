@@ -197,9 +197,10 @@ MediaLive :: {
 							YPosition?:           int | fn.Fn
 						}) | fn.If
 						EbuTtDDestinationSettings?: close({
-							FillLineGap?:  string | fn.Fn
-							FontFamily?:   string | fn.Fn
-							StyleControl?: string | fn.Fn
+							CopyrightHolder?: string | fn.Fn
+							FillLineGap?:     string | fn.Fn
+							FontFamily?:      string | fn.Fn
+							StyleControl?:    string | fn.Fn
 						}) | fn.If
 						EmbeddedDestinationSettings?: close({
 						}) | fn.If
@@ -254,6 +255,11 @@ MediaLive :: {
 					Name?:                string | fn.Fn
 					OutputGroupSettings?: close({
 						ArchiveGroupSettings?: close({
+							ArchiveCdnSettings?: close({
+								ArchiveS3Settings?: close({
+									CannedAcl?: string | fn.Fn
+								}) | fn.If
+							}) | fn.If
 							Destination?: close({
 								DestinationRefId?: string | fn.Fn
 							}) | fn.If
@@ -262,6 +268,11 @@ MediaLive :: {
 						FrameCaptureGroupSettings?: close({
 							Destination?: close({
 								DestinationRefId?: string | fn.Fn
+							}) | fn.If
+							FrameCaptureCdnSettings?: close({
+								FrameCaptureS3Settings?: close({
+									CannedAcl?: string | fn.Fn
+								}) | fn.If
 							}) | fn.If
 						}) | fn.If
 						HlsGroupSettings?: close({
@@ -307,6 +318,9 @@ MediaLive :: {
 									MediaStoreStorageClass?:  string | fn.Fn
 									NumRetries?:              int | fn.Fn
 									RestartDelay?:            int | fn.Fn
+								}) | fn.If
+								HlsS3Settings?: close({
+									CannedAcl?: string | fn.Fn
 								}) | fn.If
 								HlsWebdavSettings?: close({
 									ConnectionRetryInterval?: int | fn.Fn
@@ -491,6 +505,8 @@ MediaLive :: {
 										AudioRenditionSets?:    string | fn.Fn
 										NielsenId3Behavior?:    string | fn.Fn
 										TimedMetadataBehavior?: string | fn.Fn
+									}) | fn.If
+									FrameCaptureHlsSettings?: close({
 									}) | fn.If
 									StandardHlsSettings?: close({
 										AudioRenditionSets?: string | fn.Fn
@@ -825,6 +841,12 @@ MediaLive :: {
 								Pid?: int | fn.Fn
 							}) | fn.If
 							TeletextSourceSettings?: close({
+								OutputRectangle?: close({
+									Height?:     number | fn.Fn
+									LeftOffset?: number | fn.Fn
+									TopOffset?:  number | fn.Fn
+									Width?:      number | fn.Fn
+								}) | fn.If
 								PageNumber?: string | fn.Fn
 							}) | fn.If
 						}) | fn.If

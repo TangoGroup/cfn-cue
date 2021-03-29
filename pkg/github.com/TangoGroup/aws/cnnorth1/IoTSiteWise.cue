@@ -11,22 +11,22 @@ IoTSiteWise :: {
 		Properties: close({
 			AccessPolicyIdentity: close({
 				IamRole?: close({
-					arn?: (strings.MinRunes(1) & strings.MaxRunes(1600) & (=~#".*"#)) | fn.Fn
+					arn?: string | fn.Fn
 				}) | fn.If
 				IamUser?: close({
-					arn?: (strings.MinRunes(1) & strings.MaxRunes(1600) & (=~#".*"#)) | fn.Fn
+					arn?: string | fn.Fn
 				}) | fn.If
 				User?: close({
-					id?: (=~#"\S+"#) | fn.Fn
+					id?: string | fn.Fn
 				}) | fn.If
 			}) | fn.If
 			AccessPolicyPermission: string | fn.Fn
 			AccessPolicyResource:   close({
 				Portal?: close({
-					id?: (=~#"^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"#) | fn.Fn
+					id?: string | fn.Fn
 				}) | fn.If
 				Project?: close({
-					id?: (=~#"^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"#) | fn.Fn
+					id?: string | fn.Fn
 				}) | fn.If
 			}) | fn.If
 		})
@@ -166,10 +166,10 @@ IoTSiteWise :: {
 	Dashboard :: {
 		Type:       "AWS::IoTSiteWise::Dashboard"
 		Properties: close({
-			DashboardDefinition:  (=~#".+"#) | fn.Fn
-			DashboardDescription: (strings.MinRunes(1) & strings.MaxRunes(2048) & (=~#"[^\u0000-\u001F\u007F]+"#)) | fn.Fn
-			DashboardName:        (strings.MinRunes(1) & strings.MaxRunes(256) & (=~#"[^\u0000-\u001F\u007F]+"#)) | fn.Fn
-			ProjectId?:           (strings.MinRunes(36) & strings.MaxRunes(36) & (=~#"^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"#)) | fn.Fn
+			DashboardDefinition:  string | fn.Fn
+			DashboardDescription: string | fn.Fn
+			DashboardName:        string | fn.Fn
+			ProjectId?:           string | fn.Fn
 			Tags?:                [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
@@ -185,13 +185,13 @@ IoTSiteWise :: {
 		Type:       "AWS::IoTSiteWise::Gateway"
 		Properties: close({
 			GatewayCapabilitySummaries?: [...close({
-				CapabilityConfiguration?: (strings.MinRunes(1) & strings.MaxRunes(204800)) | fn.Fn
-				CapabilityNamespace:      (=~#"^[a-zA-Z]+:[a-zA-Z]+:[0-9]+$"#) | fn.Fn
+				CapabilityConfiguration?: string | fn.Fn
+				CapabilityNamespace:      string | fn.Fn
 			})] | fn.If
-			GatewayName:     (strings.MinRunes(1) & strings.MaxRunes(256) & (=~#"[^\u0000-\u001F\u007F]+"#)) | fn.Fn
+			GatewayName:     string | fn.Fn
 			GatewayPlatform: close({
 				Greengrass: close({
-					GroupArn: (strings.MinRunes(1) & strings.MaxRunes(1600)) | fn.Fn
+					GroupArn: string | fn.Fn
 				}) | fn.If
 			}) | fn.If
 			Tags?: [...close({
@@ -209,10 +209,10 @@ IoTSiteWise :: {
 		Type:       "AWS::IoTSiteWise::Portal"
 		Properties: close({
 			PortalAuthMode?:    string | fn.Fn
-			PortalContactEmail: (strings.MinRunes(1) & strings.MaxRunes(255) & (=~#"[^@]+@[^@]+"#)) | fn.Fn
-			PortalDescription?: (strings.MinRunes(1) & strings.MaxRunes(2048) & (=~#"[^\u0000-\u001F\u007F]+"#)) | fn.Fn
-			PortalName:         (strings.MinRunes(1) & strings.MaxRunes(256) & (=~#"[^\u0000-\u001F\u007F]+"#)) | fn.Fn
-			RoleArn:            (strings.MinRunes(1) & strings.MaxRunes(1600) & (=~#".*"#)) | fn.Fn
+			PortalContactEmail: string | fn.Fn
+			PortalDescription?: string | fn.Fn
+			PortalName:         string | fn.Fn
+			RoleArn:            string | fn.Fn
 			Tags?:              [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
@@ -227,9 +227,9 @@ IoTSiteWise :: {
 	Project :: {
 		Type:       "AWS::IoTSiteWise::Project"
 		Properties: close({
-			PortalId:            (strings.MinRunes(36) & strings.MaxRunes(36) & (=~#"^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"#)) | fn.Fn
-			ProjectDescription?: (strings.MinRunes(1) & strings.MaxRunes(2048) & (=~#"[^\u0000-\u001F\u007F]+"#)) | fn.Fn
-			ProjectName:         (strings.MinRunes(1) & strings.MaxRunes(256) & (=~#"[^\u0000-\u001F\u007F]+"#)) | fn.Fn
+			PortalId:            string | fn.Fn
+			ProjectDescription?: string | fn.Fn
+			ProjectName:         string | fn.Fn
 			Tags?:               [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn

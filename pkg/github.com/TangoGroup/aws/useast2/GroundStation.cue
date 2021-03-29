@@ -91,9 +91,8 @@ GroundStation :: {
 						Name?: string | fn.Fn
 						Port?: int | fn.Fn
 					}) | fn.If
-					Mtu?:    int | fn.Fn
-					Name?:   string | fn.Fn
-					Status?: string | fn.Fn
+					Mtu?:  int | fn.Fn
+					Name?: string | fn.Fn
 				}) | fn.If
 				SecurityDetails?: close({
 					RoleArn?:          string | fn.Fn

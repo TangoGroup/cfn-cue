@@ -117,6 +117,16 @@ Batch :: {
 				User?:    string | fn.Fn
 				Vcpus?:   int | fn.Fn
 				Volumes?: [...close({
+					EfsVolumeConfiguration?: close({
+						AuthorizationConfig?: close({
+							AccessPointId?: string | fn.Fn
+							Iam?:           string | fn.Fn
+						}) | fn.If
+						FileSystemId:           string | fn.Fn
+						RootDirectory?:         string | fn.Fn
+						TransitEncryption?:     string | fn.Fn
+						TransitEncryptionPort?: int | fn.Fn
+					}) | fn.If
 					Host?: close({
 						SourcePath?: string | fn.Fn
 					}) | fn.If
@@ -193,6 +203,16 @@ Batch :: {
 						User?:    string | fn.Fn
 						Vcpus?:   int | fn.Fn
 						Volumes?: [...close({
+							EfsVolumeConfiguration?: close({
+								AuthorizationConfig?: close({
+									AccessPointId?: string | fn.Fn
+									Iam?:           string | fn.Fn
+								}) | fn.If
+								FileSystemId:           string | fn.Fn
+								RootDirectory?:         string | fn.Fn
+								TransitEncryption?:     string | fn.Fn
+								TransitEncryptionPort?: int | fn.Fn
+							}) | fn.If
 							Host?: close({
 								SourcePath?: string | fn.Fn
 							}) | fn.If
