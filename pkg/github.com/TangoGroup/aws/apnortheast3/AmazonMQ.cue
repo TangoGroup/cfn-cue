@@ -4,46 +4,60 @@ import "github.com/TangoGroup/aws/fn"
 
 AmazonMQ :: {
 	Broker :: {
-		Type: "AWS::AmazonMQ::Broker"
-		Properties: {
+		Type:       "AWS::AmazonMQ::Broker"
+		Properties: close({
+			AuthenticationStrategy?: string | fn.Fn
 			AutoMinorVersionUpgrade: bool | fn.Fn
 			BrokerName:              string | fn.Fn
-			Configuration?: {
+			Configuration?:          close({
 				Id:       string | fn.Fn
 				Revision: int | fn.Fn
-			}
-			DeploymentMode: ("ACTIVE_STANDBY_MULTI_AZ" | "SINGLE_INSTANCE") | fn.Fn
-			EncryptionOptions?: {
+			}) | fn.If
+			DeploymentMode:     string | fn.Fn
+			EncryptionOptions?: close({
 				KmsKeyId?:      string | fn.Fn
 				UseAwsOwnedKey: bool | fn.Fn
-			}
-			EngineType:       ("ACTIVEMQ") | fn.Fn
-			EngineVersion:    ("5.15.0" | "5.15.6" | "5.15.8" | "5.15.9") | fn.Fn
-			HostInstanceType: string | fn.Fn
-			Logs?: {
+			}) | fn.If
+			EngineType:          string | fn.Fn
+			EngineVersion:       string | fn.Fn
+			HostInstanceType:    string | fn.Fn
+			LdapServerMetadata?: close({
+				Hosts:                  [...(string | fn.Fn)] | (string | fn.Fn)
+				RoleBase:               string | fn.Fn
+				RoleName?:              string | fn.Fn
+				RoleSearchMatching:     string | fn.Fn
+				RoleSearchSubtree?:     bool | fn.Fn
+				ServiceAccountPassword: string | fn.Fn
+				ServiceAccountUsername: string | fn.Fn
+				UserBase:               string | fn.Fn
+				UserRoleName?:          string | fn.Fn
+				UserSearchMatching:     string | fn.Fn
+				UserSearchSubtree?:     bool | fn.Fn
+			}) | fn.If
+			Logs?: close({
 				Audit?:   bool | fn.Fn
 				General?: bool | fn.Fn
-			}
-			MaintenanceWindowStartTime?: {
+			}) | fn.If
+			MaintenanceWindowStartTime?: close({
 				DayOfWeek: string | fn.Fn
 				TimeOfDay: string | fn.Fn
 				TimeZone:  string | fn.Fn
-			}
+			}) | fn.If
 			PubliclyAccessible: bool | fn.Fn
 			SecurityGroups?:    [...(string | fn.Fn)] | (string | fn.Fn)
 			StorageType?:       string | fn.Fn
 			SubnetIds?:         [...(string | fn.Fn)] | (string | fn.Fn)
-			Tags?: [...{
+			Tags?:              [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}]
-			Users: [...{
+			})] | fn.If
+			Users: [...close({
 				ConsoleAccess?: bool | fn.Fn
 				Groups?:        [...(string | fn.Fn)] | (string | fn.Fn)
 				Password:       string | fn.Fn
 				Username:       string | fn.Fn
-			}]
-		}
+			})] | fn.If
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -51,18 +65,19 @@ AmazonMQ :: {
 		Condition?: string
 	}
 	Configuration :: {
-		Type: "AWS::AmazonMQ::Configuration"
-		Properties: {
-			Data:          string | fn.Fn
-			Description?:  string | fn.Fn
-			EngineType:    ("ACTIVEMQ") | fn.Fn
-			EngineVersion: ("5.15.0" | "5.15.6" | "5.15.8" | "5.15.9") | fn.Fn
-			Name:          string | fn.Fn
-			Tags?: [...{
+		Type:       "AWS::AmazonMQ::Configuration"
+		Properties: close({
+			AuthenticationStrategy?: string | fn.Fn
+			Data:                    string | fn.Fn
+			Description?:            string | fn.Fn
+			EngineType:              string | fn.Fn
+			EngineVersion:           string | fn.Fn
+			Name:                    string | fn.Fn
+			Tags?:                   [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
-			}]
-		}
+			})] | fn.If
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"
@@ -70,14 +85,14 @@ AmazonMQ :: {
 		Condition?: string
 	}
 	ConfigurationAssociation :: {
-		Type: "AWS::AmazonMQ::ConfigurationAssociation"
-		Properties: {
-			Broker: string | fn.Fn
-			Configuration: {
+		Type:       "AWS::AmazonMQ::ConfigurationAssociation"
+		Properties: close({
+			Broker:        string | fn.Fn
+			Configuration: close({
 				Id:       string | fn.Fn
 				Revision: int | fn.Fn
-			}
-		}
+			}) | fn.If
+		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
 		UpdateReplacePolicy?: "Delete" | "Retain"

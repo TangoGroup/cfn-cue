@@ -9,45 +9,45 @@ FIS :: {
 	ExperimentTemplate :: {
 		Type:       "AWS::FIS::ExperimentTemplate"
 		Properties: close({
-			actions?: {
+			Actions?: {
 				[string]: close({
-					actionId?:    string | fn.Fn
-					description?: string | fn.Fn
-					parameters?:  close({
+					ActionId:     string | fn.Fn
+					Description?: string | fn.Fn
+					Parameters?:  close({
 					}) | fn.If
-					startAfter?: close({
+					StartAfter?: close({
 						ExperimentTemplateActionItemStartAfterList?: [...(string | fn.Fn)] | (string | fn.Fn)
 					}) | fn.If
-					targets?: close({
+					Targets?: close({
 					}) | fn.If
 				})
 			} | fn.If
-			description:    string | fn.Fn
-			roleArn:        string | fn.Fn
-			stopConditions: [...close({
-				source: string | fn.Fn
-				value?: (strings.MinRunes(20) & strings.MaxRunes(2048)) | fn.Fn
+			Description:    string | fn.Fn
+			RoleArn:        string | fn.Fn
+			StopConditions: [...close({
+				Source: string | fn.Fn
+				Value?: (strings.MinRunes(20) & strings.MaxRunes(2048)) | fn.Fn
 			})] | fn.If
-			tags: {
+			Tags: {
 				[string]: string | fn.Fn
 			} | fn.If
-			targets: {
+			Targets: {
 				[string]: close({
-					filters?: close({
+					Filters?: close({
 						ExperimentTemplateTargetFilterList?: [...close({
-							path:   string | fn.Fn
-							values: close({
+							Path:   string | fn.Fn
+							Values: close({
 								ExperimentTemplateTargetFilterValues?: [...(string | fn.Fn)] | (string | fn.Fn)
 							}) | fn.If
 						})] | fn.If
 					}) | fn.If
-					resourceArns?: close({
+					ResourceArns?: close({
 						ResourceArnList?: [...(string | fn.Fn)] | (string | fn.Fn)
 					}) | fn.If
-					resourceTags?: close({
+					ResourceTags?: close({
 					}) | fn.If
-					resourceType:  string | fn.Fn
-					selectionMode: string | fn.Fn
+					ResourceType:  string | fn.Fn
+					SelectionMode: string | fn.Fn
 				})
 			} | fn.If
 		})

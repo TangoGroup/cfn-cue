@@ -131,10 +131,12 @@ GameLift :: {
 	GameSessionQueue :: {
 		Type:       "AWS::GameLift::GameSessionQueue"
 		Properties: close({
-			Destinations?: [...close({
+			CustomEventData?: string | fn.Fn
+			Destinations?:    [...close({
 				DestinationArn?: string | fn.Fn
 			})] | fn.If
 			Name:                   string | fn.Fn
+			NotificationTarget?:    string | fn.Fn
 			PlayerLatencyPolicies?: [...close({
 				MaximumIndividualPlayerLatencyMilliseconds?: int | fn.Fn
 				PolicyDurationSeconds?:                      int | fn.Fn

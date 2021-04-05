@@ -78,6 +78,7 @@ ElasticBeanstalk :: {
 			CNAMEPrefix?:     string | fn.Fn
 			Description?:     string | fn.Fn
 			EnvironmentName?: string | fn.Fn
+			OperationsRole?:  string | fn.Fn
 			OptionSettings?:  [...close({
 				Namespace:     string | fn.Fn
 				OptionName:    string | fn.Fn

@@ -170,6 +170,9 @@ AppFlow :: {
 						}) | fn.If
 						Object: (=~#"\S+"#) | fn.Fn
 					}) | fn.If
+					LookoutMetrics?: close({
+						Object?: (=~#"\S+"#) | fn.Fn
+					}) | fn.If
 					Redshift?: close({
 						BucketPrefix?:        string | fn.Fn
 						ErrorHandlingConfig?: close({

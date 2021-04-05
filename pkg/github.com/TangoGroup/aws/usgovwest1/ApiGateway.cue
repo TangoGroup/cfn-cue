@@ -351,9 +351,10 @@ ApiGateway :: {
 				Key?:     string | fn.Fn
 				Version?: string | fn.Fn
 			}) | fn.If
-			CloneFrom?:             string | fn.Fn
-			Description?:           string | fn.Fn
-			EndpointConfiguration?: close({
+			CloneFrom?:                 string | fn.Fn
+			Description?:               string | fn.Fn
+			DisableExecuteApiEndpoint?: bool | fn.Fn
+			EndpointConfiguration?:     close({
 				Types?:          [...(string | fn.Fn)] | (string | fn.Fn)
 				VpcEndpointIds?: [...(string | fn.Fn)] | (string | fn.Fn)
 			}) | fn.If

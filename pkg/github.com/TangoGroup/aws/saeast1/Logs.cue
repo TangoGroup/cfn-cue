@@ -63,6 +63,19 @@ Logs :: {
 		Metadata?: [string]: _
 		Condition?: string
 	}
+	QueryDefinition :: {
+		Type:       "AWS::Logs::QueryDefinition"
+		Properties: close({
+			LogGroupNames?: [...((strings.MinRunes(1) & strings.MaxRunes(512) & (=~#"[\.\-_/#A-Za-z0-9]+"#)) | fn.Fn)] | ((strings.MinRunes(1) & strings.MaxRunes(512) & (=~#"[\.\-_/#A-Za-z0-9]+"#)) | fn.Fn)
+			Name:           (strings.MinRunes(1) & strings.MaxRunes(255) & (=~#"^([^:*\/]+\/?)*[^:*\/]+$"#)) | fn.Fn
+			QueryString:    (strings.MinRunes(1) & strings.MaxRunes(10000)) | fn.Fn
+		})
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+		Condition?: string
+	}
 	SubscriptionFilter :: {
 		Type:       "AWS::Logs::SubscriptionFilter"
 		Properties: close({

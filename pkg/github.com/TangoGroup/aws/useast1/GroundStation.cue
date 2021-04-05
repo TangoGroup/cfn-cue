@@ -1,4 +1,4 @@
-package apsoutheast2
+package useast1
 
 import "github.com/TangoGroup/aws/fn"
 

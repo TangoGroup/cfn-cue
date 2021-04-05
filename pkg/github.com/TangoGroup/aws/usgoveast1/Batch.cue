@@ -35,9 +35,9 @@ Batch :: {
 				} | fn.Fn
 				Type: string | fn.Fn
 			}) | fn.If
-			ServiceRole: string | fn.Fn
-			State?:      string | fn.Fn
-			Tags?:       {
+			ServiceRole?: string | fn.Fn
+			State?:       string | fn.Fn
+			Tags?:        {
 				[string]: _
 			} | fn.Fn
 			Type: string | fn.Fn

@@ -1,6 +1,9 @@
 package saeast1
 
-import "github.com/TangoGroup/aws/fn"
+import (
+	"github.com/TangoGroup/aws/fn"
+	"strings"
+)
 
 EKS :: {
 	Addon :: {
@@ -41,6 +44,31 @@ EKS :: {
 			}) | fn.If
 			RoleArn:  string | fn.Fn
 			Version?: string | fn.Fn
+		})
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+		Condition?: string
+	}
+	FargateProfile :: {
+		Type:       "AWS::EKS::FargateProfile"
+		Properties: close({
+			ClusterName:         string | fn.Fn
+			FargateProfileName?: string | fn.Fn
+			PodExecutionRoleArn: string | fn.Fn
+			Selectors:           [...close({
+				Labels?: [...close({
+					Key:   (strings.MinRunes(1) & strings.MaxRunes(127)) | fn.Fn
+					Value: (strings.MinRunes(1) & strings.MaxRunes(255)) | fn.Fn
+				})] | fn.If
+				Namespace: string | fn.Fn
+			})] | fn.If
+			Subnets?: [...(string | fn.Fn)] | (string | fn.Fn)
+			Tags?:    [...close({
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
+			})] | fn.If
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

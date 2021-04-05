@@ -23,7 +23,8 @@ Backup :: {
 							MoveToColdStorageAfterDays?: int | fn.Fn
 						}) | fn.If
 					})] | fn.If
-					Lifecycle?: close({
+					EnableContinuousBackup?: bool | fn.Fn
+					Lifecycle?:              close({
 						DeleteAfterDays?:            int | fn.Fn
 						MoveToColdStorageAfterDays?: int | fn.Fn
 					}) | fn.If

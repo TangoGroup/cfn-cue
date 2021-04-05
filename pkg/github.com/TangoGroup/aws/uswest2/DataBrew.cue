@@ -10,13 +10,78 @@ DataBrew :: {
 		Type:       "AWS::DataBrew::Dataset"
 		Properties: close({
 			Format?:        ("CSV" | "JSON" | "PARQUET" | "EXCEL") | fn.Fn
-			FormatOptions?: {
-				[string]: _
-			} | fn.Fn
-			Input: {
-				[string]: _
-			} | fn.Fn
-			Name:  (strings.MinRunes(1) & strings.MaxRunes(255)) | fn.Fn
+			FormatOptions?: close({
+				Csv?: close({
+					Delimiter?: (strings.MinRunes(1) & strings.MaxRunes(1)) | fn.Fn
+					HeaderRow?: bool | fn.Fn
+				}) | fn.If
+				Excel?: close({
+					HeaderRow?:    bool | fn.Fn
+					SheetIndexes?: [...(int | fn.Fn)] | (int | fn.Fn)
+					SheetNames?:   [...(string | fn.Fn)] | (string | fn.Fn)
+				}) | fn.If
+				Json?: close({
+					MultiLine?: bool | fn.Fn
+				}) | fn.If
+			}) | fn.If
+			Input: close({
+				DataCatalogInputDefinition?: close({
+					CatalogId?:     string | fn.Fn
+					DatabaseName?:  string | fn.Fn
+					TableName?:     string | fn.Fn
+					TempDirectory?: close({
+						Bucket: string | fn.Fn
+						Key?:   string | fn.Fn
+					}) | fn.If
+				}) | fn.If
+				DatabaseInputDefinition?: close({
+					DatabaseTableName?:  string | fn.Fn
+					GlueConnectionName?: string | fn.Fn
+					TempDirectory?:      close({
+						Bucket: string | fn.Fn
+						Key?:   string | fn.Fn
+					}) | fn.If
+				}) | fn.If
+				S3InputDefinition?: close({
+					Bucket: string | fn.Fn
+					Key?:   string | fn.Fn
+				}) | fn.If
+			}) | fn.If
+			Name:         (strings.MinRunes(1) & strings.MaxRunes(255)) | fn.Fn
+			PathOptions?: close({
+				FilesLimit?: close({
+					MaxFiles:   int | fn.Fn
+					Order?:     ("ASCENDING" | "DESCENDING") | fn.Fn
+					OrderedBy?: ("LAST_MODIFIED_DATE") | fn.Fn
+				}) | fn.If
+				LastModifiedDateCondition?: close({
+					Expression: (strings.MinRunes(4) & strings.MaxRunes(1024) & (=~#"^[&lt;&gt;0-9A-Za-z_:)(!= ]+$"#)) | fn.Fn
+					ValuesMap:  [...close({
+						Value:          string | fn.Fn
+						ValueReference: (strings.MinRunes(2) & strings.MaxRunes(128) & (=~#"^:[A-Za-z0-9_]+$"#)) | fn.Fn
+					})] | fn.If
+				}) | fn.If
+				Parameters?: [...close({
+					DatasetParameter: close({
+						CreateColumn?:    bool | fn.Fn
+						DatetimeOptions?: close({
+							Format:          (strings.MinRunes(2) & strings.MaxRunes(100)) | fn.Fn
+							LocaleCode?:     (strings.MinRunes(2) & strings.MaxRunes(100) & (=~#"^[A-Za-z0-9_\.#@\-]+$"#)) | fn.Fn
+							TimezoneOffset?: (strings.MinRunes(1) & strings.MaxRunes(6) & (=~#"^(Z|[-+](\d|\d{2}|\d{2}:?\d{2}))$"#)) | fn.Fn
+						}) | fn.If
+						Filter?: close({
+							Expression: (strings.MinRunes(4) & strings.MaxRunes(1024) & (=~#"^[&lt;&gt;0-9A-Za-z_:)(!= ]+$"#)) | fn.Fn
+							ValuesMap:  [...close({
+								Value:          string | fn.Fn
+								ValueReference: (strings.MinRunes(2) & strings.MaxRunes(128) & (=~#"^:[A-Za-z0-9_]+$"#)) | fn.Fn
+							})] | fn.If
+						}) | fn.If
+						Name: (strings.MinRunes(1) & strings.MaxRunes(255)) | fn.Fn
+						Type: ("String" | "Number" | "Datetime") | fn.Fn
+					}) | fn.If
+					PathParameterName: (strings.MinRunes(1) & strings.MaxRunes(255)) | fn.Fn
+				})] | fn.If
+			}) | fn.If
 			Tags?: [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
