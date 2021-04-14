@@ -74,6 +74,10 @@ ElastiCache :: {
 			Properties?:               {
 				[string]: string | fn.Fn
 			} | fn.If
+			Tags?: [...close({
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
+			})] | fn.If
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -138,6 +142,10 @@ ElastiCache :: {
 		Type:       "AWS::ElastiCache::SecurityGroup"
 		Properties: close({
 			Description: string | fn.Fn
+			Tags?:       [...close({
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
+			})] | fn.If
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"
@@ -164,6 +172,10 @@ ElastiCache :: {
 			CacheSubnetGroupName?: string | fn.Fn
 			Description:           string | fn.Fn
 			SubnetIds:             [...(string | fn.Fn)] | (string | fn.Fn)
+			Tags?:                 [...close({
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
+			})] | fn.If
 		})
 		DependsOn?:           string | [...string]
 		DeletionPolicy?:      "Delete" | "Retain"

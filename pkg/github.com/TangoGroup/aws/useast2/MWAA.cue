@@ -44,6 +44,7 @@ MWAA :: {
 				}) | fn.If
 			}) | fn.If
 			MaxWorkers?:           int | fn.Fn
+			MinWorkers?:           int | fn.Fn
 			Name:                  (strings.MinRunes(1) & strings.MaxRunes(80) & (=~#"^[a-zA-Z][0-9a-zA-Z\-_]*$"#)) | fn.Fn
 			NetworkConfiguration?: close({
 				SecurityGroupIds?: [...((strings.MinRunes(1) & strings.MaxRunes(1024) & (=~#"^sg-[a-zA-Z0-9\-._]+$"#)) | fn.Fn)] | ((strings.MinRunes(1) & strings.MaxRunes(1024) & (=~#"^sg-[a-zA-Z0-9\-._]+$"#)) | fn.Fn)

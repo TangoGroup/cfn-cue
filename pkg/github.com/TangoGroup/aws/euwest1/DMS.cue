@@ -100,7 +100,8 @@ DMS :: {
 				SecretsManagerAccessRoleArn?: string | fn.Fn
 				SecretsManagerSecretId?:      string | fn.Fn
 			}) | fn.If
-			S3Settings?: close({
+			ResourceIdentifier?: string | fn.Fn
+			S3Settings?:         close({
 				BucketFolder?:            string | fn.Fn
 				BucketName?:              string | fn.Fn
 				CompressionType?:         string | fn.Fn
@@ -162,6 +163,7 @@ DMS :: {
 			ReplicationInstanceClass:          string | fn.Fn
 			ReplicationInstanceIdentifier?:    string | fn.Fn
 			ReplicationSubnetGroupIdentifier?: string | fn.Fn
+			ResourceIdentifier?:               string | fn.Fn
 			Tags?:                             [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
@@ -201,6 +203,7 @@ DMS :: {
 			ReplicationInstanceArn:     string | fn.Fn
 			ReplicationTaskIdentifier?: string | fn.Fn
 			ReplicationTaskSettings?:   string | fn.Fn
+			ResourceIdentifier?:        string | fn.Fn
 			SourceEndpointArn:          string | fn.Fn
 			TableMappings:              string | fn.Fn
 			Tags?:                      [...close({

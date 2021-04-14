@@ -36,6 +36,9 @@ DynamoDB :: {
 				AttributeName: string | fn.Fn
 				KeyType:       ("HASH" | "RANGE") | fn.Fn
 			})] | fn.If
+			KinesisStreamSpecification?: close({
+				StreamArn: string | fn.Fn
+			}) | fn.If
 			LocalSecondaryIndexes?: [...close({
 				IndexName: string | fn.Fn
 				KeySchema: [...close({

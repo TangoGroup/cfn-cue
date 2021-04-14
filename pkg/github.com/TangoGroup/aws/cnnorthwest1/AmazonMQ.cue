@@ -1,4 +1,4 @@
-package euwest3
+package cnnorthwest1
 
 import "github.com/TangoGroup/aws/fn"
 
@@ -13,14 +13,14 @@ AmazonMQ :: {
 				Id:       string | fn.Fn
 				Revision: int | fn.Fn
 			}) | fn.If
-			DeploymentMode:     ("ACTIVE_STANDBY_MULTI_AZ" | "CLUSTER_MULTI_AZ" | "SINGLE_INSTANCE") | fn.Fn
+			DeploymentMode:     string | fn.Fn
 			EncryptionOptions?: close({
 				KmsKeyId?:      string | fn.Fn
 				UseAwsOwnedKey: bool | fn.Fn
 			}) | fn.If
-			EngineType:          ("ACTIVEMQ" | "RABBITMQ") | fn.Fn
+			EngineType:          string | fn.Fn
 			EngineVersion:       string | fn.Fn
-			HostInstanceType:    ("mq.m5.2xlarge" | "mq.m5.4xlarge" | "mq.m5.large" | "mq.m5.xlarge" | "mq.t2.micro" | "mq.t3.micro") | fn.Fn
+			HostInstanceType:    string | fn.Fn
 			LdapServerMetadata?: close({
 				Hosts:                  [...(string | fn.Fn)] | (string | fn.Fn)
 				RoleBase:               string | fn.Fn
@@ -70,7 +70,7 @@ AmazonMQ :: {
 			AuthenticationStrategy?: string | fn.Fn
 			Data:                    string | fn.Fn
 			Description?:            string | fn.Fn
-			EngineType:              ("ACTIVEMQ" | "RABBITMQ") | fn.Fn
+			EngineType:              string | fn.Fn
 			EngineVersion:           string | fn.Fn
 			Name:                    string | fn.Fn
 			Tags?:                   [...close({

@@ -140,6 +140,30 @@ IoT :: {
 		Metadata?: [string]: _
 		Condition?: string
 	}
+	DomainConfiguration :: {
+		Type:       "AWS::IoT::DomainConfiguration"
+		Properties: close({
+			AuthorizerConfig?: close({
+				AllowAuthorizerOverride?: bool | fn.Fn
+				DefaultAuthorizerName?:   (strings.MinRunes(1) & strings.MaxRunes(128) & (=~#"^[\w=,@-]+$"#)) | fn.Fn
+			}) | fn.If
+			DomainConfigurationName?:   (strings.MinRunes(1) & strings.MaxRunes(128) & (=~#"^[\w.-]+$"#)) | fn.Fn
+			DomainConfigurationStatus?: ("ENABLED" | "DISABLED") | fn.Fn
+			DomainName?:                (strings.MinRunes(1) & strings.MaxRunes(253)) | fn.Fn
+			ServerCertificateArns?:     [...((strings.MinRunes(1) & strings.MaxRunes(2048) & (=~#"^arn:aws(-cn|-us-gov|-iso-b|-iso)?:acm:[a-z]{2}-(gov-|iso-|isob-)?[a-z]{4,9}-\d{1}:\d{12}:certificate/[a-zA-Z0-9/-]+$"#)) | fn.Fn)] | ((strings.MinRunes(1) & strings.MaxRunes(2048) & (=~#"^arn:aws(-cn|-us-gov|-iso-b|-iso)?:acm:[a-z]{2}-(gov-|iso-|isob-)?[a-z]{4,9}-\d{1}:\d{12}:certificate/[a-zA-Z0-9/-]+$"#)) | fn.Fn)
+			ServiceType?:               ("DATA" | "CREDENTIAL_PROVIDER" | "JOBS") | fn.Fn
+			Tags?:                      [...close({
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
+			})] | fn.If
+			ValidationCertificateArn?: (=~#"^arn:aws(-cn|-us-gov|-iso-b|-iso)?:acm:[a-z]{2}-(gov-|iso-|isob-)?[a-z]{4,9}-\d{1}:\d{12}:certificate/[a-zA-Z0-9/-]+$"#) | fn.Fn
+		})
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+		Condition?: string
+	}
 	MitigationAction :: {
 		Type:       "AWS::IoT::MitigationAction"
 		Properties: close({

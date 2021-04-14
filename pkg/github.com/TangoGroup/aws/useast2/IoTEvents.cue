@@ -1,19 +1,22 @@
 package useast2
 
-import "github.com/TangoGroup/aws/fn"
+import (
+	"github.com/TangoGroup/aws/fn"
+	"strings"
+)
 
 IoTEvents :: {
 	DetectorModel :: {
 		Type:       "AWS::IoTEvents::DetectorModel"
 		Properties: close({
 			DetectorModelDefinition: close({
-				InitialStateName: string | fn.Fn
+				InitialStateName: (strings.MinRunes(1) & strings.MaxRunes(128)) | fn.Fn
 				States:           [...close({
 					OnEnter?: close({
 						Events?: [...close({
 							Actions?: [...close({
 								ClearTimer?: close({
-									TimerName: string | fn.Fn
+									TimerName: (strings.MinRunes(1) & strings.MaxRunes(128)) | fn.Fn
 								}) | fn.If
 								DynamoDB?: close({
 									HashKeyField: string | fn.Fn
@@ -43,10 +46,10 @@ IoTEvents :: {
 										ContentExpression: string | fn.Fn
 										Type:              string | fn.Fn
 									}) | fn.If
-									Separator?: string | fn.Fn
+									Separator?: (=~#"([\n\t])|(\r\n)|(,)"#) | fn.Fn
 								}) | fn.If
 								IotEvents?: close({
-									InputName: string | fn.Fn
+									InputName: (strings.MinRunes(1) & strings.MaxRunes(128) & (=~#"^[a-zA-Z][a-zA-Z0-9_]*$"#)) | fn.Fn
 									Payload?:  close({
 										ContentExpression: string | fn.Fn
 										Type:              string | fn.Fn
@@ -72,37 +75,37 @@ IoTEvents :: {
 									}) | fn.If
 								}) | fn.If
 								IotTopicPublish?: close({
-									MqttTopic: string | fn.Fn
+									MqttTopic: (strings.MinRunes(1) & strings.MaxRunes(128)) | fn.Fn
 									Payload?:  close({
 										ContentExpression: string | fn.Fn
 										Type:              string | fn.Fn
 									}) | fn.If
 								}) | fn.If
 								Lambda?: close({
-									FunctionArn: string | fn.Fn
+									FunctionArn: (strings.MinRunes(1) & strings.MaxRunes(2048)) | fn.Fn
 									Payload?:    close({
 										ContentExpression: string | fn.Fn
 										Type:              string | fn.Fn
 									}) | fn.If
 								}) | fn.If
 								ResetTimer?: close({
-									TimerName: string | fn.Fn
+									TimerName: (strings.MinRunes(1) & strings.MaxRunes(128)) | fn.Fn
 								}) | fn.If
 								SetTimer?: close({
-									DurationExpression?: string | fn.Fn
-									Seconds?:            int | fn.Fn
-									TimerName:           string | fn.Fn
+									DurationExpression?: (strings.MinRunes(1) & strings.MaxRunes(1024)) | fn.Fn
+									Seconds?:            (>=60 & <=31622400) | fn.Fn
+									TimerName:           (strings.MinRunes(1) & strings.MaxRunes(128)) | fn.Fn
 								}) | fn.If
 								SetVariable?: close({
-									Value:        string | fn.Fn
-									VariableName: string | fn.Fn
+									Value:        (strings.MinRunes(1) & strings.MaxRunes(1024)) | fn.Fn
+									VariableName: (strings.MinRunes(1) & strings.MaxRunes(128) & (=~#"^[a-zA-Z][a-zA-Z0-9_]*$"#)) | fn.Fn
 								}) | fn.If
 								Sns?: close({
 									Payload?: close({
 										ContentExpression: string | fn.Fn
 										Type:              string | fn.Fn
 									}) | fn.If
-									TargetArn: string | fn.Fn
+									TargetArn: (strings.MinRunes(1) & strings.MaxRunes(2048)) | fn.Fn
 								}) | fn.If
 								Sqs?: close({
 									Payload?: close({
@@ -121,7 +124,7 @@ IoTEvents :: {
 						Events?: [...close({
 							Actions?: [...close({
 								ClearTimer?: close({
-									TimerName: string | fn.Fn
+									TimerName: (strings.MinRunes(1) & strings.MaxRunes(128)) | fn.Fn
 								}) | fn.If
 								DynamoDB?: close({
 									HashKeyField: string | fn.Fn
@@ -151,10 +154,10 @@ IoTEvents :: {
 										ContentExpression: string | fn.Fn
 										Type:              string | fn.Fn
 									}) | fn.If
-									Separator?: string | fn.Fn
+									Separator?: (=~#"([\n\t])|(\r\n)|(,)"#) | fn.Fn
 								}) | fn.If
 								IotEvents?: close({
-									InputName: string | fn.Fn
+									InputName: (strings.MinRunes(1) & strings.MaxRunes(128) & (=~#"^[a-zA-Z][a-zA-Z0-9_]*$"#)) | fn.Fn
 									Payload?:  close({
 										ContentExpression: string | fn.Fn
 										Type:              string | fn.Fn
@@ -180,37 +183,37 @@ IoTEvents :: {
 									}) | fn.If
 								}) | fn.If
 								IotTopicPublish?: close({
-									MqttTopic: string | fn.Fn
+									MqttTopic: (strings.MinRunes(1) & strings.MaxRunes(128)) | fn.Fn
 									Payload?:  close({
 										ContentExpression: string | fn.Fn
 										Type:              string | fn.Fn
 									}) | fn.If
 								}) | fn.If
 								Lambda?: close({
-									FunctionArn: string | fn.Fn
+									FunctionArn: (strings.MinRunes(1) & strings.MaxRunes(2048)) | fn.Fn
 									Payload?:    close({
 										ContentExpression: string | fn.Fn
 										Type:              string | fn.Fn
 									}) | fn.If
 								}) | fn.If
 								ResetTimer?: close({
-									TimerName: string | fn.Fn
+									TimerName: (strings.MinRunes(1) & strings.MaxRunes(128)) | fn.Fn
 								}) | fn.If
 								SetTimer?: close({
-									DurationExpression?: string | fn.Fn
-									Seconds?:            int | fn.Fn
-									TimerName:           string | fn.Fn
+									DurationExpression?: (strings.MinRunes(1) & strings.MaxRunes(1024)) | fn.Fn
+									Seconds?:            (>=60 & <=31622400) | fn.Fn
+									TimerName:           (strings.MinRunes(1) & strings.MaxRunes(128)) | fn.Fn
 								}) | fn.If
 								SetVariable?: close({
-									Value:        string | fn.Fn
-									VariableName: string | fn.Fn
+									Value:        (strings.MinRunes(1) & strings.MaxRunes(1024)) | fn.Fn
+									VariableName: (strings.MinRunes(1) & strings.MaxRunes(128) & (=~#"^[a-zA-Z][a-zA-Z0-9_]*$"#)) | fn.Fn
 								}) | fn.If
 								Sns?: close({
 									Payload?: close({
 										ContentExpression: string | fn.Fn
 										Type:              string | fn.Fn
 									}) | fn.If
-									TargetArn: string | fn.Fn
+									TargetArn: (strings.MinRunes(1) & strings.MaxRunes(2048)) | fn.Fn
 								}) | fn.If
 								Sqs?: close({
 									Payload?: close({
@@ -229,7 +232,7 @@ IoTEvents :: {
 						Events?: [...close({
 							Actions?: [...close({
 								ClearTimer?: close({
-									TimerName: string | fn.Fn
+									TimerName: (strings.MinRunes(1) & strings.MaxRunes(128)) | fn.Fn
 								}) | fn.If
 								DynamoDB?: close({
 									HashKeyField: string | fn.Fn
@@ -259,10 +262,10 @@ IoTEvents :: {
 										ContentExpression: string | fn.Fn
 										Type:              string | fn.Fn
 									}) | fn.If
-									Separator?: string | fn.Fn
+									Separator?: (=~#"([\n\t])|(\r\n)|(,)"#) | fn.Fn
 								}) | fn.If
 								IotEvents?: close({
-									InputName: string | fn.Fn
+									InputName: (strings.MinRunes(1) & strings.MaxRunes(128) & (=~#"^[a-zA-Z][a-zA-Z0-9_]*$"#)) | fn.Fn
 									Payload?:  close({
 										ContentExpression: string | fn.Fn
 										Type:              string | fn.Fn
@@ -288,37 +291,37 @@ IoTEvents :: {
 									}) | fn.If
 								}) | fn.If
 								IotTopicPublish?: close({
-									MqttTopic: string | fn.Fn
+									MqttTopic: (strings.MinRunes(1) & strings.MaxRunes(128)) | fn.Fn
 									Payload?:  close({
 										ContentExpression: string | fn.Fn
 										Type:              string | fn.Fn
 									}) | fn.If
 								}) | fn.If
 								Lambda?: close({
-									FunctionArn: string | fn.Fn
+									FunctionArn: (strings.MinRunes(1) & strings.MaxRunes(2048)) | fn.Fn
 									Payload?:    close({
 										ContentExpression: string | fn.Fn
 										Type:              string | fn.Fn
 									}) | fn.If
 								}) | fn.If
 								ResetTimer?: close({
-									TimerName: string | fn.Fn
+									TimerName: (strings.MinRunes(1) & strings.MaxRunes(128)) | fn.Fn
 								}) | fn.If
 								SetTimer?: close({
-									DurationExpression?: string | fn.Fn
-									Seconds?:            int | fn.Fn
-									TimerName:           string | fn.Fn
+									DurationExpression?: (strings.MinRunes(1) & strings.MaxRunes(1024)) | fn.Fn
+									Seconds?:            (>=60 & <=31622400) | fn.Fn
+									TimerName:           (strings.MinRunes(1) & strings.MaxRunes(128)) | fn.Fn
 								}) | fn.If
 								SetVariable?: close({
-									Value:        string | fn.Fn
-									VariableName: string | fn.Fn
+									Value:        (strings.MinRunes(1) & strings.MaxRunes(1024)) | fn.Fn
+									VariableName: (strings.MinRunes(1) & strings.MaxRunes(128) & (=~#"^[a-zA-Z][a-zA-Z0-9_]*$"#)) | fn.Fn
 								}) | fn.If
 								Sns?: close({
 									Payload?: close({
 										ContentExpression: string | fn.Fn
 										Type:              string | fn.Fn
 									}) | fn.If
-									TargetArn: string | fn.Fn
+									TargetArn: (strings.MinRunes(1) & strings.MaxRunes(2048)) | fn.Fn
 								}) | fn.If
 								Sqs?: close({
 									Payload?: close({
@@ -335,7 +338,7 @@ IoTEvents :: {
 						TransitionEvents?: [...close({
 							Actions?: [...close({
 								ClearTimer?: close({
-									TimerName: string | fn.Fn
+									TimerName: (strings.MinRunes(1) & strings.MaxRunes(128)) | fn.Fn
 								}) | fn.If
 								DynamoDB?: close({
 									HashKeyField: string | fn.Fn
@@ -365,10 +368,10 @@ IoTEvents :: {
 										ContentExpression: string | fn.Fn
 										Type:              string | fn.Fn
 									}) | fn.If
-									Separator?: string | fn.Fn
+									Separator?: (=~#"([\n\t])|(\r\n)|(,)"#) | fn.Fn
 								}) | fn.If
 								IotEvents?: close({
-									InputName: string | fn.Fn
+									InputName: (strings.MinRunes(1) & strings.MaxRunes(128) & (=~#"^[a-zA-Z][a-zA-Z0-9_]*$"#)) | fn.Fn
 									Payload?:  close({
 										ContentExpression: string | fn.Fn
 										Type:              string | fn.Fn
@@ -394,37 +397,37 @@ IoTEvents :: {
 									}) | fn.If
 								}) | fn.If
 								IotTopicPublish?: close({
-									MqttTopic: string | fn.Fn
+									MqttTopic: (strings.MinRunes(1) & strings.MaxRunes(128)) | fn.Fn
 									Payload?:  close({
 										ContentExpression: string | fn.Fn
 										Type:              string | fn.Fn
 									}) | fn.If
 								}) | fn.If
 								Lambda?: close({
-									FunctionArn: string | fn.Fn
+									FunctionArn: (strings.MinRunes(1) & strings.MaxRunes(2048)) | fn.Fn
 									Payload?:    close({
 										ContentExpression: string | fn.Fn
 										Type:              string | fn.Fn
 									}) | fn.If
 								}) | fn.If
 								ResetTimer?: close({
-									TimerName: string | fn.Fn
+									TimerName: (strings.MinRunes(1) & strings.MaxRunes(128)) | fn.Fn
 								}) | fn.If
 								SetTimer?: close({
-									DurationExpression?: string | fn.Fn
-									Seconds?:            int | fn.Fn
-									TimerName:           string | fn.Fn
+									DurationExpression?: (strings.MinRunes(1) & strings.MaxRunes(1024)) | fn.Fn
+									Seconds?:            (>=60 & <=31622400) | fn.Fn
+									TimerName:           (strings.MinRunes(1) & strings.MaxRunes(128)) | fn.Fn
 								}) | fn.If
 								SetVariable?: close({
-									Value:        string | fn.Fn
-									VariableName: string | fn.Fn
+									Value:        (strings.MinRunes(1) & strings.MaxRunes(1024)) | fn.Fn
+									VariableName: (strings.MinRunes(1) & strings.MaxRunes(128) & (=~#"^[a-zA-Z][a-zA-Z0-9_]*$"#)) | fn.Fn
 								}) | fn.If
 								Sns?: close({
 									Payload?: close({
 										ContentExpression: string | fn.Fn
 										Type:              string | fn.Fn
 									}) | fn.If
-									TargetArn: string | fn.Fn
+									TargetArn: (strings.MinRunes(1) & strings.MaxRunes(2048)) | fn.Fn
 								}) | fn.If
 								Sqs?: close({
 									Payload?: close({
@@ -436,18 +439,18 @@ IoTEvents :: {
 								}) | fn.If
 							})] | fn.If
 							Condition: string | fn.Fn
-							EventName: string | fn.Fn
-							NextState: string | fn.Fn
+							EventName: (strings.MinRunes(1) & strings.MaxRunes(128)) | fn.Fn
+							NextState: (strings.MinRunes(1) & strings.MaxRunes(128)) | fn.Fn
 						})] | fn.If
 					}) | fn.If
-					StateName: string | fn.Fn
+					StateName: (strings.MinRunes(1) & strings.MaxRunes(128)) | fn.Fn
 				})] | fn.If
 			}) | fn.If
 			DetectorModelDescription?: string | fn.Fn
-			DetectorModelName?:        string | fn.Fn
-			EvaluationMethod?:         string | fn.Fn
-			Key?:                      string | fn.Fn
-			RoleArn:                   string | fn.Fn
+			DetectorModelName?:        (strings.MinRunes(1) & strings.MaxRunes(128) & (=~#"^[a-zA-Z0-9_-]+$"#)) | fn.Fn
+			EvaluationMethod?:         ("BATCH" | "SERIAL") | fn.Fn
+			Key?:                      (strings.MinRunes(1) & strings.MaxRunes(128) & (=~#"^((`[\w\- ]+`)|([\w\-]+))(\.((`[\w\- ]+`)|([\w\-]+)))*$"#)) | fn.Fn
+			RoleArn:                   (strings.MinRunes(1) & strings.MaxRunes(2048)) | fn.Fn
 			Tags?:                     [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn
@@ -464,11 +467,11 @@ IoTEvents :: {
 		Properties: close({
 			InputDefinition: close({
 				Attributes: [...close({
-					JsonPath: string | fn.Fn
+					JsonPath: (strings.MinRunes(1) & strings.MaxRunes(128) & (=~#"^((`[a-zA-Z0-9_\- ]+`)|([a-zA-Z0-9_\-]+))(\.((`[a-zA-Z0-9_\- ]+`)|([a-zA-Z0-9_\-]+)))*$"#)) | fn.Fn
 				})] | fn.If
 			}) | fn.If
-			InputDescription?: string | fn.Fn
-			InputName?:        string | fn.Fn
+			InputDescription?: (strings.MinRunes(1) & strings.MaxRunes(128)) | fn.Fn
+			InputName?:        (strings.MinRunes(1) & strings.MaxRunes(128) & (=~#"^[a-zA-Z][a-zA-Z0-9_]*$"#)) | fn.Fn
 			Tags?:             [...close({
 				Key:   string | fn.Fn
 				Value: string | fn.Fn

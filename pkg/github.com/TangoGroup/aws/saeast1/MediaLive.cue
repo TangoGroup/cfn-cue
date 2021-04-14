@@ -247,6 +247,13 @@ MediaLive :: {
 					OutputTimingSource?:        string | fn.Fn
 					SupportLowFramerateInputs?: string | fn.Fn
 				}) | fn.If
+				MotionGraphicsConfiguration?: close({
+					MotionGraphicsInsertion?: string | fn.Fn
+					MotionGraphicsSettings?:  close({
+						HtmlMotionGraphicsSettings?: close({
+						}) | fn.If
+					}) | fn.If
+				}) | fn.If
 				NielsenConfiguration?: close({
 					DistributorId?:          string | fn.Fn
 					NielsenPcmToId3Tagging?: string | fn.Fn
@@ -867,7 +874,13 @@ MediaLive :: {
 					Smpte2038DataPreference?: string | fn.Fn
 					SourceEndBehavior?:       string | fn.Fn
 					VideoSelector?:           close({
-						ColorSpace?:       string | fn.Fn
+						ColorSpace?:         string | fn.Fn
+						ColorSpaceSettings?: close({
+							Hdr10Settings?: close({
+								MaxCll?:  int | fn.Fn
+								MaxFall?: int | fn.Fn
+							}) | fn.If
+						}) | fn.If
 						ColorSpaceUsage?:  string | fn.Fn
 						SelectorSettings?: close({
 							VideoSelectorPid?: close({

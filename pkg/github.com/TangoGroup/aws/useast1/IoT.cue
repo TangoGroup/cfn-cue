@@ -361,7 +361,11 @@ IoT :: {
 	TopicRule :: {
 		Type:       "AWS::IoT::TopicRule"
 		Properties: close({
-			RuleName?:        string | fn.Fn
+			RuleName?: string | fn.Fn
+			Tags?:     [...close({
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
+			})] | fn.If
 			TopicRulePayload: close({
 				Actions: [...close({
 					CloudwatchAlarm?: close({
@@ -369,6 +373,10 @@ IoT :: {
 						RoleArn:     string | fn.Fn
 						StateReason: string | fn.Fn
 						StateValue:  string | fn.Fn
+					}) | fn.If
+					CloudwatchLogs?: close({
+						LogGroupName: string | fn.Fn
+						RoleArn:      string | fn.Fn
 					}) | fn.If
 					CloudwatchMetric?: close({
 						MetricName:       string | fn.Fn
@@ -403,6 +411,7 @@ IoT :: {
 						Type:     string | fn.Fn
 					}) | fn.If
 					Firehose?: close({
+						BatchMode?:         bool | fn.Fn
 						DeliveryStreamName: string | fn.Fn
 						RoleArn:            string | fn.Fn
 						Separator?:         string | fn.Fn
@@ -423,10 +432,12 @@ IoT :: {
 						Url: string | fn.Fn
 					}) | fn.If
 					IotAnalytics?: close({
+						BatchMode?:  bool | fn.Fn
 						ChannelName: string | fn.Fn
 						RoleArn:     string | fn.Fn
 					}) | fn.If
 					IotEvents?: close({
+						BatchMode?: bool | fn.Fn
 						InputName:  string | fn.Fn
 						MessageId?: string | fn.Fn
 						RoleArn:    string | fn.Fn
@@ -452,6 +463,15 @@ IoT :: {
 							})] | fn.If
 						})] | fn.If
 						RoleArn: string | fn.Fn
+					}) | fn.If
+					Kafka?: close({
+						ClientProperties: {
+							[string]: string | fn.Fn
+						} | fn.If
+						DestinationArn: string | fn.Fn
+						Key?:           string | fn.Fn
+						Partition?:     string | fn.Fn
+						Topic:          string | fn.Fn
 					}) | fn.If
 					Kinesis?: close({
 						PartitionKey?: string | fn.Fn
@@ -486,6 +506,21 @@ IoT :: {
 						ExecutionNamePrefix?: string | fn.Fn
 						RoleArn:              string | fn.Fn
 						StateMachineName:     string | fn.Fn
+					}) | fn.If
+					Timestream?: close({
+						DatabaseName: string | fn.Fn
+						Dimensions:   close({
+							TimestreamDimensionsList?: [...close({
+								Name:  string | fn.Fn
+								Value: string | fn.Fn
+							})] | fn.If
+						}) | fn.If
+						RoleArn:    string | fn.Fn
+						TableName:  string | fn.Fn
+						Timestamp?: close({
+							Unit:  string | fn.Fn
+							Value: string | fn.Fn
+						}) | fn.If
 					}) | fn.If
 				})] | fn.If
 				AwsIotSqlVersion?: string | fn.Fn
@@ -497,6 +532,10 @@ IoT :: {
 						StateReason: string | fn.Fn
 						StateValue:  string | fn.Fn
 					}) | fn.If
+					CloudwatchLogs?: close({
+						LogGroupName: string | fn.Fn
+						RoleArn:      string | fn.Fn
+					}) | fn.If
 					CloudwatchMetric?: close({
 						MetricName:       string | fn.Fn
 						MetricNamespace:  string | fn.Fn
@@ -530,6 +569,7 @@ IoT :: {
 						Type:     string | fn.Fn
 					}) | fn.If
 					Firehose?: close({
+						BatchMode?:         bool | fn.Fn
 						DeliveryStreamName: string | fn.Fn
 						RoleArn:            string | fn.Fn
 						Separator?:         string | fn.Fn
@@ -550,10 +590,12 @@ IoT :: {
 						Url: string | fn.Fn
 					}) | fn.If
 					IotAnalytics?: close({
+						BatchMode?:  bool | fn.Fn
 						ChannelName: string | fn.Fn
 						RoleArn:     string | fn.Fn
 					}) | fn.If
 					IotEvents?: close({
+						BatchMode?: bool | fn.Fn
 						InputName:  string | fn.Fn
 						MessageId?: string | fn.Fn
 						RoleArn:    string | fn.Fn
@@ -579,6 +621,15 @@ IoT :: {
 							})] | fn.If
 						})] | fn.If
 						RoleArn: string | fn.Fn
+					}) | fn.If
+					Kafka?: close({
+						ClientProperties: {
+							[string]: string | fn.Fn
+						} | fn.If
+						DestinationArn: string | fn.Fn
+						Key?:           string | fn.Fn
+						Partition?:     string | fn.Fn
+						Topic:          string | fn.Fn
 					}) | fn.If
 					Kinesis?: close({
 						PartitionKey?: string | fn.Fn
@@ -614,9 +665,24 @@ IoT :: {
 						RoleArn:              string | fn.Fn
 						StateMachineName:     string | fn.Fn
 					}) | fn.If
+					Timestream?: close({
+						DatabaseName: string | fn.Fn
+						Dimensions:   close({
+							TimestreamDimensionsList?: [...close({
+								Name:  string | fn.Fn
+								Value: string | fn.Fn
+							})] | fn.If
+						}) | fn.If
+						RoleArn:    string | fn.Fn
+						TableName:  string | fn.Fn
+						Timestamp?: close({
+							Unit:  string | fn.Fn
+							Value: string | fn.Fn
+						}) | fn.If
+					}) | fn.If
 				}) | fn.If
-				RuleDisabled?: bool | fn.Fn
-				Sql:           string | fn.Fn
+				RuleDisabled: bool | fn.Fn
+				Sql:          string | fn.Fn
 			}) | fn.If
 		})
 		DependsOn?:           string | [...string]

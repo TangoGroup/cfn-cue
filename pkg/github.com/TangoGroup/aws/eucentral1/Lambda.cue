@@ -134,6 +134,7 @@ Lambda :: {
 			})] | fn.If
 			FunctionName?: string | fn.Fn
 			Handler?:      string | fn.Fn
+			Id?:           string | fn.Fn
 			ImageConfig?:  close({
 				Command?:          [...(string | fn.Fn)] | (string | fn.Fn)
 				EntryPoint?:       [...(string | fn.Fn)] | (string | fn.Fn)
@@ -155,8 +156,8 @@ Lambda :: {
 				Mode?: string | fn.Fn
 			}) | fn.If
 			VpcConfig?: close({
-				SecurityGroupIds: [...(string | fn.Fn)] | (string | fn.Fn)
-				SubnetIds:        [...(string | fn.Fn)] | (string | fn.Fn)
+				SecurityGroupIds?: [...(string | fn.Fn)] | (string | fn.Fn)
+				SubnetIds?:        [...(string | fn.Fn)] | (string | fn.Fn)
 			}) | fn.If
 		})
 		DependsOn?:           string | [...string]

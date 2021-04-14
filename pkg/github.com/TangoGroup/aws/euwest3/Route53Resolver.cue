@@ -6,6 +6,66 @@ import (
 )
 
 Route53Resolver :: {
+	FirewallDomainList :: {
+		Type:       "AWS::Route53Resolver::FirewallDomainList"
+		Properties: close({
+			DomainFileUrl?: (strings.MinRunes(1) & strings.MaxRunes(1024)) | fn.Fn
+			Domains?:       [...((strings.MinRunes(1) & strings.MaxRunes(255)) | fn.Fn)] | ((strings.MinRunes(1) & strings.MaxRunes(255)) | fn.Fn)
+			Name?:          (strings.MinRunes(1) & strings.MaxRunes(64) & (=~#"(?!^[0-9]+$)([a-zA-Z0-9\-_' ']+)"#)) | fn.Fn
+			Tags?:          [...close({
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
+			})] | fn.If
+		})
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+		Condition?: string
+	}
+	FirewallRuleGroup :: {
+		Type:       "AWS::Route53Resolver::FirewallRuleGroup"
+		Properties: close({
+			FirewallRules?: [...close({
+				Action:                ("ALLOW" | "BLOCK" | "ALERT") | fn.Fn
+				BlockOverrideDnsType?: ("CNAME") | fn.Fn
+				BlockOverrideDomain?:  (strings.MinRunes(1) & strings.MaxRunes(255)) | fn.Fn
+				BlockOverrideTtl?:     int | fn.Fn
+				BlockResponse?:        ("NODATA" | "NXDOMAIN" | "OVERRIDE") | fn.Fn
+				FirewallDomainListId:  (strings.MinRunes(1) & strings.MaxRunes(64)) | fn.Fn
+				Priority:              int | fn.Fn
+			})] | fn.If
+			Name?: (strings.MinRunes(1) & strings.MaxRunes(64) & (=~#"(?!^[0-9]+$)([a-zA-Z0-9\-_' ']+)"#)) | fn.Fn
+			Tags?: [...close({
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
+			})] | fn.If
+		})
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+		Condition?: string
+	}
+	FirewallRuleGroupAssociation :: {
+		Type:       "AWS::Route53Resolver::FirewallRuleGroupAssociation"
+		Properties: close({
+			FirewallRuleGroupId: (strings.MinRunes(1) & strings.MaxRunes(64)) | fn.Fn
+			MutationProtection?: ("ENABLED" | "DISABLED") | fn.Fn
+			Name?:               (=~#"(?!^[0-9]+$)([a-zA-Z0-9\-_' ']+)"#) | fn.Fn
+			Priority:            int | fn.Fn
+			Tags?:               [...close({
+				Key:   string | fn.Fn
+				Value: string | fn.Fn
+			})] | fn.If
+			VpcId: (strings.MinRunes(1) & strings.MaxRunes(64)) | fn.Fn
+		})
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+		Condition?: string
+	}
 	ResolverDNSSECConfig :: {
 		Type:       "AWS::Route53Resolver::ResolverDNSSECConfig"
 		Properties: close({
