@@ -124,6 +124,7 @@ CloudFormation :: {
 				FailureTolerancePercentage?: int | fn.Fn
 				MaxConcurrentCount?:         int | fn.Fn
 				MaxConcurrentPercentage?:    int | fn.Fn
+				RegionConcurrencyType?:      ("SEQUENTIAL" | "PARALLEL") | fn.Fn
 				RegionOrder?:                [...((=~#"^[a-zA-Z0-9-]{1,128}$"#) | fn.Fn)] | ((=~#"^[a-zA-Z0-9-]{1,128}$"#) | fn.Fn)
 			}) | fn.If
 			Parameters?: [...close({

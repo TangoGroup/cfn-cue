@@ -203,9 +203,7 @@ AppFlow :: {
 							BucketPrefix?:     string | fn.Fn
 							FailOnFirstError?: bool | fn.Fn
 						}) | fn.If
-						IdFieldNames?: close({
-							IdFieldNamesList?: [...(string | fn.Fn)] | (string | fn.Fn)
-						}) | fn.If
+						IdFieldNames?:       [...((=~#"\S+"#) | fn.Fn)] | ((=~#"\S+"#) | fn.Fn)
 						Object:              (=~#"\S+"#) | fn.Fn
 						WriteOperationType?: ("INSERT" | "UPSERT" | "UPDATE") | fn.Fn
 					}) | fn.If

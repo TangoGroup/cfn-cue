@@ -9,8 +9,9 @@ MWAA :: {
 	Environment :: {
 		Type:       "AWS::MWAA::Environment"
 		Properties: close({
-			AirflowConfigurationOptions?: close({
-			}) | fn.If
+			AirflowConfigurationOptions?: {
+				[string]: _
+			} | fn.Fn
 			AirflowVersion?:       (=~#"^[0-9a-z.]+$"#) | fn.Fn
 			DagS3Path?:            (=~#".*"#) | fn.Fn
 			EnvironmentClass?:     (strings.MinRunes(1) & strings.MaxRunes(1024)) | fn.Fn

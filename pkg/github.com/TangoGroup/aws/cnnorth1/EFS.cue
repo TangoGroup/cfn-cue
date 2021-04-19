@@ -42,8 +42,9 @@ EFS :: {
 			BackupPolicy?:         close({
 				Status: string | fn.Fn
 			}) | fn.If
-			Encrypted?:        bool | fn.Fn
-			FileSystemPolicy?: {
+			BypassPolicyLockoutSafetyCheck?: bool | fn.Fn
+			Encrypted?:                      bool | fn.Fn
+			FileSystemPolicy?:               {
 				[string]: _
 			} | fn.Fn
 			FileSystemTags?: [...close({

@@ -38,8 +38,7 @@ EFS :: {
 	FileSystem :: {
 		Type:       "AWS::EFS::FileSystem"
 		Properties: close({
-			AvailabilityZoneName?: string | fn.Fn
-			BackupPolicy?:         close({
+			BackupPolicy?: close({
 				Status: string | fn.Fn
 			}) | fn.If
 			Encrypted?:        bool | fn.Fn

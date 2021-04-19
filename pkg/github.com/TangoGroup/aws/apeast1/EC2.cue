@@ -158,6 +158,18 @@ EC2 :: {
 		Metadata?: [string]: _
 		Condition?: string
 	}
+	EnclaveCertificateIamRoleAssociation :: {
+		Type:       "AWS::EC2::EnclaveCertificateIamRoleAssociation"
+		Properties: close({
+			CertificateArn: (strings.MinRunes(1) & strings.MaxRunes(1283) & (=~#"^arn:aws[A-Za-z0-9-]{0,64}:acm:[A-Za-z0-9-]{1,64}:([0-9]{12})?:certificate/.+$"#)) | fn.Fn
+			RoleArn:        (strings.MinRunes(1) & strings.MaxRunes(1283) & (=~#"^arn:aws[A-Za-z0-9-]{0,64}:iam:.*:([0-9]{12})?:role/.+$"#)) | fn.Fn
+		})
+		DependsOn?:           string | [...string]
+		DeletionPolicy?:      "Delete" | "Retain"
+		UpdateReplacePolicy?: "Delete" | "Retain"
+		Metadata?: [string]: _
+		Condition?: string
+	}
 	FlowLog :: {
 		Type:       "AWS::EC2::FlowLog"
 		Properties: close({

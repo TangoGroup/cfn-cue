@@ -39,11 +39,14 @@ ImageBuilder :: {
 			DockerfileTemplateData?: string | fn.Fn
 			DockerfileTemplateUri?:  string | fn.Fn
 			ImageOsVersionOverride?: string | fn.Fn
-			KmsKeyId?:               string | fn.Fn
-			Name:                    string | fn.Fn
-			ParentImage:             string | fn.Fn
-			PlatformOverride?:       ("Windows" | "Linux") | fn.Fn
-			Tags?:                   {
+			InstanceConfiguration?:  {
+				[string]: _
+			} | fn.Fn
+			KmsKeyId?:         string | fn.Fn
+			Name:              string | fn.Fn
+			ParentImage:       string | fn.Fn
+			PlatformOverride?: ("Windows" | "Linux") | fn.Fn
+			Tags?:             {
 				[string]: string | fn.Fn
 			} | fn.If
 			TargetRepository: close({
@@ -70,6 +73,11 @@ ImageBuilder :: {
 				ContainerDistributionConfiguration?: {
 					[string]: _
 				} | fn.Fn
+				LaunchTemplateConfigurations?: [...close({
+					AccountId?:         string | fn.Fn
+					LaunchTemplateId?:  string | fn.Fn
+					SetDefaultVersion?: bool | fn.Fn
+				})] | fn.If
 				LicenseConfigurationArns?: [...(string | fn.Fn)] | (string | fn.Fn)
 				Region:                    string | fn.Fn
 			})] | fn.If
@@ -87,9 +95,10 @@ ImageBuilder :: {
 	Image :: {
 		Type:       "AWS::ImageBuilder::Image"
 		Properties: close({
+			ContainerRecipeArn?:           string | fn.Fn
 			DistributionConfigurationArn?: string | fn.Fn
 			EnhancedImageMetadataEnabled?: bool | fn.Fn
-			ImageRecipeArn:                string | fn.Fn
+			ImageRecipeArn?:               string | fn.Fn
 			ImageTestsConfiguration?:      close({
 				ImageTestsEnabled?: bool | fn.Fn
 				TimeoutMinutes?:    (>=60 & <=1440) | fn.Fn

@@ -2,7 +2,7 @@ package usgoveast1
 
 import "github.com/TangoGroup/aws/fn"
 
-ResourceSpecificationVersion :: "33.0.0"
+ResourceSpecificationVersion :: "34.0.0"
 Template :: {
 	AWSTemplateFormatVersion?: "2010-09-09"
 	Description?:              string
